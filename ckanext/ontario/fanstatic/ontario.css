@@ -264,6 +264,118 @@ ul.topics li a:hover i, ul.topics li a:focus i {
 	border: none !important
 }
 
+@charset "UTF-8";
+.topics li a i:before, [class^="topic-"] a i:before, [class*=" topic-"] a i:before {
+	font-family: "datagov-icons" !important;
+	font-style: normal !important;
+	font-weight: normal !important;
+	font-variant: normal !important;
+	text-transform: none !important;
+	speak: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale
+}
+.topic-business a i:before {
+	content: url("../img/topic-business.png")
+}
+.topic-cities a i:before {
+	content: "\e001"
+}
+.topic-climate a i:before {
+	content: "\e002"
+}
+.topic-consumer a i:before {
+	content: "\e003"
+}
+.topic-counties a i:before {
+	content: "\e004"
+}
+.topic-developers a i:before {
+	content: "\e005"
+}
+.topic-development a i:before {
+	content: "\e006"
+}
+.topic-education a i:before {
+	content: url("../img/topic-education.png")
+}
+.topic-energy a i:before {
+	content: "\e008"
+}
+.topic-ethics a i:before {
+	content: "\e009"
+}
+.topic-finance a i:before {
+	content: "\e00a"
+}
+.topic-food a i:before {
+	content: "\e00b"
+}
+.topic-geospatial a i:before {
+	content: "\e00c"
+}
+.topic-health a i:before {
+	content: url("../img/topic-health.png")
+}
+.topic-highlights a i:before, .topic-impact a i:before {
+	content: "\e00e"
+}
+.topic-jobs-and-skills a i:before {
+	content: "\e00f"
+}
+.topic-law a i:before {
+	content: url("../img/topic-law.png")
+}
+.topic-manufacturing a i:before {
+	content: "\e011"
+}
+.topic-ocean a i:before {
+	content: "\e012"
+}
+.topic-research a i:before {
+	content: "\e013"
+}
+.topic-safety a i:before {
+	content: url("../img/safety.png")
+}
+.topic-states a i:before, .topic-local a i:before {
+	content: "\e015"
+}
+.topic-weather a i:before {
+	content: "\e016"
+}
+.topic-ecosystems a i:before {
+	content: "\e017"
+}
+.topic-arts a i:before {
+	content: url("../img/topic-arts.png")
+}
+.topic-home a i:before {
+	content: url("../img/topic-home.png")
+}
+.topic-driving a i:before {
+	content: url("../img/topic-driving.png")
+}
+.topic-environment a i:before {
+	content: url("../img/topic-environment.png")
+}
+.topic-jobs a i:before {
+	content: url("../img/topic-jobs.png")
+}
+.topic-taxes a i:before {
+	content: url("../img/topic-taxes.png")
+}
+.topic-travel a i:before {
+	content: url("../img/topic-travel.png")
+}
+.topic-rural a i:before {
+	content: url("../img/topic-rural.png")
+}
+.topic-science a i:before {
+	content: url("../img/topic-science.png")
+}
+
 @media (min-width: 768px)
 .hero {
     background: url("http://open-gov.eastus.cloudapp.azure.com/base/images/cc-Alternative_Energies-copy.jpg");
