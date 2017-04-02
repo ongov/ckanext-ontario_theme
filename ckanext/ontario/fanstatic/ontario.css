@@ -277,7 +277,7 @@ ul.topics li a:hover i, ul.topics li a:focus i {
 	-moz-osx-font-smoothing: grayscale
 }
 .topic-business a i:before {
-	content: url("../img/topic-business.png")
+	content: url("../images/topic-business.png")
 }
 .topic-cities a i:before {
 	content: "\e001"
@@ -298,7 +298,7 @@ ul.topics li a:hover i, ul.topics li a:focus i {
 	content: "\e006"
 }
 .topic-education a i:before {
-	content: url("../img/topic-education.png")
+	content: url("../images/topic-education.png")
 }
 .topic-energy a i:before {
 	content: "\e008"
@@ -316,7 +316,7 @@ ul.topics li a:hover i, ul.topics li a:focus i {
 	content: "\e00c"
 }
 .topic-health a i:before {
-	content: url("../img/topic-health.png")
+	content: url("../images/topic-health.png")
 }
 .topic-highlights a i:before, .topic-impact a i:before {
 	content: "\e00e"
@@ -325,7 +325,7 @@ ul.topics li a:hover i, ul.topics li a:focus i {
 	content: "\e00f"
 }
 .topic-law a i:before {
-	content: url("../img/topic-law.png")
+	content: url("../images/topic-law.png")
 }
 .topic-manufacturing a i:before {
 	content: "\e011"
@@ -337,7 +337,7 @@ ul.topics li a:hover i, ul.topics li a:focus i {
 	content: "\e013"
 }
 .topic-safety a i:before {
-	content: url("../img/safety.png")
+	content: url("../images/safety.png")
 }
 .topic-states a i:before, .topic-local a i:before {
 	content: "\e015"
@@ -349,31 +349,31 @@ ul.topics li a:hover i, ul.topics li a:focus i {
 	content: "\e017"
 }
 .topic-arts a i:before {
-	content: url("../img/topic-arts.png")
+	content: url("../images/topic-arts.png")
 }
 .topic-home a i:before {
-	content: url("../img/topic-home.png")
+	content: url("../images/topic-home.png")
 }
 .topic-driving a i:before {
-	content: url("../img/topic-driving.png")
+	content: url("../images/topic-driving.png")
 }
 .topic-environment a i:before {
-	content: url("../img/topic-environment.png")
+	content: url("../images/topic-environment.png")
 }
 .topic-jobs a i:before {
-	content: url("../img/topic-jobs.png")
+	content: url("../images/topic-jobs.png")
 }
 .topic-taxes a i:before {
-	content: url("../img/topic-taxes.png")
+	content: url("../images/topic-taxes.png")
 }
 .topic-travel a i:before {
-	content: url("../img/topic-travel.png")
+	content: url("../images/topic-travel.png")
 }
 .topic-rural a i:before {
-	content: url("../img/topic-rural.png")
+	content: url("../images/topic-rural.png")
 }
 .topic-science a i:before {
-	content: url("../img/topic-science.png")
+	content: url("../images/topic-science.png")
 }
 
 @media (min-width: 768px)
