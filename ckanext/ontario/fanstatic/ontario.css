@@ -370,7 +370,7 @@ ul.topics li a:hover i, ul.topics li a:focus i {
 	content: url("../images/topic-travel.png")
 }
 .topic-rural a i:before {
-	content: url("../../images/topic-rural.png")
+	content: url("../images/topic-rural.png")
 }
 .topic-science a i:before {
 	content: url("../../images/topic-science.png")
