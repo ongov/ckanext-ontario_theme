@@ -24,8 +24,56 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         schema = super(ExtrafieldsPlugin, self).create_package_schema()
         # Add custom field(s).
         schema.update({
-            'custom_text': [toolkit.get_validator('ignore_missing'),
+            'other_title': [toolkit.get_validator('ignore_missing'),
                             toolkit.get_converter('convert_to_extras')]
+        },
+        {
+            'short_description': [toolkit.get_validator('ignore_missing'),
+                                  toolkit.get_converter('convert_to_extras')]
+        },
+        {
+            'maintainer_branch': [toolkit.get_validator('ignore_missing'),
+                                  toolkit.get_converter('convert_to_extras')]
+        },
+        {
+            'data_range_start': [toolkit.get_validator('ignore_missing'),
+                                 toolkit.get_converter('convert_to_extras')]
+        },
+        {
+            'data_range_end': [toolkit.get_validator('ignore_missing'),
+                               toolkit.get_conveter('convert_to_extras')]
+        },
+        {
+            'data_birth_date': [toolkit.get_validator('ignore_missing'),
+                                toolkit.get_converter('convert_to_extras')]
+        },
+        {
+            'contains_geographic_markers': [toolkit.get_validator('ignore_missing'),
+                                            toolkit.get_converter('convert_to_extras')]
+        },
+        {
+            'geographic_coverage': [toolkit.get_validator('ignore_missing'),
+                                    toolkit.get_converter('convert_to_extras')]
+        },
+        {
+            'update_frequency': [toolkit.get_validator('ignore_missing'),
+                                 toolkit.get_converter('convert_to_extras')]
+        },
+        {
+            'access_level': [toolkit.get_validator('ignore_missing'),
+                             toolkit.get_converter('convert_to_extras')]
+        },
+        {
+            'exemption': [toolkit.get_validator('ignore_missing'),
+                          toolkit.get_converter('convert_to_extras')]
+        },
+        {
+            'exemption_rationale': [toolkit.get_validator('ignore_missing'),
+                                    toolkit.get_converter('convert_to_extras')]
+        },
+        {
+            'comments': [toolkit.get_validator('ignore_missing'),
+                         toolkit.get_converter('convert_to_extras')]
         })
         return schema
 

@@ -1,6 +1,8 @@
 {% ckan_extends %}
 
 {% block package_basic_fields_custom %}
-  {{ form.input('custom_text', label=_('Custom Text'), id='field-custom_text', placeholder=_('custom text'), value=data.custom_text, error=errors.custom_text, classes=['control-medium']) }}
+  {{ form.input('custom_text', label=_('Other Title'), id='field-other_title', placeholder=_('Other title'), value=data.other_title, error=errors.other_title, classes=['control-medium']) }}
+  {{ form.input('short_description', label=_('Short Description'), id='field-short_description', placeholder=_('Short Description'), value=data.short_description, error=errors.short_description, classes=['control-medium']) }}
+  {{ form.input('maintainer_branch', label=_('Maintainer Branch'), id='field-maintainer_branch', placeholder=_('Maintainer Branch'), value=data.maintainer_branch, error=errors.maintainer_branch, classes=['control-medium']) }}
 {% endblock %}
 
