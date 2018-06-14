@@ -1,8 +1,109 @@
 {% ckan_extends %}
 
 {% block package_basic_fields_custom %}
-  {{ form.input('custom_text', label=_('Other Title'), id='field-other_title', placeholder=_('Other title'), value=data.other_title, error=errors.other_title, classes=['control-medium']) }}
-  {{ form.input('short_description', label=_('Short Description'), id='field-short_description', placeholder=_('Short Description'), value=data.short_description, error=errors.short_description, classes=['control-medium']) }}
-  {{ form.input('maintainer_branch', label=_('Maintainer Branch'), id='field-maintainer_branch', placeholder=_('Maintainer Branch'), value=data.maintainer_branch, error=errors.maintainer_branch, classes=['control-medium']) }}
+  {{ form.input('technical_title',
+                label=_('Technical Title'),
+                id='field-technical_title',
+                placeholder=_('Technical title'),
+                value=data.technical_title,
+                error=errors.technical_title,
+                classes=['control-medium']) }}
+  {{ form.input('short_description',
+                label=_('Short Description'),
+                id='field-short_description',
+                placeholder=_('Short Description'),
+                value=data.short_description,
+                error=errors.short_description,
+                classes=['control-medium']) }}
+  {{ form.input('maintainer_branch',
+                label=_('Maintainer Branch'),
+                id='field-maintainer_branch',
+                placeholder=_('Maintainer Branch'),
+                value=data.maintainer_branch,
+                error=errors.maintainer_branch,
+                classes=['control-medium']) }}
+  {{ form.input('data_range_start',
+                label=_('Date Range Start'),
+                id='field-data_range_start',
+                placeholder=_('Date Range Start'),
+                value=data.data_range_start,
+                error=errors.data_range_start,
+                type='date',
+                classes=['control-medium']) }}
+  {{ form.input('data_range_end',
+                label=_('Date Range End'),
+                id='field-data_range_end',
+                placeholder=_('Date Range End'),
+                value=data.data_range_end,
+                error=errors.data_range_end,
+                type='date',
+                classes=['control-medium']) }}
+  {{ form.input('data_birth_date',
+                label=_('Data Birth Date'),
+                id='field-data_birth_date',
+                placeholder=_('Data Birth Date'),
+                value=data.data_birth_date,
+                error=errors.data_birth_date,
+                type='date',
+                classes=['control-medium']) }}
+  {{ form.checkbox('contains_geographic_markers',
+                   label=_('Contains Geographic Markers'),
+                   id='field-contains_geographic_markers',
+                   value=True,
+                   checked=False) }}
+  {{ form.input('geographic_coverage',
+                label=_('Geographic Coverage'),
+                id='field-geographic_coverage',
+                placeholder=_('Geographic Coverage'),
+                value=data.geographic_coverage,
+                error=errors.geographic_coverage,
+                classes=['control-medium']) }}
+  {{ form.select('update_frequency',
+                 label=_('Update Frequency'),
+                 options=[{'name': 'Daily', 'text': _('Daily'), 'value': 'daily'},
+                          {'name': 'Weekly', 'text': _('Weekly'), 'value': 'weekly'},
+                          {'name': 'Monthly', 'text': _('Monthly'), 'value': 'monthly'},
+                          {'name': 'Quarterly', 'text': _('Quarterly'), 'value': 'quarterly'},
+                          {'name': 'Biannually', 'text': _('Biannually'), 'value': 'biannually'},
+                          {'name': 'Annually', 'text': _('Annually'), 'value': 'anually'},
+                          {'name': 'As Required', 'text': _('As Required'), 'value': 'as_required'},
+                          {'name': 'On Demand', 'text': _('On Demand'), 'value': 'on_demand'}],
+                 selected='monthly',
+                 id='field-update_frequency',
+                 error=errors.update_frequency,
+                 classes=['control-medium']) }}
+  {{ form.select('access_level',
+                 label=_('Access Level'),
+                 options=[{'name': 'Open', 'text': _('Open'), 'value': 'open'},
+                          {'name': 'Under Review', 'text': _('Under Review'), 'value': 'under_review'},
+                          {'name': 'Restricted', 'text': _('Restricted'), 'value': 'restricted'}],
+                 id='field-access_level',
+                 selected=open,
+                 error=errors.access_level,
+                 classes=['control-medium']) }}
+  {{ form.select('exemption',
+                 label=_('Exemption'),
+                 options=[{'name':'None', 'text': _('None'), 'value':'none'},
+                          {'name':'Privacy', 'text': _('Privacy'), 'value':'privacy'},
+                          {'name':'Security', 'text': _('Security'), 'value':'security'},
+                          {'name':'Confidentiality', 'text': _('Confidentiality'), 'value':'confidentiality'},
+                          {'name':'Legal and contractual limitations', 'text': _('Legal and contractual limitations'), 'value':'legal_and_contractual_limitations'},
+                          {'name':'Commercially sensitive', 'text': _('Commercially sensitive'), 'value':'commercially_sensitive'}],
+                 id='field-exemption',
+                 selected=none,
+                 error=errors.exemption,
+                 classes=['control-medium']) }}
+  {{ form.markdown('exemption_rationale',
+                   label=_('Exemption Rationale'),
+                   id='field-exemption_rationale',
+                   placeholder=_('Exemption Rationale'),
+                   value=data.exemption_rationale,
+                   error=errors.exemption_rationale) }}
+  {{ form.markdown('comments',
+                   label=_('Comments'),
+                   id='field-comments',
+                   placeholder=_('Comments'),
+                   value=data.comments,
+                   error=errors.comments) }}
 {% endblock %}
 

@@ -24,8 +24,8 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         schema = super(ExtrafieldsPlugin, self).create_package_schema()
         # Add custom field(s).
         schema.update({
-            'other_title': [toolkit.get_validator('ignore_missing'),
-                            toolkit.get_converter('convert_to_extras')]
+            'technical_title': [toolkit.get_validator('ignore_missing'),
+                                toolkit.get_converter('convert_to_extras')]
         },
         {
             'short_description': [toolkit.get_validator('ignore_missing'),
