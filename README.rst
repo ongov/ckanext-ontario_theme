@@ -41,8 +41,7 @@ ckanext-extrafields
 Requirements
 ------------
 
-For example, you might want to mention here which versions of CKAN this
-extension works with.
+Works with CKAN version 2.7.
 
 
 ------------
