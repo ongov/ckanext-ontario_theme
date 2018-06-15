@@ -19,10 +19,8 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
     # IDatasetForm
 
-    def create_package_schema(self):
-        # Get the default schema.
-        schema = super(ExtrafieldsPlugin, self).create_package_schema()
-        # Add custom field(s).
+    def _modify_package_schema(self, schema):
+        # Custom fields for update and create of packages.
         schema.update({
             'technical_title': [toolkit.get_validator('ignore_missing'),
                                 toolkit.get_converter('convert_to_extras')]
@@ -77,9 +75,23 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         })
         return schema
 
+    def create_package_schema(self):
+        # Get the default schema.
+        schema = super(ExtrafieldsPlugin, self).create_package_schema()
+        # Add custom field(s).
+        schema = self._modify_package_schema(schema)
+        return schema
+
+    def update_package_schema(self):
+        # Get the default schema.
+        schema = super(ExtrafieldsPlugin, self).create_package_schema()
+        # Add custom field(s).
+        schema = self._modify_package_schema(schema)
+        return schema
+
     def is_fallback(self):
        # Register as default this plugin as the default handler for
-       # packages not handled by other IDatasetForm plugins. 
+       # packages not handled by other IDatasetForm plugins.
        return True
 
     def package_types(self):
