@@ -7,4 +7,76 @@
       <td class="dataset-details">{{ pkg_dict.technical_title }}</td>
     </tr>
   {% endif %}
+  {% if pkg_dict.short_description %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Short Description") }}</th>
+      <td class="dataset-details">{{ pkg_dict.short_description}}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.maintainer_branch %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Maintainer Branch") }}</th>
+      <td class="dataset-details">{{ pkg_dict.maintainer_branch }}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.data_range_start %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Data Range Start") }}</th>
+      <td class="dataset-details">{{ pkg_dict.data_range_start }}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.data_range_end %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Data Range End") }}</th>
+      <td class="dataset-details">{{ pkg_dict.data_range_end }}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.data_birth_date %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Data Birth Date") }}</th>
+      <td class="dataset-details">{{ pkg_dict.data_birth_date }}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.geographic_coverage %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Geographic Coverage") }}</th>
+      <td class="dataset-details">{{ pkg_dict.geographic_coverage }}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.contains_geographic_markers %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Contains Geographic Markers") }}</th>
+      <td class="dataset-details">{{ pkg_dict.contains_geographic_markers }}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.update_frequency %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Update Frequency") }}</th>
+      <td class="dataset-details">{{ pkg_dict.update_frequency }}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.access_level %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Access Level") }}</th>
+      <td class="dataset-details">{{ pkg_dict.access_level }}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.exemption %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Exemption") }}</th>
+      <td class="dataset-details">{{ pkg_dict.exemption }}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.exemption_rationale %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Exemption Rationale") }}</th>
+      <td class="dataset-details">{{ pkg_dict.exemption_rationale }}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.comments %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Comments") }}</th>
+      <td class="dataset-details">{{ pkg_dict.comments }}</td>
+    </tr>
+  {% endif %}
 {% endblock %}
