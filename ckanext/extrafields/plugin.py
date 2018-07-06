@@ -32,10 +32,12 @@ def exemption_validator(value):
     value = value.lower()
     if value not in ['none',
                      'privacy',
-                     'security']:
+                     'security',
+                     'confidentiality',
+                     'legal_and_contractual_limitations',
+                     'commercially_sensitive']:
         raise Invalid('Invalid exemption input value')
     return value
-
 
 class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     plugins.implements(plugins.IDatasetForm)
