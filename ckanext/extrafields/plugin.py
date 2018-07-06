@@ -3,6 +3,38 @@
 
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
+from ckan.plugins.toolkit import Invalid
+
+# Custome Validators
+
+def update_frequency_validator(value):
+    value = value.lower()
+    if value not in ['daily',
+                     'weekly',
+                     'monthly',
+                     'quarterly',
+                     'biannually',
+                     'anually',
+                     'as_required',
+                     'on_demand']:
+        raise Invalid('Invalid update frequency input value')
+    return value
+
+def access_level_validator(value):
+    value = value.lower()
+    if value not in ['open',
+                     'under_review',
+                     'restricted']:
+        raise Invalid('Invalid access level input value')
+    return value
+
+def exemption_validator(value):
+    value = value.lower()
+    if value not in ['none',
+                     'privacy',
+                     'security']:
+        raise Invalid('Invalid exemption input value')
+    return value
 
 
 class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
@@ -64,16 +96,19 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'update_frequency': [toolkit.get_validator('ignore_missing'),
+                                 update_frequency_validator,
                                  toolkit.get_converter('convert_to_extras')]
         })
 
         schema.update({
             'access_level': [toolkit.get_validator('ignore_missing'),
+                             access_level_validator,
                              toolkit.get_converter('convert_to_extras')]
         })
 
         schema.update({
             'exemption': [toolkit.get_validator('ignore_missing'),
+                          exemption_validator,
                           toolkit.get_converter('convert_to_extras')]
         })
 
@@ -146,16 +181,19 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'update_frequency': [toolkit.get_converter('convert_from_extras'),
+                                 update_frequency_validator,
                                  toolkit.get_validator('ignore_missing')]
         })
 
         schema.update({
             'access_level': [toolkit.get_converter('convert_from_extras'),
+                             access_level_validator,
                              toolkit.get_validator('ignore_missing')]
         })
 
         schema.update({
             'exemption': [toolkit.get_converter('convert_from_extras'),
+                          exemption_validator,
                           toolkit.get_validator('ignore_missing')]
         })
 
