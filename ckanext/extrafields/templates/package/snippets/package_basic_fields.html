@@ -50,7 +50,7 @@
                    label=_('Contains Geographic Markers'),
                    id='field-contains_geographic_markers',
                    value=True,
-                   checked=False) }}
+                   checked=data.contains_geographic_markers) }}
   {{ form.input('geographic_coverage',
                 label=_('Geographic Coverage'),
                 id='field-geographic_coverage',
@@ -68,7 +68,7 @@
                           {'name': 'Annually', 'text': _('Annually'), 'value': 'anually'},
                           {'name': 'As Required', 'text': _('As Required'), 'value': 'as_required'},
                           {'name': 'On Demand', 'text': _('On Demand'), 'value': 'on_demand'}],
-                 selected='monthly',
+                 selected=data.update_frequency,
                  id='field-update_frequency',
                  error=errors.update_frequency,
                  classes=['control-medium']) }}
@@ -78,7 +78,7 @@
                           {'name': 'Under Review', 'text': _('Under Review'), 'value': 'under_review'},
                           {'name': 'Restricted', 'text': _('Restricted'), 'value': 'restricted'}],
                  id='field-access_level',
-                 selected=open,
+                 selected=data.access_level,
                  error=errors.access_level,
                  classes=['control-medium']) }}
   {{ form.select('exemption',
@@ -90,7 +90,7 @@
                           {'name':'Legal and contractual limitations', 'text': _('Legal and contractual limitations'), 'value':'legal_and_contractual_limitations'},
                           {'name':'Commercially sensitive', 'text': _('Commercially sensitive'), 'value':'commercially_sensitive'}],
                  id='field-exemption',
-                 selected=none,
+                 selected=data.exemption,
                  error=errors.exemption,
                  classes=['control-medium']) }}
   {{ form.markdown('exemption_rationale',
