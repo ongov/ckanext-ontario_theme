@@ -4,6 +4,7 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 from ckan.plugins.toolkit import Invalid
+import datetime
 
 # Custome Validators
 
@@ -37,6 +38,23 @@ def exemption_validator(value):
                      'legal_and_contractual_limitations',
                      'commercially_sensitive']:
         raise Invalid('Invalid exemption input value')
+    return value
+
+def date_validator(value):
+    '''Create custom date_validator that modifies the existing 
+    validation for isodate. The original throws errors when 
+    trying to use with extra_fields and date inputs and the api.
+    This seemed to be appropriate solution.
+    There was a little mention of this on github but nothing solid.
+    '''
+    if isinstance(value, datetime.datetime):
+        return value
+    if value == '':
+        return None
+    try:
+        datetime.datetime.strptime(value, '%Y-%m-%d')
+    except (TypeError, ValueError) as e:
+        raise Invalid('Date format incorrect, should be YYYY-MM-DD')
     return value
 
 class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
@@ -73,16 +91,19 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'data_range_start': [toolkit.get_validator('ignore_missing'),
+                                 date_validator,
                                  toolkit.get_converter('convert_to_extras')]
         })
 
         schema.update({
             'data_range_end': [toolkit.get_validator('ignore_missing'),
+                               date_validator,
                                toolkit.get_converter('convert_to_extras')]
         })
 
         schema.update({
             'data_birth_date': [toolkit.get_validator('ignore_missing'),
+                                date_validator,
                                 toolkit.get_converter('convert_to_extras')]
         })
 
@@ -158,16 +179,19 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'data_range_start': [toolkit.get_converter('convert_from_extras'),
+                                 date_validator,
                                  toolkit.get_validator('ignore_missing')]
         })
 
         schema.update({
             'data_range_end': [toolkit.get_converter('convert_from_extras'),
+                               date_validator,
                                toolkit.get_validator('ignore_missing')]
         })
 
         schema.update({
             'data_birth_date': [toolkit.get_converter('convert_from_extras'),
+                                date_validator,
                                 toolkit.get_validator('ignore_missing')]
         })
 

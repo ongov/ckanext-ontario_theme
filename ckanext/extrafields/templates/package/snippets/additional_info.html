@@ -22,19 +22,25 @@
   {% if pkg_dict.data_range_start %}
     <tr>
       <th scope="row" class="dataset-label">{{ _("Data Range Start") }}</th>
-      <td class="dataset-details">{{ pkg_dict.data_range_start }}</td>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.data_range_start %}
+      </td>
     </tr>
   {% endif %}
   {% if pkg_dict.data_range_end %}
     <tr>
       <th scope="row" class="dataset-label">{{ _("Data Range End") }}</th>
-      <td class="dataset-details">{{ pkg_dict.data_range_end }}</td>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.data_range_end %}
+      </td>
     </tr>
   {% endif %}
   {% if pkg_dict.data_birth_date %}
     <tr>
       <th scope="row" class="dataset-label">{{ _("Data Birth Date") }}</th>
-      <td class="dataset-details">{{ pkg_dict.data_birth_date }}</td>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.data_birth_date %}
+      </td>
     </tr>
   {% endif %}
   {% if pkg_dict.geographic_coverage %}
