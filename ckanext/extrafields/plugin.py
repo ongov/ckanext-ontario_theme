@@ -9,7 +9,10 @@ import datetime
 # Custome Validators
 
 def update_frequency_validator(value):
-    value = value.lower()
+    try:
+        value = value.lower()
+    except:
+        raise Invalid('Invalid update frequency input value, must be string')
     if value not in ['daily',
                      'weekly',
                      'monthly',
@@ -22,7 +25,10 @@ def update_frequency_validator(value):
     return value
 
 def access_level_validator(value):
-    value = value.lower()
+    try:
+        value = value.lower()
+    except:
+        raise Invalid('Invalid access level input value, must be string')
     if value not in ['open',
                      'under_review',
                      'restricted']:
@@ -30,7 +36,10 @@ def access_level_validator(value):
     return value
 
 def exemption_validator(value):
-    value = value.lower()
+    try:
+        value = value.lower()
+    except:
+      raise Invalid('Invalid access level input value, must be string')
     if value not in ['none',
                      'privacy',
                      'security',
@@ -47,13 +56,11 @@ def date_validator(value):
     This seemed to be appropriate solution.
     There was a little mention of this on github but nothing solid.
     '''
-    if isinstance(value, datetime.datetime):
-        return value
     if value == '':
         return None
     try:
         datetime.datetime.strptime(value, '%Y-%m-%d')
-    except (TypeError, ValueError) as e:
+    except:
         raise Invalid('Date format incorrect, should be YYYY-MM-DD')
     return value
 
