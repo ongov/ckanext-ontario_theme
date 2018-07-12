@@ -88,6 +88,13 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     def _modify_package_schema(self, schema):
         # Custom fields for update and create of packages.
         schema.update({
+            'node_id': [toolkit.get_validator('ignore_missing'),
+                        toolkit.get_validator('int_validator'),
+                        toolkit.get_validator('is_positive_integer'),
+                        toolkit.get_converter('convert_to_extras')]
+        })
+
+        schema.update({
             'technical_title': [toolkit.get_validator('ignore_missing'),
                                 toolkit.get_converter('convert_to_extras')]
         })
@@ -175,6 +182,13 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
     def show_package_schema(self):
         schema = super(ExtrafieldsPlugin, self).show_package_schema()
+        schema.update({
+            'node_id': [toolkit.get_converter('convert_from_extras'),
+                        toolkit.get_validator('is_positive_integer'),
+                        toolkit.get_validator('int_validator'),
+                        toolkit.get_validator('ignore_missing')]
+        })
+
         schema.update({
             'technical_title': [toolkit.get_converter('convert_from_extras'),
                                 toolkit.get_validator('ignore_missing')]

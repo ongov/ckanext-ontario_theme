@@ -1,6 +1,13 @@
 {% ckan_extends %}
 
 {% block package_basic_fields_custom %}
+  {{ form.input('node_id',
+                label=_('Ontario Node ID'),
+                id='field-node_id',
+                placeholder=_('4321'),
+                value=data.node_id,
+                error=errors.node_id,
+                classes=['control-medium']) }}
   {{ form.input('technical_title',
                 label=_('Technical Title'),
                 id='field-technical_title',
