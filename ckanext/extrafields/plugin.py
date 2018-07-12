@@ -48,7 +48,7 @@ def exemption_validator(value):
       raise Invalid('Invalid access level input value, must be string')
     if value not in ['commercial_sensitivity',
                      'confidentiality',
-                     'legal_and_contractual_obligation',
+                     'legal_and_contractual_obligations',
                      'none',
                      'privacy',
                      'security']:

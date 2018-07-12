@@ -163,7 +163,7 @@ class TestExemptionValidator(object):
             # Allowed strings from plugin.
             'commercial_sensitivity',
             'confidentiality',
-            'legal_and_contractual_obligation',
+            'legal_and_contractual_obligations',
             'none',
             'privacy',
             'security'
