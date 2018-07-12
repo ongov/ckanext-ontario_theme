@@ -54,14 +54,19 @@ class TestUpdateFrequencyValidator(object):
         '''
         valid_update_frequencies = [
             # Allowed strings from plugin.
-            'daily',
-            'weekly',
-            'monthly',
-            'quarterly',
-            'biannually',
-            'anually',
             'as_required',
-            'On_demand'
+            'biannually',
+            'current',
+            'daily',
+            'historical',
+            'monthly',
+            'never',
+            'on_demand',
+            'other',
+            'periodically',
+            'quarterly',
+            'weekly',
+            'yearly'
         ]
 
         for valid_update_frequency in valid_update_frequencies:
@@ -108,6 +113,7 @@ class TestAccessLevelValidator(object):
         valid_access_levels = [
             # Allowed strings from plugin.
             'open',
+            'to_be_opened',
             'under_Review',
             'restricted'
         ]
@@ -155,12 +161,12 @@ class TestExemptionValidator(object):
         '''
         valid_exemptions = [
             # Allowed strings from plugin.
+            'commercial_sensitivity',
+            'confidentiality',
+            'legal_and_contractual_obligation',
             'none',
             'privacy',
-            'security',
-            'confidentiality',
-            'legal_And_Contractual_limitations',
-            'commercially_sensitive'
+            'security'
         ]
 
         for valid_exemption in valid_exemptions:

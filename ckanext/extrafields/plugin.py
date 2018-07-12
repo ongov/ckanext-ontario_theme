@@ -13,14 +13,19 @@ def update_frequency_validator(value):
         value = value.lower()
     except:
         raise Invalid('Invalid update frequency input value, must be string')
-    if value not in ['daily',
-                     'weekly',
-                     'monthly',
-                     'quarterly',
+    if value not in ['as_required',
                      'biannually',
-                     'anually',
-                     'as_required',
-                     'on_demand']:
+                     'current',
+                     'daily',
+                     'historical',
+                     'monthly',
+                     'never',
+                     'on_demand',
+                     'other',
+                     'periodically',
+                     'quarterly',
+                     'weekly',
+                     'yearly']:
         raise Invalid('Invalid update frequency input value')
     return value
 
@@ -30,8 +35,9 @@ def access_level_validator(value):
     except:
         raise Invalid('Invalid access level input value, must be string')
     if value not in ['open',
-                     'under_review',
-                     'restricted']:
+                     'restricted',
+                     'to_be_opened',
+                     'under_review']:
         raise Invalid('Invalid access level input value')
     return value
 
@@ -40,12 +46,12 @@ def exemption_validator(value):
         value = value.lower()
     except:
       raise Invalid('Invalid access level input value, must be string')
-    if value not in ['none',
-                     'privacy',
-                     'security',
+    if value not in ['commercial_sensitivity',
                      'confidentiality',
-                     'legal_and_contractual_limitations',
-                     'commercially_sensitive']:
+                     'legal_and_contractual_obligation',
+                     'none',
+                     'privacy',
+                     'security']:
         raise Invalid('Invalid exemption input value')
     return value
 
