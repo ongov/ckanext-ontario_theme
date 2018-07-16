@@ -42,6 +42,8 @@ body,
 
 .account-masthead {
     background-color: #000;
+    padding-top: .5rem;
+    min-height: 69px;
 }
 /* The "bubble" containing the number of new notifications. */
 .account-masthead .account .notifications a span {
@@ -57,7 +59,13 @@ body,
     color: #eee;
     background-color: #333;
 }
-
+.account-masthead .account ul li {
+    display: block;
+    float: left;
+    border-left: none;
+    padding: .75rem 0;
+    margin-bottom: 0 !important;
+}
 
 /* ========================================================================
    The main masthead bar that contains the site logo, nav links, and search
@@ -77,7 +85,66 @@ body,
 .masthead .navigation .nav-pills li.active a {
   background-color: rgba(0, 0, 0, 0.4);
 }
-
+.masthead a {
+    text-decoration: none;
+}
+.masthead hgroup h1 {
+    font-weight: 300;
+    letter-spacing: -1px;
+    margin: 3px 0;
+    padding-left: 1.6em;
+    padding-top: 6px;
+}
+.masthead hgroup h1,
+.masthead hgroup h2 {
+    float: left;
+    font-size: 24px;
+    line-height: 1.5;
+}
+/* Alpha + Beta labels */
+.dss-phase-label.alpha span,
+.dss-phase-label.beta span,
+.label {
+    display: inline-block;
+    font-family: Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: auto;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    padding: .25rem .5rem;
+    font-size: .9375rem;
+    background-color: #006b3f;
+    color: #4d4d4d;
+}
+.dss-phase-label.alpha span,
+.dss-phase-label.beta span,
+.large {
+    font-size: 1.125rem;
+}
+.dss-phase-label.alpha span,
+.dss-phase-label.beta span {
+    /*font-weight: 700;*/
+}
+.dss-phase-label.alpha span,
+.dss-phase-label.beta span,
+.label {
+    background: #ededed;
+    border-radius: 3px;
+    margin: 0 .3125rem .3125rem 0;
+}
+.dss-alpha,
+.dss-phase-label.alpha span {
+    background: #118c7b!important;
+    color: #fff!important;
+}
+.dss-phase-label.alpha span,
+.dss-phase-label.beta span,
+.top-margin-half {
+    margin-top: .5rem!important;
+}
 
 /* ===========================================
    The content in the middle of the front page

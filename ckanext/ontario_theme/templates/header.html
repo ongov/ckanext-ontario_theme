@@ -3,6 +3,11 @@
 {% block header_account %}
   <header class="account-masthead">
     <div class="container">
+      {# Insterting additional header logo for parent site. #}
+      <hgroup class="{{ g.header_class }} pull-left">
+        <a class="logo" href="https://ontario.ca/"><img src="/ontario-logo.svg" alt="Government of Ontario" /></a>
+      </hgroup>
+      {# End of customization for header_account block. #}
       {% block header_account_container_content %}
         {% if c.userobj %}
           <div class="account avatar authed" data-module="me" data-me="{{ c.userobj.id }}">
@@ -65,6 +70,19 @@
       {% endblock %}
     </div>
   </header>
+{% endblock %}
+
+{% block header_logo %}
+  {% if g.site_logo %}
+    <a class="logo" href="{{ h.url_for('home') }}"><img src="{{ h.url_for_static_or_external(g.site_logo) }}" alt="{{ g.site_title }}" title="{{ g.site_title }}" /></a>
+  {% else %}
+    {# Add alpha styling. #}
+    <h1>
+      <a href="{{ h.url_for('home') }}" class="dss-phase-label alpha">{{ g.site_title }} <span>alpha</span></a>
+    </h1>
+    {# End customization. #}
+    {% if g.site_description %}<h2>{{ g.site_description }}</h2>{% endif %}
+  {% endif %}
 {% endblock %}
 
 {% block header_site_navigation_tabs %}
