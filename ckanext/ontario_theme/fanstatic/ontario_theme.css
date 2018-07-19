@@ -25,7 +25,7 @@ body,
 @media (min-width: 768px) {
   .hero {
     background-image: none;
-    background: linear-gradient(0deg,rgba(0,0,0,.2),rgba(0,0,0,0.2)), url(images/background-open-1115600_opt.jpg);
+    background: linear-gradient(0deg,rgba(0,0,0,.2),rgba(0,0,0,0.2)), url(/images/backgrounds/1097_converted.jpg);
     background-size: cover;
     height: auto;
     background-position: 50% 50%;
