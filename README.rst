@@ -32,9 +32,7 @@
 ckanext-ontario_theme
 =============
 
-.. Put a description of your extension here:
-   What does it do? What features does it have?
-   Consider including some screenshots or embedding a video!
+Theme for ontario ckan.
 
 
 ------------
@@ -49,44 +47,6 @@ extension works with.
 Installation
 ------------
 
-.. Add any additional install steps to the list below.
-   For example installing any non-Python dependencies or adding any required
-   config settings.
-
-To install ckanext-ontario_theme:
-
-1. Activate your CKAN virtual environment, for example::
-
-     . /usr/lib/ckan/default/bin/activate
-
-2. Install the ckanext-ontario_theme Python package into your virtual environment::
-
-     pip install ckanext-ontario_theme
-
-3. Add ``ontario_theme`` to the ``ckan.plugins`` setting in your CKAN
-   config file (by default the config file is located at
-   ``/etc/ckan/default/production.ini``).
-
-4. Restart CKAN. For example if you've deployed CKAN with Apache on Ubuntu::
-
-     sudo service apache2 reload
-
-
----------------
-Config Settings
----------------
-
-Document any optional config settings here. For example::
-
-    # The minimum number of hours to wait before re-checking a resource
-    # (optional, default: 24).
-    ckanext.ontario_theme.some_setting = some_default_value
-
-
-------------------------
-Development Installation
-------------------------
-
 To install ckanext-ontario_theme for development, activate your CKAN virtualenv and
 do::
 
@@ -95,6 +55,29 @@ do::
     python setup.py develop
     pip install -r dev-requirements.txt
 
+
+-----------------
+Development
+-----------------
+
+Follow the `CKAN style rules <http://docs.ckan.org/en/latest/contributing/css.html#formatting>`_.
+
+Converting to Less for styling.
+
+This is the current process until a cleaner setup can be created.
+
+Intall npm and less, then compile less files to css before pushing changes.
+
+::
+    sudo apt install npm
+    sudo npm install -g less
+    ln -s /usr/bin/nodejs /usr/bin/node
+    cd /ckanext-ontario_theme/ckanext/ontario_theme/fanstatic
+    lessc ontario_theme.less ontario_theme.css
+
+Styles should be broken down into small modules that do one thing and contain all necessary 
+styling for that module. As an example, the smarties.less file should contain all styling
+needed for smarties.
 
 -----------------
 Running the Tests
