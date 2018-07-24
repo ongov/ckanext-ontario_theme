@@ -42,6 +42,8 @@ def access_level_validator(value):
     return value
 
 def exemption_validator(value):
+    if value == '':
+      return 'none'
     try:
         value = value.lower()
     except:
