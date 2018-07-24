@@ -90,9 +90,10 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     def _modify_package_schema(self, schema):
         # Custom fields for update and create of packages.
         schema.update({
+            # TODO: Look into issues with using is_positive_integer validator. 
+            #       When it's missing its still triggered.
             'node_id': [toolkit.get_validator('ignore_missing'),
                         toolkit.get_validator('int_validator'),
-                        toolkit.get_validator('is_positive_integer'),
                         toolkit.get_converter('convert_to_extras')]
         })
 
@@ -186,9 +187,8 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         schema = super(ExtrafieldsPlugin, self).show_package_schema()
         schema.update({
             'node_id': [toolkit.get_converter('convert_from_extras'),
-                        toolkit.get_validator('is_positive_integer'),
-                        toolkit.get_validator('int_validator'),
-                        toolkit.get_validator('ignore_missing')]
+                        toolkit.get_validator('ignore_missing'),
+                        toolkit.get_validator('int_validator')]
         })
 
         schema.update({

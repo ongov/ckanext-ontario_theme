@@ -415,3 +415,20 @@ class TestUpdateDataset(object):
         assert_equals(package_show['update_frequency'], 'as_required')
         assert_equals(package_show['access_level'], 'open')
         assert_equals(package_show['exemption'], 'none') # Confirms modified in validation.        
+
+    def test_package_update_with_empty_node_id(self):
+        '''If dataset is given node_id key but no value, record should save.
+        Used in webform.
+        '''
+        user = factories.User()
+        dataset = factories.Dataset(user=user)
+
+        dataset_ = helpers.call_action(
+            'package_update',
+            id=dataset['id'],
+            name='package-name',
+            node_id='' # Validator returns None for this.
+        )
+
+        package_show = helpers.call_action('package_show', id=dataset['id'])
+        assert 'node_id' not in package_show
