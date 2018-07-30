@@ -167,6 +167,78 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             'comments': [toolkit.get_validator('ignore_missing'),
                          toolkit.get_converter('convert_to_extras')]
         })
+
+        # Submission Tracking Fields
+
+        schema.update({
+            'submission_type': [toolkit.get_validator('not_empty'),
+                 toolkit.get_converter('convert_to_extras')]
+        })
+
+        schema.update({
+            'submission_status': [toolkit.get_validator('not_empty'),
+                 toolkit.get_converter('convert_to_extras')]
+        })
+
+        schema.update({
+            'issues': [toolkit.get_validator('ignore_missing'),
+                 toolkit.get_converter('convert_to_extras')]
+        })
+
+        schema.update({
+            'submission_comments': [toolkit.get_validator('ignore_missing'),
+                 toolkit.get_converter('convert_to_extras')]
+        })
+
+        schema.update({
+            'submission_communication_plan': [toolkit.get_validator('ignore_missing'),
+                 toolkit.get_converter('convert_to_extras')]
+        })
+
+        schema.update({
+            'plain_language_start_date': [toolkit.get_validator('ignore_missing'),
+                 toolkit.get_converter('convert_to_extras')]
+        })
+
+        schema.update({
+            'plain_language_end_date': [toolkit.get_validator('ignore_missing'),
+                 toolkit.get_converter('convert_to_extras')]
+        })
+
+        schema.update({
+            'submission_recieved_date': [toolkit.get_validator('ignore_missing'),
+                 toolkit.get_converter('convert_to_extras')]
+        })
+
+        schema.update({
+            'submission_service_standard_date': [toolkit.get_validator('ignore_missing'),
+                 toolkit.get_converter('convert_to_extras')]
+        })
+
+        schema.update({
+            'final_review_date': [toolkit.get_validator('ignore_missing'),
+                 toolkit.get_converter('convert_to_extras')]
+        })
+
+        schema.update({
+            'with_co_date': [toolkit.get_validator('ignore_missing'),
+                 toolkit.get_converter('convert_to_extras')]
+        })
+
+        schema.update({
+            'public_published_date': [toolkit.get_validator('ignore_missing'),
+                 toolkit.get_converter('convert_to_extras')]
+        })
+
+        schema.update({
+            'rush': [toolkit.get_validator('ignore_missing'),
+                 toolkit.get_converter('convert_to_extras')]
+        })
+
+        schema.update({
+            'met_service_standard': [toolkit.get_validator('ignore_missing'),
+                 toolkit.get_converter('convert_to_extras')]
+        })
         return schema
 
     def create_package_schema(self):
@@ -261,6 +333,79 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             'comments': [toolkit.get_converter('convert_from_extras'),
                          toolkit.get_validator('ignore_missing')]
         })
+
+        # Submission Tracking Fields
+
+        schema.update({
+            'submission_type': [toolkit.get_converter('convert_from_extras'),
+                                      toolkit.get_validator('not_empty')]
+        })
+
+        schema.update({
+            'submission_status': [toolkit.get_converter('convert_from_extras'),
+                                      toolkit.get_validator('not_empty')]
+        })
+
+        schema.update({
+            'issues': [toolkit.get_converter('convert_from_extras'),
+                                      toolkit.get_validator('ignore_missing')]
+        })
+
+        schema.update({
+            'submission_comments': [toolkit.get_converter('convert_from_extras'),
+                                      toolkit.get_validator('ignore_missing')]
+        })
+
+        schema.update({
+            'submission_communication_plan': [toolkit.get_converter('convert_from_extras'),
+                                      toolkit.get_validator('ignore_missing')]
+        })
+
+        schema.update({
+            'plain_language_start_date': [toolkit.get_converter('convert_from_extras'),
+                                      toolkit.get_validator('ignore_missing')]
+        })
+
+        schema.update({
+            'plain_language_end_date': [toolkit.get_converter('convert_from_extras'),
+                                      toolkit.get_validator('ignore_missing')]
+        })
+
+        schema.update({
+            'submission_recieved_date': [toolkit.get_converter('convert_from_extras'),
+                                      toolkit.get_validator('ignore_missing')]
+        })
+
+        schema.update({
+            'submission_service_standard_date': [toolkit.get_converter('convert_from_extras'),
+                                      toolkit.get_validator('ignore_missing')]
+        })
+
+        schema.update({
+            'final_review_date': [toolkit.get_converter('convert_from_extras'),
+                                      toolkit.get_validator('ignore_missing')]
+        })
+
+        schema.update({
+            'with_co_date': [toolkit.get_converter('convert_from_extras'),
+                                      toolkit.get_validator('ignore_missing')]
+        })
+
+        schema.update({
+            'public_published_date': [toolkit.get_converter('convert_from_extras'),
+                                      toolkit.get_validator('ignore_missing')]
+        })
+
+        schema.update({
+            'rush': [toolkit.get_converter('convert_from_extras'),
+                                      toolkit.get_validator('ignore_missing')]
+        })
+
+        schema.update({
+            'met_service_standard': [toolkit.get_converter('convert_from_extras'),
+                                      toolkit.get_validator('ignore_missing')]
+        })
+
         return schema
 
     def is_fallback(self):
