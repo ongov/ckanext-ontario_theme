@@ -66,9 +66,8 @@ Converting to Less for styling.
 
 This is the current process until a cleaner setup can be created.
 
-Intall npm and less, then compile less files to css before pushing changes.
+Intall npm and less, then compile less files to css before pushing changes.::
 
-::
     sudo apt install npm
     sudo npm install -g less
     ln -s /usr/bin/nodejs /usr/bin/node
