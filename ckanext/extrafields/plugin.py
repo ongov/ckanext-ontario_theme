@@ -131,7 +131,7 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         })
 
         schema.update({
-            'contains_geographic_markers': [toolkit.get_validator('ignore_missing'),
+            'contains_geographic_markers': [toolkit.get_validator('boolean_validator'),
                                             toolkit.get_converter('convert_to_extras')]
         })
 
@@ -181,12 +181,12 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         })
 
         schema.update({
-            'rush': [toolkit.get_validator('ignore_missing'),
+            'rush': [toolkit.get_validator('boolean_validator'),
                      toolkit.get_converter('convert_to_extras')]
         })
 
         schema.update({
-            'issues': [toolkit.get_validator('ignore_missing'),
+            'issues': [toolkit.get_validator('boolean_validator'),
                        toolkit.get_converter('convert_to_extras')]
         })
 
@@ -236,14 +236,14 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         })
 
         schema.update({
-            'met_service_standard': [toolkit.get_validator('ignore_missing'),
+            'met_service_standard': [toolkit.get_validator('boolean_validator'),
                                      toolkit.get_converter('convert_to_extras')]
         })
 
         # Archive Tracking Fields
 
         schema.update({
-            'removed': [toolkit.get_validator('ignore_missing'),
+            'removed': [toolkit.get_validator('boolean_validator'),
                         toolkit.get_converter('convert_to_extras')]
         })
 
@@ -265,7 +265,7 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         # Data Quality Fields
 
         schema.update({
-            'meets_update_frequency': [toolkit.get_validator('ignore_missing'),
+            'meets_update_frequency': [toolkit.get_validator('boolean_validator'),
                                        toolkit.get_converter('convert_to_extras')]
         })
 
@@ -275,17 +275,17 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         })
 
         schema.update({
-            'broken_links': [toolkit.get_validator('ignore_missing'),
+            'broken_links': [toolkit.get_validator('boolean_validator'),
                              toolkit.get_converter('convert_to_extras')]
         })
 
         schema.update({
-            'open_access': [toolkit.get_validator('ignore_missing'),
+            'open_access': [toolkit.get_validator('boolean_validator'),
                             toolkit.get_converter('convert_to_extras')]
         })
 
         schema.update({
-            'open_government_license': [toolkit.get_validator('ignore_missing'),
+            'open_government_license': [toolkit.get_validator('boolean_validator'),
                                         toolkit.get_converter('convert_to_extras')]
         })
 
@@ -383,7 +383,7 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'contains_geographic_markers': [toolkit.get_converter('convert_from_extras'),
-                                            toolkit.get_validator('ignore_missing')]
+                                            toolkit.get_validator('boolean_validator')]
         })
 
         schema.update({
@@ -433,12 +433,12 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'rush': [toolkit.get_converter('convert_from_extras'),
-                     toolkit.get_validator('ignore_missing')]
+                     toolkit.get_validator('boolean_validator')]
         })
 
         schema.update({
             'issues': [toolkit.get_converter('convert_from_extras'),
-                       toolkit.get_validator('ignore_missing')]
+                       toolkit.get_validator('boolean_validator')]
         })
 
         schema.update({
@@ -488,14 +488,14 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'met_service_standard': [toolkit.get_converter('convert_from_extras'),
-                                     toolkit.get_validator('ignore_missing')]
+                                     toolkit.get_validator('boolean_validator')]
         })
 
         # Archive Tracking Fields
 
         schema.update({
             'removed': [toolkit.get_converter('convert_from_extras'),
-                        toolkit.get_validator('ignore_missing')]
+                        toolkit.get_validator('boolean_validator')]
         })
 
         schema.update({
@@ -517,27 +517,27 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'meets_update_frequency': [toolkit.get_converter('convert_from_extras'),
-                                       toolkit.get_validator('ignore_missing')]
+                                       toolkit.get_validator('boolean_validator')]
         })
 
         schema.update({
             'technical_documents': [toolkit.get_converter('convert_from_extras'),
-                                    toolkit.get_validator('ignore_missing')]
+                                    toolkit.get_validator('boolean_validator')]
         })
 
         schema.update({
             'broken_links': [toolkit.get_converter('convert_from_extras'),
-                             toolkit.get_validator('ignore_missing')]
+                             toolkit.get_validator('boolean_validator')]
         })
 
         schema.update({
             'open_access': [toolkit.get_converter('convert_from_extras'),
-                            toolkit.get_validator('ignore_missing')]
+                            toolkit.get_validator('boolean_validator')]
         })
 
         schema.update({
             'open_government_license': [toolkit.get_converter('convert_from_extras'),
-                                        toolkit.get_validator('ignore_missing')]
+                                        toolkit.get_validator('boolean_validator')]
         })
 
         schema.update({

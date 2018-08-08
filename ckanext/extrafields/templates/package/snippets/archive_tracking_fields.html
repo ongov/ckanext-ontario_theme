@@ -8,11 +8,11 @@ Renders the dataset extras related to archiving datasets.
 
 <fieldset>
     <legend>Archive tracking</legend>
-        {{ form.checkbox('Removed',
+        {{ form.checkbox('removed',
                          label=_('Removed'),
-                         id='removed',
-                         value=True,
-                         checked=data.meets_update_frequency) }}
+                         id='field-removed',
+                         value=true,
+                         checked=data.removed) }}
         {{ form.markdown('removal_rationale',
                          label=_('Removal rationale'),
                          id='field-removal_rationale',

@@ -11,28 +11,28 @@ These fields are used for reporting purposes.
     <legend>Dataset quality</legend>
         {{ form.checkbox('meets_update_frequency',
                          label=_('Meets update frequency'),
-                         id='meets_update_frequency-rush',
-                         value=False,
+                         id='field-meets_update_frequency',
+                         value=true,
                          checked=data.meets_update_frequency) }}
         {{ form.checkbox('technical_documents',
                  label=_('Technical documents'),
-                 id='technical_documents',
-                 value=False,
+                 id='field-technical_documents',
+                 value=true,
                  checked=data.technical_documents) }}
         {{ form.checkbox('broken_links',
                  label=_('Broken links'),
                  id='field-broken_links',
-                 value=False,
+                 value=true,
                  checked=data.broken_links) }}
         {{ form.checkbox('open_access',
                  label=_('Open access'),
                  id='field-open_access',
-                 value=False,
+                 value=true,
                  checked=data.open_access) }}
         {{ form.checkbox('open_government_license',
                  label=_('Open government license'),
                  id='field-open_government_license',
-                 value=False,
+                 value=true,
                  checked=data.open_government_license) }}
         {{ form.select('machine_readable',
                        label=_('Machine readable'),

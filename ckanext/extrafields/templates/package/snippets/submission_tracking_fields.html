@@ -44,12 +44,12 @@ fields help track, monitor and report on submissions of datasets.
         {{ form.checkbox('rush',
                          label=_('Rush'),
                          id='field-rush',
-                         value=False,
+                         value=true,
                          checked=data.rush) }}
         {{ form.checkbox('issues',
                          label=_('Issues'),
                          id='field-issues',
-                         value=True,
+                         value=true,
                          checked=data.issues) }}
         {{ form.markdown('submission_comments',
                          label=_('Submission comments'),
@@ -115,6 +115,6 @@ fields help track, monitor and report on submissions of datasets.
         {{ form.checkbox('met_service_standard',
                          label=_('Met service standard'),
                          id='field-met_service_standard',
-                         value=False,
+                         value=true,
                          checked=data.met_service_standard) }}
 </fieldset>
