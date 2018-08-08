@@ -1,7 +1,14 @@
 {% ckan_extends %}
 
 {% block package_basic_fields_custom %}
+  {# Only admin's and above should get these values i.e. those that can administer organizations. #}
+  {# TODO: Write test to validate this restriction. #}
+  
   {% snippet 'package/snippets/submission_tracking_fields.html', data=data, errors=errors, licenses=c.licenses, groups_available=c.groups_available %}
+
+  {% snippet 'package/snippets/dataset_quality_fields.html', data=data, errors=errors, licenses=c.licenses, groups_available=c.groups_available %}
+
+  {% snippet 'package/snippets/archive_tracking_fields.html', data=data, errors=errors, licenses=c.licenses, groups_available=c.groups_available %}
 
   <fieldset>
     <legend>Metadata</legend>
@@ -122,6 +129,20 @@
                      placeholder=_('Comments'),
                      value=data.comments,
                      error=errors.comments) }}
+    {{ form.input('target_posting_date',
+                  label=_('Target posting date'),
+                  id='field-target_posting_date',
+                  value=data.target_posting_date,
+                  error=errors.target_posting_date,
+                  type='date',
+                  classes=['control-medium']) }}
+    {{ form.input('assessment_date',
+                  label=_('Assessment date'),
+                  id='field-assessment_date',
+                  value=data.assessment_date,
+                  error=errors.assessment_date,
+                  type='date',
+                  classes=['control-medium']) }}
   </fieldset>
 {% endblock %}
 
