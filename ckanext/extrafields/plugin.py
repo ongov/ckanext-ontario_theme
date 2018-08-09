@@ -103,7 +103,7 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         })
 
         schema.update({
-            'short_description': [toolkit.get_validator('ignore_missing'),
+            'short_description': [toolkit.get_validator('not_empty'),
                                   toolkit.get_converter('convert_to_extras')]
         })
 
@@ -171,12 +171,12 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         # Submission Tracking Fields
 
         schema.update({
-            'submission_type': [toolkit.get_validator('not_empty'),
+            'submission_type': [toolkit.get_validator('ignore_missing'),
                                 toolkit.get_converter('convert_to_extras')]
         })
 
         schema.update({
-            'submission_status': [toolkit.get_validator('not_empty'),
+            'submission_status': [toolkit.get_validator('ignore_missing'),
                                   toolkit.get_converter('convert_to_extras')]
         })
 
@@ -355,7 +355,7 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'short_description': [toolkit.get_converter('convert_from_extras'),
-                                  toolkit.get_validator('ignore_missing')]
+                                  toolkit.get_validator('not_empty')]
         })
 
         schema.update({
@@ -423,12 +423,12 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'submission_type': [toolkit.get_converter('convert_from_extras'),
-                                toolkit.get_validator('not_empty')]
+                                toolkit.get_validator('ignore_missing')]
         })
 
         schema.update({
             'submission_status': [toolkit.get_converter('convert_from_extras'),
-                                  toolkit.get_validator('not_empty')]
+                                  toolkit.get_validator('ignore_missing')]
         })
 
         schema.update({

@@ -12,7 +12,8 @@ fields help track, monitor and report on submissions of datasets.
     <legend>Submission tracking</legend>
         {{ form.select('submission_type',
                        label=_('Submission type'),
-                       options=[{'name': 'Colby Candidate', 'text': _('Colby Candidate'), 'value': 'colby_candidate'},
+                       options=[{'name': '', 'text': _(''), 'value': ''},
+                                {'name': 'Colby Candidate', 'text': _('Colby Candidate'), 'value': 'colby_candidate'},
                                 {'name': 'Public to Open Dataset', 'text': _('Public to Open Dataset'), 'value': 'public_to_open_dataset'},
                                 {'name': 'New Open Dataset', 'text': _('New Open Dataset'), 'value': 'new_open_dataset'},
                                 {'name': 'New Dataset (not open)', 'text': _('New Dataset (not open)'), 'value': 'new_dataset_not_open'},
@@ -22,11 +23,11 @@ fields help track, monitor and report on submissions of datasets.
                        id='field-submission_type',
                        selected=data.submission_type,
                        error=errors.submission_type,
-                       classes=['control-medium'],
-                       is_required=true) }}
+                       classes=['control-medium']) }}
         {{ form.select('submission_status',
                        label=_('Submission status'),
-                       options=[{'name': 'Data Identified for internal sharing', 'text': _('Data Identified for internal sharing'), 'value': 'Data Identified for internal sharing'},
+                       options=[{'name': '', 'text': _(''), 'value': ''},
+                                {'name': 'Data Identified for internal sharing', 'text': _('Data Identified for internal sharing'), 'value': 'Data Identified for internal sharing'},
                                 {'name': 'Posted to Colby', 'text': _('Posted to Colby'), 'value': 'Posted to Colby'},
                                 {'name': 'Data identified for Opening', 'text': _('Data identified for Opening'), 'value': 'Data identified for Opening'},
                                 {'name': 'Submission in development', 'text': _('Submission in development'), 'value': 'Submission in development'},
@@ -39,8 +40,7 @@ fields help track, monitor and report on submissions of datasets.
                        id='field-submission_status',
                        selected=data.submission_status,
                        error=errors.submission_status,
-                       classes=['control-medium'],
-                       is_required=true) }}
+                       classes=['control-medium']) }}
         {{ form.checkbox('rush',
                          label=_('Rush'),
                          id='field-rush',

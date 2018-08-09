@@ -32,7 +32,8 @@
                   placeholder=_('Short Description'),
                   value=data.short_description,
                   error=errors.short_description,
-                  classes=['control-medium']) }}
+                  classes=['control-medium'],
+                  is_required=true) }}
     {{ form.input('maintainer_branch',
                   label=_('Maintainer Branch'),
                   id='field-maintainer_branch',
