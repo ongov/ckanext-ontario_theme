@@ -131,6 +131,12 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         })
 
         schema.update({
+            'opened_date': [toolkit.get_validator('ignore_missing'),
+                            date_validator,
+                            toolkit.get_converter('convert_to_extras')]
+        })
+
+        schema.update({
             'contains_geographic_markers': [toolkit.get_validator('boolean_validator'),
                                             toolkit.get_converter('convert_to_extras')]
         })
@@ -228,11 +234,6 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         schema.update({
             'with_co_date': [toolkit.get_validator('ignore_missing'),
                              toolkit.get_converter('convert_to_extras')]
-        })
-
-        schema.update({
-            'public_published_date': [toolkit.get_validator('ignore_missing'),
-                                      toolkit.get_converter('convert_to_extras')]
         })
 
         schema.update({
@@ -382,6 +383,12 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         })
 
         schema.update({
+            'opened_date': [toolkit.get_converter('convert_from_extras'),
+                            date_validator,
+                            toolkit.get_validator('ignore_missing')]
+        })
+
+        schema.update({
             'contains_geographic_markers': [toolkit.get_converter('convert_from_extras'),
                                             toolkit.get_validator('boolean_validator')]
         })
@@ -479,11 +486,6 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         schema.update({
             'with_co_date': [toolkit.get_converter('convert_from_extras'),
                              toolkit.get_validator('ignore_missing')]
-        })
-
-        schema.update({
-            'public_published_date': [toolkit.get_converter('convert_from_extras'),
-                                      toolkit.get_validator('ignore_missing')]
         })
 
         schema.update({

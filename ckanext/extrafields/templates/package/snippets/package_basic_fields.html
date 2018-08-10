@@ -65,6 +65,13 @@
                   error=errors.data_birth_date,
                   type='date',
                   classes=['control-medium']) }}
+    {{ form.input('opened_date',
+                  label=_('Resource opened (resource(s) published)'),
+                  id='field-opened_date',
+                  value=data.opened_date,
+                  error=errors.opened_date,
+                  type='date',
+                  classes=['control-medium']) }}
     {{ form.checkbox('contains_geographic_markers',
                      label=_('Contains Geographic Markers'),
                      id='field-contains_geographic_markers',

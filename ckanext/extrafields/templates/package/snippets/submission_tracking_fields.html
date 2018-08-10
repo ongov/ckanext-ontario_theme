@@ -105,13 +105,6 @@ fields help track, monitor and report on submissions of datasets.
                       error=errors.with_co_date,
                       type='date',
                       classes=['control-medium']) }}
-        {{ form.input('public_published_date',
-                      label=_('Pulbished publicly on'),
-                      id='field-public_published_date',
-                      value=data.public_published_date,
-                      error=errors.public_published_date,
-                      type='date',
-                      classes=['control-medium']) }}
         {{ form.checkbox('met_service_standard',
                          label=_('Met service standard'),
                          id='field-met_service_standard',
