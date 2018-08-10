@@ -292,11 +292,6 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         })
 
         schema.update({
-            'open_government_license': [toolkit.get_validator('boolean_validator'),
-                                        toolkit.get_converter('convert_to_extras')]
-        })
-
-        schema.update({
             'machine_readable': [toolkit.get_validator('ignore_missing'),
                                  toolkit.get_converter('convert_to_extras')]
         })
@@ -547,11 +542,6 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         schema.update({
             'open_access': [toolkit.get_converter('convert_from_extras'),
                             toolkit.get_validator('boolean_validator')]
-        })
-
-        schema.update({
-            'open_government_license': [toolkit.get_converter('convert_from_extras'),
-                                        toolkit.get_validator('boolean_validator')]
         })
 
         schema.update({

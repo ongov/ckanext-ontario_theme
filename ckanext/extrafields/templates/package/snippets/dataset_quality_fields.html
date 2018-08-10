@@ -29,11 +29,6 @@ These fields are used for reporting purposes.
                  id='field-open_access',
                  value=true,
                  checked=data.open_access) }}
-        {{ form.checkbox('open_government_license',
-                 label=_('Open government license'),
-                 id='field-open_government_license',
-                 value=true,
-                 checked=data.open_government_license) }}
         {{ form.select('machine_readable',
                        label=_('Machine readable'),
                        options=[{'name': 'Open', 'text': _('Open'), 'value': 'open'},
