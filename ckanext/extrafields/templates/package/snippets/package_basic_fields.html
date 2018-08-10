@@ -72,6 +72,13 @@
                   error=errors.opened_date,
                   type='date',
                   classes=['control-medium']) }}
+    {{ form.input('dataset_published_date',
+                  label=_('Date dataset was published publicly'),
+                  id='field-dataset_published_date',
+                  value=data.dataset_published_date,
+                  error=errors.dataset_published_date,
+                  type='date',
+                  classes=['control-medium']) }}
     {{ form.checkbox('contains_geographic_markers',
                      label=_('Contains Geographic Markers'),
                      id='field-contains_geographic_markers',
