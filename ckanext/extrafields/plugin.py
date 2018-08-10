@@ -180,6 +180,18 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
                          toolkit.get_converter('convert_to_extras')]
         })
 
+        schema.update({
+            'target_posting_date': [toolkit.get_validator('ignore_missing'),
+                                    date_validator,
+                                    toolkit.get_converter('convert_to_extras')]
+        })
+
+        schema.update({
+            'assessment_date': [toolkit.get_validator('ignore_missing'),
+                                date_validator,
+                                toolkit.get_converter('convert_to_extras')]
+        })
+
         # Submission Tracking Fields
 
         schema.update({
@@ -431,6 +443,18 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         schema.update({
             'comments': [toolkit.get_converter('convert_from_extras'),
                          toolkit.get_validator('ignore_missing')]
+        })
+
+        schema.update({
+            'target_posting_date': [toolkit.get_converter('convert_from_extras'),
+                                    date_validator,
+                                    toolkit.get_validator('ignore_missing')]
+        })
+
+        schema.update({
+            'assessment_date': [toolkit.get_converter('convert_from_extras'),
+                                date_validator,
+                                toolkit.get_validator('ignore_missing')]
         })
 
         # Submission Tracking Fields
