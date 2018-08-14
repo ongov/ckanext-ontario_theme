@@ -1,5 +1,25 @@
 @import "smarties.less";
 
+
+@primary-colour: #D47500;
+@secondary-colour: #007A7C;
+@grey: #444444;
+@header-grey: #666;
+
+.primary-bg {
+  background-color: @primary-colour;
+}
+.primary-fg {
+  color: @primary-colour;
+}
+
+.secondary-bg {
+  background-color: @secondary-colour;
+}
+.secondary-fg, div[role="main"] a {
+  color: @secondary-colour;
+}
+
 /* =====================================================
    Remove background images
    ===================================================== */
@@ -15,22 +35,29 @@ body,
 .ie8 .main,
 .ie7 .main  {
   background-image: none;
+  background-color: #fff;
+  font-family: 'Open Sans';
 }
 @media (min-width: 768px) {
   [role=main],
   .main {
     padding-top: 10px;
     background-image: none;
-    background-color: #eee;
+    background-color: transparent;
   }
 }
 @media (min-width: 768px) {
   .hero {
-    background-image: none;
-    background: linear-gradient(0deg,rgba(0,0,0,.2),rgba(0,0,0,0.2)), url(/images/backgrounds/1097_converted.jpg);
-    background-size: cover;
+    //background-image: none;
+    //background: linear-gradient(0deg,rgba(0,0,0,.2),rgba(0,0,0,0.2)), url(/images/backgrounds/1097_converted.jpg);
+    //background-size: cover;
     height: auto;
     background-position: 50% 50%;
+    background: linear-gradient(
+      rgba(0, 0, 0, 0.8), 
+      rgba(0, 0, 0, 0.8)
+    ), url(https://intra.catalogue.ogo.tbs.gov.on.ca/images/backgrounds/richard-balog-647377-unsplash_converted.jpg);
+  background-size: cover, cover;
   }
 }
 @media (max-width: 768px) {
@@ -79,7 +106,7 @@ body,
    ======================================================================== */
 
 .masthead {
-  background-color: #006B3F;
+  background-color: @secondary-colour;
 }
 /* The "navigation pills" in the masthead (the links to Datasets,
    Organizations, etc) when the user's pointer hovers over them. */
@@ -180,24 +207,6 @@ a.tag:hover {
   margin-bottom: 1em;
 }
 
-/* ====================================
-   The footer at the bottom of the site
-   ==================================== */
-
-.site-footer,
-body {
-  background-color: #006B3F;
-}
-/* The text in the footer. */
-.site-footer,
-.site-footer label,
-.site-footer small {
-  color: rgba(255, 255, 255, 0.6);
-}
-/* The link texts in the footer. */
-.site-footer a {
-  color: rgba(255, 255, 255, 0.6);
-}
 
 /* =====================================================
    Topics row on home page - ontario styling
@@ -317,11 +326,15 @@ body {
     box-sizing: border-box;
 }
 
-.number, 
+.number {
+  font-weight: 700;
+}
+
 .stat, 
 .stats-caption {
-    font-family: Raleway,Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
     font-weight: 700;
+    color: @grey;
+    font-size: 1.2rem;
 }
 a {
     color: #06c;
@@ -329,12 +342,14 @@ a {
     text-decoration: none;
 }
 .stats .stats-caption {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     line-height: 1.3;
 }
-.stats p {
-    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+.stats .stats-caption:hover {
+  text-decoration: none;
 }
+
 p, 
 p.lead {
     line-height: 1.6;
@@ -346,12 +361,50 @@ p {
     margin-bottom: 1.25rem;
     text-rendering: optimizeLegibility;
 }
+
+.new-row {
+  margin-top: 80px;
+}
+
+a.card {
+  color:  #06c;
+  text-decoration: none;
+  div {
+    box-shadow: 0 2px 4px #666;
+    transition: 1s;
+    height: 451px;
+    background-color: rgba(230,230,230,0.3);
+    transition: box-shadow 135ms cubic-bezier(.4,0,.2,1),width 235ms cubic-bezier(.4,0,.2,1);
+    background: transparent;
+    box-shadow: 0 1px 1px 0 rgba(60,64,67,.08), 0 1px 3px 1px rgba(60,64,67,.16);
+    padding: 1rem;
+  }
+  div:hover {
+    background-color: rgba(230,230,230,0.5); // #fff9e6;
+  //box-shadow: 3px 2px 4px #666;
+  }
+  p {
+    color: #666;
+  }
+  .action {
+    position: absolute;
+    bottom: 0;
+    color: @secondary-colour;
+  }
+}
+
+a.card:hover {
+  color: #8138b3; //#4d4d4d;
+  text-decoration: none;
+}
+
+
 .circle, 
 .circle--small {
     font-family: Raleway,Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
     border-radius: 50%;
     color: #fff;
-    background-color: #0087cb;
+    background-color: @primary-colour;
     display: inline-block;
     font-weight: 700;
     margin-bottom: .5rem;
@@ -359,6 +412,15 @@ p {
     width: 12.1875rem;
     height: 12.1875rem;
 }
+
+.circle.primary {
+  background-color: @primary-colour;
+}
+
+.circle.secondary {
+  background-color: @secondary-colour;
+}
+
 .text-center {
     text-align: center!important;
 }
@@ -587,4 +649,172 @@ main > div:nth-child(2) {
 .label[data-format*=turtle] {
     background-color: #0b4498;
     color: #FFFFFF;
+}
+
+.contact-us .label {
+  font-size: large;
+  padding: 0.5rem;
+  width: 100%;
+  background-color: @primary-colour;
+  a {
+    color: #fff;
+  }
+}
+
+h1, h2, h3, h4, h5, h6, h7, h8, h9 {
+  font-family: 'Open Sans', sans serif;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+h3, h4, h5 {
+  color: @header-grey;
+}
+
+h3 {
+  font-size: 1.5625rem;
+}
+h4 {
+  font-size: 1.25rem;
+}
+
+.btn.btn-primary {
+  background-color: @secondary-colour;
+}
+
+.btn.btn-info {
+  background-color: @primary-colour;
+}
+
+div.introduction {
+  font-size: 1.1rem;
+  padding-top: 20px;
+  ul {
+    padding: 10px;
+    li {
+      padding: 10px;
+      list-style: none;
+      line-height: 2rem;
+      span.emphasize {
+        color: @primary-colour;
+        text-transform: uppercase;
+        font-size: 120%;
+        font-weight: bold;  
+      }   
+    }
+  }
+  .label {
+    background-color: @secondary-colour;
+    color: #fff;
+    padding: 10px;
+  }
+}
+
+div.tags {
+  h3 {
+    margin: 0px;
+    font-size: 18px;
+    color: #fff;
+  }
+  a.tag {
+    background-color: @primary-colour;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    box-shadow: none;
+  }
+}
+
+.recent-activity {
+  .module-content {
+    padding: 0px;
+    ul.activity {
+      li i.icon {
+        display: none;
+      }
+      background: none;
+      li p {
+        margin-left: 0px;
+        .actor .gravatar {
+          left: 0px;
+          position: relative;
+        }
+      }
+    }
+  }
+}
+
+.module.search {
+  color: #fff;
+  .search-form {
+    padding: 10px 0px;
+    margin: 0px;
+    border: none;
+    h3 {
+      font-size: 2.1875rem; 
+      font-weight: 600;
+      color: #fff;
+    }
+    h4 {
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: #fff;
+    }
+    .search-input {
+      margin: 0px;
+      button {
+        margin-top: -10px;
+        height: 20px;
+      }
+    }
+  }
+}
+
+
+/* Footer */
+
+footer {
+  background: #ededed;
+  position: relative;
+  margin-top: 1em;
+  padding: 2em 0 1.5em;
+  border-top: 1px solid #d9d9d9;
+  a, a:visited {
+    color: #4d4d4d;    
+    text-decoration: underline;
+  }
+  .nav {
+    margin-bottom: 0rem;
+    overflow: hidden;
+    margin-left: 0rem;
+    padding-left: 0rem;
+    margin-top: 2rem;
+    a {
+      margin-bottom: .625rem;
+      float: left;
+      margin-left: 1rem;
+      font-size: 1rem;
+      margin-bottom: .625rem;
+    }
+    a:first-child {
+      margin-left: 0rem;
+    }    
+  }
+  p.copyright {
+    font-size: 0.9375rem;
+    margin-bottom: 1rem;
+  }
+  div.footer-swoosh {
+    background: url(/images/footer-swoosh-bg.png) repeat-x;
+    display: block;
+    width: 100%;
+    height: 96px; 
+  }
+  div.footer-swoosh--right {
+    background: #ededed url(/images/footer-swoosh.png) no-repeat;
+    display: block;
+    width: 560px;
+    height: 96px;
+    float: right;
+  }
 }
