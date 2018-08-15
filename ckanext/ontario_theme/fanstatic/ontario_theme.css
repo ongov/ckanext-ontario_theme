@@ -69,6 +69,41 @@
     font-weight: 300;
   }
 }
+a.card {
+  color: #06c;
+  text-decoration: none;
+}
+a.card:hover {
+  color: #8138b3;
+  text-decoration: none;
+}
+a.card div {
+  box-shadow: 0 2px 4px #666;
+  transition: 1s;
+  height: 451px;
+  background-color: rgba(230, 230, 230, 0.3);
+  transition: box-shadow 135ms cubic-bezier(0.4, 0, 0.2, 1), width 235ms cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+  box-shadow: 0 1px 1px 0 rgba(60, 64, 67, 0.08), 0 1px 3px 1px rgba(60, 64, 67, 0.16);
+  padding: 1rem;
+}
+a.card div:hover {
+  background-color: rgba(230, 230, 230, 0.5);
+}
+a.card p {
+  color: #666;
+}
+a.card .action {
+  position: absolute;
+  bottom: 0;
+  color: #007A7C;
+}
+/* =====================================================
+   Colby Variables
+   ===================================================== */
+/* =====================================================
+   Generic classes for Colby colours
+   ===================================================== */
 .primary-bg {
   background-color: #D47500;
 }
@@ -78,8 +113,7 @@
 .secondary-bg {
   background-color: #007A7C;
 }
-.secondary-fg,
-div[role="main"] a {
+.secondary-fg {
   color: #007A7C;
 }
 /* =====================================================
@@ -389,38 +423,6 @@ p {
   margin-bottom: 1.25rem;
   text-rendering: optimizeLegibility;
 }
-.new-row {
-  margin-top: 80px;
-}
-a.card {
-  color: #06c;
-  text-decoration: none;
-}
-a.card div {
-  box-shadow: 0 2px 4px #666;
-  transition: 1s;
-  height: 451px;
-  background-color: rgba(230, 230, 230, 0.3);
-  transition: box-shadow 135ms cubic-bezier(0.4, 0, 0.2, 1), width 235ms cubic-bezier(0.4, 0, 0.2, 1);
-  background: transparent;
-  box-shadow: 0 1px 1px 0 rgba(60, 64, 67, 0.08), 0 1px 3px 1px rgba(60, 64, 67, 0.16);
-  padding: 1rem;
-}
-a.card div:hover {
-  background-color: rgba(230, 230, 230, 0.5);
-}
-a.card p {
-  color: #666;
-}
-a.card .action {
-  position: absolute;
-  bottom: 0;
-  color: #007A7C;
-}
-a.card:hover {
-  color: #8138b3;
-  text-decoration: none;
-}
 .circle,
 .circle--small {
   font-family: Raleway, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -452,7 +454,7 @@ main > div:nth-child(2) {
   color: white;
 }
 .top-margin {
-  margin-top: 1rem!important;
+  margin-top: 80px;
 }
 .stats p {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -667,45 +669,45 @@ main > div:nth-child(2) {
   background-color: #0b4498;
   color: #FFFFFF;
 }
-.contact-us .label {
-  font-size: large;
-  padding: 0.5rem;
-  width: 100%;
-  background-color: #D47500;
-}
-.contact-us .label a {
-  color: #fff;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-h7,
-h8,
-h9 {
+/* =====================================================
+   Homepage-specific styles
+   ===================================================== */
+.homepage h1,
+.homepage h2,
+.homepage h3,
+.homepage h4,
+.homepage h5,
+.homepage h6,
+.homepage h7,
+.homepage h8,
+.homepage h9 {
   font-family: 'Open Sans', sans serif;
   line-height: 1.4;
   font-weight: 600;
 }
-h3,
-h4,
-h5 {
+.homepage h3,
+.homepage h4,
+.homepage h5 {
   color: #666;
 }
-h3 {
+.homepage h3 {
   font-size: 1.5625rem;
 }
-h4 {
+.homepage h4 {
   font-size: 1.25rem;
 }
-.btn.btn-primary {
+.homepage .btn.btn-primary {
   background-color: #007A7C;
 }
-.btn.btn-info {
+.homepage .btn.btn-info {
   background-color: #D47500;
 }
+.homepage a {
+  color: #007A7C;
+}
+/* =====================================================
+   Introduction snippet
+   ===================================================== */
 div.introduction {
   font-size: 1.1rem;
   padding-top: 20px;
@@ -729,18 +731,21 @@ div.introduction .label {
   color: #fff;
   padding: 10px;
 }
-div.tags h3 {
-  margin: 0px;
-  font-size: 18px;
-  color: #fff;
-}
-div.tags a.tag {
+/* =====================================================
+   Contact snippet
+   ===================================================== */
+.contact-us .label {
+  font-size: large;
+  padding: 0.5rem;
+  width: 100%;
   background-color: #D47500;
-  color: #fff;
-  font-weight: bold;
-  border: none;
-  box-shadow: none;
 }
+.contact-us .label a {
+  color: #fff;
+}
+/* =====================================================
+   Recent activity snippet
+   ===================================================== */
 .recent-activity .module-content {
   padding: 0px;
 }
@@ -757,6 +762,9 @@ div.tags a.tag {
   left: 0px;
   position: relative;
 }
+/* =====================================================
+   Homepage Search 
+   ===================================================== */
 .module.search {
   color: #fff;
 }
@@ -782,7 +790,21 @@ div.tags a.tag {
   margin-top: -10px;
   height: 20px;
 }
-/* Footer */
+.module.search div.tags h3 {
+  margin: 0px;
+  font-size: 18px;
+  color: #fff;
+}
+.module.search div.tags a.tag {
+  background-color: #D47500;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  box-shadow: none;
+}
+/* =====================================================
+   Footer
+   ===================================================== */
 footer {
   background: #ededed;
   position: relative;

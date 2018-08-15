@@ -1,14 +1,23 @@
 @import "smarties.less";
+@import "cards.less";
 
+/* =====================================================
+   Colby Variables
+   ===================================================== */
 
 @primary-colour: #D47500;
 @secondary-colour: #007A7C;
 @grey: #444444;
 @header-grey: #666;
 
+/* =====================================================
+   Generic classes for Colby colours
+   ===================================================== */
+
 .primary-bg {
   background-color: @primary-colour;
 }
+
 .primary-fg {
   color: @primary-colour;
 }
@@ -16,7 +25,8 @@
 .secondary-bg {
   background-color: @secondary-colour;
 }
-.secondary-fg, div[role="main"] a {
+
+.secondary-fg {
   color: @secondary-colour;
 }
 
@@ -295,6 +305,7 @@ a.tag:hover {
         padding-right: 0
     }
 }
+
 @media only screen and (min-width: 40.0625em) {
     .medium-block-grid-3>li {
         list-style: none;
@@ -336,11 +347,13 @@ a.tag:hover {
     color: @grey;
     font-size: 1.2rem;
 }
+
 a {
     color: #06c;
     line-height: inherit;
     text-decoration: none;
 }
+
 .stats .stats-caption {
     font-size: 1.2rem;
     line-height: 1.3;
@@ -361,43 +374,6 @@ p {
     margin-bottom: 1.25rem;
     text-rendering: optimizeLegibility;
 }
-
-.new-row {
-  margin-top: 80px;
-}
-
-a.card {
-  color:  #06c;
-  text-decoration: none;
-  div {
-    box-shadow: 0 2px 4px #666;
-    transition: 1s;
-    height: 451px;
-    background-color: rgba(230,230,230,0.3);
-    transition: box-shadow 135ms cubic-bezier(.4,0,.2,1),width 235ms cubic-bezier(.4,0,.2,1);
-    background: transparent;
-    box-shadow: 0 1px 1px 0 rgba(60,64,67,.08), 0 1px 3px 1px rgba(60,64,67,.16);
-    padding: 1rem;
-  }
-  div:hover {
-    background-color: rgba(230,230,230,0.5); // #fff9e6;
-  //box-shadow: 3px 2px 4px #666;
-  }
-  p {
-    color: #666;
-  }
-  .action {
-    position: absolute;
-    bottom: 0;
-    color: @secondary-colour;
-  }
-}
-
-a.card:hover {
-  color: #8138b3; //#4d4d4d;
-  text-decoration: none;
-}
-
 
 .circle, 
 .circle--small {
@@ -433,7 +409,7 @@ main > div:nth-child(2) {
   color: white;
 }
 .top-margin {
-    margin-top: 1rem!important;
+    margin-top: 80px; //1rem!important;
 }
 .stats p {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -651,40 +627,39 @@ main > div:nth-child(2) {
     color: #FFFFFF;
 }
 
-.contact-us .label {
-  font-size: large;
-  padding: 0.5rem;
-  width: 100%;
-  background-color: @primary-colour;
+/* =====================================================
+   Homepage-specific styles
+   ===================================================== */
+
+.homepage {
+  h1, h2, h3, h4, h5, h6, h7, h8, h9 {
+    font-family: 'Open Sans', sans serif;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+  h3, h4, h5 {
+    color: @header-grey;
+  }
+  h3 {
+    font-size: 1.5625rem;
+  }
+  h4 {
+    font-size: 1.25rem;
+  }
+  .btn.btn-primary {
+    background-color: @secondary-colour;
+  }
+  .btn.btn-info {
+    background-color: @primary-colour;
+  }
   a {
-    color: #fff;
+    color: @secondary-colour;
   }
 }
 
-h1, h2, h3, h4, h5, h6, h7, h8, h9 {
-  font-family: 'Open Sans', sans serif;
-  line-height: 1.4;
-  font-weight: 600;
-}
-
-h3, h4, h5 {
-  color: @header-grey;
-}
-
-h3 {
-  font-size: 1.5625rem;
-}
-h4 {
-  font-size: 1.25rem;
-}
-
-.btn.btn-primary {
-  background-color: @secondary-colour;
-}
-
-.btn.btn-info {
-  background-color: @primary-colour;
-}
+/* =====================================================
+   Introduction snippet
+   ===================================================== */
 
 div.introduction {
   font-size: 1.1rem;
@@ -710,20 +685,23 @@ div.introduction {
   }
 }
 
-div.tags {
-  h3 {
-    margin: 0px;
-    font-size: 18px;
+/* =====================================================
+   Contact snippet
+   ===================================================== */
+
+.contact-us .label {
+  font-size: large;
+  padding: 0.5rem;
+  width: 100%;
+  background-color: @primary-colour;
+  a {
     color: #fff;
-  }
-  a.tag {
-    background-color: @primary-colour;
-    color: #fff;
-    font-weight: bold;
-    border: none;
-    box-shadow: none;
   }
 }
+
+/* =====================================================
+   Recent activity snippet
+   ===================================================== */
 
 .recent-activity {
   .module-content {
@@ -743,6 +721,10 @@ div.tags {
     }
   }
 }
+
+/* =====================================================
+   Homepage Search 
+   ===================================================== */
 
 .module.search {
   color: #fff;
@@ -768,10 +750,25 @@ div.tags {
       }
     }
   }
+  div.tags {
+    h3 {
+      margin: 0px;
+      font-size: 18px;
+      color: #fff;
+    }
+    a.tag {
+      background-color: @primary-colour;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      box-shadow: none;
+    }
+  }
 }
 
-
-/* Footer */
+/* =====================================================
+   Footer
+   ===================================================== */
 
 footer {
   background: #ededed;
