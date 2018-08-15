@@ -143,10 +143,11 @@ body,
 }
 @media (min-width: 768px) {
   .hero {
+    background-image: none;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(/images/backgrounds/richard-balog-647377-unsplash_converted.jpg);
+    background-size: cover, cover;
     height: auto;
     background-position: 50% 50%;
-    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(https://intra.catalogue.ogo.tbs.gov.on.ca/images/backgrounds/richard-balog-647377-unsplash_converted.jpg);
-    background-size: cover, cover;
   }
 }
 @media (max-width: 768px) {
