@@ -424,6 +424,10 @@ p {
   margin-bottom: 1.25rem;
   text-rendering: optimizeLegibility;
 }
+main > div:nth-child(2) {
+  background: #006B3F;
+  color: white;
+}
 .circle,
 .circle--small {
   font-family: Raleway, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -450,160 +454,11 @@ p {
   width: 4.0625rem;
   height: 4.0625rem;
 }
-main > div:nth-child(2) {
-  background: #006B3F;
-  color: white;
-}
 .top-margin {
   margin-top: 80px;
 }
 .stats p {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-.circle1 {
-  background: #FAFAD2;
-}
-.circle2 {
-  background: #FAE6D2;
-}
-.circle3 {
-  background: #DFCFD8;
-}
-.circle4 {
-  background: #D2E6FA;
-}
-.circle5 {
-  background: #DDEBD1;
-}
-.circle6 {
-  background: #FAD2D2;
-}
-.circle7 {
-  background: #DDE9C4;
-}
-.circle8 {
-  background: #EBDFD1;
-}
-.circle9 {
-  background: #D2FAD2;
-}
-.circle10 {
-  background: #FFE8C4;
-}
-.circle11 {
-  background: #C5BCCA;
-}
-.circle12 {
-  background: #D2FAE6;
-}
-.home-ico {
-  background-image: url("/icon-sprites-homepage2015.png");
-  width: 50px;
-  height: 50px;
-  display: inline-block;
-  overflow: hidden;
-}
-.ico-sprite-arts {
-  background-position: -200px -50px;
-}
-.ico-sprite-briefcase {
-  background-position: -150px -50px;
-}
-.ico-sprite-car {
-  background-position: -100px -50px;
-}
-.ico-sprite-coins {
-  background-position: -50px 0;
-}
-.ico-sprite-economy {
-  background-position: -50px -50px;
-}
-.ico-sprite-education {
-  background-position: -250px 0;
-}
-.ico-sprite-healthcross {
-  background-position: -199px 0;
-}
-.ico-sprite-houses {
-  background-position: -150px 0;
-}
-.ico-sprite-lawscale {
-  background-position: -100px 0;
-}
-.ico-sprite-leaves {
-  background-position: 0 -50px;
-}
-.ico-sprite-plane {
-  background-position: 0 0;
-}
-.ico-sprite-trees {
-  background-position: -250px -50px;
-}
-@media only screen and (max-width: 40em) {
-  .home-ico {
-    background-size: 150px 50px;
-    float: left;
-    margin: 7px 0.5rem 0 7px;
-    height: 25px !important;
-    width: 25px !important;
-  }
-  .ico-sprite-arts {
-    background-position: -100px -25px;
-  }
-  .ico-sprite-briefcase {
-    background-position: -75px -25px;
-  }
-  .ico-sprite-car {
-    background-position: -50px -25px;
-  }
-  .ico-sprite-coins {
-    background-position: -25px 0;
-  }
-  .ico-sprite-economy {
-    background-position: -25px -25px;
-  }
-  .ico-sprite-education {
-    background-position: -125px 0;
-  }
-  .ico-sprite-healthcross {
-    background-position: -100px 0;
-  }
-  .ico-sprite-houses {
-    background-position: -75px 0;
-  }
-  .ico-sprite-lawscale {
-    background-position: -50px 0;
-  }
-  .ico-sprite-leaves {
-    background-position: 0 -25px;
-  }
-  .ico-sprite-plane {
-    background-position: 0 0;
-  }
-  .ico-sprite-trees {
-    background-position: -125px -25px;
-  }
-  .circle1,
-  .circle2,
-  .circle3,
-  .circle4,
-  .circle5,
-  .circle6,
-  .circle7,
-  .circle8,
-  .circle9,
-  .circle10,
-  .circle11,
-  .circle12 {
-    width: 40px;
-    height: 40px;
-  }
-  .circle--small {
-    vertical-align: middle;
-  }
-  li {
-    padding-bottom: 10px !important;
-  }
 }
 @media only screen and (max-width: 40em) {
   .stats .stats-caption {
