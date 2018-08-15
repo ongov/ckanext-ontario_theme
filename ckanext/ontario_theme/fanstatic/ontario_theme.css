@@ -69,6 +69,19 @@
     font-weight: 300;
   }
 }
+.primary-bg {
+  background-color: #D47500;
+}
+.primary-fg {
+  color: #D47500;
+}
+.secondary-bg {
+  background-color: #007A7C;
+}
+.secondary-fg,
+div[role="main"] a {
+  color: #007A7C;
+}
 /* =====================================================
    Remove background images
    ===================================================== */
@@ -83,22 +96,23 @@ body,
 .ie8 .main,
 .ie7 .main {
   background-image: none;
+  background-color: #fff;
+  font-family: 'Open Sans';
 }
 @media (min-width: 768px) {
   [role=main],
   .main {
     padding-top: 10px;
     background-image: none;
-    background-color: #eee;
+    background-color: transparent;
   }
 }
 @media (min-width: 768px) {
   .hero {
-    background-image: none;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(/images/backgrounds/1097_converted.jpg);
-    background-size: cover;
     height: auto;
     background-position: 50% 50%;
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(https://intra.catalogue.ogo.tbs.gov.on.ca/images/backgrounds/richard-balog-647377-unsplash_converted.jpg);
+    background-size: cover, cover;
   }
 }
 @media (max-width: 768px) {
@@ -143,7 +157,7 @@ body,
    The main masthead bar that contains the site logo, nav links, and search
    ======================================================================== */
 .masthead {
-  background-color: #006B3F;
+  background-color: #007A7C;
 }
 /* The "navigation pills" in the masthead (the links to Datasets,
    Organizations, etc) when the user's pointer hovers over them. */
@@ -240,23 +254,6 @@ a.tag:hover {
 .row.grid-spacing {
   margin-top: 1em;
   margin-bottom: 1em;
-}
-/* ====================================
-   The footer at the bottom of the site
-   ==================================== */
-.site-footer,
-body {
-  background-color: #006B3F;
-}
-/* The text in the footer. */
-.site-footer,
-.site-footer label,
-.site-footer small {
-  color: rgba(255, 255, 255, 0.6);
-}
-/* The link texts in the footer. */
-.site-footer a {
-  color: rgba(255, 255, 255, 0.6);
 }
 /* =====================================================
    Topics row on home page - ontario styling
@@ -360,11 +357,14 @@ body {
 :before {
   box-sizing: border-box;
 }
-.number,
+.number {
+  font-weight: 700;
+}
 .stat,
 .stats-caption {
-  font-family: Raleway, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
   font-weight: 700;
+  color: #444444;
+  font-size: 1.2rem;
 }
 a {
   color: #06c;
@@ -372,11 +372,11 @@ a {
   text-decoration: none;
 }
 .stats .stats-caption {
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   line-height: 1.3;
 }
-.stats p {
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+.stats .stats-caption:hover {
+  text-decoration: none;
 }
 p,
 p.lead {
@@ -389,18 +389,56 @@ p {
   margin-bottom: 1.25rem;
   text-rendering: optimizeLegibility;
 }
+.new-row {
+  margin-top: 80px;
+}
+a.card {
+  color: #06c;
+  text-decoration: none;
+}
+a.card div {
+  box-shadow: 0 2px 4px #666;
+  transition: 1s;
+  height: 451px;
+  background-color: rgba(230, 230, 230, 0.3);
+  transition: box-shadow 135ms cubic-bezier(0.4, 0, 0.2, 1), width 235ms cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+  box-shadow: 0 1px 1px 0 rgba(60, 64, 67, 0.08), 0 1px 3px 1px rgba(60, 64, 67, 0.16);
+  padding: 1rem;
+}
+a.card div:hover {
+  background-color: rgba(230, 230, 230, 0.5);
+}
+a.card p {
+  color: #666;
+}
+a.card .action {
+  position: absolute;
+  bottom: 0;
+  color: #007A7C;
+}
+a.card:hover {
+  color: #8138b3;
+  text-decoration: none;
+}
 .circle,
 .circle--small {
   font-family: Raleway, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
   border-radius: 50%;
   color: #fff;
-  background-color: #0087cb;
+  background-color: #D47500;
   display: inline-block;
   font-weight: 700;
   margin-bottom: 0.5rem;
   position: relative;
   width: 12.1875rem;
   height: 12.1875rem;
+}
+.circle.primary {
+  background-color: #D47500;
+}
+.circle.secondary {
+  background-color: #007A7C;
 }
 .text-center {
   text-align: center!important;
@@ -628,4 +666,165 @@ main > div:nth-child(2) {
 .label[data-format*=turtle] {
   background-color: #0b4498;
   color: #FFFFFF;
+}
+.contact-us .label {
+  font-size: large;
+  padding: 0.5rem;
+  width: 100%;
+  background-color: #D47500;
+}
+.contact-us .label a {
+  color: #fff;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+h7,
+h8,
+h9 {
+  font-family: 'Open Sans', sans serif;
+  line-height: 1.4;
+  font-weight: 600;
+}
+h3,
+h4,
+h5 {
+  color: #666;
+}
+h3 {
+  font-size: 1.5625rem;
+}
+h4 {
+  font-size: 1.25rem;
+}
+.btn.btn-primary {
+  background-color: #007A7C;
+}
+.btn.btn-info {
+  background-color: #D47500;
+}
+div.introduction {
+  font-size: 1.1rem;
+  padding-top: 20px;
+}
+div.introduction ul {
+  padding: 10px;
+}
+div.introduction ul li {
+  padding: 10px;
+  list-style: none;
+  line-height: 2rem;
+}
+div.introduction ul li span.emphasize {
+  color: #D47500;
+  text-transform: uppercase;
+  font-size: 120%;
+  font-weight: bold;
+}
+div.introduction .label {
+  background-color: #007A7C;
+  color: #fff;
+  padding: 10px;
+}
+div.tags h3 {
+  margin: 0px;
+  font-size: 18px;
+  color: #fff;
+}
+div.tags a.tag {
+  background-color: #D47500;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  box-shadow: none;
+}
+.recent-activity .module-content {
+  padding: 0px;
+}
+.recent-activity .module-content ul.activity {
+  background: none;
+}
+.recent-activity .module-content ul.activity li i.icon {
+  display: none;
+}
+.recent-activity .module-content ul.activity li p {
+  margin-left: 0px;
+}
+.recent-activity .module-content ul.activity li p .actor .gravatar {
+  left: 0px;
+  position: relative;
+}
+.module.search {
+  color: #fff;
+}
+.module.search .search-form {
+  padding: 10px 0px;
+  margin: 0px;
+  border: none;
+}
+.module.search .search-form h3 {
+  font-size: 2.1875rem;
+  font-weight: 600;
+  color: #fff;
+}
+.module.search .search-form h4 {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #fff;
+}
+.module.search .search-form .search-input {
+  margin: 0px;
+}
+.module.search .search-form .search-input button {
+  margin-top: -10px;
+  height: 20px;
+}
+/* Footer */
+footer {
+  background: #ededed;
+  position: relative;
+  margin-top: 1em;
+  padding: 2em 0 1.5em;
+  border-top: 1px solid #d9d9d9;
+}
+footer a,
+footer a:visited {
+  color: #4d4d4d;
+  text-decoration: underline;
+}
+footer .nav {
+  margin-bottom: 0rem;
+  overflow: hidden;
+  margin-left: 0rem;
+  padding-left: 0rem;
+  margin-top: 2rem;
+}
+footer .nav a {
+  float: left;
+  margin-left: 1rem;
+  font-size: 1rem;
+  margin-bottom: 0.625rem;
+}
+footer .nav a:first-child {
+  margin-left: 0rem;
+}
+footer p.copyright {
+  font-size: 0.9375rem;
+  margin-bottom: 1rem;
+}
+footer div.footer-swoosh {
+  background: url(/images/footer-swoosh-bg.png) repeat-x;
+  display: block;
+  width: 100%;
+  height: 96px;
+}
+footer div.footer-swoosh--right {
+  background: #ededed url(/images/footer-swoosh.png) no-repeat;
+  display: block;
+  width: 560px;
+  height: 96px;
+  float: right;
 }
