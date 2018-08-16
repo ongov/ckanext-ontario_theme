@@ -3,8 +3,11 @@
 
 <div class="module search">
   <form class="module-content search-form" method="get" action="{% url_for controller='package', action='search' %}">
-    <h3 class="heading">{{ _("Search data") }}</h3>
-    <h4>Find, share and collaborate on government data and records with Colby (aka CollabON).</h4>
+    <h3 class="heading">{{ _("Search data") }}<br />
+      <div class="sub-title">
+        Find, share and collaborate on government data and records with Colby (aka CollabON).
+      </div>
+    </h3>
     <div class="search-input control-group search-giant">
       <input type="text" class="search" name="q" value="" autocomplete="off" placeholder="{% block search_placeholder %}{{ placeholder }}{% endblock %}" />
       <button type="submit">
