@@ -3,25 +3,25 @@
 {% block extras %}
   {% if pkg_dict.technical_title %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Technical Title") }}</th>
+      <th scope="row" class="dataset-label">{{ _("Technical title") }}</th>
       <td class="dataset-details">{{ pkg_dict.technical_title }}</td>
     </tr>
   {% endif %}
   {% if pkg_dict.short_description %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Short Description") }}</th>
+      <th scope="row" class="dataset-label">{{ _("Short description") }}</th>
       <td class="dataset-details">{{ pkg_dict.short_description}}</td>
     </tr>
   {% endif %}
   {% if pkg_dict.maintainer_branch %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Maintainer Branch") }}</th>
+      <th scope="row" class="dataset-label">{{ _("Maintainer branch") }}</th>
       <td class="dataset-details">{{ pkg_dict.maintainer_branch }}</td>
     </tr>
   {% endif %}
   {% if pkg_dict.data_range_start %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Data Range Start") }}</th>
+      <th scope="row" class="dataset-label">{{ _("Data range start") }}</th>
       <td class="dataset-details">
         {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.data_range_start %}
       </td>
@@ -29,7 +29,7 @@
   {% endif %}
   {% if pkg_dict.data_range_end %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Data Range End") }}</th>
+      <th scope="row" class="dataset-label">{{ _("Data range end") }}</th>
       <td class="dataset-details">
         {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.data_range_end %}
       </td>
@@ -37,7 +37,7 @@
   {% endif %}
   {% if pkg_dict.data_birth_date %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Data Birth Date") }}</th>
+      <th scope="row" class="dataset-label">{{ _("Data birth date") }}</th>
       <td class="dataset-details">
         {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.data_birth_date %}
       </td>
@@ -45,23 +45,23 @@
   {% endif %}
   {% if pkg_dict.geographic_coverage %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Geographic Coverage") }}</th>
+      <th scope="row" class="dataset-label">{{ _("Geographic coverage") }}</th>
       <td class="dataset-details">{{ pkg_dict.geographic_coverage }}</td>
     </tr>
   {% endif %}
   <tr>
-    <th scope="row" class="dataset-label">{{ _("Contains Geographic Markers") }}</th>
+    <th scope="row" class="dataset-label">{{ _("Contains geographic markers") }}</th>
     <td class="dataset-details">{{ pkg_dict.contains_geographic_markers }}</td>
   </tr>
   {% if pkg_dict.update_frequency %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Update Frequency") }}</th>
+      <th scope="row" class="dataset-label">{{ _("Update frequency") }}</th>
       <td class="dataset-details">{{ pkg_dict.update_frequency.replace("_", " ").capitalize() }}</td>
     </tr>
   {% endif %}
   {% if pkg_dict.access_level %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Access Level") }}</th>
+      <th scope="row" class="dataset-label">{{ _("Access level") }}</th>
       <td class="dataset-details">{{ pkg_dict.access_level.replace("_", " ").capitalize() }}</td>
     </tr>
   {% endif %}
@@ -73,7 +73,7 @@
   {% endif %}
   {% if pkg_dict.exemption_rationale %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Exemption Rationale") }}</th>
+      <th scope="row" class="dataset-label">{{ _("Exemption rationale") }}</th>
       <td class="dataset-details">{{ pkg_dict.exemption_rationale }}</td>
     </tr>
   {% endif %}
