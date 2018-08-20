@@ -4,10 +4,10 @@ Renders a list of the site's most recent activity.
 
 #}
 
-<div class="box">
-  <header class="module-heading">
-    <h3>Recent activity</h3>
-  </header>
+<div class="recent-activity">
+
+  <h3>Recent activity</h3>
+
   <div class="module-content">
     {{ h.recently_changed_packages_activity_stream(limit=3) }}
   </div>
