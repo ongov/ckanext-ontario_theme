@@ -38,7 +38,6 @@
 .media-grid,
 .account-masthead,
 .masthead, 
-.site-footer,
 body,
 .ie8 [role=main],
 .ie7 [role=main],
@@ -623,15 +622,19 @@ div.introduction {
    Footer
    ===================================================== */
 
-footer {
+footer.site-footer {
   background: #ededed;
   position: relative;
   margin-top: 1em;
   padding: 2em 0 1.5em;
   border-top: 1px solid #d9d9d9;
+  color: #4d4d4d; 
   a, a:visited {
     color: #4d4d4d;    
     text-decoration: underline;
+  }
+  label {
+    color: #4d4d4d;   
   }
   .nav {
     margin-bottom: 0rem;
@@ -639,16 +642,16 @@ footer {
     margin-left: 0rem;
     padding-left: 0rem;
     margin-top: 2rem;
-    a {
-      margin-bottom: .625rem;
+    ul li {
       float: left;
       margin-left: 1rem;
       font-size: 1rem;
       margin-bottom: .625rem;
-    }
-    a:first-child {
-      margin-left: 0rem;
-    }    
+      font-size: 0.9375rem;
+      &:first-child {
+        margin-left: 0rem;
+      } 
+    } 
   }
   p.copyright {
     font-size: 0.9375rem;

@@ -123,7 +123,6 @@ a.card .action {
 .media-grid,
 .account-masthead,
 .masthead,
-.site-footer,
 body,
 .ie8 [role=main],
 .ie7 [role=main],
@@ -667,51 +666,56 @@ div.introduction .label {
 /* =====================================================
    Footer
    ===================================================== */
-footer {
+footer.site-footer {
   background: #ededed;
   position: relative;
   margin-top: 1em;
   padding: 2em 0 1.5em;
   border-top: 1px solid #d9d9d9;
+  color: #4d4d4d;
 }
-footer a,
-footer a:visited {
+footer.site-footer a,
+footer.site-footer a:visited {
   color: #4d4d4d;
   text-decoration: underline;
 }
-footer .nav {
+footer.site-footer label {
+  color: #4d4d4d;
+}
+footer.site-footer .nav {
   margin-bottom: 0rem;
   overflow: hidden;
   margin-left: 0rem;
   padding-left: 0rem;
   margin-top: 2rem;
 }
-footer .nav a {
+footer.site-footer .nav ul li {
   float: left;
   margin-left: 1rem;
   font-size: 1rem;
   margin-bottom: 0.625rem;
+  font-size: 0.9375rem;
 }
-footer .nav a:first-child {
+footer.site-footer .nav ul li:first-child {
   margin-left: 0rem;
 }
-footer p.copyright {
+footer.site-footer p.copyright {
   font-size: 0.9375rem;
   margin-bottom: 1rem;
 }
-footer div.footer-swoosh {
+footer.site-footer div.footer-swoosh {
   background: url(/images/footer-swoosh-bg.png) repeat-x;
   display: block;
   width: 100%;
   height: 96px;
 }
-footer div.footer-swoosh--right {
+footer.site-footer div.footer-swoosh--right {
   background: #ededed url(/images/footer-swoosh.png) no-repeat;
   display: block;
   width: 560px;
   height: 96px;
   float: right;
 }
-footer .attribution .ckan-footer-logo {
+footer.site-footer .attribution .ckan-footer-logo {
   background: url(/base/images/ckan-logo-footer_dark.png) no-repeat top left;
 }
