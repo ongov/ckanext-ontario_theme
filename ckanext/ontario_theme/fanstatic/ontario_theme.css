@@ -692,6 +692,16 @@ div.introduction .label {
   border-bottom: none;
   background-color: transparent;
 }
+.module-narrow {
+  margin: 40px 0px;
+  background: #fafafa;
+  padding: 20px 5px;
+  border-radius: 5px;
+}
+.module-narrow .module-content {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
 /* =====================================================
    Footer
    ===================================================== */
