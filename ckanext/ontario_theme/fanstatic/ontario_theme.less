@@ -674,7 +674,24 @@ div.introduction {
     box-shadow: none;
   }
 }
-
+table.table {
+  border: none;
+  thead {
+    display: none;
+  }
+  td {
+    border: none;
+  }
+  tbody tr:nth-child(even) th, tbody tr:nth-child(even) td {
+    background-color: #f9f9f9;
+  }
+  tbody tr th, tbody tr td {
+    border: none;
+  }
+  tbody tr td {
+    width: 75%;
+  }
+}
 
 /* =====================================================
    Footer

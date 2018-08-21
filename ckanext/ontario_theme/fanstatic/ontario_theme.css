@@ -714,6 +714,26 @@ div.introduction .label {
   border: none;
   box-shadow: none;
 }
+table.table {
+  border: none;
+}
+table.table thead {
+  display: none;
+}
+table.table td {
+  border: none;
+}
+table.table tbody tr:nth-child(even) th,
+table.table tbody tr:nth-child(even) td {
+  background-color: #f9f9f9;
+}
+table.table tbody tr th,
+table.table tbody tr td {
+  border: none;
+}
+table.table tbody tr td {
+  width: 75%;
+}
 /* =====================================================
    Footer
    ===================================================== */
