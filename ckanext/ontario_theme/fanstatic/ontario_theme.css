@@ -664,6 +664,35 @@ div.introduction .label {
   box-shadow: none;
 }
 /* =====================================================
+   Layout changes
+   ===================================================== */
+.wrapper {
+  background-image: none;
+  border: none;
+  box-shadow: none;
+}
+.wrapper .page-header {
+  border: none;
+  background: none;
+}
+.wrapper .page-header li a {
+  color: #444444;
+  border: none;
+}
+.wrapper .page-header li a:hover {
+  border: none;
+}
+.wrapper .page-header li.active a {
+  border: none;
+  border-bottom: solid 2px #D47500;
+  color: #D47500;
+}
+.module-heading {
+  border-top: none;
+  border-bottom: none;
+  background-color: transparent;
+}
+/* =====================================================
    Footer
    ===================================================== */
 footer.site-footer {
