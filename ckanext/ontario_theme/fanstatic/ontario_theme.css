@@ -702,6 +702,18 @@ div.introduction .label {
   padding-top: 0px;
   padding-bottom: 0px;
 }
+.well {
+  border: none;
+  background: none;
+  box-shadow: none;
+}
+.well a.tag {
+  background-color: #D47500;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  box-shadow: none;
+}
 /* =====================================================
    Footer
    ===================================================== */
