@@ -42,7 +42,7 @@ def access_level_validator(value):
     return value
 
 def exemption_validator(value):
-    if value == '':
+    if value == '': # Some systems set this as empty instead of none.
       return 'none'
     try:
         value = value.lower()
@@ -55,6 +55,74 @@ def exemption_validator(value):
                      'privacy',
                      'security']:
         raise Invalid('Invalid exemption input value')
+    return value
+
+def submission_type_validator(value):
+    try:
+        value = value.lower()
+    except:
+        raise Invalid('Invalid submission_type input value, must be string')
+    if value not in ['colby_candidate',
+                     'public_to_open_dataset',
+                     'new_open_dataset',
+                     'new_dataset_not_open',
+                     'open_existing_dataset)',
+                     'major_update_of_open_data',
+                     'major_update_of_non-open_dataset']:
+        raise Invalid('Invalid submission_type input value')
+    return value
+
+def submission_status_validator(value):
+    try:
+        value = value.lower()
+    except:
+        raise Invalid('Invalid submission_status input value, must be a string')
+    if value not in ['data_identified_for_internal_sharing',
+                     'posted_to_colby',
+                     'data_identified_for_opening',
+                     'submission_in_development',
+                     'metadata_under_reivew_by_ministry',
+                     'metadata_in_translation',
+                     'ogo_review',
+                     'mo_review/fyi',
+                     'uploading/updating',
+                     'published']:
+        raise Invalid('Invalid submission_status input value')
+    return value
+
+def machine_readable_validator(value):
+    try:
+        value = value.lower()
+    except:
+        raise Invalid('Invalid machine_readable input value, must be a string')
+    if value not in ['open',
+                     'not_preferred',
+                     'not_open']:
+        raise Invalid('Invalid machine_readable input value')
+    return value
+
+def time_series_validator(value):
+    if value == '':
+        return None # Let user update value to empty.
+    try:
+        value = value.lower()
+    except:
+        raise Invalid('Invalid time_series input value, must be a string')
+    if value not in ['all_data_is_in_one_file',
+                     'data_is_split_into_multiple_files',
+                     'n/a']:
+        raise Invalid('Invalid time_series input value')
+    return value
+
+def good_file_name_validator(value):
+    try:
+        value = value.lower()
+    except:
+        raise Invalid('Invalid good_file_name input value, must be a string')
+    if value not in ['yes',
+                     'needs_improvement',
+                     'mo']:
+        raise Invalid('Invalid good_file_name input value')
     return value
 
 def date_validator(value):
