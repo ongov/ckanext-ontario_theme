@@ -755,8 +755,8 @@ btn.btn-success:hover {
 btn.btn-primary:hover {
   background-color: #007A7C;
 }
-.primary a:not(.btn):not(.tag),
-.secondary a:not(.btn):not(.tag) {
+.primary a:not(.btn):not(.tag):not(.label),
+.secondary a:not(.btn):not(.tag):not(.label) {
   color: #007A7C;
 }
 .media-grid {
