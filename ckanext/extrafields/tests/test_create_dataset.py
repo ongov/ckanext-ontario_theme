@@ -56,7 +56,8 @@ class TestCreateDataset(object):
         '''
         dataset = helpers.call_action(
             'package_create',
-            name='package-name'
+            name='package-name',
+            short_description='short description text'
             )
 
     def test_wrong_node_id_type(self):
@@ -66,7 +67,8 @@ class TestCreateDataset(object):
         assert_raises(
             logic.ValidationError, helpers.call_action,
             'package_create',
-            node_id='apple'
+            node_id='apple',
+            short_description='short description text'
         )
 
     def test_package_create_with_validated_values(self):
@@ -77,6 +79,7 @@ class TestCreateDataset(object):
             'package_create',
             name='package-name',
             node_id='123',
+            short_description='short description text',
             date_range_start='',
             date_range_end='',
             data_birth_date='',
@@ -87,6 +90,7 @@ class TestCreateDataset(object):
         assert_equals(dataset['node_id'], 123)
         package_show = helpers.call_action('package_show', id=dataset['id'])
         assert_equals(package_show['node_id'], 123)
+        assert_equals(package_show['short_description'], 'short description text')
         assert 'date_range_start' not in package_show
         assert 'date_range_end' not in package_show
         assert 'data_birth_date' not in package_show

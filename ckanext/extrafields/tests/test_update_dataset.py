@@ -55,12 +55,13 @@ class TestUpdateDataset(object):
         '''If dataset is given name it is updated.
         '''
         user = factories.User()
-        dataset = factories.Dataset(user=user)
+        dataset = factories.Dataset(user=user, short_description='short description text')
 
         dataset_ = helpers.call_action(
             'package_update',
             id=dataset['id'],
-            name='new-name'
+            name='new-name',
+            short_description='shorter description'
             )
 
         assert_equals(dataset_['name'], 'new-name')
@@ -74,12 +75,13 @@ class TestUpdateDataset(object):
         Empty and missing values are allowed.
         '''
         user = factories.User()
-        dataset = factories.Dataset(user=user)
+        dataset = factories.Dataset(user=user, short_description='short description text')
         assert_raises(
             logic.ValidationError, helpers.call_action,
             'package_update',
             id=dataset['id'],
-            node_id='apple'
+            node_id='apple',
+            short_description='shorter description'
         )
 
     def test_package_update_with_validated_values(self):
@@ -87,13 +89,16 @@ class TestUpdateDataset(object):
         a dataset is updated.
         '''
         user = factories.User()
-        dataset = factories.Dataset(user=user)
+        dataset = factories.Dataset(user=user, short_description='short description text')
+
+        assert_equals(dataset['short_description'], 'short description text')
 
         dataset_ = helpers.call_action(
             'package_update',
             id=dataset['id'],
             name='package-name',
             node_id='123',
+            short_description='shorter description',
             date_range_start='',
             date_range_end='',
             data_birth_date='',
@@ -103,27 +108,29 @@ class TestUpdateDataset(object):
         )
         assert_equals(dataset_['node_id'], 123)
 
-        package_show = helpers.call_action('package_show', id=dataset['id'])        
+        package_show = helpers.call_action('package_show', id=dataset['id'])
         assert_equals(package_show['node_id'], 123)
+        assert_equals(package_show['short_description'], 'shorter description')
         assert 'date_range_start' not in package_show
         assert 'date_range_end' not in package_show
         assert 'data_birth_date' not in package_show
         assert_equals(package_show['update_frequency'], 'as_required')
         assert_equals(package_show['access_level'], 'open')
-        assert_equals(package_show['exemption'], 'none') # Confirms modified in validation.        
+        assert_equals(package_show['exemption'], 'none') # Confirms modified in validation.
 
     def test_package_update_with_empty_node_id(self):
         '''If dataset is given node_id key but no value, record should save.
         Used in webform.
         '''
         user = factories.User()
-        dataset = factories.Dataset(user=user)
+        dataset = factories.Dataset(user=user, short_description='short description text')
 
         dataset_ = helpers.call_action(
             'package_update',
             id=dataset['id'],
             name='package-name',
-            node_id='' # Validator returns None for this.
+            node_id='', # Validator returns None for this.
+            short_description='shorter description'
         )
 
         package_show = helpers.call_action('package_show', id=dataset['id'])
