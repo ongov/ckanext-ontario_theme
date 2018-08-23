@@ -674,6 +674,9 @@ div.introduction .label {
   border: none;
   background: none;
 }
+.wrapper header.page-header ul.nav.nav-tabs {
+  width: 100%;
+}
 .wrapper header.page-header ul.nav.nav-tabs li a {
   color: #444444;
   border: none;
