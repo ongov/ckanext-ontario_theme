@@ -233,7 +233,7 @@ class TestSubmissionTypeValidator(object):
             def call_validator(*args, **kwargs):
                 return extrafields.submission_type_validator(*args, **kwargs)
             assert call_validator(valid_value) == valid_value.lower(), (
-                'Should return lower case value if in list of valid values.')
+                "Should return lower case value (%r) if in list of valid values." % (valid_value))
 
 class TestSubmissionStatusValidator(object):
 
@@ -287,7 +287,7 @@ class TestSubmissionStatusValidator(object):
             def call_validator(*args, **kwargs):
                 return extrafields.submission_status_validator(*args, **kwargs)
             assert call_validator(valid_value) == valid_value.lower(), (
-                'Should return lower case value if in list of valid values.')
+                "Should return lower case value (%r) if in list of valid values." % (valid_value))
 
 class TestMachineReadableValidator(object):
 
@@ -334,7 +334,7 @@ class TestMachineReadableValidator(object):
             def call_validator(*args, **kwargs):
                 return extrafields.machine_readable_validator(*args, **kwargs)
             assert call_validator(valid_value) == valid_value.lower(), (
-                'Should return lower case value if in list of valid values.')
+                "Should return lower case value (%r) if in list of valid values." % (valid_value))
 
 class TestTimeSeriesValidator(object):
 
@@ -372,7 +372,6 @@ class TestTimeSeriesValidator(object):
         '''
 
         valid_values = [
-                        '',
                         'all_data_is_in_one_file',
                         'data_is_split_into_multiple_files',
                         'N/A'
@@ -382,7 +381,22 @@ class TestTimeSeriesValidator(object):
             def call_validator(*args, **kwargs):
                 return extrafields.time_series_validator(*args, **kwargs)
             assert call_validator(valid_value) == valid_value.lower(), (
-                'Should return lower case value if in list of valid values.')
+                "Should return lower case value (%r) if in list of valid values." % (valid_value))
+
+    def test_time_series_validator_with_valid_empty_value(self):
+        '''If given an empty string return None.
+           This lets user update value to be empty.
+        '''
+        valid_values = [
+            # Allowed empty string.
+            ''
+        ]
+
+        for valid_value in valid_values:
+            def call_validator(*args, **kwargs):
+                return extrafields.time_series_validator(*args, **kwargs)
+            assert call_validator(valid_value) == None, (
+                'Should return None if empty string passed')
 
 class TestGoodFileNameValidator(object):
 
@@ -429,7 +443,7 @@ class TestGoodFileNameValidator(object):
             def call_validator(*args, **kwargs):
                 return extrafields.good_file_name_validator(*args, **kwargs)
             assert call_validator(valid_value) == valid_value.lower(), (
-                'Should return lower case value if in list of valid values.')
+                "Should return lower case value (%r) if in list of valid values." % (valid_value))
 
 class TestDateValidator(object):
 
