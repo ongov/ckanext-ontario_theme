@@ -625,20 +625,22 @@ div.introduction {
   background-image: none;
   border: none;
   box-shadow: none;
-  .page-header {
+  header.page-header {
     border: none;
     background: none;
-    li a {
-      color: @grey;
-      border: none;
-      &:hover {
+    ul.nav.nav-tabs {
+      li a {
+        color: @grey;
         border: none;
+        &:hover {
+          border: none;
+        }
       }
-    }
-    li.active a {
-      border: none;
-      border-bottom: solid 2px @primary-colour;
-      color: @primary-colour;
+      li.active a {
+        border: none;
+        border-bottom: solid 2px @primary-colour;
+        color: @primary-colour;
+      }
     }
   }
 
@@ -702,6 +704,10 @@ table.table {
 }
 .btn.btn-primary, btn.btn-primary:hover {
   background-color: @secondary-colour;
+}
+.primary a:not(.btn):not(.tag), 
+.secondary a:not(.btn):not(.tag) {
+  color: @secondary-colour;
 }
 
 /* =====================================================

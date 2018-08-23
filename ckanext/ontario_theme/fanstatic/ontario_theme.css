@@ -670,18 +670,18 @@ div.introduction .label {
   border: none;
   box-shadow: none;
 }
-.wrapper .page-header {
+.wrapper header.page-header {
   border: none;
   background: none;
 }
-.wrapper .page-header li a {
+.wrapper header.page-header ul.nav.nav-tabs li a {
   color: #444444;
   border: none;
 }
-.wrapper .page-header li a:hover {
+.wrapper header.page-header ul.nav.nav-tabs li a:hover {
   border: none;
 }
-.wrapper .page-header li.active a {
+.wrapper header.page-header ul.nav.nav-tabs li.active a {
   border: none;
   border-bottom: solid 2px #D47500;
   color: #D47500;
@@ -751,6 +751,10 @@ btn.btn-success:hover {
 .btn.btn-primary,
 btn.btn-primary:hover {
   background-color: #007A7C;
+}
+.primary a:not(.btn):not(.tag),
+.secondary a:not(.btn):not(.tag) {
+  color: #007A7C;
 }
 /* =====================================================
    Footer
