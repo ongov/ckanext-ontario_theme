@@ -183,6 +183,254 @@ class TestExemptionValidator(object):
             assert call_validator(valid_exemption) == valid_exemption.lower(), (
                 'Should return lower case value if in list of accepted values')
 
+class TestSubmissionTypeValidator(object):
+
+    def test_submission_type_validator_with_invalid_value(self):
+        '''If given an invalid value submission_type_validator() shold raise Invalid.
+        '''
+
+        invalid_values = [
+            # Non-strings aren't allowed.
+            13,
+            23.7,
+            100,
+            1.0j,
+            None,
+            True,
+            False,
+            ('a', 2, False),
+            [13, None, True],
+            {'foo': 'bar'},
+            lambda x: x ** 2,
+
+            # Strings not in list aren't allowed.
+            'random_string',
+            'No',
+            'colby candidate',
+            ''
+        ]
+
+        for invalid_value in invalid_values:
+            def call_validator(*args, **kwargs):
+                return extrafields.submission_type_validator(*args, **kwargs)
+            nose.tools.assert_raises(df.Invalid, call_validator, invalid_value)
+
+    def test_submission_type_validator_with_valid_value(self):
+        '''If given a valid value submission_type_validator() should return a lower cased version of value.
+        '''
+
+        valid_values = [
+                        'colby_candidate',
+                        'public_to_open_dataset',
+                        'new_open_dataset',
+                        'new_dataset_not_open',
+                        'open_existing_dataset)',
+                        'major_update_of_open_data',
+                        'major_update_of_non-open_dataset'
+        ]
+
+        for valid_value in valid_values:
+            def call_validator(*args, **kwargs):
+                return extrafields.submission_type_validator(*args, **kwargs)
+            assert call_validator(valid_value) == valid_value.lower(), (
+                'Should return lower case value if in list of valid values.')
+
+class TestSubmissionStatusValidator(object):
+
+    def test_submission_status_validator_with_invalid_value(self):
+        '''If given an invalid value submission_status_validator() should raise Invalid.
+        '''
+
+        invalid_values = [
+            # Non-strings aren't allowed.
+            13,
+            23.7,
+            100,
+            1.0j,
+            None,
+            True,
+            False,
+            ('a', 2, False),
+            [13, None, True],
+            {'foo': 'bar'},
+            lambda x: x ** 2,
+
+            # Strings not in list aren't allowed.
+            'random_string',
+            'ogo review',
+            ''
+        ]
+
+        for invalid_value in invalid_values:
+            def call_validator(*args, **kwargs):
+                return extrafields.submission_status_validator(*args, **kwargs)
+            nose.tools.assert_raises(df.Invalid, call_validator, invalid_value)
+
+    def test_submission_status_validator_with_valid_value(self):
+        '''If given a valid value submission_status_validator() should return lower case version of value.
+        '''
+
+        valid_values = [
+                        'data_identified_for_internal_sharing',
+                        'posted_to_colby',
+                        'data_identified_for_opening',
+                        'submission_in_development',
+                        'metadata_under_reivew_by_ministry',
+                        'metadata_in_translation',
+                        'ogo_review',
+                        'mo_review/fyi',
+                        'uploading/updating',
+                        'published'
+        ]
+
+        for valid_value in valid_values:
+            def call_validator(*args, **kwargs):
+                return extrafields.submission_status_validator(*args, **kwargs)
+            assert call_validator(valid_value) == valid_value.lower(), (
+                'Should return lower case value if in list of valid values.')
+
+class TestMachineReadableValidator(object):
+
+    def test_machine_readable_validator_with_invalid_value(self):
+        '''If given an invalid value machine_readable_value() should raise Invalid.
+        '''
+
+        invalid_values = [
+            # Non-strings aren't allowed.
+            13,
+            23.7,
+            100,
+            1.0j,
+            None,
+            True,
+            False,
+            ('a', 2, False),
+            [13, None, True],
+            {'foo': 'bar'},
+            lambda x: x ** 2,
+
+            # Strings not in list aren't allowed.
+            'random_string',
+            'not open',
+            ''
+        ]
+
+        for invalid_value in invalid_values:
+            def call_validator(*args, **kwargs):
+                return extrafields.machine_readable_validator(*args, **kwargs)
+            nose.tools.assert_raises(df.Invalid, call_validator, invalid_value)
+
+    def test_machine_readable_validator_with_valid_value(self):
+        '''If given a valid value machine_readable_validator() should return a lower case version of value.
+        '''
+
+        valid_values = [
+                        'open',
+                        'not_preferred',
+                        'not_open'
+        ]
+
+        for valid_value in valid_values:
+            def call_validator(*args, **kwargs):
+                return extrafields.machine_readable_validator(*args, **kwargs)
+            assert call_validator(valid_value) == valid_value.lower(), (
+                'Should return lower case value if in list of valid values.')
+
+class TestTimeSeriesValidator(object):
+
+    def test_time_series_validator_with_invalid_value(self):
+        '''If given an invalid value time_series_validator() should raise Invalid.
+        '''
+
+        invalid_values = [
+            # Non-strings aren't allowed.
+            13,
+            23.7,
+            100,
+            1.0j,
+            None,
+            True,
+            False,
+            ('a', 2, False),
+            [13, None, True],
+            {'foo': 'bar'},
+            lambda x: x ** 2,
+
+            # Strings not in list aren't allowed.
+            'random_string',
+            'No',
+            'all data is in one file',
+        ]
+
+        for invalid_value in invalid_values:
+            def call_validator(*args, **kwargs):
+                return extrafields.time_series_validator(*args, **kwargs)
+            nose.tools.assert_raises(df.Invalid, call_validator, invalid_value)
+
+    def test_time_series_validator_with_valid_value(self):
+        '''If given a valid value time_series_validator() should return a lower case version of value.
+        '''
+
+        valid_values = [
+                        '',
+                        'all_data_is_in_one_file',
+                        'data_is_split_into_multiple_files',
+                        'N/A'
+        ]
+
+        for valid_value in valid_values:
+            def call_validator(*args, **kwargs):
+                return extrafields.time_series_validator(*args, **kwargs)
+            assert call_validator(valid_value) == valid_value.lower(), (
+                'Should return lower case value if in list of valid values.')
+
+class TestGoodFileNameValidator(object):
+
+    def test_good_file_name_validator_with_invalid_value(self):
+        '''If given an invalid value good_file_name_validator() should raise Invalid.
+        '''
+
+        invalid_values = [
+            # Non-strings aren't allowed.
+            13,
+            23.7,
+            100,
+            1.0j,
+            None,
+            True,
+            False,
+            ('a', 2, False),
+            [13, None, True],
+            {'foo': 'bar'},
+            lambda x: x ** 2,
+
+            # Strings not in list aren't allowed.
+            'random string',
+            'needs improvement',
+            ''
+        ]
+
+        for invalid_value in invalid_values:
+            def call_validator(*args, **kwargs):
+                return extrafields.good_file_name_validator(*args, **kwargs)
+            nose.tools.assert_raises(df.Invalid, call_validator, invalid_value)
+
+    def test_good_file_name_validator_with_valid_value(self):
+        '''If given a valid value good_file_name_validator() should return lower case version of value.
+        '''
+
+        valid_values = [
+                        'yes',
+                        'needs_improvement',
+                        'mo'
+        ]
+
+        for valid_value in valid_values:
+            def call_validator(*args, **kwargs):
+                return extrafields.good_file_name_validator(*args, **kwargs)
+            assert call_validator(valid_value) == valid_value.lower(), (
+                'Should return lower case value if in list of valid values.')
+
 class TestDateValidator(object):
 
     def test_date_validator_with_invalid_value(self):
