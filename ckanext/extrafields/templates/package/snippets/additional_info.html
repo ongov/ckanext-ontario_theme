@@ -7,13 +7,13 @@
   {% if pkg_dict.submission_type %}
     <tr>
       <th scope="row" class="dataset-label">{{ _("Submission type") }}</th>
-      <td class="dataset-details">{{ pkg_dict.submission_type }}</td>
+      <td class="dataset-details">{{ pkg_dict.submission_type.replace("_", " ").capitalize() }}</td>
     </tr>
   {% endif %}
   {% if pkg_dict.submission_status %}
     <tr>
       <th scope="row" class="dataset-label">{{ _("Submission status") }}</th>
-      <td class="dataset-details">{{ pkg_dict.submission_status }}</td>
+      <td class="dataset-details">{{ pkg_dict.submission_status.replace("_", " ").capitalize() }}</td>
     </tr>
   {% endif %}
   <tr>
@@ -98,7 +98,7 @@
   {% if pkg_dict.machine_readable %}
     <tr>
       <th scope="row" class="dataset-label">{{ _("Machine readable") }}</th>
-      <td class="dataset-details">{{ pkg_dict.machine_readable }}</td>
+      <td class="dataset-details">{{ pkg_dict.machine_readable.replace("_", " ").capitalize() }}</td>
     </tr>
   {% endif %}
   {% if pkg_dict.postal_code_format %}
@@ -122,13 +122,13 @@
   {% if pkg_dict.time_series %}
     <tr>
       <th scope="row" class="dataset-label">{{ _("Time series") }}</th>
-      <td class="dataset-details">{{ pkg_dict.time_series }}</td>
+      <td class="dataset-details">{{ pkg_dict.time_series.replace("_", " ").capitalize() }}</td>
     </tr>
   {% endif %}
   {% if pkg_dict.good_file_name %}
     <tr>
       <th scope="row" class="dataset-label">{{ _("Good file name") }}</th>
-      <td class="dataset-details">{{ pkg_dict.good_file_name }}</td>
+      <td class="dataset-details">{{ pkg_dict.good_file_name.replace("_", " ").capitalize() }}</td>
     </tr>
   {% endif %}
   {% if pkg_dict.last_updated_in_catalogue %}
@@ -180,7 +180,7 @@
   {% if pkg_dict.short_description %}
     <tr>
       <th scope="row" class="dataset-label">{{ _("Short description") }}</th>
-      <td class="dataset-details">{{ pkg_dict.short_description}}</td>
+      <td class="dataset-details">{{ pkg_dict.short_description }}</td>
     </tr>
   {% endif %}
   {% if pkg_dict.maintainer_branch %}
