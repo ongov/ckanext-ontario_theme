@@ -43,6 +43,38 @@
       </td>
     </tr>
   {% endif %}
+  {% if pkg_dict.opened_date %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Resource opened (resource(s) published)") }}</th>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.opened_date %}
+      </td>
+    </tr>
+  {% endif %}  
+  {% if pkg_dict.dataset_published_date %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Date dataset was published publicly") }}</th>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.dataset_published_date %}
+      </td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.target_posting_date %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Target posting date") }}</th>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.target_posting_date %}
+      </td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.assessment_date %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Assessment date") }}</th>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.assessment_date %}
+      </td>
+    </tr>
+  {% endif %}    
   {% if pkg_dict.geographic_coverage %}
     <tr>
       <th scope="row" class="dataset-label">{{ _("Geographic coverage") }}</th>
@@ -136,6 +168,12 @@
     <th scope="row" class="dataset-label">{{ _("Meets update frequency") }}</th>
     <td class="dataset-details">{{ pkg_dict.meets_update_frequency }}</td>
   </tr>
+  {% if pkg_dict.last_updated_in_catalogue %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Last updated in catalogue") }}</th>
+      <td class="dataset-details">{{ pkg_dict.last_updated_in_catalogue }}</td>
+    </tr>
+  {% endif %}
 
   <tr>
     <th scope="row" class="dataset-label">{{ _("Removed") }}</th>
@@ -216,10 +254,10 @@
       <td class="dataset-details">{{ pkg_dict.plain_language_end_date }}</td>
     </tr>
   {% endif %}
-  {% if pkg_dict.final_reivew_date %}
+  {% if pkg_dict.final_review_date %}
     <tr>
       <th scope="row" class="dataset-label">{{ _("Final review date") }}</th>
-      <td class="dataset-details">{{ pkg_dict.final_reivew_date }}</td>
+      <td class="dataset-details">{{ pkg_dict.final_review_date }}</td>
     </tr>
   {% endif %}
   {% if pkg_dict.with_co_date %}
