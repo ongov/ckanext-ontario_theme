@@ -39,37 +39,49 @@
   {% if pkg_dict.submission_recieved_date %}
     <tr>
       <th scope="row" class="dataset-label">{{ _("Submission recieved date") }}</th>
-      <td class="dataset-details">{{ pkg_dict.submission_recieved_date }}</td>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.submission_recieved_date %}
+      </td>
     </tr>
   {% endif %}
   {% if pkg_dict.submission_service_standard_date %}
     <tr>
       <th scope="row" class="dataset-label">{{ _("Submission service standard date") }}</th>
-      <td class="dataset-details">{{ pkg_dict.submission_service_standard_date }}</td>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.submission_service_standard_date %}
+      </td>
     </tr>
   {% endif %}
   {% if pkg_dict.plain_language_start_date %}
     <tr>
       <th scope="row" class="dataset-label">{{ _("Plain language start date") }}</th>
-      <td class="dataset-details">{{ pkg_dict.plain_language_start_date }}</td>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.plain_language_start_date %}
+      </td>
     </tr>
   {% endif %}
   {% if pkg_dict.plain_language_end_date %}
     <tr>
       <th scope="row" class="dataset-label">{{ _("Plain language end date") }}</th>
-      <td class="dataset-details">{{ pkg_dict.plain_language_end_date }}</td>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.plain_language_end_date %}
+      </td>
     </tr>
   {% endif %}
   {% if pkg_dict.final_review_date %}
     <tr>
       <th scope="row" class="dataset-label">{{ _("Final review date") }}</th>
-      <td class="dataset-details">{{ pkg_dict.final_review_date }}</td>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.final_review_date %}
+      </td>
     </tr>
   {% endif %}
   {% if pkg_dict.with_co_date %}
     <tr>
       <th scope="row" class="dataset-label">{{ _("With CO date") }}</th>
-      <td class="dataset-details">{{ pkg_dict.with_co_date }}</td>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.with_co_date %}
+      </td>
     </tr>
   {% endif %}
   <tr>
@@ -134,7 +146,9 @@
   {% if pkg_dict.last_updated_in_catalogue %}
     <tr>
       <th scope="row" class="dataset-label">{{ _("Last updated in catalogue") }}</th>
-      <td class="dataset-details">{{ pkg_dict.last_updated_in_catalogue }}</td>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.last_updated_in_catalogue %}
+      </td>
     </tr>
   {% endif %}
 
@@ -153,7 +167,9 @@
   {% if pkg_dict.date_removed %}
     <tr>
       <th scope="row" class="dataset-label">{{ _("Date removed") }}</th>
-      <td class="dataset-details">{{ pkg_dict.date_removed }}</td>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.date_removed %}
+      </td>
     </tr>
   {% endif %}
   {% if pkg_dict.forwarding_url %}
