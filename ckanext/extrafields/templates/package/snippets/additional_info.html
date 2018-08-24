@@ -104,10 +104,12 @@
       <td class="dataset-details">{{ pkg_dict.fiscal_year_format }}</td>
     </tr>
   {% endif %}
-  <tr>
-    <th scope="row" class="dataset-label">{{ _("Machine readable") }}</th>
-    <td class="dataset-details">{{ pkg_dict.machine_readable }}</td>
-  </tr>
+  {% if pkg_dict.machine_readable %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Machine readable") }}</th>
+      <td class="dataset-details">{{ pkg_dict.machine_readable }}</td>
+    </tr>
+  {% endif %}
   {% if pkg_dict.good_file_name %}
     <tr>
       <th scope="row" class="dataset-label">{{ _("Good file name") }}</th>
