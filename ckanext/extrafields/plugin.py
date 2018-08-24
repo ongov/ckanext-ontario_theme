@@ -42,8 +42,8 @@ def access_level_validator(value):
     return value
 
 def exemption_validator(value):
-    if value == '': # Some systems set this as empty instead of none.
-      return 'none'
+    if value == '': # Some systems set this as empty instead of 'none'.
+      return 'none' # 'none' is the string value below.
     try:
         value = value.lower()
     except:
@@ -58,6 +58,8 @@ def exemption_validator(value):
     return value
 
 def submission_type_validator(value):
+    if value == '':
+        return None # Let user update value to empty.
     try:
         value = value.lower()
     except:
@@ -73,6 +75,8 @@ def submission_type_validator(value):
     return value
 
 def submission_status_validator(value):
+    if value == '':
+        return None # Let user update value to empty.  
     try:
         value = value.lower()
     except:
@@ -91,6 +95,8 @@ def submission_status_validator(value):
     return value
 
 def machine_readable_validator(value):
+    if value == '':
+        return None # Let user update value to empty.  
     try:
         value = value.lower()
     except:
@@ -115,6 +121,8 @@ def time_series_validator(value):
     return value
 
 def good_file_name_validator(value):
+    if value == '':
+        return None # Let user update value to empty.  
     try:
         value = value.lower()
     except:

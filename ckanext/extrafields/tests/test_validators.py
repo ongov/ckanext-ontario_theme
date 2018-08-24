@@ -206,8 +206,7 @@ class TestSubmissionTypeValidator(object):
             # Strings not in list aren't allowed.
             'random_string',
             'No',
-            'colby candidate',
-            ''
+            'colby candidate'
         ]
 
         for invalid_value in invalid_values:
@@ -235,6 +234,21 @@ class TestSubmissionTypeValidator(object):
             assert call_validator(valid_value) == valid_value.lower(), (
                 "Should return lower case value (%r) if in list of valid values." % (valid_value))
 
+    def test_submission_type_validator_with_valid_empty_value(self):
+        '''If given an empty string return None.
+           This lets user update value to be empty.
+        '''
+        valid_values = [
+            # Allowed empty string.
+            ''
+        ]
+
+        for valid_value in valid_values:
+            def call_validator(*args, **kwargs):
+                return extrafields.submission_type_validator(*args, **kwargs)
+            assert call_validator(valid_value) == None, (
+                'Should return None if empty string passed')            
+
 class TestSubmissionStatusValidator(object):
 
     def test_submission_status_validator_with_invalid_value(self):
@@ -257,8 +271,7 @@ class TestSubmissionStatusValidator(object):
 
             # Strings not in list aren't allowed.
             'random_string',
-            'ogo review',
-            ''
+            'ogo review'
         ]
 
         for invalid_value in invalid_values:
@@ -289,6 +302,21 @@ class TestSubmissionStatusValidator(object):
             assert call_validator(valid_value) == valid_value.lower(), (
                 "Should return lower case value (%r) if in list of valid values." % (valid_value))
 
+    def test_submission_status_validator_with_valid_empty_value(self):
+        '''If given an empty string return None.
+           This lets user update value to be empty.
+        '''
+        valid_values = [
+            # Allowed empty string.
+            ''
+        ]
+
+        for valid_value in valid_values:
+            def call_validator(*args, **kwargs):
+                return extrafields.submission_status_validator(*args, **kwargs)
+            assert call_validator(valid_value) == None, (
+                'Should return None if empty string passed')            
+
 class TestMachineReadableValidator(object):
 
     def test_machine_readable_validator_with_invalid_value(self):
@@ -311,8 +339,7 @@ class TestMachineReadableValidator(object):
 
             # Strings not in list aren't allowed.
             'random_string',
-            'not open',
-            ''
+            'not open'
         ]
 
         for invalid_value in invalid_values:
@@ -335,6 +362,21 @@ class TestMachineReadableValidator(object):
                 return extrafields.machine_readable_validator(*args, **kwargs)
             assert call_validator(valid_value) == valid_value.lower(), (
                 "Should return lower case value (%r) if in list of valid values." % (valid_value))
+
+    def test_machine_readable_validator_with_valid_empty_value(self):
+        '''If given an empty string return None.
+           This lets user update value to be empty.
+        '''
+        valid_values = [
+            # Allowed empty string.
+            ''
+        ]
+
+        for valid_value in valid_values:
+            def call_validator(*args, **kwargs):
+                return extrafields.machine_readable_validator(*args, **kwargs)
+            assert call_validator(valid_value) == None, (
+                'Should return None if empty string passed')            
 
 class TestTimeSeriesValidator(object):
 
@@ -374,7 +416,7 @@ class TestTimeSeriesValidator(object):
         valid_values = [
                         'all_data_is_in_one_file',
                         'data_is_split_into_multiple_files',
-                        'N/A'
+                        'n/a'
         ]
 
         for valid_value in valid_values:
@@ -420,8 +462,7 @@ class TestGoodFileNameValidator(object):
 
             # Strings not in list aren't allowed.
             'random string',
-            'needs improvement',
-            ''
+            'needs improvement'
         ]
 
         for invalid_value in invalid_values:
@@ -444,6 +485,21 @@ class TestGoodFileNameValidator(object):
                 return extrafields.good_file_name_validator(*args, **kwargs)
             assert call_validator(valid_value) == valid_value.lower(), (
                 "Should return lower case value (%r) if in list of valid values." % (valid_value))
+
+    def test_good_file_name_validator_with_valid_empty_value(self):
+        '''If given an empty string return None.
+           This lets user update value to be empty.
+        '''
+        valid_values = [
+            # Allowed empty string.
+            ''
+        ]
+
+        for valid_value in valid_values:
+            def call_validator(*args, **kwargs):
+                return extrafields.good_file_name_validator(*args, **kwargs)
+            assert call_validator(valid_value) == None, (
+                'Should return None if empty string passed')            
 
 class TestDateValidator(object):
 

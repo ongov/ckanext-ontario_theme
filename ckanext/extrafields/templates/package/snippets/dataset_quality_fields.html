@@ -31,7 +31,8 @@ These fields are used for reporting purposes.
                  checked=data.open_access) }}
         {{ form.select('machine_readable',
                        label=_('Machine readable'),
-                       options=[{'name': 'Open', 'text': _('Open'), 'value': 'open'},
+                       options=[{'name': '', 'text': _(''), 'value': ''},
+                                {'name': 'Open', 'text': _('Open'), 'value': 'open'},
                                 {'name': 'Not preferred', 'text': _('Not preferred'), 'value': 'not_preferred'},
                                 {'name': 'Not open', 'text': _('Not open'), 'value': 'not_open'}],
                        id='field-machince_readable',
