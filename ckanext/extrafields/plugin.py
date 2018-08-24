@@ -129,7 +129,7 @@ def good_file_name_validator(value):
         raise Invalid('Invalid good_file_name input value, must be a string')
     if value not in ['yes',
                      'needs_improvement',
-                     'mo']:
+                     'no']:
         raise Invalid('Invalid good_file_name input value')
     return value
 

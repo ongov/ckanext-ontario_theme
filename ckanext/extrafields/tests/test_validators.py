@@ -477,7 +477,7 @@ class TestGoodFileNameValidator(object):
         valid_values = [
                         'yes',
                         'needs_improvement',
-                        'mo'
+                        'no'
         ]
 
         for valid_value in valid_values:
