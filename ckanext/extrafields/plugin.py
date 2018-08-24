@@ -296,31 +296,37 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'submission_recieved_date': [toolkit.get_validator('ignore_missing'),
+                                         date_validator,
                                          toolkit.get_converter('convert_to_extras')]
         })
 
         schema.update({
             'submission_service_standard_date': [toolkit.get_validator('ignore_missing'),
+                                                 date_validator,
                                                  toolkit.get_converter('convert_to_extras')]
         })
 
         schema.update({
             'plain_language_start_date': [toolkit.get_validator('ignore_missing'),
+                                          date_validator,
                                           toolkit.get_converter('convert_to_extras')]
         })
 
         schema.update({
             'plain_language_end_date': [toolkit.get_validator('ignore_missing'),
+                                        date_validator,
                                         toolkit.get_converter('convert_to_extras')]
         })
 
         schema.update({
             'final_review_date': [toolkit.get_validator('ignore_missing'),
+                                  date_validator,
                                   toolkit.get_converter('convert_to_extras')]
         })
 
         schema.update({
             'with_co_date': [toolkit.get_validator('ignore_missing'),
+                             date_validator,
                              toolkit.get_converter('convert_to_extras')]
         })
 
@@ -343,6 +349,7 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'date_removed': [toolkit.get_validator('ignore_missing'),
+                             date_validator,
                              toolkit.get_converter('convert_to_extras')]
         })
 
@@ -408,6 +415,7 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'last_updated_in_catalogue': [toolkit.get_validator('ignore_missing'),
+                                          date_validator,
                                           toolkit.get_converter('convert_to_extras')]
         })
 
@@ -566,31 +574,37 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'submission_recieved_date': [toolkit.get_converter('convert_from_extras'),
+                                         date_validator,
                                          toolkit.get_validator('ignore_missing')]
         })
 
         schema.update({
             'submission_service_standard_date': [toolkit.get_converter('convert_from_extras'),
+                                                 date_validator,
                                                  toolkit.get_validator('ignore_missing')]
         })
 
         schema.update({
             'plain_language_start_date': [toolkit.get_converter('convert_from_extras'),
+                                          date_validator,
                                           toolkit.get_validator('ignore_missing')]
         })
 
         schema.update({
             'plain_language_end_date': [toolkit.get_converter('convert_from_extras'),
+                                        date_validator,
                                         toolkit.get_validator('ignore_missing')]
         })
 
         schema.update({
             'final_review_date': [toolkit.get_converter('convert_from_extras'),
+                                  date_validator,
                                   toolkit.get_validator('ignore_missing')]
         })
 
         schema.update({
             'with_co_date': [toolkit.get_converter('convert_from_extras'),
+                             date_validator,
                              toolkit.get_validator('ignore_missing')]
         })
 
@@ -613,7 +627,8 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'date_removed': [toolkit.get_converter('convert_from_extras'),
-                            toolkit.get_validator('ignore_missing')]
+                             date_validator,
+                             toolkit.get_validator('ignore_missing')]
         })
 
         schema.update({
@@ -678,6 +693,7 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'last_updated_in_catalogue': [toolkit.get_converter('convert_from_extras'),
+                                          date_validator,
                                           toolkit.get_validator('ignore_missing')]
         })
 
