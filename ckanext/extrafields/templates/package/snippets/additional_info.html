@@ -1,27 +1,213 @@
 {% ckan_extends %}
 
 {% block extras %}
+
+  {# Submission tracking values #}
+
+  {% if pkg_dict.submission_type %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Submission type") }}</th>
+      <td class="dataset-details">{{ pkg_dict.submission_type.replace("_", " ").capitalize() }}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.submission_status %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Submission status") }}</th>
+      <td class="dataset-details">{{ pkg_dict.submission_status.replace("_", " ").capitalize() }}</td>
+    </tr>
+  {% endif %}
+  <tr>
+    <th scope="row" class="dataset-label">{{ _("Rush") }}</th>
+    <td class="dataset-details">{{ pkg_dict.rush }}</td>
+  </tr>
+  <tr>
+    <th scope="row" class="dataset-label">{{ _("Issues") }}</th>
+    <td class="dataset-details">{{ pkg_dict.issues }}</td>
+  </tr>
+  {% if pkg_dict.submission_comments %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Submission comments") }}</th>
+      <td class="dataset-details">{{ pkg_dict.submission_comments }}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.submission_communication_plan %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Submission communication plan") }}</th>
+      <td class="dataset-details">{{ pkg_dict.submission_communication_plan }}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.submission_recieved_date %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Submission recieved date") }}</th>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.submission_recieved_date %}
+      </td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.submission_service_standard_date %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Submission service standard date") }}</th>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.submission_service_standard_date %}
+      </td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.plain_language_start_date %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Plain language start date") }}</th>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.plain_language_start_date %}
+      </td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.plain_language_end_date %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Plain language end date") }}</th>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.plain_language_end_date %}
+      </td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.final_review_date %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Final review date") }}</th>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.final_review_date %}
+      </td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.with_co_date %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("With CO date") }}</th>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.with_co_date %}
+      </td>
+    </tr>
+  {% endif %}
+  <tr>
+    <th scope="row" class="dataset-label">{{ _("Met service standard") }}</th>
+    <td class="dataset-details">{{ pkg_dict.met_service_standard }}</td>
+  </tr>
+
+  {# Dataset quality fields #}
+  
+  <tr>
+    <th scope="row" class="dataset-label">{{ _("Meets update frequency") }}</th>
+    <td class="dataset-details">{{ pkg_dict.meets_update_frequency }}</td>
+  </tr>  
+  <tr>
+    <th scope="row" class="dataset-label">{{ _("Technical documents") }}</th>
+    <td class="dataset-details">{{ pkg_dict.technical_documents }}</td>
+  </tr>
+  <tr>
+    <th scope="row" class="dataset-label">{{ _("Broken links") }}</th>
+    <td class="dataset-details">{{ pkg_dict.broken_links }}</td>
+  </tr>
+  <tr>
+    <th scope="row" class="dataset-label">{{ _("Open access") }}</th>
+    <td class="dataset-details">{{ pkg_dict.open_access }}</td>
+  </tr>
+  {% if pkg_dict.machine_readable %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Machine readable") }}</th>
+      <td class="dataset-details">{{ pkg_dict.machine_readable.replace("_", " ").capitalize() }}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.postal_code_format %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Postal code format") }}</th>
+      <td class="dataset-details">{{ pkg_dict.postal_code_format }}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.fiscal_year_format %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Fiscal year format") }}</th>
+      <td class="dataset-details">{{ pkg_dict.fiscal_year_format }}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.date_format %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Date format") }}</th>
+      <td class="dataset-details">{{ pkg_dict.date_format }}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.time_series %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Time series") }}</th>
+      <td class="dataset-details">{{ pkg_dict.time_series.replace("_", " ").capitalize() }}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.good_file_name %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Good file name") }}</th>
+      <td class="dataset-details">{{ pkg_dict.good_file_name.replace("_", " ").capitalize() }}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.last_updated_in_catalogue %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Last updated in catalogue") }}</th>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.last_updated_in_catalogue %}
+      </td>
+    </tr>
+  {% endif %}
+
+  {# Archive tracking fields #}
+
+  <tr>
+    <th scope="row" class="dataset-label">{{ _("Removed") }}</th>
+    <td class="dataset-details">{{ pkg_dict.removed }}</td>
+  </tr>
+  {% if pkg_dict.removal_rationale %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Removal rationale") }}</th>
+      <td class="dataset-details">{{ pkg_dict.removal_rationale }}</td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.date_removed %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Date removed") }}</th>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.date_removed %}
+      </td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.forwarding_url %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Forarding url") }}</th>
+      <td class="dataset-details">{{ pkg_dict.forwarding_url }}</td>
+    </tr>
+  {% endif %}
+
+  {# Metadata fields #}
+  
+  {% if pkg_dict.node_id %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Ontario node ID") }}</th>
+      <td class="dataset-details">{{ pkg_dict.node_id }}</td>
+    </tr>
+  {% endif %}
   {% if pkg_dict.technical_title %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Technical Title") }}</th>
+      <th scope="row" class="dataset-label">{{ _("Technical title") }}</th>
       <td class="dataset-details">{{ pkg_dict.technical_title }}</td>
     </tr>
   {% endif %}
   {% if pkg_dict.short_description %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Short Description") }}</th>
-      <td class="dataset-details">{{ pkg_dict.short_description}}</td>
+      <th scope="row" class="dataset-label">{{ _("Short description") }}</th>
+      <td class="dataset-details">{{ pkg_dict.short_description }}</td>
     </tr>
   {% endif %}
   {% if pkg_dict.maintainer_branch %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Maintainer Branch") }}</th>
+      <th scope="row" class="dataset-label">{{ _("Maintainer branch") }}</th>
       <td class="dataset-details">{{ pkg_dict.maintainer_branch }}</td>
     </tr>
   {% endif %}
   {% if pkg_dict.data_range_start %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Data Range Start") }}</th>
+      <th scope="row" class="dataset-label">{{ _("Data range start") }}</th>
       <td class="dataset-details">
         {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.data_range_start %}
       </td>
@@ -29,7 +215,7 @@
   {% endif %}
   {% if pkg_dict.data_range_end %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Data Range End") }}</th>
+      <th scope="row" class="dataset-label">{{ _("Data range end") }}</th>
       <td class="dataset-details">
         {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.data_range_end %}
       </td>
@@ -37,33 +223,47 @@
   {% endif %}
   {% if pkg_dict.data_birth_date %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Data Birth Date") }}</th>
+      <th scope="row" class="dataset-label">{{ _("Data birth date") }}</th>
       <td class="dataset-details">
         {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.data_birth_date %}
       </td>
     </tr>
   {% endif %}
-  {% if pkg_dict.geographic_coverage %}
+  {% if pkg_dict.opened_date %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Geographic Coverage") }}</th>
-      <td class="dataset-details">{{ pkg_dict.geographic_coverage }}</td>
+      <th scope="row" class="dataset-label">{{ _("Resource opened (resource(s) published)") }}</th>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.opened_date %}
+      </td>
+    </tr>
+  {% endif %}  
+  {% if pkg_dict.dataset_published_date %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Date dataset was published publicly") }}</th>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.dataset_published_date %}
+      </td>
     </tr>
   {% endif %}
-  {% if pkg_dict.contains_geographic_markers %}
+  <tr>
+    <th scope="row" class="dataset-label">{{ _("Contains geographic markers") }}</th>
+    <td class="dataset-details">{{ pkg_dict.contains_geographic_markers }}</td>
+  </tr>
+  {% if pkg_dict.geographic_coverage %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Contains Geographic Markers") }}</th>
-      <td class="dataset-details">{{ pkg_dict.contains_geographic_markers }}</td>
+      <th scope="row" class="dataset-label">{{ _("Geographic coverage") }}</th>
+      <td class="dataset-details">{{ pkg_dict.geographic_coverage }}</td>
     </tr>
   {% endif %}
   {% if pkg_dict.update_frequency %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Update Frequency") }}</th>
+      <th scope="row" class="dataset-label">{{ _("Update frequency") }}</th>
       <td class="dataset-details">{{ pkg_dict.update_frequency.replace("_", " ").capitalize() }}</td>
     </tr>
   {% endif %}
   {% if pkg_dict.access_level %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Access Level") }}</th>
+      <th scope="row" class="dataset-label">{{ _("Access level") }}</th>
       <td class="dataset-details">{{ pkg_dict.access_level.replace("_", " ").capitalize() }}</td>
     </tr>
   {% endif %}
@@ -75,7 +275,7 @@
   {% endif %}
   {% if pkg_dict.exemption_rationale %}
     <tr>
-      <th scope="row" class="dataset-label">{{ _("Exemption Rationale") }}</th>
+      <th scope="row" class="dataset-label">{{ _("Exemption rationale") }}</th>
       <td class="dataset-details">{{ pkg_dict.exemption_rationale }}</td>
     </tr>
   {% endif %}
@@ -85,4 +285,21 @@
       <td class="dataset-details">{{ pkg_dict.comments }}</td>
     </tr>
   {% endif %}
+  {% if pkg_dict.target_posting_date %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Target posting date") }}</th>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.target_posting_date %}
+      </td>
+    </tr>
+  {% endif %}
+  {% if pkg_dict.assessment_date %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Assessment date") }}</th>
+      <td class="dataset-details">
+        {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.assessment_date %}
+      </td>
+    </tr>
+  {% endif %}
+
 {% endblock %}

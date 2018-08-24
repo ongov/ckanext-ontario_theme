@@ -1,0 +1,36 @@
+{#
+
+Renders the dataset extras related to archiving datasets.
+
+#}
+
+{% import 'macros/form.html' as form %}
+
+<fieldset>
+    <legend>Archive tracking</legend>
+        {{ form.checkbox('removed',
+                         label=_('Removed'),
+                         id='field-removed',
+                         value=true,
+                         checked=data.removed) }}
+        {{ form.markdown('removal_rationale',
+                         label=_('Removal rationale'),
+                         id='field-removal_rationale',
+                         placeholder=_('Removal rationale'),
+                         value=data.removal_rationale,
+                         error=errors.removal_rationale) }}
+        {{ form.input('date_removed',
+                      label=_('Date removed'),
+                      id='field-date_removed',
+                      value=data.date_removed,
+                      error=errors.date_removed,
+                      type='date',
+                      classes=['control-medium']) }}
+        {{ form.input('forwarding_url',
+                      label=_('Forwarding url'),
+                      id='field-forwarding_url',
+                      value=data.forwarding_url,
+                      error=errors.forwarding_url,
+                      type='text',
+                      classes=['control-medium']) }}
+</fieldset>

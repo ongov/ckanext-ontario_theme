@@ -1,0 +1,90 @@
+{#
+
+Renders the dataset extras related to data quality for datasets.
+These fields are used for reporting purposes.
+
+#}
+
+{% import 'macros/form.html' as form %}
+
+<fieldset>
+    <legend>Dataset quality</legend>
+        {{ form.checkbox('meets_update_frequency',
+                         label=_('Meets update frequency'),
+                         id='field-meets_update_frequency',
+                         value=true,
+                         checked=data.meets_update_frequency) }}
+        {{ form.checkbox('technical_documents',
+                 label=_('Technical documents'),
+                 id='field-technical_documents',
+                 value=true,
+                 checked=data.technical_documents) }}
+        {{ form.checkbox('broken_links',
+                 label=_('Broken links'),
+                 id='field-broken_links',
+                 value=true,
+                 checked=data.broken_links) }}
+        {{ form.checkbox('open_access',
+                 label=_('Open access'),
+                 id='field-open_access',
+                 value=true,
+                 checked=data.open_access) }}
+        {{ form.select('machine_readable',
+                       label=_('Machine readable'),
+                       options=[{'name': '', 'text': _(''), 'value': ''},
+                                {'name': 'Open', 'text': _('Open'), 'value': 'open'},
+                                {'name': 'Not preferred', 'text': _('Not preferred'), 'value': 'not_preferred'},
+                                {'name': 'Not open', 'text': _('Not open'), 'value': 'not_open'}],
+                       id='field-machine_readable',
+                       selected=data.machine_readable,
+                       error=errors.machine_readable,
+                       classes=['control-medium']) }}
+        {{ form.input('postal_code_format',
+                      label=_('Postal code format'),
+                      id='field-postal_code_format',
+                      value=data.postal_code_format,
+                      error=errors.postal_code_format,
+                      type='text',
+                      classes=['control-medium']) }}
+        {{ form.input('fiscal_year_format',
+                      label=_('Fiscal year format'),
+                      id='field-fiscal_year_format',
+                      value=data.fiscal_year_format,
+                      error=errors.fiscal_year_format,
+                      type='text',
+                      classes=['control-medium']) }}
+        {{ form.input('date_format',
+                      label=_('Date format'),
+                      id='field-date_format',
+                      value=data.date_format,
+                      error=errors.date_format,
+                      type='text',
+                      classes=['control-medium']) }}
+        {{ form.select('time_series',
+                       label=_('Time series'),
+                       options=[{'name': '', 'text': _(''), 'value': ''},
+                                {'name': 'All data is in one file', 'text': _('All data is in one file'), 'value': 'all_data_is_in_one_file'},
+                                {'name': 'Data is split into multiple files', 'text': _('Data is split into multiple files'), 'value': 'data_is_split_into_multiple_files'},
+                                {'name': 'N/A', 'text': _('N/A'), 'value': 'N/A'}],
+                       id='field-time_series',
+                       selected=data.time_series,
+                       error=errors.time_series,
+                       classes=['control-medium']) }}
+        {{ form.select('good_file_name',
+                       label=_('Good file name'),
+                       options=[{'name': '', 'text': _(''), 'value': ''},
+                                {'name': 'Yes', 'text': _('Yes'), 'value': 'yes'},
+                                {'name': 'Needs Improvement', 'text': _('Needs Improvement'), 'value': 'needs_improvement'},
+                                {'name': 'No', 'text': _('No'), 'value': 'no'}],
+                       id='field-good_file_name',
+                       selected=data.good_file_name,
+                       error=errors.good_file_name,
+                       classes=['control-medium']) }}
+        {{ form.input('last_updated_in_catalogue',
+                      label=_('Last updated in catalogue'),
+                      id='field-last_updated_in_catalogue',
+                      value=data.last_updated_in_catalogue,
+                      error=errors.last_updated_in_catalogue,
+                      type='date',
+                      classes=['control-medium']) }}
+</fieldset>

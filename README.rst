@@ -31,7 +31,9 @@ Running the Tests
 
 To run the tests, do::
 
-    nosetests --nologcapture --with-pylons=test.ini
+    cd ckanext-extrafields # go to extension directory
+    . /usr/lib/ckan/default/bin/activate # active vertual environment that has nosetests.
+    nosetests --nologcapture --with-pylons=test.ini # run tests
 
 To run the tests and produce a coverage report, first make sure you have
 coverage installed in your virtualenv (``pip install coverage``) then run::
