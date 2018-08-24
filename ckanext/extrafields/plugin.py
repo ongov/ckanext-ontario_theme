@@ -264,11 +264,13 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'submission_type': [toolkit.get_validator('ignore_missing'),
+                                submission_type_validator,
                                 toolkit.get_converter('convert_to_extras')]
         })
 
         schema.update({
             'submission_status': [toolkit.get_validator('ignore_missing'),
+                                  submission_status_validator,
                                   toolkit.get_converter('convert_to_extras')]
         })
 
@@ -373,6 +375,7 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'machine_readable': [toolkit.get_validator('ignore_missing'),
+                                 machine_readable_validator,
                                  toolkit.get_converter('convert_to_extras')]
         })
 
@@ -393,11 +396,13 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'time_series': [toolkit.get_validator('ignore_missing'),
+                            time_series_validator,
                             toolkit.get_converter('convert_to_extras')]
         })
 
         schema.update({
             'good_file_name': [toolkit.get_validator('ignore_missing'),
+                               good_file_name_validator,
                                toolkit.get_converter('convert_to_extras')]
         })
 
@@ -529,11 +534,13 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'submission_type': [toolkit.get_converter('convert_from_extras'),
+                                submission_type_validator,
                                 toolkit.get_validator('ignore_missing')]
         })
 
         schema.update({
             'submission_status': [toolkit.get_converter('convert_from_extras'),
+                                  submission_status_validator,
                                   toolkit.get_validator('ignore_missing')]
         })
 
@@ -638,6 +645,7 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'machine_readable': [toolkit.get_converter('convert_from_extras'),
+                                 machine_readable_validator,
                                  toolkit.get_validator('ignore_missing')]
         })
 
@@ -658,11 +666,13 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             'time_series': [toolkit.get_converter('convert_from_extras'),
+                            time_series_validator,
                             toolkit.get_validator('ignore_missing')]
         })
 
         schema.update({
             'good_file_name': [toolkit.get_converter('convert_from_extras'),
+                               good_file_name_validator,
                                toolkit.get_validator('ignore_missing')]
         })
 
