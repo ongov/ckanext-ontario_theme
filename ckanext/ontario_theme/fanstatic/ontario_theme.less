@@ -1,5 +1,6 @@
 @import "smarties.less";
 @import "cards.less";
+@import "buttons.less";
 
 /* =====================================================
    Colby Variables
@@ -343,7 +344,7 @@ a.tag:hover {
 }
 
 a {
-    color: #06c;
+    color: @secondary-colour;
     line-height: inherit;
     text-decoration: none;
 }
@@ -496,15 +497,6 @@ main > div:nth-child(2) {
   }
   h4 {
     font-size: 1.25rem;
-  }
-  .btn.btn-primary {
-    background-color: @secondary-colour;
-  }
-  .btn.btn-info {
-    background-color: @primary-colour;
-  }
-  a {
-    color: @secondary-colour;
   }
 }
 
