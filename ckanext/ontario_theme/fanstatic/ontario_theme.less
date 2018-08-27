@@ -618,6 +618,103 @@ div.introduction {
 }
 
 /* =====================================================
+   Layout changes
+   ===================================================== */
+
+.wrapper {
+  background-image: none;
+  border: none;
+  box-shadow: none;
+  header.page-header {
+    border: none;
+    background: none;
+    ul.nav.nav-tabs {
+      width: 100%;
+      li a {
+        color: @grey;
+        border: none;
+        &:hover {
+          border: none;
+        }
+      }
+      li.active a {
+        border: none;
+        border-bottom: solid 2px @primary-colour;
+        color: @primary-colour;
+      }
+    }
+  }
+
+}
+.module-heading {
+  border-top: none;
+  border-bottom: none;
+  background-color: transparent;  
+}
+.module-narrow {
+  margin: 40px 0px;
+  background: #fafafa;
+  padding: 20px 5px;
+  border-radius: 5px;
+  .module-content {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }  
+}
+.well {
+  &:before{
+    //content: "Topics:";
+  }
+  border: none;
+  background: none;
+  box-shadow: none;
+  a.tag {
+    background-color: @primary-colour;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    box-shadow: none;
+  }
+}
+table.table {
+  border: none;
+  thead {
+    display: none;
+  }
+  td {
+    border: none;
+  }
+  tbody tr:nth-child(even) th, tbody tr:nth-child(even) td {
+    background-color: #f9f9f9;
+  }
+  tbody tr th, tbody tr td {
+    border: none;
+  }
+  tbody tr td {
+    width: 75%;
+  }
+}
+.btn, .btn:hover {
+  background-image: none;
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+.btn, .btn.btn-success, .btn:active, .btn.btn-success:active, .btn:hover, btn.btn-success:hover {
+  background-color: @primary-colour;
+}
+.btn.btn-primary, btn.btn-primary:hover {
+  background-color: @secondary-colour;
+}
+.primary a:not(.btn):not(.tag):not(.label), 
+.secondary a:not(.btn):not(.tag):not(.label) {
+  color: @secondary-colour;
+}
+.media-grid {
+  border: none;
+}
+
+/* =====================================================
    Footer
    ===================================================== */
 
@@ -673,3 +770,4 @@ footer.site-footer {
     background: url(/base/images/ckan-logo-footer_dark.png) no-repeat top left;
   }
 }
+
