@@ -1,3 +1,10 @@
+{#
+
+Renders the number of datasets as a single smartie.
+
+Uses get_site_statistics() to parse and display the stat.
+
+#}
 {% set stats = h.get_site_statistics() %}
 
     <div class="stats top-margin smartie">
