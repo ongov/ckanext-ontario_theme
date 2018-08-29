@@ -890,7 +890,10 @@ footer.site-footer .attribution .ckan-footer-logo {
 /* =====================================================
    Accessibility-specific styles
    ===================================================== */
-a.skip-main {
+.accessibly-hidden,
+a.skip-main,
+.simple-input label,
+.simple-input button {
   left: -999px;
   position: absolute;
   top: auto;
@@ -898,6 +901,7 @@ a.skip-main {
   height: 1px;
   overflow: hidden;
   z-index: -999;
+  display: inline;
 }
 a.skip-main:focus,
 a.skip-main:active {
