@@ -41,3 +41,20 @@ within_tertiary
 {% ckan_extends %}
 
 {% set hide_empty = true %}
+
+{% block facet_list_heading %}
+  {% with items = items or h.get_facet_items_dict(name) %}
+  <h2 class="module-heading">
+    <i class="fa fa-medium fa-filter"></i>
+    {% set title = title or h.get_facet_title(name) %}
+    {{ title }}
+    {% set sr_text = "No search filters applied for "+title+". Options are " %}
+    {% if items %}
+      {% if (items|selectattr("active")|list|length) > 0 %}
+        {% set sr_text = "The following search filters are applied for "+title+" " %}
+      {% endif %}               
+    {% endif %} 
+    <span class="accessibly-hidden">{{sr_text}}</span>
+  </h2>
+  {% endwith %}
+{% endblock %}
