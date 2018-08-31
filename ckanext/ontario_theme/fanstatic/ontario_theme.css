@@ -564,6 +564,21 @@ main > div:nth-child(2) {
     font-size: 1.3rem;
   }
 }
+p.filter-list > span {
+  display: block;
+  clear: both;
+}
+p.filter-list span span.facet {
+  width: 175px;
+  display: inline-block;
+}
+p.filter-list span span.pill {
+  background-color: #D47500;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  box-shadow: none;
+}
 /* =====================================================
    CKAN label enforcement - TODO: replace labels with ontario.ca styling
    ===================================================== */
