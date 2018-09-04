@@ -24,6 +24,15 @@ do::
     python setup.py develop
     pip install -r dev-requirements.txt
 
+Add the extension to development.ini or production.ini and set the dataset schema::
+
+    # This relies on scheming and fluent, make sure these are already installed.
+    ckan.plugins = extrafields
+    # Specify the new schema for datasets.
+    scheming.dataset_schemas = ckanext.extrafields:ontario_theme_dataset.json
+    scheming.presets = ckanext.scheming:presets.json
+                       ckanext.fluent:presets.json
+
 
 -----------------
 Running the Tests
