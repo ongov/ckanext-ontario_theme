@@ -237,6 +237,23 @@ a.card:hover {
   text-align: left;
   vertical-align: middle;
 }
+
+.media-item {
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid #dddddd;
+}
+.media-item:last-child {
+  border-bottom: none;
+}
+.media-image {
+  float: left;
+  margin-right: 20px;
+}
+.media-view {
+  border: none;
+}
+
 .dataset-resources li a {
   background-color: #aaaaaa;
   color: #FFFFFF;
