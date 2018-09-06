@@ -3,10 +3,26 @@
 
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
+from ckan.common import config
+
+def default_locale():
+    '''Wrap the ckan default locale in a helper function to access
+    in templates.
+    Returns 'en' by default.
+    :rtype: string
+    '''
+    value = config.get('ckan.locale_default', 'en')
+    return value
 
 class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IDatasetForm)
+    plugins.implements(plugins.ITemplateHelpers)
+
+    def get_helpers(self):
+        '''Register the helper to access the default local.
+        '''
+        return {'extrafields_default_locale': default_locale}
 
     # IConfigurer
 
