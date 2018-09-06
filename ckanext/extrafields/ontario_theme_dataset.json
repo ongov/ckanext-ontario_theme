@@ -234,7 +234,7 @@
         "fr": "Update frequency"
       },
       "preset": "select",
-      "validators": "ignore_missing",
+      "validators": "ignore_missing scheming_choices",
       "choices": [
         {
           "value": "as_required",
@@ -336,7 +336,7 @@
         "fr": "Access level"
       },
       "preset": "select",
-      "validators": "ignore_missing",
+      "validators": "ignore_missing scheming_choices",
       "choices": [
         {
           "value": "open",
@@ -375,7 +375,7 @@
         "fr": "Exemption"
       },
       "preset": "select",
-      "validators": "ignore_missing default(none)",
+      "validators": "ignore_missing default(none) scheming_choices",
       "choices": [
         {
           "value": "commercial_sensitivity",
@@ -446,7 +446,7 @@
         "fr": "Submission type"
       },
       "preset": "select",
-      "validators": "ignore_missing",
+      "validators": "ignore_missing scheming_choices",
       "fieldset": 2,
       "fieldset_name": "Submissoin tracking",
       "choices": [
@@ -508,7 +508,7 @@
         "fr": "Submission status"
       },
       "preset": "select",
-      "validators": "ignore_missing",
+      "validators": "ignore_missing scheming_choices",
       "choices": [
         {
           "value": "data_identified_for_internal_sharing",
@@ -882,7 +882,7 @@
         "fr": "Machine readable"
       },
       "preset": "select",
-      "validators": "ignore_missing",
+      "validators": "ignore_missing scheming_choices",
       "choices": [
         {
           "value": "open",
@@ -941,7 +941,7 @@
         "fr": "Time series"
       },
       "preset": "select",
-      "validators": "ignore_missing",
+      "validators": "ignore_missing scheming_choices",
       "choices": [
         {
           "value": "all_data_is_in_one_file",
@@ -973,7 +973,7 @@
         "fr": "Good file name"
       },
       "preset": "select",
-      "validators": "ignore_missing",
+      "validators": "ignore_missing scheming_choices",
       "choices": [
         {
           "value": "yes",
