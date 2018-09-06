@@ -922,7 +922,7 @@
         "en": "Fiscal year format",
         "fr": "Fiscal year format"
       },
-      "form_placeholder": "eg. yyy-mm-dd",
+      "form_placeholder": "eg. yyyy-mm-dd",
       "validators": "ignore_missing"
     },
     {
@@ -931,7 +931,7 @@
         "en": "Date format",
         "fr": "Date format"
       },
-      "form_placeholder": "eg. yyy-mm-dd",
+      "form_placeholder": "eg. yyyy-mm-dd",
       "validators": "ignore_missing"
     },
     {
