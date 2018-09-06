@@ -137,7 +137,7 @@
         "fr": "Data range start"
       },
       "preset": "date",
-      "validators": "ignore_missing"
+      "validators": "ignore_missing isodate convert_to_json_if_date"
     },
     {
       "field_name": "data_range_end",
@@ -146,7 +146,7 @@
         "fr": "Data range end"
       },
       "preset": "date",
-      "validators": "ignore_missing"
+      "validators": "ignore_missing isodate convert_to_json_if_date"
     },
     {
       "field_name": "data_birth_date",
@@ -155,7 +155,7 @@
         "fr": "Data birth date"
       },
       "preset": "date",
-      "validators": "ignore_missing"
+      "validators": "ignore_missing isodate convert_to_json_if_date"
     },
     {
       "field_name": "opened_date",
@@ -164,7 +164,7 @@
         "fr": "Opened date"
       },
       "preset": "date",
-      "validators": "ignore_missing"
+      "validators": "ignore_missing isodate convert_to_json_if_date"
     },
     {
       "field_name": "dataset_published_date",
@@ -173,7 +173,7 @@
         "fr": "Dataset published date"
       },
       "preset": "date",
-      "validators": "ignore_missing"
+      "validators": "ignore_missing isodate convert_to_json_if_date"
     },
     {
       "field_name": "target_posting_date",
@@ -182,7 +182,7 @@
         "fr": "Target posting date"
       },
       "preset": "date",
-      "validators": "ignore_missing"
+      "validators": "ignore_missing isodate convert_to_json_if_date"
     },
     {
       "field_name": "assessment_date",
@@ -191,7 +191,7 @@
         "fr": "Assessment date"
       },
       "preset": "date",
-      "validators": "ignore_missing"
+      "validators": "ignore_missing isodate convert_to_json_if_date"
     },
     {
       "field_name": "contains_geographic_markers",
@@ -657,7 +657,7 @@
         "fr": "Submission recieved date"
       },
       "preset": "date",
-      "validators": "ignore_missing"
+      "validators": "ignore_missing isodate convert_to_json_if_date"
     },
     {
       "field_name": "plain_language_start_date",
@@ -666,7 +666,7 @@
         "fr": "Plain language start date"
       },
       "preset": "date",
-      "validators": "ignore_missing"
+      "validators": "ignore_missing isodate convert_to_json_if_date"
     },
     {
       "field_name": "plain_language_end_date",
@@ -675,7 +675,7 @@
         "fr": "Plain language end date"
       },
       "preset": "date",
-      "validators": "ignore_missing"
+      "validators": "ignore_missing isodate convert_to_json_if_date"
     },
     {
       "field_name": "final_review_date",
@@ -684,7 +684,7 @@
         "fr": "Final review date"
       },
       "preset": "date",
-      "validators": "ignore_missing"
+      "validators": "ignore_missing isodate convert_to_json_if_date"
     },
     {
       "field_name": "with_co_date",
@@ -693,7 +693,7 @@
         "fr": "With co date"
       },
       "preset": "date",
-      "validators": "ignore_missing"
+      "validators": "ignore_missing isodate convert_to_json_if_date"
     },
     {
       "field_name": "met_service_standard",
@@ -763,7 +763,7 @@
         "fr": "Date removed"
       },
       "preset": "date",
-      "validators": "ignore_missing"
+      "validators": "ignore_missing isodate convert_to_json_if_date"
     },
     {
       "field_name": "forwarding_url",
@@ -1005,7 +1005,7 @@
         "fr": "Last updated in catalogue"
       },
       "preset": "date",
-      "validators": "ignore_missing"
+      "validators": "ignore_missing isodate convert_to_json_if_date"
     }
   ],
   "resource_fields": [

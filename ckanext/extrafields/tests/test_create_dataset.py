@@ -105,9 +105,9 @@ class TestCreateDataset(object):
         package_show = helpers.call_action('package_show', id=dataset['id'])
         assert_equals(package_show['node_id'], '123')
         assert_equals(package_show['short_description']['en'], 'short description')
-        assert_equals(package_show['data_range_start'], '')
-        assert_equals(package_show['data_range_end'], '')
-        assert_equals(package_show['data_birth_date'], '')
+        assert 'data_range_start' not in package_show
+        assert 'data_range_end' not in package_show
+        assert 'data_birth_date' not in package_show
         assert_equals(package_show['update_frequency'], 'as_required')
         assert_equals(package_show['access_level'], 'open')
         assert_equals(package_show['exemption'], 'none') # Confirms modified in validation.
