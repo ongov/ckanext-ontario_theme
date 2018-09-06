@@ -13,7 +13,9 @@
       },
       "preset": "fluent_core_translated",
       "form_placeholder": "eg. A descriptive title",
-      "required": "true"
+      "required": "true",
+      "fieldset": 1,
+      "fieldset_name": "Dataset metadata"
     },
     {
       "field_name": "name",
@@ -444,6 +446,8 @@
       },
       "preset": "select",
       "validators": "ignore_missing",
+      "fieldset": 2,
+      "fieldset_name": "Submissoin tracking",
       "choices": [
         {
           "value": "colby_candidate",
@@ -723,6 +727,8 @@
       },
       "preset": "select",
       "validators": "boolean_validator",
+      "fieldset": 3,
+      "fieldset_name": "Archive information",
       "choices": [
         {
           "value": "true",
@@ -774,6 +780,8 @@
       },
       "preset": "select",
       "validators": "boolean_validator",
+      "fieldset": 4,
+      "fieldset_name": "Data quality",
       "choices": [
         {
           "value": "true",

@@ -27,6 +27,7 @@ do::
 Add the extension to development.ini or production.ini and set the dataset schema::
 
     # This relies on scheming and fluent, make sure these are already installed.
+    # Note: This extension needs to be before scheming in the *.ini config file to let the form overrides work.
     ckan.plugins = extrafields
     # Specify the new schema for datasets.
     scheming.dataset_schemas = ckanext.extrafields:ontario_theme_dataset.json
