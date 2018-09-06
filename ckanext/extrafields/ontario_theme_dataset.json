@@ -118,8 +118,7 @@
         "en": "Maintainer branch",
         "fr": "Maintainer branch"
       },
-      "preset": "fluent_text",
-      "validators": "ignore_missing"
+      "preset": "fluent_text"
     },
     {
       "field_name": "technical_title",
@@ -127,8 +126,7 @@
         "en": "Technical title",
         "fr": "Tecnical title"
       },      
-      "preset": "fluent_text",
-      "validators": "ignore_missing"
+      "preset": "fluent_text"
     },
     {
       "field_name": "data_range_start",
@@ -224,8 +222,7 @@
         "en": "Geographic coverage",
         "fr": "Geographic coverage"
       },
-      "preset": "fluent_text",
-      "validators": "ignore_missing"
+      "preset": "fluent_text"
     },
     {
       "field_name": "update_frequency",
@@ -427,8 +424,7 @@
         "en": "Exemption rationale",
         "fr": "Exemption rationale"
       },
-      "preset": "fluent_markdown",
-      "validators": "ignore_missing"
+      "preset": "fluent_markdown"
     },
     {
       "field_name": "comments",
@@ -436,8 +432,7 @@
         "en": "Comments",
         "fr": "Comments"
       },
-      "preset": "fluent_markdown",
-      "validators": "ignore_missing"
+      "preset": "fluent_markdown"
     },
     {
       "field_name": "submission_type",
@@ -638,8 +633,7 @@
         "en": "Submission comments",
         "fr": "Submission comments"
       },
-      "preset": "fluent_markdown",
-      "validators": "ignore_missing"
+      "preset": "fluent_markdown"
     },
     {
       "field_name": "submission_communication_plan",
@@ -647,8 +641,7 @@
         "en": "Submission communication plan",
         "fr": "Submission communication plan"
       },
-      "preset": "fluent_markdown",
-      "validators": "ignore_missing"
+      "preset": "fluent_markdown"
     },
     {
       "field_name": "submission_recieved_date",
@@ -753,8 +746,7 @@
         "en": "Removal rationale",
         "fr": "Removal rationale"
       },
-      "preset": "fluent_markdown",
-      "validators": "ignore_missing"
+      "preset": "fluent_markdown"
     },
     {
       "field_name": "date_removed",
