@@ -146,3 +146,38 @@ class TestCreateDataset(object):
             )
         else:
             raise AssertionError('ValidationError not raised')
+
+    def test_package_create_with_invalid_data_range_start(self):
+        '''If dataset is given invalid values should raise Invalid.
+        Only testing one per input type that was modified. All date inputs follow same pattern in schema.
+        As long as schema is correct scheming's validations should handle the testing.
+
+        This is more of a reminder to setup the schema properly.
+
+        NOTE: Presets are great unless you start modifying things. (i.e. presets
+        add predefined values such as validators, until you add your own. Those override
+        the preset. So you 'll have to add in the defaults as needed.')
+        '''
+
+        try:
+            helpers.call_action(
+                'package_create',
+                name='package-name',
+                title_translated={
+                    'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
+                node_id='123',
+                short_description={'en': u'short description', 'fr': u'...'},
+                data_range_start='31/11/2018',
+                data_range_end='',
+                data_birth_date='',
+                update_frequency='as_required',
+                access_level='open',
+                exemption='' # Defaults to none when key provided and value is empty.
+            )
+        except logic.ValidationError as e:
+            assert_equals(
+                e.error_dict['data_range_start'],
+                ['Date format incorrect']
+            )
+        else:
+            raise AssertionError('ValidationError not raised')
