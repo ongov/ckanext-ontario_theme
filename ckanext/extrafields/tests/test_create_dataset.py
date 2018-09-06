@@ -111,3 +111,38 @@ class TestCreateDataset(object):
         assert_equals(package_show['update_frequency'], 'as_required')
         assert_equals(package_show['access_level'], 'open')
         assert_equals(package_show['exemption'], 'none') # Confirms modified in validation.
+
+    def test_package_create_with_invalid_update_frequency(self):
+        '''If dataset is given invalid values should raise Invalid.
+        Only testing one. All select options follow same pattern in schema.
+        As long as schema is correct scheming's validations should handle the testing.
+
+        This is more of a reminder to setup the schema properly.
+
+        NOTE: Presets are great unless you start modifying things. (i.e. presets
+        add predefined values such as validators, until you add your own. Those override
+        the preset. So you 'll have to add in the defaults as needed.')
+        '''
+
+        try:
+            helpers.call_action(
+                'package_create',
+                name='package-name',
+                title_translated={
+                    'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
+                node_id='123',
+                short_description={'en': u'short description', 'fr': u'...'},
+                data_range_start='',
+                data_range_end='',
+                data_birth_date='',
+                update_frequency='required',
+                access_level='open',
+                exemption='' # Defaults to none when key provided and value is empty.
+            )
+        except logic.ValidationError as e:
+            assert_equals(
+                e.error_dict['update_frequency'],
+                ['Value must be one of: as_required; biannually; current; daily; historical; monthly; never; on_demand; other; periodically; quarterly; weekly; yearly (not \'required\')']
+            )
+        else:
+            raise AssertionError('ValidationError not raised')
