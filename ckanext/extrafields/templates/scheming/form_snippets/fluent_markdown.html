@@ -9,7 +9,8 @@
     value=data[field.field_name + '-' + lang]
         or data.get(field.field_name, {})[lang],
     error=errors[field.field_name + '-' + lang],
-    attrs=field.form_attrs or {},
+    classes=['span4'],
+    attrs=field.form_attrs or {'class': 'span4'},
     is_required=h.scheming_field_required(field)
     ) %}
     {%- snippet 'scheming/form_snippets/fluent_help_text.html',

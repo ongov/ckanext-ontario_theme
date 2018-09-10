@@ -24,7 +24,7 @@
     options=options,
     selected=data[field.field_name],
     error=errors[field.field_name],
-    classes=['control-medium'],
+    classes=field.classes if 'classes' in field else ['control-medium'],
     attrs=field.form_attrs if 'form_attrs' in field else {"class": "form-control"},
     is_required=h.scheming_field_required(field)
     )
