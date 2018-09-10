@@ -31,12 +31,16 @@
         "fr": "Short description"
       },
       "preset": "fluent_text",
-      "required": "true"
+      "required": "true",
+      "form_attrs": {
+        "class": "span4"
+      } 
     },
     {
       "field_name": "owner_org",
       "label": "Organization",
-      "preset": "dataset_organization"
+      "preset": "dataset_organization",
+      "classes": ["span8","form-group"]
     },
     {
       "field_name": "notes_translated",
@@ -58,14 +62,22 @@
       "field_name": "license_id",
       "label": "License",
       "form_snippet": "license.html",
-      "help_text": "License definitions and additional information can be found at http://opendefinition.org/"
+      "help_text": "License definitions and additional information can be found at http://opendefinition.org/",
+      "form_attrs": {
+        "class": "span8"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "url",
       "label": "Source",
       "form_placeholder": "http://example.com/dataset.json",
       "display_property": "foaf:homepage",
-      "display_snippet": "link.html"
+      "display_snippet": "link.html",
+      "form_attrs": {
+        "class": "span8"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "node_id",
@@ -74,19 +86,31 @@
         "fr": "Ontario node ID"
       },
       "form_placeholder": "4321",
-      "validators": "ignore_missing int_validator"
+      "validators": "ignore_missing int_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "version",
       "label": "Version",
       "form_placeholder": "1.0",
-      "validators": "ignore_missing unicode package_version_validator"
+      "validators": "ignore_missing unicode package_version_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "author",
       "label": "Author",
       "form_placeholder": "Joe Bloggs",
-      "display_property": "dc:creator"
+      "display_property": "dc:creator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "author_email",
@@ -95,13 +119,21 @@
       "display_property": "dc:creator",
       "display_snippet": "email.html",
       "display_email_name_field": "author",
-      "validators": "ignore_missing email_validator"
+      "validators": "ignore_missing email_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "maintainer",
       "label": "Maintainer",
       "form_placeholder": "Joe Bloggs",
-      "display_property": "dc:contributor"
+      "display_property": "dc:contributor",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "maintainer_email",
@@ -110,7 +142,11 @@
       "display_property": "dc:contributor",
       "display_snippet": "email.html",
       "display_email_name_field": "maintainer",
-      "validators": "ignore_missing email_validator"
+      "validators": "ignore_missing email_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "maintainer_branch",
@@ -135,7 +171,11 @@
         "fr": "Data range start"
       },
       "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date"
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "data_range_end",
@@ -144,7 +184,11 @@
         "fr": "Data range end"
       },
       "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date"
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "data_birth_date",
@@ -153,7 +197,11 @@
         "fr": "Data birth date"
       },
       "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date"
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "opened_date",
@@ -162,7 +210,11 @@
         "fr": "Opened date"
       },
       "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date"
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "dataset_published_date",
@@ -171,7 +223,11 @@
         "fr": "Dataset published date"
       },
       "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date"
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "target_posting_date",
@@ -180,7 +236,11 @@
         "fr": "Target posting date"
       },
       "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date"
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "assessment_date",
@@ -189,7 +249,11 @@
         "fr": "Assessment date"
       },
       "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date"
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "contains_geographic_markers",
@@ -199,6 +263,10 @@
       },
       "preset": "select",
       "validators": "boolean_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
       "choices": [
         {
           "value": "true",
@@ -222,7 +290,11 @@
         "en": "Geographic coverage",
         "fr": "Geographic coverage"
       },
-      "preset": "fluent_text"
+      "preset": "fluent_text",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "update_frequency",
@@ -232,6 +304,10 @@
       },
       "preset": "select",
       "validators": "ignore_missing scheming_choices",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
       "choices": [
         {
           "value": "as_required",
@@ -334,6 +410,10 @@
       },
       "preset": "select",
       "validators": "ignore_missing scheming_choices",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
       "choices": [
         {
           "value": "open",
@@ -373,6 +453,10 @@
       },
       "preset": "select",
       "validators": "ignore_missing default(none) scheming_choices",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
       "choices": [
         {
           "value": "commercial_sensitivity",
@@ -424,7 +508,11 @@
         "en": "Exemption rationale",
         "fr": "Exemption rationale"
       },
-      "preset": "fluent_markdown"
+      "preset": "fluent_markdown",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "comments",
@@ -432,7 +520,11 @@
         "en": "Comments",
         "fr": "Comments"
       },
-      "preset": "fluent_markdown"
+      "preset": "fluent_markdown",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "submission_type",
@@ -444,6 +536,10 @@
       "validators": "ignore_missing scheming_choices",
       "fieldset": 2,
       "fieldset_name": "Submissoin tracking",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
       "choices": [
         {
           "value": "colby_candidate",
@@ -504,6 +600,10 @@
       },
       "preset": "select",
       "validators": "ignore_missing scheming_choices",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
       "choices": [
         {
           "value": "data_identified_for_internal_sharing",
@@ -585,6 +685,10 @@
       },
       "preset": "select",
       "validators": "boolean_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
       "choices": [
         {
           "value": "true",
@@ -610,6 +714,10 @@
       },
       "preset": "select",
       "validators": "boolean_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
       "choices": [
         {
           "value": "true",
@@ -650,7 +758,11 @@
         "fr": "Submission recieved date"
       },
       "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date"
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "plain_language_start_date",
@@ -659,7 +771,11 @@
         "fr": "Plain language start date"
       },
       "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date"
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "plain_language_end_date",
@@ -668,7 +784,11 @@
         "fr": "Plain language end date"
       },
       "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date"
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "final_review_date",
@@ -677,7 +797,11 @@
         "fr": "Final review date"
       },
       "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date"
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "with_co_date",
@@ -686,7 +810,11 @@
         "fr": "With co date"
       },
       "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date"
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "met_service_standard",
@@ -696,6 +824,10 @@
       },
       "preset": "select",
       "validators": "boolean_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
       "choices": [
         {
           "value": "true",
@@ -723,6 +855,10 @@
       "validators": "boolean_validator",
       "fieldset": 3,
       "fieldset_name": "Archive information",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
       "choices": [
         {
           "value": "true",
@@ -746,7 +882,11 @@
         "en": "Removal rationale",
         "fr": "Removal rationale"
       },
-      "preset": "fluent_markdown"
+      "preset": "fluent_markdown",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "date_removed",
@@ -755,7 +895,11 @@
         "fr": "Date removed"
       },
       "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date"
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "forwarding_url",
@@ -763,7 +907,11 @@
         "en": "Forwarding url",
         "fr": "Forwarding url"
       },
-      "validators": "ignore_missing"
+      "validators": "ignore_missing",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "meets_update_frequency",
@@ -775,6 +923,10 @@
       "validators": "boolean_validator",
       "fieldset": 4,
       "fieldset_name": "Data quality",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
       "choices": [
         {
           "value": "true",
@@ -800,6 +952,10 @@
       },
       "preset": "select",
       "validators": "boolean_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
       "choices": [
         {
           "value": "true",
@@ -825,6 +981,10 @@
       },
       "preset": "select",
       "validators": "boolean_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
       "choices": [
         {
           "value": "true",
@@ -850,6 +1010,10 @@
       },
       "preset": "select",
       "validators": "boolean_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
       "choices": [
         {
           "value": "true",
@@ -875,6 +1039,10 @@
       },
       "preset": "select",
       "validators": "ignore_missing scheming_choices",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
       "choices": [
         {
           "value": "open",
@@ -906,7 +1074,11 @@
         "fr": "Format de code postal"
       },
       "form_placeholder": "eg. A1A 1A1",
-      "validators": "ignore_missing"
+      "validators": "ignore_missing",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "fiscal_year_format",
@@ -915,7 +1087,11 @@
         "fr": "Fiscal year format"
       },
       "form_placeholder": "eg. yyyy-mm-dd",
-      "validators": "ignore_missing"
+      "validators": "ignore_missing",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "date_format",
@@ -924,7 +1100,11 @@
         "fr": "Date format"
       },
       "form_placeholder": "eg. yyyy-mm-dd",
-      "validators": "ignore_missing"
+      "validators": "ignore_missing",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     },
     {
       "field_name": "time_series",
@@ -934,6 +1114,10 @@
       },
       "preset": "select",
       "validators": "ignore_missing scheming_choices",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
       "choices": [
         {
           "value": "all_data_is_in_one_file",
@@ -966,6 +1150,10 @@
       },
       "preset": "select",
       "validators": "ignore_missing scheming_choices",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
       "choices": [
         {
           "value": "yes",
@@ -997,7 +1185,11 @@
         "fr": "Last updated in catalogue"
       },
       "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date"
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
     }
   ],
   "resource_fields": [
