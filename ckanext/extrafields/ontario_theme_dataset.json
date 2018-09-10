@@ -53,10 +53,19 @@
       "form_placeholder": "eg. Some useful notes about the data"
     },
     {
-      "field_name": "tag_string",
-      "label": "Tags",
-      "preset": "tag_string_autocomplete",
-      "form_placeholder": "eg. economy, mental health, government"
+      "field_name": "keywords",
+      "label": {
+        "en": "Tags",
+        "fr": "Tags"
+      },
+      "preset": "fluent_tags",
+      "form_placeholder": "eg. economy, mental health, government",
+      "classes": ["span4"],
+      "form_attrs": {
+        "data-module": "autocomplete",
+        "data-module-tags": "",
+        "data-module-source": "/api/2/util/tag/autocomplete?incomplete=?"
+      }
     },
     {
       "field_name": "license_id",
