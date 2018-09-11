@@ -48,13 +48,13 @@ within_tertiary
     <i class="fa fa-medium fa-filter"></i>
     {% set title = title or h.get_facet_title(name) %}
     {{ title }}
-    {% set sr_text = "No search filters applied for "+title+". Options are " %}
+    {% set screen_reader_text = "No search filters applied for "+title+". Options are " %}
     {% if items %}
       {% if (items|selectattr("active")|list|length) > 0 %}
-        {% set sr_text = "The following search filters are applied for "+title+" " %}
+        {% set screen_reader_text = "The following search filters are applied for "+title+" " %}
       {% endif %}               
     {% endif %} 
-    <span class="accessibly-hidden">{{sr_text}}</span>
+    <span class="accessibly-hidden">{{screen_reader_text}}</span>
   </h2>
   {% endwith %}
 {% endblock %}
