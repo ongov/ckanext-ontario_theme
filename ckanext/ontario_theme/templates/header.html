@@ -78,7 +78,7 @@
   {% else %}
     {# Add alpha styling. #}
     <h1>
-      <a href="{{ h.url_for('home') }}" class="dss-phase-label alpha">{{ g.site_title }} <span>alpha</span></a>
+      <a href="{{ h.url_for('home') }}" class="dss-phase-label alpha">{{ g.site_title }} <sup>alpha</sup></a>
     </h1>
     {# End customization. #}
     {% if g.site_description %}<h2>{{ g.site_description }}</h2>{% endif %}
@@ -92,4 +92,14 @@
     ('stats', _('Statistics')),
     ('about', _('About'))
   ) }}
+{% endblock %}
+
+{% block header_site_search %}
+  <form class="section site-search simple-input" action="{% url_for controller='package', action='search' %}" method="get">
+    <div class="field">
+      <label for="field-sitewide-search">{% block header_site_search_label %}{{ _('Search Datasets') }}{% endblock %}</label>
+      <input id="field-sitewide-search" type="text" name="q" placeholder="{{ _('Search') }}" />
+      <button class="btn-search" type="submit"><i class="fa fa-search"></i><span>Submit Search</span></button>
+    </div>
+  </form>
 {% endblock %}

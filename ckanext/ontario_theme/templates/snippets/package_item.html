@@ -1,0 +1,13 @@
+{#
+  resources_inner block changed to remove anchor on resource name.
+#}
+
+{% ckan_extends %}
+
+{% block resources_inner %}
+  {% for resource in h.dict_list_reduce(package.resources, 'format') %}
+  <li>
+    <span class="label" data-format="{{ resource.lower() }}">{{ resource }}</span>
+  </li>
+  {% endfor %}
+{% endblock %}
