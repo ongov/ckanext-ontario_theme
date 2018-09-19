@@ -1,0 +1,1227 @@
+{
+  "scheming_version": 1,
+  "dataset_type": "dataset",
+  "about": "Internal data catalogue dataset schema",
+  "about_url": "",
+  "form_languages": ["en", "fr"],
+  "dataset_fields": [
+    {
+      "field_name": "title_translated",
+      "label": {
+        "en": "Title",
+        "fr": "Title"
+      },
+      "preset": "fluent_core_translated",
+      "form_placeholder": "eg. A descriptive title",
+      "required": "true",
+      "fieldset": 1,
+      "fieldset_name": "Dataset metadata",
+      "form_snippet": "extrafields_fluent_title.html"
+    },
+    {
+      "field_name": "name",
+      "label": "URL",
+      "preset": "dataset_slug",
+      "form_placeholder": "eg. my-dataset"
+    },
+    {
+      "field_name": "short_description",
+      "label": {
+        "en": "Short description",
+        "fr": "Short description"
+      },
+      "preset": "fluent_text",
+      "required": "true",
+      "form_attrs": {
+        "class": "span4"
+      } 
+    },
+    {
+      "field_name": "owner_org",
+      "label": "Organization",
+      "preset": "dataset_organization",
+      "classes": ["span8","form-group"]
+    },
+    {
+      "field_name": "notes_translated",
+      "label": {
+        "en": "Description",
+        "fr": "Description"
+      },
+      "preset": "fluent_core_translated",
+      "form_snippet": "fluent_markdown.html",
+      "form_placeholder": "eg. Some useful notes about the data"
+    },
+    {
+      "field_name": "keywords",
+      "label": {
+        "en": "Tags",
+        "fr": "Tags"
+      },
+      "preset": "fluent_tags",
+      "form_placeholder": "eg. economy, mental health, government",
+      "classes": ["span4"],
+      "form_attrs": {
+        "data-module": "autocomplete",
+        "data-module-tags": "",
+        "data-module-source": "/api/2/util/tag/autocomplete?incomplete=?"
+      }
+    },
+    {
+      "field_name": "license_id",
+      "label": "License",
+      "form_snippet": "license.html",
+      "help_text": "License definitions and additional information can be found at http://opendefinition.org/",
+      "form_attrs": {
+        "class": "span8"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "url",
+      "label": "Source",
+      "form_placeholder": "http://example.com/dataset.json",
+      "display_property": "foaf:homepage",
+      "display_snippet": "link.html",
+      "form_attrs": {
+        "class": "span8"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "node_id",
+      "label": {
+        "en": "Ontario node ID",
+        "fr": "Ontario node ID"
+      },
+      "form_placeholder": "4321",
+      "validators": "ignore_missing int_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "version",
+      "label": "Version",
+      "form_placeholder": "1.0",
+      "validators": "ignore_missing unicode package_version_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "author",
+      "label": "Author",
+      "form_placeholder": "Joe Bloggs",
+      "display_property": "dc:creator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "author_email",
+      "label": "Author Email",
+      "form_placeholder": "joe@example.com",
+      "display_property": "dc:creator",
+      "display_snippet": "email.html",
+      "display_email_name_field": "author",
+      "validators": "ignore_missing email_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "maintainer",
+      "label": "Maintainer",
+      "form_placeholder": "Joe Bloggs",
+      "display_property": "dc:contributor",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "maintainer_email",
+      "label": "Maintainer Email",
+      "form_placeholder": "joe@example.com",
+      "display_property": "dc:contributor",
+      "display_snippet": "email.html",
+      "display_email_name_field": "maintainer",
+      "validators": "ignore_missing email_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "maintainer_branch",
+      "label": {
+        "en": "Maintainer branch",
+        "fr": "Maintainer branch"
+      },
+      "preset": "fluent_text"
+    },
+    {
+      "field_name": "technical_title",
+      "label": {
+        "en": "Technical title",
+        "fr": "Tecnical title"
+      },      
+      "preset": "fluent_text"
+    },
+    {
+      "field_name": "data_range_start",
+      "label": {
+        "en": "Data range start",
+        "fr": "Data range start"
+      },
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "data_range_end",
+      "label": {
+        "en": "Data range end",
+        "fr": "Data range end"
+      },
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "data_birth_date",
+      "label": {
+        "en": "Data birth date",
+        "fr": "Data birth date"
+      },
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "opened_date",
+      "label": {
+        "en": "Opened date",
+        "fr": "Opened date"
+      },
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "dataset_published_date",
+      "label": {
+        "en": "Dataset published date",
+        "fr": "Dataset published date"
+      },
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "target_posting_date",
+      "label": {
+        "en": "Target posting date",
+        "fr": "Target posting date"
+      },
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "assessment_date",
+      "label": {
+        "en": "Assessment date",
+        "fr": "Assessment date"
+      },
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "contains_geographic_markers",
+      "label": {
+        "en": "Contains geographic markers",
+        "fr": "Contains geographic markers"
+      },
+      "preset": "select",
+      "validators": "boolean_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
+      "choices": [
+        {
+          "value": "true",
+          "label": {
+            "en": "True",
+            "fr": "Vrai"
+          }
+        },
+        {
+          "value": "false",
+          "label": {
+            "en": "False",
+            "fr": "Faux"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "geographic_coverage",
+      "label": {
+        "en": "Geographic coverage",
+        "fr": "Geographic coverage"
+      },
+      "preset": "fluent_text",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "update_frequency",
+      "label": {
+        "en": "Update frequency",
+        "fr": "Update frequency"
+      },
+      "preset": "select",
+      "validators": "ignore_missing scheming_choices",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
+      "choices": [
+        {
+          "value": "as_required",
+          "label": {
+            "en": "As required",
+            "fr": "As required"
+          }
+        },
+        {
+          "value": "biannually",
+          "label": {
+            "en": "Biannually",
+            "fr": "Biannually"
+          }
+        },
+        {
+          "value": "current",
+          "label": {
+            "en": "Current",
+            "fr": "Current"
+          }
+        },
+        {
+          "value": "daily",
+          "label": {
+            "en": "Daily",
+            "fr": "Daily"
+          }
+        },
+        {
+          "value": "historical",
+          "label": {
+            "en": "Historical",
+            "fr": "Historical"
+          }
+        },
+        {
+          "value": "monthly",
+          "label": {
+            "en": "Monthly",
+            "fr": "Monthly"
+          }
+        },
+        {
+          "value": "never",
+          "label": {
+            "en": "Never",
+            "fr": "Never"
+          }
+        },
+        {
+          "value": "on_demand",
+          "label": {
+            "en": "On demand",
+            "fr": "On demand"
+          }
+        },
+        {
+          "value": "other",
+          "label": {
+            "en": "Other",
+            "fr": "Other"
+          }
+        },
+        {
+          "value": "periodically",
+          "label": {
+            "en": "Periodically",
+            "fr": "Periodically"
+          }
+        },
+        {
+          "value": "quarterly",
+          "label": {
+            "en": "Quarterly",
+            "fr": "Tous les trimestres"
+          }
+        },
+        {
+          "value": "weekly",
+          "label": {
+            "en": "Weekly",
+            "fr": "Weekly"
+          }
+        },
+        {
+          "value": "yearly",
+          "label": {
+            "en": "Yearly",
+            "fr": "Yearly"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "access_level",
+      "label": {
+        "en": "Access level",
+        "fr": "Access level"
+      },
+      "preset": "select",
+      "validators": "ignore_missing scheming_choices",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
+      "choices": [
+        {
+          "value": "open",
+          "label": {
+            "en": "Open",
+            "fr": "Open"
+          }
+        },
+        {
+          "value": "restricted",
+          "label": {
+            "en": "Restricted",
+            "fr": "Restricted"
+          }
+        },
+        {
+          "value": "to_be_opened",
+          "label": {
+            "en": "To be opened",
+            "fr": "To be opened"
+          }
+        },
+        {
+          "value": "under_review",
+          "label": {
+            "en": "Under review",
+            "fr": "Under review"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "exemption",
+      "label": {
+        "en": "Exemption",
+        "fr": "Exemption"
+      },
+      "preset": "select",
+      "validators": "ignore_missing default(none) scheming_choices",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
+      "choices": [
+        {
+          "value": "commercial_sensitivity",
+          "label": {
+            "en": "Commercial sensitivity",
+            "fr": "Commercial sensitivity"
+          }
+        },
+        {
+          "value": "confidentiality",
+          "label": {
+            "en": "Confidentiality",
+            "fr": "Confidentiality"
+          }
+        },
+        {
+          "value": "legal_and_contractual_obligations",
+          "label": {
+            "en": "Legal and contractual obligations",
+            "fr": "Legal and contractual obligations"
+          }
+        },
+        {
+          "value": "none",
+          "label": {
+            "en": "None",
+            "fr": "None"
+          }
+        },
+        {
+          "value": "privacy",
+          "label": {
+            "en": "Privacy",
+            "fr": "Privacy"
+          }
+        },
+        {
+          "value": "security",
+          "label": {
+            "en": "Security",
+            "fr": "Security"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "exemption_rationale",
+      "label": {
+        "en": "Exemption rationale",
+        "fr": "Exemption rationale"
+      },
+      "preset": "fluent_markdown",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "comments",
+      "label": {
+        "en": "Comments",
+        "fr": "Comments"
+      },
+      "preset": "fluent_markdown",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "submission_type",
+      "label": {
+        "en": "Submission type",
+        "fr": "Submission type"
+      },
+      "preset": "select",
+      "validators": "ignore_missing scheming_choices",
+      "fieldset": 2,
+      "fieldset_name": "Submissoin tracking",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
+      "choices": [
+        {
+          "value": "colby_candidate",
+          "label": {
+            "en": "Colby Candidate",
+            "fr": "Colby Candidate"
+          }
+        },
+        {
+          "value": "public_to_open_dataset",
+          "label": {
+            "en": "Public to Open Dataset",
+            "fr": "Public to Open Dataset"
+          }
+        },
+        {
+          "value": "new_open_dataset",
+          "label": {
+            "en": "New Open Dataset",
+            "fr": "New Open Dataset"
+          }
+        },
+        {
+          "value": "new_dataset_not_open",
+          "label": {
+            "en": "New Dataset (not open)",
+            "fr": "New Dataset (not open)"
+          }
+        },
+        {
+          "value": "open_existing_dataset",
+          "label": {
+            "en": "Open existing Dataset (i.e. To be opened)",
+            "fr": "Open existing Dataset (i.e. To be opened)"
+          }
+        },
+        {
+          "value": "major_update_of_open_data",
+          "label": {
+            "en": "Major Update of Open Data",
+            "fr": "Major Update of Open Data"
+          }
+        },
+        {
+          "value": "major_update_of_non_open_dataset",
+          "label": {
+            "en": "Major Update of non-Open Dataset (i.e. Restricted data)",
+            "fr": "Major Update of non-Open Dataset (i.e. Restricted data)"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "submission_status",
+      "label": {
+        "en": "Submission status",
+        "fr": "Submission status"
+      },
+      "preset": "select",
+      "validators": "ignore_missing scheming_choices",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
+      "choices": [
+        {
+          "value": "data_identified_for_internal_sharing",
+          "label": {
+            "en": "Data Identified for internal sharing",
+            "fr": "Data Identified for internal sharing"
+          }
+        },
+        {
+          "value": "posted_to_colby",
+          "label": {
+            "en": "Posted to Colby",
+            "fr": "Posted to Colby"
+          }
+        },
+        {
+          "value": "data_identified_for_opening",
+          "label": {
+            "en": "Data identified for Opening",
+            "fr": "Data identified for Opening"
+          }
+        },
+        {
+          "value": "submission_in_development",
+          "label": {
+            "en": "Submission in development",
+            "fr": "Submission in development"
+          }
+        },
+        {
+          "value": "metadata_under_reivew_by_ministry",
+          "label": {
+            "en": "Metadata under reivew by Ministry",
+            "fr": "Metadata under reivew by Ministry"
+          }
+        },
+        {
+          "value": "metadata_in_translation",
+          "label": {
+            "en": "Metadata in translation",
+            "fr": "Metadata in translation"
+          }
+        },
+        {
+          "value": "ogo_review",
+          "label": {
+            "en": "OGO Review",
+            "fr": "OGO Review"
+          }
+        },
+        {
+          "value": "mo_review/fyi",
+          "label": {
+            "en": "MO review/FYI",
+            "fr": "MO review/FYI"
+          }
+        },
+        {
+          "value": "uploading/updating",
+          "label": {
+            "en": "Uploading/Updating",
+            "fr": "Uploading/Updating"
+          }
+        },
+        {
+          "value": "published",
+          "label": {
+            "en": "Published",
+            "fr": "Published"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "rush",
+      "label": {
+        "en": "Rush",
+        "fr": "Rush"
+      },
+      "preset": "select",
+      "validators": "boolean_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
+      "choices": [
+        {
+          "value": "true",
+          "label": {
+            "en": "True",
+            "fr": "Vrai"
+          }
+        },
+        {
+          "value": "false",
+          "label": {
+            "en": "False",
+            "fr": "Faux"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "issues",
+      "label": {
+        "en": "Issues",
+        "fr": "Issues"
+      },
+      "preset": "select",
+      "validators": "boolean_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
+      "choices": [
+        {
+          "value": "true",
+          "label": {
+            "en": "True",
+            "fr": "Vrai"
+          }
+        },
+        {
+          "value": "false",
+          "label": {
+            "en": "False",
+            "fr": "Faux"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "submission_comments",
+      "label": {
+        "en": "Submission comments",
+        "fr": "Submission comments"
+      },
+      "preset": "fluent_markdown"
+    },
+    {
+      "field_name": "submission_communication_plan",
+      "label": {
+        "en": "Submission communication plan",
+        "fr": "Submission communication plan"
+      },
+      "preset": "fluent_markdown"
+    },
+    {
+      "field_name": "submission_recieved_date",
+      "label": {
+        "en": "Submission recieved date",
+        "fr": "Submission recieved date"
+      },
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "plain_language_start_date",
+      "label": {
+        "en": "Plain language start date",
+        "fr": "Plain language start date"
+      },
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "plain_language_end_date",
+      "label": {
+        "en": "Plain language end date",
+        "fr": "Plain language end date"
+      },
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "final_review_date",
+      "label": {
+        "en": "Final review date",
+        "fr": "Final review date"
+      },
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "with_co_date",
+      "label": {
+        "en": "With co date",
+        "fr": "With co date"
+      },
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "met_service_standard",
+      "label": {
+        "en": "Met service standard",
+        "fr": "Met service standard"
+      },
+      "preset": "select",
+      "validators": "boolean_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
+      "choices": [
+        {
+          "value": "true",
+          "label": {
+            "en": "True",
+            "fr": "Vrai"
+          }
+        },
+        {
+          "value": "false",
+          "label": {
+            "en": "False",
+            "fr": "Faux"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "removed",
+      "label": {
+        "en": "Removed",
+        "fr": "Removed"
+      },
+      "preset": "select",
+      "validators": "boolean_validator",
+      "fieldset": 3,
+      "fieldset_name": "Archive information",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
+      "choices": [
+        {
+          "value": "true",
+          "label": {
+            "en": "True",
+            "fr": "Vrai"
+          }
+        },
+        {
+          "value": "false",
+          "label": {
+            "en": "False",
+            "fr": "Faux"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "removal_rationale",
+      "label": {
+        "en": "Removal rationale",
+        "fr": "Removal rationale"
+      },
+      "preset": "fluent_markdown",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "date_removed",
+      "label": {
+        "en": "Date removed",
+        "fr": "Date removed"
+      },
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "forwarding_url",
+      "label": {
+        "en": "Forwarding url",
+        "fr": "Forwarding url"
+      },
+      "validators": "ignore_missing",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "meets_update_frequency",
+      "label": {
+        "en": "Meets update frequency",
+        "fr": "Meets update frequency"
+      },
+      "preset": "select",
+      "validators": "boolean_validator",
+      "fieldset": 4,
+      "fieldset_name": "Data quality",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
+      "choices": [
+        {
+          "value": "true",
+          "label": {
+            "en": "True",
+            "fr": "Vrai"
+          }
+        },
+        {
+          "value": "false",
+          "label": {
+            "en": "False",
+            "fr": "Faux"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "technical_documents",
+      "label": {
+        "en": "Technical documents",
+        "fr": "Technical documents"
+      },
+      "preset": "select",
+      "validators": "boolean_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
+      "choices": [
+        {
+          "value": "true",
+          "label": {
+            "en": "True",
+            "fr": "Vrai"
+          }
+        },
+        {
+          "value": "false",
+          "label": {
+            "en": "False",
+            "fr": "Faux"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "broken_links",
+      "label": {
+        "en": "Broken links",
+        "fr": "Broken links"
+      },
+      "preset": "select",
+      "validators": "boolean_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
+      "choices": [
+        {
+          "value": "true",
+          "label": {
+            "en": "True",
+            "fr": "Vrai"
+          }
+        },
+        {
+          "value": "false",
+          "label": {
+            "en": "False",
+            "fr": "Faux"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "open_access",
+      "label": {
+        "en": "Open access",
+        "fr": "Open access"
+      },
+      "preset": "select",
+      "validators": "boolean_validator",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
+      "choices": [
+        {
+          "value": "true",
+          "label": {
+            "en": "True",
+            "fr": "Vrai"
+          }
+        },
+        {
+          "value": "false",
+          "label": {
+            "en": "False",
+            "fr": "Faux"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "machine_readable",
+      "label": {
+        "en": "Machine readable",
+        "fr": "Machine readable"
+      },
+      "preset": "select",
+      "validators": "ignore_missing scheming_choices",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
+      "choices": [
+        {
+          "value": "open",
+          "label": {
+            "en": "Open",
+            "fr": "Open"
+          }
+        },
+        {
+          "value": "not_preferred",
+          "label": {
+            "en": "Not preferred",
+            "fr": "Not preferred"
+          }
+        },
+        {
+          "value": "not_open",
+          "label": {
+            "en": "Not open",
+            "fr": "Not open"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "postal_code_format",
+      "label": {
+        "en": "Postal code format",
+        "fr": "Format de code postal"
+      },
+      "form_placeholder": "eg. A1A 1A1",
+      "validators": "ignore_missing",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "fiscal_year_format",
+      "label": {
+        "en": "Fiscal year format",
+        "fr": "Fiscal year format"
+      },
+      "form_placeholder": "eg. yyyy-mm-dd",
+      "validators": "ignore_missing",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "date_format",
+      "label": {
+        "en": "Date format",
+        "fr": "Date format"
+      },
+      "form_placeholder": "eg. yyyy-mm-dd",
+      "validators": "ignore_missing",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    },
+    {
+      "field_name": "time_series",
+      "label": {
+        "en": "Time series",
+        "fr": "Time series"
+      },
+      "preset": "select",
+      "validators": "ignore_missing scheming_choices",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
+      "choices": [
+        {
+          "value": "all_data_is_in_one_file",
+          "label": {
+            "en": "All data is in one file",
+            "fr": "All data is in one file"
+          }
+        },
+        {
+          "value": "data_is_split_into_multiple_files",
+          "label": {
+            "en": "Data is split into multiple files",
+            "fr": "Data is split into multiple files"
+          }
+        },
+        {
+          "value": "N/A",
+          "label": {
+            "en": "N/A",
+            "fr": "N/A"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "good_file_name",
+      "label": {
+        "en": "Good file name",
+        "fr": "Good file name"
+      },
+      "preset": "select",
+      "validators": "ignore_missing scheming_choices",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"],
+      "choices": [
+        {
+          "value": "yes",
+          "label": {
+            "en": "Yes",
+            "fr": "Yes"
+          }
+        },
+        {
+          "value": "needs_improvement",
+          "label": {
+            "en": "Needs Improvement",
+            "fr": "Needs Improvement"
+          }
+        },
+        {
+          "value": "no",
+          "label": {
+            "en": "No",
+            "fr": "No"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "last_updated_in_catalogue",
+      "label": {
+        "en": "Last updated in catalogue",
+        "fr": "Last updated in catalogue"
+      },
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_attrs": {
+        "class": "span4"
+      },
+      "classes": ["span8"]
+    }
+  ],
+  "resource_fields": [
+    {
+      "field_name": "url",
+      "label": "URL",
+      "preset": "resource_url_upload"
+    },
+    {
+      "field_name": "name",
+      "label": "Name",
+      "form_placeholder": "eg. January 2011 Gold Prices"
+    },
+    {
+      "field_name": "description",
+      "label": "Description",
+      "form_snippet": "markdown.html",
+      "form_placeholder": "Some useful notes about the data"
+    },
+    {
+      "field_name": "format",
+      "label": "Format",
+      "preset": "resource_format_autocomplete"
+    }
+  ]
+}

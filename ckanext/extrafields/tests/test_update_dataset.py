@@ -52,67 +52,91 @@ class TestUpdateDataset(object):
         ckan.plugins.unload('extrafields')
 
     def test_package_update_with_minimum_values(self):
-        '''If dataset is given name it is updated.
+        '''If dataset is given it's basic fields it is updated.
         '''
         user = factories.User()
-        dataset = factories.Dataset(user=user, short_description='short description text')
+        dataset = factories.Dataset(user=user,
+                                    title_translated={'en': u'A Novel By Tolstoy',
+                                                      'fr':u'Un novel par Tolstoy'},
+                                    short_description={'en': u'short description',
+                                                       'fr': u'...'})
 
+        # All required fields needed here as this is update not patch.
         dataset_ = helpers.call_action(
             'package_update',
             id=dataset['id'],
             name='new-name',
-            short_description='shorter description'
+            title_translated={'en': u'A Novel By Tolstoy',
+                              'fr':u'Un novel par Tolstoy'},
+            short_description={'en': 'shorter description', 'fr': 'petit...'}
             )
 
+        # Make sure update works and returns saved value.
         assert_equals(dataset_['name'], 'new-name')
-        assert_equals(
-            helpers.call_action('package_show', id=dataset['id'])['name'],
-            'new-name'
-            )
+        
+        # Safe measure - query the package again and validate values.
+        dataset_ = helpers.call_action('package_show', id=dataset['id'])
+        assert_equals(dataset_['name'], 'new-name')
+        assert_equals(dataset_['short_description']['en'], 'shorter description')
+        assert_equals(dataset_['short_description']['fr'], 'petit...')
 
     def test_wrong_node_id_type(self):
         '''If dataset is given a value for node_id it must be a positive integer.
         Empty and missing values are allowed.
         '''
         user = factories.User()
-        dataset = factories.Dataset(user=user, short_description='short description text')
+        dataset = factories.Dataset(user=user,
+                                    title_translated={'en': u'A Novel By Tolstoy',
+                                                      'fr':u'Un novel par Tolstoy'},
+                                    short_description={'en': u'short description',
+                                                       'fr': u'...'})
+
         assert_raises(
             logic.ValidationError, helpers.call_action,
             'package_update',
             id=dataset['id'],
             node_id='apple',
-            short_description='shorter description'
+            short_description={'en': 'shorter description', 'fr': 'petit...'},
+            title_translated={'en': u'A Novel By Tolstoy',
+                              'fr':u'Un novel par Tolstoy'}
         )
 
     def test_package_update_with_validated_values(self):
-        '''If dataset is given custom validated keys with valid values
+        '''If dataset is given wider range input with valid values
         a dataset is updated.
         '''
         user = factories.User()
-        dataset = factories.Dataset(user=user, short_description='short description text')
+        dataset = factories.Dataset(user=user,
+                                    title_translated={'en': u'A Novel By Tolstoy',
+                                                      'fr':u'Un novel par Tolstoy'},
+                                    short_description={'en': u'short description',
+                                                       'fr': u'...'})
 
-        assert_equals(dataset['short_description'], 'short description text')
+        assert_equals(dataset['short_description']['en'], 'short description')
 
         dataset_ = helpers.call_action(
             'package_update',
             id=dataset['id'],
             name='package-name',
             node_id='123',
-            short_description='shorter description',
-            date_range_start='',
-            date_range_end='',
+            title_translated={'en': u'A Novel By Tolstoy',
+                              'fr':u'Un novel par Tolstoy'},
+            short_description={'en': 'shorter description', 'fr': 'petit...'},
+            data_range_start='',
+            data_range_end='',
             data_birth_date='',
             update_frequency='as_required',
             access_level='open',
             exemption='' # Defaults to none when key provided and value is empty.
         )
-        assert_equals(dataset_['node_id'], 123)
+        
+        assert_equals(dataset_['node_id'], '123')
 
         package_show = helpers.call_action('package_show', id=dataset['id'])
-        assert_equals(package_show['node_id'], 123)
-        assert_equals(package_show['short_description'], 'shorter description')
-        assert 'date_range_start' not in package_show
-        assert 'date_range_end' not in package_show
+        assert_equals(package_show['node_id'], '123')
+        assert_equals(package_show['short_description']['en'], 'shorter description')
+        assert 'data_range_start' not in package_show
+        assert 'data_range_end' not in package_show
         assert 'data_birth_date' not in package_show
         assert_equals(package_show['update_frequency'], 'as_required')
         assert_equals(package_show['access_level'], 'open')
@@ -123,15 +147,26 @@ class TestUpdateDataset(object):
         Used in webform.
         '''
         user = factories.User()
-        dataset = factories.Dataset(user=user, short_description='short description text')
+        dataset = factories.Dataset(user=user,
+                                    title_translated={'en': u'A Novel By Tolstoy',
+                                                      'fr':u'Un novel par Tolstoy'},
+                                    short_description={'en': u'short description',
+                                                       'fr': u'...'},
+                                    data_range_start='2018-11-30')
+
+        assert_equals(dataset["data_range_start"], '2018-11-30')
 
         dataset_ = helpers.call_action(
             'package_update',
             id=dataset['id'],
             name='package-name',
             node_id='', # Validator returns None for this.
-            short_description='shorter description'
+            short_description={'en': 'shorter description', 'fr': 'petit...'},
+            title_translated={'en': u'A Novel By Tolstoy',
+                              'fr':u'Un novel par Tolstoy'},
+            data_range_start='' # ensure you can pass empty dates to remove them.
         )
 
         package_show = helpers.call_action('package_show', id=dataset['id'])
         assert 'node_id' not in package_show
+        assert 'data_range_start' not in package_show

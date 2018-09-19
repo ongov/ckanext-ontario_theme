@@ -52,13 +52,22 @@ class TestCreateDataset(object):
         ckan.plugins.unload('extrafields')
 
     def test_package_create_with_minimum_values(self):
-        '''If dataset is given name it is created.
+        '''If dataset is given it's basic fields it is created.
         '''
         dataset = helpers.call_action(
             'package_create',
             name='package-name',
-            short_description='short description text'
+            title_translated={
+                'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
+            short_description={'en': u'short description', 'fr': u'...'}
             )
+        assert_equals(dataset['name'], 'package-name')
+
+        dataset = helpers.call_action('package_show', id=dataset['id'])
+        assert dataset['title_translated']['fr'] == u'Un novel par Tolstoy'
+
+        dataset = helpers.call_action('package_show', id=dataset['id'])
+        assert dataset['short_description']['en'] == u'short description'
 
     def test_wrong_node_id_type(self):
         '''If dataset is given a value for node_id it must be a positive integer.
@@ -68,7 +77,10 @@ class TestCreateDataset(object):
             logic.ValidationError, helpers.call_action,
             'package_create',
             node_id='apple',
-            short_description='short description text'
+            name='package-name',
+            title_translated={
+                'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
+            short_description={'en': u'short description', 'fr': u'...'}
         )
 
     def test_package_create_with_validated_values(self):
@@ -78,22 +90,94 @@ class TestCreateDataset(object):
         dataset = helpers.call_action(
             'package_create',
             name='package-name',
+            title_translated={
+                'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
             node_id='123',
-            short_description='short description text',
-            date_range_start='',
-            date_range_end='',
+            short_description={'en': u'short description', 'fr': u'...'},
+            data_range_start='',
+            data_range_end='',
             data_birth_date='',
             update_frequency='as_required',
             access_level='open',
             exemption='' # Defaults to none when key provided and value is empty.
         )
-        assert_equals(dataset['node_id'], 123)
+        assert_equals(dataset['node_id'], '123')
         package_show = helpers.call_action('package_show', id=dataset['id'])
-        assert_equals(package_show['node_id'], 123)
-        assert_equals(package_show['short_description'], 'short description text')
-        assert 'date_range_start' not in package_show
-        assert 'date_range_end' not in package_show
+        assert_equals(package_show['node_id'], '123')
+        assert_equals(package_show['short_description']['en'], 'short description')
+        assert 'data_range_start' not in package_show
+        assert 'data_range_end' not in package_show
         assert 'data_birth_date' not in package_show
         assert_equals(package_show['update_frequency'], 'as_required')
         assert_equals(package_show['access_level'], 'open')
         assert_equals(package_show['exemption'], 'none') # Confirms modified in validation.
+
+    def test_package_create_with_invalid_update_frequency(self):
+        '''If dataset is given invalid values should raise Invalid.
+        Only testing one. All select options follow same pattern in schema.
+        As long as schema is correct scheming's validations should handle the testing.
+
+        This is more of a reminder to setup the schema properly.
+
+        NOTE: Presets are great unless you start modifying things. (i.e. presets
+        add predefined values such as validators, until you add your own. Those override
+        the preset. So you 'll have to add in the defaults as needed.')
+        '''
+
+        try:
+            helpers.call_action(
+                'package_create',
+                name='package-name',
+                title_translated={
+                    'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
+                node_id='123',
+                short_description={'en': u'short description', 'fr': u'...'},
+                data_range_start='',
+                data_range_end='',
+                data_birth_date='',
+                update_frequency='required',
+                access_level='open',
+                exemption='' # Defaults to none when key provided and value is empty.
+            )
+        except logic.ValidationError as e:
+            assert_equals(
+                e.error_dict['update_frequency'],
+                ['Value must be one of: as_required; biannually; current; daily; historical; monthly; never; on_demand; other; periodically; quarterly; weekly; yearly (not \'required\')']
+            )
+        else:
+            raise AssertionError('ValidationError not raised')
+
+    def test_package_create_with_invalid_data_range_start(self):
+        '''If dataset is given invalid values should raise Invalid.
+        Only testing one per input type that was modified. All date inputs follow same pattern in schema.
+        As long as schema is correct scheming's validations should handle the testing.
+
+        This is more of a reminder to setup the schema properly.
+
+        NOTE: Presets are great unless you start modifying things. (i.e. presets
+        add predefined values such as validators, until you add your own. Those override
+        the preset. So you 'll have to add in the defaults as needed.')
+        '''
+
+        try:
+            helpers.call_action(
+                'package_create',
+                name='package-name',
+                title_translated={
+                    'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
+                node_id='123',
+                short_description={'en': u'short description', 'fr': u'...'},
+                data_range_start='31/11/2018',
+                data_range_end='',
+                data_birth_date='',
+                update_frequency='as_required',
+                access_level='open',
+                exemption='' # Defaults to none when key provided and value is empty.
+            )
+        except logic.ValidationError as e:
+            assert_equals(
+                e.error_dict['data_range_start'],
+                ['Date format incorrect']
+            )
+        else:
+            raise AssertionError('ValidationError not raised')
