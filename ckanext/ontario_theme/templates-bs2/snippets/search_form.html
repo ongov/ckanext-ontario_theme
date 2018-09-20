@@ -1,0 +1,41 @@
+{% ckan_extends %}
+
+{% block search_facets %}
+  {% if query or facets %}
+    <p class="filter-list">  
+    {% if query %}
+      <span>
+        <span class="facet">with the keyword(s):</span>
+        <span class="filtered pill">
+          {{query}}
+          <a href="{{ c.remove_field('q', query) }}" class="remove" title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
+        </span>
+      </span>
+    {% endif %}  
+    {% if facets %}
+        {% for field in facets.fields %}
+          <span>
+          {% set search_facets_items = facets.search.get(field)['items'] %}
+          <span class="facet">
+            {% if (not query and not loop.index0==0) or query %}
+              <span class="accessibly-hidden"> and </span>
+            {% endif %}  
+            {{ facets.titles.get(field) }}:
+          </span>
+          {% for value in facets.fields[field] %}
+            <span class="filtered pill">
+              {%- if facets.translated_fields and facets.translated_fields.has_key((field,value)) -%}
+                {{ facets.translated_fields[(field,value)] }}
+              {%- else -%}
+                {{ h.list_dict_filter(search_facets_items, 'name', 'display_name', value) }}
+              {%- endif %}
+              <a href="{{ facets.remove_field(field, value) }}" class="remove" title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
+            </span>
+          {% endfor %}
+          </span>
+        {% endfor %}    
+    {% endif %}
+    </p>     
+    <a class="show-filters btn">{{ _('Filter Results') }}</a>   
+  {% endif %}
+{% endblock %}
