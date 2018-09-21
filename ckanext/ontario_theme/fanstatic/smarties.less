@@ -5,14 +5,10 @@
 }
 
 .stats {
-  .stats-caption {
-    font-size: 1.2rem
-  }
-
   .number {
     display: block;
     font-size: 4.5rem;
-    margin: 20% auto;
+    margin: 30% auto;
     text-align: center;
     width: 11.25rem;
     line-height: 1.5; /* in ontario css this is in ul styling but is needed for this to work. */
@@ -54,7 +50,7 @@
     }
 
     .circle {
-      width:9.0625rem;
+      width: 9.0625rem;
       height: 9.0625rem;
     }
   }
@@ -85,4 +81,35 @@
     width: 33.33333% !important;
     font-weight: 300;
   }
+}
+
+.stat, 
+.stats-caption {
+    color: @grey;
+}
+.circle,
+.circle--small {
+  font-family: Raleway, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+  border-radius: 50%;
+  color: #fff;
+  background-color: #D47500;
+  display: inline-block;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  position: relative;
+  width: 18rem;
+  height: 18rem;
+}
+.circle.primary {
+  background-color: #D47500;
+}
+.circle.secondary {
+  background-color: #007A7C;
+}
+.circle--small {
+  width: 4.0625rem;
+  height: 4.0625rem;
+}
+.stats p {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }

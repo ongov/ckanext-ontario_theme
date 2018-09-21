@@ -8,11 +8,8 @@ Renders a custom search component for the home page.
 
 <div class="module search">
   <form class="module-content search-form" method="get" action="{% url_for controller='package', action='search' %}">
-    <h3 class="heading">{{ _("Search data and records") }}<br />
-      <div class="sub-title">
-        Find, share and collaborate on government data and records with <abbr title="Collaboration Ontario">CollabON</abbr> (Colby).
-      </div>
-    </h3>
+    <h3>{{ _("Search data and records") }}</h3>
+    <p class="lead">Find, share and collaborate on government data and records with <abbr title="Collaboration Ontario">CollabON</abbr> (Colby).</p>
     <div class="search-input form-group search-giant">
       <input aria-label="{% block header_site_search_label %}{{ _('Search datasets') }}{% endblock %}" id="field-main-search" type="text" class="form-control" name="q" value="" autocomplete="off" placeholder="{% block search_placeholder %}{{ placeholder }}{% endblock %}" />
       <button type="submit">
