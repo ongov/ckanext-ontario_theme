@@ -101,100 +101,119 @@ a.card .action {
 /* =====================================================
    Button overrides
    ===================================================== */
-.btn-secondary {
-  color: #ffffff;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  background-color: #007A7C;
-  background-image: -moz-linear-gradient(top, #007A7C, #005D5E);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#007A7C), to(#005D5E));
-  background-image: -webkit-linear-gradient(top, #007A7C, #005D5E);
-  background-image: -o-linear-gradient(top, #007A7C, #005D5E);
-  background-image: linear-gradient(to bottom, #007A7C, #005D5E);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff007A7C', endColorstr='#ff005D5E', GradientType=0);
-  border-color: #005D5E #005D5E #003030;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  *background-color: #005D5E;
-  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-}
-.btn-secondary:hover,
-.btn-secondary:focus,
-.btn-secondary:active,
-.btn-secondary.active,
-.btn-secondary.disabled,
-.btn-secondary[disabled] {
-  color: #ffffff;
-  background-color: #005D5E;
-  *background-color: #004B4C;
-}
-.btn-secondary:active,
-.btn-secondary.active {
-  background-color: #003738 \9;
-}
 .btn-primary {
   color: #ffffff;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-color: #D47500;
-  background-image: -moz-linear-gradient(top, #D47500, #B26300);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#D47500), to(#B26300));
-  background-image: -webkit-linear-gradient(top, #D47500, #B26300);
-  background-image: -o-linear-gradient(top, #D47500, #B26300);
-  background-image: linear-gradient(to bottom, #D47500, #B26300);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffD47500', endColorstr='#ffB26300', GradientType=0);
-  border-color: #B26300 #B26300 #2B1800;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  *background-color: #B26300;
-  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  border-color: #c66e00;
 }
-.btn-primary:hover,
 .btn-primary:focus,
+.btn-primary.focus {
+  color: #ffffff;
+  background-color: #B26300;
+  border-color: #995400;
+}
+.btn-primary:hover {
+  color: #ffffff;
+  background-color: #B26300;
+  border-color: #995400;
+}
 .btn-primary:active,
 .btn-primary.active,
-.btn-primary.disabled,
-.btn-primary[disabled] {
+.open > .dropdown-toggle.btn-primary {
   color: #ffffff;
   background-color: #B26300;
-  *background-color: #854900;
+  border-color: #995400;
+}
+.btn-primary:active:hover,
+.btn-primary.active:hover,
+.open > .dropdown-toggle.btn-primary:hover,
+.btn-primary:active:focus,
+.btn-primary.active:focus,
+.open > .dropdown-toggle.btn-primary:focus,
+.btn-primary:active.focus,
+.btn-primary.active.focus,
+.open > .dropdown-toggle.btn-primary.focus {
+  color: #ffffff;
+  background-color: #B26300;
+  border-color: #995400;
 }
 .btn-primary:active,
-.btn-primary.active {
-  background-color: #593100 \9;
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+  background-image: none;
 }
-.btn-group.open .btn-primary.dropdown-toggle {
-  background-color: #B26300;
-}
-.dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus,
-.dropdown-submenu:hover > a,
-.dropdown-submenu:focus > a {
-  text-decoration: none;
-  color: #ffffff;
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled.focus,
+.btn-primary[disabled].focus,
+fieldset[disabled] .btn-primary.focus {
   background-color: #D47500;
-  background-image: -moz-linear-gradient(top, #D47500, #B26300);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#D47500), to(#B26300));
-  background-image: -webkit-linear-gradient(top, #D47500, #B26300);
-  background-image: -o-linear-gradient(top, #D47500, #B26300);
-  background-image: linear-gradient(to bottom, #D47500, #B26300);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffD47500', endColorstr='#ffB26300', GradientType=0);
+  border-color: #c66e00;
 }
-.dropdown-menu > .active > a,
-.dropdown-menu > .active > a:hover,
-.dropdown-menu > .active > a:focus {
+.btn-primary .badge {
+  color: #D47500;
+  background-color: #ffffff;
+}
+.btn-secondary {
   color: #ffffff;
-  text-decoration: none;
-  outline: 0;
-  background-color: #D47500;
-  background-image: -moz-linear-gradient(top, #D47500, #B26300);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#D47500), to(#B26300));
-  background-image: -webkit-linear-gradient(top, #D47500, #B26300);
-  background-image: -o-linear-gradient(top, #D47500, #B26300);
-  background-image: linear-gradient(to bottom, #D47500, #B26300);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffD47500', endColorstr='#ffB26300', GradientType=0);
+  background-color: #007A7C;
+  border-color: #007476;
+}
+.btn-secondary:focus,
+.btn-secondary.focus {
+  color: #ffffff;
+  background-color: #005D5E;
+  border-color: #004B4C;
+}
+.btn-secondary:hover {
+  color: #ffffff;
+  background-color: #005D5E;
+  border-color: #004B4C;
+}
+.btn-secondary:active,
+.btn-secondary.active,
+.open > .dropdown-toggle.btn-secondary {
+  color: #ffffff;
+  background-color: #005D5E;
+  border-color: #004B4C;
+}
+.btn-secondary:active:hover,
+.btn-secondary.active:hover,
+.open > .dropdown-toggle.btn-secondary:hover,
+.btn-secondary:active:focus,
+.btn-secondary.active:focus,
+.open > .dropdown-toggle.btn-secondary:focus,
+.btn-secondary:active.focus,
+.btn-secondary.active.focus,
+.open > .dropdown-toggle.btn-secondary.focus {
+  color: #ffffff;
+  background-color: #005D5E;
+  border-color: #004B4C;
+}
+.btn-secondary:active,
+.btn-secondary.active,
+.open > .dropdown-toggle.btn-secondary {
+  background-image: none;
+}
+.btn-secondary.disabled:hover,
+.btn-secondary[disabled]:hover,
+fieldset[disabled] .btn-secondary:hover,
+.btn-secondary.disabled:focus,
+.btn-secondary[disabled]:focus,
+fieldset[disabled] .btn-secondary:focus,
+.btn-secondary.disabled.focus,
+.btn-secondary[disabled].focus,
+fieldset[disabled] .btn-secondary.focus {
+  background-color: #007A7C;
+  border-color: #007476;
+}
+.btn-secondary .badge {
+  color: #007A7C;
+  background-color: #ffffff;
 }
 /* =====================================================
    Colby Variables
