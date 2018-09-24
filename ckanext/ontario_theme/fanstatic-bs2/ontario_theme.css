@@ -1,0 +1,938 @@
+.number,
+.stat,
+.stats-caption {
+  font-weight: 700;
+}
+.stats .stats-caption {
+  font-size: 1.2rem;
+}
+.stats .number {
+  display: block;
+  font-size: 4.5rem;
+  margin: 20% auto;
+  text-align: center;
+  width: 11.25rem;
+  line-height: 1.5;
+  /* in ontario css this is in ul styling but is needed for this to work. */
+}
+.stats .number.big {
+  font-size: 2.6rem;
+  margin-top: 35%;
+}
+.stats .number.number-wrap {
+  font-size: 2.6rem;
+  margin-top: 25%;
+  line-height: 1.2;
+}
+.stats .circle.lime-green {
+  background-color: #7b9d00;
+}
+.stats .circle.fuscia {
+  background-color: #9c0f5f;
+}
+@media only screen and (max-width: 40em) {
+  .stats .number {
+    font-size: 3.2rem;
+    width: 9.375rem;
+  }
+  .stats .number.big {
+    font-size: 2rem;
+  }
+  .stats .number.number-wrap {
+    font-size: 2rem;
+  }
+  .stats .circle {
+    width: 9.0625rem;
+    height: 9.0625rem;
+  }
+  /* override main.css */
+  .small-block-grid-1 > li {
+    list-style: none;
+    width: 100% !important;
+  }
+}
+.circle--small {
+  width: 4.0625rem;
+  height: 4.0625rem;
+}
+.circle--small number {
+  font-size: 4rem;
+  line-height: 3.5rem;
+  margin: 0 auto;
+  width: auto;
+}
+@media only screen and (min-width: 40em) {
+  /* override main.css */
+  .homepage .stats ul li {
+    float: left;
+    width: 33.33333% !important;
+    font-weight: 300;
+  }
+}
+a.card {
+  color: #06c;
+  text-decoration: none;
+}
+a.card:hover {
+  color: #8138b3;
+  text-decoration: none;
+}
+a.card div {
+  box-shadow: 0 2px 4px #666;
+  transition: 1s;
+  height: 451px;
+  background-color: rgba(230, 230, 230, 0.3);
+  transition: box-shadow 135ms cubic-bezier(0.4, 0, 0.2, 1), width 235ms cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+  box-shadow: 0 1px 1px 0 rgba(60, 64, 67, 0.08), 0 1px 3px 1px rgba(60, 64, 67, 0.16);
+  padding: 1rem;
+}
+a.card div:hover {
+  background-color: rgba(230, 230, 230, 0.5);
+}
+a.card p {
+  color: #666;
+}
+a.card .action {
+  position: absolute;
+  bottom: 0;
+  color: #007A7C;
+}
+/* =====================================================
+   Button overrides
+   ===================================================== */
+.btn-secondary {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #007A7C;
+  background-image: -moz-linear-gradient(top, #007A7C, #005D5E);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#007A7C), to(#005D5E));
+  background-image: -webkit-linear-gradient(top, #007A7C, #005D5E);
+  background-image: -o-linear-gradient(top, #007A7C, #005D5E);
+  background-image: linear-gradient(to bottom, #007A7C, #005D5E);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff007A7C', endColorstr='#ff005D5E', GradientType=0);
+  border-color: #005D5E #005D5E #003030;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #005D5E;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active,
+.btn-secondary.active,
+.btn-secondary.disabled,
+.btn-secondary[disabled] {
+  color: #ffffff;
+  background-color: #005D5E;
+  *background-color: #004B4C;
+}
+.btn-secondary:active,
+.btn-secondary.active {
+  background-color: #003738 \9;
+}
+.btn-primary {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #D47500;
+  background-image: -moz-linear-gradient(top, #D47500, #B26300);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#D47500), to(#B26300));
+  background-image: -webkit-linear-gradient(top, #D47500, #B26300);
+  background-image: -o-linear-gradient(top, #D47500, #B26300);
+  background-image: linear-gradient(to bottom, #D47500, #B26300);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffD47500', endColorstr='#ffB26300', GradientType=0);
+  border-color: #B26300 #B26300 #2B1800;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #B26300;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary.disabled,
+.btn-primary[disabled] {
+  color: #ffffff;
+  background-color: #B26300;
+  *background-color: #854900;
+}
+.btn-primary:active,
+.btn-primary.active {
+  background-color: #593100 \9;
+}
+.btn-group.open .btn-primary.dropdown-toggle {
+  background-color: #B26300;
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus,
+.dropdown-submenu:hover > a,
+.dropdown-submenu:focus > a {
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #D47500;
+  background-image: -moz-linear-gradient(top, #D47500, #B26300);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#D47500), to(#B26300));
+  background-image: -webkit-linear-gradient(top, #D47500, #B26300);
+  background-image: -o-linear-gradient(top, #D47500, #B26300);
+  background-image: linear-gradient(to bottom, #D47500, #B26300);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffD47500', endColorstr='#ffB26300', GradientType=0);
+}
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+  color: #ffffff;
+  text-decoration: none;
+  outline: 0;
+  background-color: #D47500;
+  background-image: -moz-linear-gradient(top, #D47500, #B26300);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#D47500), to(#B26300));
+  background-image: -webkit-linear-gradient(top, #D47500, #B26300);
+  background-image: -o-linear-gradient(top, #D47500, #B26300);
+  background-image: linear-gradient(to bottom, #D47500, #B26300);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffD47500', endColorstr='#ffB26300', GradientType=0);
+}
+/* =====================================================
+   Colby Variables
+   ===================================================== */
+/* =====================================================
+   Generic classes for Colby colours
+   ===================================================== */
+.primary-bg {
+  background-color: #D47500;
+}
+.primary-fg {
+  color: #D47500;
+}
+.secondary-bg {
+  background-color: #007A7C;
+}
+.secondary-fg {
+  color: #007A7C;
+}
+/* =====================================================
+   Remove background images
+   ===================================================== */
+.module-grid,
+.media-grid,
+.account-masthead,
+.masthead,
+body,
+.ie8 [role=main],
+.ie7 [role=main],
+.ie8 .main,
+.ie7 .main {
+  background-image: none;
+  background-color: #fff;
+  font-family: 'Open Sans';
+}
+@media (min-width: 768px) {
+  [role=main],
+  .main {
+    padding-top: 10px;
+    background-image: none;
+    background-color: transparent;
+  }
+}
+@media (min-width: 768px) {
+  .hero {
+    background-image: none;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/images/backgrounds/richard-balog-647377-unsplash_converted.jpg);
+    background-size: cover, cover;
+    height: auto;
+    background-position: 50% 50%;
+  }
+}
+@media (max-width: 768px) {
+  .hero {
+    background-image: none !important;
+  }
+}
+.ie8 .hero,
+.ie7 .hero {
+  background-image: none;
+}
+/* =====================================================
+   The "account masthead" bar across the top of the site
+   ===================================================== */
+.account-masthead {
+  background-color: #000;
+  padding-top: 0.5rem;
+  min-height: 69px;
+}
+/* The "bubble" containing the number of new notifications. */
+.account-masthead .account .notifications a span {
+  background-color: #000;
+}
+/* The text and icons in the user account info. */
+.account-masthead .account ul li a {
+  color: rgba(255, 255, 255, 0.6);
+}
+/* The user account info text and icons, when the user's pointer is hovering
+   over them. */
+.account-masthead .account ul li a:hover {
+  color: #eee;
+  background-color: #333;
+}
+.account-masthead .account ul li {
+  display: block;
+  float: left;
+  border-left: none;
+  padding: 0.75rem 0;
+  margin-bottom: 0 !important;
+}
+/* ========================================================================
+   The main masthead bar that contains the site logo, nav links, and search
+   ======================================================================== */
+.masthead {
+  background-color: #007A7C;
+}
+/* The "navigation pills" in the masthead (the links to Datasets,
+   Organizations, etc) when the user's pointer hovers over them. */
+.masthead .navigation .nav-pills li a:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #fff;
+}
+/* The "active" navigation pill (for example, when you're on the /dataset page
+   the "Datasets" link is active). */
+.masthead .navigation .nav-pills li.active a {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.masthead a {
+  text-decoration: none;
+}
+.masthead hgroup h1 {
+  font-weight: 300;
+  letter-spacing: -1px;
+  margin: 3px 0;
+  padding-left: 1.6em;
+  padding-top: 6px;
+}
+.masthead hgroup h1 sup {
+  font-size: 60%;
+}
+.masthead hgroup h1,
+.masthead hgroup h2 {
+  float: left;
+  font-size: 24px;
+  line-height: 1.5;
+}
+/* Alpha + Beta labels */
+.dss-phase-label.alpha span,
+.dss-phase-label.beta span,
+.label {
+  display: inline-block;
+  font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: auto;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.9375rem;
+  background-color: #006b3f;
+  color: #4d4d4d;
+}
+.dss-phase-label.alpha span,
+.dss-phase-label.beta span,
+.large {
+  font-size: 1.125rem;
+}
+.dss-phase-label.alpha span,
+.dss-phase-label.beta span {
+  /*font-weight: 700;*/
+}
+.dss-phase-label.alpha span,
+.dss-phase-label.beta span,
+.label {
+  background: #ededed;
+  border-radius: 3px;
+  margin: 0 0.3125rem 0.3125rem 0;
+}
+.dss-alpha,
+.dss-phase-label.alpha span {
+  background: #118c7b !important;
+  color: #fff !important;
+}
+.dss-phase-label.alpha span,
+.dss-phase-label.beta span,
+.top-margin-half {
+  margin-top: 0.5rem !important;
+}
+/* ===========================================
+   The content in the middle of the front page
+   =========================================== */
+/* Change the colors of the "Search Your Data" box. */
+.homepage .module-search .module-content {
+  color: #fff;
+  background-color: #006B3F;
+}
+/* Change the background color of the "Popular Tags" box. */
+.homepage .module-search .tags {
+  background-color: #3d3d3d;
+}
+a.tag:hover {
+  text-decoration: none;
+  color: #fff;
+  background-color: #707070;
+  border: 1px solid #333;
+  -webkit-box-shadow: inset 0 1px 0 #F8F8F8;
+  -moz-box-shadow: inset 0 1px 0 #F8F8F8;
+  box-shadow: inset 0 1px 0 #F8F8F8;
+}
+.row.grid-spacing {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+/* =====================================================
+   Topics row on home page - ontario styling
+   ===================================================== */
+/* Left over from old styling. Keep until we adjust the background colouring */
+@media (max-width: 768px) {
+  ul.topics {
+    background-color: #FFF;
+    border: 1px solid #cccccc;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    margin-left: 0px;
+  }
+  [role=main] {
+    min-height: auto;
+  }
+}
+/* Left over end */
+@media only screen {
+  .small-block-grid-1 > li {
+    list-style: none;
+    width: 100%;
+  }
+  .small-block-grid-1 > li:nth-of-type(1n) {
+    clear: none;
+  }
+  .small-block-grid-1 > li:nth-of-type(1n+1) {
+    clear: both;
+  }
+  .small-block-grid-1 > li:nth-of-type(1n) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+[class*=block-grid-] {
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+[class*=block-grid-]:after,
+[class*=block-grid-]:before {
+  content: " ";
+  display: table;
+}
+[class*=block-grid-]:after {
+  clear: both;
+}
+[class*=block-grid-] > li {
+  display: block;
+  float: left;
+  height: auto;
+  padding: 0 0.9375rem 1.875rem;
+}
+@media only screen {
+  .small-block-grid-3 > li {
+    list-style: none;
+    width: 33.33333%;
+  }
+  .small-block-grid-3 > li:nth-of-type(1n) {
+    clear: none;
+  }
+  .small-block-grid-3 > li:nth-of-type(3n+1) {
+    clear: both;
+    padding-left: 0;
+    padding-right: 1.25rem;
+  }
+  .small-block-grid-3 > li:nth-of-type(3n+2) {
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+  }
+  .small-block-grid-3 > li:nth-of-type(3n) {
+    padding-left: 1.25rem;
+    padding-right: 0;
+  }
+}
+@media only screen and (min-width: 40.0625em) {
+  .medium-block-grid-3 > li {
+    list-style: none;
+    width: 33.33333%;
+  }
+  .medium-block-grid-3 > li:nth-of-type(1n) {
+    clear: none;
+  }
+  .medium-block-grid-3 > li:nth-of-type(3n+1) {
+    clear: both;
+    padding-left: 0;
+    padding-right: 1.25rem;
+  }
+  .medium-block-grid-3 > li:nth-of-type(3n+2) {
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+  }
+  .medium-block-grid-3 > li:nth-of-type(3n) {
+    padding-left: 1.25rem;
+    padding-right: 0;
+  }
+}
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+.number {
+  font-weight: 700;
+}
+.stat,
+.stats-caption {
+  font-weight: 700;
+  color: #444444;
+  font-size: 1.2rem;
+}
+a {
+  color: #007A7C;
+  line-height: inherit;
+  text-decoration: none;
+}
+.stats .stats-caption {
+  font-size: 1.2rem;
+  line-height: 1.3;
+}
+.stats .stats-caption:hover {
+  text-decoration: none;
+}
+p,
+p.lead {
+  line-height: 1.6;
+}
+p {
+  font-family: inherit;
+  font-weight: 400;
+  margin-bottom: 1.25rem;
+  text-rendering: optimizeLegibility;
+}
+main > div:nth-child(2) {
+  background: #006B3F;
+  color: white;
+}
+.circle,
+.circle--small {
+  font-family: Raleway, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+  border-radius: 50%;
+  color: #fff;
+  background-color: #D47500;
+  display: inline-block;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  position: relative;
+  width: 12.1875rem;
+  height: 12.1875rem;
+}
+.circle.primary {
+  background-color: #D47500;
+}
+.circle.secondary {
+  background-color: #007A7C;
+}
+.text-center {
+  text-align: center!important;
+}
+.circle--small {
+  width: 4.0625rem;
+  height: 4.0625rem;
+}
+.top-margin {
+  margin-top: 80px;
+}
+.stats p {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+@media only screen and (max-width: 40em) {
+  .stats .stats-caption {
+    font-size: 1.3rem;
+  }
+}
+p.filter-list > span {
+  display: block;
+  clear: both;
+}
+p.filter-list span span.facet {
+  width: 175px;
+  display: inline-block;
+}
+p.filter-list span span.pill {
+  background-color: #D47500;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  box-shadow: none;
+}
+/* =====================================================
+   CKAN label enforcement - TODO: replace labels with ontario.ca styling
+   ===================================================== */
+.dataset-resources li a {
+  background-color: #aaaaaa;
+  color: #FFFFFF;
+}
+.label[data-format=html],
+.label[data-format*=html] {
+  background-color: #55a1ce;
+  color: #FFFFFF;
+}
+.label[data-format=json],
+.label[data-format*=json] {
+  background-color: #ef7100;
+  color: #FFFFFF;
+}
+.label[data-format=xml],
+.label[data-format*=xml] {
+  background-color: #ef7100;
+  color: #FFFFFF;
+}
+.label[data-format=text],
+.label[data-format*=text] {
+  background-color: #74cbec;
+  color: #FFFFFF;
+}
+.label[data-format=csv],
+.label[data-format*=csv] {
+  background-color: #856A00;
+  color: #FFFFFF;
+}
+.label[data-format=xls],
+.label[data-format*=xls] {
+  background-color: #2db55d;
+  color: #FFFFFF;
+}
+.label[data-format=zip],
+.label[data-format*=zip] {
+  background-color: #686868;
+  color: #FFFFFF;
+}
+.label[data-format=api],
+.label[data-format*=api] {
+  background-color: #ec96be;
+  color: #FFFFFF;
+}
+.label[data-format=pdf],
+.label[data-format*=pdf] {
+  background-color: #e0051e;
+  color: #FFFFFF;
+}
+.label[data-format=rdf],
+.label[data-format*=rdf],
+.label[data-format*=nquad],
+.label[data-format*=ntriples],
+.label[data-format*=turtle] {
+  background-color: #0b4498;
+  color: #FFFFFF;
+}
+/* =====================================================
+   Homepage-specific styles
+   ===================================================== */
+.homepage h1,
+.homepage h2,
+.homepage h3,
+.homepage h4,
+.homepage h5,
+.homepage h6,
+.homepage h7,
+.homepage h8,
+.homepage h9 {
+  font-family: 'Open Sans', sans serif;
+  line-height: 1.4;
+  font-weight: 600;
+}
+.homepage h3,
+.homepage h4,
+.homepage h5 {
+  color: #666;
+}
+.homepage h3 {
+  font-size: 1.5625rem;
+}
+.homepage h3 div.sub-title {
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.homepage h4 {
+  font-size: 1.25rem;
+}
+/* =====================================================
+   Introduction snippet
+   ===================================================== */
+div.introduction {
+  font-size: 1.1rem;
+  padding-top: 20px;
+}
+div.introduction ul {
+  padding: 10px;
+}
+div.introduction ul li {
+  padding: 10px;
+  list-style: none;
+  line-height: 2rem;
+}
+div.introduction ul li span.emphasize {
+  color: #D47500;
+  text-transform: uppercase;
+  font-size: 120%;
+  font-weight: bold;
+}
+div.introduction .label {
+  background-color: #007A7C;
+  color: #fff;
+  padding: 10px;
+}
+/* =====================================================
+   Contact snippet
+   ===================================================== */
+.contact-us .label {
+  font-size: large;
+  padding: 0.5rem;
+  width: 100%;
+  background-color: #D47500;
+}
+.contact-us .label a {
+  color: #fff;
+}
+/* =====================================================
+   Recent activity snippet
+   ===================================================== */
+.recent-activity .module-content {
+  padding: 0px;
+}
+.recent-activity .module-content ul.activity {
+  background: none;
+}
+.recent-activity .module-content ul.activity li i.icon {
+  display: none;
+}
+.recent-activity .module-content ul.activity li p {
+  margin-left: 0px;
+}
+.recent-activity .module-content ul.activity li p .actor .gravatar {
+  left: 0px;
+  position: relative;
+}
+/* =====================================================
+   Homepage Search 
+   ===================================================== */
+.module.search {
+  color: #fff;
+}
+.module.search .search-form {
+  padding: 10px 0px;
+  margin: 0px;
+  border: none;
+}
+.module.search .search-form h3 {
+  font-size: 2.1875rem;
+  font-weight: 600;
+  color: #fff;
+}
+.module.search .search-form h4 {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #fff;
+}
+.module.search .search-form .search-input {
+  margin: 0px;
+}
+.module.search .search-form .search-input button {
+  margin-top: -10px;
+  height: 20px;
+}
+.module.search div.tags h3 {
+  margin: 0px;
+  font-size: 18px;
+  color: #fff;
+}
+.module.search div.tags a.tag {
+  background-color: #D47500;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  box-shadow: none;
+}
+/* =====================================================
+   Layout changes
+   ===================================================== */
+.wrapper {
+  background-image: none;
+  border: none;
+  box-shadow: none;
+}
+.wrapper header.page-header {
+  border: none;
+  background: none;
+}
+.wrapper header.page-header ul.nav.nav-tabs {
+  width: 100%;
+}
+.wrapper header.page-header ul.nav.nav-tabs li a {
+  color: #444444;
+  border: none;
+}
+.wrapper header.page-header ul.nav.nav-tabs li a:hover {
+  border: none;
+}
+.wrapper header.page-header ul.nav.nav-tabs li.active a {
+  border: none;
+  border-bottom: solid 2px #D47500;
+  color: #D47500;
+}
+.module-heading {
+  border-top: none;
+  border-bottom: none;
+  background-color: transparent;
+}
+.module-narrow {
+  margin: 40px 0px;
+  background: #fafafa;
+  padding: 20px 5px;
+  border-radius: 5px;
+}
+.module-narrow .module-content {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.well {
+  border: none;
+  background: none;
+  box-shadow: none;
+}
+.well a.tag {
+  background-color: #D47500;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  box-shadow: none;
+}
+table.table {
+  border: none;
+}
+table.table thead {
+  display: none;
+}
+table.table td {
+  border: none;
+}
+table.table tbody tr:nth-child(even) th,
+table.table tbody tr:nth-child(even) td {
+  background-color: #f9f9f9;
+}
+table.table tbody tr th,
+table.table tbody tr td {
+  border: none;
+}
+table.table tbody tr td {
+  width: 75%;
+}
+.media-grid {
+  border: none;
+}
+/* =====================================================
+   Footer
+   ===================================================== */
+footer.site-footer {
+  background: #ededed;
+  position: relative;
+  margin-top: 1em;
+  padding: 2em 0 1.5em;
+  border-top: 1px solid #d9d9d9;
+  color: #4d4d4d;
+}
+footer.site-footer a,
+footer.site-footer a:visited {
+  color: #4d4d4d;
+  text-decoration: underline;
+}
+footer.site-footer label {
+  color: #4d4d4d;
+}
+footer.site-footer .nav {
+  margin-bottom: 0rem;
+  overflow: hidden;
+  margin-left: 0rem;
+  padding-left: 0rem;
+  margin-top: 2rem;
+}
+footer.site-footer .nav ul li {
+  float: left;
+  margin-left: 1rem;
+  font-size: 1rem;
+  margin-bottom: 0.625rem;
+  font-size: 0.9375rem;
+}
+footer.site-footer .nav ul li:first-child {
+  margin-left: 0rem;
+}
+footer.site-footer p.copyright {
+  font-size: 0.9375rem;
+  margin-bottom: 1rem;
+}
+footer.site-footer div.footer-swoosh {
+  background: url(/images/footer-swoosh-bg.png) repeat-x;
+  display: block;
+  width: 100%;
+  height: 96px;
+}
+footer.site-footer div.footer-swoosh--right {
+  background: #ededed url(/images/footer-swoosh.png) no-repeat;
+  display: block;
+  width: 560px;
+  height: 96px;
+  float: right;
+}
+footer.site-footer .attribution .ckan-footer-logo {
+  background: url(/base/images/ckan-logo-footer_dark.png) no-repeat top left;
+}
+/* =====================================================
+   Accessibility-specific styles
+   ===================================================== */
+.accessibly-hidden,
+.toolbar .home span,
+.simple-input label,
+.simple-input button span,
+a.skip-main {
+  left: -999px;
+  position: absolute;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: -999;
+  display: inline;
+}
+a.skip-main:focus,
+a.skip-main:active {
+  color: #fff;
+  background-color: #000;
+  left: auto;
+  top: auto;
+  width: 30%;
+  height: auto;
+  overflow: auto;
+  margin: 10px 35%;
+  padding: 5px;
+  border-radius: 15px;
+  border: 4px solid #fff;
+  text-align: center;
+  font-size: 1.2em;
+  z-index: 999;
+}

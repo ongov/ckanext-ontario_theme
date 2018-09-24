@@ -1,0 +1,88 @@
+.number,
+.stat,
+.stats-caption {
+  font-weight: 700
+}
+
+.stats {
+  .stats-caption {
+    font-size: 1.2rem
+  }
+
+  .number {
+    display: block;
+    font-size: 4.5rem;
+    margin: 20% auto;
+    text-align: center;
+    width: 11.25rem;
+    line-height: 1.5; /* in ontario css this is in ul styling but is needed for this to work. */
+  }
+
+  .number.big {
+    font-size: 2.6rem;
+    margin-top: 35%
+  }
+
+  .number.number-wrap {
+    font-size: 2.6rem;
+    margin-top: 25%;
+    line-height: 1.2
+  }
+
+  .circle.lime-green {
+    background-color: rgb(123, 157, 0);
+  }
+
+  .circle.fuscia {
+    background-color: rgb(156, 15, 95);
+  }
+}
+
+@media only screen and (max-width: 40em) {
+  .stats {
+    .number {
+      font-size:3.2rem;
+      width: 9.375rem;
+    }
+
+    .number.big {
+      font-size:2rem;
+    }
+
+    .number.number-wrap {
+      font-size:2rem;
+    }
+
+    .circle {
+      width:9.0625rem;
+      height: 9.0625rem;
+    }
+  }
+  
+  /* override main.css */
+  .small-block-grid-1>li {
+      list-style: none;
+      width: 100% !important;
+  }   
+}
+
+.circle--small {
+  width: 4.0625rem;
+  height: 4.0625rem;
+
+  number {
+    font-size: 4rem;
+    line-height: 3.5rem;
+    margin: 0 auto;
+    width: auto;
+  } 
+}
+
+@media only screen and (min-width: 40em) {
+  /* override main.css */
+  .homepage .stats ul li {
+    float: left;
+    width: 33.33333% !important;
+    font-weight: 300;
+  }
+}

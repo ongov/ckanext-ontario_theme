@@ -1,0 +1,802 @@
+@import "smarties.less";
+@import "cards.less";
+@import "buttons.less";
+
+/* =====================================================
+   Colby Variables
+   ===================================================== */
+
+@primary-colour: #D47500;
+@secondary-colour: #007A7C;
+@grey: #444444;
+@header-grey: #666;
+
+/* =====================================================
+   Generic classes for Colby colours
+   ===================================================== */
+
+.primary-bg {
+  background-color: @primary-colour;
+}
+
+.primary-fg {
+  color: @primary-colour;
+}
+
+.secondary-bg {
+  background-color: @secondary-colour;
+}
+
+.secondary-fg {
+  color: @secondary-colour;
+}
+
+/* =====================================================
+   Remove background images
+   ===================================================== */
+
+.module-grid,
+.media-grid,
+.account-masthead,
+.masthead, 
+body,
+.ie8 [role=main],
+.ie7 [role=main],
+.ie8 .main,
+.ie7 .main  {
+  background-image: none;
+  background-color: #fff;
+  font-family: 'Open Sans';
+}
+@media (min-width: 768px) {
+  [role=main],
+  .main {
+    padding-top: 10px;
+    background-image: none;
+    background-color: transparent;
+  }
+}
+@media (min-width: 768px) {
+  .hero {
+    background-image: none;
+    background: linear-gradient(0deg,rgba(0,0,0,.6),rgba(0,0,0,0.6)), url(/images/backgrounds/richard-balog-647377-unsplash_converted.jpg);
+    background-size: cover, cover;
+    height: auto;
+    background-position: 50% 50%;
+  }
+}
+@media (max-width: 768px) {
+  .hero {
+    background-image: none !important;
+  }
+}
+.ie8 .hero,
+.ie7 .hero {
+  background-image: none;
+}
+
+/* =====================================================
+   The "account masthead" bar across the top of the site
+   ===================================================== */
+
+.account-masthead {
+    background-color: #000;
+    padding-top: .5rem;
+    min-height: 69px;
+}
+/* The "bubble" containing the number of new notifications. */
+.account-masthead .account .notifications a span {
+    background-color: #000;
+}
+/* The text and icons in the user account info. */
+.account-masthead .account ul li a {
+    color: rgba(255, 255, 255, 0.6);
+}
+/* The user account info text and icons, when the user's pointer is hovering
+   over them. */
+.account-masthead .account ul li a:hover {
+    color: #eee;
+    background-color: #333;
+}
+.account-masthead .account ul li {
+    display: block;
+    float: left;
+    border-left: none;
+    padding: .75rem 0;
+    margin-bottom: 0 !important;
+}
+
+/* ========================================================================
+   The main masthead bar that contains the site logo, nav links, and search
+   ======================================================================== */
+
+.masthead {
+  background-color: @secondary-colour;
+}
+/* The "navigation pills" in the masthead (the links to Datasets,
+   Organizations, etc) when the user's pointer hovers over them. */
+.masthead .navigation .nav-pills li a:hover {
+  background-color: rgba(0,0,0, 0.4);
+  color: #fff;
+}
+/* The "active" navigation pill (for example, when you're on the /dataset page
+   the "Datasets" link is active). */
+.masthead .navigation .nav-pills li.active a {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.masthead a {
+    text-decoration: none;
+}
+.masthead hgroup h1 {
+    font-weight: 300;
+    letter-spacing: -1px;
+    margin: 3px 0;
+    padding-left: 1.6em;
+    padding-top: 6px;
+}
+.masthead hgroup h1 sup {
+  font-size: 60%;
+}
+.masthead hgroup h1,
+.masthead hgroup h2 {
+    float: left;
+    font-size: 24px;
+    line-height: 1.5;
+}
+/* Alpha + Beta labels */
+.dss-phase-label.alpha span,
+.dss-phase-label.beta span,
+.label {
+    display: inline-block;
+    font-family: Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: auto;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    padding: .25rem .5rem;
+    font-size: .9375rem;
+    background-color: #006b3f;
+    color: #4d4d4d;
+}
+.dss-phase-label.alpha span,
+.dss-phase-label.beta span,
+.large {
+    font-size: 1.125rem;
+}
+.dss-phase-label.alpha span,
+.dss-phase-label.beta span {
+    /*font-weight: 700;*/
+}
+.dss-phase-label.alpha span,
+.dss-phase-label.beta span,
+.label {
+    background: #ededed;
+    border-radius: 3px;
+    margin: 0 .3125rem .3125rem 0;
+}
+.dss-alpha,
+.dss-phase-label.alpha span {
+    background: #118c7b!important;
+    color: #fff!important;
+}
+.dss-phase-label.alpha span,
+.dss-phase-label.beta span,
+.top-margin-half {
+    margin-top: .5rem!important;
+}
+
+/* ===========================================
+   The content in the middle of the front page
+   =========================================== */
+
+/* Change the colors of the "Search Your Data" box. */
+.homepage .module-search .module-content {
+  color: #fff;
+  background-color: #006B3F;
+}
+/* Change the background color of the "Popular Tags" box. */
+.homepage .module-search .tags {
+  background-color: rgb(61, 61, 61);
+}
+a.tag:hover {
+    text-decoration: none;
+    color: #fff;
+    background-color: #707070;
+    border: 1px solid #333;
+    -webkit-box-shadow: inset 0 1px 0 #F8F8F8;
+    -moz-box-shadow: inset 0 1px 0 #F8F8F8;
+    box-shadow: inset 0 1px 0 #F8F8F8;
+}
+.row.grid-spacing {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+
+/* =====================================================
+   Topics row on home page - ontario styling
+   ===================================================== */
+
+/* Left over from old styling. Keep until we adjust the background colouring */
+@media (max-width: 768px) {
+    ul.topics {
+        background-color: #FFF;
+        border: 1px solid #cccccc;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        margin-left: 0px;
+    }
+    [role=main] {
+        min-height: auto;
+    }    
+}
+/* Left over end */
+
+@media only screen {
+    .small-block-grid-1>li {
+        list-style: none;
+        width: 100%;
+    }
+
+    .small-block-grid-1>li:nth-of-type(1n) {
+        clear: none
+    }
+
+    .small-block-grid-1>li:nth-of-type(1n+1) {
+        clear: both
+    }
+
+    .small-block-grid-1>li:nth-of-type(1n) {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+[class*=block-grid-] {
+    display: block;
+    padding: 0;
+    margin: 0
+}
+
+[class*=block-grid-]:after,[class*=block-grid-]:before {
+    content: " ";
+    display: table
+}
+
+[class*=block-grid-]:after {
+    clear: both
+}
+
+[class*=block-grid-]>li {
+    display: block;
+    float: left;
+    height: auto;
+    padding: 0 .9375rem 1.875rem
+}
+
+@media only screen {
+    .small-block-grid-3>li {
+        list-style: none;
+        width: 33.33333%
+    }
+
+    .small-block-grid-3>li:nth-of-type(1n) {
+        clear: none
+    }
+
+    .small-block-grid-3>li:nth-of-type(3n+1) {
+        clear: both;
+        padding-left: 0;
+        padding-right: 1.25rem
+    }
+
+    .small-block-grid-3>li:nth-of-type(3n+2) {
+        padding-left: .625rem;
+        padding-right: .625rem
+    }
+
+    .small-block-grid-3>li:nth-of-type(3n) {
+        padding-left: 1.25rem;
+        padding-right: 0
+    }
+}
+
+@media only screen and (min-width: 40.0625em) {
+    .medium-block-grid-3>li {
+        list-style: none;
+        width: 33.33333%
+    }
+
+    .medium-block-grid-3>li:nth-of-type(1n) {
+        clear: none
+    }
+
+    .medium-block-grid-3>li:nth-of-type(3n+1) {
+        clear: both;
+        padding-left: 0;
+        padding-right: 1.25rem
+    }
+
+    .medium-block-grid-3>li:nth-of-type(3n+2) {
+        padding-left: .625rem;
+        padding-right: .625rem
+    }
+
+    .medium-block-grid-3>li:nth-of-type(3n) {
+        padding-left: 1.25rem;
+        padding-right: 0
+    }
+}
+
+*, :after, :before {
+    box-sizing: border-box;
+}
+
+.number {
+  font-weight: 700;
+}
+
+.stat, 
+.stats-caption {
+    font-weight: 700;
+    color: @grey;
+    font-size: 1.2rem;
+}
+
+a {
+    color: @secondary-colour;
+    line-height: inherit;
+    text-decoration: none;
+}
+
+.stats .stats-caption {
+    font-size: 1.2rem;
+    line-height: 1.3;
+}
+
+.stats .stats-caption:hover {
+  text-decoration: none;
+}
+
+p, 
+p.lead {
+    line-height: 1.6;
+}
+p {
+    font-family: inherit;
+    font-weight: 400;
+    margin-bottom: 1.25rem;
+    text-rendering: optimizeLegibility;
+}
+
+main > div:nth-child(2) {
+  background: #006B3F; 
+  color: white;
+}
+.circle,
+.circle--small {
+  font-family: Raleway, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+  border-radius: 50%;
+  color: #fff;
+  background-color: #D47500;
+  display: inline-block;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  position: relative;
+  width: 12.1875rem;
+  height: 12.1875rem;
+}
+.circle.primary {
+  background-color: #D47500;
+}
+.circle.secondary {
+  background-color: #007A7C;
+}
+.text-center {
+  text-align: center!important;
+}
+.circle--small {
+  width: 4.0625rem;
+  height: 4.0625rem;
+}
+.top-margin {
+    margin-top: 80px; //1rem!important;
+}
+.stats p {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+@media only screen and (max-width: 40em) {
+    .stats .stats-caption {
+        font-size: 1.3rem;
+    }
+}
+p.filter-list>span {
+  display: block;
+  clear: both;
+}
+p.filter-list span span.facet {
+  width: 175px;
+  display: inline-block;
+}
+p.filter-list span span.pill{
+  background-color: @primary-colour;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  box-shadow: none;
+}
+
+/* =====================================================
+   CKAN label enforcement - TODO: replace labels with ontario.ca styling
+   ===================================================== */
+
+.dataset-resources li a {
+    background-color: #aaaaaa;
+    color: #FFFFFF;
+}
+.label[data-format=html],
+.label[data-format*=html] {
+    background-color: #55a1ce;
+    color: #FFFFFF;
+}
+.label[data-format=json],
+.label[data-format*=json] {
+    background-color: #ef7100;
+    color: #FFFFFF;
+}
+.label[data-format=xml],
+.label[data-format*=xml] {
+    background-color: #ef7100;
+    color: #FFFFFF;
+}
+.label[data-format=text],
+.label[data-format*=text] {
+    background-color: #74cbec;
+    color: #FFFFFF;
+}
+.label[data-format=csv],
+.label[data-format*=csv] {
+    background-color: #856A00;
+    color: #FFFFFF;
+}
+.label[data-format=xls],
+.label[data-format*=xls] {
+    background-color: #2db55d;
+    color: #FFFFFF;
+}
+.label[data-format=zip],
+.label[data-format*=zip] {
+    background-color: #686868;
+    color: #FFFFFF;
+}
+.label[data-format=api],
+.label[data-format*=api] {
+    background-color: #ec96be;
+    color: #FFFFFF;
+}
+.label[data-format=pdf],
+.label[data-format*=pdf] {
+    background-color: #e0051e;
+    color: #FFFFFF;
+}
+.label[data-format=rdf],
+.label[data-format*=rdf],
+.label[data-format*=nquad],
+.label[data-format*=ntriples],
+.label[data-format*=turtle] {
+    background-color: #0b4498;
+    color: #FFFFFF;
+}
+
+/* =====================================================
+   Homepage-specific styles
+   ===================================================== */
+
+.homepage {
+  h1, h2, h3, h4, h5, h6, h7, h8, h9 {
+    font-family: 'Open Sans', sans serif;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+  h3, h4, h5 {
+    color: @header-grey;
+  }
+  h3 {
+    font-size: 1.5625rem;
+    div.sub-title {
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+  }
+  h4 {
+    font-size: 1.25rem;
+  }
+}
+
+/* =====================================================
+   Introduction snippet
+   ===================================================== */
+
+div.introduction {
+  font-size: 1.1rem;
+  padding-top: 20px;
+  ul {
+    padding: 10px;
+    li {
+      padding: 10px;
+      list-style: none;
+      line-height: 2rem;
+      span.emphasize {
+        color: @primary-colour;
+        text-transform: uppercase;
+        font-size: 120%;
+        font-weight: bold;  
+      }   
+    }
+  }
+  .label {
+    background-color: @secondary-colour;
+    color: #fff;
+    padding: 10px;
+  }
+}
+
+/* =====================================================
+   Contact snippet
+   ===================================================== */
+
+.contact-us .label {
+  font-size: large;
+  padding: 0.5rem;
+  width: 100%;
+  background-color: @primary-colour;
+  a {
+    color: #fff;
+  }
+}
+
+/* =====================================================
+   Recent activity snippet
+   ===================================================== */
+
+.recent-activity {
+  .module-content {
+    padding: 0px;
+    ul.activity {
+      li i.icon {
+        display: none;
+      }
+      background: none;
+      li p {
+        margin-left: 0px;
+        .actor .gravatar {
+          left: 0px;
+          position: relative;
+        }
+      }
+    }
+  }
+}
+
+/* =====================================================
+   Homepage Search 
+   ===================================================== */
+
+.module.search {
+  color: #fff;
+  .search-form {
+    padding: 10px 0px;
+    margin: 0px;
+    border: none;
+    h3 {
+      font-size: 2.1875rem; 
+      font-weight: 600;
+      color: #fff;
+    }
+    h4 {
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: #fff;
+    }
+    .search-input {
+      margin: 0px;
+      button {
+        margin-top: -10px;
+        height: 20px;
+      }
+    }
+  }
+  div.tags {
+    h3 {
+      margin: 0px;
+      font-size: 18px;
+      color: #fff;
+    }
+    a.tag {
+      background-color: @primary-colour;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      box-shadow: none;
+    }
+  }
+}
+
+/* =====================================================
+   Layout changes
+   ===================================================== */
+
+.wrapper {
+  background-image: none;
+  border: none;
+  box-shadow: none;
+  header.page-header {
+    border: none;
+    background: none;
+    ul.nav.nav-tabs {
+      width: 100%;
+      li a {
+        color: @grey;
+        border: none;
+        &:hover {
+          border: none;
+        }
+      }
+      li.active a {
+        border: none;
+        border-bottom: solid 2px @primary-colour;
+        color: @primary-colour;
+      }
+    }
+  }
+}
+.module-heading {
+  border-top: none;
+  border-bottom: none;
+  background-color: transparent;  
+}
+.module-narrow {
+  margin: 40px 0px;
+  background: #fafafa;
+  padding: 20px 5px;
+  border-radius: 5px;
+  .module-content {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }  
+}
+.well {
+  &:before{
+    //content: "Topics:";
+  }
+  border: none;
+  background: none;
+  box-shadow: none;
+  a.tag {
+    background-color: @primary-colour;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    box-shadow: none;
+  }
+}
+table.table {
+  border: none;
+  thead {
+    display: none;
+  }
+  td {
+    border: none;
+  }
+  tbody tr:nth-child(even) th, tbody tr:nth-child(even) td {
+    background-color: #f9f9f9;
+  }
+  tbody tr th, tbody tr td {
+    border: none;
+  }
+  tbody tr td {
+    width: 75%;
+  }
+}
+.media-grid {
+  border: none;
+}
+
+/* =====================================================
+   Footer
+   ===================================================== */
+
+footer.site-footer {
+  background: #ededed;
+  position: relative;
+  margin-top: 1em;
+  padding: 2em 0 1.5em;
+  border-top: 1px solid #d9d9d9;
+  color: #4d4d4d; 
+  a, a:visited {
+    color: #4d4d4d;    
+    text-decoration: underline;
+  }
+  label {
+    color: #4d4d4d;   
+  }
+  .nav {
+    margin-bottom: 0rem;
+    overflow: hidden;
+    margin-left: 0rem;
+    padding-left: 0rem;
+    margin-top: 2rem;
+    ul li {
+      float: left;
+      margin-left: 1rem;
+      font-size: 1rem;
+      margin-bottom: .625rem;
+      font-size: 0.9375rem;
+      &:first-child {
+        margin-left: 0rem;
+      } 
+    } 
+  }
+  p.copyright {
+    font-size: 0.9375rem;
+    margin-bottom: 1rem;
+  }
+  div.footer-swoosh {
+    background: url(/images/footer-swoosh-bg.png) repeat-x;
+    display: block;
+    width: 100%;
+    height: 96px; 
+  }
+  div.footer-swoosh--right {
+    background: #ededed url(/images/footer-swoosh.png) no-repeat;
+    display: block;
+    width: 560px;
+    height: 96px;
+    float: right;
+  }
+  .attribution .ckan-footer-logo {
+    background: url(/base/images/ckan-logo-footer_dark.png) no-repeat top left;
+  }
+}
+
+/* =====================================================
+   Accessibility-specific styles
+   ===================================================== */
+
+.accessibly-hidden {
+  left:-999px;
+  position:absolute;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+  z-index:-999;  
+  display: inline;
+}
+.toolbar .home span,
+.simple-input label, 
+.simple-input button span,
+a.skip-main {
+  &:extend(.accessibly-hidden);
+}
+a.skip-main:focus, a.skip-main:active {
+  color: #fff;
+  background-color:#000;
+  left: auto;
+  top: auto;
+  width: 30%;
+  height: auto;
+  overflow:auto;
+  margin: 10px 35%;
+  padding:5px;
+  border-radius: 15px;
+  border:4px solid #fff;
+  text-align:center;
+  font-size:1.2em;
+  z-index:999;
+}
