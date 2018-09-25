@@ -242,6 +242,10 @@ fieldset[disabled] .btn-secondary.focus {
   color: #007A7C;
   background-color: #ffffff;
 }
+/* Button wrap text */
+.btn {
+  white-space: normal;
+}
 /* =====================================================
    Colby Variables
    ===================================================== */
@@ -284,14 +288,12 @@ body,
     background-color: transparent;
   }
 }
-@media (min-width: 768px) {
-  .hero {
-    background-image: none;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/images/backgrounds/richard-balog-647377-unsplash_converted.jpg);
-    background-size: cover, cover;
-    height: auto;
-    background-position: 50% 50%;
-  }
+.hero {
+  background-image: none;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/images/backgrounds/richard-balog-647377-unsplash_converted.jpg);
+  background-size: cover, cover;
+  height: auto;
+  background-position: 50% 50%;
 }
 .ie8 .hero,
 .ie7 .hero {
@@ -406,6 +408,11 @@ body,
 .dss-phase-label.beta span,
 .top-margin-half {
   margin-top: 0.5rem !important;
+}
+@media (max-width: 767px) {
+  .toolbar .breadcrumb a {
+    color: #505050;
+  }
 }
 /* ===========================================
    The content in the middle of the front page
