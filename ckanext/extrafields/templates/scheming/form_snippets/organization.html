@@ -15,7 +15,7 @@
   {% snippet "scheming/form_snippets/_organization_select.html",
     field=field,
     data=data,
-    classes=['span8'],
+    classes=['col-md-12'],
     errors=errors,
     organizations_available=h.organizations_available('create_dataset'),
     org_required=not h.check_config_permission('create_unowned_dataset')

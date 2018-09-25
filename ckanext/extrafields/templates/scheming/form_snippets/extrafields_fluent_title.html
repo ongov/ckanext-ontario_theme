@@ -26,8 +26,8 @@ Future solutions may include:
     value=data[field.field_name + '-' + lang]
         or data.get(field.field_name, {})[lang],
     error=errors[field.field_name + '-' + lang],
-    classes=['span4'],
-    attrs={'data-module': 'slug-preview-target', 'class': 'span4'} if lang == h.extrafields_default_locale() else {'class': 'span4'},
+    classes=['col-md-6'],
+    attrs={'data-module': 'slug-preview-target', 'class': 'form-control'} if lang == h.extrafields_default_locale() else {'class': 'form-control'},
     is_required=h.scheming_field_required(field)
     ) %}
     {%- snippet 'scheming/form_snippets/fluent_help_text.html',
