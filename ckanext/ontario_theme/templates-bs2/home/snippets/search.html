@@ -1,0 +1,38 @@
+{#
+
+Renders a custom search component for the home page.
+
+#}
+{% set tags = h.get_facet_items_dict('tags', limit=3) %}
+{% set placeholder = _('E.g. environment') %}
+
+<div class="module search">
+  <form class="module-content search-form" method="get" action="{% url_for controller='package', action='search' %}">
+    <h3 class="heading">{{ _("Search data and records") }}<br />
+      <div class="sub-title">
+        Find, share and collaborate on government data and records with <abbr title="Collaboration Ontario">CollabON</abbr> (Colby).
+      </div>
+    </h3>
+    <div class="search-input control-group search-giant">
+      <input type="text" class="search" name="q" value="" autocomplete="off" placeholder="{% block search_placeholder %}{{ placeholder }}{% endblock %}" />
+      <button type="submit">
+        <i class="fa fa-search"></i>
+        <span>{{ _('Search') }}</span>
+      </button>
+    </div>
+  </form>
+  <div class="tags">
+    <div class="container">
+      <div class="row">
+        <div class="span2">
+          <h3>{{ _('Popular tags') }}</h3>
+        </div>
+        <div class="span10">          
+          {% for tag in tags %}
+            <a class="tag" href="{% url_for controller='package', action='search', tags=tag.name %}">{{ h.truncate(tag.display_name, 22) }}</a>
+          {% endfor %}
+        </div>         
+      </div>
+    </div>
+  </div>
+</div>

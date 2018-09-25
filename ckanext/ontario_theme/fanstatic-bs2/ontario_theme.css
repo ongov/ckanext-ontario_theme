@@ -3,10 +3,13 @@
 .stats-caption {
   font-weight: 700;
 }
+.stats .stats-caption {
+  font-size: 1.2rem;
+}
 .stats .number {
   display: block;
   font-size: 4.5rem;
-  margin: 30% auto;
+  margin: 20% auto;
   text-align: center;
   width: 11.25rem;
   line-height: 1.5;
@@ -66,36 +69,6 @@
     font-weight: 300;
   }
 }
-.stat,
-.stats-caption {
-  color: #444444;
-}
-.circle,
-.circle--small {
-  font-family: Raleway, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
-  border-radius: 50%;
-  color: #fff;
-  background-color: #D47500;
-  display: inline-block;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  position: relative;
-  width: 18rem;
-  height: 18rem;
-}
-.circle.primary {
-  background-color: #D47500;
-}
-.circle.secondary {
-  background-color: #007A7C;
-}
-.circle--small {
-  width: 4.0625rem;
-  height: 4.0625rem;
-}
-.stats p {
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
 a.card {
   color: #06c;
   text-decoration: none;
@@ -107,6 +80,7 @@ a.card:hover {
 a.card div {
   box-shadow: 0 2px 4px #666;
   transition: 1s;
+  height: 451px;
   background-color: rgba(230, 230, 230, 0.3);
   transition: box-shadow 135ms cubic-bezier(0.4, 0, 0.2, 1), width 235ms cubic-bezier(0.4, 0, 0.2, 1);
   background: transparent;
@@ -120,131 +94,107 @@ a.card p {
   color: #666;
 }
 a.card .action {
+  position: absolute;
+  bottom: 0;
   color: #007A7C;
-}
-a.card img {
-  width: 100%;
 }
 /* =====================================================
    Button overrides
    ===================================================== */
-.btn-primary {
-  color: #ffffff;
-  background-color: #D47500;
-  border-color: #c66e00;
-}
-.btn-primary:focus,
-.btn-primary.focus {
-  color: #ffffff;
-  background-color: #B26300;
-  border-color: #995400;
-}
-.btn-primary:hover {
-  color: #ffffff;
-  background-color: #B26300;
-  border-color: #995400;
-}
-.btn-primary:active,
-.btn-primary.active,
-.open > .dropdown-toggle.btn-primary {
-  color: #ffffff;
-  background-color: #B26300;
-  border-color: #995400;
-}
-.btn-primary:active:hover,
-.btn-primary.active:hover,
-.open > .dropdown-toggle.btn-primary:hover,
-.btn-primary:active:focus,
-.btn-primary.active:focus,
-.open > .dropdown-toggle.btn-primary:focus,
-.btn-primary:active.focus,
-.btn-primary.active.focus,
-.open > .dropdown-toggle.btn-primary.focus {
-  color: #ffffff;
-  background-color: #B26300;
-  border-color: #995400;
-}
-.btn-primary:active,
-.btn-primary.active,
-.open > .dropdown-toggle.btn-primary {
-  background-image: none;
-}
-.btn-primary.disabled:hover,
-.btn-primary[disabled]:hover,
-fieldset[disabled] .btn-primary:hover,
-.btn-primary.disabled:focus,
-.btn-primary[disabled]:focus,
-fieldset[disabled] .btn-primary:focus,
-.btn-primary.disabled.focus,
-.btn-primary[disabled].focus,
-fieldset[disabled] .btn-primary.focus {
-  background-color: #D47500;
-  border-color: #c66e00;
-}
-.btn-primary .badge {
-  color: #D47500;
-  background-color: #ffffff;
-}
 .btn-secondary {
   color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-color: #007A7C;
-  border-color: #007476;
+  background-image: -moz-linear-gradient(top, #007A7C, #005D5E);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#007A7C), to(#005D5E));
+  background-image: -webkit-linear-gradient(top, #007A7C, #005D5E);
+  background-image: -o-linear-gradient(top, #007A7C, #005D5E);
+  background-image: linear-gradient(to bottom, #007A7C, #005D5E);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff007A7C', endColorstr='#ff005D5E', GradientType=0);
+  border-color: #005D5E #005D5E #003030;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #005D5E;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
+.btn-secondary:hover,
 .btn-secondary:focus,
-.btn-secondary.focus {
-  color: #ffffff;
-  background-color: #005D5E;
-  border-color: #004B4C;
-}
-.btn-secondary:hover {
-  color: #ffffff;
-  background-color: #005D5E;
-  border-color: #004B4C;
-}
 .btn-secondary:active,
 .btn-secondary.active,
-.open > .dropdown-toggle.btn-secondary {
+.btn-secondary.disabled,
+.btn-secondary[disabled] {
   color: #ffffff;
   background-color: #005D5E;
-  border-color: #004B4C;
-}
-.btn-secondary:active:hover,
-.btn-secondary.active:hover,
-.open > .dropdown-toggle.btn-secondary:hover,
-.btn-secondary:active:focus,
-.btn-secondary.active:focus,
-.open > .dropdown-toggle.btn-secondary:focus,
-.btn-secondary:active.focus,
-.btn-secondary.active.focus,
-.open > .dropdown-toggle.btn-secondary.focus {
-  color: #ffffff;
-  background-color: #005D5E;
-  border-color: #004B4C;
+  *background-color: #004B4C;
 }
 .btn-secondary:active,
-.btn-secondary.active,
-.open > .dropdown-toggle.btn-secondary {
-  background-image: none;
+.btn-secondary.active {
+  background-color: #003738 \9;
 }
-.btn-secondary.disabled:hover,
-.btn-secondary[disabled]:hover,
-fieldset[disabled] .btn-secondary:hover,
-.btn-secondary.disabled:focus,
-.btn-secondary[disabled]:focus,
-fieldset[disabled] .btn-secondary:focus,
-.btn-secondary.disabled.focus,
-.btn-secondary[disabled].focus,
-fieldset[disabled] .btn-secondary.focus {
-  background-color: #007A7C;
-  border-color: #007476;
+.btn-primary {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #D47500;
+  background-image: -moz-linear-gradient(top, #D47500, #B26300);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#D47500), to(#B26300));
+  background-image: -webkit-linear-gradient(top, #D47500, #B26300);
+  background-image: -o-linear-gradient(top, #D47500, #B26300);
+  background-image: linear-gradient(to bottom, #D47500, #B26300);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffD47500', endColorstr='#ffB26300', GradientType=0);
+  border-color: #B26300 #B26300 #2B1800;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #B26300;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
-.btn-secondary .badge {
-  color: #007A7C;
-  background-color: #ffffff;
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary.disabled,
+.btn-primary[disabled] {
+  color: #ffffff;
+  background-color: #B26300;
+  *background-color: #854900;
 }
-/* Button wrap text */
-.btn {
-  white-space: normal;
+.btn-primary:active,
+.btn-primary.active {
+  background-color: #593100 \9;
+}
+.btn-group.open .btn-primary.dropdown-toggle {
+  background-color: #B26300;
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus,
+.dropdown-submenu:hover > a,
+.dropdown-submenu:focus > a {
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #D47500;
+  background-image: -moz-linear-gradient(top, #D47500, #B26300);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#D47500), to(#B26300));
+  background-image: -webkit-linear-gradient(top, #D47500, #B26300);
+  background-image: -o-linear-gradient(top, #D47500, #B26300);
+  background-image: linear-gradient(to bottom, #D47500, #B26300);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffD47500', endColorstr='#ffB26300', GradientType=0);
+}
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+  color: #ffffff;
+  text-decoration: none;
+  outline: 0;
+  background-color: #D47500;
+  background-image: -moz-linear-gradient(top, #D47500, #B26300);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#D47500), to(#B26300));
+  background-image: -webkit-linear-gradient(top, #D47500, #B26300);
+  background-image: -o-linear-gradient(top, #D47500, #B26300);
+  background-image: linear-gradient(to bottom, #D47500, #B26300);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffD47500', endColorstr='#ffB26300', GradientType=0);
 }
 /* =====================================================
    Colby Variables
@@ -288,17 +238,23 @@ body,
     background-color: transparent;
   }
 }
-.hero {
-  background-image: none;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/images/backgrounds/richard-balog-647377-unsplash_converted.jpg);
-  background-size: cover, cover;
-  height: auto;
-  background-position: 50% 50%;
+@media (min-width: 768px) {
+  .hero {
+    background-image: none;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/images/backgrounds/richard-balog-647377-unsplash_converted.jpg);
+    background-size: cover, cover;
+    height: auto;
+    background-position: 50% 50%;
+  }
+}
+@media (max-width: 768px) {
+  .hero {
+    background-image: none !important;
+  }
 }
 .ie8 .hero,
 .ie7 .hero {
   background-image: none;
-  background-color: #003647;
 }
 /* =====================================================
    The "account masthead" bar across the top of the site
@@ -409,11 +365,6 @@ body,
 .top-margin-half {
   margin-top: 0.5rem !important;
 }
-@media (max-width: 767px) {
-  .toolbar .breadcrumb a {
-    color: #505050;
-  }
-}
 /* ===========================================
    The content in the middle of the front page
    =========================================== */
@@ -438,12 +389,6 @@ a.tag:hover {
 .row.grid-spacing {
   margin-top: 1em;
   margin-bottom: 1em;
-}
-[role=main] {
-  min-height: 0;
-}
-[role=main].hero {
-  min-height: 350px;
 }
 /* =====================================================
    Topics row on home page - ontario styling
@@ -547,9 +492,25 @@ a.tag:hover {
 :before {
   box-sizing: border-box;
 }
+.number {
+  font-weight: 700;
+}
+.stat,
+.stats-caption {
+  font-weight: 700;
+  color: #444444;
+  font-size: 1.2rem;
+}
 a {
   color: #007A7C;
   line-height: inherit;
+  text-decoration: none;
+}
+.stats .stats-caption {
+  font-size: 1.2rem;
+  line-height: 1.3;
+}
+.stats .stats-caption:hover {
   text-decoration: none;
 }
 p,
@@ -566,11 +527,42 @@ main > div:nth-child(2) {
   background: #006B3F;
   color: white;
 }
+.circle,
+.circle--small {
+  font-family: Raleway, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+  border-radius: 50%;
+  color: #fff;
+  background-color: #D47500;
+  display: inline-block;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  position: relative;
+  width: 12.1875rem;
+  height: 12.1875rem;
+}
+.circle.primary {
+  background-color: #D47500;
+}
+.circle.secondary {
+  background-color: #007A7C;
+}
 .text-center {
   text-align: center!important;
 }
+.circle--small {
+  width: 4.0625rem;
+  height: 4.0625rem;
+}
 .top-margin {
-  margin-top: 40px;
+  margin-top: 80px;
+}
+.stats p {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+@media only screen and (max-width: 40em) {
+  .stats .stats-caption {
+    font-size: 1.3rem;
+  }
 }
 p.filter-list > span {
   display: block;
@@ -650,35 +642,41 @@ p.filter-list span span.pill {
 /* =====================================================
    Homepage-specific styles
    ===================================================== */
-/*
-.homepage {
-  h1, h2, h3, h4, h5, h6, h7, h8, h9 {
-    font-family: 'Open Sans', sans serif;
-    line-height: 1.4;
-    font-weight: 600;
-  }
-  h3, h4, h5 {
-    color: @header-grey;
-  }
-  h3 {
-    font-size: 1.5625rem;
-    div.sub-title {
-      font-size: 1.4rem;
-      font-weight: 400;
-      margin-bottom: 10px;
-      margin-top: 10px;
-    }
-  }
-  h4 {
-    font-size: 1.25rem;
-  }
+.homepage h1,
+.homepage h2,
+.homepage h3,
+.homepage h4,
+.homepage h5,
+.homepage h6,
+.homepage h7,
+.homepage h8,
+.homepage h9 {
+  font-family: 'Open Sans', sans serif;
+  line-height: 1.4;
+  font-weight: 600;
 }
-*/
+.homepage h3,
+.homepage h4,
+.homepage h5 {
+  color: #666;
+}
+.homepage h3 {
+  font-size: 1.5625rem;
+}
+.homepage h3 div.sub-title {
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.homepage h4 {
+  font-size: 1.25rem;
+}
 /* =====================================================
    Introduction snippet
    ===================================================== */
 div.introduction {
-  font-size: calc(14px * 1.25);
+  font-size: 1.1rem;
   padding-top: 20px;
 }
 div.introduction ul {
@@ -686,6 +684,8 @@ div.introduction ul {
 }
 div.introduction ul li {
   padding: 10px;
+  list-style: none;
+  line-height: 2rem;
 }
 div.introduction ul li span.emphasize {
   color: #D47500;
@@ -697,11 +697,6 @@ div.introduction .label {
   background-color: #007A7C;
   color: #fff;
   padding: 10px;
-}
-i.large {
-  font-size: 40px;
-  width: 40px;
-  color: #D47500;
 }
 /* =====================================================
    Contact snippet
@@ -740,13 +735,32 @@ i.large {
 .module.search {
   color: #fff;
 }
-.module.search form h3 {
-  font-size: calc(14px * 2.15);
-}
 .module.search .search-form {
-  padding: 0px;
+  padding: 10px 0px;
   margin: 0px;
   border: none;
+}
+.module.search .search-form h3 {
+  font-size: 2.1875rem;
+  font-weight: 600;
+  color: #fff;
+}
+.module.search .search-form h4 {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #fff;
+}
+.module.search .search-form .search-input {
+  margin: 0px;
+}
+.module.search .search-form .search-input button {
+  margin-top: -10px;
+  height: 20px;
+}
+.module.search div.tags h3 {
+  margin: 0px;
+  font-size: 18px;
+  color: #fff;
 }
 .module.search div.tags a.tag {
   background-color: #D47500;
@@ -861,10 +875,16 @@ footer.site-footer .nav {
 footer.site-footer .nav ul li {
   float: left;
   margin-left: 1rem;
+  font-size: 1rem;
   margin-bottom: 0.625rem;
+  font-size: 0.9375rem;
 }
 footer.site-footer .nav ul li:first-child {
   margin-left: 0rem;
+}
+footer.site-footer p.copyright {
+  font-size: 0.9375rem;
+  margin-bottom: 1rem;
 }
 footer.site-footer div.footer-swoosh {
   background: url(/images/footer-swoosh-bg.png) repeat-x;
@@ -915,12 +935,4 @@ a.skip-main:active {
   text-align: center;
   font-size: 1.2em;
   z-index: 999;
-}
-/* =====================================================
-   Sub page left panel border removal
-   ===================================================== */
-@media (min-width: 768px) {
-  .wrapper:before {
-    border-right: none;
-  }
 }

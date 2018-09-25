@@ -2,10 +2,10 @@
   <div class="container">
     {% block footer_content %}
     <div class="row">
-      <div class="col-md-8 footer-links">
+      <div class="span8 footer-links">
         {% block footer_nav %}
-          <nav class="nav top-margin-double"> 
-            <ul class="list-unstyled">
+          <nav class="nav top-margin-double small"> 
+            <ul class="unstyled">
               {% block footer_links %}
                   <li><a href="http://www.ontario.ca/page/about-ontario">about Ontario</a></li>
                   <li><a href="http://www.ontario.ca/page/accessibility">accessibility</a></li>
@@ -15,12 +15,12 @@
               {% endblock %}
             </ul>
           </nav>
-          <p class="small">
-            <a href="https://www.ontario.ca/page/copyright-information-c-queens-printer-ontario">&copy; Queen&#8217;s Printer for Ontario, 2012-18</a>
+          <p class="copyright">
+            <small><a href="https://www.ontario.ca/page/copyright-information-c-queens-printer-ontario">&copy; Queen&#8217;s Printer for Ontario, 2012-18</a></small>
           </p> 
         {% endblock %}
       </div>
-      <div class="col-md-4 attribution">
+      <div class="span4 attribution">
         {% block footer_attribution %}
           <p>{% trans %}<strong>Powered by</strong> <a class="hide-text ckan-footer-logo" href="http://ckan.org"><abbr title="Comprehensive Knowledge Archive Network">CKAN</abbr></a>{% endtrans %}</p>
         {% endblock %}
@@ -31,11 +31,9 @@
     </div>
     {% endblock %}
   </div>
-  
   <div class="footer-swoosh">
     <div class="footer-swoosh--right"></div>
   </div>
-
   {% block footer_debug %}
     {% if g.debug %}
       {% include 'snippets/debug.html' %}

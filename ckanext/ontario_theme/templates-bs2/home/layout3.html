@@ -2,9 +2,9 @@
 
 <div role="main" class="hero" data-module="ontario_theme_randomize_home_background">
   <h2 class="accessibly-hidden">Home</h2>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
+  <div id="content" class="container">
+    <div class="row grid-spacing">
+      <div class="span12">
         {% block search %}
           {% snippet 'home/snippets/search.html' %}
         {% endblock %}
@@ -12,45 +12,42 @@
     </div>
   </div>
 </div>
-
 <div role="main">
   <div class="container">
-    <div class="row">
-      <div class="col-md-9">
+    <div class="row grid-spacing">
+      <div class="span9">
         {% block intro %}
           {% snippet 'home/snippets/ontario_theme_intro.html' %}
         {% endblock %}
       </div>
-      <div class="col-md-3">
+      <div class="span3">
         {% block stats %}
           {% snippet 'home/snippets/ontario_theme_datasets_stats.html' %}
         {% endblock %}
       </div>
     </div>
-  </div>
-</div>
 
-<div role="main">
+  </div>
+
   <div class="container">
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row top-margin">
+        <div class="span12">
           {% block featured_content %}
             {% snippet 'home/snippets/ontario_theme_featured_content.html' %}
           {% endblock %}
         </div>
     </div>
   </div>
-</div>
 
-<div role="main">
   <div class="container">
-    <div class="row">
-        <div class="col-md-8">
+    <div class="row top-margin">
+        <div class="span8">
           {% block contact_us %}
             {% snippet 'home/snippets/ontario_theme_contact_us.html' %}
           {% endblock %}
         </div>
-        <div class="col-md-4">
+        <div class="span1"></div>
+        <div class="span3">
           {% block recent_activity %}
             {% snippet 'home/snippets/ontario_theme_recent_activity.html' %}
           {% endblock %}

@@ -9,7 +9,7 @@
 {% block facet_list_heading %}
   {% with items = items or h.get_facet_items_dict(name) %}
   <h2 class="module-heading">
-    <i class="fa fa-filter"></i>
+    <i class="fa fa-medium fa-filter"></i>
     {% set title = title or h.get_facet_title(name) %}
     {{ title }}
     {% set screen_reader_text = "No search filters applied for "+title+". Options are " %}
@@ -26,7 +26,7 @@
   {% with items = items or h.get_facet_items_dict(name) %}
   {% if items %}
     <nav>
-      <ul class="{{ nav_class or 'list-unstyled nav nav-simple nav-facet' }}">
+      <ul class="{{ nav_class or 'unstyled nav nav-simple nav-facet' }}">
         {% for item in items %}
           {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
           {% set label = label_function(item) if label_function else item.display_name %}
