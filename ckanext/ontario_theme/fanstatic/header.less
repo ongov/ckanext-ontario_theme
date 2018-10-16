@@ -1,0 +1,97 @@
+/* 
+remove nav / nav-pill styling and use list-inline instead
+remove margins from search and h1
+add line-height 42px to all elements for vertical centering
+delete 53-64
+*/
+
+
+/* =====================================================
+   The "account masthead" bar across the top of the site
+   ===================================================== */
+
+.account-masthead {
+  background-color: #333;
+  padding-top: .5rem;
+  min-height: 64px;
+}
+
+/* The "bubble" containing the number of new notifications. */
+.account-masthead .account .notifications a span {
+  background-color: #000;
+}
+
+/* The text and icons in the user account info. */
+.account-masthead .account ul li a {
+  color: #ededed;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+/* The user account info text and icons, when the user's pointer is hovering
+   over them. */
+.account-masthead .account ul li a:hover {
+  color: #eee;
+  background-color: #333;
+}
+
+.account-masthead .account ul li {
+  display: block;
+  float: left;
+  border-left: none;
+  padding: .75rem 0;
+  margin-bottom: 0 !important;
+}
+
+/* ========================================================================
+   The main masthead bar that contains the site logo, nav links, and search
+   ======================================================================== */
+
+.masthead {
+  background-color: @secondary-colour;
+}
+
+/* The "navigation pills" in the masthead (the links to Datasets,
+   Organizations, etc) when the user's pointer hovers over them. */
+.masthead .navigation .nav-pills li a:hover {
+  background-color: rgba(0,0,0, 0.4);
+  color: #fff;
+}
+
+/* The "active" navigation pill (for example, when you're on the /dataset page
+   the "Datasets" link is active). */
+.masthead .navigation .nav-pills li.active a {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.masthead a {
+  text-decoration: none;
+}
+
+/* Allows the utilities to float beside the logo on mobile */
+.account-masthead hgroup {
+  display: inline;
+}
+
+.masthead hgroup h1 {
+  font-weight: 600;
+  padding-left: 1.6em;
+  padding-top: 6px;
+}
+
+.masthead hgroup h1 sup {
+  font-size: 60%;
+}
+
+.masthead hgroup h1,
+.masthead hgroup h2 {
+  float: left;
+  font-size: 24px;
+  line-height: 1.5;
+}
+
+@media (max-width: 767px) {
+  .toolbar .breadcrumb a {
+    color: #505050;
+  }
+}

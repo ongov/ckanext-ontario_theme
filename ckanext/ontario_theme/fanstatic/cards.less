@@ -1,30 +1,23 @@
 a.card {
-  color:  #06c;
-  text-decoration: none;
-  &:hover {
-    color: #8138b3; //#4d4d4d;
-    text-decoration: none;
-  }
   div {
-    box-shadow: 0 2px 4px #666;
+    background-color: #D1EAEB;
     transition: 1s;
-    background-color: rgba(230,230,230,0.3);
     transition: box-shadow 135ms cubic-bezier(.4,0,.2,1),width 235ms cubic-bezier(.4,0,.2,1);
-    background: transparent;
+    box-shadow: 0 2px 4px #666;
     box-shadow: 0 1px 1px 0 rgba(60,64,67,.08), 0 1px 3px 1px rgba(60,64,67,.16);
     padding: 1rem;
+    margin-bottom: 2rem;
   }
   div:hover {
     background-color: rgba(230,230,230,0.5); 
   }
-  p {
-    color: #666;
-  }
-  .action {
-    color: @secondary-colour;
-  }
   img {
     width: 100%;
-    max-height: 200px;
+  }
+  p {
+    color: @grey;
+  }
+  &:hover {
+    text-decoration: none;
   }
 }

@@ -9,9 +9,7 @@ Uses get_site_statistics() to parse and display the stat.
 
     <div class="stats smartie">
       <div class="text-center">
-        <a href="{{ h.url_for(controller='package', action='search') }}">
-          <div class="circle"><span class="number">{{ h.SI_number_span(stats.dataset_count) }}</span></div>
-          <div class="stats-caption">{{ _('dataset') if stats.dataset_count == 1 else _('datasets') }}</div>
-        </a>
+        <div class="circle"><span class="number">{{ h.SI_number_span(stats.dataset_count) }}</span></div>
+        <div class="stats-caption">{{ _('dataset') if stats.dataset_count == 1 else _('datasets') }}</div>
       </div>
     </div>
