@@ -1,14 +1,20 @@
 {% ckan_extends %}
 
 {% block search_facets %}
-  {% if query or facets %}
-    <p class="filter-list">  
+  {% if facets %}
+    <p class="filter-list">
     {% if query %}
+      {#
+        Groups/Organizations don't have facets set or the
+        remove_field() function in their index() action. 
+        Only show when facets and a query are available to avoid
+        missing attribute error.
+      #}
       <span>
         <span class="facet">with the keyword(s):</span>
         <span class="filtered pill">
-          {{query}}
-          <a href="{{ c.remove_field('q', query) }}" class="remove" title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
+          {{ query }}
+          <a href="{{ facets.remove_field('q', query) }}" class="remove" title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
         </span>
       </span>
     {% endif %}  
@@ -33,9 +39,9 @@
             </span>
           {% endfor %}
           </span>
-        {% endfor %}    
+        {% endfor %}
     {% endif %}
-    </p>     
-    <a class="show-filters btn btn-default">{{ _('Filter Results') }}</a>   
+    </p>
+    <a class="show-filters btn btn-default">{{ _('Filter Results') }}</a>
   {% endif %}
 {% endblock %}
