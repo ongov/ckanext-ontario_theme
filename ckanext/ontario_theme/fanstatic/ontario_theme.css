@@ -485,12 +485,6 @@ table.table tbody tr td {
     border-right: none;
   }
 }
-/* 
-remove nav / nav-pill styling and use list-inline instead
-remove margins from search and h1
-add line-height 42px to all elements for vertical centering
-delete 53-64
-*/
 /* =====================================================
    The "account masthead" bar across the top of the site
    ===================================================== */
@@ -528,17 +522,6 @@ delete 53-64
 .masthead {
   background-color: #007A7C;
 }
-/* The "navigation pills" in the masthead (the links to Datasets,
-   Organizations, etc) when the user's pointer hovers over them. */
-.masthead .navigation .nav-pills li a:hover {
-  background-color: rgba(0, 0, 0, 0.4);
-  color: #fff;
-}
-/* The "active" navigation pill (for example, when you're on the /dataset page
-   the "Datasets" link is active). */
-.masthead .navigation .nav-pills li.active a {
-  background-color: rgba(0, 0, 0, 0.4);
-}
 .masthead a {
   text-decoration: none;
 }
@@ -547,23 +530,38 @@ delete 53-64
   display: inline;
 }
 .masthead hgroup h1 {
+  float: left;
+  font-size: 24px;
+  line-height: 1.5;
   font-weight: 600;
   padding-left: 1.6em;
-  padding-top: 6px;
+  margin: 0;
 }
 .masthead hgroup h1 sup {
   font-size: 60%;
 }
-.masthead hgroup h1,
-.masthead hgroup h2 {
-  float: left;
-  font-size: 24px;
-  line-height: 1.5;
+.masthead .navbar-collapse {
+  padding: 0;
 }
-@media (max-width: 767px) {
-  .toolbar .breadcrumb a {
-    color: #505050;
-  }
+.masthead .navigation ul {
+  line-height: 40px;
+}
+.mastead .site-search {
+  margin: 0;
+}
+/* ========================================================================
+   Breadcrumbs
+   ======================================================================== */
+.breadcrumb > li_li:before {
+  color: #aaa;
+  content: "→";
+  margin: 0 0.75rem;
+  position: relative;
+  top: 1px;
+}
+.toolbar .breadcrumb a {
+  color: #007A7C;
+  font-size: 15px;
 }
 footer.site-footer {
   background: #ededed;
