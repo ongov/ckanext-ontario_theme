@@ -28,13 +28,19 @@
   {% endif %}
 {% endblock %}
 
-{% block header_site_navigation_tabs %}
-  {{ h.build_nav_main(
-    ('search', _('Datasets')),
-    ('organizations_index', _('Organizations')),
-    ('home.about', _('About')),
-    ('ontario_theme.help', _('Help'))
-  ) }}
+{% block header_site_navigation %}
+  <nav class="section navigation">
+    <ul class="list-inline">
+      {% block header_site_navigation_tabs %}
+        {{ h.build_nav_main(
+          ('search', _('Datasets')),
+          ('organizations_index', _('Organizations')),
+          ('home.about', _('About')),
+          ('ontario_theme.help', _('Help'))
+        ) }}
+      {% endblock %}
+    </ul>
+  </nav>
 {% endblock %}
 
 {% block header_site_search %}
