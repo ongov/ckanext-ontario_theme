@@ -21,20 +21,26 @@
   {% else %}
     {# Add alpha styling. #}
     <h1>
-      <a href="{{ h.url_for('home.index') }}" class="dss-phase-label alpha">{{ g.site_title }} <sup>alpha</sup></a>
+      <a href="{{ h.url_for('home.index') }}">{{ g.site_title }} <sup>alpha</sup></a>
     </h1>
     {# End customization. #}
     {% if g.site_description %}<h2>{{ g.site_description }}</h2>{% endif %}
   {% endif %}
 {% endblock %}
 
-{% block header_site_navigation_tabs %}
-  {{ h.build_nav_main(
-    ('search', _('Datasets')),
-    ('organizations_index', _('Organizations')),
-    ('home.about', _('About')),
-    ('ontario_theme.help', _('Help'))
-  ) }}
+{% block header_site_navigation %}
+  <nav class="section navigation">
+    <ul class="list-inline">
+      {% block header_site_navigation_tabs %}
+        {{ h.build_nav_main(
+          ('search', _('Datasets')),
+          ('organizations_index', _('Organizations')),
+          ('home.about', _('About')),
+          ('ontario_theme.help', _('Help'))
+        ) }}
+      {% endblock %}
+    </ul>
+  </nav>
 {% endblock %}
 
 {% block header_site_search %}

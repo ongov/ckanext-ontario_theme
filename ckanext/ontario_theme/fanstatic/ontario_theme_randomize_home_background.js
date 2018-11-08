@@ -25,7 +25,7 @@ ckan.module('ontario_theme_randomize_home_background', function ($) {
       ]
 
       var random_int = Math.floor((Math.random() * background_images.length));
-      this.el[0].style.backgroundImage = "linear-gradient(0deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(/images/backgrounds/" + 
+      this.el[0].style.backgroundImage = "linear-gradient(0deg,rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url(/images/backgrounds/" + 
                                           background_images[random_int] + ")";
     }
   };
