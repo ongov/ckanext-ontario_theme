@@ -4,17 +4,13 @@
     <div class="row">
       <div class="col-md-8 footer-links">
         {% block footer_nav %}
-          <nav class="nav top-margin-double"> 
-            <ul class="list-unstyled">
-              {% block footer_links %}
-                  <li><a href="http://www.ontario.ca/page/about-ontario">about Ontario</a></li>
-                  <li><a href="http://www.ontario.ca/page/accessibility">accessibility</a></li>
-                  <li><a href="http://news.ontario.ca/newsroom/en">news</a></li>
-                  <li><a href="http://www.ontario.ca/page/privacy-statement">privacy</a></li>
-                  <li><a href="http://www.ontario.ca/page/terms-use">terms of use</a></li>
-              {% endblock %}
-            </ul>
-          </nav>
+          <ul class="list-inline">
+            {% block footer_links %}
+                <li><a href="https://www.ontario.ca/page/accessibility">accessibility</a></li>
+                <li><a href="https://www.ontario.ca/page/privacy-statement">privacy</a></li>
+                <li><a href="https://www.ontario.ca/page/terms-use">terms of use</a></li>
+            {% endblock %}
+          </ul>
           <p class="small">
             <a href="https://www.ontario.ca/page/copyright-information-c-queens-printer-ontario">&copy; Queen&#8217;s Printer for Ontario, 2012-18</a>
           </p> 
@@ -25,7 +21,7 @@
           <p>{% trans %}<strong>Powered by</strong> <a class="hide-text ckan-footer-logo" href="http://ckan.org"><abbr title="Comprehensive Knowledge Archive Network">CKAN</abbr></a>{% endtrans %}</p>
         {% endblock %}
         {% block footer_lang %}
-          {% snippet "snippets/language_selector.html" %}
+          <!-- snippet "snippets/language_selector.html" -->
         {% endblock %}
       </div>
     </div>

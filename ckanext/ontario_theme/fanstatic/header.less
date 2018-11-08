@@ -1,0 +1,95 @@
+/* =====================================================
+   The "account masthead" bar across the top of the site
+   ===================================================== */
+
+.account-masthead {
+  background-color: #333;
+  padding-top: .5rem;
+  min-height: 64px;
+}
+
+/* The "bubble" containing the number of new notifications. */
+.account-masthead .account .notifications a span {
+  background-color: #000;
+}
+
+/* The text and icons in the user account info. */
+.account-masthead .account ul li a {
+  color: #ededed;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+/* The user account info text and icons, when the user's pointer is hovering
+   over them. */
+.account-masthead .account ul li a:hover {
+  color: #eee;
+  background-color: #333;
+}
+
+.account-masthead .account ul li {
+  display: block;
+  float: left;
+  border-left: none;
+  padding: .75rem 0;
+  margin-bottom: 0 !important;
+}
+
+/* ========================================================================
+   The main masthead bar that contains the site logo, nav links, and search
+   ======================================================================== */
+
+.masthead {
+  background-color: @secondary-colour;
+}
+
+.masthead a {
+  text-decoration: none;
+}
+
+/* Allows the utilities to float beside the logo on mobile */
+.account-masthead hgroup {
+  display: inline;
+}
+
+.masthead hgroup h1 {
+  float: left;
+  font-size: 24px;
+  line-height: 1.5;
+  font-weight: 600;
+  padding-left: 1.6em;
+  margin: 0;
+}
+
+.masthead hgroup h1 sup {
+  font-size: 60%;
+}
+
+.masthead .navbar-collapse {
+  padding: 0;
+}
+
+.masthead .navigation ul{
+  line-height: 40px;
+}
+
+.mastead .site-search {
+  margin: 0;
+}
+
+/* ========================================================================
+   Breadcrumbs
+   ======================================================================== */
+
+.breadcrumb>li_li:before {
+  color: #aaa;
+  content: "→";
+  margin: 0 0.75rem;
+  position: relative;
+  top: 1px;
+}
+
+.toolbar .breadcrumb a {
+  color: @secondary-colour;
+  font-size: 15px;
+}

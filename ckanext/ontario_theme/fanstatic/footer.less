@@ -1,0 +1,34 @@
+footer.site-footer {
+  background: #ededed;
+  position: relative;
+  margin-top: 1em;
+  padding: 2em 0 1.5em;
+  border-top: 1px solid #d9d9d9;
+  color: @grey; 
+  a, a:visited {
+    color: @grey;    
+    text-decoration: underline;
+  }
+  div.footer-swoosh {
+    background: url(/images/footer-swoosh-bg.png) repeat-x;
+    display: block;
+    width: 100%;
+    height: 96px; 
+    margin-top: -50px;
+  }
+  div.footer-swoosh--right {
+    background: #ededed url(/images/footer-swoosh.png) no-repeat;
+    display: block;
+    width: 560px;
+    height: 96px;
+    float: right;
+  }
+  @media only screen and (min-width : 992px) {
+    div.footer-swoosh--right {
+      margin-top: -50px;
+    }
+  }
+  .ckan-footer-logo {
+    background: url(/base/images/ckan-logo-footer_dark.png) no-repeat top left;
+  }
+}
