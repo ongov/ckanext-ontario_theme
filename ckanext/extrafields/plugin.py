@@ -48,4 +48,5 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         '''Add new search facet (filter) for datasets.
         '''
         facets_dict['access_level'] = toolkit._('Access Level')
+        facets_dict['update_frequency'] = toolkit._('Update Frequency')
         return facets_dict
