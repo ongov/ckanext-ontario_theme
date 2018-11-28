@@ -18,6 +18,7 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IDatasetForm)
     plugins.implements(plugins.ITemplateHelpers)
+    plugins.implements(plugins.IFacets)
 
     def get_helpers(self):
         '''Register the helper to access the default local.
@@ -42,3 +43,10 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         # This plugin doesn't handle any special package types, it just
         # registers itself as the default (above).
         return []        
+
+    def dataset_facets(self, facets_dict, package_type):
+        '''Add new search facet (filter) for datasets.
+        '''
+        facets_dict['access_level'] = toolkit._('Access Level')
+        facets_dict['update_frequency'] = toolkit._('Update Frequency')
+        return facets_dict
