@@ -9,6 +9,11 @@ def help():
     '''
     return render_template('home/help.html')
 
+def csv_dump():
+    '''New blueprint - just a placeholder for now.
+    '''
+    return render_template('home/help.html')
+
 class OntarioThemePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IBlueprint)
@@ -34,7 +39,8 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
         blueprint.template_folder = u'templates'
         # Add url rules to Blueprint object.
         rules = [
-            (u'/help', u'help', help)
+            (u'/help', u'help', help), 
+            (u'/dataset/csv_dump', u'csv_dump', csv_dump)
         ]
         for rule in rules:
             blueprint.add_url_rule(*rule)
