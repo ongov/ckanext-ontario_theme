@@ -50,3 +50,19 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         facets_dict['access_level'] = toolkit._('Access Level')
         facets_dict['update_frequency'] = toolkit._('Update Frequency')
         return facets_dict
+
+    def group_facets(self, facets_dict, group_type, package_type):
+        u'''Modify and return the ``facets_dict`` for a group's page.
+        Throws AttributeError: no attribute 'organization_facets' without function.
+        '''
+        facets_dict['access_level'] = toolkit._('Access Level')
+        facets_dict['update_frequency'] = toolkit._('Update Frequency')
+        return facets_dict
+
+    def organization_facets(self, facets_dict, organization_type, package_type):
+        u'''Modify and return the ``facets_dict`` for an organization's page.
+        Throws AttributeError: no attribute 'organization_facets' without function.
+        '''
+        facets_dict['access_level'] = toolkit._('Access Level')
+        facets_dict['update_frequency'] = toolkit._('Update Frequency')
+        return facets_dict
