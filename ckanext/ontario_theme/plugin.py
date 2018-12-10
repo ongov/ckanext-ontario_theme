@@ -1,5 +1,6 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
+from ckan.common import config
 
 from flask import Blueprint, make_response
 from flask import render_template, render_template_string
