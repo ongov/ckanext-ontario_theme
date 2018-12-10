@@ -164,7 +164,8 @@ def csv_dump():
                 }
               }
 
-    csv_string = exporter.export('http://codydev.canadacentral.cloudapp.azure.com', columns)
+    site_url = config.get('ckan.site_url')
+    csv_string = exporter.export(site_url, columns)
     resp = make_response(csv_string, 200)
     resp.headers['Content-Type'] = b'text/csv; charset=utf-8'
     resp.headers['Content-disposition'] = (b'attachment; filename="output.csv"')

@@ -14,6 +14,8 @@ class TestOntarioThemePlugin(helpers.FunctionalTestBase):
             plugin = plugins.get_plugin(u'ontario_theme')
             self.app.flask_app.register_extension_blueprint(plugin.get_blueprint())
 
+    # For the test, change the ckan.site_url to localhost.
+    @helpers.change_config('ckan.site_url', 'http://127.0.0.1')
     def test_csv_dump_route(self):
         '''If `/datasets/csv_dump` route is called it returns csv export.
         '''
