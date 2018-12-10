@@ -14,12 +14,10 @@ class TestOntarioThemePlugin(helpers.FunctionalTestBase):
             plugin = plugins.get_plugin(u'ontario_theme')
             self.app.flask_app.register_extension_blueprint(plugin.get_blueprint())
 
-    def test_plugin_route(self):
+    def test_csv_dump_route(self):
         '''If `/datasets/csv_dump` route is called it returns csv export.
         '''
         res = self.app.get(u'/dataset/csv_dump')
-
-        # print (res.body)
 
         eq_(u'200 OK', res._status)
         ok_(('Content-Type', 'text/csv; charset=utf-8') in res._headerlist)
