@@ -2,7 +2,7 @@
 ckanext-ontario_theme
 =============
 
-Theme for ontario ckan.
+Theme for Ontario ckan.
 
 
 ------------
@@ -17,14 +17,21 @@ CKAN 2.8.x
 Installation
 ------------
 
-To install ckanext-ontario_theme for development, activate your CKAN virtualenv and
-do::
+To install ckanext-ontario_theme for development, activate your CKAN 
+virtualenv and do::
 
     git clone https://github.com/boykoc/ckanext-ontario_theme.git
     cd ckanext-ontario_theme
     python setup.py develop
     pip install -r dev-requirements.txt
-    pip install ckanapi-exporter
+    
+    # Install ckanapi-exporter master from github to get around query limit 
+    # of 1000 datasets in package_search.
+    # TODO: Update to pip install after new release.
+    git clone https://github.com/ckan/ckanapi-exporter.git
+    cd ckanapi-exporter
+    python setup.py develop
+    pip install -r dev-requirements.txt
 
 
 -----------------
@@ -37,7 +44,7 @@ Converting to Less for styling.
 
 This is the current process until a cleaner setup can be created.
 
-Intall npm and less, then compile less files to css before pushing changes.::
+Install npm and less, then compile less files to css before pushing changes.::
 
     sudo apt install npm
     sudo npm install -g less
