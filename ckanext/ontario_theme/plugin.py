@@ -19,9 +19,7 @@ def csv_dump():
     `{'en': 'english', 'fr': 'french'}`.
     Exporting resource metadata is limited. It combines resource values into single 
     comma seperated string.
-    deduplicate needed to be a string for true to not error.
-    Also, dicts seemed to need to have an empty pattern but should double check this.
-    Tested, some worked some didn't.
+    deduplicate needed to be "true" not true.
     '''
     columns = {
                 "Title EN": {
@@ -48,11 +46,17 @@ def csv_dump():
                 "Contains geopgrapic markers": {
                     "pattern": "^contains_geographic_markers$"
                 },
-                "Maintainer Branch": {
-                    "pattern": ["^maintainer_branch$", "^$"]
+                "Maintainer Branch EN": {
+                    "pattern": ["^maintainer_branch$", "^en$"]
                 },
-                "Keywords": {
-                    "pattern": ["^keywords$", "^$"]
+                "Maintainer Branch FR": {
+                    "pattern": ["^maintainer_branch$", "^fr$"]
+                },
+                "Keywords EN": {
+                    "pattern": ["^keywords$", "^en$"]
+                },
+                "Keywords FR": {
+                    "pattern": ["^keywords$", "^fr$"]
                 },
                 "Broken Links": {
                     "pattern": "^broken_links$"
@@ -75,8 +79,11 @@ def csv_dump():
                 "Meets Update Frequency": {
                     "pattern": "^meets_update_frequency$"
                 },
-                "Comments": {
-                    "pattern": ["^comments$", "^$"]
+                "Comments EN": {
+                    "pattern": ["^comments$", "^en$"]
+                },
+                "Comments FR": {
+                    "pattern": ["^comments$", "^fr$"]
                 },
                 "Access Level": {
                     "pattern": "^access_level$"
@@ -110,7 +117,8 @@ def csv_dump():
                     "pattern": "^num_resources$"
                 },
                 "Tags": {
-                    "pattern": "^tags$"
+                    "pattern": ["^tags$", "^name$"],
+                    "deduplicate": "true"
                 },
                 "Data Range Start": {
                     "pattern": "^data_range_start$"
@@ -124,8 +132,11 @@ def csv_dump():
                 "Exemption": {
                     "pattern": "^exemption$"
                 },
-                "Submission Comments": {
-                    "pattern": ["^submission_comments$", "^$"]
+                "Submission Comments EN": {
+                    "pattern": ["^submission_comments$", "^en$"]
+                },
+                "Submission Comments FR": {
+                    "pattern": ["^submission_comments$", "^fr$"]
                 },
                 "Geographic Coverage EN": {
                     "pattern": ["^geographic_coverage$", "^en$"]
@@ -139,8 +150,11 @@ def csv_dump():
                 "Organization Title": {
                     "pattern": ["^organization$", "^title$"]
                 },
-                "Submission Communication Plan": {
-                    "pattern": ["^submission_communication_plan$", "^$"]
+                "Submission Communication Plan EN": {
+                    "pattern": ["^submission_communication_plan$", "^en$"]
+                },
+                "Submission Communication Plan FR": {
+                    "pattern": ["^submission_communication_plan$", "^fr$"]
                 },
                 "Name": {
                     "pattern": "^name$"
@@ -151,14 +165,20 @@ def csv_dump():
                 "URL": {
                     "pattern": "^url$"
                 },
-                "Technical Title": {
-                    "pattern": ["^technical_title$", "^$"]
+                "Technical Title EN": {
+                    "pattern": ["^technical_title$", "^en$"]
+                },
+                "Technical Title FR": {
+                    "pattern": ["^technical_title$", "^fr$"]
                 },
                 "Node Id": {
                     "pattern": "^node_id$"
                 },
-                "Removal Rationale": {
-                    "pattern": ["^removal_rationale$", "^$"]
+                "Removal Rationale EN": {
+                    "pattern": ["^removal_rationale$", "^en$"]
+                },
+                "Removal Rationale FR": {
+                    "pattern": ["^removal_rationale$", "^fr$"]
                 },
                 "Update Frequency": {
                     "pattern": "^update_frequency$"
