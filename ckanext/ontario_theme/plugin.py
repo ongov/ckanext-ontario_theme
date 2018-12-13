@@ -7,6 +7,8 @@ from flask import render_template, render_template_string
 
 import ckanapi_exporter.exporter as exporter
 
+from ckan.model import Package
+
 def help():
     '''New help page for site.
     '''
@@ -192,9 +194,15 @@ def csv_dump():
     resp.headers['Content-disposition'] = (b'attachment; filename="output.csv"')
     return resp
 
+def get_license(license_id):
+    '''Helper to return license based on id.
+    '''
+    return Package.get_license_register().get(license_id)
+
 class OntarioThemePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IBlueprint)
+    plugins.implements(plugins.ITemplateHelpers)
 
     # IConfigurer
 
@@ -206,6 +214,11 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
         # the above template and resource directories.
         # toolkit.add_template_directory(config_, 'templates-bs2')
         # toolkit.add_resource('fanstatic-bs2', 'ontario_theme')
+
+    # ITemplateHelpers
+
+    def get_helpers(self):
+        return {'ontario_theme_get_license': get_license}
 
     # IBlueprint
 
