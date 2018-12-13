@@ -1,0 +1,20 @@
+{#
+  Customizes the display of license information on
+  datasets, adding description if available.
+#}
+
+{% ckan_extends %}
+
+{% block license_content %}
+  <p class="module-content">
+    {% block license_content_inner %}
+      {{ super() }}
+    {% endblock %}
+  </p>
+  <p class="module-content">
+    {% set license = h.ontario_theme_get_license(pkg_dict.license_id) %}
+    {% if license != None and license._data.description %}
+      {{ license._data.description }}
+    {% endif %}
+  </p>
+{% endblock %}
