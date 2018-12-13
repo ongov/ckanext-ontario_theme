@@ -71,7 +71,11 @@
       "field_name": "license_id",
       "label": "License",
       "form_snippet": "license.html",
-      "help_text": "License definitions and additional information can be found at http://opendefinition.org/",
+      "default": "OGL-ON-1.0",
+      "help_text": {
+        "en": "The license applied to the dataset",
+        "fr": "Licence s’appliquant au jeu de données"
+      },
       "form_attrs": {
         "class": "form-control"
       },
