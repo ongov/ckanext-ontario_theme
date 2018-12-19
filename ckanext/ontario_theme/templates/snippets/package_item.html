@@ -13,6 +13,10 @@
             <li>
               Data includes: <span class="label label-default" data-format="{{ resource.lower() }}">{{ resource }}</span>
             </li>
+          {% else %}
+            <li>
+              Data includes: <span class="label label-default" data-format="unknown">external link</span>
+            </li>
           {% endfor %}
         {% endblock %}
       </ul>
