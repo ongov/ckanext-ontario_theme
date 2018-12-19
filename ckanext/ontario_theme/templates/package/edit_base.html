@@ -2,5 +2,5 @@
 
 {% block secondary_content %}
   {% snippet 'package/snippets/disclaimer.html' %}
-  {% snippet 'package/snippets/info.html', pkg=pkg, hide_follow_button=true %}
+  {{ super() }}
 {% endblock %}
