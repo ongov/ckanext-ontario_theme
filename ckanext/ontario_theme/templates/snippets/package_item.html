@@ -8,14 +8,15 @@
   {% if package.resources and not hide_resources %}
     {% block resources_outer %}
       <ul class="dataset-resources list-unstyled">
+        Resource formats: 
         {% block resources_inner %}
           {% for resource in h.dict_list_reduce(package.resources, 'format') %}
             <li>
-              Data includes: <span class="label label-default" data-format="{{ resource.lower() }}">{{ resource }}</span>
+              <span class="label label-default" data-format="{{ resource.lower() }}">{{ resource }}</span>
             </li>
           {% else %}
             <li>
-              Data includes: <span class="label label-default" data-format="unknown">external link</span>
+              <span class="label label-default" data-format="other">other</span>
             </li>
           {% endfor %}
         {% endblock %}
