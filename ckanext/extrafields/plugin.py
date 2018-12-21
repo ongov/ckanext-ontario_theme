@@ -4,6 +4,8 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 from ckan.common import config
+import logging
+log = logging.getLogger(__name__)
 
 def default_locale():
     '''Wrap the ckan default locale in a helper function to access
@@ -19,6 +21,7 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     plugins.implements(plugins.IDatasetForm)
     plugins.implements(plugins.ITemplateHelpers)
     plugins.implements(plugins.IFacets)
+    plugins.implements(plugins.IPackageController)
 
     def get_helpers(self):
         '''Register the helper to access the default local.
@@ -49,6 +52,7 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         '''
         facets_dict['access_level'] = toolkit._('Access Level')
         facets_dict['update_frequency'] = toolkit._('Update Frequency')
+        facets_dict['num_resources'] = toolkit._('Number of Resources (data)')
         return facets_dict
 
     def group_facets(self, facets_dict, group_type, package_type):
@@ -66,3 +70,49 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         facets_dict['access_level'] = toolkit._('Access Level')
         facets_dict['update_frequency'] = toolkit._('Update Frequency')
         return facets_dict
+
+    def before_search(self, search_params):
+        u'''Extensions will receive a dictionary with the query parameters,
+        and should return a modified (or not) version of it.
+        '''
+        log.error(search_params)
+        for (param, value) in search_params.items():
+            if param == 'fq' and 'num_resources:"[' in value:
+                v = value.replace('"', '')
+                search_params[param] = v
+
+        log.error(search_params)
+        return search_params
+
+    def after_search(self, search_results, search_params):
+        return search_results
+
+    def before_index(self, pkg_dict):
+        return pkg_dict
+
+    def before_view(self, pkg_dict):
+        return pkg_dict
+
+    def read(self, entity):
+        return entity
+
+    def create(self, entity):
+        return entity
+
+    def edit(self, entity):
+        return entity
+
+    def delete(self, entity):
+        return entity
+
+    def after_create(self, context, pkg_dict):
+        return pkg_dict
+
+    def after_update(self, context, pkg_dict):
+        return pkg_dict
+
+    def after_delete(self, context, pkg_dict):
+        return pkg_dict
+
+    def after_show(self, context, pkg_dict):
+        return pkg_dict
