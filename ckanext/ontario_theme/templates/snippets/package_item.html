@@ -4,10 +4,31 @@
 
 {% ckan_extends %}
 
-{% block resources_inner %}
-  {% for resource in h.dict_list_reduce(package.resources, 'format') %}
-  <li>
-    <span class="label label-default" data-format="{{ resource.lower() }}">{{ resource }}</span>
-  </li>
-  {% endfor %}
+{% block resources %}
+  {% if package.resources and not hide_resources %}
+    {% block resources_outer %}
+      <ul class="dataset-resources list-unstyled">
+        Resource formats: 
+        {% block resources_inner %}
+          {% for resource in h.dict_list_reduce(package.resources, 'format') %}
+            <li>
+              <span class="label label-default" data-format="{{ resource.lower() }}">{{ resource }}</span>
+            </li>
+          {% else %}
+            <li>
+              <span class="label label-default" data-format="other">other</span>
+            </li>
+          {% endfor %}
+        {% endblock %}
+      </ul>
+    {% endblock %}
+  {% else %}
+    {% if h.check_access('resource_create', {'package_id': package['id']}) %}
+      {% trans url=h.url_for(controller='package', action='new_resource', id=package.name) %}
+        <p class="empty">This dataset has no data, <a href="{{ url }}">why not add some?</a></p>
+      {% endtrans %}
+    {% else %}
+      <p class="empty">{{ _('This dataset has no data') }}</p>
+    {% endif %}
+  {% endif %}
 {% endblock %}
