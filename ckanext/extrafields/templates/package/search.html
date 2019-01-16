@@ -30,7 +30,6 @@ Override CKAN's search.html to add new sorting options.
 
 {% block secondary_content %}
   <div class="filters">
-
     <div>
       <section class="module module-narrow module-shallow">
         {% block facet_list_heading %}
@@ -44,9 +43,13 @@ Override CKAN's search.html to add new sorting options.
           {% set title = 'Has Resources (data)' %}
           <nav>
             <ul class="{{ nav_class or 'list-unstyled nav nav-simple nav-facet' }}">
-              {% set href = h.add_url_param(new_params={'num_resources': '[1 TO *]' },
-                                            alternative_url=alternative_url) %}
-              <li class="{{ nav_item_class or 'nav-item' }}">
+              {% set href = h.remove_url_param('num_resources',
+                                               extras=extras,
+                                               alternative_url=alternative_url) 
+                            if c.fields_grouped['num_resources'] 
+                            else h.add_url_param(new_params={'num_resources': '[1 TO *]' },
+                                                alternative_url=alternative_url) %}
+              <li class="{{ nav_item_class or 'nav-item' }}{% if c.fields_grouped['num_resources'] %} active{% endif %}">
                 <a href="{{ href }}" title="{{ title }}">
                   <span>{{ title }}</span>
                 </a>

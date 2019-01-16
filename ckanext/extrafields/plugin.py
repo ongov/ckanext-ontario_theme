@@ -16,6 +16,31 @@ def default_locale():
     value = config.get('ckan.locale_default', 'en')
     return value
 
+def num_resources_filter_scrub(search_params):
+    u'''Remove any quotes around num_resources value to enable prober filter
+    query.
+
+    This is an exact match for the fq filter range of `[1 TO *]`. This means
+    it only works for the exact range I've set which is alright because I can
+    still access 0 datasets (the opposite of what I've set) by using
+    `?num_resources=0`.
+    '''
+    # Just a note: this was replacing any double quotes in 
+    #       the value string so had to change back to exact match
+    #       which isn't very re-usable. I started looking at splitting
+    #       this out into a dict to loop over easily and find the match
+    #       and just replace it but splitting on spaces also breaks things
+    #       due to num_resources value.
+    #       Issue came to light when filtering by licence and num_resources.
+    #       This would remove results that should be visible (with licence
+    #       and has resources).
+    for (param, value) in search_params.items():
+        if param == 'fq' and 'num_resources:"[' in value:
+            v = value.replace('num_resources:"[1 TO *]"', 'num_resources:[1 TO *]')
+            search_params[param] = v
+
+    return search_params
+
 class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IDatasetForm)
@@ -52,7 +77,6 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         '''
         facets_dict['access_level'] = toolkit._('Access Level')
         facets_dict['update_frequency'] = toolkit._('Update Frequency')
-        facets_dict['num_resources'] = toolkit._('Number of Resources (data)')
         return facets_dict
 
     def group_facets(self, facets_dict, group_type, package_type):
@@ -75,14 +99,7 @@ class ExtrafieldsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         u'''Extensions will receive a dictionary with the query parameters,
         and should return a modified (or not) version of it.
         '''
-        log.error(search_params)
-        for (param, value) in search_params.items():
-            if param == 'fq' and 'num_resources:"[' in value:
-                v = value.replace('"', '')
-                search_params[param] = v
-
-        log.error(search_params)
-        return search_params
+        return num_resources_filter_scrub(search_params)
 
     def after_search(self, search_results, search_params):
         return search_results
