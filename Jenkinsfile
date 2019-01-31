@@ -172,11 +172,17 @@ pipeline {
                     echo "Run tests."
                     cd ../ckanext-ontario_theme
                     nosetests --with-pylons=test.ini --with-xunit --xunit-file=${WORKSPACE}/nosetests.xml
+
+                    echo "Run pep8 check."
+                    pip install pycodestyle
+                    pycodestyle . > ${WORKSPACE}/pycodestyle_report.txt
                    '''
             }
             post {
                 always {
                     xunit thresholds: [failed(failureThreshold: '100', unstableThreshold: '100')], tools: [Custom(customXSL: '${JENKINS_HOME}/workspace/custom-to-junit.xsl', deleteOutputFiles: true, failIfNotNew: true, pattern: '**/nosetests.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
+
+                    recordIssues enabledForFailure: true, tool: pep8(pattern: '**/pycodestyle_report.txt')
                 }
             }
         }
