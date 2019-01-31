@@ -9,18 +9,20 @@ import ckanapi_exporter.exporter as exporter
 
 from ckan.model import Package
 
+
 def help():
     '''New help page for site.
     '''
     return render_template('home/help.html')
 
+
 def csv_dump():
     '''The pattern allows you to go deeper into the nested structures.
     `["^title_translated$", "en"]` grabs the english title_translated value.
-    It doesn't seem to handle returning a dict such as 
+    It doesn't seem to handle returning a dict such as
     `{'en': 'english', 'fr': 'french'}`.
-    Exporting resource metadata is limited. It combines resource values into single 
-    comma seperated string.
+    Exporting resource metadata is limited. It combines resource values
+    into single comma seperated string.
     deduplicate needed to be "true" not true.
     '''
     columns = {
@@ -191,13 +193,16 @@ def csv_dump():
     csv_string = exporter.export(site_url, columns)
     resp = make_response(csv_string, 200)
     resp.headers['Content-Type'] = b'text/csv; charset=utf-8'
-    resp.headers['Content-disposition'] = (b'attachment; filename="output.csv"')
+    resp.headers['Content-disposition'] = \
+        (b'attachment; filename="output.csv"')
     return resp
+
 
 def get_license(license_id):
     '''Helper to return license based on id.
     '''
     return Package.get_license_register().get(license_id)
+
 
 class OntarioThemePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
@@ -230,7 +235,7 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
         blueprint.template_folder = u'templates'
         # Add url rules to Blueprint object.
         rules = [
-            (u'/help', u'help', help), 
+            (u'/help', u'help', help),
             (u'/dataset/csv_dump', u'csv_dump', csv_dump)
         ]
         for rule in rules:
