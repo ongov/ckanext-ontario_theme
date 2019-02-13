@@ -9,16 +9,9 @@
 
 {% block resource_item_explore %}
   {% if not url_is_edit %}
-  <div class="dropdown btn-group">
-    <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-      <i class="fa fa-share"></i>
-      {{ _('Explore') }}
-      <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu">
+  <div>
     {% block resource_item_explore_links %}
-      <li>
-        <a href="{{ url }}">
+        <a href="{{ url }}" class="btn btn-primary">
           {% if res.has_views %}
             <i class="fa fa-bar-chart-o"></i>
             {{ _('Preview') }}
@@ -27,10 +20,8 @@
             {{ _('About') }}
           {% endif %}
         </a>
-      </li>
       {% if res.url and h.is_url(res.url) %}
-      <li>
-        <a href="{{ res.url }}" class="resource-url-analytics" target="_blank">
+        <a href="{{ res.url }}" class="resource-url-analytics btn btn-primary" target="_blank">
           {% if res.has_views or res.url_type == 'upload' %}
             <i class="fa fa-arrow-circle-o-down"></i>
             {{ _('Download') }}
@@ -39,18 +30,14 @@
             {{ _('Open') }}
           {% endif %}
         </a>
-      </li>
       {% endif %}
       {% if can_edit %}
-      <li>
-        <a href="{{ h.url_for('resource.edit', id=pkg.name, resource_id=res.id) }}">
+        <a href="{{ h.url_for('resource.edit', id=pkg.name, resource_id=res.id) }}" class="btn btn-primary">
           <i class="fa fa-pencil-square-o"></i>
           {{ _('Edit') }}
         </a>
-      </li>
       {% endif %}
     {% endblock %}
-    </ul>
   </div>
   {% endif %}
 {% endblock %}
