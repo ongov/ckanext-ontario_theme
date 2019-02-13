@@ -240,5 +240,25 @@ table.table {
   }
 }
 
+/* =====================================================
+   Move resource items buttons under resource title in smaller screen
+   ===================================================== */
+
+@media (max-width: 768px) {
+  li.resource-item {
+    float: left;
+    width: 100%;
+    &>div {
+      //float: right;
+      right: 0px;
+      position: relative;
+      a {
+        float: right;
+        margin: 2px;
+      }
+    }
+  }
+}
+
 @import "header.less";
 @import "footer.less";
