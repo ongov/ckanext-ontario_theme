@@ -1,11 +1,9 @@
 {% ckan_extends %}
 
-{% block primary_content %}
-  <section class="module">
-    <div class="module-content">
+{% block pre_primary %}
       {% block page_primary_action %}
         {% if h.check_access('package_create') %}
-          <div class="page_primary_action">
+          <div class="page_primary_action add-dataset">
             {{ h.snippet ('snippets/add_dataset.html', dataset_type=dataset_type) }}
           </div>
         {% endif %}
@@ -27,6 +25,10 @@
         %}
         {% snippet 'snippets/search_form.html', form_id='dataset-search-form', type=dataset_type, query=c.q, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=_('Search ' + dataset_type + 's') + '...', facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields %}
       {% endblock %}
+{% endblock %}
+{% block primary_content %}
+  <section class="module">
+    <div class="module-content">
       {% block package_search_results_list %}
         {{ h.snippet('snippets/package_list.html', packages=c.page.items) }}
       {% endblock %}

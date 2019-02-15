@@ -396,6 +396,13 @@ body,
   border: none;
   box-shadow: none;
 }
+div.add-dataset {
+  width: 100%;
+  text-align: right;
+}
+.filters div section:first-child {
+  margin-top: 0px;
+}
 .media-item {
   width: 100%;
   position: relative;
