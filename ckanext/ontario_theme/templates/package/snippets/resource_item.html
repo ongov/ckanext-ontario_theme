@@ -2,7 +2,12 @@
 
 {% block resource_item_title %}
 <a class="heading" href="{{ url }}" title="{{ res.name or res.description }}">
-  {{ h.resource_display_name(res) | truncate(50) }}<span class="format-label" property="dc:format" data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span> <span class="text-muted small"> ({{ h.localised_filesize(res.size) if res.size else _('unknown size') }})</span>
+  {{ h.resource_display_name(res) | truncate(50) }}<span class="format-label" property="dc:format" data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span> 
+    {% if res.size %}
+      <span class="text-muted small"> 
+        ({{ h.localised_filesize(res.size) }})
+      </span>
+    {% endif %}
   {{ h.popular('views', res.tracking_summary.total, min=10) }}
 </a>
 {% endblock %}
