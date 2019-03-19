@@ -496,7 +496,8 @@ table.table tbody tr td {
 .media-grid {
   border: none;
 }
-.page_primary_action .add-dataset {
+.page_primary_action .add-dataset,
+.page_primary_action .add-organization {
   text-align: right;
 }
 /* =====================================================
