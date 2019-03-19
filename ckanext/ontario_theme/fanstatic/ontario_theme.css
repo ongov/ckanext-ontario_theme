@@ -400,7 +400,8 @@ body,
     background-color: transparent;
   }
 }
-#dataset-search-form {
+#dataset-search-form,
+#organization-search-form {
   margin: 0px 0px 20px 0px;
   background: #fafafa;
   padding: 20px;
