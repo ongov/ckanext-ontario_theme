@@ -91,5 +91,16 @@
       <span class="text">{{ _('Log out') }}</span>
     </a>
   </li>
+  {% endblock %} {% block header_language_toggle_link %}
+  <li>
+    {% set current_lang = request.environ.CKAN_LANG %}
+    {% set toggle_to = "fr" %} 
+    {% if current_lang == "fr" %}
+    {% set toggle_to = "en" %} 
+    {% endif %}
+    <a href="{{ h.url_for(h.current_url(), locale=toggle_to) }}" title="{{ toggle_to }}">
+      {{toggle_to|upper}}
+    </a>
+  </li>
   {% endblock %} 
 {% endblock %}
