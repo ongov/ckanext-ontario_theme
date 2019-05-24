@@ -287,6 +287,19 @@ a.card:hover {
 .label[data-format*=turtle] {
   background-color: #0b4498;
 }
+.label.label-open {
+  color: #646464;
+  border: solid 1px #006B3F;
+  border-left: solid 5px #006B3F;
+}
+.label.label-colby {
+  color: #646464;
+  border: solid 1px #D47500;
+  border-left: solid 5px #D47500;
+}
+.label.float-right {
+  float: right;
+}
 .stats .number {
   display: block;
   font-size: 60px;
@@ -312,6 +325,7 @@ a.card:hover {
   width: 18rem;
   height: 18rem;
 }
+
 /* =====================================================
    Typography
    ===================================================== */

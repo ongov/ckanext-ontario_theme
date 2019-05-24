@@ -4,6 +4,20 @@
 
 {% ckan_extends %}
 
+{% block heading_meta %}
+  {% if package.get('state', '').startswith('draft') %}
+    <span class="label label-info">{{ _('Draft') }}</span>
+  {% elif package.get('state', '').startswith('deleted') %}
+    <span class="label label-danger">{{ _('Deleted') }}</span>
+  {% endif %}
+  {% if package.get('node_id', '') != "" %}
+    <span class="label label-open float-right">{{ _('Open') }}</span>
+  {% else %}
+    <span class="label label-colby float-right">{{ _('Colby') }}</span>
+  {% endif %}
+  {{ h.popular('recent views', package.tracking_summary.recent, min=10) if package.tracking_summary }}
+{% endblock %}
+
 {% block resources %}
   {% if package.resources and not hide_resources %}
     {% block resources_outer %}
