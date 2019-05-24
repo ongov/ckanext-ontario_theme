@@ -300,6 +300,12 @@ a.card:hover {
 .label.float-right {
   float: right;
 }
+h1 .label.label-colby,
+h1 .label.label-open {
+  font-size: 40%;
+  border-width: 2px;
+  border-left-width: 10px;
+}
 .stats .number {
   display: block;
   font-size: 60px;

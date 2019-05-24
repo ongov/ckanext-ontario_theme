@@ -1,0 +1,16 @@
+{% ckan_extends %}
+
+{% block page_heading %}
+  {{ h.dataset_display_name(pkg) }}
+  {% if pkg.state.startswith('draft') %}
+    [{{ _('Draft') }}]
+  {% endif %}
+  {% if pkg.state == 'deleted' %}
+    [{{ _('Deleted') }}]
+  {% endif %}
+  {% if pkg.get('node_id', '') != "" %}
+    <span class="label label-open float-right">{{ _('Open') }}</span>
+  {% else %}
+    <span class="label label-colby float-right">{{ _('Colby') }}</span>
+  {% endif %}  
+{% endblock %}
