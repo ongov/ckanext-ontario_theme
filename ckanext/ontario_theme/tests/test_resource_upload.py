@@ -71,9 +71,10 @@ class TestResourceCreate(object):
     @mock.patch.object(ckan.lib.uploader, '_storage_path', new='doesnt_exist')
     def test_mimetype_by_upload_by_filename(self, mock_open):
         '''
-        The mimetype is guessed from an uploaded file with a filename
-        Real world usage would be using the FileStore API or web UI form to upload a file, with a filename plus extension
-        If there's no url or the mimetype can't be guessed by the url, mimetype will be guessed by the extension in the filename
+        The type is determined using python magic which checks file
+        headers.
+        Real world usage would be using the FileStore API or web UI form to
+        upload a file, with a filename plus extension
         '''
         import StringIO
         test_file = StringIO.StringIO()
@@ -119,61 +120,12 @@ class TestResourceCreate(object):
     @mock.patch.object(ckan.lib.uploader, 'os', fake_os)
     @mock.patch.object(builtins, 'open', side_effect=mock_open_if_open_fails)
     @mock.patch.object(ckan.lib.uploader, '_storage_path', new='doesnt_exist')
-    def test_mimetype_by_upload_by_filename(self, mock_open):
+    def test_validation_error_with_unsupported_html_type(self, mock_open):
         '''
-        The mimetype is guessed from an uploaded file with a filename
-        Real world usage would be using the FileStore API or web UI form to upload a file, with a filename plus extension
-        If there's no url or the mimetype can't be guessed by the url, mimetype will be guessed by the extension in the filename
-        '''
-        import StringIO
-        test_file = StringIO.StringIO()
-        test_file.write('''
-        "info": {
-            "title": "BC Data Catalogue API",
-            "description": "This API provides information about datasets in the BC Data Catalogue.",
-            "termsOfService": "http://www.data.gov.bc.ca/local/dbc/docs/license/API_Terms_of_Use.pdf",
-            "contact": {
-                "name": "Data BC",
-                "url": "http://data.gov.bc.ca/",
-                "email": ""
-            },
-            "license": {
-                "name": "Open Government License - British Columbia",
-                "url": "http://www.data.gov.bc.ca/local/dbc/docs/license/OGL-vbc2.0.pdf"
-            },
-            "version": "3.0.0"
-        }
-        ''')
-        test_resource = TestResourceCreate.FakeFileStorage(test_file, 'test.json')
-
-        context = {}
-        params = {
-            'package_id': factories.Dataset()['id'],
-            'url': 'http://data',
-            'name': 'A nice resource',
-            'upload': test_resource
-        }
-
-        # Mock url_for as using a test request context interferes with the FS mocking
-        with mock.patch('ckan.lib.helpers.url_for'):
-            result = helpers.call_action('resource_create', context, **params)
-
-        mimetype = result.pop('mimetype')
-
-        assert mimetype
-        assert_equals(mimetype, 'application/json')
-
-    # Changed storage_path from /doesnt_exist to doesnt exist as this was
-    # trying to make a directory without having permissions.
-    @helpers.change_config('ckan.storage_path', 'doesnt_exist')
-    @mock.patch.object(ckan.lib.uploader, 'os', fake_os)
-    @mock.patch.object(builtins, 'open', side_effect=mock_open_if_open_fails)
-    @mock.patch.object(ckan.lib.uploader, '_storage_path', new='doesnt_exist')
-    def test_validation_error_with_unsupported_html_mime_type(self, mock_open):
-        '''
-        The mimetype is guessed from an uploaded file with a filename
-        Real world usage would be using the FileStore API or web UI form to upload a file, with a filename plus extension
-        If there's no url or the mimetype can't be guessed by the url, mimetype will be guessed by the extension in the filename
+        The type is determined using python magic which checks file
+        headers.
+        Real world usage would be using the FileStore API or web UI form to
+        upload a file, with a filename plus extension
         '''
         import StringIO
         test_file = StringIO.StringIO()
@@ -199,7 +151,8 @@ class TestResourceCreate(object):
             'upload': test_resource
         }
 
-        # Mock url_for as using a test request context interferes with the FS mocking
+        # Mock url_for as using a test request context interferes with the FS
+        # mocking
         with mock.patch('ckan.lib.helpers.url_for'):
             assert_raises(logic.ValidationError,
                 helpers.call_action,
@@ -213,11 +166,12 @@ class TestResourceCreate(object):
     @mock.patch.object(ckan.lib.uploader, 'os', fake_os)
     @mock.patch.object(builtins, 'open', side_effect=mock_open_if_open_fails)
     @mock.patch.object(ckan.lib.uploader, '_storage_path', new='doesnt_exist')
-    def test_validation_error_with_unsupported_exe_mime_type(self, mock_open):
+    def test_validation_error_with_unsupported_exe_type(self, mock_open):
         '''
-        The mimetype is guessed from an uploaded file with a filename
-        Real world usage would be using the FileStore API or web UI form to upload a file, with a filename plus extension
-        If there's no url or the mimetype can't be guessed by the url, mimetype will be guessed by the extension in the filename
+        The type is determined using python magic which checks file
+        headers.
+        Real world usage would be using the FileStore API or web UI form to
+        upload a file, with a filename plus extension
         '''
         import StringIO
         test_file = StringIO.StringIO()
@@ -243,7 +197,8 @@ class TestResourceCreate(object):
             'upload': test_resource
         }
 
-        # Mock url_for as using a test request context interferes with the FS mocking
+        # Mock url_for as using a test request context interferes with the FS
+        # mocking
         with mock.patch('ckan.lib.helpers.url_for'):
             assert_raises(logic.ValidationError,
                 helpers.call_action,
