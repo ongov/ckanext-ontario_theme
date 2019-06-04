@@ -570,6 +570,9 @@ table.table tbody tr td {
   color: #007A7C;
   font-size: 15px;
 }
+.logo img {
+  width: 50%;
+}
 footer.site-footer {
   background: #ededed;
   position: relative;
