@@ -287,6 +287,18 @@ a.card:hover {
 .label[data-format*=turtle] {
   background-color: #0b4498;
 }
+.format-label[data-format=kml],
+.format-label[data-format*=kml] {
+  width: 31px;
+  height: 35px;
+  background-position: -383px -62px;
+}
+.format-label[data-format=shp],
+.format-label[data-format*=shp] {
+  width: 31px;
+  height: 35px;
+  background-position: -414px -62px;
+}
 .stats .number {
   display: block;
   font-size: 60px;
@@ -617,6 +629,9 @@ table.table tbody tr td {
 .toolbar .breadcrumb a {
   color: #007A7C;
   font-size: 15px;
+}
+.logo img {
+  width: 50%;
 }
 footer.site-footer {
   background: #ededed;
