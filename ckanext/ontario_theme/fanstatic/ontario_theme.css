@@ -406,6 +406,37 @@ body,
   padding: 20px;
   border-radius: 5px;
   border: none;
+  box-shadow: none;
+}
+div.add-dataset {
+  width: 100%;
+  text-align: right;
+}
+.filters div section:first-child {
+  margin-top: 0px;
+}
+.media-item {
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid #dddddd;
+}
+.media-item:last-child {
+  border-bottom: none;
+}
+.media-image {
+  float: left;
+  margin-right: 20px;
+}
+.media-view {
+  border: none;
+}
+li.resource-item > div {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 20px;
+  height: 30px;
+  margin: auto;
 }
 .hero {
   background-image: none;
@@ -502,6 +533,23 @@ table.table tbody tr td {
 @media (min-width: 768px) {
   .wrapper:before {
     border-right: none;
+  }
+}
+/* =====================================================
+   Move resource items buttons under resource title in smaller screen
+   ===================================================== */
+@media (max-width: 768px) {
+  li.resource-item {
+    float: left;
+    width: 100%;
+  }
+  li.resource-item > div {
+    right: 0px;
+    position: relative;
+  }
+  li.resource-item > div a {
+    float: right;
+    margin: 2px;
   }
 }
 /* =====================================================
