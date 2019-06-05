@@ -7,10 +7,60 @@
       <hgroup class="{{ g.header_class }} navbar-left">
         <a class="logo" href="https://ontario.ca/"><img src="/logo-ontario@2x.png" alt="Government of Ontario" /></a>
       </hgroup>
-      {# End of customization for header_account block. #}
-      {% block header_account_container_content %}
-        {{ super() }}
-      {% endblock %}
+      {# End of header logo customization. #}
+      {% block header_account_container_content %} {% if c.userobj %}
+        <div class="account avatar authed" data-module="me" data-me="{{ c.userobj.id }}">
+          <ul class="list-unstyled">
+            {% block header_account_logged %} {% if c.userobj.sysadmin %}
+            <li>
+              <a href="{{ h.url_for(controller='admin', action='index') }}" title="{{ _('Sysadmin settings') }}">
+                <i class="fa fa-gavel" aria-hidden="true"></i>
+                <span class="text">{{ _('Admin') }}</span>
+              </a>
+            </li>
+            {% endif %}
+            <li>
+              <a href="{{ h.url_for('user.read', id=c.userobj.name) }}" class="image" title="{{ _('View profile') }}">
+                      {{ h.gravatar((c.userobj.email_hash if c and c.userobj else ''), size=22) }}
+                      <span class="username">{{ c.userobj.display_name }}</span>
+                    </a>
+            </li>
+            {% set new_activities = h.new_activities() %}
+            <li class="notifications {% if new_activities > 0 %}notifications-important{% endif %}">
+              {% set notifications_tooltip = ngettext('Dashboard (%(num)d new item)', 'Dashboard (%(num)d new items)', new_activities)
+              %}
+              {# Changed dashboard.index to dashboard.datasets #}
+              <a href="{{ h.url_for('dashboard.datasets') }}" title="{{
+              notifications_tooltip }}">
+                <i class="fa fa-tachometer" aria-hidden="true"></i>
+                <span class="text">{{ _('Dashboard') }}</span>
+                <span class="badge">{{ new_activities }}</span>
+              </a>
+            </li>
+            {% block header_account_settings_link %}
+              {{ super() }}
+            {% endblock %} {% block header_account_log_out_link %}
+              {{ super () }}
+            {% endblock %} {% endblock %}
+            {# Adding custom language selector. #}
+            <li>
+              {% snippet 'snippets/ontario_theme_language_selector.html' %}
+            </li>
+          </ul>
+        </div>
+        {% else %}
+        <nav class="account not-authed">
+          <ul class="list-unstyled">
+            {% block header_account_notlogged %}
+              {{ super() }}
+              {# Adding custom language selector. #}
+              <li>
+                {% snippet 'snippets/ontario_theme_language_selector.html' %}
+              </li>
+            {% endblock %}
+          </ul>
+        </nav>
+      {% endif %} {% endblock %}
     </div>
   </header>
 {% endblock %}
@@ -51,56 +101,4 @@
       <button class="btn-search" type="submit"><i class="fa fa-search"></i><span>Submit Search</span></button>
     </div>
   </form>
-{% endblock %}
-
-{% block header_account_logged %} {% if c.userobj.sysadmin %}
-  <li>
-    <a href="{{ h.url_for(controller='admin', action='index') }}" title="{{ _('Sysadmin settings') }}">
-      <i class="fa fa-gavel" aria-hidden="true"></i>
-      <span class="text">{{ _('Admin') }}</span>
-    </a>
-  </li>
-  {% endif %}
-  <li>
-    <a href="{{ h.url_for('user.read', id=c.userobj.name) }}" class="image" title="{{ _('View profile') }}">
-            {{ h.gravatar((c.userobj.email_hash if c and c.userobj else ''), size=22) }}
-            <span class="username">{{ c.userobj.display_name }}</span>
-          </a>
-  </li>
-  {% set new_activities = h.new_activities() %}
-  <li class="notifications {% if new_activities > 0 %}notifications-important{% endif %}">
-    {% set notifications_tooltip = ngettext('Dashboard (%(num)d new item)', 'Dashboard (%(num)d new items)', new_activities)
-    %}
-    <a href="{{ h.url_for('dashboard.datasets') }}" title="{{ notifications_tooltip }}">
-      <i class="fa fa-tachometer" aria-hidden="true"></i>
-      <span class="text">{{ _('Dashboard') }}</span>
-      <span class="badge">{{ new_activities }}</span>
-    </a>
-  </li>
-  {% block header_account_settings_link %}
-  <li>
-    <a href="{{ h.url_for('user.edit', id=c.userobj.name) }}" title="{{ _('Edit settings') }}">
-      <i class="fa fa-cog" aria-hidden="true"></i>
-      <span class="text">{{ _('Settings') }}</span>
-    </a>
-  </li>
-  {% endblock %} {% block header_account_log_out_link %}
-  <li>
-    <a href="{{ h.url_for('/user/_logout') }}" title="{{ _('Log out') }}">
-      <i class="fa fa-sign-out" aria-hidden="true"></i>
-      <span class="text">{{ _('Log out') }}</span>
-    </a>
-  </li>
-  {% endblock %} {% block header_language_toggle_link %}
-  <li>
-    {% set current_lang = request.environ.CKAN_LANG %}
-    {% set toggle_to = "fr" %} 
-    {% if current_lang == "fr" %}
-    {% set toggle_to = "en" %} 
-    {% endif %}
-    <a href="{{ h.url_for(h.current_url(), locale=toggle_to) }}" title="{{ toggle_to }}">
-      {{toggle_to|upper}}
-    </a>
-  </li>
-  {% endblock %} 
 {% endblock %}
