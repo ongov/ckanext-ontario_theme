@@ -522,7 +522,7 @@ table.table tbody tr th,
 table.table tbody tr td {
   border: none;
 }
-table.table tbody tr td {
+table.table tbody tr td.dataset-details {
   width: 75%;
 }
 .media-grid {
