@@ -1,16 +1,15 @@
 {% ckan_extends %}
 
-{% block page_heading %}
-  {{ h.dataset_display_name(pkg) }}
-  {% if pkg.state.startswith('draft') %}
-    [{{ _('Draft') }}]
-  {% endif %}
-  {% if pkg.state == 'deleted' %}
-    [{{ _('Deleted') }}]
-  {% endif %}
+{% block package_notes %}
+  <div class="catalogue-source">
   {% if pkg.get('node_id', '') != "" %}
-    <span class="label label-open float-right">{{ _('Open') }}</span>
+    <span class="label label-open">{{ _('Open') }}</span>
+    _('This data asset is available to the public through the public data catalogue.')
   {% else %}
-    <span class="label label-colby float-right">{{ _('Colby') }}</span>
-  {% endif %}  
+    <span class="label label-colby">{{ _('Colby') }}</span>
+    _('This data asset is only documented internally in the Ontario Public Service (on Colby).')
+  {% endif %} 
+  </div>
+
+  {{ super() }}
 {% endblock %}
