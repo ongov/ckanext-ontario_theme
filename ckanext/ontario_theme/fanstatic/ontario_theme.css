@@ -571,7 +571,12 @@ table.table tbody tr td {
   font-size: 15px;
 }
 .logo img {
-  width: 50%;
+  height: 45px;
+}
+@media (max-width: 527px) {
+  .logo img {
+    height: 33px;
+  }
 }
 footer.site-footer {
   background: #ededed;
