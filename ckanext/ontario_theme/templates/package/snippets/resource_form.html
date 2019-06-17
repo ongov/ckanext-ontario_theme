@@ -1,0 +1,8 @@
+{% ckan_extends %}
+
+{% block stages %}
+  {# An empty stages variable will not show the stages #}
+  {% if stage %}
+    {{ h.snippet('package/snippets/stages.html', stages=stage, pkg_name=pkg_name) }}
+  {% endif %} 
+{% endblock %}
