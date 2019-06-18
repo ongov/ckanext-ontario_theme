@@ -1,6 +1,7 @@
 # encoding: utf-8
 import ckan.logic as logic
 from ckan.plugins.toolkit import Invalid
+from werkzeug.utils import secure_filename
 
 from ckan.lib.uploader import ResourceUpload as DefaultResourceUpload
 from ckan.lib.uploader import get_storage_path, _get_underlying_file
@@ -31,25 +32,28 @@ _max_image_size = None
 
 
 def accepted_resource_formats():
-    '''Returns list of accepted formats compatible with formats returned from
-    magic's mimetype that's returned.
+    '''Returns list of accepted file extensions.
     '''
     resource_formats = []
     resource_format_path = os.path.join(os.path.dirname(__file__),
                                         'accepted_resource_formats.json')
-    log.error(resource_format_path)
     with open(resource_format_path) as format_file:
         file_resource_formats = json.loads(format_file.read())
 
         for format_line in file_resource_formats:
-            resource_formats.append(format_line[2])
-    log.error(resource_formats)
+            resource_formats.append(format_line[0])
     return resource_formats
+
+
+def allowed_file(filename):
+    '''Returns boolean. Checks if the file extension is acceptable.
+    '''
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].upper() in accepted_resource_formats()
 
 
 class ResourceUpload(DefaultResourceUpload):
     def __init__(self, resource):
-        log.error("Debug 1 \n\n")
         path = get_storage_path()
         config_mimetype_guess = config.get('ckan.mimetype_guess', 'file_ext')
 
@@ -78,6 +82,10 @@ class ResourceUpload(DefaultResourceUpload):
             self.filesize = 0  # bytes
 
             self.filename = upload_field_storage.filename
+            # MODIFICATION START
+            self.filename = secure_filename(self.filename) # Overkill but I
+            # trust werkzueg over ckan.
+            # MODIFICATION END
             self.filename = munge.munge_filename(self.filename)
             resource['url'] = self.filename
             resource['url_type'] = 'upload'
@@ -92,26 +100,17 @@ class ResourceUpload(DefaultResourceUpload):
             # Note: If resubmitting a failed form without clearing the file
             # the ResourceUpload.upload function would be called skipping the
             # init call.
-            #
-            # check if the mimetype is allowed.
-            temp_mimetype = magic.from_buffer(self.upload_file.read(),
-                                              mime=True)
-            if temp_mimetype not in accepted_resource_formats():
-                log.error('Upload: Invalid upload file format. {}'
-                          .format(temp_mimetype))
-                # remove file
-                # Note: by default a resource can be added with no values for
-                # any field.
-                upload_field_storage = None
-                self.filename = None
+            if not allowed_file(self.filename):
+                log.error('Upload: Invalid upload file format.{}'.format
+                    (self.filename))
+                # remove file - by default a resource can be added without any
+                # values
                 resource['url'] = None
                 resource['url_type'] = ''
-                # raise validation error
                 raise logic.ValidationError(
                     {'upload':
                      ['Invalid upload file format, file has been removed.']}
                 )
-
             # MODIFICATION END
 
             # check if the mimetype failed from guessing with the url
