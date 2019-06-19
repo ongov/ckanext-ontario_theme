@@ -2,14 +2,21 @@
 
 {% block resource_item_title %}
 <a class="heading" href="{{ url }}" title="{{ res.name or res.description }}">
-  {{ h.resource_display_name(res) | truncate(50) }}<span class="format-label" property="dc:format" data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span> <span class="text-muted small"> ({{ h.localised_filesize(res.size) if res.size else _('unknown size') }})</span>
+  {{ h.resource_display_name(res) | truncate(50) }}<span class="format-label" property="dc:format" data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span> 
+  {% if res.size %}
+    <span class="text-muted small"> 
+      ({{ h.localised_filesize(res.size) }})
+    </span>
+  {% endif %}
   {{ h.popular('views', res.tracking_summary.total, min=10) }}
 </a>
 {% endblock %}
 
-{% block resource_item_explore_links %}
-      <li>
-        <a href="{{ url }}">
+{% block resource_item_explore %}
+  {% if not url_is_edit %}
+  <div>
+    {% block resource_item_explore_links %}
+        <a href="{{ url }}" class="btn btn-primary">
           {% if res.has_views %}
             <i class="fa fa-bar-chart-o"></i>
             {{ _('Preview') }}
@@ -18,10 +25,8 @@
             {{ _('About') }}
           {% endif %}
         </a>
-      </li>
       {% if res.url and h.is_url(res.url) %}
-      <li>
-        <a href="{{ res.url }}" class="resource-url-analytics" target="_blank">
+        <a href="{{ res.url }}" class="resource-url-analytics btn btn-primary" target="_blank">
           {% if res.has_views or res.url_type == 'upload' %}
             <i class="fa fa-arrow-circle-o-down"></i>
             {{ _('Download') }}
@@ -30,14 +35,14 @@
             {{ _('Open') }}
           {% endif %}
         </a>
-      </li>
       {% endif %}
       {% if can_edit %}
-      <li>
-        <a href="{{ h.url_for('resource.edit', id=pkg.name, resource_id=res.id) }}">
+        <a href="{{ h.url_for(controller='package', action='resource_edit', id=pkg.name, resource_id=res.id) }}" class="btn btn-primary">
           <i class="fa fa-pencil-square-o"></i>
           {{ _('Edit') }}
         </a>
-      </li>
       {% endif %}
-      {% endblock %}
+    {% endblock %}
+  </div>
+  {% endif %}
+{% endblock %}

@@ -97,12 +97,44 @@ body,
   }
 }
 
-#dataset-search-form {
+#dataset-search-form, #organization-search-form {
   margin: 0px 0px 20px 0px;
   background: #fafafa;
   padding: 20px;
   border-radius: 5px;
   border: none;
+  box-shadow: none;
+}
+div.add-dataset {
+  width: 100%;
+  text-align: right; 
+}
+.filters div section:first-child {
+  margin-top: 0px;
+}
+.media-item {
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid #dddddd;
+}
+.media-item:last-child {
+  border-bottom: none;
+}
+.media-image {
+  float: left;
+  margin-right: 20px;
+}
+.media-view {
+  border: none;
+}
+
+li.resource-item>div {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 20px;
+  height: 30px;
+  margin: auto;
 }
 
 .hero {
@@ -195,13 +227,17 @@ table.table {
   tbody tr th, tbody tr td {
     border: none;
   }
-  tbody tr td {
+  tbody tr td.dataset-details {
     width: 75%;
   }
 }
 
 .media-grid {
   border: none;
+}
+
+.page_primary_action .add-dataset, .page_primary_action .add-organization {
+  text-align: right; 
 }
 
 /* =====================================================
@@ -211,6 +247,26 @@ table.table {
 @media (min-width: 768px) {
   .wrapper:before {
       border-right: none;
+  }
+}
+
+/* =====================================================
+   Move resource items buttons under resource title in smaller screen
+   ===================================================== */
+
+@media (max-width: 768px) {
+  li.resource-item {
+    float: left;
+    width: 100%;
+    &>div {
+      //float: right;
+      right: 0px;
+      position: relative;
+      a {
+        float: right;
+        margin: 2px;
+      }
+    }
   }
 }
 

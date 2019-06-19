@@ -9,6 +9,8 @@ import ckanapi_exporter.exporter as exporter
 
 from ckan.model import Package
 
+from resource_upload import ResourceUpload
+
 
 def help():
     '''New help page for site.
@@ -208,6 +210,7 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IBlueprint)
     plugins.implements(plugins.ITemplateHelpers)
+    plugins.implements(plugins.IUploader, inherit=True)
 
     # IConfigurer
 
@@ -242,3 +245,8 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
             blueprint.add_url_rule(*rule)
 
         return blueprint
+
+    # IUploader
+
+    def get_resource_uploader(self, data_dict):
+        return ResourceUpload(data_dict)
