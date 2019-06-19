@@ -4,5 +4,8 @@
   {# An empty stages variable will not show the stages #}
   {% if stage %}
     {{ h.snippet('package/snippets/stages.html', stages=stage, pkg_name=pkg_name) }}
-  {% endif %} 
+  {% endif %}
+  {% if pkg_dict.get('state', '').startswith('draft') %}
+    <h3>{{ _('Resource') }} #{{pkg_dict.num_resources+1}}</h3>
+  {% endif %}
 {% endblock %}
