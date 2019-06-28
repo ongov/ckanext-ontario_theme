@@ -11,6 +11,8 @@ Requirements
 
 CKAN 2.8.x
 `ckanapi-exporter <https://github.com/ckan/ckanapi-exporter>`_
+ckanext-scheming
+ckanext-fluent
 
 
 ------------
@@ -33,6 +35,14 @@ virtualenv and do::
     python setup.py develop
     pip install -r dev-requirements.txt
 
+Set the dataset schema::
+
+    # This relies on scheming and fluent, make sure these are already installed.
+    # Note: This extension needs to be before scheming in the *.ini config file to let the form overrides work.
+    # Specify the new schema for datasets.
+    scheming.dataset_schemas = ckanext.ontario_theme:ontario_theme_dataset.json
+    scheming.presets = ckanext.scheming:presets.json
+                       ckanext.fluent:presets.json
 
 -----------------
 Development
@@ -62,7 +72,8 @@ Running the Tests
 
 To run the tests, make sure your ckan install is `setup for tests <https://docs.ckan.org/en/latest/contributing/test.html>`_, do::
 
-    nosetests --nologcapture --with-pylons=test.ini
+    cd ckanext-ontario_theme # go to extension directory
+    nosetests --nologcapture --with-pylons=test.ini # active vertual environment that has nosetests.
 
 To run the tests and produce a coverage report, first make sure you have
 coverage installed in your virtualenv (``pip install coverage``) then run::
