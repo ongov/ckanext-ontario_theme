@@ -97,9 +97,18 @@ class TestResourceCreate(object):
         ''')
         test_resource = TestResourceCreate.FakeFileStorage(test_file, 'test.json')
 
+        dataset = helpers.call_action(
+            'package_create',
+            name='package-name',
+            title_translated={
+                'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
+            short_description={'en': u'short description', 'fr': u'...'}
+            )
+        assert_equals(dataset['name'], 'package-name')
+
         context = {}
         params = {
-            'package_id': factories.Dataset()['id'],
+            'package_id': dataset['id'],
             'url': 'http://data',
             'name': 'A nice resource',
             'upload': test_resource
@@ -143,9 +152,18 @@ class TestResourceCreate(object):
         test_resource = TestResourceCreate.FakeFileStorage(test_file,
             'test.html')
 
+        dataset = helpers.call_action(
+            'package_create',
+            name='package-name',
+            title_translated={
+                'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
+            short_description={'en': u'short description', 'fr': u'...'}
+            )
+        assert_equals(dataset['name'], 'package-name')
+
         context = {}
         params = {
-            'package_id': factories.Dataset()['id'],
+            'package_id': dataset['id'],
             'url': 'http://data',
             'name': 'A nice resource',
             'upload': test_resource
@@ -189,9 +207,18 @@ class TestResourceCreate(object):
         test_resource = TestResourceCreate.FakeFileStorage(test_file,
             'test.exe')
 
+        dataset = helpers.call_action(
+            'package_create',
+            name='package-name',
+            title_translated={
+                'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
+            short_description={'en': u'short description', 'fr': u'...'}
+            )
+        assert_equals(dataset['name'], 'package-name')
+
         context = {}
         params = {
-            'package_id': factories.Dataset()['id'],
+            'package_id': dataset['id'],
             'url': 'http://data',
             'name': 'A nice resource',
             'upload': test_resource
