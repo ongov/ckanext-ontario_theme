@@ -2,17 +2,40 @@
 ckanext-ontario_theme
 =============
 
-Theme for Ontario ckan.
+Theme for Ontario ckan including:
+
+* metadata schema
+* forms
+* templates and design
 
 
 ------------
 Requirements
 ------------
 
-CKAN 2.8.x
-`ckanapi-exporter <https://github.com/ckan/ckanapi-exporter>`_
-ckanext-scheming
-ckanext-fluent
+.. list-table:: Related projects, repositories, branches and CKAN plugins
+ :header-rows: 1
+
+ * - Project
+   - Github group/repo
+   - Branch
+   - Plugins
+ * - CKAN
+   - `ckan/ckan <https://github.com/ckan/ckan/>`_
+   - ckan-2.8.x
+   - N/A
+ * - Scheming extension
+   - `open-data/ckanext-scheming <https://github.com/open-data/ckanext-scheming>`_
+   - master
+   - scheming_datasets
+ * - Fluent extension
+   - `open-data/ckanext-fluent <https://github.com/open-data/ckanext-fluent>`_
+   - master
+   - fluent
+ * - ckanapi-exporter
+   - `ckanapi-exporter <https://github.com/ckan/ckanapi-exporter>`_
+   - master
+   - N/A
 
 
 ------------
@@ -79,3 +102,11 @@ To run the tests and produce a coverage report, first make sure you have
 coverage installed in your virtualenv (``pip install coverage``) then run::
 
     nosetests --nologcapture --with-pylons=test.ini --with-coverage --cover-package=ckanext.ontario_theme --cover-inclusive --cover-erase --cover-tests
+
+Also, add scheming and fluent to ``/usr/lib/ckan/default/src/ckan/test-core.ini``::
+
+    ckan.plugins = stats scheming_datasets fluent
+    scheming.dataset_schemas = ckanext.extrafields:ontario_theme_dataset.json
+    scheming.presets = ckanext.scheming:presets.json
+                       ckanext.fluent:presets.json
+
