@@ -1,11 +1,11 @@
 # encoding: utf-8
 
-'''Unit tests for extrafields/tests/test_before_search.py.
+'''Unit tests for ontario_theme/tests/test_before_search.py.
 '''
 
 import nose.tools
 assert_equals = nose.tools.assert_equals
-from ckanext.extrafields.plugin import (
+from ckanext.ontario_theme.plugin import (
   num_resources_filter_scrub
 )
 

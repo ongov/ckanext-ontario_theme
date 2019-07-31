@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-'''Unit tests for extrafields/tests/test_plugin.py.
+'''Unit tests for ontario_theme/tests/test_plugin.py.
 Tried to follow test format from the unit tests for ckan/logic/validators.py in
 CKAN core but trimmed down.
 
@@ -11,7 +11,7 @@ import ckan.lib.navl.dictization_functions as df
 import nose.tools
 import datetime
 
-import ckanext.extrafields.plugin as extrafields
+import ckanext.ontario_theme.plugin as ontario_theme
 
 assert_equals = nose.tools.assert_equals
 assert_raises = nose.tools.assert_raises
@@ -33,7 +33,7 @@ class TestCreateDataset(object):
         '''Nose runs this method once to setup our test class.'''
         # Test code should use CKAN's plugins.load() function to load plugins
         # to be tested.
-        ckan.plugins.load('extrafields')
+        ckan.plugins.load('ontario_theme')
 
     def teardown(self):
         '''Nose runs this method after each test method in our test class.'''
@@ -49,7 +49,7 @@ class TestCreateDataset(object):
         '''
         # We have to unload the plugin we loaded, so it doesn't affect any
         # tests that run after ours.
-        ckan.plugins.unload('extrafields')
+        ckan.plugins.unload('ontario_theme')
 
     def test_package_create_with_minimum_values(self):
         '''If dataset is given it's basic fields it is created.
