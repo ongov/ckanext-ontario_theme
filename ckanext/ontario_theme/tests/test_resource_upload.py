@@ -52,6 +52,22 @@ class TestResourceCreate(object):
     def setup_class(cls):
         helpers.reset_db()
 
+    def teardown(self):
+        '''Nose runs this method after each test method in our test class.'''
+        # Rebuild CKAN's database after each test method, so that each test
+        # method runs with a clean slate.
+        model.repo.rebuild_db()
+
+    @classmethod
+    def teardown_class(cls):
+        '''Nose runs this method once after all the test methods in our class
+        have been run.
+
+        '''
+        # We have to unload the plugin we loaded, so it doesn't affect any
+        # tests that run after ours.
+        plugins.unload(u'ontario_theme')
+
     def setup(self):
         self.app = helpers._get_test_app()
 
