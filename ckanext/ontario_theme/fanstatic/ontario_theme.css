@@ -617,7 +617,7 @@ table.table tbody tr td.dataset-details {
   font-size: 24px;
   line-height: 1.5;
   font-weight: 600;
-  padding-left: 1.6em;
+  padding-left: 0em;
   margin: 0;
 }
 .masthead hgroup h1 sup {
