@@ -2,10 +2,10 @@
    Generic classes for Colby colours
    ===================================================== */
 .primary-bg {
-  background-color: #D47500;
+  background-color: #0071a9;
 }
 .secondary-bg {
-  background-color: #007A7C;
+  background-color: #006b3f;
 }
 .recent-activity .module-content {
   padding: 0px;
@@ -78,23 +78,23 @@ a.skip-main:active {
   color: #fff;
 }
 .btn-primary {
-  background-color: #D47500;
-  border-color: #c66e00;
+  background-color: #0071a9;
+  border-color: #004466;
 }
 .btn-primary:hover {
-  background-color: #B26300;
-  border-color: #995400;
+  background-color: #004466;
+  border-color: #002233;
 }
 .btn-primary:focus,
 .btn-primary.focus {
-  background-color: #B26300;
-  border-color: #995400;
+  background-color: #004466;
+  border-color: #002233;
 }
 .btn-primary:active,
 .btn-primary.active,
 .btn-primary .open > .dropdown-toggle.btn-primary {
-  background-color: #B26300;
-  border-color: #995400;
+  background-color: #004466;
+  border-color: #002233;
   background-image: none;
 }
 .btn-primary:active:hover,
@@ -106,8 +106,8 @@ a.skip-main:active {
 .btn-primary:active.focus,
 .btn-primary.active.focus,
 .btn-primary .open > .dropdown-toggle.btn-primary.focus {
-  background-color: #B26300;
-  border-color: #995400;
+  background-color: #004466;
+  border-color: #002233;
 }
 .btn-primary.disabled:hover,
 .btn-primary[disabled]:hover,
@@ -118,31 +118,31 @@ a.skip-main:active {
 .btn-primary.disabled.focus,
 .btn-primary[disabled].focus,
 .btn-primary fieldset[disabled] .btn-primary.focus {
-  background-color: #D47500;
-  border-color: #c66e00;
+  background-color: #0071a9;
+  border-color: #004466;
 }
 .btn-primary.badge {
-  color: #D47500;
+  color: #0071a9;
   background-color: #ffffff;
 }
 .btn-secondary {
-  background-color: #007A7C;
-  border-color: #007476;
+  background-color: #006b3f;
+  border-color: #004d2d;
 }
 .btn-secondary:hover {
-  background-color: #005D5E;
-  border-color: #004B4C;
+  background-color: #004d2d;
+  border-color: #00331e;
 }
 .btn-secondary:focus,
 .btn-secondary.focus {
-  background-color: #005D5E;
-  border-color: #004B4C;
+  background-color: #004d2d;
+  border-color: #00331e;
 }
 .btn-secondary:active,
 .btn-secondary.active,
 .btn-secondary .open > .dropdown-toggle.btn-secondary {
-  background-color: #005D5E;
-  border-color: #004B4C;
+  background-color: #004d2d;
+  border-color: #00331e;
   background-image: none;
 }
 .btn-secondary:active:hover,
@@ -154,8 +154,8 @@ a.skip-main:active {
 .btn-secondary:active.focus,
 .btn-secondary.active.focus,
 .btn-secondary .open > .dropdown-toggle.btn-secondary.focus {
-  background-color: #005D5E;
-  border-color: #004B4C;
+  background-color: #004d2d;
+  border-color: #00331e;
 }
 .btn-secondary.disabled:hover,
 .btn-secondary[disabled]:hover,
@@ -166,11 +166,11 @@ a.skip-main:active {
 .btn-secondary.disabled.focus,
 .btn-secondary[disabled].focus,
 .btn-secondary fieldset[disabled] .btn-secondary.focus {
-  background-color: #007A7C;
-  border-color: #007476;
+  background-color: #006b3f;
+  border-color: #004d2d;
 }
 .btn-secondary.badge {
-  color: #007A7C;
+  color: #006b3f;
   background-color: #ffffff;
 }
 /* Button wrap text */
@@ -214,7 +214,7 @@ a.card:hover {
   margin: 0 10px 0 0;
 }
 .module.search .tags a.tag {
-  background-color: #D47500;
+  background-color: #0071a9;
   color: #fff;
   font-weight: bold;
   border: none;
@@ -223,7 +223,7 @@ a.card:hover {
 }
 .search-form .search-input button i,
 .simple-input .field .btn-search {
-  color: #007A7C;
+  color: #006b3f;
 }
 .hero {
   min-height: 300px;
@@ -316,7 +316,7 @@ a.card:hover {
   font-family: Raleway, Open Sans, sans-serif;
   border-radius: 50%;
   color: #fff;
-  background-color: #D47500;
+  background-color: #0071a9;
   display: inline-block;
   font-weight: 700;
   margin-bottom: 0.5rem;
@@ -349,11 +349,11 @@ h4 {
   font-weight: 600;
 }
 a {
-  color: #007A7C;
+  color: #0066cc;
 }
 a:hover,
 a:focus {
-  color: #D47500;
+  color: #0071a9;
 }
 p {
   font-family: inherit;
@@ -475,8 +475,8 @@ li.resource-item > div {
 }
 .wrapper header.page-header ul.nav.nav-tabs li.active a {
   border: none;
-  border-bottom: solid 2px #D47500;
-  color: #D47500;
+  border-bottom: solid 2px #0071a9;
+  color: #0071a9;
 }
 .module-heading {
   border-top: none;
@@ -499,7 +499,7 @@ li.resource-item > div {
   box-shadow: none;
 }
 .well a.tag {
-  background-color: #D47500;
+  background-color: #0071a9;
   color: #fff;
   font-weight: bold;
   border: none;
@@ -562,7 +562,7 @@ table.table tbody tr td.dataset-details {
    ===================================================== */
 .account-masthead {
   background-color: #333;
-  padding-top: 0.5rem;
+  padding-top: .5rem;
   min-height: 64px;
 }
 /* The "bubble" containing the number of new notifications. */
@@ -585,14 +585,14 @@ table.table tbody tr td.dataset-details {
   display: block;
   float: left;
   border-left: none;
-  padding: 0.75rem 0;
+  padding: .75rem 0;
   margin-bottom: 0 !important;
 }
 /* ========================================================================
    The main masthead bar that contains the site logo, nav links, and search
    ======================================================================== */
 .masthead {
-  background-color: #007A7C;
+  background-color: #006b3f;
 }
 .masthead a {
   text-decoration: none;
@@ -632,7 +632,7 @@ table.table tbody tr td.dataset-details {
   top: 1px;
 }
 .toolbar .breadcrumb a {
-  color: #007A7C;
+  color: #006b3f;
   font-size: 15px;
 }
 .logo img {
