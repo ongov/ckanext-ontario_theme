@@ -43,8 +43,14 @@
   background-color: @secondary-colour;
 }
 
-.masthead a {
+.masthead a, .masthead a:focus, .masthead a:visited {
+  color: #fff;
   text-decoration: none;
+}
+
+.masthead a:hover {
+  color: #fff;
+  text-decoration: underline;
 }
 
 /* Allows the utilities to float beside the logo on mobile */

@@ -62,6 +62,8 @@ a.skip-main:active {
 }
 .btn-primary:focus,
 .btn-primary.focus,
+.btn-primary:visited,
+.btn-primary.visited,
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary.active {
@@ -72,6 +74,8 @@ a.skip-main:active {
 }
 .btn-secondary:focus,
 .btn-secondary.focus,
+.btn-secondary:visited,
+.btn-secondary.visited,
 .btn-secondary:hover,
 .btn-secondary:active,
 .btn-secondary.active {
@@ -594,8 +598,15 @@ table.table tbody tr td.dataset-details {
 .masthead {
   background-color: #006b3f;
 }
-.masthead a {
+.masthead a,
+.masthead a:focus,
+.masthead a:visited {
+  color: #fff;
   text-decoration: none;
+}
+.masthead a:hover {
+  color: #fff;
+  text-decoration: underline;
 }
 /* Allows the utilities to float beside the logo on mobile */
 .account-masthead hgroup {
