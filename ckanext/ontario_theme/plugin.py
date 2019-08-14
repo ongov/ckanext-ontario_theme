@@ -1,5 +1,6 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
+from ckan.lib.plugins import DefaultTranslation
 from ckan.common import config
 
 from flask import Blueprint, make_response
@@ -244,7 +245,8 @@ def num_resources_filter_scrub(search_params):
     return search_params
 
 
-class OntarioThemePlugin(plugins.SingletonPlugin):
+class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
+    plugins.implements(plugins.ITranslation)
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IBlueprint)
     plugins.implements(plugins.ITemplateHelpers)
