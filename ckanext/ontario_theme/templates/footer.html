@@ -6,13 +6,13 @@
         {% block footer_nav %}
           <ul class="list-inline">
             {% block footer_links %}
-                <li><a href="https://www.ontario.ca/page/accessibility">accessibility</a></li>
-                <li><a href="https://www.ontario.ca/page/privacy-statement">privacy</a></li>
-                <li><a href="https://www.ontario.ca/page/terms-use">terms of use</a></li>
+                <li><a href="https://www.ontario.ca/page/accessibility">{% trans %}accessibility{% endtrans %}</a></li>
+                <li><a href="https://www.ontario.ca/page/privacy-statement">{% trans %}privacy{% endtrans %}</a></li>
+                <li><a href="https://www.ontario.ca/page/terms-use">{% trans %}terms of use{% endtrans %}</a></li>
             {% endblock %}
           </ul>
           <p class="small">
-            <a href="https://www.ontario.ca/page/copyright-information-c-queens-printer-ontario">&copy; Queen&#8217;s Printer for Ontario, 2012-18</a>
+            <a href="https://www.ontario.ca/page/copyright-information-c-queens-printer-ontario">{% trans %}&copy; Queen&#8217;s Printer for Ontario{% endtrans %}, 2012-18</a>
           </p> 
         {% endblock %}
       </div>
