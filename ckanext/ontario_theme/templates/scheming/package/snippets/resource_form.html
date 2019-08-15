@@ -9,10 +9,12 @@
     {%- endif -%}
     {%- set schema = h.scheming_get_dataset_schema(dataset_type) -%}
     {%- for field in schema.resource_fields -%}
+      <div class="controls row">
         {%- if field.form_snippet is not none -%}
           {%- snippet 'scheming/snippets/form_field.html',
             field=field, data=data, errors=errors,
       entity_type='dataset', object_type=dataset_type -%}
         {%- endif -%}
+      </div>
     {%- endfor -%}
   {% endblock %}
