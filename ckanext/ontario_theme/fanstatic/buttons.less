@@ -6,6 +6,8 @@
   color: #fff;
   &:focus,
   &.focus,
+  &:visited,
+  &.visited,
   &:hover,
   &:active,
   &.active {
@@ -17,6 +19,8 @@
   color: #fff;
   &:focus,
   &.focus,
+  &:visited,
+  &.visited,
   &:hover,
   &:active,
   &.active {
@@ -26,21 +30,21 @@
 
 .btn-primary {
   background-color: @primary-colour;
-  border-color: #c66e00;
+  border-color: @primary-darker;
   &:hover {
-    background-color: #B26300;
-    border-color: #995400;
+    background-color: @primary-darker;
+    border-color: @primary-darkest;
   }
   &:focus,
   &.focus {
-    background-color: #B26300;
-    border-color: #995400;
+    background-color: @primary-darker;
+    border-color: @primary-darkest;
   }
   &:active,
   &.active,
   .open>.dropdown-toggle.btn-primary {
-    background-color: #B26300;
-    border-color: #995400;
+    background-color: @primary-darker;
+    border-color: @primary-darkest;
     background-image: none;
   }
   &:active:hover,
@@ -52,8 +56,8 @@
   &:active.focus,
   &.active.focus,
   .open>.dropdown-toggle.btn-primary.focus {
-    background-color: #B26300;
-    border-color: #995400;
+    background-color: @primary-darker;
+    border-color: @primary-darkest;
   }
   &.disabled:hover,
   &[disabled]:hover,
@@ -65,7 +69,7 @@
   &[disabled].focus,
   fieldset[disabled] .btn-primary.focus {
     background-color: @primary-colour;
-    border-color: #c66e00;
+    border-color: @primary-darker;
   }
   &.badge {
     color: @primary-colour;
@@ -76,21 +80,21 @@
 
 .btn-secondary {
   background-color: @secondary-colour;
-  border-color: #007476;
+  border-color: @secondary-darker;
   &:hover {
-    background-color: #005D5E;
-    border-color: #004B4C;
+    background-color: @secondary-darker;
+    border-color: @secondary-darkest;
   }
   &:focus,
   &.focus {
-    background-color: #005D5E;
-    border-color: #004B4C;
+    background-color: @secondary-darker;
+    border-color: @secondary-darkest;
   }
   &:active,
   &.active,
   .open>.dropdown-toggle.btn-secondary {
-    background-color: #005D5E;
-    border-color: #004B4C;
+    background-color: @secondary-darker;
+    border-color: @secondary-darkest;
     background-image: none;
   }
   &:active:hover,
@@ -102,8 +106,8 @@
   &:active.focus,
   &.active.focus,
   .open>.dropdown-toggle.btn-secondary.focus {
-    background-color: #005D5E;
-    border-color: #004B4C;
+    background-color: @secondary-darker;
+    border-color: @secondary-darkest;
   }
   &.disabled:hover,
   &[disabled]:hover,
@@ -115,7 +119,7 @@
   &[disabled].focus,
   fieldset[disabled] .btn-secondary.focus {
     background-color: @secondary-colour;
-    border-color: #007476;
+    border-color: @secondary-darker;
   }
   &.badge {
     color: @secondary-colour;
