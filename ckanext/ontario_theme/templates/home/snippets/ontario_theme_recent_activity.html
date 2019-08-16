@@ -5,7 +5,7 @@ Renders a list of the site's most recent activity.
 #}
 
 <div class="recent-activity">
-  <h2>Recent activity</h2>
+  <h2>{% trans %}Recent activity{% endtrans %}</h2>
   <div class="module-content">
     {{ h.recently_changed_packages_activity_stream(limit=8)|safe }}
   </div>

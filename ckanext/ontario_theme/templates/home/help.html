@@ -10,50 +10,51 @@
   <article class="module">
     <div class="module-content">
       <h1 class="page-heading">{{ _('Help') }}</h1>
-      <p>Need more help or want to learn more about the data catalogue? <a href="mailto:opengov@ontario.ca">Contact the Open Government team</a> — we’ll gladly answer any questions you might have!</p>
+    
+      {% trans %}<p>Need more help or want to learn more about the data catalogue? <a href="mailto:opengov@ontario.ca">Contact the Open Government team</a> — we’ll gladly answer any questions you might have!</p>{% endtrans %}
 
       <ul>
-        <li><a href="#i-cant-find-the-dataset-im-looking-for">Q. I cannot find the dataset I’m looking for.</a></li>
-        <li><a href="#how-do-i-download-datasets">Q. How do I download datasets?</a></li>
-        <li><a href="#what-does-the-preview-button-do">Q. What does the <strong>Preview</strong> button do?</a></li>
-        <li><a href="#how-does-the-graph-option-work">Q. How does the <strong>Graph</strong> button work?</a></li>
-        <li><a href="#how-does-the-map-option-work">Q. How does the <strong>Map</strong> button work?</a></li>
-        <li><a href="#what-if-i-dont-see-a-preview-button">Q. What if I don't see a <strong>Preview</strong> button?</a></li>
-        <li><a href="#what-if-a-dataset-isnt-available-in-the-format-i-need">Q. What if a dataset isn't available in the format I need?</a></li>
-        <li><a href="#how-do-i-request-an-updated-version-of-a-dataset">Q. How do I request an updated version of a dataset?</a></li>
-        <li><a href="#how-do-i-report-issues">Q. How do I report errors/issues or provide feedback (for example, inaccurate, outdated data)?</a></li>
-        <li><a href="#why-isnt-a-dataset-available">Q. Why isn't a dataset available?</a></li>
-        <li><a href="#can-i-get-notified-when-the-catalogue-is-updated">Q. Can you notify me when the catalogue is updated?</a></li>
+        <li><a href="#i-cant-find-the-dataset-im-looking-for">{% trans %}Q. I cannot find the dataset I’m looking for.{% endtrans %}</a></li>
+        <li><a href="#how-do-i-download-datasets">{% trans %}Q. How do I download datasets?{% endtrans %}</a></li>
+        <li><a href="#what-does-the-preview-button-do">{% trans %}Q. What does the <strong>Preview</strong> button do?{% endtrans %}</a></li>
+        <li><a href="#how-does-the-graph-option-work">{% trans %}Q. How does the <strong>Graph</strong> button work?{% endtrans %}</a></li>
+        <li><a href="#how-does-the-map-option-work">{% trans %}Q. How does the <strong>Map</strong> button work?{% endtrans %}</a></li>
+        <li><a href="#what-if-i-dont-see-a-preview-button">{% trans %}Q. What if I don't see a <strong>Preview</strong> button?{% endtrans %}</a></li>
+        <li><a href="#what-if-a-dataset-isnt-available-in-the-format-i-need">{% trans %}Q. What if a dataset isn't available in the format I need?{% endtrans %}</a></li>
+        <li><a href="#how-do-i-request-an-updated-version-of-a-dataset">{% trans %}Q. How do I request an updated version of a dataset?{% endtrans %}</a></li>
+        <li><a href="#how-do-i-report-issues">{% trans %}Q. How do I report errors/issues or provide feedback (for example, inaccurate, outdated data)?{% endtrans %}</a></li>
+        <li><a href="#why-isnt-a-dataset-available">{% trans %}Q. Why isn't a dataset available?{% endtrans %}</a></li>
+        <li><a href="#can-i-get-notified-when-the-catalogue-is-updated">{% trans %}Q. Can you notify me when the catalogue is updated?{% endtrans %}</a></li>
       </ul>
   
-      <h2><a name="i-cant-find-the-dataset-im-looking-for"></a>Q. I cannot find the dataset I’m looking for.</h2>
+      <h2><a name="i-cant-find-the-dataset-im-looking-for"></a>{% trans %}Q. I cannot find the dataset I’m looking for.{% endtrans %}</h2>
       <div>
         <p>
-          A. Try using the <a href="/dataset" target="_blank">catalogue search page</a>. Enter your keywords in the search bar and refine your search, using the filters provided.
+          {% trans %}A. Try using the <a href="/dataset" target="_blank">catalogue search page</a>. Enter your keywords in the search bar and refine your search, using the filters provided.{% endtrans %}
         </p>
         <p>
-          If you still cannot find the dataset you want, there may be a couple of reasons why.
+          {% trans %}If you still cannot find the dataset you want, there may be a couple of reasons why.{% endtrans %}
         </p>
         <p>
-          The dataset you want may:
+          {% trans %}The dataset you want may:{% endtrans %}
         </p>
         <ul>
           <li>
-            not listed in the beta catalogue, but can be found in the <a href="http://www.ontario.ca/data" target="_blank">current catalogue</a>. While the beta catalogue is in its testing phase, it will have some, but not all, of the datasets from the data catalogue.
+            {% trans %}not listed in the beta catalogue, but can be found in the <a href="http://www.ontario.ca/data" target="_blank">current catalogue</a>. While the beta catalogue is in its testing phase, it will have some, but not all, of the datasets from the data catalogue.{% endtrans %}
             <ul>
               <li>
-                <a href="http://www.ontario.ca/data">Search the current data catalogue</a>
+                <a href="http://www.ontario.ca/data">{% trans %}Search the current data catalogue{% endtrans %}</a>
               </li>
               <li>
-                <a href="/about#beta">Learn more about the beta stage</a>
+                <a href="/about#beta">{% trans %}Learn more about the beta stage{% endtrans %}</a>
               </li>
             </ul>
           </li>
           <li>
-            not listed in the beta catalogue or in the current catalogue
+            {% trans %}not listed in the beta catalogue or in the current catalogue{% endtrans %}
             <ul>
               <li>
-                Email us at <a href="mailto:opengov@ontario.ca">opengov@ontario.ca</a> or <a href="https://www.ontario.ca/feedback/contact-us?id=14655&nid=74524">use our contact form</a> to tell us what data you are looking for. We will review your request and reply. 
+                {% trans %}Email us at <a href="mailto:opengov@ontario.ca">opengov@ontario.ca</a> or <a href="https://www.ontario.ca/feedback/contact-us?id=14655&nid=74524">use our contact form</a> to tell us what data you are looking for. We will review your request and reply.{% endtrans %} 
               </li>
            </ul>
           </li>
@@ -61,231 +62,230 @@
       </div>
 
 
-      <h2><a name="how-do-i-download-datasets"></a>Q. How do I download datasets?</h2>
+      <h2><a name="how-do-i-download-datasets"></a>{% trans %}Q. How do I download datasets?{% endtrans %}</h2>
       <div>
         <p>
-          A. On each page in the catalogue, where data is available, you will find the data icon under the heading <strong>Data and Resources</strong>. 
+          {% trans %}A. On each page in the catalogue, where data is available, you will find the data icon under the heading <strong>Data and Resources</strong>.{% endtrans %} 
         </p>
         <p>
-          To the right of the data icon, you will find a either a <strong>Download</strong> or <strong>Open</strong> button.
+          {% trans %}To the right of the data icon, you will find a either a <strong>Download</strong> or <strong>Open</strong> button.{% endtrans %}
         </p>
         <figure>
           <img src="/images/help/Dataset Page - Download Button.jpg" alt="A screenshot of the data and resources section of the dataset description page. Each file in the dataset is listed. To the right of each file is a preview button and a download button. An arrow is overlaid onto the screeshot that points to the download button." />
-          <figcaption>Figure 1: The location of the <strong>Download</strong> button on the dataset page.</figcaption> 
+          <figcaption>{% trans %}Figure 1: The location of the <strong>Download</strong> button on the dataset page.{% endtrans %}</figcaption> 
         </figure>
         <p>
-          Click the <strong>Download</strong> button and the data will be downloaded immediately to your computer.  
+          {% trans %}Click the <strong>Download</strong> button and the data will be downloaded immediately to your computer.{% endtrans %}  
         </p>
         <p>
-          Click the <strong>Open</strong> button to find out how to access the dataset (which may be hosted outside the catalogue). 
+          {% trans %}Click the <strong>Open</strong> button to find out how to access the dataset (which may be hosted outside the catalogue).{% endtrans %} 
         </p>
         <figure>
           <img src="/images/help/Dataset Page - Open Button.jpg" alt="A screenshot of the data and resources section of the dataset description page. Each file in the dataset is listed. To the right of each file name is an open button and an about button. An arrow is overlaid onto the screeshot that points to the open button." />
-          <figcaption>Figure 2: The location of the <strong>Open</strong> button on the dataset page. </figcaption> 
+          <figcaption>{% trans %}Figure 2: The location of the <strong>Open</strong> button on the dataset page.{% endtrans %}</figcaption> 
         </figure>
       </div>
 
 
-      <h2><a name="what-does-the-preview-button-do"></a>Q. What does the <strong>Preview</strong> button do?</h2>
+      <h2><a name="what-does-the-preview-button-do"></a>{% trans %}Q. What does the <strong>Preview</strong> button do?{% endtrans %}</h2>
       <div>
         <p>
-          A. The <strong>Preview</strong> option lets you see a dataset without downloading it. You will see this option for files that are stored as common file types, like CSVs.  
+          {% trans %}A. The <strong>Preview</strong> option lets you see a dataset without downloading it. You will see this option for files that are stored as common file types, like CSVs.{% endtrans %}  
         </p>
         <figure>
           <img src="/images/help/Dataset Page - Preview Button.jpg" alt="A screenshot of the data and resources section of the dataset description page. Each file in the dataset is listed. To the right of each file name is a preview button and a download button. An arrow is overlaid onto the screeshot that points to the preview button." />
-          <figcaption>Figure 3: The location of the <strong>Preview</strong> button on the dataset page.</figcaption> 
+          <figcaption>{% trans %}Figure 3: The location of the <strong>Preview</strong> button on the dataset page.{% endtrans %}</figcaption> 
         </figure>
         <p>
-          When you click the <strong>Preview</strong> button, you will get to a page that:
+          {% trans %}When you click the <strong>Preview</strong> button, you will get to a page that:{% endtrans %}
         </p>
         <ul>
           <li>
-            describes the files (including a description of the file and the web address where the file is stored)
+            {% trans %}describes the files (including a description of the file and the web address where the file is stored){% endtrans %}
           </li>
           <li>
-            allows you to see the data in a few different ways - in a spreadsheet, as a graph or geographic map
+            {% trans %}allows you to see the data in a few different ways - in a spreadsheet, as a graph or geographic map{% endtrans %}
           </li>
         </ul>
         <figure>
           <img src="/images/help/Resource Page - overview.jpg" alt="A screenshot of the file description page. The file name, text description, and web address is found at the top. A visualization tool is found underneath that allows users to transform the contents of the file from spreadsheet to graph to map." />
-          <figcaption>Figure 4: A file preview pageshowing the file description and the contents of the file visualized as a spreadsheet.</figcaption> 
+          <figcaption>{% trans %}Figure 4: A file preview pageshowing the file description and the contents of the file visualized as a spreadsheet.{% endtrans %}</figcaption> 
         </figure> 
         <p>
-          The <strong>Graph</strong> and <strong>Map</strong> options are available just above the dataset.
+          {% trans %}The <strong>Graph</strong> and <strong>Map</strong> options are available just above the dataset.{% endtrans %}
         </p>
         <figure>
           <img src="/images/help/Resource Page - graph and map buttons.jpg" alt="A screenshot of the section of the file description page that lets the user transform the contents of the file from spreadsheet to graph to map. The three buttons visible at the top left above the visualization are grid, graph, and map. An arrow is overlaid onto the screeshot that points to the graph and map buttons." />
-          <figcaption>Figure 5: The <strong>Graph</strong> and <strong>Map</strong> options on a preview page.</figcaption> 
+          <figcaption>{% trans %}Figure 5: The <strong>Graph</strong> and <strong>Map</strong> options on a preview page.{% endtrans %}</figcaption> 
         </figure>
       </div>
 
 
-      <h2><a name="how-does-the-graph-option-work"></a>Q. How does the <strong>Graph</strong> option work?</h2>
+      <h2><a name="how-does-the-graph-option-work"></a>{% trans %}Q. How does the <strong>Graph</strong> option work?{% endtrans %}</h2>
       <div>      
         <p>
-          A. When you click the <strong>Graph</strong> button, you will get to a screen that allows you to set the parameters of the graph you want to see.  
+          {% trans %}A. When you click the <strong>Graph</strong> button, you will get to a screen that allows you to set the parameters of the graph you want to see.{% endtrans %}  
         </p>
         <figure>
           <img src="/images/help/Resource Page - graph 1.jpg" alt="A screenshot of the section of the file description page that lets the user transform the contents of the file from spreadsheet to graph to map. The graph button has been selected and there is a message instructing the user to fill out the form at the right to specify the type of graph, along with axes that they want." />
-          <figcaption>Figure 6: The screen where you can set the parameters for your graph.</figcaption> 
+          <figcaption>{% trans %}Figure 6: The screen where you can set the parameters for your graph.{% endtrans %}</figcaption> 
         </figure> 
         <p>
-          Once you select your graph type, and your axes, you should see a simple graph: 
+          {% trans %}Once you select your graph type, and your axes, you should see a simple graph:{% endtrans %} 
         </p>
         <figure>
           <img src="/images/help/Resource Page - Graph.jpg"  alt="A screenshot of the section of the file description page that lets the user transform the contents of the file from spreadsheet to graph to map. The graph button has been selected and the user has chosen a line graph and both axes and a simple line graph is visible." />
-          <figcaption>Figure 7: Ontario livestock prices (Bull Slaughter file), graphed in the data catalogue</figcaption> 
+          <figcaption>{% trans %}Figure 7: Ontario livestock prices (Bull Slaughter file), graphed in the data catalogue{% endtrans %}</figcaption> 
         </figure> 
       </div>
 
 
-      <h2><a name="how-does-the-map-option-work"></a>Q. How does the <strong>Map</strong> option work?</h2>
+      <h2><a name="how-does-the-map-option-work"></a>{% trans %}Q. How does the <strong>Map</strong> option work?{% endtrans %}</h2>
       <div> 
         <p>
-          A. When you click the <strong>Map</strong> button, you will get to a screen that allows you to identify the mappable information (latitude and longitude) in the file. You should then see a simple map:
+          {% trans %}A. When you click the <strong>Map</strong> button, you will get to a screen that allows you to identify the mappable information (latitude and longitude) in the file. You should then see a simple map:{% endtrans %}
         </p>
         <figure>
           <img src="/images/help/Resource Page - Map.jpg" alt="A screenshot of the map visualization."  />
-          <figcaption>Figure 8: Bridge conditions data, mapped in the data catalogue.</figcaption> 
+          <figcaption>{% trans %}Figure 8: Bridge conditions data, mapped in the data catalogue.{% endtrans %}</figcaption> 
         </figure>  
       </div>
 
 
-      <h2><a name="what-if-i-dont-see-a-preview-button"></a>What if I don’t see a <strong>Preview</strong> button?</h2>
+      <h2><a name="what-if-i-dont-see-a-preview-button"></a>{% trans %}Q. What if I don’t see a <strong>Preview</strong> button?{% endtrans %}</h2>
       <div>      
         <p>
-          A. If there is no <strong>Preview</strong> button for a dataset, then you will see an <strong>About</strong> button. This means that the dataset contents cannot be previewed as a spreadsheet, graph or map by the catalogue.
+          {% trans %}A. If there is no <strong>Preview</strong> button for a dataset, then you will see an <strong>About</strong> button. This means that the dataset contents cannot be previewed as a spreadsheet, graph or map by the catalogue.{% endtrans %}
         </p>
         <p>
-          When you click <strong>About</strong>, you will get a description of the file.
+          {% trans %}When you click <strong>About</strong>, you will get a description of the file.{% endtrans %}
         </p>
         <figure>
           <img src="/images/help/Resource Page - overview (about).jpg" alt="A screenshot of the file description page when the file is not in a format or structure the catalogue can easily transform. The file name, text description, and web address is found at the top. There is no section for visualizations below."  />
-          <figcaption>Figure 9: A description of a dataset, including its web address.</figcaption> 
+          <figcaption>{% trans %}Figure 9: A description of a dataset, including its web address.{% endtrans %}</figcaption> 
         </figure>  
       </div>
 
 
-      <h2><a name="what-if-a-dataset-isnt-available-in-the-format-i-need"></a>What if a dataset isn’t available in the format I need?</h2>
+      <h2><a name="what-if-a-dataset-isnt-available-in-the-format-i-need"></a>{% trans %}Q. What if a dataset isn’t available in the format I need?{% endtrans %}</h2>
       <div> 
         <p>
-          A. For any issues related to our datasets, email us at <a href="mailto:opengov@ontario.ca">opengov@ontario.ca</a> or send us a message through our <a href="https://www.ontario.ca/feedback/contact-us?id=14655&nid=74524">contact us form</a>. We will review your issue and reply.  
+          {% trans %}A. For any issues related to our datasets, email us at <a href="mailto:opengov@ontario.ca">opengov@ontario.ca</a> or send us a message through our <a href="https://www.ontario.ca/feedback/contact-us?id=14655&nid=74524">contact us form</a>. We will review your issue and reply.{% endtrans %}  
         </p>
       </div>
 
 
-      <h2><a name="how-do-i-request-an-updated-version-of-a-dataset"></a>Q. How do I request an updated version of a dataset?</h2>  
+      <h2><a name="how-do-i-request-an-updated-version-of-a-dataset"></a>{% trans %}Q. How do I request an updated version of a dataset?{% endtrans %}</h2>  
       <div>
         <p>
-          A. Start by checking the <strong>Update frequency</strong> field to see how often the dataset should be updated. 
+          {% trans %}A. Start by checking the <strong>Update frequency</strong> field to see how often the dataset should be updated.{% endtrans %} 
         </p>
         <p>
-          If the dataset hasn’t been updated as frequently as stated, send an email to the dataset maintainer, using the <strong>Maintainer Name</strong> and <strong>Maintainer Email</strong> fields.  
+          {% trans %}If the dataset hasn’t been updated as frequently as stated, send an email to the dataset maintainer, using the <strong>Maintainer Name</strong> and <strong>Maintainer Email</strong> fields.{% endtrans %}  
         </p>
         <p>
-          If a maintainer isn’t listed, email us at <a href="mailto:opengov@ontario.ca">opengov@ontario.ca</a> or send us a message through our <a href="https://www.ontario.ca/feedback/contact-us?id=14655&nid=74524">contact us form</a>.
+          {% trans %}If a maintainer isn’t listed, email us at <a href="mailto:opengov@ontario.ca">opengov@ontario.ca</a> or send us a message through our <a href="https://www.ontario.ca/feedback/contact-us?id=14655&nid=74524">contact us form</a>.{% endtrans %}
         </p>
       </div>
       
 
-      <h2><a name="how-do-i-report-issues"></a>Q. How do I report errors/issues/provide feedback (for example, inaccurate, outdated data)?</h2> 
+      <h2><a name="how-do-i-report-issues"></a>{% trans %}Q. How do I report errors/issues/provide feedback (for example, inaccurate, outdated data)?{% endtrans %}</h2> 
       <div>
         <p>
-          A. Start by sending an email to the dataset maintainer, using the Maintainer Name and Maintainer Email fields.  
+          {% trans %}A. Start by sending an email to the dataset maintainer, using the Maintainer Name and Maintainer Email fields.{% endtrans %}  
         </p>
         <p> 
-          If a maintainer isn’t listed, email us at <a href="mailto:opengov@ontario.ca">opengov@ontario.ca</a> or send us a message through our <a href="https://www.ontario.ca/feedback/contact-us?id=14655&nid=74524">contact us form</a>. Please specify which dataset(s) you’d like us to review. 
+          {% trans %}If a maintainer isn’t listed, email us at <a href="mailto:opengov@ontario.ca">opengov@ontario.ca</a> or send us a message through our <a href="https://www.ontario.ca/feedback/contact-us?id=14655&nid=74524">contact us form</a>. Please specify which dataset(s) you’d like us to review.{% endtrans %} 
         </p>
       </div>
 
 
-      <h2><a name="why-isnt-a-dataset-available"></a>Q. Why isn't the data for a dataset available?</h2>  
+      <h2><a name="why-isnt-a-dataset-available"></a>{% trans %}Q. Why isn't the data for a dataset available?{% endtrans %}</h2>  
       <div>
         <p>
-          A. There are three reasons why the data for a dataset might not be available:
+          {% trans %}A. There are three reasons why the data for a dataset might not be available:{% endtrans %}
         </p>
         <ul>
           <li>
-            The dataset is <strong>To be opened</strong> (you will see this on the catalogue page). The government has screened the files for any privacy concerns and is prepping them to share with the public. 
+            {% trans %}The dataset is <strong>To be opened</strong> (you will see this on the catalogue page). The government has screened the files for any privacy concerns and is prepping them to share with the public.{% endtrans %} 
           </li>
           <li>
-            The dataset is <strong>Under review</strong>. The government has not finished screening the files. The data will not be available in the short-term and may never actually be published in the case that screening determines it isn’t safe to share with the public. You can check back to see if the status changes.
+            {% trans %}The dataset is <strong>Under review</strong>. The government has not finished screening the files. The data will not be available in the short-term and may never actually be published in the case that screening determines it isn’t safe to share with the public. You can check back to see if the status changes.{% endtrans %}
           </li> 
           <li>
-            The dataset is <strong>Restricted</strong>. The government has screened the files and determined that they are not safe to share with the public. 
+            {% trans %}The dataset is <strong>Restricted</strong>. The government has screened the files and determined that they are not safe to share with the public.{% endtrans %} 
           </li>
         </ul>
 
 
-      <h2><a name="can-i-get-notified-when-the-catalogue-is-updated"></a> Q. Can you notify me when the catalogue is updated?</h2>
+      <h2><a name="can-i-get-notified-when-the-catalogue-is-updated"></a>{% trans %}Q. Can you notify me when the catalogue is updated?{% endtrans %}</h2>
       <div>
         <p>
-          A. Yes, you can get data catalogue updates by RSS feed. RSS (Really Simple Syndication) lets you know when our data catalogue has been updated.
+          {% trans %}A. Yes, you can get data catalogue updates by RSS feed. RSS (Really Simple Syndication) lets you know when our data catalogue has been updated.{% endtrans %}
         </p>
         <p>
-          To receive RSS updates:
+          {% trans %}To receive RSS updates:{% endtrans %}
         </p>
         <ol>
           <li>
-            install an RSS reader on your device
+            {% trans %}install an RSS reader on your device{% endtrans %}
           </li>
           <li>
-            choose the updates you want to receive
+            {% trans %}choose the updates you want to receive{% endtrans %}
           </li>
         </ol>
         <p>
-          Available updates:
+          {% trans %}Available updates:{% endtrans %}
         </p>
         <ul>
           <li>
-            Any dataset is updated or added to the catalogue<br />
+            {% trans %}Any dataset is updated or added to the catalogue{% endtrans %}<br />
             <strong>
               RSS URL: stage.data.ontario.ca/feeds/dataset.atom
             </strong>
           </li>
           <li>
-            A specific dataset is updated
+            {% trans %}A specific dataset is updated{% endtrans %}
             <br />
             <strong>
               RSS URL: stage.data.ontario.ca/feeds/dataset.atom?id=[name-of-specific-dataset]
             </strong>
             <br />
             <em>
-              Example: stage.data.ontario.ca/feeds/dataset.atom?id=zooplankton-monitoring
+              {% trans %}Example{% endtrans %}: stage.data.ontario.ca/feeds/dataset.atom?id=zooplankton-monitoring
             </em>
           </li>
           <li>
-            A dataset with a specific tag is updated or added
+            {% trans %}A dataset with a specific tag is updated or added{% endtrans %}
             <br />
             <strong>
-              RSS URL: stage.data.ontario.ca/feeds/
-            tag/[name-of-tag].atom
+              RSS URL: stage.data.ontario.ca/feeds/tag/[name-of-tag].atom
             </strong>
             <br />
             <em>
-              Example: stage.data.ontario.ca/feeds/tag/pepper.atom
+              {% trans %}Example{% endtrans %}: stage.data.ontario.ca/feeds/tag/pepper.atom
             </em>
           </li>
           <li>
-            A dataset based on your custom search term is updated or added
+            {% trans %}A dataset based on your custom search term is updated or added{% endtrans %}
             <br />
             <strong>
               RSS URL: stage.data.ontario.ca/feeds/custom.atom?q=[custom-search-term]
             </strong>
             <br />
             <em>
-              Example: stage.data.ontario.ca/feeds/custom.atom?q=apple-type
+              {% trans %}Example{% endtrans %}: stage.data.ontario.ca/feeds/custom.atom?q=apple
             </em>
           </li>
           <li>
-            A specific ministry updates or adds a dataset
+            {% trans %}A specific ministry updates or adds a dataset{% endtrans %}
             <br />
             <strong>
               RSS URL: stage.data.ontario.ca/feeds/organization/[name-of-specific-ministry].atom
             </strong>
             <br />
             <em>
-              Example: stage.data.ontario.ca/feeds/organization/agriculture-food-and-rural-affairs.atom
+              {% trans %}Example{% endtrans %}: stage.data.ontario.ca/feeds/organization/agriculture-food-and-rural-affairs.atom
             </em>
           </li>
         </ul>
