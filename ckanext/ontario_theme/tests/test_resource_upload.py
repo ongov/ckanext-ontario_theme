@@ -116,9 +116,11 @@ class TestResourceCreate(object):
         dataset = helpers.call_action(
             'package_create',
             name='package-name',
+            maintainer='Joe Smith',
+            maintainer_email='Joe.Smith@ontario.ca',
             title_translated={
                 'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
-            short_description={'en': u'short description', 'fr': u'...'}
+            notes_translated={'en': u'short description', 'fr': u'...'}
             )
         assert_equals(dataset['name'], 'package-name')
 
@@ -171,9 +173,11 @@ class TestResourceCreate(object):
         dataset = helpers.call_action(
             'package_create',
             name='package-name',
+            maintainer='Joe Smith',
+            maintainer_email='Joe.Smith@ontario.ca',
             title_translated={
                 'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
-            short_description={'en': u'short description', 'fr': u'...'}
+            notes_translated={'en': u'short description', 'fr': u'...'}
             )
         assert_equals(dataset['name'], 'package-name')
 
@@ -226,9 +230,11 @@ class TestResourceCreate(object):
         dataset = helpers.call_action(
             'package_create',
             name='package-name',
+            maintainer='Joe Smith',
+            maintainer_email='Joe.Smith@ontario.ca',
             title_translated={
                 'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
-            short_description={'en': u'short description', 'fr': u'...'}
+            notes_translated={'en': u'short description', 'fr': u'...'}
             )
         assert_equals(dataset['name'], 'package-name')
 
