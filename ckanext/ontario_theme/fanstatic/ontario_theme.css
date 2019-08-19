@@ -182,7 +182,7 @@ a.skip-main:active {
   white-space: normal;
 }
 a.card div {
-  background-color: #D1EAEB;
+  background-color: #f5f5f5;
   transition: 1s;
   transition: box-shadow 135ms cubic-bezier(0.4, 0, 0.2, 1), width 235ms cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 2px 4px #666;
