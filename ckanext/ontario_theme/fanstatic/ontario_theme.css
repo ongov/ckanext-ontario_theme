@@ -198,6 +198,21 @@ a.card p {
 a.card:hover {
   text-decoration: none;
 }
+div.card {
+  background-color: #D1EAEB;
+  transition: 1s;
+  transition: box-shadow 135ms cubic-bezier(0.4, 0, 0.2, 1), width 235ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px #666;
+  box-shadow: 0 1px 1px 0 rgba(60, 64, 67, 0.08), 0 1px 3px 1px rgba(60, 64, 67, 0.16);
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+div.card img {
+  width: 100%;
+}
+div.card p {
+  color: #4d4d4d;
+}
 .module.search {
   color: #fff;
 }
