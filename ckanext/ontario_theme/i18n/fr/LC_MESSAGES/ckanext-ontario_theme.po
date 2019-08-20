@@ -155,8 +155,7 @@ msgid ""
 "or <a href=\"https://www.ontario.ca/feedback/contact-"
 "us?id=14655&nid=74524\">use our contact form</a> to tell us what data you"
 " are looking for. We will review your request and reply."
-msgstr "Envoyez-nous un courriel à <a href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a> ou <a href=\"https://www.ontario.ca/feedback/contact-"
-"us?id=14655&nid=74524\">utilisez notre formulaire de contact</a> pour nous dire quelles sont les données que vous recherchez. Nous étudierons votre demande et vous enverrons une réponse."
+msgstr "Envoyez-nous un courriel à <a href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a> ou <a href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=33143&nid=53983\">utilisez notre formulaire de contact</a> pour nous dire quelles sont les données que vous recherchez. Nous étudierons votre demande et vous enverrons une réponse."
 
 #: ckanext/ontario_theme/templates/home/help.html:68
 msgid ""
@@ -318,8 +317,7 @@ msgid ""
 "message through our <a href=\"https://www.ontario.ca/feedback/contact-"
 "us?id=14655&nid=74524\">contact us form</a>. We will review your issue "
 "and reply."
-msgstr "R. Pour tout problème concernant nos ensembles de données, envoyez-nous un courriel à <a href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a> ou un message en utilisant <a href=\"https://www.ontario.ca/feedback"
-"/contact-us?id=14655&nid=74524\">notre formulaire de contact</a>. Nous examinerons le problème et vous répondrons."
+msgstr "R. Pour tout problème concernant nos ensembles de données, envoyez-nous un courriel à <a href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a> ou un message en utilisant <a href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=33143&nid=53983\">notre formulaire de contact</a>. Nous examinerons le problème et vous répondrons."
 
 #: ckanext/ontario_theme/templates/home/help.html:181
 msgid ""
@@ -340,7 +338,7 @@ msgid ""
 "href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a> or send us a "
 "message through our <a href=\"https://www.ontario.ca/feedback/contact-"
 "us?id=14655&nid=74524\">contact us form</a>."
-msgstr "Si le responsable de la maintenance n’est pas indiqué, envoyez-nous un courriel à <a href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a> ou un message en utilisant <a href=\"https://www.ontario.ca/feedback/contact-us?id=14655&nid=74524\">notre formulaire de contact</a>."
+msgstr "Si le responsable de la maintenance n’est pas indiqué, envoyez-nous un courriel à <a href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a> ou un message en utilisant <a href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=33143&nid=53983\">notre formulaire de contact</a>."
 
 #: ckanext/ontario_theme/templates/home/help.html:192
 msgid ""
@@ -363,8 +361,7 @@ msgid ""
 "us?id=14655&nid=74524\">contact us form</a>. Please specify which "
 "dataset(s) you’d like us to review."
 msgstr "Si le responsable de la maintenance n’est pas indiqué, envoyez-nous un courriel à <a href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a> ou un message en utilisant <a "
-"href=\"https://www.ontario.ca/feedback/contact-"
-"us?id=14655&nid=74524\">notre formulaire de contact</a>. Veuillez préciser quel(s) ensemble(s) de données vous souhaitez que nous examinions."
+"href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=33143&nid=53983\">notre formulaire de contact</a>. Veuillez préciser quel(s) ensemble(s) de données vous souhaitez que nous examinions."
 
 #: ckanext/ontario_theme/templates/home/help.html:203
 msgid "Q. Why isn't the data for a dataset available?"
