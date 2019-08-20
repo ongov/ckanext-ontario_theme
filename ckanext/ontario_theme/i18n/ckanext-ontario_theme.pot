@@ -740,7 +740,7 @@ msgid "Recently Created"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/package/search.html:33
-msgid "Datasets With Data"
+msgid "Datasets with data"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/package/search.html:34
