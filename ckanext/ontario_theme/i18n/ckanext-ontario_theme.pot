@@ -535,8 +535,7 @@ msgid "Contact us"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_contact_us.html:12
-msgid ""
-"Have feedback or questions? We want to hear from you! Email us at <a "
+msgid "Have feedback or questions? We want to hear from you! Email us at <a "
 "href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a> or tweet at us: <a "
 "href=\"https://twitter.com/opengovon\">@OpenGovON</a>."
 msgstr ""
