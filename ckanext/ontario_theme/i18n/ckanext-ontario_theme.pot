@@ -234,11 +234,11 @@ msgid ""
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:46
-msgid "Search the current data catalogue"
+msgid "<a href=\"http://www.ontario.ca/data\">Search the current data catalogue</a>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:49
-msgid "Learn more about the beta stage"
+msgid "<a href="\/about#beta\">Learn more about the beta stage</a>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:54

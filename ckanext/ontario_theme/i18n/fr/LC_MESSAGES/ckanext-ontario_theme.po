@@ -138,12 +138,12 @@ msgid ""
 msgstr "N’est pas répertorié dans le catalogue bêta, mais se trouve dans le <a href=\"http://www.ontario.ca/data\" target=\"_blank\">catalogue actuel</a>. Pendant la phase de test, certains ensembles de données seront répertoriés dans le catalogue bêta, mais pas tous."
 
 #: ckanext/ontario_theme/templates/home/help.html:46
-msgid "Search the current data catalogue"
-msgstr "effectuer une recherche dans le catalogue actuel"
+msgid "<a href=\"http://www.ontario.ca/data\">Search the current data catalogue</a>"
+msgstr "<a href=\"https://www.ontario.ca/fr/recherche/donnees-publiques\">effectuer une recherche dans le catalogue actuel"
 
 #: ckanext/ontario_theme/templates/home/help.html:49
-msgid "Learn more about the beta stage"
-msgstr "en savoir plus sur le catalogue bêta"
+msgid "<a href=\"/about#beta\">Learn more about the beta stage</a>"
+msgstr "<a href=\"/fr/about#beta\">en savoir plus sur le catalogue bêta</a>"
 
 #: ckanext/ontario_theme/templates/home/help.html:54
 msgid "not be listed in the beta catalogue or in the current catalogue"
