@@ -131,7 +131,7 @@ msgstr "L’ensemble de données que vous voulez:"
 
 #: ckanext/ontario_theme/templates/home/help.html:43
 msgid ""
-"not listed in the beta catalogue, but can be found in the <a "
+"not be listed in the beta catalogue, but can be found in the <a "
 "href=\"http://www.ontario.ca/data\" target=\"_blank\">current "
 "catalogue</a>. While the beta catalogue is in its testing phase, it will "
 "have some, but not all, of the datasets from the data catalogue."
@@ -146,7 +146,7 @@ msgid "Learn more about the beta stage"
 msgstr "en savoir plus sur le catalogue bêta"
 
 #: ckanext/ontario_theme/templates/home/help.html:54
-msgid "not listed in the beta catalogue or in the current catalogue"
+msgid "not be listed in the beta catalogue or in the current catalogue"
 msgstr "n’est répertorié ni dans le catalogue bêta, ni dans le catalogue actuel."
 
 #: ckanext/ontario_theme/templates/home/help.html:57
@@ -227,7 +227,7 @@ msgstr "vous permet de visualiser les données de différentes manières – en 
 
 #: ckanext/ontario_theme/templates/home/help.html:112
 msgid ""
-"Figure 4: A file preview pageshowing the file description and the "
+"Figure 4: A file preview page showing the file description and the "
 "contents of the file visualized as a spreadsheet."
 msgstr "Schéma 4 : Page d’aperçu montrant la description du fichier et son contenu, visualisé en format feuille de calcul."
 
