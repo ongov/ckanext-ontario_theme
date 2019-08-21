@@ -365,7 +365,10 @@ a {
 }
 a:hover,
 a:focus {
-  color: #0071a9;
+  color: #004e99;
+}
+a:visited {
+  color: #8138b3;
 }
 .intro-text {
   font-size: 24px;
