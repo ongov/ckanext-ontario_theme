@@ -57,9 +57,11 @@ class TestCreateDataset(object):
         dataset = helpers.call_action(
             'package_create',
             name='package-name',
+            maintainer='Joe Smith',
+            maintainer_email='Joe.Smith@ontario.ca',
             title_translated={
                 'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
-            short_description={'en': u'short description', 'fr': u'...'}
+            notes_translated={'en': u'short description', 'fr': u'...'}
             )
         assert_equals(dataset['name'], 'package-name')
 
@@ -67,7 +69,7 @@ class TestCreateDataset(object):
         assert dataset['title_translated']['fr'] == u'Un novel par Tolstoy'
 
         dataset = helpers.call_action('package_show', id=dataset['id'])
-        assert dataset['short_description']['en'] == u'short description'
+        assert dataset['notes_translated']['en'] == u'short description'
 
     def test_wrong_node_id_type(self):
         '''If dataset is given a value for node_id it must be a positive integer.
@@ -78,9 +80,11 @@ class TestCreateDataset(object):
             'package_create',
             node_id='apple',
             name='package-name',
+            maintainer='Joe Smith',
+            maintainer_email='Joe.Smith@ontario.ca',
             title_translated={
                 'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
-            short_description={'en': u'short description', 'fr': u'...'}
+            notes_translated={'en': u'short description', 'fr': u'...'}
         )
 
     def test_package_create_with_validated_values(self):
@@ -90,13 +94,13 @@ class TestCreateDataset(object):
         dataset = helpers.call_action(
             'package_create',
             name='package-name',
+            maintainer='Joe Smith',
+            maintainer_email='Joe.Smith@ontario.ca',
             title_translated={
                 'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
             node_id='123',
-            short_description={'en': u'short description', 'fr': u'...'},
-            data_range_start='',
-            data_range_end='',
-            data_birth_date='',
+            notes_translated={'en': u'short description', 'fr': u'...'},
+            current_as_of='',
             update_frequency='as_required',
             access_level='open',
             exemption='' # Defaults to none when key provided and value is empty.
@@ -104,10 +108,8 @@ class TestCreateDataset(object):
         assert_equals(dataset['node_id'], '123')
         package_show = helpers.call_action('package_show', id=dataset['id'])
         assert_equals(package_show['node_id'], '123')
-        assert_equals(package_show['short_description']['en'], 'short description')
-        assert 'data_range_start' not in package_show
-        assert 'data_range_end' not in package_show
-        assert 'data_birth_date' not in package_show
+        assert_equals(package_show['notes_translated']['en'], 'short description')
+        assert 'current_as_of' not in package_show
         assert_equals(package_show['update_frequency'], 'as_required')
         assert_equals(package_show['access_level'], 'open')
         assert_equals(package_show['exemption'], 'none') # Confirms modified in validation.
@@ -128,13 +130,13 @@ class TestCreateDataset(object):
             helpers.call_action(
                 'package_create',
                 name='package-name',
+                maintainer='Joe Smith',
+                maintainer_email='Joe.Smith@ontario.ca',
                 title_translated={
                     'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
                 node_id='123',
-                short_description={'en': u'short description', 'fr': u'...'},
-                data_range_start='',
-                data_range_end='',
-                data_birth_date='',
+                notes_translated={'en': u'short description', 'fr': u'...'},
+                current_as_of='',
                 update_frequency='required',
                 access_level='open',
                 exemption='' # Defaults to none when key provided and value is empty.
@@ -147,7 +149,7 @@ class TestCreateDataset(object):
         else:
             raise AssertionError('ValidationError not raised')
 
-    def test_package_create_with_invalid_data_range_start(self):
+    def test_package_create_with_invalid_current_as_of(self):
         '''If dataset is given invalid values should raise Invalid.
         Only testing one per input type that was modified. All date inputs follow same pattern in schema.
         As long as schema is correct scheming's validations should handle the testing.
@@ -163,20 +165,20 @@ class TestCreateDataset(object):
             helpers.call_action(
                 'package_create',
                 name='package-name',
+                maintainer='Joe Smith',
+                maintainer_email='Joe.Smith@ontario.ca',
                 title_translated={
                     'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
                 node_id='123',
-                short_description={'en': u'short description', 'fr': u'...'},
-                data_range_start='31/11/2018',
-                data_range_end='',
-                data_birth_date='',
+                notes_translated={'en': u'short description', 'fr': u'...'},
+                current_as_of='31/11/2018',
                 update_frequency='as_required',
                 access_level='open',
                 exemption='' # Defaults to none when key provided and value is empty.
             )
         except logic.ValidationError as e:
             assert_equals(
-                e.error_dict['data_range_start'],
+                e.error_dict['current_as_of'],
                 ['Date format incorrect']
             )
         else:

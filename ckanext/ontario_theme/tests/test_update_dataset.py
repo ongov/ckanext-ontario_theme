@@ -56,9 +56,11 @@ class TestUpdateDataset(object):
         '''
         user = factories.User()
         dataset = factories.Dataset(user=user,
+                                    maintainer='Joe Smith',
+                                    maintainer_email='Joe.Smith@ontario.ca',
                                     title_translated={'en': u'A Novel By Tolstoy',
                                                       'fr':u'Un novel par Tolstoy'},
-                                    short_description={'en': u'short description',
+                                    notes_translated={'en': u'short description',
                                                        'fr': u'...'})
 
         # All required fields needed here as this is update not patch.
@@ -66,9 +68,11 @@ class TestUpdateDataset(object):
             'package_update',
             id=dataset['id'],
             name='new-name',
+            maintainer='Jane Smith',
+            maintainer_email='Jane.Smith@ontario.ca',
             title_translated={'en': u'A Novel By Tolstoy',
                               'fr':u'Un novel par Tolstoy'},
-            short_description={'en': 'shorter description', 'fr': 'petit...'}
+            notes_translated={'en': 'shorter description', 'fr': 'petit...'}
             )
 
         # Make sure update works and returns saved value.
@@ -77,8 +81,10 @@ class TestUpdateDataset(object):
         # Safe measure - query the package again and validate values.
         dataset_ = helpers.call_action('package_show', id=dataset['id'])
         assert_equals(dataset_['name'], 'new-name')
-        assert_equals(dataset_['short_description']['en'], 'shorter description')
-        assert_equals(dataset_['short_description']['fr'], 'petit...')
+        assert_equals(dataset_['maintainer'], 'Jane Smith')
+        assert_equals(dataset_['maintainer_email'], 'Jane.Smith@ontario.ca')
+        assert_equals(dataset_['notes_translated']['en'], 'shorter description')
+        assert_equals(dataset_['notes_translated']['fr'], 'petit...')
 
     def test_wrong_node_id_type(self):
         '''If dataset is given a value for node_id it must be a positive integer.
@@ -86,9 +92,11 @@ class TestUpdateDataset(object):
         '''
         user = factories.User()
         dataset = factories.Dataset(user=user,
+                                    maintainer='Joe Smith',
+                                    maintainer_email='Joe.Smith@ontario.ca',
                                     title_translated={'en': u'A Novel By Tolstoy',
                                                       'fr':u'Un novel par Tolstoy'},
-                                    short_description={'en': u'short description',
+                                    notes_translated={'en': u'short description',
                                                        'fr': u'...'})
 
         assert_raises(
@@ -96,7 +104,9 @@ class TestUpdateDataset(object):
             'package_update',
             id=dataset['id'],
             node_id='apple',
-            short_description={'en': 'shorter description', 'fr': 'petit...'},
+            maintainer='Joe Smith',
+            maintainer_email='Joe.Smith@ontario.ca',
+            notes_translated={'en': 'shorter description', 'fr': 'petit...'},
             title_translated={'en': u'A Novel By Tolstoy',
                               'fr':u'Un novel par Tolstoy'}
         )
@@ -107,24 +117,26 @@ class TestUpdateDataset(object):
         '''
         user = factories.User()
         dataset = factories.Dataset(user=user,
+                                    maintainer='Joe Smith',
+                                    maintainer_email='Joe.Smith@ontario.ca',
                                     title_translated={'en': u'A Novel By Tolstoy',
                                                       'fr':u'Un novel par Tolstoy'},
-                                    short_description={'en': u'short description',
+                                    notes_translated={'en': u'short description',
                                                        'fr': u'...'})
 
-        assert_equals(dataset['short_description']['en'], 'short description')
+        assert_equals(dataset['notes_translated']['en'], 'short description')
 
         dataset_ = helpers.call_action(
             'package_update',
             id=dataset['id'],
             name='package-name',
+            maintainer='Jane Smith',
+            maintainer_email='Jane.Smith@ontario.ca',
             node_id='123',
             title_translated={'en': u'A Novel By Tolstoy',
                               'fr':u'Un novel par Tolstoy'},
-            short_description={'en': 'shorter description', 'fr': 'petit...'},
-            data_range_start='',
-            data_range_end='',
-            data_birth_date='',
+            notes_translated={'en': 'shorter description', 'fr': 'petit...'},
+            current_as_of='',
             update_frequency='as_required',
             access_level='open',
             exemption='' # Defaults to none when key provided and value is empty.
@@ -134,10 +146,10 @@ class TestUpdateDataset(object):
 
         package_show = helpers.call_action('package_show', id=dataset['id'])
         assert_equals(package_show['node_id'], '123')
-        assert_equals(package_show['short_description']['en'], 'shorter description')
-        assert 'data_range_start' not in package_show
-        assert 'data_range_end' not in package_show
-        assert 'data_birth_date' not in package_show
+        assert_equals(dataset_['maintainer'], 'Jane Smith')
+        assert_equals(dataset_['maintainer_email'], 'Jane.Smith@ontario.ca')
+        assert_equals(package_show['notes_translated']['en'], 'shorter description')
+        assert 'current_as_of' not in package_show
         assert_equals(package_show['update_frequency'], 'as_required')
         assert_equals(package_show['access_level'], 'open')
         assert_equals(package_show['exemption'], 'none') # Confirms modified in validation.
@@ -148,25 +160,29 @@ class TestUpdateDataset(object):
         '''
         user = factories.User()
         dataset = factories.Dataset(user=user,
+                                    maintainer='Joe Smith',
+                                    maintainer_email='Joe.Smith@ontario.ca',
                                     title_translated={'en': u'A Novel By Tolstoy',
                                                       'fr':u'Un novel par Tolstoy'},
-                                    short_description={'en': u'short description',
+                                    notes_translated={'en': u'short description',
                                                        'fr': u'...'},
-                                    data_range_start='2018-11-30')
+                                    current_as_of='2018-11-30')
 
-        assert_equals(dataset["data_range_start"], '2018-11-30')
+        assert_equals(dataset["current_as_of"], '2018-11-30')
 
         dataset_ = helpers.call_action(
             'package_update',
             id=dataset['id'],
             name='package-name',
+            maintainer='Joe Smith',
+            maintainer_email='Joe.Smith@ontario.ca',
             node_id='', # Validator returns None for this.
-            short_description={'en': 'shorter description', 'fr': 'petit...'},
+            notes_translated={'en': 'shorter description', 'fr': 'petit...'},
             title_translated={'en': u'A Novel By Tolstoy',
                               'fr':u'Un novel par Tolstoy'},
-            data_range_start='' # ensure you can pass empty dates to remove them.
+            current_as_of='' # ensure you can pass empty dates to remove them.
         )
 
         package_show = helpers.call_action('package_show', id=dataset['id'])
         assert 'node_id' not in package_show
-        assert 'data_range_start' not in package_show
+        assert 'current_as_of' not in package_show
