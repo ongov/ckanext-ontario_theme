@@ -238,7 +238,7 @@ msgid "<a href=\"http://www.ontario.ca/data\">Search the current data catalogue<
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:49
-msgid "<a href="\/about#beta\">Learn more about the beta stage</a>"
+msgid "<a href=\"/about#beta\">Learn more about the beta stage</a>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:54
