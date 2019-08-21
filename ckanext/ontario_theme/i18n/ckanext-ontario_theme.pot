@@ -227,22 +227,22 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:43
 msgid ""
-"not listed in the beta catalogue, but can be found in the <a "
+"not be listed in the beta catalogue, but can be found in the <a "
 "href=\"http://www.ontario.ca/data\" target=\"_blank\">current catalogue</a>. "
 "While the beta catalogue is in its testing phase, it will have some, but not "
 "all, of the datasets from the data catalogue."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:46
-msgid "Search the current data catalogue"
+msgid "<a href=\"http://www.ontario.ca/data\">Search the current data catalogue</a>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:49
-msgid "Learn more about the beta stage"
+msgid "<a href=\"/about#beta\">Learn more about the beta stage</a>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:54
-msgid "not listed in the beta catalogue or in the current catalogue"
+msgid "not be listed in the beta catalogue or in the current catalogue"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:57
@@ -322,7 +322,7 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:112
 msgid ""
-"Figure 4: A file preview pageshowing the file description and the contents of"
+"Figure 4: A file preview page showing the file description and the contents of"
 " the file visualized as a spreadsheet."
 msgstr ""
 
@@ -535,8 +535,7 @@ msgid "Contact us"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_contact_us.html:12
-msgid ""
-"Have feedback or questions? We want to hear from you! Email us at <a "
+msgid "Have feedback or questions? We want to hear from you! Email us at <a "
 "href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a> or tweet at us: <a "
 "href=\"https://twitter.com/opengovon\">@OpenGovON</a>."
 msgstr ""
@@ -741,7 +740,7 @@ msgid "Recently Created"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/package/search.html:33
-msgid "Datasets With Data"
+msgid "Datasets with data"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/package/search.html:34
