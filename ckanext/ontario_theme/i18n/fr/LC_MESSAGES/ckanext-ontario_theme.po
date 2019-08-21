@@ -2026,3 +2026,31 @@ msgstr "\n"
 "      </p>\n"
 "    </li>\n"
 "  </ul>\n"
+
+#: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:14
+msgid "Search"
+msgstr "Recherche"
+
+#: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:16
+msgid "Try using the <a href=\"/dataset\">catalogue search</a>."
+msgstr "Essayez d’utiliser la <a href=\"/dataset\" "
+"target=\"_blank\">page de recherche du catalogue</a>."
+
+#: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:21
+msgid "Download data"
+msgstr "Télécharger des données"
+
+#: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:23
+msgid "<a href=\"/help#how-do-i-download-datasets\">Download</a> and use the data you need."
+msgstr "<a href=\"/fr/help#how-do-i-download-datasets\">Télécharger</a> et à utiliser les données dont vous avez besoin."
+
+#: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:28
+msgid "Provide feedback"
+msgstr "Fournir rétroaction"
+
+#: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:30
+msgid "As we work to develop the catalogue, <a href=\"mailto:opengov@ontario.ca\">tell us what you think</a>."
+msgstr "Au fur et à mesure que nous travaillons à son amélioration le catalogue, nous aimerions savoir ce que <a href=\"mailto:opengov@ontario.ca\">vous en pensez</a>."
+
+
+
