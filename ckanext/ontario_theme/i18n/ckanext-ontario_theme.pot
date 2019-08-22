@@ -561,12 +561,20 @@ msgstr ""
 msgid "Learn about our plan for a new open data catalogue."
 msgstr ""
 
+#: ckanext/ontario_theme/templates/home/snippets/ontario_theme_featured_content.html:27
+msgid "/about#features"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_featured_content.html:29
 msgid "New features"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_featured_content.html:30
 msgid "Discover some of the new features of our beta catalogue."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/home/snippets/ontario_theme_featured_content.html:36
+msgid "/about#engagement"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_featured_content.html:38
