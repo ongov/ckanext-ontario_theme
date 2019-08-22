@@ -58,7 +58,8 @@ msgid ""
 "<p>Need more help or want to learn more about the data catalogue? <a "
 "href=\"mailto:opengov@ontario.ca\">Contact the Open Government team</a> —"
 " we’ll gladly answer any questions you might have!</p>"
-msgstr ""
+msgstr "<p>Vous avez besoin d’aide supplémentaire ou vous souhaitez en savoir plus sur le catalogue de données? <a "
+"href=\"mailto:opengov@ontario.ca\">Contactez l’équipe du Gouvernement ouvert</a>; c’est avec plaisir que nous répondrons à toutes vos questions!</p>"
 
 #: ckanext/ontario_theme/templates/home/help.html:17
 #: ckanext/ontario_theme/templates/home/help.html:30
@@ -109,7 +110,7 @@ msgstr "Q. Pourquoi un ensemble de données n’est-il pas disponible?"
 #: ckanext/ontario_theme/templates/home/help.html:27
 #: ckanext/ontario_theme/templates/home/help.html:221
 msgid "Q. Can you notify me when the catalogue is updated?"
-msgstr ""
+msgstr "Q. Pouvez-vous m’aviser des mises à jour du catalogue?"
 
 #: ckanext/ontario_theme/templates/home/help.html:33
 msgid ""
@@ -168,6 +169,42 @@ msgid ""
 "To the right of the data icon, you will find a either a "
 "<strong>Download</strong> or <strong>Open</strong> button."
 msgstr "À droite de l’icône des données, vous trouverez un bouton <strong>Télécharger</strong> ou <strong>Ouvrir</strong>."
+
+#: ckanext/ontario_theme/templates/home/help.html:74
+msgid "A screenshot of the data and resources section of the dataset description page. Each file in the dataset is listed. To the right of each file is a preview button and a download button. An arrow is overlaid onto the screeshot that points to the download button."
+msgstr "Capture d’écran de la rubrique de données et de ressources de la page de description de l’ensemble de données. Chaque fichier figurant dans l’ensemble de données est indiqué. À la droite de chaque fichier se trouvent un bouton Aperçu et un bouton Téléchargement. Une flèche surimposée sur la capture d’écran indique le bouton Téléchargement."
+
+#: ckanext/ontario_theme/templates/home/help.html:84
+msgid "A screenshot of the data and resources section of the dataset description page. Each file in the dataset is listed. To the right of each file name is an open button and an about button. An arrow is overlaid onto the screeshot that points to the open button."
+msgstr "Capture d’écran de la rubrique de données et de ressources de la page de description de l’ensemble de données. Chaque fichier figurant dans l’ensemble de données est indiqué. À la droite de chaque fichier se trouvent un bouton À propos et un bouton ouvrir. Une flèche surimposée sur la capture d’écran indique le bouton ouvrir."
+
+#: ckanext/ontario_theme/templates/home/help.html:96
+msgid "A screenshot of the data and resources section of the dataset description page. Each file in the dataset is listed. To the right of each file name is a preview button and a download button. An arrow is overlaid onto the screeshot that points to the preview button."
+msgstr "Capture d’écran de la rubrique de données et de ressources de la page de description de l’ensemble de données. Chaque fichier figurant dans l’ensemble de données est indiqué. À la droite de chaque fichier se trouvent un bouton Aperçu et un bouton Téléchargement. Une flèche surimposée sur la capture d’écran indique le bouton aperçu."
+
+#: ckanext/ontario_theme/templates/home/help.html:111
+msgid "A screenshot of the file description page. The file name, text description, and web address is found at the top. A visualization tool is found underneath that allows users to transform the contents of the file from spreadsheet to graph to map."
+msgstr "Capture d’écran de la page de description du fichier. Le nom du fichier, la description du texte et l’adresse URL se trouvent en haut. Un outil de visualisation situé en bas permet aux utilisateurs de transformer le contenu du fichier affiché sous forme de feuille de calcul en graphique ou en carte."
+
+#: ckanext/ontario_theme/templates/home/help.html:118
+msgid "A screenshot of the section of the file description page that lets the user transform the contents of the file from spreadsheet to graph to map. The three buttons visible at the top left above the visualization are grid, graph, and map. An arrow is overlaid onto the screeshot that points to the graph and map buttons."
+msgstr "Capture d’écran de la rubrique de la page de description du fichier permettant à l’utilisateur de transformer le contenu du fichier affiché sous forme de feuille de calcul en graphique ou en carte. Les trois boutons visibles en haut à gauche au-dessus de la visualisation sont Grille, Graphique et Carte. Une flèche surimposée sur la capture d’écran indique les boutons Graphique et Carte."
+
+#: ckanext/ontario_theme/templates/home/help.html:130
+msgid "A screenshot of the section of the file description page that lets the user transform the contents of the file from spreadsheet to graph to map. The graph button has been selected and there is a message instructing the user to fill out the form at the right to specify the type of graph, along with axes that they want."
+msgstr "Capture d’écran de la rubrique de la page de description du fichier permettant à l’utilisateur de transformer le contenu du fichier affiché sous forme de feuille de calcul en graphique ou en carte. Le bouton Graphique a été sélectionné et un message invite l’utilisateur à remplir le formulaire à droite pour préciser le type de graphique, ainsi que les axes souhaités."
+
+#: ckanext/ontario_theme/templates/home/help.html:137
+msgid "A screenshot of the section of the file description page that lets the user transform the contents of the file from spreadsheet to graph to map. The graph button has been selected and the user has chosen a line graph and both axes and a simple line graph is visible."
+msgstr "Capture d’écran de la rubrique de la page de description du fichier permettant à l’utilisateur de transformer le contenu du fichier affiché sous forme de feuille de calcul en graphique ou en carte. Le bouton Graphique a été sélectionné et l’utilisateur a choisi un graphique linéaire et les deux axes, et un graphique simple est visible."
+
+#: ckanext/ontario_theme/templates/home/help.html:149
+msgid "A screenshot of the map visualization."
+msgstr "Capture d’écran de la visualisation de la carte."
+
+#: ckanext/ontario_theme/templates/home/help.html:164
+msgid "A screenshot of the file description page when the file is not in a format or structure the catalogue can easily transform. The file name, text description, and web address is found at the top. There is no section for visualizations below."
+msgstr "Capture d’écran de la page de description du fichier lorsque le format ou la structure du fichier ne peuvent pas être facilement transformés par le catalogue. Le nom du fichier, la description du texte et l’adresse URL se trouvent en haut. Il n’y a pas de rubrique pour les visualisations en dessous."
 
 #: ckanext/ontario_theme/templates/home/help.html:75
 msgid ""
@@ -307,7 +344,7 @@ msgid "Figure 9: A description of a dataset, including its web address."
 msgstr "Schéma 9: Description d’un ensemble de données, incluant son adresse URL."
 
 #: ckanext/ontario_theme/templates/home/help.html:170
-msgid "What if a dataset isn’t available in the format I need?"
+msgid "Q. What if a dataset isn’t available in the format I need?"
 msgstr "Q. Et si un ensemble de données n’est pas disponible dans le format dont j’ai besoin?"
 
 #: ckanext/ontario_theme/templates/home/help.html:173
@@ -400,31 +437,35 @@ msgid ""
 "A. Yes, you can get data catalogue updates by RSS feed. RSS (Really "
 "Simple Syndication) lets you know when our data catalogue has been "
 "updated."
-msgstr ""
+msgstr "Pour être informé des mises à jour du catalogue de données par fil RSS. Le fil RSS (Really Simple Syndication) vous permet de savoir quand le catalogue de données a été mis à jour."
 
 #: ckanext/ontario_theme/templates/home/help.html:227
 msgid "To receive RSS updates:"
-msgstr ""
+msgstr "Pour recevoir les mises à jour via RSS:"
 
 #: ckanext/ontario_theme/templates/home/help.html:231
-msgid "install an RSS reader on your device"
-msgstr ""
+msgid "Install an RSS reader on your device"
+msgstr "Installez un lecteur RSS sur votre appareil"
 
 #: ckanext/ontario_theme/templates/home/help.html:234
-msgid "choose the updates you want to receive"
-msgstr ""
+msgid "Choose the updates you want to receive"
+msgstr "Choisissez les mises à jour que vous souhaitez recevoir"
 
 #: ckanext/ontario_theme/templates/home/help.html:238
 msgid "Available updates:"
-msgstr ""
+msgstr "Mises à jour disponibles:"
 
 #: ckanext/ontario_theme/templates/home/help.html:242
 msgid "Any dataset is updated or added to the catalogue"
-msgstr ""
+msgstr "Mise à jour de tout ensemble de données ou ajout au catalogue"
 
 #: ckanext/ontario_theme/templates/home/help.html:248
 msgid "A specific dataset is updated"
-msgstr ""
+msgstr "Mise à jour d’un ensemble de données particulier"
+
+#: ckanext/ontario_theme/templates/home/help.html:251
+msgid "name-of-specific-dataset"
+msgstr "nom-de-l’ensemble-de-données-particulier"
 
 #: ckanext/ontario_theme/templates/home/help.html:255
 #: ckanext/ontario_theme/templates/home/help.html:266
@@ -435,15 +476,27 @@ msgstr "Exemple"
 
 #: ckanext/ontario_theme/templates/home/help.html:259
 msgid "A dataset with a specific tag is updated or added"
-msgstr ""
+msgstr "Mise à jour ou ajout d’un ensemble de données comportant une balise particulière"
+
+#: ckanext/ontario_theme/templates/home/help.html:262
+msgid "name-of-tag"
+msgstr "nom-de-la-balise"
 
 #: ckanext/ontario_theme/templates/home/help.html:270
 msgid "A dataset based on your custom search term is updated or added"
-msgstr ""
+msgstr "Mise à jour ou ajout d’un ensemble de données en rapport avec les termes de votre recherche personnalisée"
+
+#: ckanext/ontario_theme/templates/home/help.html:273
+msgid "custom search term"
+msgstr "terme de recherche personnalisée"
 
 #: ckanext/ontario_theme/templates/home/help.html:281
 msgid "A specific ministry updates or adds a dataset"
-msgstr ""
+msgstr "Mises à jour ou ajouts d’un ensemble de données par un ministère particulier"
+
+#: ckanext/ontario_theme/templates/home/help.html:284
+msgid "name-of-specific-ministry"
+msgstr "nom du ministère particulier"
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_contact_us.html:7
 msgid "Contact us"
@@ -531,7 +584,7 @@ msgid "Datasets with data"
 msgstr "Jeux de données avec données"
 
 
-#: ckanext/ontario_theme/templates/home/snippets/about_text.html:??
+#: ckanext/ontario_theme/templates/home/snippets/about_text.html:1
 msgid "\n"
 "  <p>\n"
 "    The Ontario government, generates and maintains thousands of datasets. Since 2012, we have shared data with Ontarians, via a data catalogue.\n"
@@ -1936,14 +1989,14 @@ msgstr "\n"
 "  Vous n’avez à fournir aucun renseignement personnel; il vous suffit de vous abonner à nos fils d’information en utilisant le lecteur de votre choix et les adresses URL correspondant aux notifications. Copiez ces adresses et collez-les dans votre lecteur.\n"
 "  </p>\n"
 "      <figure>\n"
-"        <img src=\"/images/about/Features - Notifications -Adding a feed.jpg\" alt=\"A screenshot of the configuration screen of a RSS reader. The feed url for the data catalogue has been entered into the form field for the feed url.\" />\n"
+"        <img src=\"/images/about/Features - Notifications -Adding a feed.jpg\" alt=\"Capture d’écran de l’écran de configuration d’un lecteur RSS. L’adresse URL du fil pour le catalogue de données a été saisie dans le champ du formulaire pour l’URL du fil.\" />\n"
 "        <figcaption>Schéma 1 - Coller l’adresse de la notification pour tout le catalogue dans le lecteur de fils d’information.</figcaption> \n"
 "      </figure>  \n"
 "      <p>\n"
 "          Votre lecteur vous indiquera quand le catalogue a été mis à jour.\n"
 "      </p>\n"
 "      <figure>\n"
-"        <img src=\"/images/about/Features - Notifications - Data catalogue feeds.jpg\" alt=\"A screenshot of an RSS reader displaying recently updated datasets from the data catalogue. The latest four datasets are listed.\" />\n"
+"        <img src=\"/images/about/Features - Notifications - Data catalogue feeds.jpg\" alt=\"Capture d’écran d’un lecteur RSS affichant les ensembles de données du catalogue récemment mis à jour. Les quatre derniers ensembles de données sont indiqués.\" />\n"
 "        <figcaption>Schéma 2 – Recevoir les notifications sur les dernières mises à jour du catalogue.</figcaption> \n"
 "      </figure>   \n"
 "     \n"
@@ -1960,21 +2013,21 @@ msgstr "\n"
 "      <li>\n"
 "          Trouvez votre ensemble de données.\n"
 "          <figure>\n"
-"            <img src=\"/images/about/Features - API - Searching for pepper.jpg\" alt=\"A screenshot of the dataset search results page. The user has searched for the word pepper and 3 results are displayed.\" />\n"
+"            <img src=\"/images/about/Features - API - Searching for pepper.jpg\" alt=\"Capture d’écran de la page de résultats de la recherche de données. L’utilisateur a lancé une recherche pour le mot poivron et 3 résultats s’affichent.\" />\n"
 "            <figcaption>Schéma 3 – Résultats de la recherche d’ensemble de données pour <strong>poivron</strong>.</figcaption> \n"
 "          </figure>  \n"
 "      </li>\n"
 "      <li>          \n"
 "          Cliquez sur <strong>Aperçu</strong> pour aller au fichier auquel vous voulez accédez via l’API.\n"
 "          <figure>\n"
-"            <img src=\"/images/about/Features - API - Preview Button.jpg\" alt=\"A screenshot of the data and resources section of the dataset description page. Each file in the dataset is listed. To the right of each file name is a preview button and a download button. An arrow is overlaid onto the screeshot that points to the preview button.\" />\n"
+"            <img src=\"/images/about/Features - API - Preview Button.jpg\" alt=\"Capture d’écran de la rubrique de données et de ressources de la page de description de l’ensemble de données. Chaque fichier figurant dans l’ensemble de données est indiqué. À la droite de chaque fichier se trouvent un bouton Aperçu et un bouton Téléchargement. Une flèche surimposée sur la capture d’écran indique le bouton aperçu.\" />\n"
 "            <figcaption>Schéma 4 – Cliquer sur le bouton <strong>Aperçu</strong>.</figcaption> \n"
 "          </figure>  \n"
 "      </li>\n"
 "      <li>  \n"
 "          Cliquez sur le bouton <strong>Données API</strong>.\n"
 "          <figure>\n"
-"            <img src=\"/images/about/Features - API - Data API Button.jpg\" alt=\"A screenshot of the file description page. The data api button is found in the top right corner of the page.\" />\n"
+"            <img src=\"/images/about/Features - API - Data API Button.jpg\" alt=\"Capture de la page de description du fichier. Le bouton Données API se trouve dans le coin supérieur droit de la page.\" />\n"
 "            <figcaption>Schéma 5 – Cliquer sur le bouton <strong>Données API</strong>.</figcaption> \n"
 "          </figure>  \n"
 "      </li>           \n"
