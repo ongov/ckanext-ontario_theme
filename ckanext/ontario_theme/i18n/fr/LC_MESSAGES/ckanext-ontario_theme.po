@@ -522,6 +522,10 @@ msgstr "Nous avons réalisé le lancement!"
 msgid "Learn about our plan for a new open data catalogue."
 msgstr "Informez-vous sur notre projet de nouveau catalogue de données ouvertes."
 
+#: ckanext/ontario_theme/templates/home/snippets/ontario_theme_featured_content.html:27
+msgid "/about#features"
+msgstr "/fr/about#features"
+
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_featured_content.html:29
 msgid "New features"
 msgstr "Nouvelles fonctionnalités"
@@ -529,6 +533,10 @@ msgstr "Nouvelles fonctionnalités"
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_featured_content.html:30
 msgid "Discover some of the new features of our beta catalogue."
 msgstr "Découvrez quelques-unes des nouvelles fonctionnalités de notre catalogue bêta."
+
+#: ckanext/ontario_theme/templates/home/snippets/ontario_theme_featured_content.html:36
+msgid "/about#engagement"
+msgstr "/fr/about#engagement"
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_featured_content.html:38
 msgid "Your catalogue, your feedback"
