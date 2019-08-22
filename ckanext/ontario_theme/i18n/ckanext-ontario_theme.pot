@@ -227,22 +227,22 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:43
 msgid ""
-"not listed in the beta catalogue, but can be found in the <a "
+"not be listed in the beta catalogue, but can be found in the <a "
 "href=\"http://www.ontario.ca/data\" target=\"_blank\">current catalogue</a>. "
 "While the beta catalogue is in its testing phase, it will have some, but not "
 "all, of the datasets from the data catalogue."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:46
-msgid "Search the current data catalogue"
+msgid "<a href=\"http://www.ontario.ca/data\">Search the current data catalogue</a>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:49
-msgid "Learn more about the beta stage"
+msgid "<a href=\"/about#beta\">Learn more about the beta stage</a>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:54
-msgid "not listed in the beta catalogue or in the current catalogue"
+msgid "not be listed in the beta catalogue or in the current catalogue"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:57
@@ -263,6 +263,42 @@ msgstr ""
 msgid ""
 "To the right of the data icon, you will find a either a "
 "<strong>Download</strong> or <strong>Open</strong> button."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/home/help.html:74
+msgid "A screenshot of the data and resources section of the dataset description page. Each file in the dataset is listed. To the right of each file is a preview button and a download button. An arrow is overlaid onto the screeshot that points to the download button."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/home/help.html:84
+msgid "A screenshot of the data and resources section of the dataset description page. Each file in the dataset is listed. To the right of each file name is an open button and an about button. An arrow is overlaid onto the screeshot that points to the open button."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/home/help.html:96
+msgid "A screenshot of the data and resources section of the dataset description page. Each file in the dataset is listed. To the right of each file name is a preview button and a download button. An arrow is overlaid onto the screeshot that points to the preview button."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/home/help.html:111
+msgid "A screenshot of the file description page. The file name, text description, and web address is found at the top. A visualization tool is found underneath that allows users to transform the contents of the file from spreadsheet to graph to map."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/home/help.html:118
+msgid "A screenshot of the section of the file description page that lets the user transform the contents of the file from spreadsheet to graph to map. The three buttons visible at the top left above the visualization are grid, graph, and map. An arrow is overlaid onto the screeshot that points to the graph and map buttons."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/home/help.html:130
+msgid "A screenshot of the section of the file description page that lets the user transform the contents of the file from spreadsheet to graph to map. The graph button has been selected and there is a message instructing the user to fill out the form at the right to specify the type of graph, along with axes that they want."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/home/help.html:137
+msgid "A screenshot of the section of the file description page that lets the user transform the contents of the file from spreadsheet to graph to map. The graph button has been selected and the user has chosen a line graph and both axes and a simple line graph is visible."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/home/help.html:149
+msgid "A screenshot of the map visualization."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/home/help.html:164
+msgid "A screenshot of the file description page when the file is not in a format or structure the catalogue can easily transform. The file name, text description, and web address is found at the top. There is no section for visualizations below."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:75
@@ -322,7 +358,7 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:112
 msgid ""
-"Figure 4: A file preview pageshowing the file description and the contents of"
+"Figure 4: A file preview page showing the file description and the contents of"
 " the file visualized as a spreadsheet."
 msgstr ""
 
@@ -492,11 +528,11 @@ msgid "To receive RSS updates:"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:231
-msgid "install an RSS reader on your device"
+msgid "Install an RSS reader on your device"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:234
-msgid "choose the updates you want to receive"
+msgid "Choose the updates you want to receive"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:238
@@ -511,6 +547,10 @@ msgstr ""
 msgid "A specific dataset is updated"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/home/help.html:251
+msgid "name-of-specific-dataset"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/home/help.html:255
 #: ckanext/ontario_theme/templates/home/help.html:266
 #: ckanext/ontario_theme/templates/home/help.html:277
@@ -522,12 +562,24 @@ msgstr ""
 msgid "A dataset with a specific tag is updated or added"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/home/help.html:262
+msgid "name-of-tag"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/home/help.html:270
 msgid "A dataset based on your custom search term is updated or added"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/home/help.html:273
+msgid "custom search term"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/home/help.html:281
 msgid "A specific ministry updates or adds a dataset"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/home/help.html:284
+msgid "name-of-specific-ministry"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_contact_us.html:7
@@ -535,8 +587,7 @@ msgid "Contact us"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_contact_us.html:12
-msgid ""
-"Have feedback or questions? We want to hear from you! Email us at <a "
+msgid "Have feedback or questions? We want to hear from you! Email us at <a "
 "href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a> or tweet at us: <a "
 "href=\"https://twitter.com/opengovon\">@OpenGovON</a>."
 msgstr ""
@@ -741,7 +792,7 @@ msgid "Recently Created"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/package/search.html:33
-msgid "Datasets With Data"
+msgid "Datasets with data"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/package/search.html:34
