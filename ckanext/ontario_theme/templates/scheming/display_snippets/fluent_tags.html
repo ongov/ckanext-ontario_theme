@@ -1,16 +1,30 @@
-{# slight abuse of scheming_language_text for selecting the desired
-   language version #}
+{#
+
+Customizes fluent's template to set proper search key based on language (e.g.
+tags=tags changes to keywords_en=tag).
+FYI - Fluent's template is an override of schemings already.
+
+#}
+
 {%- set value = h.scheming_language_text(data[field.field_name]) -%}
 <section class="tags">
 {% block tag_list %}
   <ul class="tag-list">
     {% for tag in value %}
-      <li>
-        <a class="{% block tag_list_item_class %}tag{% endblock %}" href="{%
-          url_for controller='package', action='search', tags=tag %}">{{
-            h.truncate(tag, 22) }}</a>
-      </li>
+      {% if h.lang() == 'en' %}
+        <li>
+          <a class="tag" href="{%
+            url_for controller='package', action='search', keywords_en=tag
+            %}">{{ h.truncate(tag, 22) }}</a>
+        </li>
+      {% else %}
+        <li>
+          <a class="tag" href="{%
+            url_for controller='package', action='search', keywords_fr=tag
+            %}">{{ h.truncate(tag, 22) }}</a>
+        </li>
+      {% endif %}
     {% endfor %}
   </ul>
 {% endblock %}
-<section class="tags">
+</section>

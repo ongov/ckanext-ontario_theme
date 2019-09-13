@@ -6,6 +6,7 @@ from flask import Blueprint, make_response
 from flask import render_template, render_template_string
 
 import ckanapi_exporter.exporter as exporter
+import json
 
 from ckan.model import Package
 
@@ -312,23 +313,21 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
         '''
         facets_dict['access_level'] = toolkit._('Access Level')
         facets_dict['update_frequency'] = toolkit._('Update Frequency')
+        facets_dict['keywords_en'] = toolkit._('Keywords')
+        facets_dict['keywords_fr'] = toolkit._('Keywords')
         return facets_dict
 
     def group_facets(self, facets_dict, group_type, package_type):
         u'''Modify and return the ``facets_dict`` for a group's page.
         Throws AttributeError: no attribute 'organization_facets' without function.
         '''
-        facets_dict['access_level'] = toolkit._('Access Level')
-        facets_dict['update_frequency'] = toolkit._('Update Frequency')
-        return facets_dict
+        return self.dataset_facets(facets_dict, package_type)
 
     def organization_facets(self, facets_dict, organization_type, package_type):
         u'''Modify and return the ``facets_dict`` for an organization's page.
         Throws AttributeError: no attribute 'organization_facets' without function.
         '''
-        facets_dict['access_level'] = toolkit._('Access Level')
-        facets_dict['update_frequency'] = toolkit._('Update Frequency')
-        return facets_dict
+        return self.dataset_facets(facets_dict, package_type)
 
     # IPackageController
 
@@ -342,6 +341,9 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
         return search_results
 
     def before_index(self, pkg_dict):
+        kw = json.loads(pkg_dict.get('extras_keywords', '{}'))
+        pkg_dict['keywords_en'] = kw.get('en', [])
+        pkg_dict['keywords_fr'] = kw.get('fr', [])
         return pkg_dict
 
     def before_view(self, pkg_dict):

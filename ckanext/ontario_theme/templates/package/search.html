@@ -88,9 +88,24 @@ in the core template for search.html.
         {% endblock %}
       </section>
     </div>
+
+  <div>
+    {{ h.snippet('snippets/ontario_theme_keywords_facet.html') }}
+    {# 
+      Flag facets to be ignored from standard loop that calls facets.
+    #}
+    {% set excluded_facets = [
+      'keywords_en',
+      'keywords_fr'
+      ]
+    %}
+  </div>
+
   <div>
     {% for facet in c.facet_titles %}
-      {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet) }}
+      {% if facet not in excluded_facets %}
+        {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet) }}
+      {% endif %}
     {% endfor %}
   </div>
   <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
