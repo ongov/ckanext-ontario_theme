@@ -1,0 +1,19 @@
+{#
+
+Override CKAN's read.html to add some new facets.
+
+#}
+
+{% extends "group/read_base.html" %}
+
+{% block secondary_content %}
+  {{ super() }}
+  <div class="filters">
+    <div>
+      {% for facet in c.facet_titles %}
+        {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet, extras={'id':c.group_dict.id}) }}
+      {% endfor %}
+    </div>
+    <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
+  </div>
+{% endblock %}
