@@ -209,6 +209,32 @@ def get_license(license_id):
     return Package.get_license_register().get(license_id)
 
 
+def get_package_keywords(language='en'):
+    '''Helper to return a list of the top 3 keywords based on specified
+    language.
+
+    List structure matches the get_facet_items_dict() helper which doesn't
+    load custom facets on the home page.
+    [{
+        'count': 1,
+        'display_name': u'English Tag',
+        'name': u'English Tag'
+    },
+    {
+        'count': 1,
+        'display_name': u'Second Tag',
+        'name': u'Second Tag'
+    }]
+    '''
+    facet = "keywords_{}".format(language)
+    package_top_keywords = toolkit.get_action('package_search')(
+        data_dict={'facet.field': [facet],
+                   'facet.limit': 3,
+                   'rows': 0})
+    package_top_keywords = package_top_keywords['search_facets'][facet]['items']
+    return package_top_keywords
+
+
 def default_locale():
     '''Wrap the ckan default locale in a helper function to access
     in templates.
@@ -269,7 +295,8 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
 
     def get_helpers(self):
         return {'ontario_theme_get_license': get_license,
-                'extrafields_default_locale': default_locale}
+                'extrafields_default_locale': default_locale,
+                'ontario_theme_get_package_keywords': get_package_keywords}
 
     # IBlueprint
 
