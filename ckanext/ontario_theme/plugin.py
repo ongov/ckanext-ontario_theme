@@ -7,6 +7,7 @@ from flask import Blueprint, make_response
 from flask import render_template, render_template_string
 
 import ckanapi_exporter.exporter as exporter
+import json
 
 from ckan.model import Package
 
@@ -209,6 +210,32 @@ def get_license(license_id):
     return Package.get_license_register().get(license_id)
 
 
+def get_package_keywords(language='en'):
+    '''Helper to return a list of the top 3 keywords based on specified
+    language.
+
+    List structure matches the get_facet_items_dict() helper which doesn't
+    load custom facets on the home page.
+    [{
+        'count': 1,
+        'display_name': u'English Tag',
+        'name': u'English Tag'
+    },
+    {
+        'count': 1,
+        'display_name': u'Second Tag',
+        'name': u'Second Tag'
+    }]
+    '''
+    facet = "keywords_{}".format(language)
+    package_top_keywords = toolkit.get_action('package_search')(
+        data_dict={'facet.field': [facet],
+                   'facet.limit': 3,
+                   'rows': 0})
+    package_top_keywords = package_top_keywords['search_facets'][facet]['items']
+    return package_top_keywords
+
+
 def default_locale():
     '''Wrap the ckan default locale in a helper function to access
     in templates.
@@ -270,7 +297,8 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
 
     def get_helpers(self):
         return {'ontario_theme_get_license': get_license,
-                'extrafields_default_locale': default_locale}
+                'extrafields_default_locale': default_locale,
+                'ontario_theme_get_package_keywords': get_package_keywords}
 
     # IBlueprint
 
@@ -314,23 +342,21 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
         '''
         facets_dict['access_level'] = toolkit._('Access Level')
         facets_dict['update_frequency'] = toolkit._('Update Frequency')
+        facets_dict['keywords_en'] = toolkit._('Keywords')
+        facets_dict['keywords_fr'] = toolkit._('Keywords')
         return facets_dict
 
     def group_facets(self, facets_dict, group_type, package_type):
         u'''Modify and return the ``facets_dict`` for a group's page.
         Throws AttributeError: no attribute 'organization_facets' without function.
         '''
-        facets_dict['access_level'] = toolkit._('Access Level')
-        facets_dict['update_frequency'] = toolkit._('Update Frequency')
-        return facets_dict
+        return self.dataset_facets(facets_dict, package_type)
 
     def organization_facets(self, facets_dict, organization_type, package_type):
         u'''Modify and return the ``facets_dict`` for an organization's page.
         Throws AttributeError: no attribute 'organization_facets' without function.
         '''
-        facets_dict['access_level'] = toolkit._('Access Level')
-        facets_dict['update_frequency'] = toolkit._('Update Frequency')
-        return facets_dict
+        return self.dataset_facets(facets_dict, package_type)
 
     # IPackageController
 
@@ -344,6 +370,9 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
         return search_results
 
     def before_index(self, pkg_dict):
+        kw = json.loads(pkg_dict.get('extras_keywords', '{}'))
+        pkg_dict['keywords_en'] = kw.get('en', [])
+        pkg_dict['keywords_fr'] = kw.get('fr', [])
         return pkg_dict
 
     def before_view(self, pkg_dict):
