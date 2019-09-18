@@ -129,3 +129,30 @@ class TestGetPackageKeywords(object):
                 'name': u'French Tag'
             }]
         assert_equals(get_package_keywords(language='fr'), keywords)
+
+    def test_get_package_keywords_returns_multiple_values(self):
+        dataset = helpers.call_action(
+                'package_create',
+                name='package-name',
+                maintainer='Joe Smith',
+                maintainer_email='Joe.Smith@ontario.ca',
+                title_translated={
+                    'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
+                notes_translated={'en': u'short description', 'fr': u'...'},
+                keywords={'en': [u'English Tag', u'English Tag 2'], 'fr': 
+                [u'French Tag', u'French Tag 2', u'French Tag 3']}
+                )
+        # Make sure package was returned as expected.
+        assert_equals(dataset['name'], 'package-name')
+        # Expected keyword list based on dataset above.
+        keywords = [{
+                'count': 1,
+                'display_name': u'English Tag 2',
+                'name': u'English Tag 2'
+            },
+            {
+                'count': 1,
+                'display_name': u'English Tag',
+                'name': u'English Tag'
+            }]
+        assert_equals(get_package_keywords(), keywords)
