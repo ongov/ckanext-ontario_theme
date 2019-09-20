@@ -383,7 +383,7 @@
       "form_placeholder": "e.g., Users will need to register with the website to recieve a login and provide an email address. Visit http://www.example.com/register."
     },
     {
-      "field_name": "licence_id",
+      "field_name": "license_id",
       "label": {
         "en": "Licence",
         "fr": "Licence"
