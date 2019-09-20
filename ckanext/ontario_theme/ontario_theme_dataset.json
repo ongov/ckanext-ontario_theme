@@ -397,36 +397,6 @@
       "classes": ["col-md-12","form-group"]
     },
     {
-      "field_name": "licence_range_start",
-      "label": {
-        "en": "Licence range start",
-        "fr": "Début de licence"
-      },
-      "help_inline" : true,
-      "help_text": {
-        "en": "Does the licence have an expiry or applicable time period? When does it start?"
-      },  
-      "classes": ["form-group","col-md-12"],    
-      "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date",
-      "form_placeholder": "yyyy-mm-dd"
-    },
-    {
-      "field_name": "licence_range_end",
-      "label": {
-        "en": "Licence range end",
-        "fr": "Fin de licence"
-      },
-      "help_inline" : true,
-      "help_text": {
-        "en": "Does the licence have an expiry or applicable time period? When does it end?"
-      },  
-      "classes": ["form-group","col-md-12"],
-      "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date",
-      "form_placeholder": "yyyy-mm-dd"
-    },  
-    {
       "field_name": "access_level",
       "label": {
         "en": "Access level",
