@@ -561,22 +561,6 @@
       "preset": "fluent_markdown"
     },
     {
-      "field_name": "cluster_application_id",
-      "label": {
-        "en": "Cluster Application ID",
-        "fr": "Identifiant d'application"
-      },
-      "help_inline" : true,
-      "help_text": {
-        "en": "Is this information sourced from or used in an OPS software application? If so, which one?"
-      }, 
-      "classes": ["form-group","col-md-12"],
-      "fieldset": 7,
-      "fieldset_name": "Making Connections",
-      "fieldset_subtitle": "Help us map OPS assets.",
-      "form_placeholder": "CI0000000000000"
-    },
-    {
       "field_name": "node_id",
       "label": {
         "en": "Ontario node ID",
