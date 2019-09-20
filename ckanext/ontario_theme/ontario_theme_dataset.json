@@ -577,19 +577,6 @@
       "form_placeholder": "CI0000000000000"
     },
     {
-      "field_name": "go_program_id",
-      "label": {
-        "en": "OPS Program ID",
-        "fr": "Identifiant du programme"
-      },
-      "help_inline" : true,
-      "help_text": {
-        "en": "Did this information support an OPS program? If so, which one?"
-      }, 
-      "classes": ["form-group","col-md-12"],
-      "form_placeholder": "P00000"
-    },
-    {
       "field_name": "node_id",
       "label": {
         "en": "Ontario node ID",
