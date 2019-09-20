@@ -667,6 +667,13 @@
             "en": "French",
             "fr": "Français"
           }
+        },
+        {
+          "value": "english_and_french",
+          "label": {
+            "en": "English and French",
+            "fr": "Anglais et Français"
+          }
         }
       ]
     }, 
