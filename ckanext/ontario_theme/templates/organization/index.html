@@ -3,19 +3,26 @@
 {% block page_primary_action %}
 {% endblock %}
 
-{% block pre_primary %}
-  <div class="page_primary_action">
-    <div class="add-organization">
-    {% if h.check_access('organization_create') %}
-      {% link_for _('Add Organization'), controller='organization', action='new', class_='btn btn-primary', icon='plus-square', named_route=group_type + '_new' %}
-    {% endif %}
+{% block ontario_theme_search_form %}
+  {# Custom block for search form. #}
+  <div class="row no-padding">
+    <div class="page_primary_action">
+      <div class="add-organization">
+      {% if h.check_access('organization_create') %}
+        {% link_for _('Add Organization'), controller='organization', action='new', class_='btn btn-primary', icon='plus-square', named_route=group_type + '_new' %}
+      {% endif %}
+      </div>
     </div>
+    <h1 class="hide-heading">{% block page_heading %}{{ _('Organizations') }}{% endblock %}</h1>
+    {% block organizations_search_form %}
+      {% snippet 'snippets/search_form.html', form_id='organization-search-form', type='organization', query=c.q, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=_('Search organizations...'), show_empty=request.params, no_bottom_border=true if c.page.items, sorting = [(_('Name Ascending'), 'title asc'), (_('Name Descending'), 'title desc')] %}
+    {% endblock %}
   </div>
-  <h1 class="hide-heading">{% block page_heading %}{{ _('Organizations') }}{% endblock %}</h1>
-  {% block organizations_search_form %}
-    {% snippet 'snippets/search_form.html', form_id='organization-search-form', type='organization', query=c.q, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=_('Search organizations...'), show_empty=request.params, no_bottom_border=true if c.page.items, sorting = [(_('Name Ascending'), 'title asc'), (_('Name Descending'), 'title desc')] %}
-  {% endblock %}
 {% endblock %}
+
+{% block pre_primary %}
+{% endblock %}
+
 {% block primary_content_inner %}
   {% block organizations_list %}
     {% if c.page.items or request.params %}
