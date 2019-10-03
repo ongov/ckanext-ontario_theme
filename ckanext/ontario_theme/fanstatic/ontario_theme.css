@@ -562,7 +562,7 @@ table.table tbody tr td.dataset-details {
    ===================================================== */
 .account-masthead {
   background-color: #333;
-  padding-top: 0.5rem;
+  padding: 1.5rem 0;
   min-height: 64px;
 }
 /* The "bubble" containing the number of new notifications. */
@@ -585,7 +585,7 @@ table.table tbody tr td.dataset-details {
   display: block;
   float: left;
   border-left: none;
-  padding: 0.75rem 0;
+  padding: 0;
   margin-bottom: 0 !important;
 }
 /* ========================================================================
@@ -606,8 +606,12 @@ table.table tbody tr td.dataset-details {
   font-size: 24px;
   line-height: 1.5;
   font-weight: 600;
-  padding-left: 1.6em;
   margin: 0;
+}
+@media only screen and (max-width: 768px) {
+  .masthead hgroup h1 {
+    padding-top: 9px;
+  }
 }
 .masthead hgroup h1 sup {
   font-size: 60%;
@@ -636,7 +640,12 @@ table.table tbody tr td.dataset-details {
   font-size: 15px;
 }
 .logo img {
-  width: 50%;
+  width: 153px;
+}
+@media only screen and (max-width: 768px) {
+  .logo img {
+    width: 125px;
+  }
 }
 footer.site-footer {
   background: #ededed;
