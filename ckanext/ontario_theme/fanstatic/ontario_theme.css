@@ -479,13 +479,9 @@ div.add-dataset {
 .media-view {
   border: none;
 }
-li.resource-item > div {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 20px;
-  height: 30px;
-  margin: auto;
+.resource-item .format-label {
+  top: 0px;
+  left: -35px;
 }
 .hero {
   background-image: none;
@@ -586,23 +582,6 @@ table.table tbody tr td.dataset-details {
 @media (min-width: 768px) {
   .wrapper:before {
     border-right: none;
-  }
-}
-/* =====================================================
-   Move resource items buttons under resource title in smaller screen
-   ===================================================== */
-@media (max-width: 768px) {
-  li.resource-item {
-    float: left;
-    width: 100%;
-  }
-  li.resource-item > div {
-    right: 0px;
-    position: relative;
-  }
-  li.resource-item > div a {
-    float: right;
-    margin: 2px;
   }
 }
 /* =====================================================
