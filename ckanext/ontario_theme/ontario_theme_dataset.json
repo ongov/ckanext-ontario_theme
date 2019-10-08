@@ -641,11 +641,12 @@
       "classes": ["form-group","col-md-12"] 
     },
     {
-      "field_name": "description",
+      "field_name": "description_translated",
       "label": {
         "en": "Description",
         "fr": "Description"
       },
+      "preset": "fluent_core_translated",
       "form_snippet": "fluent_markdown.html",
       "classes": ["form-group","col-md-12"],
       "form_placeholder": "Some useful notes about the file"
