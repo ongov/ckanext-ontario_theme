@@ -591,6 +591,9 @@ msgstr "Récemment créé"
 msgid "Datasets with data"
 msgstr "Jeux de données avec données"
 
+#: ckanext/ontario_theme/templates/scheming/package/read.html:25
+msgid "Ontario's Open Data Team"
+msgstr "L'équipe de données ouvertes de l'Ontario"
 
 #: ckanext/ontario_theme/templates/home/snippets/about_text.html:1
 msgid "\n"

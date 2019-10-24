@@ -21,6 +21,15 @@
       {{ h.render_markdown(h.scheming_language_text(pkg['notes_translated'])) }}
     </div>
   {% endif %}
+  <h3>{{ _("Contact") }}</h3>
+  {% set contact_name = pkg.maintainer if pkg.maintainer else _("Ontario's Open Data Team") %}
+  {% set contact_email = pkg.maintainer_email if pkg.maintainer_email else "opendata@ontario.ca" %} 
+  <div>  
+    {{contact_name}}&nbsp;|&nbsp;
+    <a href="mailto:{{contact_email}}?subject={{pkg.title}}">
+      {{contact_email}}
+    </a>
+  </div>  
 {% endblock %}
 
 {% block package_additional_info %}
