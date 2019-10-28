@@ -599,6 +599,16 @@
       "display_snippet": null,
       "form_placeholder": "4321",
       "validators": "ignore_missing int_validator"
+    },
+    {
+      "field_name": "public_id",
+      "label": {
+        "en": "Ontario data catalogue ID",
+        "fr": "ID du catalogue de données de l'Ontario"
+      },
+      "form_snippet": null,
+      "display_snippet": null,
+      "validators": "ignore_missing"
     }
   ],
   "resource_fields": [
