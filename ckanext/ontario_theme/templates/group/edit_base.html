@@ -1,0 +1,8 @@
+{% ckan_extends %}
+
+{% block subtitle %}{{ _('Manage') }} - {{ c.group_dict.display_name }} - {{ _('Groups') }}{% endblock %}
+
+{% block breadcrumb_content_inner %}
+  <li>{% link_for group.display_name|truncate(35), controller='group', action='read', id=group.name, named_route=group_type + '_read' %}</li>
+  <li class="active">{% link_for _('Manage'), controller='group', action='edit', id=group.name, named_route=group_type + '_edit' %}</li>
+{% endblock %}
