@@ -5,9 +5,13 @@
 
 {% block pre_primary %}
   <h1 class="hide-heading">{{ _('Groups') }}</h1>
-  {% if h.check_access('group_create') %}
-    {% link_for _('Add Group'), controller='group', action='new', class_='btn btn-primary', icon='plus-square', named_route=group_type + '_new' %}
-  {% endif %}
+  <div class="page_primary_action">
+    <div class="add-group">
+    {% if h.check_access('group_create') %}
+      {% link_for _('Add Group'), controller='group', action='new', class_='btn btn-primary', icon='plus-square', named_route=group_type + '_new' %}
+    {% endif %}
+    </div>
+  </div>
   {% block groups_search_form %}
     {% snippet 'snippets/search_form.html', form_id='group-search-form', type='group', query=c.q, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=_('Search groups...'), show_empty=request.params, no_bottom_border=true if c.page.items, sorting = [(_('Name Ascending'), 'title asc'), (_('Name Descending'), 'title desc')] %}
   {% endblock %}
