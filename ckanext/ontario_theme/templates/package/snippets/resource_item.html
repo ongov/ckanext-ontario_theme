@@ -26,6 +26,21 @@
           {{ h.markdown_extract(h.get_translated(res, 'description'), extract_length=80) }}
         {% endif %}
       </p>
+      {% if res.data_range_start or res.data_range_end or res.language %}  
+        {% set items = [] %}
+        {% do (items.append(
+          _("Covers") + " " +
+          (res.data_range_start if res.data_range_start else "") +  
+          ((" " + _("to") + " ") if res.data_range_start and res.data_range_end) + 
+          (res.data_range_end if res.data_range_end)))
+          if res.data_range_start or res.data_range_end %}
+        {% do items.append(_("in ") + h.scheming_choices_label(
+  h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')),
+  res.language)) if res.language %}
+        <p class="description details"> 
+          {{ items|join(" | ") }}
+        </p>  
+      {% endif %}        
     {% endblock %}
   </div>
   <div class="col-md-6 col-xs-12 text-right">
