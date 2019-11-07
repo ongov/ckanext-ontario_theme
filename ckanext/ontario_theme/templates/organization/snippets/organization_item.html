@@ -1,0 +1,15 @@
+{% ckan_extends %}
+
+{% block title %}
+  <h3 class="media-heading">{{ organization.display_name }}</h3>
+{% endblock %}
+{% block description %}
+  {% if organization.description %}
+    <p>{{ h.markdown_extract(organization.description, extract_length=80) }}</p>
+  {% endif %}
+{% endblock %}
+{% block link %}
+  <a href="{{ url }}" title="{{ _('View {organization_name}').format(organization_name=organization.display_name) }}" class="media-view">
+    <span>{{ _('View {organization_name}').format(organization_name=organization.display_name) }}</span>
+  </a>
+{% endblock %}
