@@ -591,6 +591,25 @@ msgstr "Récemment créé"
 msgid "Datasets with data"
 msgstr "Jeux de données avec données"
 
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Keywords"
+msgstr "Mots clés"
+
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Formats"
+msgstr "Formats"
+
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Licenses"
+msgstr "Licences"
+
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Access Level"
+msgstr "Statut"
+
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Update Frequency"
+msgstr "Fréquence de mise à jour"
 
 #: ckanext/ontario_theme/templates/home/snippets/about_text.html:1
 msgid "\n"
