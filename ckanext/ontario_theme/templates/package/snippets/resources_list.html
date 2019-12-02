@@ -1,0 +1,7 @@
+{% ckan_extends %}
+
+{% block resource_list %}
+  {% snippet "package/snippets/ontario_theme_access_level.html",
+    pkg=pkg, dataset_type=dataset_type, schema=schema %}
+  {{ super() }}
+{% endblock %}
