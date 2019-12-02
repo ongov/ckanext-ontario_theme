@@ -1,3 +1,78 @@
+.alert {
+  border-color: rgba(0, 0, 0, 0.1);
+  border-width: 0 0 0 .9375rem;
+  border-style: solid;
+  padding: .9375rem 2rem .9375rem .9375rem;
+  color: #333;
+  border-radius: 0px;
+  min-height: 50px;
+  padding-left: 70px;
+  padding-top: 15px;
+  position: relative;
+}
+.alert.alert-success::before,
+.alert.alert-info::before,
+.alert.alert-warning::before,
+.alert.alert-danger::before,
+.alert.alert-open::before,
+.alert.alert-tobeopened::before,
+.alert.alert-underreview::before,
+.alert.alert-restricted::before {
+  font-family: "FontAwesome";
+  font-size: 36px;
+  position: absolute;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-top: -10px;
+  left: 10px;
+  top: 10px;
+}
+.alert.alert-success::before {
+  content: "\f058";
+  color: #2B8737;
+}
+.alert.alert-info::before {
+  content: "\f05a";
+  color: #0369AC;
+}
+.alert.alert-warning::before {
+  content: "\f06a";
+  color: #8A600D;
+}
+.alert.alert-danger::before {
+  content: "\f057";
+  color: #D81A21;
+}
+.alert.alert-open::before {
+  content: "\f058";
+  color: #2B8737;
+}
+.alert.alert-tobeopened::before {
+  content: "\f017";
+  color: #0369AC;
+}
+.alert.alert-underreview::before {
+  content: "\f059";
+  color: #8A600D;
+}
+.alert.alert-restricted::before {
+  content: "\f023";
+  color: #D81A21;
+}
+.alert.alert-large {
+  min-height: 80px;
+  padding-left: 90px;
+}
+.alert.alert-large.alert-success::before,
+.alert.alert-large.alert-info::before,
+.alert.alert-large.alert-warning::before,
+.alert.alert-large.alert-danger::before,
+.alert.alert-large.alert-open::before,
+.alert.alert-large.alert-tobeopened::before,
+.alert.alert-large.alert-underreview::before,
+.alert.alert-large.alert-restricted::before {
+  font-size: 60px;
+}
 /* =====================================================
    Generic classes for Colby colours
    ===================================================== */
@@ -317,21 +392,6 @@ div.card p {
   width: 31px;
   height: 35px;
   background-position: -414px -62px;
-}
-.open,.under_review,.to_be_opened,.restricted {
-  color: #4d4d4d;
-}
-.open {
-  background-color: #e6fad2;
-}
-.under_review {
-  background: #d2d1eb;
-}
-.to_be_opened {
-  background-color: #dff3f3
-}
-.restricted {
-  background-color: #fad2d2;
 }
 .stats .number {
   display: block;
