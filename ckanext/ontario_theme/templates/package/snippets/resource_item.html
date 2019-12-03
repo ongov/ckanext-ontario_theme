@@ -47,7 +47,7 @@
       <div>
         {% block resource_item_explore_links %}
             <a href="{{ url }}" class="btn btn-primary">
-              {% if res.has_views %}
+              {% if res.format == "CSV" %}
                 <i class="fa fa-bar-chart-o"></i>
                 {{ _('Preview') }}
               {% else %}
