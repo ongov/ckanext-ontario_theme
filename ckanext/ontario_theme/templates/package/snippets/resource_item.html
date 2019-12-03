@@ -56,15 +56,36 @@
               {% endif %}
             </a>
           {% if res.url and h.is_url(res.url) %}
-            <a href="{{ res.url }}" class="resource-url-analytics btn btn-primary" target="_blank">
               {% if res.has_views or res.url_type == 'upload' %}
-                <i class="fa fa-arrow-circle-o-down"></i>
-                {{ _('Download') }}
+                <div class="btn-wrapper">
+                  <div class="btn-group download">
+                    <a href="{{ res.url }}" class="resource-url-analytics btn btn-primary" target="_blank">
+                      <i class="fa fa-arrow-circle-o-down"></i>
+                      {{ _('Download') }}
+                    </a>
+                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a href="{{ h.url_for(controller='ckanext.datastore.controller:DatastoreController', action='dump', resource_id=res.id, bom=True) }}"
+                          target="_blank"><span>CSV</span></a>
+                        <a href="{{ h.url_for(controller='ckanext.datastore.controller:DatastoreController', action='dump', resource_id=res.id, format='tsv', bom=True) }}"
+                          target="_blank"><span>TSV</span></a>
+                        <a href="{{ h.url_for(controller='ckanext.datastore.controller:DatastoreController', action='dump', resource_id=res.id, format='json') }}"
+                          target="_blank"><span>JSON</span></a>
+                        <a href="{{ h.url_for(controller='ckanext.datastore.controller:DatastoreController', action='dump', resource_id=res.id, format='xml') }}"
+                          target="_blank"><span>XML</span></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               {% else %}
-                <i class="fa fa-external-link"></i>
-                {{ _('Open') }}
+                <a href="{{ res.url }}" class="resource-url-analytics btn btn-primary" target="_blank">
+                  <i class="fa fa-external-link"></i>
+                  {{ _('Open') }}
+                </a>
               {% endif %}
-            </a>
           {% endif %}
           {% if can_edit %}
             <a href="{{ h.url_for(controller='package', action='resource_edit', id=pkg.name, resource_id=res.id) }}" class="btn btn-primary">
