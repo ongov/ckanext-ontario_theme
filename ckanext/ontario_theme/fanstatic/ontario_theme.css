@@ -318,7 +318,7 @@ div.card p {
   height: 35px;
   background-position: -414px -62px;
 }
-.open,.under_review,.to_be_opened,.restricted {
+.open,.under_review,.to_be_opened,.restricted,.label-french,.label-english,.label-english_and_french {
   color: #4d4d4d;
 }
 .open {
@@ -332,6 +332,15 @@ div.card p {
 }
 .restricted {
   background-color: #fad2d2;
+}
+.label-french {
+  background: #d2d1eb;
+}
+.label-english {
+  background-color: #dff3f3
+}
+.label-english_and_french {
+  background-color: #e6fad2;  
 }
 .stats .number {
   display: block;
