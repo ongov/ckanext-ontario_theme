@@ -724,6 +724,21 @@
       "form_placeholder": "yyyy-mm-dd"
     },
     {
+      "field_name": "data_last_updated",
+      "label": {
+        "en": "Data Last Updated",
+        "fr": "Dernière mise à jour des données"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "The last time this data was updated to add or be replaced with more recent data."
+      }, 
+      "classes": ["form-group","col-md-12"],
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_placeholder": "yyyy-mm-dd"
+    },
+    {
       "field_name": "data_range_start",
       "label": {
         "en": "Data range start",
