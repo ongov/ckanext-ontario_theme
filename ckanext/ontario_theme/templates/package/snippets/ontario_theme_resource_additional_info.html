@@ -1,0 +1,42 @@
+  <div class="row vertical-margins">
+    <div class="col-md-4 col-xs-12">
+      <strong>{{_("Last Updated") }}:</strong><br />
+      {% if res.data_last_updated %}
+        {{ h.render_datetime(res.data_last_updated) }}
+      {% else %}
+        <span class="empty">{{ _("None") }}</span>
+      {% endif %}
+      <br />
+      <strong>{{_("Covers") }}:</strong><br />
+      {% if res.data_range_start %}
+        {{ h.render_datetime(res.data_range_start) }} - {{ h.render_datetime(res.data_range_end) }}
+      {% else %}
+        <span class="empty">{{ _("None") }}</span>
+      {% endif %}
+    </div>
+    <div class="col-md-4 col-xs-12">
+      <strong>{{_("File Type") }}:</strong><br />
+      {% if res.type %}
+        {{ h.scheming_choices_label(
+  h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'type')), res.type) }}
+      {% else %}
+        <span class="empty">{{ _("None") }}</span>
+      {% endif %}
+      <br />
+      <strong>{{_("Language") }}:</strong><br />
+      {% if res.language %}
+        {{ h.scheming_choices_label(
+  h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}
+      {% else %}
+        <span class="empty">{{ _("None") }}</span>
+      {% endif %}
+    </div>
+    <div class="col-md-4 col-xs-12">
+      <strong>{{_("File Size") }}:</strong><br />
+      {% if res.size %}
+        {{ h.localised_filesize(res.size) }}
+      {% else %}
+        <span class="empty">{{ _("None") }}</span>
+      {% endif %}  
+    </div>
+  </div>
