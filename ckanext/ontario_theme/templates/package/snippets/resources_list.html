@@ -9,7 +9,11 @@
         {% block resource_list_inner %}
           {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
           {% for group in resources|selectattr("type","equalto","data")|groupby("data_range_start")|sort(attribute="grouper", reverse=True) %}
-            <h4> {{ _("Covers") }} {{group.list[0].data_range_start}} - {{group.list[0].data_range_end}}</h4>
+            {% if group.list[0].data_range_start %}
+              <h4> {{ _("Covers") }} {{group.list[0].data_range_start}} - {{group.list[0].data_range_end}}</h4>
+            {% else %}
+              <h4 class="empty">{{ _("No date range") }}</h4>
+            {% endif %}
             <ul class="{% block resource_list_class %}resource-list{% endblock %}">
             {% for r in group.list|selectattr("format", "equalto", "CSV") %}
               {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=r, can_edit=can_edit, schema=schema %}
