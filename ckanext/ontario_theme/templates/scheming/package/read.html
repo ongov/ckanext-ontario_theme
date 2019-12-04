@@ -21,6 +21,26 @@
       {{ h.render_markdown(h.scheming_language_text(pkg['notes_translated'])) }}
     </div>
   {% endif %}
+  <h3>{{ _("Contact") }}</h3>
+  {% set contact_name = h.get_translated(pkg, 'maintainer') %}
+  {% set contact_email = pkg.maintainer_email %} 
+  {% if (not contact_name) and (not contact_email) %}
+    {% set contact_name = _("Ontario's Open Data Team") %}
+    {% set contact_email = "opendata@ontario.ca" %} 
+  {% endif %}
+  <div>
+    {% if contact_name %}  
+      {{contact_name}}
+    {% endif %}
+    {% if not (contact_name or contact_email) %}
+      &nbsp;|&nbsp;
+    {% endif %}  
+    {% if contact_email %}  
+    <a href="mailto:{{contact_email}}?subject={{pkg.title}}">
+      {{contact_email}}
+    </a>
+    {% endif %}
+  </div>  
   {% if h.scheming_field_by_name(schema.dataset_fields, 'access_level') and
       pkg.access_level %}
       <hr />
