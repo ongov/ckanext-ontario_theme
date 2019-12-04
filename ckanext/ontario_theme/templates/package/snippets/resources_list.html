@@ -3,6 +3,12 @@
 {% block resource_list %}
   {% snippet "package/snippets/ontario_theme_access_level.html",
     pkg=pkg, dataset_type=dataset_type, schema=schema %}
+    {% if pkg.update_frequency %}
+      <p>
+        {{ _("Next expected update") }}: {{h.scheming_choices_label(
+    h.scheming_field_choices(h.scheming_field_by_name(schema.dataset_fields, 'update_frequency')), pkg.update_frequency)}}
+      </p>
+    {% endif %}
   {% if resources %}
     <ul class="{% block resource_list_class %}resource-list{% endblock %}">
       {% block resource_list_inner %}
