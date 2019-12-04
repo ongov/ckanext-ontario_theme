@@ -1,0 +1,43 @@
+<div class="row top-margin">
+  <div class="col-md-4 col-xs-12">
+    <strong>{{ _("Last Validated") }}:</strong><br> 
+    {% if pkg.current_as_of %}
+      {{ h.render_datetime(pkg.current_as_of) }}
+    {% else %}
+      <span class="empty">{{ _("None") }}</span>
+    {% endif %}
+  </div>
+  <div class="col-md-4 col-xs-12">
+    <strong>{{ _("Geographic Coverage") }}</strong><br>
+    {% if pkg.geographic_coverage %}
+      {{ pkg.geographic_coverage }}
+    {% else %}
+      <span class="empty">{{ _("None") }}</span>
+    {% endif %}
+  </div>
+  <div class="col-md-4 col-xs-12">
+    <strong>{{ _("Geographic Breakdown") }}</strong><br>
+    {% if pkg.geographic_granularity %}
+      {{ h.scheming_choices_label(
+h.scheming_field_choices(h.scheming_field_by_name(schema.dataset_fields, 'geographic_granularity')), pkg.geographic_granularity) }}
+    {% else %}
+      <span class="empty">{{ _("None") }}</span>
+    {% endif %}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <strong>{{ _("Tags") }}:</strong>
+    {% snippet "scheming/display_snippets/fluent_tags.html", field=h.scheming_field_by_name(schema.dataset_fields, 'keywords'), data=pkg %}
+
+    <br>
+    <strong>{{ _("Access Instructions") }}:</strong>
+    <br>
+    {% if h.get_translated(pkg, 'access_instructions') %}
+      {{ h.get_translated(pkg, 'access_instructions') }}
+    {% else %}
+      <span class="empty">{{ _("None") }}</span>
+    {% endif %}
+  </div>
+</div>
