@@ -34,7 +34,7 @@
         {% endblock %}
       <h3>{{ _("Supporting Files") }}</h3>
       <ul class="resource-list">
-          {% for resource in resources|rejectattr("type","equalto","data")|sort(attribute='data_last_updated') %}
+          {% for resource in resources|rejectattr("type","equalto","data") %}
             {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=resource, can_edit=can_edit, schema=schema %}
           {% endfor %}
       </ul>
