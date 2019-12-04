@@ -1,0 +1,26 @@
+{% ckan_extends %}
+
+{% block resource_list %}
+  {% snippet "package/snippets/ontario_theme_access_level.html",
+    pkg=pkg, dataset_type=dataset_type, schema=schema %}
+  {% if resources %}
+    <ul class="{% block resource_list_class %}resource-list{% endblock %}">
+      {% block resource_list_inner %}
+        {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
+        {% for resource in resources %}
+          {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=resource, can_edit=can_edit, schema=schema %}
+        {% endfor %}
+      {% endblock %}
+    </ul>
+  {% else %}
+    {% if h.check_access('resource_create', {'package_id': pkg['id']}) %}
+      {% trans url=h.url_for(controller='package', action='new_resource', id=pkg.name) %}
+        <p class="empty">This dataset has no data, <a href="{{ url }}">why not add some?</a></p>
+      {% endtrans %}
+    {% else %}
+      {% if not pkg['access_level'] %}
+        <p class="empty">{{ _('This dataset has no data') }}</p>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endblock %}

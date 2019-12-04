@@ -15,8 +15,8 @@
 .new-alert.alert-warning::before,
 .new-alert.alert-danger::before,
 .new-alert.alert-open::before,
-.new-alert.alert-tobeopened::before,
-.new-alert.alert-underreview::before,
+.new-alert.alert-to_be_opened::before,
+.new-alert.alert-under_review::before,
 .new-alert.alert-restricted::before {
   font-family: "FontAwesome";
   font-size: 36px;
@@ -47,13 +47,13 @@
   content: "\f058";
   color: #2B8737;
 }
-.new-alert.alert-tobeopened::before {
+.new-alert.alert-to_be_opened::before {
   content: "\f017";
   color: #0369AC;
 }
-.new-alert.alert-underreview::before {
+.new-alert.alert-under_review::before {
   content: "\f059";
-  color: #8A600D;
+  color: #92278F;
 }
 .new-alert.alert-restricted::before {
   content: "\f023";
@@ -68,10 +68,31 @@
 .new-alert.alert-large.alert-warning::before,
 .new-alert.alert-large.alert-danger::before,
 .new-alert.alert-large.alert-open::before,
-.new-alert.alert-large.alert-tobeopened::before,
-.new-alert.alert-large.alert-underreview::before,
+.new-alert.alert-large.alert-to_be_opened::before,
+.new-alert.alert-large.alert-under_review::before,
 .new-alert.alert-large.alert-restricted::before {
   font-size: 60px;
+}
+.new-alert.alert-open, 
+.new-alert.alert-under_review, 
+.new-alert.alert-to_be_opened, 
+.new-alert.alert-restricted {
+  color: #4d4d4d;
+}
+.new-alert.alert-open {
+  background-color: #e6fad2;
+}
+.new-alert.alert-under_review {
+  background-color: #F1E3F2;
+}
+.new-alert.alert-to_be_opened {
+  background-color: #dff3f3
+}
+.new-alert.alert-restricted {
+  background-color: #fad2d2;
+}
+.new-alert.alert-clear {
+  margin-bottom: 30px;
 }
 /* =====================================================
    Generic classes for Colby colours
