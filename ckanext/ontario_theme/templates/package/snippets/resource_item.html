@@ -21,6 +21,11 @@
       </a>
     {% endblock %}
     {% block resource_item_description %}
+      {% if res.data_last_updated %}  
+        <p class="description details"> 
+          {{ _("Last Updated") }}: {{ h.render_datetime(res.data_last_updated) }}
+        </p>  
+      {% endif %} 
       <p class="description">
         {% if res.description %}
           {{ h.markdown_extract(h.get_translated(res, 'description'), extract_length=80) }}
