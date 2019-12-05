@@ -68,7 +68,7 @@
       }
     },
     {
-      "field_name": "geographic_coverage",
+      "field_name": "geographic_coverage_translated",
       "label": {
         "en": "Geographic coverage",
         "fr": "Couverture géographique"
@@ -162,18 +162,18 @@
       "classes": ["col-md-12","form-group"]
     },
     {
-      "field_name": "maintainer",
+      "field_name": "maintainer_translated",
       "label": {
         "en": "Maintainer",
         "fr": "Mainteneur"
       },
       "help_inline" : true,
-      "required": "true",
       "help_text": {
         "en": "Name of a person or organization within the OPS that can be contacted about the resource"
       },
       "form_placeholder": "e.g., Joe Bloggs",
       "display_property": "dc:contributor",
+      "preset": "fluent_text",
       "classes": ["col-md-12","form-group"]
     },
     {
@@ -183,7 +183,6 @@
         "fr": "Email du mainteneur"
       },
       "help_inline" : true,
-      "required": "true",
       "help_text": {
         "en": "Contact information of a person or organization within the OPS that can be contacted about the resource"
       },

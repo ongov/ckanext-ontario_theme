@@ -5,6 +5,8 @@
 <section id="dataset-resources" class="resources">
   <h3>{{ _('Data') }}</h3>
   {% block resource_list %}
+    {% snippet "package/snippets/ontario_theme_access_level.html",
+      pkg=pkg, dataset_type=dataset_type, schema=schema %}
     {% if resources %}
         {% block resource_list_inner %}
           {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
