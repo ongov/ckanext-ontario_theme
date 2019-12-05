@@ -414,6 +414,30 @@ div.card p {
   height: 35px;
   background-position: -414px -62px;
 }
+.open,.under_review,.to_be_opened,.restricted,.label-french,.label-english,.label-english_and_french {
+  color: #4d4d4d;
+}
+.open {
+  background-color: #e6fad2;
+}
+.under_review {
+  background: #d2d1eb;
+}
+.to_be_opened {
+  background-color: #dff3f3
+}
+.restricted {
+  background-color: #fad2d2;
+}
+.label-french {
+  background: #d2d1eb;
+}
+.label-english {
+  background-color: #dff3f3
+}
+.label-english_and_french {
+  background-color: #e6fad2;  
+}
 .stats .number {
   display: block;
   font-size: 60px;
@@ -578,6 +602,15 @@ div.add-dataset {
 .resource-item .format-label {
   top: 0px;
   left: -35px;
+}
+li.resource-item .btn-group.download {
+  position: unset;
+  top: unset;
+  right: unset;
+}
+li.resource-item div.btn-wrapper {
+  position: relative;
+  display: inline-block;
 }
 .hero {
   background-image: none;

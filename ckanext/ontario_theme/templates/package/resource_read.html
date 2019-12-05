@@ -62,3 +62,9 @@
   {% snippet "package/snippets/ontario_theme_resource_additional_info.html",
     res=res, dataset_type=dataset_type, schema=schema %}
 {% endblock%}
+
+{% block data_preview %}
+  {% if res.format == "CSV" %}
+    {{ super() }}
+  {% endif %}  
+{% endblock %}
