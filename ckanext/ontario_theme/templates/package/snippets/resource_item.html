@@ -21,16 +21,24 @@
       </a>
     {% endblock %}
     {% block resource_item_description %}
-      {% if res.data_last_updated %}  
+      {% if res.data_last_updated or res.language %}
         <p class="description details"> 
-          {{ _("Last Updated") }}: {{ h.render_datetime(res.data_last_updated) }}
-        </p>  
-      {% endif %} 
+          {% if res.data_last_updated %}
+            {{ _("Last Updated") }}: {{ h.render_datetime(res.data_last_updated) }} | 
+          {% endif %}
+          {% if res.language %}
+            <span class="label label-{{res.language}}">
+              {{ h.scheming_choices_label(
+  h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}
+            </span>
+          {% endif %}
+        </p>
+      {% endif %}    
       <p class="description">
         {% if res.description %}
           {{ h.markdown_extract(h.get_translated(res, 'description'), extract_length=80) }}
         {% endif %}
-      </p>
+      </p>      
     {% endblock %}
   </div>
   <div class="col-md-6 col-xs-12 text-right">
@@ -39,7 +47,7 @@
       <div>
         {% block resource_item_explore_links %}
             <a href="{{ url }}" class="btn btn-primary">
-              {% if res.has_views %}
+              {% if res.format == "CSV" %}
                 <i class="fa fa-bar-chart-o"></i>
                 {{ _('Preview') }}
               {% else %}

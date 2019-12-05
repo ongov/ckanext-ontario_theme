@@ -49,3 +49,9 @@
   </li>
 {% endif %}
 {% endblock %}
+
+{% block data_preview %}
+  {% if res.format == "CSV" %}
+    {{ super() }}
+  {% endif %}  
+{% endblock %}
