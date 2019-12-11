@@ -13,13 +13,19 @@ import time
 import urllib
 from logging import getLogger
 
-from ckan.common import config, request, response, g
+from ckan.common import config, request, response, g, is_flask_request
 import ckan.lib.base as base
+import ckan.plugins.toolkit as toolkit
+import ckan.views as views
+
+import flask
 
 LOG = getLogger(__name__)
 
 RAW_RENDER_JINJA = base.render_jinja2
 RAW_BEFORE = base.BaseController.__before__
+RAW_RENDER = base.render
+RAW_IDENTIFY_USER = views.identify_user
 
 """ Used as the cookie name and input field name.
 """
@@ -54,10 +60,8 @@ def is_logged_in():
     """
     return _get_user()
 
-def anti_csrf_render_jinja2(template_name, extra_vars=None):
-    """ Wrap the core page-rendering function and inject tokens into HTML where appropriate.
-    """
-    html = apply_token(RAW_RENDER_JINJA(template_name, extra_vars))
+def anti_csrf_render(template_name, extra_vars=None, *pargs, **kwargs):
+    html = apply_token(RAW_RENDER(template_name, extra_vars, *pargs, **kwargs))
     return html
 
 def apply_token(html):
@@ -94,11 +98,10 @@ def _get_cookie_token():
     """
     token = None
     if request.cookies.has_key(TOKEN_FIELD_NAME):
-        LOG.debug("Obtaining token from cookie")
+        LOG.debug("_get_cookie_token(): Obtaining token from cookie")
         token = request.cookies.get(TOKEN_FIELD_NAME)
     if token is None or token.strip() == "":
         csrf_fail("CSRF token is blank")
-
     return token
 
 def _get_user():
@@ -166,7 +169,7 @@ def _get_response_token():
         LOG.debug("Reusing response token from request attributes")
         token = request.response_token
     elif request.cookies.has_key(TOKEN_FIELD_NAME):
-        LOG.debug("Obtaining token from cookie")
+        LOG.debug("_get_response_token(): Obtaining token from cookie")
         token = request.cookies.get(TOKEN_FIELD_NAME)
         if not validate_token(token) or is_soft_expired(token):
             LOG.debug("Invalid or expired cookie token; making new token cookie")
@@ -220,14 +223,21 @@ def create_response_token():
 def _set_response_token_cookie(token):
     """ Add a generated token cookie to the HTTP response
     """
-    response.set_cookie(TOKEN_FIELD_NAME, token, secure=True, httponly=True)
+    try:
+        # Flask requests are handled in the after_request.
+        if not is_flask_request():
+            response.set_cookie(TOKEN_FIELD_NAME, token, secure=True, httponly=True)
+            LOG.error(response)
+    except Exception as e:
+        LOG.error(e)
+        LOG.error("Setting response cookie failed.")
 
 def is_request_exempt():
     """ Determine whether a request needs to provide a token.
     HTTP methods without side effects (GET, HEAD, OPTIONS) are exempt, as are API calls
     (which should instead provide an API key).
     """
-    return not is_logged_in() or API_URL.match(request.path) or request.method in {'GET', 'HEAD', 'OPTIONS'}
+    return (not is_logged_in() or bool(API_URL.match(request.path)) or request.method in {'GET', 'HEAD', 'OPTIONS'})
 
 def anti_csrf_before(obj, action, **params):
     """ Wrap the core pre-rendering function to require tokens on applicable requests.
@@ -236,6 +246,7 @@ def anti_csrf_before(obj, action, **params):
 
     if not is_request_exempt() and _get_cookie_token() != _get_post_token():
         csrf_fail("Could not match session token with form token")
+
 
 def csrf_fail(message):
     """ Abort the request and return an error when there is a problem with the CSRF token.
@@ -255,29 +266,41 @@ def _get_post_token():
 
     # handle query string token if there are no POST parameters
     # this is needed for the 'confirm-action' JavaScript module
-    if not request.POST and len(request.GET.getall(TOKEN_FIELD_NAME)) == 1:
-        request.token = request.GET.getone(TOKEN_FIELD_NAME)
-        del request.GET[TOKEN_FIELD_NAME]
-        return request.token
+    try:
+        if (not request.method == 'POST') and (request.args.get(TOKEN_FIELD_NAME) and len(request.args.get(TOKEN_FIELD_NAME)) == 1):
+            request.token = request.GET.getone(TOKEN_FIELD_NAME)
+            if request.args.get(TOKEN_FIELD_NAME):
+                del request.args[TOKEN_FIELD_NAME]
+            return request.token
+    except Exception as e:
+        LOG.error(e)
 
-    post_tokens = request.POST.getall(TOKEN_FIELD_NAME)
+    post_tokens = request.form.getlist(TOKEN_FIELD_NAME)
+
     if not post_tokens:
         csrf_fail("Missing CSRF token in form submission")
     elif len(post_tokens) > 1:
         csrf_fail("More than one CSRF token in form submission")
     else:
         request.token = post_tokens[0]
-
     # drop token from request so it doesn't populate resource extras
-    del request.POST[TOKEN_FIELD_NAME]
+    #del request.form.get[TOKEN_FIELD_NAME]
 
     if not validate_token(request.token):
         csrf_fail("Invalid token format")
 
     return request.token
 
+
+def anti_csrf_ckan_before_request():
+    if (not is_request_exempt() and (_get_cookie_token() != _get_post_token())):
+        csrf_fail("Could not match session token with form token")
+
+
+
 def intercept_csrf():
     """ Monkey-patch the core rendering methods to apply our CSRF tokens.
     """
-    base.render_jinja2 = anti_csrf_render_jinja2
-    base.BaseController.__before__ = anti_csrf_before
+    base.render = anti_csrf_render
+#    base.BaseController.__before__ = anti_csrf_before
+

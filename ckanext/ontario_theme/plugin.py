@@ -1,12 +1,14 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
-from ckan.common import config
+from ckan.common import config, is_flask_request
 
 from flask import Blueprint, make_response
 from flask import render_template, render_template_string
 
 import ckanapi_exporter.exporter as exporter
 import json
+
+import anti_csrf as anti_csrf
 
 from ckan.model import Package
 
@@ -280,6 +282,11 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.IPackageController)
 
+
+    def __init__(self, **kwargs):
+        anti_csrf.intercept_csrf()
+
+
     # IConfigurer
 
     def update_config(self, config_):
@@ -305,6 +312,17 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
         '''
 
         blueprint = Blueprint(self.name, self.__module__)
+        @blueprint.after_app_request
+        def after_app_request(response):
+            #if is_flask_request():
+            #    token = anti_csrf.create_response_token()
+            #    response.set_cookie(anti_csrf.TOKEN_FIELD_NAME, token, secure=True, httponly=True)
+            return response
+
+        @blueprint.before_app_request
+        def before_app_request():
+            anti_csrf.anti_csrf_ckan_before_request()
+            print('before app request')
         blueprint.template_folder = u'templates'
         # Add url rules to Blueprint object.
         rules = [
