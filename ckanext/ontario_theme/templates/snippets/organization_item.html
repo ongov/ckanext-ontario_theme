@@ -6,11 +6,11 @@
   }
 {% endblock %}
 {% block organization_item_header_description %}
-  {% if h.get_translated(organization,"description") %}
+  {% if h.get_translated(organization,"notes") %}
     {% if truncate == 0 %}
-      <p>{{ h.markdown_extract(h.get_translated(organization,"description"))|urlize }}</p>
+      <p>{{ h.markdown_extract(h.get_translated(organization,"notes"))|urlize }}</p>
     {% else %}
-      <p>{{ h.markdown_extract(h.get_translated(organization,"description"), truncate)|urlize }}</p>
+      <p>{{ h.markdown_extract(h.get_translated(organization,"notes"), truncate)|urlize }}</p>
     {% endif %}
   {% endif %}
 {% endblock %}
