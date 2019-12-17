@@ -23,7 +23,7 @@ RAW_BEFORE = base.BaseController.__before__
 
 """ Used as the cookie name and input field name.
 """
-TOKEN_FIELD_NAME = 'token'
+TOKEN_FIELD_NAME = 'pylons_token'
 
 """
 This will match a POST form that has whitespace after the opening tag (which all existing forms do).

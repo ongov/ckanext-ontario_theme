@@ -1,19 +1,21 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 from ckan.common import config, is_flask_request
+import ckan.lib.base as base
 
 from flask import Blueprint, make_response
-from flask import render_template, render_template_string
+from flask import render_template, request
 
 import ckanapi_exporter.exporter as exporter
 import json
 
-import anti_csrf as anti_csrf
+
+import anti_csrf3
+import orig_anti_csrf
 
 from ckan.model import Package
 
 from resource_upload import ResourceUpload
-
 import logging
 log = logging.getLogger(__name__)
 
@@ -281,11 +283,24 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IDatasetForm)
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.IPackageController)
+#    plugins.implements(plugins.IMiddleware, inherit=True)
+
 
 
     def __init__(self, **kwargs):
-        anti_csrf.intercept_csrf()
+        #csrf = anti_csrf2_pylons.CSRFPylons(request, response)
+        #csrf()
+        #token = anti_csrf2_pylons._get_post_token()
 
+        #anti_csrf2_pylons.intercept()
+        orig_anti_csrf.intercept_csrf()
+
+
+    # IMiddleware
+
+#    def make_middleware(self, app, config):
+#        csrf = CSRFMiddleware(app, config)
+#        return csrf
 
     # IConfigurer
 
@@ -312,17 +327,27 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
         '''
 
         blueprint = Blueprint(self.name, self.__module__)
-        @blueprint.after_app_request
-        def after_app_request(response):
-            #if is_flask_request():
-            #    token = anti_csrf.create_response_token()
-            #    response.set_cookie(anti_csrf.TOKEN_FIELD_NAME, token, secure=True, httponly=True)
-            return response
+
 
         @blueprint.before_app_request
         def before_app_request():
-            anti_csrf.anti_csrf_ckan_before_request()
-            print('before app request')
+            '''Abort invalid Flask requests based on CSRF token.
+            '''
+            print(request)
+            if not anti_csrf3.is_valid():
+                log.debug("Invalid CSRF attempt.")
+                extra_vars = {'code': [403], 'content': 'Your form submission could not be validated.'}
+                return base.render('error_document_template.html', extra_vars=extra_vars)
+
+
+        @blueprint.after_app_request
+        def after_app_request(response):
+            '''Update every Flask response with CSRF token.
+            '''
+            anti_csrf3.after_request_function(response)
+            return response
+
+
         blueprint.template_folder = u'templates'
         # Add url rules to Blueprint object.
         rules = [
