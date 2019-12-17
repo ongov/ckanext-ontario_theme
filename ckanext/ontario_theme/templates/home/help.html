@@ -32,33 +32,6 @@
         <p>
           {% trans %}A. Try using the <a href="/dataset" target="_blank">catalogue search page</a>. Enter your keywords in the search bar and refine your search, using the filters provided.{% endtrans %}
         </p>
-        <p>
-          {% trans %}If you still cannot find the dataset you want, there may be a couple of reasons why.{% endtrans %}
-        </p>
-        <p>
-          {% trans %}The dataset you want may:{% endtrans %}
-        </p>
-        <ul>
-          <li>
-            {% trans %}not be listed in the beta catalogue, but can be found in the <a href="http://www.ontario.ca/data" target="_blank">current catalogue</a>. While the beta catalogue is in its testing phase, it will have some, but not all, of the datasets from the data catalogue.{% endtrans %}
-            <ul>
-              <li>
-                {% trans %}<a href="http://www.ontario.ca/data">Search the current data catalogue</a>{% endtrans %}
-              </li>
-              <li>
-                {% trans %}<a href="/about#beta">Learn more about the beta stage</a>{% endtrans %}
-              </li>
-            </ul>
-          </li>
-          <li>
-            {% trans %}not be listed in the beta catalogue or in the current catalogue{% endtrans %}
-            <ul>
-              <li>
-                {% trans %}Email us at <a href="mailto:opengov@ontario.ca">opengov@ontario.ca</a> or <a href="https://www.ontario.ca/feedback/contact-us?id=14655&nid=74524">use our contact form</a> to tell us what data you are looking for. We will review your request and reply.{% endtrans %} 
-              </li>
-           </ul>
-          </li>
-        </ul>
       </div>
 
 
@@ -241,51 +214,51 @@
           <li>
             {% trans %}Any dataset is updated or added to the catalogue{% endtrans %}<br />
             <strong>
-              RSS URL: stage.data.ontario.ca/feeds/dataset.atom
+              RSS URL: data.ontario.ca/feeds/dataset.atom
             </strong>
           </li>
           <li>
             {% trans %}A specific dataset is updated{% endtrans %}
             <br />
             <strong>
-              RSS URL: stage.data.ontario.ca/feeds/dataset.atom?id=[{% trans %}name-of-specific-dataset{% endtrans %}]
+              RSS URL: data.ontario.ca/feeds/dataset.atom?id=[{% trans %}name-of-specific-dataset{% endtrans %}]
             </strong>
             <br />
             <em>
-              {% trans %}Example{% endtrans %}: stage.data.ontario.ca/feeds/dataset.atom?id=zooplankton-monitoring
+              {% trans %}Example{% endtrans %}: data.ontario.ca/feeds/dataset.atom?id=zooplankton-monitoring
             </em>
           </li>
           <li>
             {% trans %}A dataset with a specific tag is updated or added{% endtrans %}
             <br />
             <strong>
-              RSS URL: stage.data.ontario.ca/feeds/tag/[{% trans %}name-of-tag{% endtrans %}].atom
+              RSS URL: data.ontario.ca/feeds/tag/[{% trans %}name-of-tag{% endtrans %}].atom
             </strong>
             <br />
             <em>
-              {% trans %}Example{% endtrans %}: stage.data.ontario.ca/feeds/tag/pepper.atom
+              {% trans %}Example{% endtrans %}: data.ontario.ca/feeds/tag/pepper.atom
             </em>
           </li>
           <li>
             {% trans %}A dataset based on your custom search term is updated or added{% endtrans %}
             <br />
             <strong>
-              RSS URL: stage.data.ontario.ca/feeds/custom.atom?q=[{% trans %}custom search term{% endtrans %}]
+              RSS URL: data.ontario.ca/feeds/custom.atom?q=[{% trans %}custom search term{% endtrans %}]
             </strong>
             <br />
             <em>
-              {% trans %}Example{% endtrans %}: stage.data.ontario.ca/feeds/custom.atom?q=apple
+              {% trans %}Example{% endtrans %}: data.ontario.ca/feeds/custom.atom?q=apple
             </em>
           </li>
           <li>
             {% trans %}A specific ministry updates or adds a dataset{% endtrans %}
             <br />
             <strong>
-              RSS URL: stage.data.ontario.ca/feeds/organization/[{% trans %}name-of-specific-ministry{% endtrans %}].atom
+              RSS URL: data.ontario.ca/feeds/organization/[{% trans %}name-of-specific-ministry{% endtrans %}].atom
             </strong>
             <br />
             <em>
-              {% trans %}Example{% endtrans %}: stage.data.ontario.ca/feeds/organization/agriculture-food-and-rural-affairs.atom
+              {% trans %}Example{% endtrans %}: data.ontario.ca/feeds/organization/agriculture-food-and-rural-affairs.atom
             </em>
           </li>
         </ul>

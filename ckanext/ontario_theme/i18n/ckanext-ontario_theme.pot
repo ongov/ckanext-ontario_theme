@@ -221,28 +221,8 @@ msgid ""
 "reasons why."
 msgstr ""
 
-#: ckanext/ontario_theme/templates/home/help.html:39
-msgid "The dataset you want may:"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/home/help.html:43
-msgid ""
-"not be listed in the beta catalogue, but can be found in the <a "
-"href=\"http://www.ontario.ca/data\" target=\"_blank\">current catalogue</a>. "
-"While the beta catalogue is in its testing phase, it will have some, but not "
-"all, of the datasets from the data catalogue."
-msgstr ""
-
 #: ckanext/ontario_theme/templates/home/help.html:46
 msgid "<a href=\"http://www.ontario.ca/data\">Search the current data catalogue</a>"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/home/help.html:49
-msgid "<a href=\"/about#beta\">Learn more about the beta stage</a>"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/home/help.html:54
-msgid "not be listed in the beta catalogue or in the current catalogue"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/help.html:57
@@ -621,7 +601,7 @@ msgid "New features"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_featured_content.html:30
-msgid "Discover some of the new features of our beta catalogue."
+msgid "Discover some of the new features of our catalogue."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_featured_content.html:36
@@ -639,7 +619,7 @@ msgid ""
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:9
-msgid "Welcome to the beta version of the Ontario Data catalogue!"
+msgid "Welcome to the Ontario Data catalogue!"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:10
