@@ -29,6 +29,9 @@
       <p>{% trans dataset=c.package.title, url=h.url_for(controller='package', action='read', id=c.package['name']) %}Source: <a href="{{ url }}">{{ dataset }}</a>{% endtrans %}
     {% endif %}
   </div>
+  {% snippet "package/snippets/ontario_theme_resource_additional_info.html",
+    res=res, dataset_type=dataset_type, schema=schema %}
+  <br />
 {% endblock %}
 
 {% block resource_additional_information_inner %}
