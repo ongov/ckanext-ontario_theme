@@ -1,6 +1,8 @@
 # encoding: utf-8
 import ckan.logic as logic
-from ckan.plugins.toolkit import Invalid
+import ckan.lib.navl.dictization_functions as df
+missing = df.missing
+from six.moves.urllib.parse import urlparse
 from werkzeug.utils import secure_filename
 
 from ckan.lib.uploader import ResourceUpload as DefaultResourceUpload
@@ -45,11 +47,30 @@ def accepted_resource_formats():
     return resource_formats
 
 
-def allowed_file(filename):
-    '''Returns boolean. Checks if the file extension is acceptable.
+
+def allowed_file(url, resource):
+    ''' Validates url (filename). Returns url or raises Invalid exception.
     '''
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].upper() in accepted_resource_formats()
+    try:
+        if url is missing or not url or url.startswith('http'):
+            # If there is no url or if its a link, the resource should be removed.
+            # Unlikely but possible to alter URL field and not "remove" the resource.
+            # Altering an URL with http://filename.ext changes the uploaded filename, allowing someone to by-pass validation below.
+            # full resource dict isn't available here, only the form dict values, so can't rely on other fields like `url_type`.
+            resource['clear_upload'] = 'true'
+            return url
+        # Using urlparse to handle any query strings.
+        filename = os.path.basename(urlparse(url).path)
+        # Only accepting single extensions (e.g. no filename.tar.gz).
+        # Otherwise I'd have to check the combinations but this isnt needed at
+        # this time.
+        if filename.count('.') != 1 or not filename.rsplit('.', 1)[1].upper() in accepted_resource_formats():
+            raise logic.ValidationError({'Upload': ['Filetype not supported.']})
+        return url
+    except Exception as e:
+        log.error("ERROR")
+        log.error(e)
+        raise logic.ValidationError({'Upload': ['Filetype not supported.']})
 
 
 class ResourceUpload(DefaultResourceUpload):
@@ -71,6 +92,8 @@ class ResourceUpload(DefaultResourceUpload):
         self.mimetype = None
 
         url = resource.get('url')
+
+        url = allowed_file(url, resource)
 
         upload_field_storage = resource.pop('upload', None)
         self.clear = resource.pop('clear_upload', None)
@@ -96,23 +119,6 @@ class ResourceUpload(DefaultResourceUpload):
             # go back to the beginning of the file buffer
             self.upload_file.seek(0, os.SEEK_SET)
 
-            # MODIFICATION START
-            # Note: If resubmitting a failed form without clearing the file
-            # the ResourceUpload.upload function would be called skipping the
-            # init call.
-            if not allowed_file(self.filename):
-                log.error('Upload: Invalid upload file format.{}'.format
-                    (self.filename))
-                # remove file - by default a resource can be added without any
-                # values
-                resource['url'] = None
-                resource['url_type'] = ''
-                raise logic.ValidationError(
-                    {'upload':
-                     ['Invalid upload file format, file has been removed.']}
-                )
-            # MODIFICATION END
-
             # check if the mimetype failed from guessing with the url
             if not self.mimetype and config_mimetype_guess == 'file_ext':
                 self.mimetype = mimetypes.guess_type(self.filename)[0]
@@ -128,3 +134,4 @@ class ResourceUpload(DefaultResourceUpload):
 
         elif self.clear:
             resource['url_type'] = ''
+
