@@ -52,6 +52,22 @@ class TestResourceCreate(object):
     def setup_class(cls):
         helpers.reset_db()
 
+    def teardown(self):
+        '''Nose runs this method after each test method in our test class.'''
+        # Rebuild CKAN's database after each test method, so that each test
+        # method runs with a clean slate.
+        model.repo.rebuild_db()
+
+    @classmethod
+    def teardown_class(cls):
+        '''Nose runs this method once after all the test methods in our class
+        have been run.
+
+        '''
+        # We have to unload the plugin we loaded, so it doesn't affect any
+        # tests that run after ours.
+        plugins.unload(u'ontario_theme')
+
     def setup(self):
         self.app = helpers._get_test_app()
 
@@ -97,9 +113,20 @@ class TestResourceCreate(object):
         ''')
         test_resource = TestResourceCreate.FakeFileStorage(test_file, 'test.json')
 
+        dataset = helpers.call_action(
+            'package_create',
+            name='package-name',
+            maintainer='Joe Smith',
+            maintainer_email='Joe.Smith@ontario.ca',
+            title_translated={
+                'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
+            notes_translated={'en': u'short description', 'fr': u'...'}
+            )
+        assert_equals(dataset['name'], 'package-name')
+
         context = {}
         params = {
-            'package_id': factories.Dataset()['id'],
+            'package_id': dataset['id'],
             'url': 'http://data',
             'name': 'A nice resource',
             'upload': test_resource
@@ -143,9 +170,20 @@ class TestResourceCreate(object):
         test_resource = TestResourceCreate.FakeFileStorage(test_file,
             'test.html')
 
+        dataset = helpers.call_action(
+            'package_create',
+            name='package-name',
+            maintainer='Joe Smith',
+            maintainer_email='Joe.Smith@ontario.ca',
+            title_translated={
+                'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
+            notes_translated={'en': u'short description', 'fr': u'...'}
+            )
+        assert_equals(dataset['name'], 'package-name')
+
         context = {}
         params = {
-            'package_id': factories.Dataset()['id'],
+            'package_id': dataset['id'],
             'url': 'http://data',
             'name': 'A nice resource',
             'upload': test_resource
@@ -189,9 +227,20 @@ class TestResourceCreate(object):
         test_resource = TestResourceCreate.FakeFileStorage(test_file,
             'test.exe')
 
+        dataset = helpers.call_action(
+            'package_create',
+            name='package-name',
+            maintainer='Joe Smith',
+            maintainer_email='Joe.Smith@ontario.ca',
+            title_translated={
+                'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
+            notes_translated={'en': u'short description', 'fr': u'...'}
+            )
+        assert_equals(dataset['name'], 'package-name')
+
         context = {}
         params = {
-            'package_id': factories.Dataset()['id'],
+            'package_id': dataset['id'],
             'url': 'http://data',
             'name': 'A nice resource',
             'upload': test_resource

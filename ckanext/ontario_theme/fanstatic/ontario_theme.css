@@ -299,6 +299,21 @@ a.card:hover {
   height: 35px;
   background-position: -414px -62px;
 }
+.open,.under_review,.to_be_opened,.restricted {
+  color: #4d4d4d;
+}
+.open {
+  background-color: #e6fad2;
+}
+.under_review {
+  background: #d2d1eb;
+}
+.to_be_opened {
+  background-color: #dff3f3
+}
+.restricted {
+  background-color: #fad2d2;
+}
 .stats .number {
   display: block;
   font-size: 60px;
@@ -431,13 +446,9 @@ div.add-dataset {
 .media-view {
   border: none;
 }
-li.resource-item > div {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 20px;
-  height: 30px;
-  margin: auto;
+.resource-item .format-label {
+  top: 0px;
+  left: -35px;
 }
 .hero {
   background-image: none;
@@ -541,28 +552,11 @@ table.table tbody tr td.dataset-details {
   }
 }
 /* =====================================================
-   Move resource items buttons under resource title in smaller screen
-   ===================================================== */
-@media (max-width: 768px) {
-  li.resource-item {
-    float: left;
-    width: 100%;
-  }
-  li.resource-item > div {
-    right: 0px;
-    position: relative;
-  }
-  li.resource-item > div a {
-    float: right;
-    margin: 2px;
-  }
-}
-/* =====================================================
    The "account masthead" bar across the top of the site
    ===================================================== */
 .account-masthead {
   background-color: #333;
-  padding-top: 0.5rem;
+  padding: 1.5rem 0;
   min-height: 64px;
 }
 /* The "bubble" containing the number of new notifications. */
@@ -585,7 +579,7 @@ table.table tbody tr td.dataset-details {
   display: block;
   float: left;
   border-left: none;
-  padding: 0.75rem 0;
+  padding: 0;
   margin-bottom: 0 !important;
 }
 /* ========================================================================
@@ -606,8 +600,12 @@ table.table tbody tr td.dataset-details {
   font-size: 24px;
   line-height: 1.5;
   font-weight: 600;
-  padding-left: 0em;
   margin: 0;
+}
+@media only screen and (max-width: 768px) {
+  .masthead hgroup h1 {
+    padding-top: 9px;
+  }
 }
 .masthead hgroup h1 sup {
   font-size: 60%;
@@ -636,11 +634,11 @@ table.table tbody tr td.dataset-details {
   font-size: 15px;
 }
 .logo img {
-  height: 45px;
+  width: 153px;
 }
-@media (max-width: 527px) {
+@media only screen and (max-width: 768px) {
   .logo img {
-    height: 33px;
+    width: 125px;
   }
 }
 footer.site-footer {

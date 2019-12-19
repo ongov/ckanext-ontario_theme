@@ -1,0 +1,831 @@
+{
+  "scheming_version": 1,
+  "dataset_type": "dataset",
+  "about": "Internal data catalogue dataset schema",
+  "about_url": "",
+  "form_languages": ["en", "fr"],
+  "dataset_fields": [
+    {
+      "field_name": "title_translated",
+      "label": {
+        "en": "Title",
+        "fr": "Titre"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "Add a simple, descriptive, short (100 characters or less) title that everyone will understand (you can include the \"technical title\" for subject matter experts in your description). If there is no French title, please use an online translation tool to make one."
+      },
+      "classes": ["form-group","col-md-12"],
+      "preset": "fluent_core_translated",
+      "form_placeholder": "e.g., A descriptive title",
+      "required": "true",
+      "fieldset": 1,
+      "fieldset_name": "Describing the resource",
+      "form_snippet": "extrafields_fluent_title.html"
+    },
+    {
+      "field_name": "name",
+      "label": "URL",
+      "preset": "dataset_slug",
+      "form_placeholder": "eg. my-dataset"
+    },
+    {
+      "field_name": "notes_translated",
+      "label": {
+        "en": "Description",
+        "fr": "La description"
+      },
+      "help_inline" : true,
+      "required": "true",
+      "help_text": {
+        "en": "Add a general, plain language description that everyone within the OPS can understand and provides context for these resources. Feel free to link to other pages (e.g., links to your program area, ministry, similar resources). If there is no French description, please include the English description in the French field."
+      },
+      "classes": ["form-group","col-md-12"],
+      "preset": "fluent_core_translated",
+      "form_snippet": "fluent_markdown.html",
+      "form_placeholder": "e.g., Some useful notes about the data"
+    },
+    {
+      "field_name": "keywords",
+      "label": {
+        "en": "Tags",
+        "fr": "Mots clés"
+      },
+      "fieldset": 2,
+      "fieldset_name": "Details",
+      "fieldset_subtitle": "Help others find this resource. This will add context and make it easier to find.",
+      "help_inline" : true,
+      "help_text": {
+        "en": "Help people find this resource by adding terms they might think of when looking for it. You can use \n OPS terms like \"Transfer Payments\" \n descriptive terms like \"remoteness index\", \"temperatures\" \n or associated terms like \"economy\", \"housing\", \"climate change\""
+      },
+      "preset": "fluent_tags",
+      "form_placeholder": "e.g., housing, GDP per capita, greenhouse gas mitigation",
+      "classes": ["form-group","col-md-6"],
+      "form_attrs": {
+        "data-module": "autocomplete",
+        "data-module-tags": "e.g., housing, GDP per capita",
+        "data-module-source": "/api/2/util/tag/autocomplete?incomplete=?"
+      }
+    },
+    {
+      "field_name": "geographic_coverage",
+      "label": {
+        "en": "Geographic coverage",
+        "fr": "Couverture géographique"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "What geographic area does this resource describe/cover?"
+      },
+      "classes": ["col-md-12","form-group"],      
+      "preset": "fluent_text",
+      "form_placeholder": "e.g., Ontario"
+    },
+    {
+      "field_name": "geographic_granularity",
+      "label": {
+        "en": "Geography Breakdown",
+        "fr": "Géographie de données individuelles"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "Does this resource have data that breaks down by smaller geographies (e.g., municipalities, census sub-division, cities, watersheds)?"
+      }, 
+      "preset": "select",
+      "validators": "ignore_missing scheming_choices",
+      "classes": ["form-group","col-md-12"],
+      "choices": [
+        {
+          "value": "",
+          "label": {
+            "en": "None",
+            "fr": "Aucun"
+          }
+        },
+        {
+          "value": "csd",
+          "label": {
+            "en": "Census Sub-Division",
+            "fr": "Subdivision de recensement"
+          }
+        },
+        {
+          "value": "watershed",
+          "label": {
+            "en": "Watershed",
+            "fr": "Bassin versant"
+          }
+        },
+        {
+          "value": "cd",
+          "label": {
+            "en": "Census Division",
+            "fr": "Division de recensement"
+          }
+        },
+        {
+          "value": "municipality",
+          "label": {
+            "en": "Municipality",
+            "fr": "Municipalité"
+          }
+        }
+      ]
+    }, 
+    {
+      "field_name": "url",
+      "label": {
+        "en": "Source URL/Address",
+        "fr": "URL d'origine"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "Is there a webpage that describes this resource? Link to it here."
+      },
+      "form_placeholder": "e.g., http://example.com/description-of-this-dataset",
+      "display_property": "foaf:homepage",
+      "display_snippet": "link.html",
+      "classes": ["form-group","col-md-12"]
+    },
+    {
+      "field_name": "owner_org",
+      "label": "Ministry",
+      "fieldset": 3,
+      "fieldset_name": "Contributors", 
+      "fieldset_subtitle" : "In addition to the maintainer, who else is involved? Let users know who to contact and who to attribute.",
+      "help_inline" : true,
+      "required": "true",
+      "help_text": {
+        "en": "The ministry managing this resource within the OPS"
+      },
+      "preset": "dataset_organization",
+      "classes": ["col-md-12","form-group"]
+    },
+    {
+      "field_name": "maintainer",
+      "label": {
+        "en": "Maintainer",
+        "fr": "Mainteneur"
+      },
+      "help_inline" : true,
+      "required": "true",
+      "help_text": {
+        "en": "Name of a person or organization within the OPS that can be contacted about the resource"
+      },
+      "form_placeholder": "e.g., Joe Bloggs",
+      "display_property": "dc:contributor",
+      "classes": ["col-md-12","form-group"]
+    },
+    {
+      "field_name": "maintainer_email",
+      "label": {
+        "en": "Maintainer Email",
+        "fr": "Email du mainteneur"
+      },
+      "help_inline" : true,
+      "required": "true",
+      "help_text": {
+        "en": "Contact information of a person or organization within the OPS that can be contacted about the resource"
+      },
+      "form_placeholder": "e.g., joe@example.com",
+      "display_property": "dc:contributor",
+      "display_snippet": "email.html",
+      "display_email_name_field": "maintainer",
+      "validators": "email_validator",
+      "classes": ["col-md-12","form-group"]
+    },
+    {
+      "field_name": "author",
+      "label": {
+        "en": "Author",
+        "fr": "Auteure"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "Name of a person or organization that originally created the resource. If not known, it will default to your name."
+      },
+      "form_placeholder": "e.g., Joe Bloggs",
+      "display_property": "dc:creator",
+      "classes": ["col-md-12","form-group"]
+    },
+    {
+      "field_name": "author_email",
+      "label": {
+        "en": "Author Email",
+        "fr": "Email du auteure"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "Email address of a person or organization that originally created the resource. If not known, it will default to your email."
+      },
+      "form_placeholder": "e.g., joe@example.com",
+      "display_property": "dc:creator",
+      "display_snippet": "email.html",
+      "display_email_name_field": "author",
+      "validators": "ignore_missing email_validator",
+      "classes": ["col-md-12","form-group"]
+    },
+    {
+      "field_name": "maintainer_branch",
+      "label": {
+        "en": "Maintainer branch",
+        "fr": "Bureau du mainteneur"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "The OPS branch of the maintainer"
+      },
+      "classes": ["form-group","col-md-12"],
+      "form_placeholder": "e.g., Policy and Partnerships",
+      "preset": "fluent_text"
+    },
+    {
+      "field_name": "current_as_of",
+      "label": {
+        "en": "Last Validated Date",
+        "fr": "Date de la dernière validation des données"
+      },
+      "fieldset": 4,
+      "fieldset_name": "Timing", 
+      "fieldset_subtitle": "Help others understand if the resource applies to their timeframe.",
+      "help_inline" : true,
+      "help_text": {
+        "en": "The last time the metadata and resource was reviewed and verified by author/program area."
+      },     
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_placeholder": "yyyy-mm-dd",
+      "classes": ["col-md-12","form-group"]
+    },
+    {
+      "field_name": "update_frequency",
+      "label": {
+        "en": "Update frequency",
+        "fr": "Fréquence de mise à jour"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "Let others know when they can expect new data. [more information on selecting an update frequency]"
+      }, 
+      "preset": "select",
+      "validators": "ignore_missing scheming_choices",
+      "classes": ["form-group","col-md-12"],
+      "choices": [
+        {
+          "value": "as_required",
+          "label": {
+            "en": "As required",
+            "fr": "Au besoin"
+          }
+        },
+        {
+          "value": "biannually",
+          "label": {
+            "en": "Biannually",
+            "fr": "Semestrielle"
+          }
+        },
+        {
+          "value": "current",
+          "label": {
+            "en": "Current",
+            "fr": "À jour"
+          }
+        },
+        {
+          "value": "daily",
+          "label": {
+            "en": "Daily",
+            "fr": "Tous les jours"
+          }
+        },
+        {
+          "value": "historical",
+          "label": {
+            "en": "Historical",
+            "fr": "Historique"
+          }
+        },
+        {
+          "value": "monthly",
+          "label": {
+            "en": "Monthly",
+            "fr": "Mensuelle"
+          }
+        },
+        {
+          "value": "never",
+          "label": {
+            "en": "Never",
+            "fr": "Jamais"
+          }
+        },
+        {
+          "value": "on_demand",
+          "label": {
+            "en": "On demand",
+            "fr": "À la demande"
+          }
+        },
+        {
+          "value": "other",
+          "label": {
+            "en": "Other",
+            "fr": "Autre"
+          }
+        },
+        {
+          "value": "periodically",
+          "label": {
+            "en": "Periodically",
+            "fr": "Périodique"
+          }
+        },
+        {
+          "value": "quarterly",
+          "label": {
+            "en": "Quarterly",
+            "fr": "Tous les trimestres"
+          }
+        },
+        {
+          "value": "weekly",
+          "label": {
+            "en": "Weekly",
+            "fr": "Hebdomadaire"
+          }
+        },
+        {
+          "value": "yearly",
+          "label": {
+            "en": "Yearly",
+            "fr": "Annuelle"
+          }
+        }
+      ]
+    }, 
+    {
+      "field_name": "access_instructions_translated",
+      "label": {
+        "en": "Access instructions",
+        "fr": "Instructions d'accès"
+      },
+      "help_inline" : true,
+      "fieldset": 5,
+      "fieldset_name": "How can this be used",
+      "fieldset_subtitle": "Help others understand how to safely use this material.",
+      "help_text": {
+        "en": "Explain any additional steps needed to access the resource"
+      },
+      "classes": ["form-group","col-md-12"],
+      "preset": "fluent_core_translated",
+      "form_snippet": "fluent_markdown.html",
+      "form_placeholder": "e.g., Users will need to register with the website to recieve a login and provide an email address. Visit http://www.example.com/register."
+    },
+    {
+      "field_name": "licence_id",
+      "label": {
+        "en": "Licence",
+        "fr": "Licence"
+      },
+      "form_snippet": "license.html",
+      "default": "OGL-ON-1.0",
+      "help_text": {
+        "en": "Are you releasing this under a licence?",
+        "fr": "Licence s’appliquant au jeu de données"
+      },
+      "classes": ["col-md-12","form-group"]
+    },
+    {
+      "field_name": "licence_range_start",
+      "label": {
+        "en": "Licence range start",
+        "fr": "Début de licence"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "Does the licence have an expiry or applicable time period? When does it start?"
+      },  
+      "classes": ["form-group","col-md-12"],    
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_placeholder": "yyyy-mm-dd"
+    },
+    {
+      "field_name": "licence_range_end",
+      "label": {
+        "en": "Licence range end",
+        "fr": "Fin de licence"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "Does the licence have an expiry or applicable time period? When does it end?"
+      },  
+      "classes": ["form-group","col-md-12"],
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_placeholder": "yyyy-mm-dd"
+    },  
+    {
+      "field_name": "access_level",
+      "label": {
+        "en": "Access level",
+        "fr": "Statut des données"
+      },
+      "help_inline" : true,
+      "fieldset": 6,
+      "fieldset_name": "Open Data Catalogue",
+      "fieldset_subtitle": "If the process to assess this dataset for its appropriateness for the Open Data Catalogue (ontario.ca/data) has started, please fill out these fields. If the process hasn't been started, skip this section.",
+      "help_text": {
+        "en": "Who can access these resources?"
+      }, 
+      "classes": ["form-group","col-md-12"],
+      "preset": "select",
+      "validators": "ignore_missing scheming_choices",
+      "choices": [
+        {
+          "value": "open",
+          "label": {
+            "en": "Open",
+            "fr": "Ouvertes"
+          }
+        },
+        {
+          "value": "restricted",
+          "label": {
+            "en": "Restricted",
+            "fr": "Restreintes"
+          }
+        },
+        {
+          "value": "to_be_opened",
+          "label": {
+            "en": "To be opened",
+            "fr": "En voie d’être ouvertes"
+          }
+        },
+        {
+          "value": "under_review",
+          "label": {
+            "en": "Under review",
+            "fr": "En examen"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "opened_date",
+      "label": {
+        "en": "Date Opened",
+        "fr": "Date d'ouverture"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "When the first resource initially (the actual files) was added to the public-facing Open Data Catalogue."
+      },
+      "classes": ["form-group","col-md-12"], 
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_placeholder": "yyyy-mm-dd"
+    },
+    {
+      "field_name": "exemption",
+      "label": {
+        "en": "Exemption",
+        "fr": "Exemption"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "What is the specific exemption for this collection of resources to not be shared with the public? Refer to [link to ODD] for list of acceptable exemptions"
+      },
+      "classes": ["form-group","col-md-12"],
+      "preset": "select",
+      "validators": "ignore_missing default(none) scheming_choices",
+      "choices": [
+        {
+          "value": "commercial_sensitivity",
+          "label": {
+            "en": "Commercial sensitivity",
+            "fr": "Caractère commercialement délicat"
+          }
+        },
+        {
+          "value": "confidentiality",
+          "label": {
+            "en": "Confidentiality",
+            "fr": "Confidentialité"
+          }
+        },
+        {
+          "value": "legal_and_contractual_obligations",
+          "label": {
+            "en": "Legal and contractual obligations",
+            "fr": "Obligations juridiques et contractuelles"
+          }
+        },
+        {
+          "value": "none",
+          "label": {
+            "en": "None",
+            "fr": "Aucun"
+          }
+        },
+        {
+          "value": "privacy",
+          "label": {
+            "en": "Privacy",
+            "fr": "Protection des renseignements personnels"
+          }
+        },
+        {
+          "value": "security",
+          "label": {
+            "en": "Security",
+            "fr": "Sécurité"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "exemption_rationale",
+      "label": {
+        "en": "Exemption rationale",
+        "fr": "Raison de ne pas publier"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "Explain why the resource cannot be disclosed to the public"
+      }, 
+      "classes": ["form-group","col-md-12"],
+      "form_placeholder": "e.g., This dataset cannot be sufficiently de-identified to assure users cannot use it to identify members of the public.",      
+      "preset": "fluent_markdown"
+    },
+    {
+      "field_name": "cluster_application_id",
+      "label": {
+        "en": "Cluster Application ID",
+        "fr": "Identifiant d'application"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "Is this information sourced from or used in an OPS software application? If so, which one?"
+      }, 
+      "classes": ["form-group","col-md-12"],
+      "fieldset": 7,
+      "fieldset_name": "Making Connections",
+      "fieldset_subtitle": "Help us map OPS assets.",
+      "form_placeholder": "CI0000000000000"
+    },
+    {
+      "field_name": "go_program_id",
+      "label": {
+        "en": "OPS Program ID",
+        "fr": "Identifiant du programme"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "Did this information support an OPS program? If so, which one?"
+      }, 
+      "classes": ["form-group","col-md-12"],
+      "form_placeholder": "P00000"
+    },
+    {
+      "field_name": "node_id",
+      "label": {
+        "en": "Ontario node ID",
+        "fr": "Ontario node ID"
+      },
+      "form_snippet": null,
+      "display_snippet": null,
+      "form_placeholder": "4321",
+      "validators": "ignore_missing int_validator"
+    }
+  ],
+  "resource_fields": [
+    {
+      "field_name": "url",
+      "label": {
+        "en": "URL",
+        "fr": "URL"
+      },
+      "preset": "resource_url_upload",
+      "fieldset": 1,
+      "fieldset_name": "Add File",
+      "classes": ["form-group","col-md-12"],
+      "form_attrs": {
+        "class": "col-md-12"
+      }
+    },
+    {
+      "field_name": "format",
+      "label": {
+        "en": "Format",
+        "fr": "Format"
+      },
+      "preset": "resource_format_autocomplete",
+      "classes": ["form-group","col-md-12"]
+    },
+    {
+      "field_name": "name",
+      "label": {
+        "en": "Name",
+        "fr": "Nom"
+      },
+      "form_placeholder": "e.g., January 2011 Gold Prices",
+      "help_inline" : true,
+      "help_text": {
+        "en": "Create a human-readable title that will help users understand what the file contains."
+      },
+      "fieldset": 2,
+      "fieldset_name": "Describe the file",
+      "classes": ["form-group","col-md-12"] 
+    },
+    {
+      "field_name": "description_translated",
+      "label": {
+        "en": "Description",
+        "fr": "Description"
+      },
+      "preset": "fluent_core_translated",
+      "form_snippet": "fluent_markdown.html",
+      "classes": ["form-group","col-md-12"],
+      "form_placeholder": "Some useful notes about the file"
+    },
+    {
+      "field_name": "type",
+      "label": {
+        "en": "Type",
+        "fr": "Type"
+      },
+      "preset": "select",
+      "validators": "ignore_missing scheming_choices",
+      "fieldset": 3,
+      "fieldset_name": "Details",
+      "classes": ["form-group","col-md-12"],
+      "choices": [
+        {
+          "value": "data",
+          "label": {
+            "en": "Data",
+            "fr": "Les données"
+          }
+        },
+        {
+          "value": "information",
+          "label": {
+            "en": "Information",
+            "fr": "Information"
+          }
+        },
+        {
+          "value": "technical_document",
+          "label": {
+            "en": "Technical document",
+            "fr": "documentation"
+          }
+        },
+        {
+          "value": "data_dictionary",
+          "label": {
+            "en": "Data Dictionary",
+            "fr": "Dictionnaire des données"
+          }
+        },
+        {
+          "value": "application",
+          "label": {
+            "en": "Application",
+            "fr": "Application"
+          }
+        }
+      ]
+    }, 
+    {
+      "field_name": "language",
+      "label": {
+        "en": "Language",
+        "fr": "La langue"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "The language the resource is provided in"
+      },
+      "classes": ["form-group","col-md-12"],
+      "preset": "select",
+      "validators": "ignore_missing scheming_choices",
+      "choices": [
+        {
+          "value": "english",
+          "label": {
+            "en": "English",
+            "fr": "Anglais"
+          }
+        },
+        {
+          "value": "french",
+          "label": {
+            "en": "French",
+            "fr": "Français"
+          }
+        }
+      ]
+    }, 
+    {
+      "field_name": "contains_geographic_markers",
+      "label": {
+        "en": "Contains geographic markers",
+        "fr": "Avec des informations géographiques"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "Does this resource have mappable information (e.g., latitude and longitude coordinates, mappable shape information)?"
+      }, 
+      "classes": ["form-group","col-md-12"],
+      "preset": "select",
+      "validators": "boolean_validator",
+      "choices": [
+        {
+          "value": "true",
+          "label": {
+            "en": "True",
+            "fr": "Vrai"
+          }
+        },
+        {
+          "value": "false",
+          "label": {
+            "en": "False",
+            "fr": "Faux"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "publically_available_date",
+      "label": {
+        "en": "Data made public date",
+        "fr": "Les premières données de date étaient disponibles publiquement"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "The date that the resource first was available to the public"
+      },
+      "classes": ["form-group","col-md-12"], 
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_placeholder": "yyyy-mm-dd"
+    },
+    {
+      "field_name": "data_range_start",
+      "label": {
+        "en": "Data range start",
+        "fr": "Début du période couverte"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "The starting date of the span of time the resource describes"
+      }, 
+      "classes": ["form-group","col-md-12"],
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_placeholder": "yyyy-mm-dd"
+    },
+    {
+      "field_name": "data_range_end",
+      "label": {
+        "en": "Data range end",
+        "fr": "Fin du période couverte"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "The ending date of the span of time the resource describes"
+      }, 
+      "classes": ["form-group","col-md-12"],
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_placeholder": "yyyy-mm-dd"
+    },
+    {
+      "field_name": "data_birth_date",
+      "label": {
+        "en": "Data birth date",
+        "fr": "La date à laquelle les données ont été créées"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "The date this resource was first created (outside of any system)"
+      }, 
+      "classes": ["form-group","col-md-12"],
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_placeholder": "yyyy-mm-dd"
+    },
+    {
+      "field_name": "version",
+      "label": "Version",
+      "form_placeholder": "1.0",
+      "validators": "ignore_missing unicode package_version_validator",
+      "classes": ["form-group","col-md-12"]
+    }
+  ]
+}
