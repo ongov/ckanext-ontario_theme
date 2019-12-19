@@ -591,6 +591,10 @@ msgstr "Récemment créé"
 msgid "Datasets with data"
 msgstr "Jeux de données avec données"
 
+#: ckanext/ontario_theme/templates/package/snippets/ontario_theme_resource_additional_info.html:10
+msgid "Covers"
+msgstr "Représenter"
+
 #: ckanext/ontario_theme/templates/scheming/package/read.html:25
 msgid "Ontario's Open Data Team"
 msgstr "L'équipe de données ouvertes de l'Ontario"

@@ -15,7 +15,7 @@
       {% endif %}
     </div>
     <div class="col-md-4 col-xs-12">
-      <strong>{{_("File Type") }}:</strong><br />
+      <strong>{{ h.scheming_language_text(h.scheming_field_by_name(schema.resource_fields, 'type').label) }}:</strong><br />
       {% if res.type %}
         {{ h.scheming_choices_label(
   h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'type')), res.type) }}
@@ -23,7 +23,7 @@
         <span class="empty">{{ _("None") }}</span>
       {% endif %}
       <br />
-      <strong>{{_("Language") }}:</strong><br />
+      <strong>{{ h.scheming_language_text(h.scheming_field_by_name(schema.resource_fields, 'language').label) }}:</strong><br />
       {% if res.language %}
         {{ h.scheming_choices_label(
   h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}
