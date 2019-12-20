@@ -299,6 +299,21 @@ a.card:hover {
   height: 35px;
   background-position: -414px -62px;
 }
+.open,.under_review,.to_be_opened,.restricted {
+  color: #4d4d4d;
+}
+.open {
+  background-color: #e6fad2;
+}
+.under_review {
+  background: #d2d1eb;
+}
+.to_be_opened {
+  background-color: #dff3f3
+}
+.restricted {
+  background-color: #fad2d2;
+}
 .stats .number {
   display: block;
   font-size: 60px;
@@ -401,7 +416,8 @@ body,
   }
 }
 #dataset-search-form,
-#organization-search-form {
+#organization-search-form,
+#group-search-form {
   margin: 0px 0px 20px 0px;
   background: #fafafa;
   padding: 20px;
@@ -525,7 +541,8 @@ table.table tbody tr td.dataset-details {
   border: none;
 }
 .page_primary_action .add-dataset,
-.page_primary_action .add-organization {
+.page_primary_action .add-organization,
+.page_primary_action .add-group {
   text-align: right;
 }
 /* =====================================================
