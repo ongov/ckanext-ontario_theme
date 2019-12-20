@@ -4,6 +4,10 @@
 
 {% ckan_extends %}
 
+{% block heading_title %}
+  {{ h.link_to(h.truncate(h.get_translated(package, 'title'), truncate_title), h.url_for(package.type + '_read', controller='package', action='read', id=package.name)) }}
+{% endblock %}
+
 {% block resources %}
   {% if package.resources and not hide_resources %}
     {% block resources_outer %}
@@ -30,5 +34,13 @@
     {% else %}
       <p class="empty">{{ _('This dataset has no data') }}</p>
     {% endif %}
+  {% endif %}
+{% endblock %}
+
+{% block notes %}
+  {% if notes %}
+    <div>{{ h.markdown_extract(h.get_translated(package, 'notes')|urlize, extract_length=truncate) }}</div>
+  {% else %}
+    <p class="empty">{{ _("This dataset has no description") }}</p>
   {% endif %}
 {% endblock %}
