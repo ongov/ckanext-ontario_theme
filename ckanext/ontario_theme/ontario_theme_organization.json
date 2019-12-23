@@ -11,29 +11,29 @@
             "en": "Name",
             "fr": "Nom"
           },
-          "classes": ["col-md-12","form-group"],      
-          "preset": "fluent_text"
+          "preset": "fluent_core_translated",
+          "form_snippet": "extrafields_fluent_title.html",
+          "classes": ["col-md-12","form-group"]
         },
         {
           "field_name": "name",
           "label": "URL",
-          "validators": "not_empty unicode name_validator group_name_validator",
-          "form_snippet": "slug.html",
-          "form_placeholder": "my-organization"
+          "preset": "dataset_slug",
+          "form_placeholder": "eg. my-organization"
         },
         {
-          "field_name": "notes_translated",
+          "field_name": "description_translated",
           "label": {
             "en": "Description",
             "fr": "Description"
           },
-          "classes": ["col-md-12","form-group"],      
-          "preset": "fluent_markdown"
+          "preset": "fluent_core_translated",
+          "classes": ["col-md-12","form-group"]
         },
         {
           "field_name": "image_url",
-          "label": "Image",
-          "preset": "resource_url_upload"
+          "validators": "ignore_missing unicode remove_whitespace",
+          "form_snippet": "ontario_theme_organization_upload.html"
         }
     ]
 }
