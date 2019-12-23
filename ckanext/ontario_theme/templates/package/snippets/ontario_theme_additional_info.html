@@ -8,9 +8,9 @@
     {% endif %}
   </div>
   <div class="col-md-4 col-xs-12">
-    <strong>{{ h.scheming_language_text(h.scheming_field_by_name(schema.dataset_fields, 'geographic_coverage_translated').label) }}</strong><br>
+    <strong>{{ h.scheming_language_text(h.scheming_field_by_name(schema.dataset_fields, 'geographic_coverage').label) }}</strong><br>
     {% if pkg.geographic_coverage %}
-      {{ pkg.geographic_coverage }}
+      {{ h.scheming_language_text(pkg.geographic_coverage) }}
     {% else %}
       <span class="empty">{{ _("None") }}</span>
     {% endif %}
@@ -32,10 +32,10 @@ h.scheming_field_choices(h.scheming_field_by_name(schema.dataset_fields, 'geogra
     {% snippet "scheming/display_snippets/fluent_tags.html", field=h.scheming_field_by_name(schema.dataset_fields, 'keywords'), data=pkg %}
 
     <br>
-    <strong>{{ h.scheming_language_text(h.scheming_field_by_name(schema.dataset_fields, 'access_instructions_translated').label) }}:</strong>
+    <strong>{{ h.scheming_language_text(h.scheming_field_by_name(schema.dataset_fields, 'access_instructions').label) }}:</strong>
     <br>
-    {% if h.get_translated(pkg, 'access_instructions') %}
-      {{ h.get_translated(pkg, 'access_instructions') }}
+    {% if h.scheming_language_text(pkg.access_instructions) %}
+      {{ h.scheming_language_text(pkg.access_instructions) }}
     {% else %}
       <span class="empty">{{ _("None") }}</span>
     {% endif %}
