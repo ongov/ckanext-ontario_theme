@@ -595,6 +595,10 @@ msgstr "Jeux de données avec données"
 msgid "Covers"
 msgstr "Représenter"
 
+#: ckanext/ontario_theme/templates/package/snippets/resources_list.html:12
+msgid "Next expected update"
+msgstr "Fréquence de mise à jour"
+
 #: ckanext/ontario_theme/templates/scheming/package/read.html:25
 msgid "Ontario's Open Data Team"
 msgstr "L'équipe de données ouvertes de l'Ontario"
