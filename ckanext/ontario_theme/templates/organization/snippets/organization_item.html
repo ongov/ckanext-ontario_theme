@@ -4,8 +4,8 @@
   <h3 class="media-heading">{{ h.get_translated(organization, "title") or organization.name }}</h3>
 {% endblock %}
 {% block description %}
-  {% if h.get_translated(organization,"notes") %}
-    <p>{{ h.markdown_extract(h.get_translated(organization,"notes"), extract_length=80) }}</p>
+  {% if h.get_translated(organization,"description") %}
+    <p>{{ h.markdown_extract(h.get_translated(organization,"description"), extract_length=80) }}</p>
   {% endif %}
 {% endblock %}
 {% block link %}
