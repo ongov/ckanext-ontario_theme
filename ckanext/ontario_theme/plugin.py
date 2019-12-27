@@ -1,6 +1,7 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 from ckan.common import config
+import ckan.lib.helpers as helpers
 
 from flask import Blueprint, make_response
 from flask import render_template, render_template_string
@@ -208,6 +209,11 @@ def get_license(license_id):
     '''
     return Package.get_license_register().get(license_id)
 
+def get_translated_license_title(license_id):
+    '''Helper to return license based on id.
+    '''
+    license = get_license(license_id)
+    return helpers.get_translated(license,'title') if license is not None else None
 
 def get_package_keywords(language='en'):
     '''Helper to return a list of the top 3 keywords based on specified
@@ -295,6 +301,7 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
 
     def get_helpers(self):
         return {'ontario_theme_get_license': get_license,
+                'ontario_theme_get_translated_license_title': get_translated_license_title,
                 'extrafields_default_locale': default_locale,
                 'ontario_theme_get_package_keywords': get_package_keywords}
 
