@@ -191,7 +191,7 @@
       "display_property": "dc:contributor",
       "display_snippet": "email.html",
       "display_email_name_field": "maintainer",
-      "validators": "email_validator",
+      "validators": "ignore_missing email_validator",
       "classes": ["col-md-12","form-group"]
     },
     {
