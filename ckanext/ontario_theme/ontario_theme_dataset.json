@@ -171,6 +171,7 @@
       "help_text": {
         "en": "Name of a person or organization within the OPS that can be contacted about the resource"
       },
+      "preset" : "fluent_core_translated",
       "form_placeholder": "e.g., Joe Bloggs",
       "display_property": "dc:contributor",
       "preset": "fluent_text",
@@ -364,7 +365,7 @@
       ]
     }, 
     {
-      "field_name": "access_instructions_translated",
+      "field_name": "access_instructions",
       "label": {
         "en": "Access instructions",
         "fr": "Instructions d'accès"
@@ -377,8 +378,7 @@
         "en": "Explain any additional steps needed to access the resource"
       },
       "classes": ["form-group","col-md-12"],
-      "preset": "fluent_core_translated",
-      "form_snippet": "fluent_markdown.html",
+      "preset": "fluent_markdown",
       "form_placeholder": "e.g., Users will need to register with the website to recieve a login and provide an email address. Visit http://www.example.com/register."
     },
     {
