@@ -96,6 +96,10 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/header.html:76
+msgid "Data Catalogue"
+msgstr "Catalogue de données"
+
 #: ckanext/ontario_theme/templates/header.html:99
 msgid "Search Datasets"
 msgstr ""
