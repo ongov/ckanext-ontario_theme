@@ -20,16 +20,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: ckanext/ontario_theme/plugin.py:315 ckanext/ontario_theme/plugin.py:323
-#: ckanext/ontario_theme/plugin.py:331
-msgid "Access Level"
-msgstr ""
-
-#: ckanext/ontario_theme/plugin.py:316 ckanext/ontario_theme/plugin.py:324
-#: ckanext/ontario_theme/plugin.py:332
-msgid "Update Frequency"
-msgstr ""
-
 #: ckanext/ontario_theme/templates/footer.html:9
 msgid "accessibility"
 msgstr "accessibilité"
@@ -571,6 +561,26 @@ msgstr "Jeux de données avec données"
 #: ckanext/ontario_theme/templates/scheming/package/read.html:25
 msgid "Ontario's Open Data Team"
 msgstr "L'équipe de données ouvertes de l'Ontario"
+
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Keywords"
+msgstr "Mots clés"
+
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Formats"
+msgstr "Formats"
+
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Licenses"
+msgstr "Licences"
+
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Access Level"
+msgstr "Statut"
+
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Update Frequency"
+msgstr "Fréquence de mise à jour"
 
 #: ckanext/ontario_theme/templates/home/snippets/about_text.html:1
 msgid "\n"
