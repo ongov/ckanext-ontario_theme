@@ -53,6 +53,10 @@ msgstr "&copy; Imprimeur de la Reine pour l’Ontario"
 msgid "Help"
 msgstr "Aider"
 
+#: ckanext/ontario_theme/templates/header.html:76
+msgid "Data Catalogue"
+msgstr "Catalogue de données"
+
 #: ckanext/ontario_theme/templates/home/help.html:14
 msgid ""
 "<p>Need more help or want to learn more about the data catalogue? <a "
