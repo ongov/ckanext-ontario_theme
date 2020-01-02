@@ -18,16 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: ckanext/ontario_theme/plugin.py:315 ckanext/ontario_theme/plugin.py:323
-#: ckanext/ontario_theme/plugin.py:331
-msgid "Access Level"
-msgstr ""
-
-#: ckanext/ontario_theme/plugin.py:316 ckanext/ontario_theme/plugin.py:324
-#: ckanext/ontario_theme/plugin.py:332
-msgid "Update Frequency"
-msgstr ""
-
 #: ckanext/ontario_theme/templates/footer.html:9
 msgid "accessibility"
 msgstr ""
@@ -786,6 +776,26 @@ msgstr ""
 #: ckanext/ontario_theme/templates/package/search.html:33
 msgid "Datasets with data"
 msgstr ""
+
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Keywords"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Formats"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Licenses"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Access Level"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Update Frequency"
+msgstr "r"
 
 #: ckanext/ontario_theme/templates/package/search.html:34
 msgid "Popular"
