@@ -558,6 +558,11 @@ msgstr "Trouvez une liste des ministères de l'Ontario ici. Cliquez sur un minis
 msgid "Open"
 msgstr "Ouvert"
 
+#: ckan/templates/package/resource_read.html:88
+#, python-format
+msgid "Source: <a href=\"%(url)s\">%(dataset)s</a>"
+msgstr "L'origine: <a href=\"%(url)s\">%(dataset)s</a>"
+
 #: ckanext/ontario_theme/templates/package/search.html:32
 msgid "Recently Created"
 msgstr "Récemment créé"

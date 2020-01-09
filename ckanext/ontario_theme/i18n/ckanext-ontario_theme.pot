@@ -756,6 +756,11 @@ msgstr ""
 msgid "Open"
 msgstr ""
 
+#: ckan/templates/package/resource_read.html:88
+#, python-format
+msgid "Source: <a href=\"%(url)s\">%(dataset)s</a>"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/package/resource_read.html:18
 #: ckanext/ontario_theme/templates/package/snippets/resource_item.html:32
 msgid "Download"
