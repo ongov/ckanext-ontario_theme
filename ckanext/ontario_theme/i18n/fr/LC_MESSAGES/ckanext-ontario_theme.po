@@ -621,6 +621,23 @@ msgstr ""
 "href=\"https://www.ontario.ca/fr/page/directive-sur-les-donnees-ouvertes-de-lontario\">[Apprendre "
 "encore plus]</a> "
 
+#: ckanext/ontario_theme/templates/package/snippets/ontario_theme_language_disclaimer.html:8
+#, python-format
+msgid ""
+" You're viewing a data file in French. This dataset has files available in "
+"English. <a href=\"%(url)s#dataset-resources\">Click here</a> to go back and "
+"select a file in English. "
+msgstr "Vous consultez un fichier de données en anglais. Cet ensemble de données contient des fichiers disponibles en français. <a href=\"%(url)s#dataset-resources\">Cliquez ici</a> pour revenir en arrière et sélectionner un fichier en français."
+
+#: ckanext/ontario_theme/templates/package/snippets/ontario_theme_language_disclaimer.html:15
+msgid ""
+" You're viewing a data file in French. This dataset <strong>does not</strong>"
+" have files available in English. Data on the data catalogue is published in "
+"the language in which it’s collected. <a href=\"https://www.ontario.ca/page"
+"/ontarios-open-data-directive\">[Learn more]</a> "
+msgstr "Vous consultez un fichier de données en anglais. Cet ensemble de données <strong>n'a </strong> aucun fichier disponible en français. Les données du catalogue de données sont publiées dans la langue dans laquelle elles sont collectées. <a href=\"https://www.ontario.ca/fr/page/"
+"directive-sur-les-donnees-ouvertes-de-lontario\">[Apprendre encore plus]</a>"
+
 #: ckanext/ontario_theme/templates/package/snippets/resources_list.html:20
 msgid "Covers"
 msgstr "Pour la période de"
