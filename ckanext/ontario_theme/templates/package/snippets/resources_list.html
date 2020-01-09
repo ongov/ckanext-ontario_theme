@@ -7,12 +7,17 @@
   {% block resource_list %}
     {% snippet "package/snippets/ontario_theme_access_level.html",
       pkg=pkg, dataset_type=dataset_type, schema=schema %}
+
     {% if resources %}
         {% block resource_list_inner %}
           {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
-          {% for group in resources|selectattr("type","equalto","data")|groupby("data_range_start")|sort(attribute="grouper", reverse=True) %}
-            {% if group.list[0].data_range_start %}
-              <h4> {{ _("Covers") }} {{group.list[0].data_range_start}} - {{group.list[0].data_range_end}}</h4>
+          {% for resource in resources %}
+            {% do resource.update({"data_range": resource.data_range_start|default("N/A") + " - " + resource.data_range_end|default("N/A")}) %}            
+          {% endfor %}
+          {% for group in resources|selectattr("type","equalto","data")|groupby("data_range")|sort(attribute="grouper", reverse=True) %}
+
+            {% if group.list[0].data_range != "N/A - N/A" %}
+              <h4> {{ _("Covers") }} {{group.list[0].data_range}}</h4>
             {% else %}
               <h4 class="empty">{{ _("No date range") }}</h4>
             {% endif %}
