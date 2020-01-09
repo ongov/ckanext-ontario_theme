@@ -36,6 +36,16 @@ msgstr "conditions d’utilisation"
 msgid "&copy; Queen&#8217;s Printer for Ontario"
 msgstr "&copy; Imprimeur de la Reine pour l’Ontario"
 
+#: ckanext/ontario_theme/templates/footer.html:21
+msgid ""
+"<strong>Powered by</strong> <a class=\"hide-text ckan-footer-logo\" "
+"href=\"http://ckan.org\"><abbr title=\"Comprehensive Knowledge Archive "
+"Network\">CKAN</abbr></a>"
+msgstr ""
+"<strong>Généré par</strong> <a class=\"hide-text ckan-footer-logo\" "
+"href=\"http://ckan.org\"><abbr title=\"Comprehensive Knowledge Archive "
+"Network\">CKAN</abbr></a>"
+
 #: ckanext/ontario_theme/templates/header.html:89
 #: ckanext/ontario_theme/templates/home/help.html:3
 #: ckanext/ontario_theme/templates/home/help.html:6
