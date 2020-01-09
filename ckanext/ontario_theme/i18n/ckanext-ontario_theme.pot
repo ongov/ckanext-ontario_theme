@@ -824,6 +824,10 @@ msgid ""
 "more]</a> </p> "
 msgstr ""
 
+#: ckanext/ontario_theme/templates/package/snippets/resources_list.html:20
+msgid "Covers"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/snippets/search_form.html:29
 msgid "Keywords"
 msgstr ""

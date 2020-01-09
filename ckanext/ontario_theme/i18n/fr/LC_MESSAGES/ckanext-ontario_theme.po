@@ -621,6 +621,10 @@ msgstr ""
 "href=\"https://www.ontario.ca/fr/page/directive-sur-les-donnees-ouvertes-de-lontario\">[Apprendre "
 "encore plus]</a> "
 
+#: ckanext/ontario_theme/templates/package/snippets/resources_list.html:20
+msgid "Covers"
+msgstr "Pour la période de"
+
 #: ckanext/ontario_theme/templates/scheming/package/read.html:25
 msgid "Ontario's Open Data Team"
 msgstr "L'équipe de données ouvertes de l'Ontario"
