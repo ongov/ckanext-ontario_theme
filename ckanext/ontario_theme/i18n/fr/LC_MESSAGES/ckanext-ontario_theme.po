@@ -2045,7 +2045,7 @@ msgstr "Télécharger des données"
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:23
 msgid "<a href=\"/help#how-do-i-download-datasets\">Download and use the data you need.</a>"
-msgstr "<a href=\"/fr/help#how-do-i-download-datasets\">Télécharger</a> et à utiliser les données dont vous avez besoin."
+msgstr "<a href=\"/fr/help#how-do-i-download-datasets\">Télécharger et à utiliser les données dont vous avez besoin.</a>"
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:28
 msgid "Provide feedback"
