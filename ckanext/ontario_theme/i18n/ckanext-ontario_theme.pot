@@ -845,6 +845,10 @@ msgid ""
 "/ontarios-open-data-directive\">[Learn more]</a> "
 msgstr ""
 
+#: ckanext/ontario_theme/templates/package/snippets/resources_list.html:17
+msgid "No date range"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/package/snippets/resources_list.html:20
 msgid "Covers"
 msgstr ""
