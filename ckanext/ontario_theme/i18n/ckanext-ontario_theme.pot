@@ -641,7 +641,7 @@ msgid "Search datasets"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/home/snippets/search.html:21
-msgid "Popular tags"
+msgid "Popular keywords"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/macros/form.html:126
@@ -756,6 +756,11 @@ msgstr ""
 msgid "Open"
 msgstr ""
 
+#: ckan/templates/package/resource_read.html:88
+#, python-format
+msgid "Source: <a href=\"%(url)s\">%(dataset)s</a>"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/package/resource_read.html:18
 #: ckanext/ontario_theme/templates/package/snippets/resource_item.html:32
 msgid "Download"
@@ -777,6 +782,81 @@ msgstr ""
 msgid "Datasets with data"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:9
+msgid "Data Available"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:11
+#, python-format
+msgid ""
+" The data described here is available for you to use. <a "
+"href=\"https://www.ontario.ca/page/ontarios-open-data-directive\">[Learn "
+"more]</a><br /> <a href=\"%(license_url)s\">[See the licence for how you're "
+"allowed to use this data.]</a> "
+msgstr ""
+
+#: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:17
+#: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:31
+#: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:39
+msgid "Data Not Available"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:19
+msgid ""
+" This data is not and will not be made available. Data in this record cannot "
+"be released because of legal, privacy, security, confidentiality or "
+"commercially-sensitive reasons, as outlined by the <a "
+"href=\"https://www.ontario.ca/page/ontarios-open-data-directive\">Open Data "
+"Directive</a>. "
+msgstr ""
+
+#: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:27
+msgid "Why?"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:33
+msgid ""
+" This data might be made available in the future. We are reviewing the data "
+"in this record to determine if it can be made open. <a "
+"href=\"http://www.ontario.ca/page/ontarios-open-data-directive\">[Learn "
+"more]</a> "
+msgstr ""
+
+#: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:40
+msgid ""
+" <p> This data will be made open in the future after it has been approved. <a"
+" href=\"http://www.ontario.ca/page/ontarios-open-data-directive\">[Learn "
+"more]</a> </p> "
+msgstr ""
+
+#: ckanext/ontario_theme/templates/package/snippets/ontario_theme_language_disclaimer.html:8
+#, python-format
+msgid ""
+" You're viewing a data file in French. This dataset has files available in "
+"English. <a href=\"%(url)s#dataset-resources\">Click here</a> to go back and "
+"select a file in English. "
+msgstr ""
+
+#: ckanext/ontario_theme/templates/package/snippets/ontario_theme_language_disclaimer.html:15
+msgid ""
+" You're viewing a data file in French. This dataset <strong>does not</strong>"
+" have files available in English. Data on the data catalogue is published in "
+"the language in which it’s collected. <a href=\"https://www.ontario.ca/page"
+"/ontarios-open-data-directive\">[Learn more]</a> "
+msgstr ""
+
+#: ckanext/ontario_theme/templates/package/snippets/resources_list.html:17
+msgid "No date range"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/package/snippets/resources_list.html:20
+msgid "Covers"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/package/snippets/resources_list.html:33
+msgid "Supporting Files"
+msgstr "Autres fichiers"
+
 #: ckanext/ontario_theme/templates/snippets/search_form.html:29
 msgid "Keywords"
 msgstr ""
@@ -795,7 +875,11 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/snippets/search_form.html:29
 msgid "Update Frequency"
-msgstr "r"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/package/resource_read.html:25
+msgid "Open"
+msgstr ""
 
 #: ckanext/ontario_theme/templates/package/search.html:34
 msgid "Popular"
@@ -828,6 +912,10 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/scheming/form_snippets/_organization_select.html:21
 msgid "No organization"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/scheming/package/read.html:24
+msgid "Contact"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/scheming/package/resource_read.html:5
