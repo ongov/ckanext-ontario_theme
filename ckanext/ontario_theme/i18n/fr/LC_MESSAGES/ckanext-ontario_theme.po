@@ -36,6 +36,14 @@ msgstr "conditions d’utilisation"
 msgid "&copy; Queen&#8217;s Printer for Ontario"
 msgstr "&copy; Imprimeur de la Reine pour l’Ontario"
 
+#: ckanext/ontario_theme/templates/footer.html:15
+msgid "Contact Us"
+msgstr "Contactez-nous"
+
+#: ckanext/ontario_theme/templates/footer.html:15
+msgid "https://www.ontario.ca/feedback/contact-us?id=33142&nid=53950"
+msgstr "https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=33143&nid=53983"
+
 #: ckanext/ontario_theme/templates/footer.html:21
 msgid ""
 "<strong>Powered by</strong> <a class=\"hide-text ckan-footer-logo\" "
