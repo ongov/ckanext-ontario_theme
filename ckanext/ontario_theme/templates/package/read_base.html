@@ -5,3 +5,7 @@
     {% link_for _('Edit'), controller='package', action='edit', id=pkg.name, class_='btn btn-secondary', icon='wrench' %}
   {% endif %}
 {% endblock %}
+
+{% block package_info %}
+  {% snippet 'package/snippets/info.html', pkg=pkg %}
+{% endblock %}
