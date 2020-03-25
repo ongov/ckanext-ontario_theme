@@ -22,17 +22,10 @@
 {% block nums %}
   <div class="nums">
     <dl>
-      <dt>{{ _('Followers') }}</dt>
-      <dd data-module="followers-counter" data-module-id="{{ organization.id }}" data-module-num_followers="{{ organization.num_followers }}">{{ h.SI_number_span(organization.num_followers) }}</dd>
-    </dl>
-    <dl>
       <dt>{{ _('Datasets') }}</dt>
       <dd>{{ h.SI_number_span(organization.package_count) }}</dd>
     </dl>
   </div>
 {% endblock %}
 {% block follow %}
-  <div class="follow_button">
-    {{ h.follow_button('group', organization.id) }}
-  </div>
 {% endblock %}
