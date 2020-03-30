@@ -18,3 +18,14 @@
     <p class="empty">{{ _('There is no description for this organization') }}</p>
   {% endif %}
 {% endblock %}
+
+{% block nums %}
+  <div class="nums">
+    <dl>
+      <dt>{{ _('Datasets') }}</dt>
+      <dd>{{ h.SI_number_span(organization.package_count) }}</dd>
+    </dl>
+  </div>
+{% endblock %}
+{% block follow %}
+{% endblock %}
