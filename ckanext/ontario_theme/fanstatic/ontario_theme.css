@@ -517,24 +517,24 @@ div.add-dataset {
   border: none;
   box-shadow: none;
 }
-table.table {
+section.additional-info table.table {
   border: none;
 }
-table.table thead {
+section.additional-info table.table thead {
   display: none;
 }
-table.table td {
+section.additional-info table.table td {
   border: none;
 }
-table.table tbody tr:nth-child(even) th,
-table.table tbody tr:nth-child(even) td {
+section.additional-info table.table tbody tr:nth-child(even) th,
+section.additional-info table.table tbody tr:nth-child(even) td {
   background-color: #f9f9f9;
 }
-table.table tbody tr th,
-table.table tbody tr td {
+section.additional-info table.table tbody tr th,
+section.additional-info table.table tbody tr td {
   border: none;
 }
-table.table tbody tr td.dataset-details {
+section.additional-info table.table tbody tr td.dataset-details {
   width: 75%;
 }
 .media-grid {
