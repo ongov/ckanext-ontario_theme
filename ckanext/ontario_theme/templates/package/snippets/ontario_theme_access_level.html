@@ -35,14 +35,6 @@
           <a href="http://www.ontario.ca/page/ontarios-open-data-directive">[Learn more]</a>
         {% endtrans %}
       </p>
-    {% elif pkg['access_level'] == 'to_be_opened' %}   
-      <strong>{{ _("Data Not Available") }}</strong>   
-      {% trans %}
-        <p>
-          This data will be made open in the future after it has been approved.
-          <a href="http://www.ontario.ca/page/ontarios-open-data-directive">[Learn more]</a>
-        </p>
-      {% endtrans %}
     {% endif %}
     </div>
 {% endif %}
