@@ -7,4 +7,17 @@
 {% endblock %}
 
 {% block package_info %}
+  <div class="module module-narrow module-shallow context-info">
+    <h2 class="module-heading">{{ _("Keep updated") }}</h2>
+    <section class="module-content">
+      <p>
+        {{ _("Subscribe to updates to this dataset using RSS.") }}
+      </p>
+      <p>
+        <a href="/feeds/custom.atom?q=name:{{ pkg.name }}" class="btn btn-primary">
+          <i class="fa fa-rss"></i> {{ _('Subscribe') }}
+        </a>
+      </p>
+    </section>
+  </div>
 {% endblock %}
