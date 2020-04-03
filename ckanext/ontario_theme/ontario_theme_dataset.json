@@ -362,6 +362,13 @@
             "en": "Yearly",
             "fr": "Annuelle"
           }
+        },
+        {
+          "value": "quinquennial",
+          "label": {
+            "en": "Every 5 years",
+            "fr": "aux 5 ans"
+          }
         }
       ]
     }, 
