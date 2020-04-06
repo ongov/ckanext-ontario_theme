@@ -657,6 +657,9 @@ li.resource-item div.btn-wrapper {
   border-bottom: none;
   background-color: transparent;
 }
+.module-heading:not(:first-child) {
+  padding-left: 0px;
+}
 .module-narrow {
   margin: 40px 0px;
   background: #fafafa;
