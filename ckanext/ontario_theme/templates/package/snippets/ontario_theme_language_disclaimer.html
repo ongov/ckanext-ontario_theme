@@ -4,7 +4,7 @@
 {% set current_lang = request.environ.CKAN_LANG %}
 {% if (res.language == "english" and current_lang == "fr") or (res.language == "french" and current_lang == "en") %}
   <div class="new-alert alert-warning alert-large">
-  {% if pkg.resources|selectattr("language", "equalto","english")|selectattr("type", "equalto", "data")|list|length > 0 %}
+  {% if pkg.resources|selectattr("language", "equalto", ("english" if res.language == "french" else "french"))|selectattr("type", "equalto", "data")|list|length + pkg.resources|selectattr("language", "equalto", "english_and_french")|selectattr("type", "equalto", "data")|list|length > 0 %}
     {% trans url=h.url_for(controller='package', action='read', id=c.package['name']) %}
       You're viewing a data file in French.
       This dataset has files available in English.
