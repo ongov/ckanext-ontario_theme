@@ -496,7 +496,7 @@
       },
       "help_inline" : true,
       "help_text": {
-        "en": "What is the specific exemption for this collection of resources to not be shared with the public? Refer to [link to ODD] for list of acceptable exemptions"
+        "en": "What is the specific exemption for this collection of resources to not be shared with the public? Refer to the <a href='https://www.ontario.ca/document/open-data-guidebook-guide-open-data-directive-2015/data-inventory#section-1' target='_blank'>Open Data Guidebook</a> for more on exemptions."
       },
       "classes": ["form-group","col-md-12"],
       "preset": "select",
