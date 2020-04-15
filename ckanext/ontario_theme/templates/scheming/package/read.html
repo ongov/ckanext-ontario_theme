@@ -9,12 +9,6 @@
     might not be compatible with ckanext-scheming
     </p>
   {%- endif -%}
-  {% if h.scheming_field_by_name(schema.dataset_fields, 'short_description') and
-      pkg.short_description %}
-    <div class="notes embedded-content">
-      <p class="lead">{{ h.scheming_language_text(pkg['short_description']) }}</p>
-    </div>
-  {% endif %}
   {% if h.scheming_field_by_name(schema.dataset_fields, 'notes_translated') and
     pkg.notes %}
     <div class="notes embedded-content">
