@@ -241,5 +241,32 @@
         "en": "Data in this record is open and is published in the language in which it’s collected. Please contact us to obtain assistance in either official language.",
         "fr": "Les données de cette série sont ouvertes et sont publiées dans la langue dans laquelle elles ont été recueillies. Veuillez nous contacter pour obtenir de l’aide dans l’une des langues officielles."
     }
+  },
+  {
+    "domain_content": false,
+    "domain_data": false,
+    "domain_software": false,
+    "family": "",
+    "id": "statistics-canada-open-licence",
+    "is_generic": true,
+    "maintainer": "",
+    "od_conformance": "not reviewed",
+    "osd_conformance": "not reviewed",
+    "status": "active",
+    "title": "Statistics Canada Open Licence",
+    "title_translated" : {
+        "en": "Statistics Canada Open Licence",
+        "fr": "Licence ouverte de Statistique Canada"
+    },
+    "url": "https://www.statcan.gc.ca/eng/reference/licence",
+    "url_translated": {
+        "en": "https://www.statcan.gc.ca/eng/reference/licence",
+        "fr": "https://www.statcan.gc.ca/fra/reference/licence"
+    },
+    "description": "Subject to this licence, Statistics Canada grants you a worldwide, royalty-free, non-exclusive licence to: use, reproduce, publish, freely distribute, or sell the Information; use, reproduce, publish, freely distribute, or sell Value-added Products; and, sublicence any or all such rights, under terms consistent with this licence.",
+    "description_translated" : {
+        "en": "Subject to this licence, Statistics Canada grants you a worldwide, royalty-free, non-exclusive licence to: use, reproduce, publish, freely distribute, or sell the Information; use, reproduce, publish, freely distribute, or sell Value-added Products; and, sublicence any or all such rights, under terms consistent with this licence.",
+        "fr": "Sous réserve des conditions de la présente licence, Statistique Canada vous accorde une licence mondiale, libre de redevances et non exclusive vous permettant : d'utiliser, de reproduire, de publier, de diffuser gratuitement ou de vendre l'information ; d'utiliser, de reproduire, de publier, de diffuser gratuitement ou de vendre des produits à valeur ajoutée ; d'accorder des sous licences conférant une partie ou la totalité de ces droits, conformément aux conditions de cette licence."
+    }
   }
 ]
