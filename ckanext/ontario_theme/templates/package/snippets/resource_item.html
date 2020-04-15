@@ -56,7 +56,7 @@
               {% endif %}
             </a>
           {% if res.url and h.is_url(res.url) %}
-            <a href="{{ res.url }}" class="resource-url-analytics btn btn-primary" target="_blank">
+            <a href="{{ res.url }}" class="resource-url-analytics btn btn-primary dataset-download-link" target="_blank">
               {% if res.has_views or res.url_type == 'upload' %}
                 <i class="fa fa-arrow-circle-o-down"></i>
                 {{ _('Download') }}
