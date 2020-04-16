@@ -99,6 +99,10 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/header.html:116
+msgid "Tell us what you think about our data and how you’re using it. <a href=\"https://www.ontario.ca/form/survey-open-data-catalogue\" target=\"_blank\">Take our survey</a>"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/page.html:4
 msgid "Skip to content"
 msgstr ""
