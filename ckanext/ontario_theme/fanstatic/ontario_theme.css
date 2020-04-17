@@ -1,3 +1,6 @@
+.alert-banner {
+  margin-bottom: 0px;
+}
 .new-alert {
   border-color: rgba(0, 0, 0, 0.1);
   border-width: 0 0 0 .9375rem;
