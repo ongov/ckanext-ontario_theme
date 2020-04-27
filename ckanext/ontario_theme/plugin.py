@@ -234,6 +234,18 @@ def get_package_keywords(language='en'):
     package_top_keywords = package_top_keywords['search_facets'][facet]['items']
     return package_top_keywords
 
+def conditional_save(dependent_field, dependent_value):
+    '''When key is missing or value is an empty string or None, replace it with
+    a default value'''
+
+    def callable(key, data, errors, context):
+
+        value = data.get(key)
+
+        if (data.get(dependent_field) != dependent_value):
+            data[key] = None
+
+    return callable
 
 def default_locale():
     '''Wrap the ckan default locale in a helper function to access
@@ -274,6 +286,7 @@ def num_resources_filter_scrub(search_params):
 class OntarioThemePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IBlueprint)
+    plugins.implements(plugins.IValidators)
     plugins.implements(plugins.ITemplateHelpers)
     plugins.implements(plugins.IUploader, inherit=True)
     plugins.implements(plugins.IDatasetForm)
@@ -290,6 +303,14 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
         # the above template and resource directories.
         # toolkit.add_template_directory(config_, 'templates-bs2')
         # toolkit.add_resource('fanstatic-bs2', 'ontario_theme')
+
+
+    # IValidators
+
+    def get_validators(self):
+        return {
+                'conditional_save': conditional_save}
+
 
     # ITemplateHelpers
 
