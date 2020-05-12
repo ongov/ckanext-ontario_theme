@@ -401,6 +401,8 @@
         "en": "Access level",
         "fr": "Statut des données"
       },
+      "required": true,
+      "form_include_blank_choice": true,
       "help_inline" : true,
       "fieldset": 6,
       "fieldset_name": "Open Data Catalogue",
@@ -410,7 +412,7 @@
       }, 
       "classes": ["form-group","col-md-12"],
       "preset": "select",
-      "validators": "ignore_missing scheming_choices",
+      "validators": "ignore_missing scheming_choices scheming_required",
       "choices": [
         {
           "value": "open",
