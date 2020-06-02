@@ -67,6 +67,8 @@ Set the dataset schema::
     scheming.presets = ckanext.scheming:presets.json
                        ckanext.fluent:presets.json
 
+Create a sysadmin user, login and set the HomePage layout under Admin -> Config to the third option. Our homepage uses this layout as it's base.
+
 -----------------
 Development
 -----------------
