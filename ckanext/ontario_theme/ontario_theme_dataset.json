@@ -465,13 +465,6 @@
           }
         },
         {
-          "value": "to_be_opened",
-          "label": {
-            "en": "To be opened",
-            "fr": "En voie d’être ouvertes"
-          }
-        },
-        {
           "value": "under_review",
           "label": {
             "en": "Under review",
