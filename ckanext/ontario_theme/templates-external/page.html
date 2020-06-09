@@ -1,0 +1,36 @@
+{% ckan_extends %}
+
+{% block skip %}
+  <a href="#content" class="skip-main">{{ _('Skip to content') }}</a> 
+{% endblock %}
+
+{% block main_content %}
+  {% block flash %}
+    {{ super() }}
+  {% endblock %}
+
+  {% block toolbar %}
+    {{ super() }}
+  {% endblock %}
+
+  {% block ontario_theme_search_form %}
+    {# Custom block for search form. #}
+  {% endblock %}
+  
+  <div class="row wrapper{% block wrapper_class %}{% endblock %}{% if self.secondary()|trim == '' or c.action=='resource_read' %} no-nav{% endif %}">
+    {#
+    The pre_primary block can be used to add content to before the
+    rendering of the main content columns of the page.
+    #}
+    {% block pre_primary %}
+    {% endblock %}
+
+    {% block secondary %}
+      {{ super() }}
+    {% endblock %}
+
+    {% block primary %}
+      {{ super() }}
+    {% endblock %}
+  </div>
+{% endblock %}

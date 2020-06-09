@@ -1,0 +1,33 @@
+{#
+
+Renders a hard coded site description/introduction to
+help users better understand the data catalogue
+
+#}
+<div class="row">
+  <div class="col-md-12 intro-text">
+      <strong>{% trans %}Welcome to the Ontario Data catalogue!{% endtrans %}</strong>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <h2><i class="fa fa-search large pull-left"></i> {% trans %}Search{% endtrans %}</h2>
+    <p>
+      {% trans %}Try using the <a href="/dataset">catalogue search</a>.{% endtrans %}
+    </p>
+  </div>
+
+  <div class="col-md-4">
+    <h2><i class="fa fa-download large pull-left"></i> {% trans %}Download data{% endtrans %}</h2>
+    <p>
+      {% trans %}<a href="/help#how-do-i-download-datasets">Download and use the data you need.</a>{% endtrans %}
+    </p>
+  </div>
+
+  <div class="col-md-4">
+    <h2><i class="fa fa-bullhorn large pull-left"></i> {% trans %}Provide feedback{% endtrans %}</h2>
+    <p>
+      {% trans %}As we work to develop the catalogue, <a href="mailto:opengov@ontario.ca">tell us what you think</a>.{% endtrans %}
+    </p>
+  </div>
+</div>

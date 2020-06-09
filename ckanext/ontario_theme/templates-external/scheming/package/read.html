@@ -1,0 +1,49 @@
+{% extends "package/read.html" %}
+
+{%- set schema = h.scheming_get_dataset_schema(dataset_type) -%}
+
+{% block package_notes %}
+  {%- if not dataset_type -%}
+    <p>
+    dataset_type not passed to template. your version of CKAN
+    might not be compatible with ckanext-scheming
+    </p>
+  {%- endif -%}
+  {% if h.scheming_field_by_name(schema.dataset_fields, 'notes_translated') and
+    pkg.notes %}
+    <div class="notes embedded-content">
+      {{ h.render_markdown(h.scheming_language_text(pkg['notes_translated'])) }}
+    </div>
+  {% endif %}
+  <h3>{{ _("Contact") }}</h3>
+  {% set contact_name = h.get_translated(pkg, 'maintainer') %}
+  {% set contact_email = pkg.maintainer_email %} 
+  {% if (not contact_name) and (not contact_email) %}
+    {% set contact_name = _("Ontario's Open Data Team") %}
+    {% set contact_email = "opengov@ontario.ca" %} 
+  {% endif %}
+  <div>
+    {% if contact_name %}  
+      {{contact_name}}
+    {% endif %}
+    {% if not (contact_name or contact_email) %}
+      &nbsp;|&nbsp;
+    {% endif %}  
+    {% if contact_email %}  
+    <a href="mailto:{{contact_email}}?subject={{pkg.title}}">
+      {{contact_email}}
+    </a>
+    {% endif %}
+  </div>  
+  
+{% endblock %}
+
+
+{% block package_additional_info %}
+  {% snippet "scheming/package/snippets/additional_info.html",
+    pkg_dict=pkg, dataset_type=dataset_type, schema=schema %}
+{% endblock %}
+
+{% block package_resources %}
+  {% snippet "package/snippets/resources_list.html", pkg=pkg, resources=pkg.resources, schema=schema %}
+{% endblock %}

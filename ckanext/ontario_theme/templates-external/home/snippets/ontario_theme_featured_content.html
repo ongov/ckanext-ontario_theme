@@ -1,0 +1,44 @@
+{#
+
+Renders a row of 3 featured content cards on the home page.
+
+These are hardcoded values, typically highlighting datasets
+already existing in the system or news about the data catalogue.
+
+#}
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>{% trans %}News{% endtrans %}</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <a href="https://medium.com/ontariodigital/ontarios-new-data-catalogue-launches-in-beta-9b3ded80bb48" class="card">
+        <div>
+          <h3>{% trans %}We've launched!{% endtrans %}</h3>
+          <p>{% trans %}Learn about our plan for a new open data catalogue.{% endtrans %}</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="{% trans %}/about#features{% endtrans %}" class="card">
+        <div>
+          <h3>{% trans %}New features{% endtrans %}</h3>
+            <p>{% trans %}Discover some of the new features of our catalogue.{% endtrans %}</p>
+        </div>
+      </a>  
+    </div>
+
+    <div class="col-md-4">
+      <a href="{% trans %}/about#engagement{% endtrans %}" class="card">
+        <div>
+          <h3>{% trans %}Your catalogue, your feedback{% endtrans %}</h3>
+            <p>{% trans %}Read about our plans to incorporate your feedback into an agile, continually improving data catalogue.{% endtrans %}</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
