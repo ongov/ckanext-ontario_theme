@@ -84,6 +84,7 @@ setup(
     entry_points='''
         [ckan.plugins]
         ontario_theme=ckanext.ontario_theme.plugin:OntarioThemePlugin
+        ontario_theme_external=ckanext.ontario_theme.plugin:OntarioThemeExternalPlugin
 
         [babel.extractors]
         ckan = ckan.lib.extract:extract_ckan

@@ -1,5 +1,6 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
+from ckan.lib.plugins import DefaultTranslation
 from ckan.common import config
 
 from flask import Blueprint, make_response
@@ -399,3 +400,7 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
 
     def after_show(self, context, pkg_dict):
         return pkg_dict
+
+
+class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
+    plugins.implements(plugins.ITranslation)
