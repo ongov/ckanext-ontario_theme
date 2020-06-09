@@ -272,6 +272,18 @@ def num_resources_filter_scrub(search_params):
     return search_params
 
 
+class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
+    plugins.implements(plugins.ITranslation)
+    plugins.implements(plugins.IConfigurer)
+
+    # IConfigurer
+
+    def update_config(self, config_):
+        toolkit.add_template_directory(config_, 'templates/external')
+        # toolkit.add_public_directory(config_, 'public')
+        # toolkit.add_resource('fanstatic', 'ontario_theme')
+
+
 class OntarioThemePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IBlueprint)
@@ -284,7 +296,7 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
     # IConfigurer
 
     def update_config(self, config_):
-        toolkit.add_template_directory(config_, 'templates')
+        toolkit.add_template_directory(config_, 'templates/internal')
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic', 'ontario_theme')
         # Uncomment these to use bootstrap 2 theme and comment out
@@ -400,7 +412,3 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
 
     def after_show(self, context, pkg_dict):
         return pkg_dict
-
-
-class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
-    plugins.implements(plugins.ITranslation)
