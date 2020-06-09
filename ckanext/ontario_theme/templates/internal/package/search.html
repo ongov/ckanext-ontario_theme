@@ -69,12 +69,12 @@ in the core template for search.html.
         {% block facet_list_heading %}
           <h2 class="module-heading">
             <i class="fa fa-filter"></i>
-            {% set title = 'Resources (data)' %}
+            {% set title = _("Datasets with data") %}
             {{ title }}
           </h2>
         {% endblock %}
         {% block facet_list_items %}
-          {% set title = 'Has Resources (data)' %}
+          {% set title = _("Datasets with data") %}
           <nav>
             <ul class="{{ nav_class or 'list-unstyled nav nav-simple nav-facet' }}">
               {% set href = h.remove_url_param('num_resources',

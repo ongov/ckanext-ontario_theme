@@ -2,6 +2,8 @@
 
 {%- set schema = h.scheming_get_dataset_schema(dataset_type) -%}
 
+{# block package_notes customization compared to base. #}
+
 {% block package_notes %}
   {%- if not dataset_type -%}
     <p>
@@ -34,8 +36,7 @@
       {{contact_email}}
     </a>
     {% endif %}
-  </div>  
-  
+  </div>
 {% endblock %}
 
 

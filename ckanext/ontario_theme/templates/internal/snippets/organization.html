@@ -28,4 +28,14 @@
   </div>
 {% endblock %}
 {% block follow %}
+  <hr />
+  <h2 class="module-heading">{{ _("Keep updated") }}</h2>
+  <p>
+    {{ _("Subscribe to updates to this ministry using RSS.") }}
+  </p>
+  <p>
+    <a href="/feeds/organization/{{ organization.name }}.atom" class="btn btn-primary">
+      <i class="fa fa-rss"></i> {{ _('Subscribe') }}
+    </a>
+  </p>
 {% endblock %}
