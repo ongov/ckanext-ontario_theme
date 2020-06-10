@@ -280,8 +280,8 @@ class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
 
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates/external')
-        # toolkit.add_public_directory(config_, 'public')
-        # toolkit.add_resource('fanstatic', 'ontario_theme')
+        toolkit.add_public_directory(config_, 'public/external')
+        toolkit.add_resource('fanstatic/external', 'ontario_theme_external')
 
 
 class OntarioThemePlugin(plugins.SingletonPlugin):

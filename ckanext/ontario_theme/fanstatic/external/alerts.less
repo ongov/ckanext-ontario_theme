@@ -1,0 +1,82 @@
+.alert-banner {
+  margin-bottom: 0px;
+}
+.new-alert {
+  border-color: rgba(0,0,0,.1);
+  border-width: 0 0 0 .9375rem;
+  border-style: solid;
+  padding: .9375rem 2rem .9375rem .9375rem;
+  color: #333;
+  border-radius: 0px;
+  min-height: 50px;
+  padding-left: 70px;
+  padding-top: 15px;
+  position: relative;
+  &.alert-success::before, &.alert-info::before, &.alert-warning::before, &.alert-danger::before, &.alert-open::before, &.alert-to_be_opened::before, &.alert-under_review::before, &.alert-restricted::before {
+    font-family:"FontAwesome";
+    font-size: 36px;
+    position: absolute;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-top: -10px;
+    left: 10px;
+    top: 10px;
+  }
+  &.alert-success::before {
+    content:"\f058";
+    color: #2B8737;
+  }
+  &.alert-info::before {
+    content:"\f05a";
+    color: #0369AC;
+  }
+  &.alert-warning::before {
+    content:"\f06a";
+    color: #8A600D;
+  }
+  &.alert-danger::before {
+    content:"\f057";
+    color: #D81A21;
+  }
+  &.alert-open::before {
+    content:"\f058";
+    color: #2B8737;
+  }
+  &.alert-to_be_opened::before {
+    content:"\f017";
+    color: #0369AC;       
+  }
+  &.alert-under_review::before {
+    content:"\f059";
+    color: #92278F;
+  }
+  &.alert-restricted::before {
+    content:"\f023";
+    color: #D81A21;   
+  }
+  &.alert-large {
+    min-height: 80px;
+    padding-left: 90px;
+    &.alert-success::before, &.alert-info::before, &.alert-warning::before, &.alert-danger::before, &.alert-open::before, &.alert-to_be_opened::before, &.alert-under_review::before, &.alert-restricted::before {
+      font-size: 60px;
+    }
+  }
+  &.alert-open, &.alert-under_review, &.alert-to_be_opened, &.alert-restricted {
+    color: #4d4d4d;
+  }
+  &.alert-open {
+    background-color: #e6fad2;
+  }
+  &.alert-under_review {
+    background-color: #F1E3F2;
+  }
+  &.alert-to_be_opened {
+    background-color: #dff3f3
+  }
+  &.alert-restricted {
+    background-color: #fad2d2;
+  }
+  &.alert-clear {
+    margin-bottom: 30px;
+  }
+}
