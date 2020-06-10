@@ -283,6 +283,18 @@ class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
         toolkit.add_public_directory(config_, 'public/external')
         toolkit.add_resource('fanstatic/external', 'ontario_theme_external')
 
+        config_['scheming.dataset_schemas'] = """
+ckanext.ontario_theme:schemas/external/ontario_theme_dataset.json
+"""
+        config_['scheming.presets'] = """
+ckanext.scheming:presets.json
+ckanext.fluent:presets.json
+"""
+
+        config_['scheming.organization_schemas'] = """
+ckanext.ontario_theme:ontario_theme_organization.json
+"""
+
 
 class OntarioThemePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
@@ -303,6 +315,19 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
         # the above template and resource directories.
         # toolkit.add_template_directory(config_, 'templates-bs2')
         # toolkit.add_resource('fanstatic-bs2', 'ontario_theme')
+
+        if 'scheming.dataset_schemas' not in config_:
+            config_['scheming.dataset_schemas'] = """
+ckanext.ontario_theme:ontario_theme_dataset.json
+"""
+        config_['scheming.presets'] = """
+ckanext.scheming:presets.json
+ckanext.fluent:presets.json
+"""
+
+        config_['scheming.organization_schemas'] = """
+ckanext.ontario_theme:ontario_theme_organization.json
+"""
 
     # ITemplateHelpers
 
