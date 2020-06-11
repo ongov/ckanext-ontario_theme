@@ -296,7 +296,8 @@ ckanext.ontario_theme:ontario_theme_organization.json
 """
 
 
-class OntarioThemePlugin(plugins.SingletonPlugin):
+class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
+    plugins.implements(plugins.ITranslation)
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IBlueprint)
     plugins.implements(plugins.ITemplateHelpers)
