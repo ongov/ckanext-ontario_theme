@@ -3,9 +3,9 @@
 }
 .new-alert {
   border-color: rgba(0, 0, 0, 0.1);
-  border-width: 0 0 0 .9375rem;
+  border-width: 0 0 0 0.9375rem;
   border-style: solid;
-  padding: .9375rem 2rem .9375rem .9375rem;
+  padding: 0.9375rem 2rem 0.9375rem 0.9375rem;
   color: #333;
   border-radius: 0px;
   min-height: 50px;
@@ -76,9 +76,9 @@
 .new-alert.alert-large.alert-restricted::before {
   font-size: 60px;
 }
-.new-alert.alert-open, 
-.new-alert.alert-under_review, 
-.new-alert.alert-to_be_opened, 
+.new-alert.alert-open,
+.new-alert.alert-under_review,
+.new-alert.alert-to_be_opened,
 .new-alert.alert-restricted {
   color: #4d4d4d;
 }
@@ -89,7 +89,7 @@
   background-color: #F1E3F2;
 }
 .new-alert.alert-to_be_opened {
-  background-color: #dff3f3
+  background-color: #dff3f3;
 }
 .new-alert.alert-restricted {
   background-color: #fad2d2;
@@ -104,7 +104,7 @@
   background-color: #0071a9;
 }
 .secondary-bg {
-  background-color: #006b3f;
+  background-color: #006B3F;
 }
 .recent-activity .module-content {
   padding: 0px;
@@ -229,7 +229,7 @@ a.skip-main:active {
   background-color: #ffffff;
 }
 .btn-secondary {
-  background-color: #006b3f;
+  background-color: #006B3F;
   border-color: #004d2d;
 }
 .btn-secondary:hover {
@@ -269,21 +269,21 @@ a.skip-main:active {
 .btn-secondary.disabled.focus,
 .btn-secondary[disabled].focus,
 .btn-secondary fieldset[disabled] .btn-secondary.focus {
-  background-color: #006b3f;
+  background-color: #006B3F;
   border-color: #004d2d;
 }
 .btn-secondary.badge {
-  color: #006b3f;
+  color: #006B3F;
   background-color: #ffffff;
 }
 .btn-grey {
   color: #fff;
-  background-color: #666666;
-  border-color: #444444;
+  background-color: #666;
+  border-color: #444;
 }
 .btn-grey:hover {
-  background-color: #444444;
-  border-color: #222222;
+  background-color: #444;
+  border-color: #222;
 }
 .btn-grey:hover,
 .btn-grey:visited {
@@ -291,14 +291,14 @@ a.skip-main:active {
 }
 .btn-grey:focus,
 .btn-grey.focus {
-  background-color: #444444;
-  border-color: #222222;
+  background-color: #444;
+  border-color: #222;
 }
 .btn-grey:active,
 .btn-grey.active,
 .btn-grey .open > .dropdown-toggle.btn-grey {
-  background-color: #444444;
-  border-color: #222222;
+  background-color: #444;
+  border-color: #222;
   background-image: none;
 }
 .btn-grey:active:hover,
@@ -310,8 +310,8 @@ a.skip-main:active {
 .btn-grey:active.focus,
 .btn-grey.active.focus,
 .btn-grey .open > .dropdown-toggle.btn-grey.focus {
-  background-color: #444444;
-  border-color: #222222;
+  background-color: #444;
+  border-color: #222;
 }
 .btn-grey.disabled:hover,
 .btn-grey[disabled]:hover,
@@ -322,11 +322,11 @@ a.skip-main:active {
 .btn-grey.disabled.focus,
 .btn-grey[disabled].focus,
 .btn-grey fieldset[disabled] .btn-grey.focus {
-  background-color: #666666;
-  border-color: #444444;
+  background-color: #666;
+  border-color: #444;
 }
 .btn-grey.badge {
-  color: #666666;
+  color: #666;
   background-color: #ffffff;
 }
 @font-face {
@@ -334,9 +334,8 @@ a.skip-main:active {
   font-style: normal;
   font-weight: 400;
   src: url(/fonts/material/MaterialIcons-Regular.eot);
-  src: local('Material Icons'), local('MaterialIcons-Regular'), url(/fonts/material/MaterialIcons-Regular.woff2) format('woff2'), url(/fonts/material/MaterialIcons-Regular.woff) format('woff'), url(/fonts/material/MaterialIcons-Regular.ttf) format('truetype');
-  
   /* For IE6-8 */
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url(/fonts/material/MaterialIcons-Regular.woff2) format('woff2'), url(/fonts/material/MaterialIcons-Regular.woff) format('woff'), url(/fonts/material/MaterialIcons-Regular.ttf) format('truetype');
 }
 .material-icons {
   font-family: 'Material Icons';
@@ -425,7 +424,7 @@ div.card p {
 }
 .search-form .search-input button i,
 .simple-input .field .btn-search {
-  color: #006b3f;
+  color: #006B3F;
 }
 .hero {
   min-height: 300px;
@@ -501,7 +500,13 @@ div.card p {
   height: 35px;
   background-position: -414px -62px;
 }
-.open,.under_review,.to_be_opened,.restricted,.label-french,.label-english,.label-english_and_french {
+.open,
+.under_review,
+.to_be_opened,
+.restricted,
+.label-french,
+.label-english,
+.label-english_and_french {
   color: #4d4d4d;
 }
 .open {
@@ -511,7 +516,7 @@ div.card p {
   background: #d2d1eb;
 }
 .to_be_opened {
-  background-color: #dff3f3
+  background-color: #dff3f3;
 }
 .restricted {
   background-color: #fad2d2;
@@ -520,10 +525,10 @@ div.card p {
   background: #d2d1eb;
 }
 .label-english {
-  background-color: #dff3f3
+  background-color: #dff3f3;
 }
 .label-english_and_french {
-  background-color: #e6fad2;  
+  background-color: #e6fad2;
 }
 .stats .number {
   display: block;
@@ -583,7 +588,7 @@ h6 {
   font-family: Raleway, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 a {
-  color: #0066cc;
+  color: #06c;
 }
 a:hover,
 a:focus {
@@ -840,7 +845,7 @@ section.additional-info table.table tbody tr td.dataset-details {
    The main masthead bar that contains the site logo, nav links, and search
    ======================================================================== */
 .masthead {
-  background-color: #006b3f;
+  background-color: #006B3F;
 }
 .masthead a,
 .masthead a:focus,
@@ -891,7 +896,7 @@ section.additional-info table.table tbody tr td.dataset-details {
   top: 1px;
 }
 .toolbar .breadcrumb a {
-  color: #006b3f;
+  color: #006B3F;
   font-size: 15px;
 }
 .logo img {
