@@ -292,7 +292,7 @@ ckanext.fluent:presets.json
 """
 
         config_['scheming.organization_schemas'] = """
-ckanext.ontario_theme:ontario_theme_organization.json
+ckanext.ontario_theme:schemas/ontario_theme_organization.json
 """
 
 
@@ -319,7 +319,7 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
 
         if 'scheming.dataset_schemas' not in config_:
             config_['scheming.dataset_schemas'] = """
-ckanext.ontario_theme:ontario_theme_dataset.json
+ckanext.ontario_theme:schemas/internal/ontario_theme_dataset.json
 """
         config_['scheming.presets'] = """
 ckanext.scheming:presets.json
@@ -327,7 +327,7 @@ ckanext.fluent:presets.json
 """
 
         config_['scheming.organization_schemas'] = """
-ckanext.ontario_theme:ontario_theme_organization.json
+ckanext.ontario_theme:schemas/ontario_theme_organization.json
 """
 
     # ITemplateHelpers

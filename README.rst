@@ -78,7 +78,7 @@ Update the development.ini (or production.ini) plugins::
     ckan.plugins = [...] ontario_theme scheming_datasets scheming_organizations fluent [...]
 
     # For both, add licenses:
-    licenses_group_url = file:///<path to this extension>/ckanext/ontario_theme/licences.json
+    licenses_group_url = file:///<path to this extension>/ckanext/ontario_theme/schemas/licences.json
 
 Create a sysadmin user, login and set the HomePage layout under Admin -> Config to the third option. Our homepage uses this layout as it's base.
 
