@@ -97,8 +97,10 @@ Install npm and less, then compile less files to css before pushing changes.::
     sudo apt install npm
     sudo npm install -g less
     ln -s /usr/bin/nodejs /usr/bin/node
-    cd /ckanext-ontario_theme/ckanext/ontario_theme/fanstatic
-    lessc ontario_theme.less ontario_theme.css
+    cd /ckanext-ontario_theme/ckanext/ontario_theme/fanstatic/internal
+    lessc ontario_theme.less ontario_theme.css # Builds internal
+    cd ../external
+    lessc ontario_theme.less ontario_theme.css # Builds external
 
 Styles should be broken down into small modules that do one thing and contain all necessary 
 styling for that module. As an example, the smarties.less file should contain all styling
