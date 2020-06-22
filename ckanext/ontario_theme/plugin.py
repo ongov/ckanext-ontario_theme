@@ -312,10 +312,6 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
         toolkit.add_template_directory(config_, 'templates/internal')
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic/internal', 'ontario_theme')
-        # Uncomment these to use bootstrap 2 theme and comment out
-        # the above template and resource directories.
-        # toolkit.add_template_directory(config_, 'templates-bs2')
-        # toolkit.add_resource('fanstatic-bs2', 'ontario_theme')
 
         if 'scheming.dataset_schemas' not in config_:
             config_['scheming.dataset_schemas'] = """
