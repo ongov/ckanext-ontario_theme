@@ -1,5 +1,6 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
+from ckan.lib.plugins import DefaultTranslation
 from ckan.common import config
 
 from flask import Blueprint, make_response
@@ -271,7 +272,32 @@ def num_resources_filter_scrub(search_params):
     return search_params
 
 
-class OntarioThemePlugin(plugins.SingletonPlugin):
+class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
+    plugins.implements(plugins.ITranslation)
+    plugins.implements(plugins.IConfigurer)
+
+    # IConfigurer
+
+    def update_config(self, config_):
+        toolkit.add_template_directory(config_, 'templates/external')
+        toolkit.add_public_directory(config_, 'public')
+        toolkit.add_resource('fanstatic/external', 'ontario_theme_external')
+
+        config_['scheming.dataset_schemas'] = """
+ckanext.ontario_theme:schemas/external/ontario_theme_dataset.json
+"""
+        config_['scheming.presets'] = """
+ckanext.scheming:presets.json
+ckanext.fluent:presets.json
+"""
+
+        config_['scheming.organization_schemas'] = """
+ckanext.ontario_theme:schemas/ontario_theme_organization.json
+"""
+
+
+class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
+    plugins.implements(plugins.ITranslation)
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IBlueprint)
     plugins.implements(plugins.ITemplateHelpers)
@@ -283,13 +309,26 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
     # IConfigurer
 
     def update_config(self, config_):
-        toolkit.add_template_directory(config_, 'templates')
+        toolkit.add_template_directory(config_, 'templates/internal')
         toolkit.add_public_directory(config_, 'public')
-        toolkit.add_resource('fanstatic', 'ontario_theme')
+        toolkit.add_resource('fanstatic/internal', 'ontario_theme')
         # Uncomment these to use bootstrap 2 theme and comment out
         # the above template and resource directories.
         # toolkit.add_template_directory(config_, 'templates-bs2')
         # toolkit.add_resource('fanstatic-bs2', 'ontario_theme')
+
+        if 'scheming.dataset_schemas' not in config_:
+            config_['scheming.dataset_schemas'] = """
+ckanext.ontario_theme:schemas/internal/ontario_theme_dataset.json
+"""
+        config_['scheming.presets'] = """
+ckanext.scheming:presets.json
+ckanext.fluent:presets.json
+"""
+
+        config_['scheming.organization_schemas'] = """
+ckanext.ontario_theme:schemas/ontario_theme_organization.json
+"""
 
     # ITemplateHelpers
 

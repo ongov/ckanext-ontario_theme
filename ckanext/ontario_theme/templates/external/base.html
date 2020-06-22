@@ -1,0 +1,10 @@
+{% ckan_extends %}
+
+{%- block links -%}
+  {{ super() }}
+{% endblock %}
+
+{% block styles %}
+  {{ super() }}
+  {% resource 'ontario_theme_external/ontario_theme.css' %}
+{% endblock %}

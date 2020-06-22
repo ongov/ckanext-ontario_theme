@@ -1,0 +1,276 @@
+/* =====================================================
+   Typography
+   ===================================================== */
+
+body {
+  font-size: 16px;
+}
+
+h1 {
+  font-size: 35px;
+}
+
+h2 {
+  font-size: 25px;
+} 
+
+h3 { 
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 17px
+}
+
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Raleway,Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+
+a {
+  color: @ontario-link-colour;
+}
+
+a:hover, a:focus {
+  color: @ontario-link-hover-colour;
+}
+
+a:visited {
+  color: @ontario-link-visited-colour;
+}
+
+.intro-text {
+  font-size: 24px;
+}
+
+figure {
+  background-color: #eee;
+  width: 80%;
+  margin: 50px 10%;
+  padding: 10px;
+  img, figcaption {
+    width: 100%;
+  }
+  figcaption {
+    margin-top: 10px;
+    font-style: italic;
+    font-size: 1em;
+  }
+}
+
+
+p {
+  font-family: inherit;
+  font-weight: 400;
+  margin-bottom: 1.25rem;
+  text-rendering: optimizeLegibility;
+}
+
+/* =====================================================
+   Helpers
+   ===================================================== */
+
+hr.thick {
+  border-top: 4px solid #ededed;
+}
+
+.large {
+  font-size: 40px;
+}
+
+.text-center {
+  text-align: center!important;
+}
+
+.top-margin {
+  margin-top: 40px;
+}
+
+/* =====================================================
+   Remove background images
+   ===================================================== */
+
+.module-grid,
+.media-grid,
+.account-masthead,
+.masthead, 
+body,
+.ie8 [role=main],
+.ie7 [role=main],
+.ie8 .main,
+.ie7 .main  {
+  background-image: none;
+  background-color: #fff;
+  font-family: 'Open Sans';
+}
+
+@media (min-width: 768px) {
+  [role=main],
+  .main {
+    padding-top: 10px;
+    background-image: none;
+    background-color: transparent;
+  }
+}
+
+#dataset-search-form, #organization-search-form, #group-search-form {
+  margin: 0px 0px 20px 0px;
+  background: #fafafa;
+  padding: 20px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: none;
+}
+div.add-dataset {
+  width: 100%;
+  text-align: right; 
+}
+.filters div section:first-child {
+  margin-top: 0px;
+}
+.media-item {
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid #dddddd;
+}
+.media-item:last-child {
+  border-bottom: none;
+}
+.media-image {
+  float: left;
+  margin-right: 20px;
+}
+.media-view {
+  border: none;
+}
+.resource-item .format-label {
+    top: 0px;
+    left: -35px;
+}
+li.resource-item .btn-group.download {
+  position: unset;
+  top: unset;
+  right: unset;
+}
+li.resource-item div.btn-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.hero {
+  background-image: none;
+  background: linear-gradient(0deg,rgba(0,0,0,.3),rgba(0,0,0,0.3)), url(/images/backgrounds/richard-balog-647377-unsplash_converted.jpg);
+  background-size: cover, cover;
+  height: auto;
+  background-position: 50% 50%;
+}
+
+.ie8 .hero,
+.ie7 .hero {
+  background-image: none;
+  background-color: #003647;
+}
+
+/* =====================================================
+   Layout changes
+   ===================================================== */
+
+.wrapper {
+  background-image: none;
+  border: none;
+  box-shadow: none;
+  header.page-header {
+    border: none;
+    background: none;
+    ul.nav.nav-tabs {
+      width: 100%;
+      li a {
+        color: @grey;
+        border: none;
+        &:hover {
+          border: none;
+        }
+      }
+      li.active a {
+        border: none;
+        border-bottom: solid 2px @primary-colour;
+        color: @primary-colour;
+      }
+    }
+  }
+}
+
+.module-heading {
+  border-top: none;
+  border-bottom: none;
+  background-color: transparent;  
+  &:not(:first-child) {
+    padding-left: 0px;
+  }
+}
+
+.module-narrow {
+  margin: 40px 0px;
+  background: #fafafa;
+  padding: 20px 5px;
+  border-radius: 5px;
+  .module-content {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }  
+}
+
+.well {
+  &:before{
+    //content: "Topics:";
+  }
+  border: none;
+  background: none;
+  box-shadow: none;
+  a.tag {
+    background-color: @primary-colour;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    box-shadow: none;
+  }
+}
+
+section.additional-info table.table {
+  border: none;
+  thead {
+    display: none;
+  }
+  td {
+    border: none;
+  }
+  tbody tr:nth-child(even) th, tbody tr:nth-child(even) td {
+    background-color: #f9f9f9;
+  }
+  tbody tr th, tbody tr td {
+    border: none;
+  }
+  tbody tr td.dataset-details {
+    width: 75%;
+  }
+}
+
+.media-grid {
+  border: none;
+}
+
+.page_primary_action .add-dataset, .page_primary_action .add-organization, .page_primary_action .add-group {
+  text-align: right; 
+}
+
+/* =====================================================
+   Sub page left panel border removal
+   ===================================================== */
+
+@media (min-width: 768px) {
+  .wrapper:before {
+      border-right: none;
+  }
+}

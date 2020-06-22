@@ -27,15 +27,23 @@ Requirements
  * - Scheming extension
    - `open-data/ckanext-scheming <https://github.com/open-data/ckanext-scheming>`_
    - master
-   - scheming_datasets
+   - ``scheming_datasets``
  * - Fluent extension
    - `open-data/ckanext-fluent <https://github.com/open-data/ckanext-fluent>`_
    - master
-   - fluent
+   - ``fluent``
  * - ckanapi-exporter
    - `ckanapi-exporter <https://github.com/ckan/ckanapi-exporter>`_
    - master
    - N/A
+
+
+------------
+Plugins in this Extension
+------------
+
+* ``ontario_theme`` base and internal facing Ontario data catalogue
+* ``ontario_theme_external`` customizations for external facing Ontario data catalogue (requires ``ontario_theme``)
 
 
 ------------
@@ -58,14 +66,19 @@ virtualenv and do::
     python setup.py develop
     pip install -r dev-requirements.txt
 
-Set the dataset schema::
+Update the development.ini (or production.ini) plugins::
 
     # This relies on scheming and fluent, make sure these are already installed.
-    # Note: This extension needs to be before scheming in the *.ini config file to let the form overrides work.
-    # Specify the new schema for datasets.
-    scheming.dataset_schemas = ckanext.ontario_theme:ontario_theme_dataset.json
-    scheming.presets = ckanext.scheming:presets.json
-                       ckanext.fluent:presets.json
+    # Note: This extension needs to be before scheming and fluent in the *.ini config file to let the form overrides work.
+    
+    # For external catalogue
+    ckan.plugins = [...] ontario_theme_external ontario_theme scheming_datasets scheming_organizations fluent [...]
+
+    # For internal catalogue
+    ckan.plugins = [...] ontario_theme scheming_datasets scheming_organizations fluent [...]
+
+    # For both, add licenses:
+    licenses_group_url = file:///<path to this extension>/ckanext/ontario_theme/schemas/licences.json
 
 Create a sysadmin user, login and set the HomePage layout under Admin -> Config to the third option. Our homepage uses this layout as it's base.
 
@@ -84,12 +97,39 @@ Install npm and less, then compile less files to css before pushing changes.::
     sudo apt install npm
     sudo npm install -g less
     ln -s /usr/bin/nodejs /usr/bin/node
-    cd /ckanext-ontario_theme/ckanext/ontario_theme/fanstatic
-    lessc ontario_theme.less ontario_theme.css
+    cd /ckanext-ontario_theme/ckanext/ontario_theme/fanstatic/internal
+    lessc ontario_theme.less ontario_theme.css # Builds internal
+    cd ../external
+    lessc ontario_theme.less ontario_theme.css # Builds external
 
 Styles should be broken down into small modules that do one thing and contain all necessary 
 styling for that module. As an example, the smarties.less file should contain all styling
 needed for smarties.
+
+
+-----------------
+Translations
+-----------------
+
+Current Process:
+
+* We currently do them manually
+* We have not been updating the line numbers or comments at all
+* We edit the .pot and .po files manually for new and modified strings
+* the .mo file is generated at deployment on the server with ``python setup.py compile_catalog`` from the ``ckanext-ontario_theme`` directory
+
+Initial Creation:
+
+* Initially the .pot file was created as per docs (``python setup.py extract_messages``) and we generated the .po file for our locale as well (``python setup.py init_catalog -l fr``). Some tweaks were made for formatting large strings and removing things that are covered by the CKAN .po files (e.g. "Dataset" is already translated).
+
+Additional Info:
+
+* you have a template file (.pot) that has the ``msgid`` and the empty ``msgstr``.
+* the template can be used to create other locale translation files (e.g. French, Spanish, German, etc.)
+* the translation files (.po) have the "id" and the translation for that locale. The translation text is manually added in (or with something like Transifex).
+* the .mo file is the compiled translation for each locale that is used when displaying the site in that locale.
+* Note: if you regenerate the .pot file it replaces the existing one based on the current state of the templates. If you then regenerate the .po file it does the same and all translation content will be lost unless you do an update and go through for edits. It's partially why this form of translations are for things that are static content that change rarely. More dynamic content should be handled elsewhere (e.g. see ckanext-fluent)
+
 
 -----------------
 Running the Tests

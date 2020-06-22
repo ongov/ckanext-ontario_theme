@@ -1,0 +1,42 @@
+{% ckan_extends %}
+{# extending CKAN to use super() in the blocks that the base templates will
+  handle #}
+<footer class="site-footer">
+  <div class="container">
+    {% block footer_content %}
+    <div class="row">
+      <div class="col-md-7 footer-links">
+        {% block footer_nav %}
+          {{ super() }}
+        {% endblock %}
+      </div>
+      <div class="col-md-2 footer-contactus">
+          {# Custom content for external #}
+          <strong>{% trans %}Contact Us{% endtrans %}</strong>    
+          <div>
+              <a class="btn btn-grey" href="{% trans %}https://www.ontario.ca/feedback/contact-us?id=33142&nid=53950{% endtrans %}">
+                <i class="material-icons">mail</i>
+                <i class="material-icons"> / </i>
+                <i class="material-icons">phone</i>
+              </a>
+          </div>
+      </div>
+      <div class="col-md-3 attribution">
+        {% block footer_attribution %}
+          {{ super() }}
+        {% endblock %}
+        {% block footer_lang %}
+          <!-- snippet "snippets/language_selector.html" -->
+        {% endblock %}
+      </div>
+    </div>
+    {% endblock %}
+  </div>
+  
+
+  {% block footer_debug %}
+    {% if g.debug %}
+      {% include 'snippets/debug.html' %}
+    {% endif %}
+  {% endblock %}
+</footer>
