@@ -326,6 +326,10 @@ ckanext.fluent:presets.json
 ckanext.ontario_theme:schemas/ontario_theme_organization.json
 """
 
+        config_['scheming.group_schemas'] = """
+ckanext.ontario_theme:schemas/ontario_theme_collection.json
+"""
+
     # ITemplateHelpers
 
     def get_helpers(self):
