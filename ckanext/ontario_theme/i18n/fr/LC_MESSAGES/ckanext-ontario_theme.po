@@ -20,6 +20,74 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
+# Collections
+msgid "Collections"
+msgstr "Collections"
+
+msgid "Add a Collection"
+msgstr "Ajouter une collection"
+
+msgid "Add Collection"
+msgstr "Ajouter une collection"
+
+msgid "Search groups..."
+msgstr "Rechercher des collections..."
+
+msgid "There are currently no collections for this site"
+msgstr "Il n'y a actuellement aucune collection pour ce site"
+
+msgid "Create a Collection"
+msgstr "Créer une Collection"
+
+msgid "What are Collections?"
+msgstr "Que sont les collections ?"
+
+msgid ""
+" You can create and manage collections of datasets. "
+"This could be to catalogue datasets for a particular project or team, or "
+"on a particular theme, or as a very simple way to help people find and "
+"search your own published datasets. "
+msgstr ""
+"Vous pouvez créer et gérer des collections"
+" de jeux de données. Cela peut être pour cataloguer des jeux de données "
+"pour un projet ou une équipe en particulier, ou autour d'un thème "
+"spécifique, ou comme moyen très simple d'aider à parcourir et découvrir "
+"vos jeux de données publiés."
+
+msgid "Are you sure you want to delete this Collection?"
+msgstr "Etes-vous sûr de vouloir supprimer cette Collection?"
+
+msgid "Save Collection"
+msgstr "Sauvegarder la Collection"
+
+msgid "Remove dataset from this collection"
+msgstr "Supprimer le jeu de données de cette collection"
+
+msgid "My Collection"
+msgstr "Ma Collection"
+
+msgid "Collection name"
+msgstr "Ma Collection"
+
+msgid "A little information about my collection..."
+msgstr "Un peu d'information au sujet de ma collection..."
+
+msgid "{number} collection found for \"{query}\""
+msgid_plural "{number} collection found for \"{query}\""
+msgstr[0] "{number} collection trouvée pour \"{query}\""
+msgstr[1] "{number} collections trouvées pour \"{query}\""
+
+msgid "No collections found for \"{query}\""
+msgstr "Aucune collection trouvée pour \"{query}\""
+
+msgid "{number} collection found"
+msgid_plural "{number} collections found"
+msgstr[0] "{number} collection trouvée"
+msgstr[1] "{number} collections trouvées"
+
+msgid "No collections found"
+msgstr "Aucune collection trouvée"
+
 #: ckanext/ontario_theme/templates/footer.html:9
 msgid "accessibility"
 msgstr "accessibilité"
