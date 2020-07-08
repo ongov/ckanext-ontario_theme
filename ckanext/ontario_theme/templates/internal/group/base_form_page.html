@@ -1,0 +1,6 @@
+{% ckan_extends %}
+
+{% block breadcrumb_content %}
+  <li>{{ h.nav_link(_('Groups'), controller='group', action='index') }}</li>
+  <li class="active">{% block breadcrumb_link %}{{ h.nav_link(_('Add a Group'), controller='group', action='new') }}{% endblock %}</li>
+{% endblock %}
