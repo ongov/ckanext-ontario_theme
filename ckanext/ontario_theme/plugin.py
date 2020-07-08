@@ -3,6 +3,7 @@ import ckan.plugins.toolkit as toolkit
 from ckan.lib.plugins import DefaultTranslation
 from ckan.common import config
 
+from routes.mapper import SubMapper, Mapper as _Mapper
 from flask import Blueprint, make_response
 from flask import render_template, render_template_string
 
@@ -305,6 +306,47 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.IDatasetForm)
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.IPackageController)
+    plugins.implements(plugins.IRoutes, inherit=True)
+
+    def before_map(self, map):
+        map.redirect('/collections', '/collection')
+        map.redirect("/collections/{url:.*}", "/collection/{url}")
+        map.redirect('/group', '/collection',
+                     _redirect_code='301 Moved Permanently')
+        map.redirect('/group/{url:.*}', '/collection/{url}',
+                     _redirect_code='301 Moved Permanently')
+
+        
+        with SubMapper(map, controller="group") as m:
+            m.connect('collection_index', '/collection', action='index')
+            m.connect('collection_list','/collection/list', action='list')
+            m.connect('collection_new','/collection/new', action='new')
+            m.connect('/collection/{action}/{id}',
+                      requirements=dict(action='|'.join([
+                          'delete',
+                          'admins',
+                          'member_new',
+                          'member_delete',
+                          'history'
+                          'followers',
+                          'follow',
+                          'unfollow',
+                      ])))
+            m.connect('collection_activity', '/collection/activity/{id}',
+                      action='activity', ckan_icon='time')
+            m.connect('collection_read', '/collection/{id}', action='read')
+            m.connect('collection_about', '/collection/about/{id}',
+                      action='about', ckan_icon='info-sign')
+            m.connect('collection_read', '/collection/{id}', action='read',
+                      ckan_icon='sitemap')
+            m.connect('collection_edit', '/collection/edit/{id}',
+                      action='edit', ckan_icon='edit')
+            m.connect('collection_members', '/collection/edit_members/{id}',
+                      action='members', ckan_icon='group')
+            m.connect('collection_bulk_process',
+                      '/collection/bulk_process/{id}',
+                      action='bulk_process', ckan_icon='sitemap')
+        return map
 
     # IConfigurer
 
