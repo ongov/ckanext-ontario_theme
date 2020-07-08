@@ -377,6 +377,7 @@ ckanext.ontario_theme:schemas/ontario_theme_collection.json
     def dataset_facets(self, facets_dict, package_type):
         '''Add new search facet (filter) for datasets.
         '''
+        facets_dict['groups'] = toolkit._('Collections')
         facets_dict['access_level'] = toolkit._('Access Level')
         facets_dict['update_frequency'] = toolkit._('Update Frequency')
         facets_dict['keywords_en'] = toolkit._('Keywords')
@@ -387,6 +388,7 @@ ckanext.ontario_theme:schemas/ontario_theme_collection.json
         u'''Modify and return the ``facets_dict`` for a group's page.
         Throws AttributeError: no attribute 'organization_facets' without function.
         '''
+        facets_dict['groups'] = toolkit._('Collections')
         return self.dataset_facets(facets_dict, package_type)
 
     def organization_facets(self, facets_dict, organization_type, package_type):

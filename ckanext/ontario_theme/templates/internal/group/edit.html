@@ -2,7 +2,7 @@
 
 
 {% block breadcrumb_content %}
-  <li>{% link_for _('Groups'), controller='group', action='index' %}</li>
+  <li>{% link_for _('Collections'), controller='group', action='index' %}</li>
   {% block breadcrumb_content_inner %}
     <li>{% link_for h.get_translated(group, "title")|truncate(35), controller='group', action='read', id=group.name %}</li>
     <li class="active">{% link_for _('Edit'), controller='group', action='edit', id=group.name %}</li>
