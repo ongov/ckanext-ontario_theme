@@ -1,8 +1,19 @@
-{% resource 'ontario_theme/ontario_theme_randomize_home_background.js' %}
-
-<div class="hero" data-module="ontario_theme_randomize_home_background">
-  <h2 class="accessibly-hidden">Home</h2>
-  <div class="container">
+<div id="landing-page-body">
+<div class="hero">
+  <h2 class="accessibly-hidden">{{ _("Home") }}</h2>
+  <div class="container welcome">
+    <div class="row">
+      <div class="col-md-6">
+        {% block intro %}
+          {% snippet 'home/snippets/ontario_theme_intro.html' %}
+        {% endblock %}
+      </div>
+      <div class="col-md-6 stats">
+        {% block stats %}
+          {% snippet 'home/snippets/ontario_theme_datasets_stats.html' %}
+        {% endblock %}            
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-12">
         {% block search %}
@@ -14,45 +25,50 @@
 </div>
 
 <div role="main">
-  <div class="container">
+  <div class="container" id="topics">
     <div class="row">
-      <div class="col-md-9">
-        {% block intro %}
-          {% snippet 'home/snippets/ontario_theme_intro.html' %}
-        {% endblock %}
-      </div>
-      <div class="col-md-3">
-        {% block stats %}
-          {% snippet 'home/snippets/ontario_theme_datasets_stats.html' %}
-        {% endblock %}
-      </div>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="row">
-      <hr class="thick">
       <div class="col-md-12">
-        {% block featured_content %}
-          {% snippet 'home/snippets/ontario_theme_featured_content.html' %}
-        {% endblock %}
+        <h3>{{ _("Browse by category") }}</h3>
       </div>
     </div>
+    {% snippet 'home/snippets/ontario_theme_categories.html' %}
   </div>
 
-  <div class="container">
-    <div class="row">
-      <hr class="thick">
-      <div class="col-md-8">
-        {% block contact_us %}
-          {% snippet 'home/snippets/ontario_theme_contact_us.html' %}
-        {% endblock %}
+<div class="banner-section">
+  <div id="news" class="container">
+    <div class="row homepage-section">
+      <div class="col-md-12">
+        <h3>{{ _("What's new") }}</h3>
       </div>
-      <div class="col-md-4">
-        {% block recent_activity %}
-          {% snippet 'home/snippets/ontario_theme_recent_activity.html' %}
-        {% endblock %}
+      {% block featured_content %}
+        {% snippet 'home/snippets/ontario_theme_featured_content.html' %}
+      {% endblock %}
+    </div>   
+    <div class="row homepage-section">
+      <div class="col-md-6 dataset-list">
+            <h4>Most popular datasets</h4>
+            {% snippet 'home/snippets/ontario_theme_popular_datasets.html' %}
+      </div>
+      <div class="col-md-6 dataset-list">
+        <h4>Recently updated datasets</h4>
+            {% snippet 'home/snippets/ontario_theme_recent_activity.html' %}
       </div>
     </div>
   </div>
+</div>
+
+<div class="container" id="resources_and_information" >
+  {% snippet 'home/snippets/ontario_theme_resources_and_information.html' %}
+</div>
+
+<div class="container homepage-section" style="margin-top: 40px">
+  <div class="row">
+    <div class="col-md-12"> 
+      {% block contact_us %}
+        {% snippet 'home/snippets/ontario_theme_contact_us.html' %}
+      {% endblock %}
+    </div>
+  </div>
+</div>  
+</div>
 </div>

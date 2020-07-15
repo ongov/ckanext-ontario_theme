@@ -203,6 +203,25 @@ def csv_dump():
         (b'attachment; filename="output.csv"')
     return resp
 
+def get_recently_updated_datasets():
+    '''Helper to return license based on id.
+    '''
+    recently_updated_resources = toolkit.get_action('resource_search')(
+        data_dict={'limit': 3,
+                    'query': 'type:data',
+                    'sort': 'data_last_updated desc'})
+    recently_updated_datasets = map(lambda x: toolkit.get_action('package_show')(data_dict={
+        'id': x['package_id']
+        }), recently_updated_resources['results'])
+    return recently_updated_datasets
+
+def get_popular_datasets():
+    '''Helper to return license based on id.
+    '''
+    popular_datasets = toolkit.get_action('package_search')(
+        data_dict={'rows': 3,
+                    'sort': 'views_recent desc'})
+    return popular_datasets['results']
 
 def get_license(license_id):
     '''Helper to return license based on id.
@@ -290,11 +309,12 @@ ckanext.ontario_theme:schemas/external/ontario_theme_dataset.json
 ckanext.scheming:presets.json
 ckanext.fluent:presets.json
 """
-
         config_['scheming.organization_schemas'] = """
 ckanext.ontario_theme:schemas/ontario_theme_organization.json
 """
-
+        config_['ckan.extra_resource_fields'] = """
+type data_last_updated
+"""
 
 class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
@@ -325,11 +345,15 @@ ckanext.fluent:presets.json
         config_['scheming.organization_schemas'] = """
 ckanext.ontario_theme:schemas/ontario_theme_organization.json
 """
-
+        config_['ckan.tracking_enabled'] = """
+true
+"""
     # ITemplateHelpers
 
     def get_helpers(self):
         return {'ontario_theme_get_license': get_license,
+                'ontario_theme_get_popular_datasets': get_popular_datasets,
+                'ontario_theme_get_recently_updated_datasets': get_recently_updated_datasets,
                 'extrafields_default_locale': default_locale,
                 'ontario_theme_get_package_keywords': get_package_keywords}
 

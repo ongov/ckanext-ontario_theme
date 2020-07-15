@@ -17,9 +17,18 @@ h2 {
 h3 { 
   font-size: 20px;
 }
+#landing-page-body h3 {
+  font-size: 40px;
+  text-align: left;
+}
 
 h4 {
   font-size: 17px
+}
+
+#landing-page-body h4 {
+  font-size: 20px;
+  text-align: left;
 }
 
 h1, h2, h3, h4 {
@@ -87,6 +96,10 @@ hr.thick {
 
 .top-margin {
   margin-top: 40px;
+}
+
+.float-right {
+  float: right;
 }
 
 /* =====================================================
@@ -159,14 +172,60 @@ li.resource-item div.btn-wrapper {
   position: relative;
   display: inline-block;
 }
+
+
 .hero {
-  background-image: none;
-  background: linear-gradient(0deg,rgba(0,0,0,.3),rgba(0,0,0,0.3)), url(/images/backgrounds/richard-balog-647377-unsplash_converted.jpg);
-  background-size: cover, cover;
-  height: auto;
-  background-position: 50% 50%;
+  min-height: 400px;
+  line-height: 400px;
+  background-color: @primary-colour;
+  background-image: url(/images/co-homepage-supergraphic.svg);
+  background-position-x: 49vw;
+  background-position-y: top;
+  background-size: 58rem;
+  background-repeat: no-repeat;
+  color: white;
+  a, a:focus {
+    color: white;
+  }
+  a, a:focus, a:hover {
+    text-decoration: underline;
+  }
+  .welcome p {
+    font-size: 2.375rem;
+    line-height: 1.4;
+  }
+  h1 {
+    font-size: 4.5rem;
+    letter-spacing: .04rem;
+    line-height: 1.29;
+    font-weight: bold;
+  }
+  .stats {
+    text-align: center;
+    font-size: 7rem;
+    font-weight: bold;
+    vertical-align: bottom;
+    line-height: 0.5; 
+    a {
+      text-decoration: none;
+    } 
+    a, a:visited {
+      text-shadow: 0 0 4px #8A600D; 
+      color: white;
+    }
+    span.above-stat {
+      font-size: 2rem;
+      line-height: 5rem;
+    }
+    span.below-stat {
+      font-size: 2.8rem;
+    }
+  }
 }
 
+.fill-sky {
+  fill: #00B2E3;
+}
 .ie8 .hero,
 .ie7 .hero {
   background-image: none;
@@ -238,6 +297,28 @@ li.resource-item div.btn-wrapper {
   }
 }
 
+.homepage-section {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+#news {
+  color: white; 
+  padding-top: 15px; 
+  padding-bottom: 15px;
+  a {
+    color: white;
+    text-decoration: underline;
+  }
+  .dataset-list {
+    .row {
+      a {
+        font-size: 1.7rem;
+      }
+    }
+  }
+}
+
 section.additional-info table.table {
   border: none;
   thead {
@@ -259,6 +340,28 @@ section.additional-info table.table {
 
 .media-grid {
   border: none;
+}
+
+.banner-section {
+  background: @primary-colour; 
+  width: 100%;
+  a {
+    color: white;
+    text-decoration: underline;
+  }
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: black;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: black;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: black;
 }
 
 .page_primary_action .add-dataset, .page_primary_action .add-organization, .page_primary_action .add-group {

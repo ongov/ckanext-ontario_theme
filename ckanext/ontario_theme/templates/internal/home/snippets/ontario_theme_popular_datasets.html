@@ -1,0 +1,15 @@
+  {% set popular_datasets = h.ontario_theme_get_popular_datasets() %}
+
+  {% for dataset in popular_datasets %}
+  <div class="row">
+    <div class="col-md-1">
+      <div class="circle c-small">
+        {{ loop.index }}
+      </div>
+    </div>
+    <div class="col-md-10 c-small-text">
+      <a href="{% url_for controller='package', action='read', id=dataset.name %}">{{ h.get_translated(dataset, "title") }}</a><br />
+    </div>
+  </div>
+  {% endfor %}
+
