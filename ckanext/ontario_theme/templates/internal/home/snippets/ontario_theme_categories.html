@@ -42,10 +42,10 @@
 ]
 %}
 
-{% for iter1 in [1,2] %}
+{% for iter1 in [0,5] %}
 <div class="row">
-  {% for iter2 in [1,2,3,4,5] %}
-  {% set i = (iter1*iter2)-1 %}
+  {% for iter2 in [0,1,2,3,4] %}
+  {% set i = (iter1+iter2) %}
   <a href="/{{ request.environ.CKAN_LANG }}/dataset?keywords_{{ request.environ.CKAN_LANG }}={{ _(topics[i]['label'])|replace(' ','+') }}">
     <div class="col-md-2-10">
       <i class="fa fa-{{topics[i]['fa-icon']}}"></i> <br>
