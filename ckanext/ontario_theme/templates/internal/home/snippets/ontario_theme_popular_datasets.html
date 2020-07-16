@@ -2,12 +2,12 @@
 
   {% for dataset in popular_datasets %}
   <div class="row">
-    <div class="col-md-1">
+    <div class="col-md-2 col-sm-2 col-xs-2">
       <div class="circle c-small">
         {{ loop.index }}
       </div>
     </div>
-    <div class="col-md-10 c-small-text">
+    <div class="col-md-10 col-sm-10 col-xs-10 c-small-text">
       <a href="{% url_for controller='package', action='read', id=dataset.name %}">{{ h.get_translated(dataset, "title") }}</a><br />
     </div>
   </div>
