@@ -1,0 +1,39 @@
+{% ckan_extends %}
+
+{% import 'macros/form.html' as form %}
+
+{% block admin_form %}
+
+  {{ super() }}
+
+  <h3>Home Page Content Blocks</h3>
+
+  {{ form.markdown('ckanext.ontario_theme.home_block_one',
+                   id='field-ckanext.ontario_theme.home_block_one',
+                   label=_('Home Block One'),
+                   value=data['ckanext.ontario_theme.home_block_one'],
+                   error=errors['ckanext.ontario_theme.home_block_one']) }}
+
+  {{ form.markdown('ckanext.ontario_theme.home_block_two',
+                   id='field-ckanext.ontario_theme.home_block_two',
+                   label=_('Home Block Two'),
+                   value=data['ckanext.ontario_theme.home_block_two'],
+                   error=errors['ckanext.ontario_theme.home_block_two']) }}
+
+  {{ form.markdown('ckanext.ontario_theme.home_block_three',
+                   id='field-ckanext.ontario_theme.home_block_three',
+                   label=_('Home Block Three'),
+                   value=data['ckanext.ontario_theme.home_block_three'],
+                   error=errors['ckanext.ontario_theme.home_block_three']) }}
+
+{% endblock %}
+
+
+{% block admin_form_help %}
+
+  {{ super() }}
+
+  <p><strong>Home Block One:</strong> First editable region on the home page.</p>
+  <p><strong>Home Block Two:</strong> Second editable region on the home page.</p>
+  <p><strong>Home Block Three:</strong> Third editable region on the home page.</p>
+{% endblock %}

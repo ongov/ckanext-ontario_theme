@@ -5,6 +5,7 @@ from ckan.common import config
 
 from flask import Blueprint, make_response
 from flask import render_template, render_template_string
+from six import text_type
 
 import ckanapi_exporter.exporter as exporter
 import json
@@ -272,6 +273,14 @@ def num_resources_filter_scrub(search_params):
     return search_params
 
 
+def home_block_one():
+    '''Helper to make the new configuration available to templates.
+    Returns the configuration or empty string.
+    '''
+    value = config.get('ckanext.ontario_theme.home_block_one', '')
+    return value
+
+
 class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
     plugins.implements(plugins.IConfigurer)
@@ -326,12 +335,31 @@ ckanext.fluent:presets.json
 ckanext.ontario_theme:schemas/ontario_theme_organization.json
 """
 
+    def update_config_schema(self, schema):
+        '''Add's new fields to the schema for run-time editable configuration
+        options.
+        '''
+        ignore_missing = toolkit.get_validator('ignore_missing')
+
+        schema.update({
+            # Custom configuration options for home page content.
+            'ckanext.ontario_theme.home_block_one': [ignore_missing,
+                                                     text_type],
+            'ckanext.ontario_theme.home_block_two': [ignore_missing,
+                                                     text_type],
+            'ckanext.ontario_theme.home_block_three': [ignore_missing,
+                                                       text_type],
+        })
+
+        return schema
+
     # ITemplateHelpers
 
     def get_helpers(self):
         return {'ontario_theme_get_license': get_license,
                 'extrafields_default_locale': default_locale,
-                'ontario_theme_get_package_keywords': get_package_keywords}
+                'ontario_theme_get_package_keywords': get_package_keywords,
+                'ontario_theme_home_block_one': home_block_one}
 
     # IBlueprint
 
