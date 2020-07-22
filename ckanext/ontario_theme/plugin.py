@@ -312,9 +312,6 @@ ckanext.fluent:presets.json
         config_['scheming.organization_schemas'] = """
 ckanext.ontario_theme:schemas/ontario_theme_organization.json
 """
-        config_['ckan.extra_resource_fields'] = """
-type data_last_updated
-"""
 
 class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
@@ -347,6 +344,9 @@ ckanext.ontario_theme:schemas/ontario_theme_organization.json
 """
         config_['ckan.tracking_enabled'] = """
 true
+"""
+        config_['ckan.extra_resource_fields'] = """
+type data_last_updated
 """
     # ITemplateHelpers
 
