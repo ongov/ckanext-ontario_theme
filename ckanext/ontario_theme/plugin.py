@@ -204,19 +204,15 @@ def csv_dump():
     return resp
 
 def get_recently_updated_datasets():
-    '''Helper to return license based on id.
+    '''Helper to return 3 freshest datasets
     '''
-    recently_updated_resources = toolkit.get_action('resource_search')(
-        data_dict={'limit': 3,
-                    'query': 'type:data',
-                    'sort': 'data_last_updated desc'})
-    recently_updated_datasets = map(lambda x: toolkit.get_action('package_show')(data_dict={
-        'id': x['package_id']
-        }), recently_updated_resources['results'])
-    return recently_updated_datasets
+    recently_updated_datasets = toolkit.get_action('package_search')(
+        data_dict={'rows': 3,
+                    'sort': 'current_as_of desc'})
+    return recently_updated_datasets['results']
 
 def get_popular_datasets():
-    '''Helper to return license based on id.
+    '''Helper to return most popular datasets, based on ckan core tracking feature
     '''
     popular_datasets = toolkit.get_action('package_search')(
         data_dict={'rows': 3,

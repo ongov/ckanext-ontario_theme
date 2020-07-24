@@ -4,7 +4,7 @@ Renders a list of the site's most recent activity.
 
 #}
   {% set recently_updated_datasets = h.ontario_theme_get_recently_updated_datasets() %}
-  {% for dataset in recently_updated_datasets|sort(reverse=true, attribute="current_as_of") %}
+  {% for dataset in recently_updated_datasets %}
 
   <div class="row">
     <div class="col-md-2 col-sm-2 col-xs-4" style="min-height: 4rem">
