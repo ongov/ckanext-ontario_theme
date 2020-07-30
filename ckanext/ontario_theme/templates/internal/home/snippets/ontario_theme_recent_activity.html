@@ -7,10 +7,10 @@ Renders a list of the site's most recent activity.
   {% for dataset in recently_updated_datasets %}
 
   <div class="row">
-    <div class="col-md-2 col-sm-2 col-xs-4" style="min-height: 4rem">
+    <div class="col-md-3 col-sm-3 col-xs-4" style="min-height: 4rem">
       <span class="label label-default">{{ h.render_datetime(dataset.current_as_of) }}</span>
     </div>
-    <div class="col-md-10 col-sm-10 col-xs-8">
+    <div class="col-md-9 col-sm-9 col-xs-8">
       <a href="{% url_for controller='package', action='read', id=dataset.name %}">{{ h.get_translated(dataset, "title") }}</a>
     </div>
   </div>

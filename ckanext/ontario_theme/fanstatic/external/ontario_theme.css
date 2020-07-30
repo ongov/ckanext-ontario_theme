@@ -444,6 +444,12 @@ div.card p {
   margin: 0px;
   border: none;
 }
+.module.search .search-form .search-input button {
+  line-height: 2.8rem;
+}
+.module.search .search-form .search-input button i.fa-search {
+  color: #000;
+}
 .module.search h3 {
   float: left;
 }
@@ -461,10 +467,7 @@ div.card p {
 }
 .search-form .search-input button i,
 .simple-input .field .btn-search {
-  color: #fcaf17;
-}
-.search-form .search-input button i.fa-search {
-  color: #000;
+  top: 45%;
 }
 .dataset-resources li a {
   background-color: #aaaaaa;

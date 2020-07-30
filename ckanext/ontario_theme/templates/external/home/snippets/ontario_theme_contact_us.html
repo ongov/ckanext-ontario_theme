@@ -12,8 +12,9 @@ Renders contact information for the site on the home page.
         </div>
         <div class="col-md-10">
           <p style="padding-top: 20px; padding-left: 30px; padding-right: 30px; font-size:2.375rem; line-height: 1.4;">
-            Have feedback or questions? Have a data or catalogue request? We want to hear from you! We use your feedback to drive our work. <br />
-            <button class="btn btn-secondary float-right">Contact us!</button>
+            {% trans %}Have feedback or questions? Have a data or catalogue request? We want to hear from you! We use your feedback to drive our work.{% endtrans %}
+            <br />
+            <button class="btn btn-secondary float-right">{{ _("Contact Us") }}!</button>
           </p>  
         </div>
       </div>
