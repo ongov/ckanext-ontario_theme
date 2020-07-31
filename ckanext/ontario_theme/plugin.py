@@ -21,6 +21,10 @@ def help():
     '''
     return render_template('home/help.html')
 
+def ga_dashboard():
+    '''New help page for site.
+    '''
+    return render_template('home/analytics.html')
 
 def csv_dump():
     '''The pattern allows you to go deeper into the nested structures.
@@ -275,7 +279,7 @@ def num_resources_filter_scrub(search_params):
 class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
     plugins.implements(plugins.IConfigurer)
-
+    plugins.implements(plugins.IBlueprint)
     # IConfigurer
 
     def update_config(self, config_):
@@ -295,6 +299,20 @@ ckanext.fluent:presets.json
 ckanext.ontario_theme:schemas/ontario_theme_organization.json
 """
 
+    def get_blueprint(self):
+        '''Return a Flask Blueprint object to be registered by the app.
+        '''
+
+        blueprint = Blueprint(self.name, self.__module__)
+        blueprint.template_folder = u'templates'
+        # Add url rules to Blueprint object.
+        rules = [
+            (u'/analytics', u'analytics', ga_dashboard)
+        ]
+        for rule in rules:
+            blueprint.add_url_rule(*rule)
+
+        return blueprint
 
 class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
