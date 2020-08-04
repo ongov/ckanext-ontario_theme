@@ -7,7 +7,7 @@ Uses get_site_statistics() to parse and display the stat.
 #}
 {% set stats = h.get_site_statistics() %}
 
-<a href="/dataset">
+<a href="/{{ request.environ.CKAN_LANG }}/dataset">
 	<span class="above-stat">{{ _("Explore Ontario's") }}</span><br />
 	{{ stats.dataset_count }} <br>
 	<span class="below-stat">{{ _("data assets") }}</span><br />
