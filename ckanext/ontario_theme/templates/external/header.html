@@ -1,0 +1,23 @@
+{% ckan_extends %}
+
+{% block header_logo %}
+  {% if g.site_logo %}
+    <a class="logo" href="{{ h.url_for('home.index') }}"><img src="{{ h.url_for_static_or_external(g.site_logo) }}" alt="{{ g.site_title }}" title="{{ g.site_title }}" /></a>
+  {% else %}
+    {# Add alpha styling. #}
+    <h1>
+      <a href="{{ h.url_for('home.index') }}">{{ _("Data Catalogue") }}</a>
+    </h1>
+    {# End customization. #}
+    {% if g.site_description %}<h2>{{ g.site_description }}</h2>{% endif %}
+  {% endif %}
+{% endblock %}
+
+{% block header_wrapper %} 
+  {{ super() }}
+  <header id="survey">
+    <div class="alert alert-warning alert-clear alert-banner">
+      {% trans %}Tell us what you think about our data and how you’re using it. <a href="https://www.ontario.ca/form/survey-open-data-catalogue" target="_blank">Take our survey</a>{% endtrans %}
+    </div>
+</header>
+{% endblock %}

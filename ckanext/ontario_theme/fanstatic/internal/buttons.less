@@ -1,0 +1,222 @@
+/* =====================================================
+   Button overrides
+   ===================================================== */
+
+.btn-primary {
+  color: #fff;
+  &:focus,
+  &.focus,
+  &:visited,
+  &.visited,
+  &:hover,
+  &:active,
+  &.active {
+    color: #fff;
+  }
+}
+
+.btn-secondary {
+  color: #fff;
+  &:focus,
+  &.focus,
+  &:visited,
+  &.visited,
+  &:hover,
+  &:active,
+  &.active {
+    color: #fff;
+  }
+}
+
+.btn-primary {
+  background-color: @primary-colour;
+  border-color: @primary-darker;
+  &:hover {
+    background-color: @primary-darker;
+    border-color: @primary-darkest;
+  }
+  &:focus,
+  &.focus {
+    background-color: @primary-darker;
+    border-color: @primary-darkest;
+  }
+  &:active,
+  &.active,
+  .open>.dropdown-toggle.btn-primary {
+    background-color: @primary-darker;
+    border-color: @primary-darkest;
+    background-image: none;
+  }
+  &:active:hover,
+  &.active:hover,
+  .open>.dropdown-toggle.btn-primary:hover,
+  &:active:focus,
+  &.active:focus,
+  .open>.dropdown-toggle.btn-primary:focus,
+  &:active.focus,
+  &.active.focus,
+  .open>.dropdown-toggle.btn-primary.focus {
+    background-color: @primary-darker;
+    border-color: @primary-darkest;
+  }
+  &.disabled:hover,
+  &[disabled]:hover,
+  fieldset[disabled] .btn-primary:hover,
+  &.disabled:focus,
+  &[disabled]:focus,
+  fieldset[disabled] .btn-primary:focus,
+  &.disabled.focus,
+  &[disabled].focus,
+  fieldset[disabled] .btn-primary.focus {
+    background-color: @primary-colour;
+    border-color: @primary-darker;
+  }
+  &.badge {
+    color: @primary-colour;
+    background-color: #ffffff
+  }
+}
+
+
+.btn-secondary {
+  background-color: @secondary-colour;
+  border-color: @secondary-darker;
+  &:hover {
+    background-color: @secondary-darker;
+    border-color: @secondary-darkest;
+  }
+  &:focus,
+  &.focus {
+    background-color: @secondary-darker;
+    border-color: @secondary-darkest;
+  }
+  &:active,
+  &.active,
+  .open>.dropdown-toggle.btn-secondary {
+    background-color: @secondary-darker;
+    border-color: @secondary-darkest;
+    background-image: none;
+  }
+  &:active:hover,
+  &.active:hover,
+  .open>.dropdown-toggle.btn-secondary:hover,
+  &:active:focus,
+  &.active:focus,
+  .open>.dropdown-toggle.btn-secondary:focus,
+  &:active.focus,
+  &.active.focus,
+  .open>.dropdown-toggle.btn-secondary.focus {
+    background-color: @secondary-darker;
+    border-color: @secondary-darkest;
+  }
+  &.disabled:hover,
+  &[disabled]:hover,
+  fieldset[disabled] .btn-secondary:hover,
+  &.disabled:focus,
+  &[disabled]:focus,
+  fieldset[disabled] .btn-secondary:focus,
+  &.disabled.focus,
+  &[disabled].focus,
+  fieldset[disabled] .btn-secondary.focus {
+    background-color: @secondary-colour;
+    border-color: @secondary-darker;
+  }
+  &.badge {
+    color: @secondary-colour;
+    background-color: #ffffff
+  }
+}
+
+.btn-grey {
+  color: #fff;
+  background-color: @button-grey-colour;
+  border-color: @button-grey-darker;
+  &:hover {
+    background-color: @button-grey-darker;
+    border-color: @button-grey-darkest;
+  }
+  &:hover, &:visited {
+    color: #fff;
+  }
+  &:focus,
+  &.focus {
+    background-color: @button-grey-darker;
+    border-color: @button-grey-darkest;
+  }
+  &:active,
+  &.active,
+  .open>.dropdown-toggle.btn-grey {
+    background-color: @button-grey-darker;
+    border-color: @button-grey-darkest;
+    background-image: none;
+  }
+  &:active:hover,
+  &.active:hover,
+  .open>.dropdown-toggle.btn-grey:hover,
+  &:active:focus,
+  &.active:focus,
+  .open>.dropdown-toggle.btn-grey:focus,
+  &:active.focus,
+  &.active.focus,
+  .open>.dropdown-toggle.btn-grey.focus {
+    background-color: @button-grey-darker;
+    border-color: @button-grey-darkest;
+  }
+  &.disabled:hover,
+  &[disabled]:hover,
+  fieldset[disabled] .btn-grey:hover,
+  &.disabled:focus,
+  &[disabled]:focus,
+  fieldset[disabled] .btn-grey:focus,
+  &.disabled.focus,
+  &[disabled].focus,
+  fieldset[disabled] .btn-grey.focus {
+    background-color: @button-grey-colour;
+    border-color: @button-grey-darker;
+  }
+  &.badge {
+    color: @button-grey-colour;
+    background-color: #ffffff
+  }
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/fonts/material/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url(/fonts/material/MaterialIcons-Regular.woff2) format('woff2'),
+    url(/fonts/material/MaterialIcons-Regular.woff) format('woff'),
+    url(/fonts/material/MaterialIcons-Regular.ttf) format('truetype');
+}
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+/* Button wrap text */
+.btn {
+  white-space: normal;
+}
