@@ -8,6 +8,7 @@ from flask import render_template, render_template_string
 
 import ckanapi_exporter.exporter as exporter
 import json
+import ckan.lib.i18n as i18n
 
 from ckan.model import Package
 
@@ -224,6 +225,17 @@ def get_license(license_id):
     '''
     return Package.get_license_register().get(license_id)
 
+def get_translated_lang(data_dict, field, specified_language):
+    site_language = i18n.get_lang()
+    try:
+        return data_dict[field + u'_translated'][specified_language]
+    except KeyError:
+        try:
+            return data_dict[field + u'_translated'][site_language]
+        except KeyError:
+            val = data_dict.get(field, '')
+            return _(val) if val and isinstance(val, string_types) else val
+
 
 def get_package_keywords(language='en'):
     '''Helper to return a list of the top 3 keywords based on specified
@@ -348,6 +360,7 @@ type data_last_updated
 
     def get_helpers(self):
         return {'ontario_theme_get_license': get_license,
+                'ontario_theme_get_translated_lang': get_translated_lang,
                 'ontario_theme_get_popular_datasets': get_popular_datasets,
                 'ontario_theme_get_recently_updated_datasets': get_recently_updated_datasets,
                 'extrafields_default_locale': default_locale,
