@@ -3,14 +3,20 @@
 Renders contact information for the site on the home page.
 
 #}
-<div class="contact-us"> 
-  <h2>{% trans %}Contact us{% endtrans %}</h2>
 
-    <div class="row">
-      <div class="col-md-12">
-        <p>
-          {% trans %}Have feedback or questions? We want to hear from you! Email us at <a href="mailto:opengov@ontario.ca">opengov@ontario.ca</a> or tweet at us: <a href="https://twitter.com/opengovon">@OpenGovON</a>.{% endtrans %}
-        </p>         
+<div class="contact-us new-alert alert-contact alert-clear">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2 symbol">
+          <i class="fa fa-comments"></i>
+        </div>
+        <div class="col-md-10 message">
+          <p>
+            {% trans %}Have feedback or questions? Have a data or catalogue request? We want to hear from you! We use your feedback to drive our work.{% endtrans %}
+            <br />
+            <a href="{% trans %}https://www.ontario.ca/feedback/contact-us?id=33142&nid=53950{% endtrans %}" class="btn btn-secondary float-right">{{ _("Contact Us") }}!</a>
+          </p>  
+        </div>
       </div>
     </div>
 </div>
