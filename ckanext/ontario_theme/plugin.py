@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 from ckan.lib.plugins import DefaultTranslation
@@ -8,6 +9,9 @@ from flask import render_template, render_template_string
 
 import ckanapi_exporter.exporter as exporter
 import json
+
+import ckan.lib.navl.dictization_functions as df
+Invalid = df.Invalid
 
 from ckan.model import Package
 
@@ -224,6 +228,14 @@ def get_license(license_id):
     '''
     return Package.get_license_register().get(license_id)
 
+def tag_name_validator(value, context):
+    import re
+    from ckan.common import _
+    tagname_match = re.compile(ur'[\w \’\'\-.]*$', re.UNICODE)
+    if not tagname_match.match(value):
+        raise Invalid(_('Tag "%s" must be lumpyalphanumeric '
+                        'characters or symbols: -_.') % (value))
+    return value
 
 def get_package_keywords(language='en'):
     '''Helper to return a list of the top 3 keywords based on specified
@@ -318,6 +330,7 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.IDatasetForm)
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.IPackageController)
+    plugins.implements(plugins.IValidators)
 
     # IConfigurer
 
@@ -344,6 +357,13 @@ true
         config_['ckan.extra_resource_fields'] = """
 type data_last_updated
 """
+
+    # IValidators
+
+    def get_validators(self):
+        return {
+                'ontario_tag_name_validator': tag_name_validator}
+
     # ITemplateHelpers
 
     def get_helpers(self):
