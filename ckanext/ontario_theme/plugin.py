@@ -8,7 +8,6 @@ from flask import render_template, render_template_string
 
 import ckanapi_exporter.exporter as exporter
 import json
-import ckan.lib.i18n as i18n
 import ckan.lib.helpers as helpers
 
 from ckan.model import Package
@@ -227,7 +226,6 @@ def get_license(license_id):
     return Package.get_license_register().get(license_id)
 
 def get_translated_lang(data_dict, field, specified_language):
-    site_language = i18n.get_lang()
     try:
         return data_dict[field + u'_translated'][specified_language]
     except KeyError:
