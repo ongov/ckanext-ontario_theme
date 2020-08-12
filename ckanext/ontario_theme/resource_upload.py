@@ -41,7 +41,7 @@ def accepted_resource_formats():
         file_resource_formats = json.loads(format_file.read())
 
         for format_line in file_resource_formats:
-            resource_formats.append(format_line[0])
+            resource_formats.append(format_line[0].upper())
     return resource_formats
 
 

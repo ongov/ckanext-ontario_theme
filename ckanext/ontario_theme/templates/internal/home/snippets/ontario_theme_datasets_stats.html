@@ -7,9 +7,9 @@ Uses get_site_statistics() to parse and display the stat.
 #}
 {% set stats = h.get_site_statistics() %}
 
-    <div class="stats smartie">
-      <div class="text-center">
-        <div class="circle"><span class="number">{{ h.SI_number_span(stats.dataset_count) }}</span></div>
-        <div class="stats-caption">{{ _('dataset') if stats.dataset_count == 1 else _('datasets') }}</div>
-      </div>
-    </div>
+<a href="/{{ request.environ.CKAN_LANG }}/dataset">
+	<span class="above-stat">{{ _("Explore Ontario's") }}</span><br />
+	{{ stats.dataset_count }} <br>
+	<span class="below-stat">{{ _("data assets") }}</span><br />
+	<button class="btn btn-primary" style="margin-top: 15px">{{ _("View All") }}</button>
+</a>
