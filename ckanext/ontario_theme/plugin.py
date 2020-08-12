@@ -9,6 +9,7 @@ from flask import render_template, render_template_string
 import ckanapi_exporter.exporter as exporter
 import json
 import ckan.lib.i18n as i18n
+import ckan.lib.helpers as helpers
 
 from ckan.model import Package
 
@@ -230,11 +231,7 @@ def get_translated_lang(data_dict, field, specified_language):
     try:
         return data_dict[field + u'_translated'][specified_language]
     except KeyError:
-        try:
-            return data_dict[field + u'_translated'][site_language]
-        except KeyError:
-            val = data_dict.get(field, '')
-            return _(val) if val and isinstance(val, string_types) else val
+        return helpers.get_translated(data_dict, field)
 
 
 def get_package_keywords(language='en'):
