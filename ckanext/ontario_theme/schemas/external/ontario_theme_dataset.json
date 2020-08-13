@@ -265,7 +265,7 @@
       },
       "help_inline" : true,
       "help_text": {
-        "en": "Let others know when they can expect new data. [more information on selecting an update frequency]"
+        "en": "Let others know when they can expect new data."
       }, 
       "preset": "select",
       "validators": "ignore_missing scheming_choices",
