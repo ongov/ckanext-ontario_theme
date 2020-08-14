@@ -69,6 +69,10 @@ msgstr "Catalogue de données"
 msgid "Tell us what you think about our data and how you’re using it. <a href=\"https://www.ontario.ca/form/survey-open-data-catalogue\" target=\"_blank\">Take our survey</a>"
 msgstr "Faites-nous part de vos commentaires au sujet de nos données, et dites-nous de quelle façon vous les utilisez. <a href=\"https://www.ontario.ca/fr/forme/enquete-catalogue-de-donnees-de-lontario\" target=\"_blank\">Veuillez répondre à notre sondage</a>"
 
+#: ckanext/ontario_theme/templates/home/analytics.html:11
+msgid "544e6e2e-f0ad-4551-9594-5ae905b84523"
+msgstr "4cb009b2-15c9-48cf-9a79-1be02414070f"
+
 #: ckanext/ontario_theme/templates/home/help.html:14
 msgid ""
 "<p>Need more help or want to learn more about the data catalogue? <a "
