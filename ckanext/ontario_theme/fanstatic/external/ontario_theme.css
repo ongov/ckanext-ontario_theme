@@ -814,6 +814,7 @@ section.additional-info table.table tbody tr td.dataset-details {
 #analytics_box {
   overflow: hidden;
   width: 100%;
+  border:0;
 }
 /* =====================================================
    The "account masthead" bar across the top of the site
