@@ -1095,7 +1095,7 @@ section.additional-info table.table tbody tr td.dataset-details {
 .account-masthead hgroup {
   display: inline;
 }
-.masthead hgroup h1 {
+.masthead hgroup a {
   float: left;
   font-size: 24px;
   line-height: 1.5;
@@ -1103,11 +1103,11 @@ section.additional-info table.table tbody tr td.dataset-details {
   margin: 0;
 }
 @media only screen and (max-width: 768px) {
-  .masthead hgroup h1 {
+  .masthead hgroup a {
     padding-top: 9px;
   }
 }
-.masthead hgroup h1 sup {
+.masthead hgroup a sup {
   font-size: 60%;
 }
 .masthead .navbar-collapse {
