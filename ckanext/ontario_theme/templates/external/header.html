@@ -15,7 +15,9 @@
   {{ super() }}
   <header id="survey">
     <div class="alert alert-warning alert-clear alert-banner">
-      {% trans %}Tell us what you think about our data and how you’re using it. <a href="https://www.ontario.ca/form/survey-open-data-catalogue" target="_blank">Take our survey</a>{% endtrans %}
+      <div class="container">
+        {% trans %}Tell us what you think about our data and how you’re using it. <a href="https://www.ontario.ca/form/survey-open-data-catalogue" target="_blank">Take our survey</a>{% endtrans %}
+      </div>
     </div>
 </header>
 {% endblock %}
