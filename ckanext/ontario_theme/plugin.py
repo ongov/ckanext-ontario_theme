@@ -315,7 +315,6 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.IBlueprint)
     plugins.implements(plugins.ITemplateHelpers)
     plugins.implements(plugins.IUploader, inherit=True)
-    plugins.implements(plugins.IDatasetForm)
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.IPackageController)
 
@@ -375,18 +374,6 @@ type data_last_updated
 
     def get_resource_uploader(self, data_dict):
         return ResourceUpload(data_dict)
-
-    # IDatasetForm
-
-    def is_fallback(self):
-        # Return True to register this plugin as the default handler for
-        # package types not handled by any other IDatasetForm plugin.
-        return True
-
-    def package_types(self):
-        # This plugin doesn't handle any special package types, it just
-        # registers itself as the default (above).
-        return []
 
     # IFacets
 
