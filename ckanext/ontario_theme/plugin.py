@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
 import ckan.plugins as plugins
+from ckanext.ontario_theme import validators
 import ckan.plugins.toolkit as toolkit
 from ckan.lib.plugins import DefaultTranslation
 from ckan.common import config
@@ -228,15 +228,6 @@ def get_license(license_id):
     '''
     return Package.get_license_register().get(license_id)
 
-def tag_name_validator(value, context):
-    import re
-    from ckan.common import _
-    tagname_match = re.compile(ur'[\w \’\'\-.]*$', re.UNICODE)
-    if not tagname_match.match(value):
-        raise Invalid(_('Tag "%s" must be lumpyalphanumeric '
-                        'characters or symbols: -_.') % (value))
-    return value
-
 def get_package_keywords(language='en'):
     '''Helper to return a list of the top 3 keywords based on specified
     language.
@@ -362,7 +353,7 @@ type data_last_updated
 
     def get_validators(self):
         return {
-                'ontario_tag_name_validator': tag_name_validator}
+                'ontario_tag_name_validator': validators.tag_name_validator}
 
     # ITemplateHelpers
 
