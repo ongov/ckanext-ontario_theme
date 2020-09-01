@@ -140,6 +140,8 @@ a.skip-main {
   overflow: hidden;
   z-index: -999;
   display: inline;
+  color: black;
+  background-color: white;
 }
 a.skip-main:focus,
 a.skip-main:active {
@@ -174,8 +176,7 @@ a.skip-main:active {
   color: #fff;
 }
 .btn-secondary {
-  color: #fff;
-  text-shadow: 0 0 4px #8A600D;
+  color: #1a1a1a;
 }
 .btn-secondary:focus,
 .btn-secondary.focus,
@@ -184,7 +185,7 @@ a.skip-main:active {
 .btn-secondary:hover,
 .btn-secondary:active,
 .btn-secondary.active {
-  color: #fff;
+  color: #1a1a1a;
 }
 .btn-primary {
   background-color: #1080a6;
@@ -371,7 +372,7 @@ a.skip-main:active {
   white-space: normal;
 }
 a.card div {
-  background-color: #f5f5f5;
+  background-color: #cccccc;
   transition: 1s;
   transition: box-shadow 135ms cubic-bezier(0.4, 0, 0.2, 1), width 235ms cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 2px 4px #666;
@@ -386,7 +387,7 @@ a.card img {
   width: 100%;
 }
 a.card p {
-  color: #4d4d4d;
+  color: #666666;
 }
 a.card:hover {
   text-decoration: none;
@@ -404,7 +405,7 @@ div.card img {
   width: 100%;
 }
 div.card p {
-  color: #4d4d4d;
+  color: #666666;
 }
 .col-xs-2-10,
 .col-sm-2-10 {
@@ -563,7 +564,7 @@ div.card p {
 }
 .label-default {
   background-color: #fcaf17;
-  text-shadow: 0 0 2px #8a600d;
+  color: #1a1a1a;
 }
 .stats .number {
   display: block;
@@ -582,7 +583,7 @@ div.card p {
   font-family: Raleway, Open Sans, sans-serif;
   border-radius: 50%;
   color: #fff;
-  background-color: #00b2e3;
+  background-color: #1080a6;
   display: inline-block;
   font-weight: 700;
   margin-bottom: 0.5rem;
@@ -596,8 +597,8 @@ div.card p {
   line-height: 1.7;
   font-size: 2rem;
   text-align: center;
-  background: #fcaf17;
-  text-shadow: 0 0 2px #8a600d;
+  background-color: #fcaf17;
+  color: #1a1a1a;
 }
 .c-small-text {
   padding-top: 0.5rem;
@@ -672,14 +673,14 @@ h2 {
 h3 {
   font-size: 20px;
 }
-#landing-page-body h3 {
+.landing-page-body h3 {
   font-size: 40px;
   text-align: left;
 }
 h4 {
   font-size: 17px;
 }
-#landing-page-body h4 {
+.landing-page-body h4 {
   font-size: 20px;
   text-align: left;
 }
@@ -821,7 +822,7 @@ li.resource-item div.btn-wrapper {
 .hero {
   min-height: 400px;
   line-height: 400px;
-  background-color: #00b2e3;
+  background-color: #1080a6;
   background-image: url(/images/co-homepage-supergraphic.svg);
   background-position-x: 49vw;
   background-position-y: top;
@@ -845,8 +846,19 @@ li.resource-item div.btn-wrapper {
 }
 .hero .hero-container .welcome {
   text-align: left;
+  line-height: 1rem;
+}
+.hero .hero-container .welcome span.greeting {
+  background: #1080a6;
+  font-size: 4.5rem;
+  letter-spacing: .04rem;
+  line-height: 1.29;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 .hero .hero-container .welcome p {
+  background: #1080a6;
   font-size: 2.375rem;
   line-height: 1.4;
 }
@@ -861,22 +873,23 @@ li.resource-item div.btn-wrapper {
   font-size: 7rem;
   font-weight: bold;
   vertical-align: bottom;
-  line-height: 0.5;
+  line-height: 0;
 }
 .hero .hero-container .stats a {
   text-decoration: none;
 }
-.hero .hero-container .stats a,
-.hero .hero-container .stats a:visited {
-  text-shadow: 0 0 4px #8A600D;
-  color: white;
-}
 .hero .hero-container .stats span.above-stat {
-  font-size: 2rem;
-  line-height: 5rem;
+  font-size: 1.6rem;
+  line-height: 8rem;
+}
+.hero .hero-container .stats span.stat {
+  line-height: 1rem;
 }
 .hero .hero-container .stats span.below-stat {
-  font-size: 2.8rem;
+  font-size: 2rem;
+  line-height: 2rem;
+  display: inline-block;
+  margin-top: 3rem;
 }
 .fill-sky {
   fill: #00B2E3;
@@ -895,8 +908,14 @@ li.resource-item div.btn-wrapper {
   padding-top: 20px;
   padding-left: 30px;
   padding-right: 30px;
+  padding-bottom: 20px;
   font-size: 2.375rem;
   line-height: 1.4;
+}
+@media (max-width: 768px) {
+  .contact-us div.container div.message p {
+    padding: 0;
+  }
 }
 .ie8 .hero,
 .ie7 .hero {
@@ -919,7 +938,7 @@ li.resource-item div.btn-wrapper {
   width: 100%;
 }
 .wrapper header.page-header ul.nav.nav-tabs li a {
-  color: #4d4d4d;
+  color: #666666;
   border: none;
 }
 .wrapper header.page-header ul.nav.nav-tabs li a:hover {
@@ -927,8 +946,8 @@ li.resource-item div.btn-wrapper {
 }
 .wrapper header.page-header ul.nav.nav-tabs li.active a {
   border: none;
-  border-bottom: solid 2px #00b2e3;
-  color: #00b2e3;
+  border-bottom: solid 2px #1080a6;
+  color: #1080a6;
 }
 .module-heading {
   border-top: none;
@@ -954,7 +973,7 @@ li.resource-item div.btn-wrapper {
   box-shadow: none;
 }
 .well a.tag {
-  background-color: #00b2e3;
+  background-color: #1080a6;
   color: #fff;
   font-weight: bold;
   border: none;
@@ -1010,7 +1029,7 @@ section.additional-info table.table tbody tr td.dataset-details {
   border: none;
 }
 .banner-section {
-  background: #00b2e3;
+  background: #1080a6;
   width: 100%;
 }
 .banner-section a {
@@ -1035,6 +1054,26 @@ section.additional-info table.table tbody tr td.dataset-details {
 .page_primary_action .add-organization,
 .page_primary_action .add-group {
   text-align: right;
+}
+.simple-input .field .btn-search {
+  color: #1a1a1a;
+}
+.empty {
+  color: #666666;
+}
+.pagination > .disabled > span,
+.pagination > .disabled > span:hover,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > a,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > a:focus,
+.media-item span.count,
+.text-muted {
+  color: #666666;
+}
+.nav-item.active > a,
+.nav-aside li.active a {
+  background-color: #1080a6;
 }
 /* =====================================================
    Sub page left panel border removal
@@ -1147,14 +1186,14 @@ footer.site-footer {
   margin-top: 1em;
   padding: 2em 0 1.5em;
   border-top: 1px solid #d9d9d9;
-  color: #4d4d4d;
+  color: #666666;
 }
 footer.site-footer a.btn i.material-icons {
   color: white;
 }
 footer.site-footer a:not(.btn),
 footer.site-footer a:visited:not(.btn) {
-  color: #4d4d4d;
+  color: #666666;
   text-decoration: underline;
 }
 footer.site-footer div.footer-swoosh {
