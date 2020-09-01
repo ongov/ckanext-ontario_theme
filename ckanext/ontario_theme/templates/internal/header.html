@@ -73,8 +73,8 @@
     {% endif %} {% endblock %}
     <div class="container">
       <div class="navbar-right">
-        <button data-target="#main-navigation-toggle" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-          <span class="fa fa-bars" aria-hidden="true"></span><span class="accessibly-hidden">{{ _("Menu") }}</span>
+        <button data-target="#main-navigation-toggle" data-toggle="collapse" class="navbar-toggle collapsed" type="button" aria-label="{{ _('Menu') }}">
+          <span class="fa fa-bars" aria-hidden="true"></span>
         </button>
       </div>
       <hgroup class="{{ g.header_class }} navbar-left">
