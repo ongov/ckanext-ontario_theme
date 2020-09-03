@@ -577,7 +577,7 @@ div.card p {
 .circle {
   font-family: Raleway, Open Sans, sans-serif;
   border-radius: 50%;
-  color: #1a1a1a;
+  color: white;
   background-color: #1080a6;
   display: inline-block;
   font-weight: 700;
@@ -592,6 +592,7 @@ div.card p {
   line-height: 1.7;
   font-size: 2rem;
   text-align: center;
+  color: #1a1a1a;
   background: #fcaf17;
 }
 .c-small-text {
@@ -667,14 +668,14 @@ h2 {
 h3 {
   font-size: 20px;
 }
-#landing-page-body h3 {
+#landing-page-body h2 {
   font-size: 40px;
   text-align: left;
 }
 h4 {
   font-size: 17px;
 }
-#landing-page-body h4 {
+#landing-page-body h3 {
   font-size: 20px;
   text-align: left;
 }
@@ -840,24 +841,28 @@ li.resource-item div.btn-wrapper {
 }
 .hero .hero-container .welcome {
   text-align: left;
+  line-height: 1rem;
+}
+.hero .hero-container .welcome span.greeting {
+  background: #1080a6;
+  font-size: 4.5rem;
+  letter-spacing: .04rem;
+  line-height: 1.29;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 .hero .hero-container .welcome p {
   background: #1080a6;
   font-size: 2.375rem;
   line-height: 1.4;
 }
-.hero .hero-container h2 {
-  font-size: 4.5rem;
-  letter-spacing: .04rem;
-  line-height: 1.29;
-  font-weight: bold;
-}
 .hero .hero-container .stats {
   text-align: center;
   font-size: 7rem;
   font-weight: bold;
   vertical-align: bottom;
-  line-height: 0.5;
+  line-height: 0;
 }
 .hero .hero-container .stats a {
   text-decoration: none;
@@ -867,11 +872,17 @@ li.resource-item div.btn-wrapper {
   color: white;
 }
 .hero .hero-container .stats span.above-stat {
-  font-size: 2rem;
-  line-height: 5rem;
+  font-size: 1.6rem;
+  line-height: 8rem;
+}
+.hero .hero-container .stats span.stat {
+  line-height: 1rem;
 }
 .hero .hero-container .stats span.below-stat {
-  font-size: 2.8rem;
+  font-size: 2rem;
+  line-height: 2rem;
+  display: inline-block;
+  margin-top: 3rem;
 }
 .fill-sky {
   fill: #00B2E3;
@@ -890,8 +901,14 @@ li.resource-item div.btn-wrapper {
   padding-top: 20px;
   padding-left: 30px;
   padding-right: 30px;
+  padding-bottom: 20px;
   font-size: 2.375rem;
   line-height: 1.4;
+}
+@media (max-width: 768px) {
+  .contact-us div.container div.message p {
+    padding: 0;
+  }
 }
 .ie8 .hero,
 .ie7 .hero {

@@ -43,7 +43,7 @@ h2 {
 h3 { 
   font-size: 20px;
 }
-#landing-page-body h3 {
+#landing-page-body h2 {
   font-size: 40px;
   text-align: left;
 }
@@ -52,7 +52,7 @@ h4 {
   font-size: 17px
 }
 
-#landing-page-body h4 {
+#landing-page-body h3 {
   font-size: 20px;
   text-align: left;
 }
@@ -222,24 +222,28 @@ li.resource-item div.btn-wrapper {
     }
     .welcome {
       text-align: left;
+      line-height: 1rem;
+      span.greeting {
+        background: @primary-darker;
+        font-size: 4.5rem;
+        letter-spacing: .04rem;
+        line-height: 1.29;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
       p {
         background: @primary-darker;
         font-size: 2.375rem;
         line-height: 1.4;
       }
     }
-    h2 {
-      font-size: 4.5rem;
-      letter-spacing: .04rem;
-      line-height: 1.29;
-      font-weight: bold;
-    }
     .stats {
       text-align: center;
       font-size: 7rem;
       font-weight: bold;
       vertical-align: bottom;
-      line-height: 0.5; 
+      line-height: 0; 
       a {
         text-decoration: none;
       } 
@@ -247,11 +251,17 @@ li.resource-item div.btn-wrapper {
         color: white;
       }
       span.above-stat {
-        font-size: 2rem;
-        line-height: 5rem;
+        font-size: 1.6rem;
+        line-height: 8rem;
+      }
+      span.stat {
+        line-height: 1rem; 
       }
       span.below-stat {
-        font-size: 2.8rem;
+        font-size: 2rem;
+        line-height: 2rem;
+        display: inline-block;
+        margin-top: 3rem;
       }
     }
   }
@@ -275,10 +285,17 @@ li.resource-item div.btn-wrapper {
       padding-top: 20px; 
       padding-left: 30px; 
       padding-right: 30px; 
+      padding-bottom: 20px;
       font-size:2.375rem; 
       line-height: 1.4;
     }
   }  
+}
+
+@media (max-width: 768px) {
+  .contact-us div.container div.message p {
+    padding: 0;
+  }
 }
 
 .ie8 .hero,
