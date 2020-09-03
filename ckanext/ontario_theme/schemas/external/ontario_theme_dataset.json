@@ -129,6 +129,48 @@
             "en": "Municipality",
             "fr": "Municipalité"
           }
+        },
+        {
+          "value": "province",
+          "label": {
+            "en": "Province",
+            "fr": "Province"
+          }
+        },
+        {
+          "value": "wmu",
+          "label": {
+            "en": "Wildlife Management Unit",
+            "fr": "Unités de gestion de la faune"
+          }
+        },
+        {
+          "value": "fmu",
+          "label": {
+            "en": "Forest Management Unit",
+            "fr": "Unités de gestion forestière"
+          }
+        },
+        {
+          "value": "county",
+          "label": {
+            "en": "County",
+            "fr": "Comté"
+          }
+        },
+        {
+          "value": "district",
+          "label": {
+            "en": "District",
+            "fr": "District"
+          }
+        },
+        {
+          "value": "fsa",
+          "label": {
+            "en": "Forward Sortation Area",
+            "fr": "régions de tri d’acheminement"
+          }
         }
       ]
     }, 
