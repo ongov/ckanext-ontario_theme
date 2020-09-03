@@ -88,9 +88,9 @@
   {% endif %} {% endblock %}
   <div class="container">
     <div class="navbar-right">
-      <button data-target="#main-navigation-toggle" data-toggle="collapse" class="navbar-toggle collapsed" aria-expanded="false" type="button">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="fa fa-bars"></span>
+      <button data-target="#main-navigation-toggle" data-toggle="collapse" class="navbar-toggle collapsed" aria-expanded="false" type="button" aria-label="{{ _('Toggle navigation') }}">
+        <span class="sr-only">{{ _('Toggle navigation') }}</span>
+        <span class="fa fa-bars" aria-hidden="true"></span>
       </button>
     </div>
     <hgroup class="{{ g.header_class }} navbar-left">
@@ -127,7 +127,7 @@
           <div class="field">
             <label for="field-sitewide-search">{% block header_site_search_label %}{{ _('Search Datasets') }}{% endblock %}</label>
             <input id="field-sitewide-search" type="text" class="form-control" name="q" placeholder="{{ _('Search') }}" />
-            <button class="btn-search" type="submit"><i class="fa fa-search"></i><span>Submit Search</span></button>
+            <button class="btn-search" type="submit" aria-label="{{ _('Submit Search') }}"><i class="fa fa-search" aria-hidden="true"></i><span class="sr-only">{{ _('Submit Search') }}</span></button>
           </div>
         </form>
       {% endblock %}

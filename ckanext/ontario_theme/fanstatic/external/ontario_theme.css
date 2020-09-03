@@ -127,7 +127,11 @@
   left: 0px;
   position: relative;
 }
-.sr-only {
+.sr-only,
+.toolbar .home span,
+.simple-input label,
+.simple-input button span,
+a.skip-main {
   background-color: #ffffff;
   color: #1a1a1a;
 }
@@ -147,6 +151,8 @@ a.skip-main:active {
   text-align: center;
   font-size: 1.2em;
   z-index: 999;
+  position: absolute;
+  display: inline;
 }
 /* =====================================================
    Button overrides

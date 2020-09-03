@@ -7,7 +7,7 @@
 .simple-input label, 
 .simple-input button span,
 a.skip-main {
-  &:extend(.accessibly-hidden);
+  &:extend(.sr-only);
 }
 
 a.skip-main:focus, a.skip-main:active {
@@ -25,4 +25,6 @@ a.skip-main:focus, a.skip-main:active {
   text-align:center;
   font-size:1.2em;
   z-index:999;
+  position:absolute;
+  display: inline;
 }
