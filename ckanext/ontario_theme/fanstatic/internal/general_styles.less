@@ -203,7 +203,7 @@ li.resource-item div.btn-wrapper {
 .hero {
   min-height: 400px;
   line-height: 400px;
-  background-color: @primary-colour;
+  background-color: @primary-darker;
   background-image: url(/images/co-homepage-supergraphic.svg);
   background-position-x: 49vw;
   background-position-y: top;
@@ -223,6 +223,7 @@ li.resource-item div.btn-wrapper {
     .welcome {
       text-align: left;
       p {
+        background: @primary-darker;
         font-size: 2.375rem;
         line-height: 1.4;
       }
@@ -243,7 +244,6 @@ li.resource-item div.btn-wrapper {
         text-decoration: none;
       } 
       a, a:visited {
-        text-shadow: 0 0 4px #8A600D; 
         color: white;
       }
       span.above-stat {
@@ -309,8 +309,8 @@ li.resource-item div.btn-wrapper {
       }
       li.active a {
         border: none;
-        border-bottom: solid 2px @primary-colour;
-        color: @primary-colour;
+        border-bottom: solid 2px @primary-darker;
+        color: @primary-darker;
       }
     }
   }
@@ -344,7 +344,7 @@ li.resource-item div.btn-wrapper {
   background: none;
   box-shadow: none;
   a.tag {
-    background-color: @primary-colour;
+    background-color: @primary-darker;
     color: #fff;
     font-weight: bold;
     border: none;
@@ -410,7 +410,7 @@ section.additional-info table.table {
 }
 
 .banner-section {
-  background: @primary-colour; 
+  background: @primary-darker; 
   width: 100%;
   a {
     color: white;
@@ -433,6 +433,22 @@ section.additional-info table.table {
 
 .page_primary_action .add-dataset, .page_primary_action .add-organization, .page_primary_action .add-group {
   text-align: right; 
+}
+
+.simple-input .field .btn-search {
+  color: @black;
+}
+
+.empty {
+  color: @grey;
+}
+
+.pagination>.disabled>span, .pagination>.disabled>span:hover, .pagination>.disabled>span:focus, .pagination>.disabled>a, .pagination>.disabled>a:hover, .pagination>.disabled>a:focus, .media-item span.count, .text-muted {
+  color: @grey;
+}
+
+.nav-item.active>a, .nav-aside li.active a {
+  background-color: @primary-darker;
 }
 
 /* =====================================================
