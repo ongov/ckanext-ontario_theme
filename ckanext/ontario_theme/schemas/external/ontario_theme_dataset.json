@@ -454,6 +454,11 @@
       "help_text": {
         "en": "When the first resource initially (the actual files) was added to the public-facing Open Data Catalogue."
       },
+      "form_attrs": {
+        "data-module": "conditional_behaviours",
+        "data-module-trigger_field": "#field-access_level",
+        "data-module-show_if": "open"
+      },
       "classes": ["form-group","col-md-12"], 
       "preset": "date",
       "validators": "ignore_missing isodate convert_to_json_if_date",
