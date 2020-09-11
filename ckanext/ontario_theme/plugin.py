@@ -13,6 +13,8 @@ from ckan.model import Package
 
 from resource_upload import ResourceUpload
 
+from ckanext.ontario_theme import validators
+
 import logging
 log = logging.getLogger(__name__)
 
@@ -235,19 +237,6 @@ def get_package_keywords(language='en'):
     package_top_keywords = package_top_keywords['search_facets'][facet]['items']
     return package_top_keywords
 
-def conditional_save(dependent_field, dependent_value):
-    '''When key is missing or value is an empty string or None, replace it with
-    a default value'''
-
-    def callable(key, data, errors, context):
-
-        value = data.get(key)
-
-        if (data.get(dependent_field) != dependent_value):
-            data[key] = None
-
-    return callable
-
 def default_locale():
     '''Wrap the ckan default locale in a helper function to access
     in templates.
@@ -344,7 +333,9 @@ ckanext.ontario_theme:schemas/ontario_theme_organization.json
 
     def get_validators(self):
         return {
-                'conditional_save': conditional_save}
+                'conditional_save': validators.conditional_save,
+                'required_if': validators.required_if
+                }
 
 
     # ITemplateHelpers
