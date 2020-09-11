@@ -16,6 +16,10 @@ from resource_upload import ResourceUpload
 import logging
 log = logging.getLogger(__name__)
 
+from ckanext.scheming.validation import scheming_validator
+from ckanext.fluent.validators import fluent_text_output
+
+
 def help():
     '''New help page for site.
     '''
@@ -203,6 +207,7 @@ def csv_dump():
         (b'attachment; filename="output.csv"')
     return resp
 
+
 def get_recently_updated_datasets():
     '''Helper to return 3 freshest datasets
     '''
@@ -211,6 +216,7 @@ def get_recently_updated_datasets():
                     'sort': 'current_as_of desc'})
     return recently_updated_datasets['results']
 
+
 def get_popular_datasets():
     '''Helper to return most popular datasets, based on ckan core tracking feature
     '''
@@ -218,6 +224,7 @@ def get_popular_datasets():
         data_dict={'rows': 3,
                     'sort': 'views_recent desc'})
     return popular_datasets['results']
+
 
 def get_license(license_id):
     '''Helper to return license based on id.
@@ -287,6 +294,30 @@ def num_resources_filter_scrub(search_params):
     return search_params
 
 
+@scheming_validator
+def fluent_tags_populator(field, schema):
+    def validator(key, data, errors, context):
+        """
+        Copy keywords to tags.
+        This will let the tag autocomplete endpoint to work as desired.
+
+        Fluent tag validation and CKAN's tag validation handles validation.
+
+        This replaces tags with the keywords for all languages in the schema
+        so it will remove (deactivate) tags as necessary as well.
+        """
+
+        fluent_tags = fluent_text_output(data[key])
+        data[('tags'),] = []
+        for key, value in fluent_tags.items():
+            for tag in value:
+                data[('tags'),].append(
+                    {'name': tag}
+                )
+
+    return validator
+
+
 class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
     plugins.implements(plugins.IConfigurer)
@@ -317,6 +348,7 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.IUploader, inherit=True)
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.IPackageController)
+    plugins.implements(plugins.IValidators)
 
     # IConfigurer
 
@@ -384,6 +416,7 @@ type data_last_updated
         facets_dict['update_frequency'] = toolkit._('Update Frequency')
         facets_dict['keywords_en'] = toolkit._('Keywords')
         facets_dict['keywords_fr'] = toolkit._('Keywords')
+        facets_dict.pop('tags', None) # Remove tags in favor of keywords
         return facets_dict
 
     def group_facets(self, facets_dict, group_type, package_type):
@@ -441,3 +474,8 @@ type data_last_updated
 
     def after_show(self, context, pkg_dict):
         return pkg_dict
+
+    # IValidators
+
+    def get_validators(self):
+       return {'fluent_tags_populator': fluent_tags_populator}

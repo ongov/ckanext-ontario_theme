@@ -59,6 +59,8 @@
         "en": "Help people find this resource by adding terms they might think of when looking for it. You can use \n OPS terms like \"Transfer Payments\" \n descriptive terms like \"remoteness index\", \"temperatures\" \n or associated terms like \"economy\", \"housing\", \"climate change\""
       },
       "preset": "fluent_tags",
+      "validators": "fluent_tags fluent_tags_populator",
+      "output_validators": "fluent_tags_output",
       "form_placeholder": "e.g., housing, GDP per capita, greenhouse gas mitigation",
       "classes": ["form-group","col-md-6"],
       "form_attrs": {
