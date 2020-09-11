@@ -469,9 +469,14 @@
       "help_text": {
         "en": "What is the specific exemption for this collection of resources to not be shared with the public? Refer to the <a href='https://www.ontario.ca/document/open-data-guidebook-guide-open-data-directive-2015/data-inventory#section-1' target='_blank'>Open Data Guidebook</a> for more on exemptions."
       },
+      "form_attrs": {
+        "data-module": "conditional_behaviours",
+        "data-module-trigger_field": "#field-access_level",
+        "data-module-show_if": "restricted"
+      },
+      "validators": "ignore_missing scheming_choices required_if(access_level,restricted) conditional_save(access_level,restricted)",
       "classes": ["form-group","col-md-12"],
       "preset": "select",
-      "validators": "ignore_missing default(none) scheming_choices",
       "choices": [
         {
           "value": "commercial_sensitivity",
@@ -527,9 +532,15 @@
       "help_text": {
         "en": "Explain why the resource cannot be disclosed to the public"
       }, 
+      "form_attrs": {
+        "data-module": "conditional_behaviours",
+        "data-module-trigger_field": "#field-access_level",
+        "data-module-show_if": "restricted"
+      },
       "classes": ["form-group","col-md-12"],
       "form_placeholder": "e.g., This dataset cannot be sufficiently de-identified to assure users cannot use it to identify members of the public.",      
-      "preset": "fluent_markdown"
+      "preset": "fluent_markdown",
+      "validators": "fluent_text ignore_missing required_if(access_level,restricted) conditional_save(access_level,restricted)"
     },
     {
       "field_name": "node_id",
