@@ -461,7 +461,7 @@
       },
       "classes": ["form-group","col-md-12"], 
       "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "validators": "ignore_missing isodate convert_to_json_if_date required_if(access_level,open)",
       "form_placeholder": "yyyy-mm-dd"
     },
     {
