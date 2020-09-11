@@ -3,42 +3,40 @@
 Renders a row of 3 featured content cards on the home page.
 
 These are hardcoded values, typically highlighting datasets
-already existing in the system or news about the data catalogue.
+already existing in the system.
 
 #}
 
-  <div class="row">
-    <div class="col-md-12">
-      <h2>{% trans %}News{% endtrans %}</h2>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-4">
-      <a href="https://medium.com/ontariodigital/ontarios-new-data-catalogue-launches-in-beta-9b3ded80bb48" class="card">
-        <div>
-          <h3>{% trans %}We've launched!{% endtrans %}</h3>
-          <p>{% trans %}Learn about our plan for a new open data catalogue.{% endtrans %}</p>
-        </div>
-      </a>
-    </div>
-
-    <div class="col-md-4">
-      <a href="{% trans %}/about#features{% endtrans %}" class="card">
-        <div>
-          <h3>{% trans %}New features{% endtrans %}</h3>
-            <p>{% trans %}Discover some of the new features of our catalogue.{% endtrans %}</p>
-        </div>
-      </a>  
-    </div>
-
-    <div class="col-md-4">
-      <a href="{% trans %}/about#engagement{% endtrans %}" class="card">
-        <div>
-          <h3>{% trans %}Your catalogue, your feedback{% endtrans %}</h3>
-            <p>{% trans %}Read about our plans to incorporate your feedback into an agile, continually improving data catalogue.{% endtrans %}</p>
-        </div>
-      </a>
-    </div>
-  </div>
-
+<div class="col-md-4">
+  <img src="images/external/features/covid.png" alt="{% trans %}Decorative image{% endtrans %} : {% trans %}COVID-19 Data{% endtrans %}" />
+  <h4>
+    <a href="/{{ request.environ.CKAN_LANG }}/group/2019-novel-coronavirus">
+      {% trans %}COVID-19 Data{% endtrans %}
+    </a>
+  </h4>
+  <p>
+    {% trans %}Get data on COVID-19 activity in Ontario.{% endtrans %}
+  </p>
+</div>
+<div class="col-md-4">
+  <img src="images/external/features/ai.jpg" alt="{% trans %}Decorative image{% endtrans %} : {% trans %}Alpha AI Guidance{% endtrans %}" />
+  <h4>
+    <a href="https://github.com/orgs/ongov/projects/2">
+      {% trans %}Alpha AI Guidance{% endtrans %}
+    </a>
+  </h4>
+  <p>
+    {% trans %}Ontario is committed to ensuring that government use of artificial intelligence and similar technologies has a strong, clear framework for transparent and appropriate use. Let us know what you think.{% endtrans %}
+  </p>
+</div>
+<div class="col-md-4">
+  <img src="images/external/features/ai_and_algs.jpg" alt="{% trans %}Decorative image{% endtrans %} : {% trans %}Open Data, Open Source{% endtrans %}" />
+  <h4>
+    <a href="https://github.com/ongov">
+      {% trans %}Open Data, Open Source{% endtrans %}
+    </a>
+  </h4>
+  <p>
+    {% trans %}The Government of Ontario is taking steps towards open source software development, and sharing our catalogue work on GitHub is just one of these steps.{% endtrans %}
+  </p>
+</div>

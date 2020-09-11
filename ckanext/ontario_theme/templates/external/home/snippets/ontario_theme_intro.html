@@ -1,33 +1,12 @@
 {#
 
-Renders a hard coded site description/introduction to
-help users better understand the data catalogue
+Renders a hard coded site description/introduction.
 
 #}
-<div class="row">
-  <div class="col-md-12 intro-text">
-      <strong>{% trans %}Welcome to the Ontario Data catalogue!{% endtrans %}</strong>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-4">
-    <h2><i class="fa fa-search large pull-left"></i> {% trans %}Search{% endtrans %}</h2>
-    <p>
-      {% trans %}Try using the <a href="/dataset">catalogue search</a>.{% endtrans %}
-    </p>
-  </div>
-
-  <div class="col-md-4">
-    <h2><i class="fa fa-download large pull-left"></i> {% trans %}Download data{% endtrans %}</h2>
-    <p>
-      {% trans %}<a href="/help#how-do-i-download-datasets">Download and use the data you need.</a>{% endtrans %}
-    </p>
-  </div>
-
-  <div class="col-md-4">
-    <h2><i class="fa fa-bullhorn large pull-left"></i> {% trans %}Provide feedback{% endtrans %}</h2>
-    <p>
-      {% trans %}As we work to develop the catalogue, <a href="mailto:opengov@ontario.ca">tell us what you think</a>.{% endtrans %}
-    </p>
-  </div>
-</div>
+<h2>
+  {{ _("Welcome!") }}
+</h2> 
+<p>
+{% trans %}Here you will find thousands of datasets that are maintained by the Ontario Government.{% endtrans %} 
+{% trans %}<a href="/about">Learn more</a> about what is covered and how to use data.{% endtrans %}
+</p>

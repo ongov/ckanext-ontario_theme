@@ -16,7 +16,8 @@
 }
 
 .btn-secondary {
-  color: #fff;
+  color: #000;
+  text-shadow: 0 0 4px #8A600D;
   &:focus,
   &.focus,
   &:visited,
@@ -24,27 +25,27 @@
   &:hover,
   &:active,
   &.active {
-    color: #fff;
+    color: #000;
   }
 }
 
 .btn-primary {
-  background-color: @primary-colour;
-  border-color: @primary-darker;
+  background-color: @primary-darker;
+  border-color: @primary-darkest;
   &:hover {
-    background-color: @primary-darker;
-    border-color: @primary-darkest;
+    background-color: @primary-darkest;
+    border-color: @primary-colour;
   }
   &:focus,
   &.focus {
     background-color: @primary-darker;
-    border-color: @primary-darkest;
+    border-color: @primary-colour;
   }
   &:active,
   &.active,
   .open>.dropdown-toggle.btn-primary {
-    background-color: @primary-darker;
-    border-color: @primary-darkest;
+    background-color: @primary-darkest;
+    border-color: @primary-colour;
     background-image: none;
   }
   &:active:hover,
@@ -56,8 +57,8 @@
   &:active.focus,
   &.active.focus,
   .open>.dropdown-toggle.btn-primary.focus {
-    background-color: @primary-darker;
-    border-color: @primary-darkest;
+    background-color: @primary-darkest;
+    border-color: @primary-colour;
   }
   &.disabled:hover,
   &[disabled]:hover,
@@ -69,10 +70,10 @@
   &[disabled].focus,
   fieldset[disabled] .btn-primary.focus {
     background-color: @primary-colour;
-    border-color: @primary-darker;
+    border-color: @primary-darkest;
   }
   &.badge {
-    color: @primary-colour;
+    color: @primary-darker;
     background-color: #ffffff
   }
 }

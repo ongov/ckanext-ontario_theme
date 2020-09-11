@@ -113,15 +113,25 @@ class TestResourceCreate(object):
         ''')
         test_resource = TestResourceCreate.FakeFileStorage(test_file, 'test.json')
 
+        org = factories.Organization()
         dataset = helpers.call_action(
             'package_create',
-            name='package-name',
-            maintainer='Joe Smith',
-            maintainer_email='Joe.Smith@ontario.ca',
-            title_translated={
-                'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
-            notes_translated={'en': u'short description', 'fr': u'...'}
-            )
+            name = 'package-name',
+            maintainer_translated = {
+                'en': u'Joe Smith',
+                'fr': u'...'
+            },
+            maintainer_email = 'Joe.Smith@ontario.ca',
+            title_translated = {
+                'en': u'A Novel By Tolstoy',
+                'fr':u'Un novel par Tolstoy'
+            },
+            notes_translated = {
+                'en': u'short description',
+                'fr': u'...'
+            },
+            owner_org = org['name'] # depends on config.
+        )
         assert_equals(dataset['name'], 'package-name')
 
         context = {}
@@ -170,15 +180,25 @@ class TestResourceCreate(object):
         test_resource = TestResourceCreate.FakeFileStorage(test_file,
             'test.html')
 
+        org = factories.Organization()
         dataset = helpers.call_action(
             'package_create',
-            name='package-name',
-            maintainer='Joe Smith',
-            maintainer_email='Joe.Smith@ontario.ca',
-            title_translated={
-                'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
-            notes_translated={'en': u'short description', 'fr': u'...'}
-            )
+            name = 'package-name',
+            maintainer_translated = {
+                'en': u'Joe Smith',
+                'fr': u'...'
+            },
+            maintainer_email = 'Joe.Smith@ontario.ca',
+            title_translated = {
+                'en': u'A Novel By Tolstoy',
+                'fr':u'Un novel par Tolstoy'
+            },
+            notes_translated = {
+                'en': u'short description',
+                'fr': u'...'
+            },
+            owner_org = org['name'] # depends on config.
+        )
         assert_equals(dataset['name'], 'package-name')
 
         context = {}
@@ -227,15 +247,25 @@ class TestResourceCreate(object):
         test_resource = TestResourceCreate.FakeFileStorage(test_file,
             'test.exe')
 
+        org = factories.Organization()
         dataset = helpers.call_action(
             'package_create',
-            name='package-name',
-            maintainer='Joe Smith',
-            maintainer_email='Joe.Smith@ontario.ca',
-            title_translated={
-                'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
-            notes_translated={'en': u'short description', 'fr': u'...'}
-            )
+            name = 'package-name',
+            maintainer_translated = {
+                'en': u'Joe Smith',
+                'fr': u'...'
+            },
+            maintainer_email = 'Joe.Smith@ontario.ca',
+            title_translated = {
+                'en': u'A Novel By Tolstoy',
+                'fr':u'Un novel par Tolstoy'
+            },
+            notes_translated = {
+                'en': u'short description',
+                'fr': u'...'
+            },
+            owner_org = org['name'] # depends on config.
+        )
         assert_equals(dataset['name'], 'package-name')
 
         context = {}

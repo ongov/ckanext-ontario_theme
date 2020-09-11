@@ -94,6 +94,11 @@
 .new-alert.alert-restricted {
   background-color: #fad2d2;
 }
+.new-alert.alert-contact {
+  background: #E2F0F4;
+  border-color: #1080A6;
+  padding: 0.9375rem 2rem 0.9375rem 0.9375rem;
+}
 .new-alert.alert-clear {
   margin-bottom: 30px;
 }
@@ -101,10 +106,10 @@
    Generic classes for Colby colours
    ===================================================== */
 .primary-bg {
-  background-color: #D47500;
+  background-color: #00B2E3;
 }
 .secondary-bg {
-  background-color: #007A7C;
+  background-color: #FCAF17;
 }
 .recent-activity .module-content {
   padding: 0px;
@@ -169,7 +174,8 @@ a.skip-main:active {
   color: #fff;
 }
 .btn-secondary {
-  color: #fff;
+  color: #000;
+  text-shadow: 0 0 4px #8A600D;
 }
 .btn-secondary:focus,
 .btn-secondary.focus,
@@ -178,26 +184,26 @@ a.skip-main:active {
 .btn-secondary:hover,
 .btn-secondary:active,
 .btn-secondary.active {
-  color: #fff;
+  color: #000;
 }
 .btn-primary {
-  background-color: #D47500;
-  border-color: #c66e00;
+  background-color: #1080A6;
+  border-color: #094a60;
 }
 .btn-primary:hover {
-  background-color: #c66e00;
-  border-color: #995400;
+  background-color: #094a60;
+  border-color: #00B2E3;
 }
 .btn-primary:focus,
 .btn-primary.focus {
-  background-color: #c66e00;
-  border-color: #995400;
+  background-color: #1080A6;
+  border-color: #00B2E3;
 }
 .btn-primary:active,
 .btn-primary.active,
 .btn-primary .open > .dropdown-toggle.btn-primary {
-  background-color: #c66e00;
-  border-color: #995400;
+  background-color: #094a60;
+  border-color: #00B2E3;
   background-image: none;
 }
 .btn-primary:active:hover,
@@ -209,8 +215,8 @@ a.skip-main:active {
 .btn-primary:active.focus,
 .btn-primary.active.focus,
 .btn-primary .open > .dropdown-toggle.btn-primary.focus {
-  background-color: #c66e00;
-  border-color: #995400;
+  background-color: #094a60;
+  border-color: #00B2E3;
 }
 .btn-primary.disabled:hover,
 .btn-primary[disabled]:hover,
@@ -221,31 +227,31 @@ a.skip-main:active {
 .btn-primary.disabled.focus,
 .btn-primary[disabled].focus,
 .btn-primary fieldset[disabled] .btn-primary.focus {
-  background-color: #D47500;
-  border-color: #c66e00;
+  background-color: #00B2E3;
+  border-color: #094a60;
 }
 .btn-primary.badge {
-  color: #D47500;
+  color: #1080A6;
   background-color: #ffffff;
 }
 .btn-secondary {
-  background-color: #007A7C;
-  border-color: #B26300;
+  background-color: #FCAF17;
+  border-color: #8A600D;
 }
 .btn-secondary:hover {
-  background-color: #B26300;
-  border-color: #995400;
+  background-color: #8A600D;
+  border-color: #442f06;
 }
 .btn-secondary:focus,
 .btn-secondary.focus {
-  background-color: #B26300;
-  border-color: #995400;
+  background-color: #8A600D;
+  border-color: #442f06;
 }
 .btn-secondary:active,
 .btn-secondary.active,
 .btn-secondary .open > .dropdown-toggle.btn-secondary {
-  background-color: #B26300;
-  border-color: #995400;
+  background-color: #8A600D;
+  border-color: #442f06;
   background-image: none;
 }
 .btn-secondary:active:hover,
@@ -257,8 +263,8 @@ a.skip-main:active {
 .btn-secondary:active.focus,
 .btn-secondary.active.focus,
 .btn-secondary .open > .dropdown-toggle.btn-secondary.focus {
-  background-color: #B26300;
-  border-color: #995400;
+  background-color: #8A600D;
+  border-color: #442f06;
 }
 .btn-secondary.disabled:hover,
 .btn-secondary[disabled]:hover,
@@ -269,11 +275,11 @@ a.skip-main:active {
 .btn-secondary.disabled.focus,
 .btn-secondary[disabled].focus,
 .btn-secondary fieldset[disabled] .btn-secondary.focus {
-  background-color: #007A7C;
-  border-color: #B26300;
+  background-color: #FCAF17;
+  border-color: #8A600D;
 }
 .btn-secondary.badge {
-  color: #007A7C;
+  color: #FCAF17;
   background-color: #ffffff;
 }
 .btn-grey {
@@ -399,13 +405,49 @@ div.card img {
 div.card p {
   color: #4d4d4d;
 }
+.col-xs-2-10,
+.col-sm-2-10 {
+  position: relative;
+  min-height: 1px;
+}
+.col-xs-2-10 {
+  width: 20%;
+  float: left;
+}
+@media (min-width: 768px) {
+  .col-sm-2-10 {
+    width: 20%;
+    float: left;
+  }
+}
+@media (min-width: 992px) {
+  .col-md-2-10 {
+    width: 20%;
+    float: left;
+  }
+}
+@media (min-width: 1200px) {
+  .col-lg-2-10 {
+    width: 20%;
+    float: left;
+  }
+}
 .module.search {
   color: #fff;
+}
+.module.search .search-giant {
+  margin-top: 30px;
 }
 .module.search .search-form {
   padding: 0px;
   margin: 0px;
   border: none;
+}
+.module.search .search-form .search-input button {
+  line-height: 2.8rem;
+}
+.module.search .search-form .search-input button i.fa-search {
+  color: #000;
 }
 .module.search h3 {
   float: left;
@@ -415,7 +457,7 @@ div.card p {
   margin: 0 10px 0 0;
 }
 .module.search .tags a.tag {
-  background-color: #D47500;
+  background-color: #00B2E3;
   color: #fff;
   font-weight: bold;
   border: none;
@@ -424,19 +466,7 @@ div.card p {
 }
 .search-form .search-input button i,
 .simple-input .field .btn-search {
-  color: #007A7C;
-}
-.hero {
-  min-height: 300px;
-  line-height: 275px;
-  text-align: center;
-  vertical-align: middle;
-}
-.hero .container {
-  display: inline-block;
-  line-height: 1.5;
-  text-align: left;
-  vertical-align: middle;
+  top: 45%;
 }
 .dataset-resources li a {
   background-color: #aaaaaa;
@@ -480,6 +510,7 @@ div.card p {
 .label[data-format=pdf],
 .label[data-format*=pdf] {
   background-color: #e0051e;
+  color: #fff;
 }
 .label[data-format=rdf],
 .label[data-format*=rdf],
@@ -530,6 +561,10 @@ div.card p {
 .label-english_and_french {
   background-color: #e6fad2;
 }
+.label-default {
+  background-color: #FCAF17;
+  color: #000;
+}
 .stats .number {
   display: block;
   font-size: 60px;
@@ -546,14 +581,52 @@ div.card p {
 .circle {
   font-family: Raleway, Open Sans, sans-serif;
   border-radius: 50%;
-  color: #fff;
-  background-color: #D47500;
+  color: #000;
+  background-color: #00B2E3;
   display: inline-block;
   font-weight: 700;
   margin-bottom: 0.5rem;
   position: relative;
   width: 18rem;
   height: 18rem;
+}
+.circle.c-small {
+  width: 3.5rem;
+  height: 3.5rem;
+  line-height: 1.7;
+  font-size: 2rem;
+  text-align: center;
+  background: #FCAF17;
+}
+.c-small-text {
+  padding-top: 0.5rem;
+  font-weight: 400;
+}
+.circle-container {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1;
+}
+div#topics {
+  margin-bottom: 20px;
+}
+div#topics a {
+  color: #1A1A1A;
+}
+div#topics div {
+  text-align: center;
+  font-weight: normal;
+  font-size: 1.7rem;
+}
+div#topics div i {
+  font-size: 64px;
+  color: #1080A6;
+}
+div#topics div i:hover {
+  color: #00B2E3;
+}
+div#topics div.row {
+  margin-bottom: 20px;
 }
 /* =====================================================
    Typography
@@ -567,11 +640,47 @@ h1 {
 h2 {
   font-size: 25px;
 }
+#about h2 {
+  margin-top: 30px;
+}
+#about .metadata-item,
+#about .format-item {
+  border-bottom: solid 1px #ccc;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+#about .metadata-item p,
+#about .format-item p {
+  margin-bottom: 5px;
+}
+#about .metadata-item .p-intro,
+#about .format-item .p-intro {
+  font-weight: bold;
+  color: #094a60;
+}
+#about .metadata-item .note,
+#about .format-item .note {
+  font-size: 90%;
+  font-style: italic;
+}
+#about .format-item h4,
+#about .metadata-item h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0px;
+}
 h3 {
   font-size: 20px;
 }
+#landing-page-body h3 {
+  font-size: 40px;
+  text-align: left;
+}
 h4 {
   font-size: 17px;
+}
+#landing-page-body h4 {
+  font-size: 20px;
+  text-align: left;
 }
 h1,
 h2,
@@ -635,6 +744,9 @@ hr.thick {
 }
 .top-margin {
   margin-top: 40px;
+}
+.float-right {
+  float: right;
 }
 /* =====================================================
    Remove background images
@@ -706,11 +818,84 @@ li.resource-item div.btn-wrapper {
   display: inline-block;
 }
 .hero {
-  background-image: none;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/images/backgrounds/richard-balog-647377-unsplash_converted.jpg);
-  background-size: cover, cover;
-  height: auto;
-  background-position: 50% 50%;
+  min-height: 400px;
+  line-height: 400px;
+  background-color: #00B2E3;
+  background-image: url(/images/co-homepage-supergraphic.svg);
+  background-position-x: 49vw;
+  background-position-y: top;
+  background-size: 58rem;
+  background-repeat: no-repeat;
+}
+.hero .hero-container {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  color: white;
+}
+.hero .hero-container a,
+.hero .hero-container a:focus {
+  color: white;
+}
+.hero .hero-container a,
+.hero .hero-container a:focus,
+.hero .hero-container a:hover {
+  text-decoration: underline;
+}
+.hero .hero-container .welcome {
+  text-align: left;
+}
+.hero .hero-container .welcome p {
+  font-size: 2.375rem;
+  line-height: 1.4;
+}
+.hero .hero-container h2 {
+  font-size: 4.5rem;
+  letter-spacing: 0.04rem;
+  line-height: 1.29;
+  font-weight: bold;
+}
+.hero .hero-container .stats {
+  text-align: center;
+  font-size: 7rem;
+  font-weight: bold;
+  vertical-align: bottom;
+  line-height: 0.5;
+}
+.hero .hero-container .stats a {
+  text-decoration: none;
+}
+.hero .hero-container .stats a,
+.hero .hero-container .stats a:visited {
+  text-shadow: 0 0 4px #8A600D;
+  color: white;
+}
+.hero .hero-container .stats span.above-stat {
+  font-size: 2rem;
+  line-height: 5rem;
+}
+.hero .hero-container .stats span.below-stat {
+  font-size: 2.8rem;
+}
+.fill-sky {
+  fill: #00B2E3;
+}
+.contact-us div.container {
+  width: 100%;
+}
+.contact-us div.container div.symbol {
+  text-align: center;
+}
+.contact-us div.container div.symbol i.fa {
+  font-size: 125px;
+  color: #1080A6;
+}
+.contact-us div.container div.message p {
+  padding-top: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-size: 2.375rem;
+  line-height: 1.4;
 }
 .ie8 .hero,
 .ie7 .hero {
@@ -741,8 +926,8 @@ li.resource-item div.btn-wrapper {
 }
 .wrapper header.page-header ul.nav.nav-tabs li.active a {
   border: none;
-  border-bottom: solid 2px #D47500;
-  color: #D47500;
+  border-bottom: solid 2px #00B2E3;
+  color: #00B2E3;
 }
 .module-heading {
   border-top: none;
@@ -768,11 +953,37 @@ li.resource-item div.btn-wrapper {
   box-shadow: none;
 }
 .well a.tag {
-  background-color: #D47500;
+  background-color: #00B2E3;
   color: #fff;
   font-weight: bold;
   border: none;
   box-shadow: none;
+}
+.homepage-section {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+#sub-intro {
+  font-size: 2.2rem;
+}
+#news {
+  color: white;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+#news img {
+  width: 100%;
+}
+#news a {
+  color: white;
+  text-decoration: underline;
+}
+#news .dataset-list .row a {
+  font-size: 1.7rem;
+}
+.metadata-list-item {
+  font-size: 1rem;
+  border-bottom: solid 1px #333;
 }
 section.additional-info table.table {
   border: none;
@@ -796,6 +1007,28 @@ section.additional-info table.table tbody tr td.dataset-details {
 }
 .media-grid {
   border: none;
+}
+.banner-section {
+  background: #00B2E3;
+  width: 100%;
+}
+.banner-section a {
+  color: white;
+  text-decoration: underline;
+}
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: black;
+  opacity: 1;
+  /* Firefox */
+}
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: black;
+}
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: black;
 }
 .page_primary_action .add-dataset,
 .page_primary_action .add-organization,
@@ -845,7 +1078,7 @@ section.additional-info table.table tbody tr td.dataset-details {
    The main masthead bar that contains the site logo, nav links, and search
    ======================================================================== */
 .masthead {
-  background-color: #007A7C;
+  background-color: #1080A6;
 }
 .masthead a,
 .masthead a:focus,
@@ -861,7 +1094,7 @@ section.additional-info table.table tbody tr td.dataset-details {
 .account-masthead hgroup {
   display: inline;
 }
-.masthead hgroup h1 {
+.masthead hgroup a {
   float: left;
   font-size: 24px;
   line-height: 1.5;
@@ -869,11 +1102,11 @@ section.additional-info table.table tbody tr td.dataset-details {
   margin: 0;
 }
 @media only screen and (max-width: 768px) {
-  .masthead hgroup h1 {
+  .masthead hgroup a {
     padding-top: 9px;
   }
 }
-.masthead hgroup h1 sup {
+.masthead hgroup a sup {
   font-size: 60%;
 }
 .masthead .navbar-collapse {
@@ -896,7 +1129,7 @@ section.additional-info table.table tbody tr td.dataset-details {
   top: 1px;
 }
 .toolbar .breadcrumb a {
-  color: #007A7C;
+  color: #8A600D;
   font-size: 15px;
 }
 .logo img {
@@ -914,6 +1147,9 @@ footer.site-footer {
   padding: 2em 0 1.5em;
   border-top: 1px solid #d9d9d9;
   color: #4d4d4d;
+}
+footer.site-footer a.btn i.material-icons {
+  color: white;
 }
 footer.site-footer a:not(.btn),
 footer.site-footer a:visited:not(.btn) {
