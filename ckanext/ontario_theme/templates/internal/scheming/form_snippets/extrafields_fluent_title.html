@@ -26,7 +26,7 @@ Future solutions may include:
     value=data[field.field_name + '-' + lang]
         or data.get(field.field_name, {})[lang],
     error=errors[field.field_name + '-' + lang],
-    classes=['col-md-6'],
+    classes=['col-md-6']+field.classes,
     attrs={'data-module': 'slug-preview-target', 'class': 'form-control'} if lang == h.extrafields_default_locale() else {'class': 'form-control'},
     is_required=h.scheming_field_required(field)
     ) %}

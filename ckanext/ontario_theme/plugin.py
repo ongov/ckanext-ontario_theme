@@ -13,6 +13,8 @@ from ckan.model import Package
 
 from resource_upload import ResourceUpload
 
+from ckanext.ontario_theme import validators
+
 import logging
 log = logging.getLogger(__name__)
 
@@ -313,6 +315,7 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IBlueprint)
+    plugins.implements(plugins.IValidators)
     plugins.implements(plugins.ITemplateHelpers)
     plugins.implements(plugins.IUploader, inherit=True)
     plugins.implements(plugins.IFacets)
@@ -343,6 +346,15 @@ true
         config_['ckan.extra_resource_fields'] = """
 type data_last_updated
 """
+
+    # IValidators
+
+    def get_validators(self):
+        return {
+                'lock_if_public': validators.lock_if_public
+                }
+
+
     # ITemplateHelpers
 
     def get_helpers(self):

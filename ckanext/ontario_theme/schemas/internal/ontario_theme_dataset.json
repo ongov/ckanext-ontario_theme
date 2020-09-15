@@ -15,8 +15,9 @@
       "help_text": {
         "en": "Add a simple, descriptive, short (100 characters or less) title that everyone will understand (you can include the \"technical title\" for subject matter experts in your description). If there is no French title, please use an online translation tool to make one."
       },
-      "classes": ["form-group","col-md-12"],
       "preset": "fluent_core_translated",
+      "classes": ["form-group","col-md-12","lock_if_public"],
+      "validators": "fluent_text lock_if_public",
       "form_placeholder": "e.g., A descriptive title",
       "required": "true",
       "fieldset": 1,
@@ -446,9 +447,9 @@
       "help_text": {
         "en": "Who can access these resources?"
       }, 
-      "classes": ["form-group","col-md-12"],
+      "classes": ["form-group","col-md-12","lock_if_public"],
       "preset": "select",
-      "validators": "ignore_missing scheming_choices",
+      "validators": "ignore_missing scheming_choices lock_if_public",
       "choices": [
         {
           "value": "open",
@@ -588,6 +589,17 @@
       }, 
       "classes": ["form-group","col-md-12"],
       "form_placeholder": "P00000"
+    },
+    {
+      "field_name": "public_catalogue_id",
+      "label": {
+        "en": "Public Catalogue ID",
+        "fr": "Public Catalogue ID"
+      },
+      "form_attrs": {
+        "data-module": "lock_if_public"
+      },
+      "validators": "ignore_missing"
     },
     {
       "field_name": "node_id",
