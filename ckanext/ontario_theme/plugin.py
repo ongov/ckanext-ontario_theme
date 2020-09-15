@@ -295,7 +295,7 @@ def num_resources_filter_scrub(search_params):
 
 
 @scheming_validator
-def fluent_tags_populator(field, schema):
+def ontario_theme_copy_fluent_keywords_to_tags(field, schema):
     def validator(key, data, errors, context):
         """
         Copy keywords to tags.
@@ -305,6 +305,11 @@ def fluent_tags_populator(field, schema):
 
         This replaces tags with the keywords for all languages in the schema
         so it will remove (deactivate) tags as necessary as well.
+
+        This validator is dependent on scheming and fluent.
+
+        Usage:
+        "validators": "fluent_tags ontario_theme_copy_fluent_keywords_to_tags",
         """
 
         fluent_tags = fluent_text_output(data[key])
@@ -478,4 +483,4 @@ type data_last_updated
     # IValidators
 
     def get_validators(self):
-       return {'fluent_tags_populator': fluent_tags_populator}
+       return {'ontario_theme_copy_fluent_keywords_to_tags': ontario_theme_copy_fluent_keywords_to_tags}
