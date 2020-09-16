@@ -1,19 +1,13 @@
-.accessibly-hidden {
-  left:-999px;
-  position:absolute;
-  top:auto;
-  width:1px;
-  height:1px;
-  overflow:hidden;
-  z-index:-999;  
-  display: inline;
+.sr-only {
+  background-color: #ffffff;
+  color: @black;
 }
 
 .toolbar .home span,
 .simple-input label, 
 .simple-input button span,
 a.skip-main {
-  &:extend(.accessibly-hidden);
+  &:extend(.sr-only);
 }
 
 a.skip-main:focus, a.skip-main:active {
@@ -31,4 +25,6 @@ a.skip-main:focus, a.skip-main:active {
   text-align:center;
   font-size:1.2em;
   z-index:999;
+  position:absolute;
+  display: inline;
 }

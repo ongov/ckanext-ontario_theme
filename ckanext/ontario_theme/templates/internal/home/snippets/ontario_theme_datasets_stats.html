@@ -8,8 +8,10 @@ Uses get_site_statistics() to parse and display the stat.
 {% set stats = h.get_site_statistics() %}
 
 <a href="/{{ request.environ.CKAN_LANG }}/dataset">
-	<span class="above-stat">{{ _("Explore Ontario's") }}</span><br />
-	{{ stats.dataset_count }} <br>
-	<span class="below-stat">{{ _("data assets") }}</span><br />
-	<button class="btn btn-primary" style="margin-top: 15px">{{ _("View All") }}</button>
+	<span class="circle">
+		<span class="above-stat">{{ _("Explore Ontario's") }}</span><br />
+		<span class="stat">{{ stats.dataset_count }}</span> <br>
+		<span class="below-stat">{{ _("data assets") }}</span><br />
+	</span><br />
+	<button class="btn btn-primary">{{ _("View All") }}</button>
 </a>

@@ -21,7 +21,7 @@
       {% endif %}               
     {% endif %} 
   </h2>
-  <span class="accessibly-hidden">{{screen_reader_text}}</span>
+  <span class="sr-only">{{screen_reader_text}}</span>
   {% endwith %}
 {% endblock %}
 {% block facet_list_items %}
@@ -39,7 +39,7 @@
           {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
             <li class="{{ nav_item_class or 'nav-item' }}{% if item.active %} active{% endif %}">
               {% if item.active %}
-                <span class="accessibly-hidden">Filtered on</span>
+                <span class="sr-only">Filtered on</span>
               {% endif %}                  
               <a href="{{ href }}" title="{{ label if label != label_truncated else '' }}">
                 <span>{{ label_truncated }} {{ count }}</span>
