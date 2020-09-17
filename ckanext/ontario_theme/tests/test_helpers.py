@@ -44,6 +44,7 @@ class TestGetPackageKeywords(object):
         plugins.load('ontario_theme')
 
         cls.package_index = search.PackageSearchIndex()
+        cls.package_index.clear()
 
     def teardown(self):
         '''Nose runs this method after each test method in our test class.'''
