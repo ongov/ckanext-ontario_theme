@@ -2,6 +2,7 @@
 
 import re
 from ckan.common import _
+from ckantoolkit import Invalid
 
 def tag_name_validator(value, context):
     value = value.strip()
