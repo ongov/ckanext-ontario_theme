@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-def tag_name_validator(value, context):
-    import re
-    from ckan.common import _
+import re
+from ckan.common import _
 
+def tag_name_validator(value, context):
     value = value.strip()
 
     if u',' in value:
