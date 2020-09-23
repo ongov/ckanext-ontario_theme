@@ -13,9 +13,9 @@ def tag_name_validator(value, context):
         raise Invalid(
             _(u'Tag "%s" may not contain consecutive spaces') % (value,))
 
-    tagname_match = re.compile(ur'[\w \’\'\-.]*$', re.UNICODE)
+    tagname_match = re.compile(ur'[\w ’\'\-.]*$', re.UNICODE)
 
     if not tagname_match.match(value):
-        raise Invalid(_('Tag "%s" must be alphanumeric '
-                        'characters or symbols: \'’-_.') % (value))
+        raise Invalid(_(u'Tag "%s" must be alphanumeric '
+                        'characters or symbols: \'-_.') % (value))
     return value
