@@ -1,6 +1,6 @@
 <div id="landing-page-body">
 <div class="hero">
-  <h2 class="accessibly-hidden">{{ _("Home") }}</h2>
+  <h1 class="sr-only">{{ _("Home") }}</h1>
     <div class="container">
       <div class="hero-container">
         <div class="row">
@@ -31,7 +31,7 @@
   <div class="container" id="topics">
     <div class="row">
       <div class="col-md-12">
-        <h3>{{ _("Browse by category") }}</h3>
+        <h2>{{ _("Browse by category") }}</h2>
       </div>
     </div>
     {% snippet 'home/snippets/ontario_theme_categories.html' %}
@@ -41,7 +41,7 @@
   <div id="news" class="container">
     <div class="row homepage-section">
       <div class="col-md-12">
-        <h3>{{ _("What's new") }}</h3>
+        <h2>{{ _("What's new") }}</h2>
       </div>
       {% block featured_content %}
         {% snippet 'home/snippets/ontario_theme_featured_content.html' %}
@@ -49,12 +49,12 @@
     </div>   
     <div class="row homepage-section">
       <div class="col-md-6 dataset-list">
-            <h4>{{ _("Most popular datasets") }}</h4>
-            {% snippet 'home/snippets/ontario_theme_popular_datasets.html' %}
+        <h3>{{ _("Most popular datasets") }}</h3>
+        {% snippet 'home/snippets/ontario_theme_popular_datasets.html' %}
       </div>
       <div class="col-md-6 dataset-list">
-        <h4>{{ _("Recently updated datasets") }}</h4>
-            {% snippet 'home/snippets/ontario_theme_recent_activity.html' %}
+        <h3>{{ _("Recently updated datasets") }}</h3>
+        {% snippet 'home/snippets/ontario_theme_recent_activity.html' %}
       </div>
     </div>
   </div>

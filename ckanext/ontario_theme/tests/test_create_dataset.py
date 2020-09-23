@@ -54,15 +54,25 @@ class TestCreateDataset(object):
     def test_package_create_with_minimum_values(self):
         '''If dataset is given it's basic fields it is created.
         '''
+        org = factories.Organization()
         dataset = helpers.call_action(
             'package_create',
-            name='package-name',
-            maintainer='Joe Smith',
-            maintainer_email='Joe.Smith@ontario.ca',
-            title_translated={
-                'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
-            notes_translated={'en': u'short description', 'fr': u'...'}
-            )
+            name = 'package-name',
+            maintainer_translated = {
+                'en': u'Joe Smith',
+                'fr': u'...'
+            },
+            maintainer_email = 'Joe.Smith@ontario.ca',
+            title_translated = {
+                'en': u'A Novel By Tolstoy',
+                'fr':u'Un novel par Tolstoy'
+            },
+            notes_translated = {
+                'en': u'short description',
+                'fr': u'...'
+            },
+            owner_org = org['name'] # depends on config.
+        )
         assert_equals(dataset['name'], 'package-name')
 
         dataset = helpers.call_action('package_show', id=dataset['id'])
@@ -71,43 +81,34 @@ class TestCreateDataset(object):
         dataset = helpers.call_action('package_show', id=dataset['id'])
         assert dataset['notes_translated']['en'] == u'short description'
 
-    def test_wrong_node_id_type(self):
-        '''If dataset is given a value for node_id it must be a positive integer.
-        Empty and missing values are allowed.
-        '''
-        assert_raises(
-            logic.ValidationError, helpers.call_action,
-            'package_create',
-            node_id='apple',
-            name='package-name',
-            maintainer='Joe Smith',
-            maintainer_email='Joe.Smith@ontario.ca',
-            title_translated={
-                'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
-            notes_translated={'en': u'short description', 'fr': u'...'}
-        )
-
     def test_package_create_with_validated_values(self):
         '''If dataset is given custom validated keys with valid values
         a dataset is created.
         '''
+        org = factories.Organization()
         dataset = helpers.call_action(
             'package_create',
-            name='package-name',
-            maintainer='Joe Smith',
-            maintainer_email='Joe.Smith@ontario.ca',
-            title_translated={
-                'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
-            node_id='123',
-            notes_translated={'en': u'short description', 'fr': u'...'},
+            name = 'package-name',
+            maintainer_translated = {
+                'en': u'Joe Smith',
+                'fr': u'...'
+            },
+            maintainer_email = 'Joe.Smith@ontario.ca',
+            title_translated = {
+                'en': u'A Novel By Tolstoy',
+                'fr':u'Un novel par Tolstoy'
+            },
+            notes_translated = {
+                'en': u'short description',
+                'fr': u'...'
+            },
+            owner_org = org['name'], # depends on config.
             current_as_of='',
             update_frequency='as_required',
             access_level='open',
             exemption='' # Defaults to none when key provided and value is empty.
         )
-        assert_equals(dataset['node_id'], '123')
         package_show = helpers.call_action('package_show', id=dataset['id'])
-        assert_equals(package_show['node_id'], '123')
         assert_equals(package_show['notes_translated']['en'], 'short description')
         assert 'current_as_of' not in package_show
         assert_equals(package_show['update_frequency'], 'as_required')
@@ -127,15 +128,24 @@ class TestCreateDataset(object):
         '''
 
         try:
-            helpers.call_action(
+            org = factories.Organization()
+            dataset = helpers.call_action(
                 'package_create',
-                name='package-name',
-                maintainer='Joe Smith',
-                maintainer_email='Joe.Smith@ontario.ca',
-                title_translated={
-                    'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
-                node_id='123',
-                notes_translated={'en': u'short description', 'fr': u'...'},
+                name = 'package-name',
+                maintainer_translated = {
+                    'en': u'Joe Smith',
+                    'fr': u'...'
+                },
+                maintainer_email = 'Joe.Smith@ontario.ca',
+                title_translated = {
+                    'en': u'A Novel By Tolstoy',
+                    'fr':u'Un novel par Tolstoy'
+                },
+                notes_translated = {
+                    'en': u'short description',
+                    'fr': u'...'
+                },
+                owner_org = org['name'], # depends on config.
                 current_as_of='',
                 update_frequency='required',
                 access_level='open',
@@ -144,7 +154,7 @@ class TestCreateDataset(object):
         except logic.ValidationError as e:
             assert_equals(
                 e.error_dict['update_frequency'],
-                ['Value must be one of: as_required; biannually; current; daily; historical; monthly; never; on_demand; other; periodically; quarterly; weekly; yearly (not \'required\')']
+                ['Value must be one of: as_required; biannually; current; daily; historical; monthly; never; on_demand; other; periodically; quarterly; weekly; yearly; quinquennial (not \'required\')']
             )
         else:
             raise AssertionError('ValidationError not raised')
@@ -162,15 +172,24 @@ class TestCreateDataset(object):
         '''
 
         try:
-            helpers.call_action(
+            org = factories.Organization()
+            dataset = helpers.call_action(
                 'package_create',
-                name='package-name',
-                maintainer='Joe Smith',
-                maintainer_email='Joe.Smith@ontario.ca',
-                title_translated={
-                    'en': u'A Novel By Tolstoy', 'fr':u'Un novel par Tolstoy'},
-                node_id='123',
-                notes_translated={'en': u'short description', 'fr': u'...'},
+                name = 'package-name',
+                maintainer_translated = {
+                    'en': u'Joe Smith',
+                    'fr': u'...'
+                },
+                maintainer_email = 'Joe.Smith@ontario.ca',
+                title_translated = {
+                    'en': u'A Novel By Tolstoy',
+                    'fr':u'Un novel par Tolstoy'
+                },
+                notes_translated = {
+                    'en': u'short description',
+                    'fr': u'...'
+                },
+                owner_org = org['name'], # depends on config.
                 current_as_of='31/11/2018',
                 update_frequency='as_required',
                 access_level='open',

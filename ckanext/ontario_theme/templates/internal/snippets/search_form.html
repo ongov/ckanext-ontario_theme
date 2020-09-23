@@ -1,5 +1,15 @@
 {% ckan_extends %}
 
+{% block search_input_button %}
+<span class="input-group-btn">
+  <button class="btn btn-default btn-lg" type="submit" value="search" aria-label="{{ _('Search') }}">
+    <i class="fa fa-search" aria-hidden="true"></i>
+    <span class="sr-only">{{ _('Search') }}</span>
+  </button>
+</span>
+{% endblock %}
+
+
 {% block search_facets %}
   {% if facets %}
     <p class="filter-list">
@@ -24,7 +34,7 @@
           {% set search_facets_items = facets.search.get(field)['items'] %}
           <span class="facet">
             {% if (not query and not loop.index0==0) or query %}
-              <span class="accessibly-hidden"> and </span>
+              <span class="sr-only"> and </span>
             {% endif %}
             {{ facets.titles.get(field, "Has Resources (data)") }}:
           </span>

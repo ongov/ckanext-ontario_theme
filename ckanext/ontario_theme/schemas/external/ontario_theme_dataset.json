@@ -60,6 +60,8 @@
       },
       "tag_validators": "tag_length_validator ontario_tag_name_validator", 
       "preset": "fluent_tags",
+      "validators": "fluent_tags ontario_theme_copy_fluent_keywords_to_tags",
+      "output_validators": "fluent_tags_output",
       "form_placeholder": "e.g., housing, GDP per capita, greenhouse gas mitigation",
       "classes": ["form-group","col-md-6"],
       "form_attrs": {
@@ -129,6 +131,48 @@
           "label": {
             "en": "Municipality",
             "fr": "Municipalité"
+          }
+        },
+        {
+          "value": "province",
+          "label": {
+            "en": "Province",
+            "fr": "Province"
+          }
+        },
+        {
+          "value": "wmu",
+          "label": {
+            "en": "Wildlife Management Unit",
+            "fr": "Unités de gestion de la faune"
+          }
+        },
+        {
+          "value": "fmu",
+          "label": {
+            "en": "Forest Management Unit",
+            "fr": "Unités de gestion forestière"
+          }
+        },
+        {
+          "value": "county",
+          "label": {
+            "en": "County",
+            "fr": "Comté"
+          }
+        },
+        {
+          "value": "district",
+          "label": {
+            "en": "District",
+            "fr": "District"
+          }
+        },
+        {
+          "value": "fsa",
+          "label": {
+            "en": "Forward Sortation Area",
+            "fr": "régions de tri d’acheminement"
           }
         }
       ]
@@ -266,7 +310,7 @@
       },
       "help_inline" : true,
       "help_text": {
-        "en": "Let others know when they can expect new data. [more information on selecting an update frequency]"
+        "en": "Let others know when they can expect new data."
       }, 
       "preset": "select",
       "validators": "ignore_missing scheming_choices",

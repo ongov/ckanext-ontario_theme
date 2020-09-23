@@ -10,8 +10,8 @@ Renders a custom search component for the home page.
   <form class="module-content search-form" method="get" action="{% url_for controller='package', action='search' %}">
     <div class="search-input form-group search-giant">
       <input aria-label="{% block header_site_search_label %}{{ _('Search datasets') }}{% endblock %}" id="field-main-search" type="text" class="form-control" name="q" value="" autocomplete="off" placeholder="{% block search_placeholder %}{{ placeholder }}{% endblock %}" />
-      <button type="submit">
-        <i class="fa fa-search"></i>
+      <button type="submit" aria-label="{{ _('Search') }}">
+        <i class="fa fa-search" aria-hidden="true"></i>
         <span class="sr-only">{{ _('Search') }}</span>
       </button>
     </div>

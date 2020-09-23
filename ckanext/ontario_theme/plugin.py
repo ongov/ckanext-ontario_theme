@@ -9,6 +9,7 @@ from flask import render_template, render_template_string
 
 import ckanapi_exporter.exporter as exporter
 import json
+import ckan.lib.helpers as helpers
 
 import ckan.lib.navl.dictization_functions as df
 Invalid = df.Invalid
@@ -19,6 +20,10 @@ from resource_upload import ResourceUpload
 
 import logging
 log = logging.getLogger(__name__)
+
+from ckanext.scheming.validation import scheming_validator
+from ckanext.fluent.validators import fluent_text_output
+
 
 def help():
     '''New help page for site.
@@ -207,6 +212,7 @@ def csv_dump():
         (b'attachment; filename="output.csv"')
     return resp
 
+
 def get_recently_updated_datasets():
     '''Helper to return 3 freshest datasets
     '''
@@ -214,6 +220,7 @@ def get_recently_updated_datasets():
         data_dict={'rows': 3,
                     'sort': 'current_as_of desc'})
     return recently_updated_datasets['results']
+
 
 def get_popular_datasets():
     '''Helper to return most popular datasets, based on ckan core tracking feature
@@ -223,10 +230,21 @@ def get_popular_datasets():
                     'sort': 'views_recent desc'})
     return popular_datasets['results']
 
+
 def get_license(license_id):
     '''Helper to return license based on id.
     '''
     return Package.get_license_register().get(license_id)
+
+
+
+def get_translated_lang(data_dict, field, specified_language):
+    try:
+        return data_dict[field + u'_translated'][specified_language]
+    except KeyError:
+        return helpers.get_translated(data_dict, field)
+
+
 
 def get_package_keywords(language='en'):
     '''Helper to return a list of the top 3 keywords based on specified
@@ -290,6 +308,35 @@ def num_resources_filter_scrub(search_params):
     return search_params
 
 
+@scheming_validator
+def ontario_theme_copy_fluent_keywords_to_tags(field, schema):
+    def validator(key, data, errors, context):
+        """
+        Copy keywords to tags.
+        This will let the tag autocomplete endpoint to work as desired.
+
+        Fluent tag validation and CKAN's tag validation handles validation.
+
+        This replaces tags with the keywords for all languages in the schema
+        so it will remove (deactivate) tags as necessary as well.
+
+        This validator is dependent on scheming and fluent.
+
+        Usage:
+        "validators": "fluent_tags ontario_theme_copy_fluent_keywords_to_tags",
+        """
+
+        fluent_tags = fluent_text_output(data[key])
+        data[('tags'),] = []
+        for key, value in fluent_tags.items():
+            for tag in value:
+                data[('tags'),].append(
+                    {'name': tag}
+                )
+
+    return validator
+
+
 class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
     plugins.implements(plugins.IConfigurer)
@@ -318,7 +365,6 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.IBlueprint)
     plugins.implements(plugins.ITemplateHelpers)
     plugins.implements(plugins.IUploader, inherit=True)
-    plugins.implements(plugins.IDatasetForm)
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.IPackageController)
     plugins.implements(plugins.IValidators)
@@ -359,6 +405,7 @@ type data_last_updated
 
     def get_helpers(self):
         return {'ontario_theme_get_license': get_license,
+                'ontario_theme_get_translated_lang': get_translated_lang,
                 'ontario_theme_get_popular_datasets': get_popular_datasets,
                 'ontario_theme_get_recently_updated_datasets': get_recently_updated_datasets,
                 'extrafields_default_locale': default_locale,
@@ -387,18 +434,6 @@ type data_last_updated
     def get_resource_uploader(self, data_dict):
         return ResourceUpload(data_dict)
 
-    # IDatasetForm
-
-    def is_fallback(self):
-        # Return True to register this plugin as the default handler for
-        # package types not handled by any other IDatasetForm plugin.
-        return True
-
-    def package_types(self):
-        # This plugin doesn't handle any special package types, it just
-        # registers itself as the default (above).
-        return []
-
     # IFacets
 
     def dataset_facets(self, facets_dict, package_type):
@@ -408,6 +443,7 @@ type data_last_updated
         facets_dict['update_frequency'] = toolkit._('Update Frequency')
         facets_dict['keywords_en'] = toolkit._('Keywords')
         facets_dict['keywords_fr'] = toolkit._('Keywords')
+        facets_dict.pop('tags', None) # Remove tags in favor of keywords
         return facets_dict
 
     def group_facets(self, facets_dict, group_type, package_type):
@@ -465,3 +501,8 @@ type data_last_updated
 
     def after_show(self, context, pkg_dict):
         return pkg_dict
+
+    # IValidators
+
+    def get_validators(self):
+       return {'ontario_theme_copy_fluent_keywords_to_tags': ontario_theme_copy_fluent_keywords_to_tags}
