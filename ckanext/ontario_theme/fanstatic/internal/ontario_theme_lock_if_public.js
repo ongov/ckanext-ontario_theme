@@ -6,9 +6,9 @@
 ckan.module('lock_if_public', function ($) {  
   return {
     initialize: function () {
-      var public_catalogue_id = $("#field-public_catalogue_id").val()
-      if (!!public_catalogue_id) {
-        $(".lock_if_public input, .lock_if_public select").prop("disabled",true)
+      var public_id = $(this.el).val()
+      if (!!public_id) {
+        $(".lock_if_public input, .lock_if_public select").prop("readonly","readonly")
       }
       return null
     }
