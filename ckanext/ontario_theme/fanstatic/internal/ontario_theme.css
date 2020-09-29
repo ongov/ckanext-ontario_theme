@@ -572,6 +572,12 @@ div.card p {
 .label-english_and_french {
   background-color: #e6fad2;
 }
+.label-info {
+  color: #4d4d4d;
+  border: solid 1px #1080A6;
+  border-left: solid 5px #1080A6;
+  background-color: #E2F0F4;
+}
 .label-default {
   background-color: #fcaf17;
   color: #1a1a1a;
