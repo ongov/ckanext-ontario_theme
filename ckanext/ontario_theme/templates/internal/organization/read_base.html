@@ -4,7 +4,7 @@
 
 {% block breadcrumb_content %}
   <li>{% link_for _('Organizations'), controller='organization', action='index', named_route=group_type + '_index' %}</li>
-  <li id="ministry-name" ministry-name="{{c.group_dict.title}}" class="active">{% link_for h.get_translated(c.group_dict,"title")|truncate(35), controller='organization', action='read', id=c.group_dict.name, named_route=group_type + '_read' %}</li>
+  <li id="ministry-name" ministry-name="{{c.group_dict.title}}" ministry-name-fr="{{ h.ontario_theme_get_translated_lang(c.group_dict, 'title', 'fr') }}" class="active">{% link_for h.get_translated(c.group_dict,"title")|truncate(35), controller='organization', action='read', id=c.group_dict.name, named_route=group_type + '_read' %}</li>
 {% endblock %}
 
 {% block content_action %}

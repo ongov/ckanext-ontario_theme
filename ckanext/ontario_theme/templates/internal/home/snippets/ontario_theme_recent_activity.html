@@ -3,10 +3,15 @@
 Renders a list of the site's most recent activity.
 
 #}
+  {% set recently_updated_datasets = h.ontario_theme_get_recently_updated_datasets() %}
+  {% for dataset in recently_updated_datasets %}
 
-<div class="recent-activity">
-  <h2>{% trans %}Recent activity{% endtrans %}</h2>
-  <div class="module-content">
-    {{ h.recently_changed_packages_activity_stream(limit=8)|safe }}
+  <div class="row">
+    <div class="col-md-3 col-sm-3 col-xs-4" style="min-height: 4rem">
+      <span class="label label-default">{{ h.render_datetime(dataset.current_as_of) }}</span>
+    </div>
+    <div class="col-md-9 col-sm-9 col-xs-8">
+      <a href="{% url_for controller='package', action='read', id=dataset.name %}" class="hp_recently_updated">{{ h.get_translated(dataset, "title") }}</a>
+    </div>
   </div>
-</div>
+  {% endfor %}

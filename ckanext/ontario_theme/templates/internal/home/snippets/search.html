@@ -4,29 +4,16 @@ Renders a custom search component for the home page.
 
 #}
 {% set keywords = h.ontario_theme_get_package_keywords(h.lang()) %}
-{% set placeholder = _('E.g. environment') %}
+{% set placeholder = _("Search Ontario's Data") %}
 
 <div class="module search">
   <form class="module-content search-form" method="get" action="{% url_for controller='package', action='search' %}">
-    <h2>{{ _("Search data") }}</h2>
     <div class="search-input form-group search-giant">
       <input aria-label="{% block header_site_search_label %}{{ _('Search datasets') }}{% endblock %}" id="field-main-search" type="text" class="form-control" name="q" value="" autocomplete="off" placeholder="{% block search_placeholder %}{{ placeholder }}{% endblock %}" />
-      <button type="submit">
-        <i class="fa fa-search"></i>
+      <button type="submit" aria-label="{{ _('Search') }}">
+        <i class="fa fa-search" aria-hidden="true"></i>
         <span class="sr-only">{{ _('Search') }}</span>
       </button>
     </div>
   </form>
-  <div class="tags">
-    <h3>{{ _('Popular keywords') }}</h3>
-    {% for keyword in keywords %}
-      {% if h.lang() == 'en' %}
-        <a class="tag" href="{% url_for controller='package', action='search',
-        keywords_en=keyword.name %}">{{ h.truncate(keyword.display_name, 22) }}</a>
-      {% elif h.lang() == 'fr' %}
-        <a class="tag" href="{% url_for controller='package', action='search',
-        keywords_fr=keyword.name %}">{{ h.truncate(keyword.display_name, 22) }}</a>
-      {% endif %}
-    {% endfor %}
-  </div>
 </div>

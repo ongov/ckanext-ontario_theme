@@ -17,6 +17,10 @@
   {% endif %}
 {% endblock %}
 
+{% block package_tags %}
+  {# Remove tags in favor of keywords. #}
+{% endblock %}
+
 {% block package_additional_info %}
   {% snippet "scheming/package/snippets/additional_info.html",
     pkg_dict=pkg, dataset_type=dataset_type, schema=schema %}

@@ -16,12 +16,32 @@
 .circle {
   font-family: Raleway, Open Sans, sans-serif;
   border-radius: 50%;
-  color: #fff;
-  background-color: @primary-colour;
+  color: white;
+  background-color: @primary-darker;
   display: inline-block;
   font-weight: 700;
   margin-bottom: 0.5rem;
   position: relative;
   width: 18rem;
   height: 18rem;
+  &.c-small {
+    width: 3.5rem;
+    height: 3.5rem;
+    line-height: 1.7;
+    font-size: 2rem;
+    text-align: center;
+    color: @black;
+    background: @secondary-colour;
+  }  
+}
+
+.c-small-text {
+  padding-top: 0.5rem;
+  font-weight: 400;
+}
+
+.circle-container {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1;
 }

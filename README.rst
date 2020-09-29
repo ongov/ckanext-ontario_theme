@@ -138,17 +138,20 @@ Running the Tests
 To run the tests, make sure your ckan install is `setup for tests <https://docs.ckan.org/en/latest/contributing/test.html>`_, do::
 
     cd ckanext-ontario_theme # go to extension directory
-    nosetests --nologcapture --with-pylons=test.ini # active vertual environment that has nosetests.
+    nosetests --nologcapture --with-pylons=test.ini # run in virtual environment that has nosetests.
 
 To run the tests and produce a coverage report, first make sure you have
 coverage installed in your virtualenv (``pip install coverage``) then run::
 
     nosetests --nologcapture --with-pylons=test.ini --with-coverage --cover-package=ckanext.ontario_theme --cover-inclusive --cover-erase --cover-tests
 
-Also, add scheming and fluent to ``/usr/lib/ckan/default/src/ckan/test-core.ini``::
+Our custom config settings are in ``./test.ini``.
 
-    ckan.plugins = stats scheming_datasets fluent
-    scheming.dataset_schemas = ckanext.extrafields:ontario_theme_dataset.json
-    scheming.presets = ckanext.scheming:presets.json
-                       ckanext.fluent:presets.json
+Additional ways to run tests:
 
+    # Single Test method
+    nosetests ckanext/ontario_theme/tests/test_create_dataset.py:TestCreateDataset.test_package_create_with_invalid_update_frequency --nologcapture --with-pylons=test.ini
+    # Single Test class
+    nosetests ckanext/ontario_theme/tests/test_create_dataset.py:TestCreateDataset --nologcapture --with-pylons=test.ini
+    # Single Test module
+    nosetests ckanext/ontario_theme/tests/test_create_dataset.py --nologcapture --with-pylons=test.ini

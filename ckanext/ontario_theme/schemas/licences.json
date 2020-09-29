@@ -268,5 +268,32 @@
         "en": "Subject to this licence, Statistics Canada grants you a worldwide, royalty-free, non-exclusive licence to: use, reproduce, publish, freely distribute, or sell the Information; use, reproduce, publish, freely distribute, or sell Value-added Products; and, sublicence any or all such rights, under terms consistent with this licence.",
         "fr": "Sous réserve des conditions de la présente licence, Statistique Canada vous accorde une licence mondiale, libre de redevances et non exclusive vous permettant : d'utiliser, de reproduire, de publier, de diffuser gratuitement ou de vendre l'information ; d'utiliser, de reproduire, de publier, de diffuser gratuitement ou de vendre des produits à valeur ajoutée ; d'accorder des sous licences conférant une partie ou la totalité de ces droits, conformément aux conditions de cette licence."
     }
+  },
+  {
+    "domain_content": false,
+    "domain_data": false,
+    "domain_software": false,
+    "family": "",
+    "id": "crown-land-use-policy-atlas-terms-of-use",
+    "is_generic": true,
+    "maintainer": "",
+    "od_conformance": "not reviewed",
+    "osd_conformance": "not reviewed",
+    "status": "active",
+    "title": "Crown Land Use Policy Atlas Terms of Use",
+    "title_translated" : {
+        "en": "Crown Land Use Policy Atlas Terms of Use",
+        "fr": "Atlas et politiques d’aménagement des terres de la Couronne modalités d’utilisation"
+    },
+    "url": "https://www.ontario.ca/page/crown-land-use-policy-atlas#section-3",
+    "url_translated": {
+        "en": "https://www.ontario.ca/page/crown-land-use-policy-atlas#section-3",
+        "fr": "https://www.ontario.ca/fr/page/atlas-et-politiques-damenagement-des-terres-de-la-couronne#section-3"
+    },
+    "description": "This website was created by the Ontario Ministry of Natural Resources (the ministry). Use of this site and any of the data, text, maps and other information on the site (collectively \"content\") is governed by the terms and conditions set out below (\"Terms of Use\"). Use of the site implies acceptance of these terms.",
+    "description_translated" : {
+        "en": "This website was created by the Ontario Ministry of Natural Resources (the ministry). Use of this site and any of the data, text, maps and other information on the site (collectively \"content\") is governed by the terms and conditions set out below (\"Terms of Use\"). Use of the site implies acceptance of these terms.",
+        "fr": "Le présent site Web a été mis sur pied par le ministère des Richesses naturelles de l’Ontario (le ministère). L’utilisation de ce site et de toute partie de ses données, de ses textes, de ses cartes et de toute autre information que contient le site (collectivement appelés « contenu ») est régie par les modalités stipulées ci-dessous (« modalités d’utilisation »). En utilisant le présent site, vous en acceptez les modalités d’utilisation."
+    }
   }
 ]
