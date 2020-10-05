@@ -752,6 +752,13 @@
             "en": "French",
             "fr": "Français"
           }
+        },
+        {
+          "value": "english_and_french",
+          "label": {
+            "en": "English and French",
+            "fr": "Anglais et Français"
+          }
         }
       ]
     }, 
@@ -796,6 +803,21 @@
         "en": "The date that the resource first was available to the public"
       },
       "classes": ["form-group","col-md-12", "lock_if_public"], 
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date lock_if_public_resource",
+      "form_placeholder": "yyyy-mm-dd"
+    },
+    {
+      "field_name": "data_last_updated",
+      "label": {
+        "en": "Data Last Updated",
+        "fr": "Dernière mise à jour des données"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "The last time this data was updated to add or be replaced with more recent data."
+      }, 
+      "classes": ["form-group","col-md-12","lock_if_public"],
       "preset": "date",
       "validators": "ignore_missing isodate convert_to_json_if_date lock_if_public_resource",
       "form_placeholder": "yyyy-mm-dd"
