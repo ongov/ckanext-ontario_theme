@@ -604,6 +604,8 @@
       "form_attrs": {
         "data-module": "lock_if_public"
       },
+      "form_snippet": "hidden.html",
+      "display_snippet": null,
       "validators": "ignore_missing"
     }
   ],
@@ -617,7 +619,8 @@
       "form_attrs": {
         "data-module": "lock_if_public"
       },
-      "classes" : ["lock_if_public"],
+      "form_snippet": "hidden.html",
+      "display_snippet": null,
       "validators": "ignore_missing lock_if_public_resource"
     },
     {
