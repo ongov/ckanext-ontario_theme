@@ -1,6 +1,7 @@
 {% ckan_extends %}
 
   {% block basic_fields %}
+    {% resource 'ontario_theme/ontario_theme_lock_if_public.js' %}
     {%- if not dataset_type -%}
       <p>
       dataset_type not passed to template. your version of CKAN

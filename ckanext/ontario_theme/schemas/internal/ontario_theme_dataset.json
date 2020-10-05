@@ -617,7 +617,8 @@
       "form_attrs": {
         "data-module": "lock_if_public"
       },
-      "validators": "ignore_missing lock_if_public"
+      "classes" : ["lock_if_public"],
+      "validators": "ignore_missing lock_if_public_resource"
     },
     {
       "field_name": "url",
@@ -629,7 +630,7 @@
       "fieldset": 1,
       "fieldset_name": "Add File",
       "classes": ["form-group","col-md-12"],
-      "validators": "ignore_missing unicode remove_whitespace lock_if_public",
+      "validators": "ignore_missing unicode remove_whitespace lock_if_public_resource",
       "form_attrs": {
         "class": "col-md-12"
       }
@@ -641,8 +642,8 @@
         "fr": "Format"
       },
       "preset": "resource_format_autocomplete",
-      "validators": "if_empty_guess_format ignore_missing clean_format unicode lock_if_public",
-      "classes": ["form-group","col-md-12"]
+      "validators": "if_empty_guess_format ignore_missing clean_format unicode lock_if_public_resource",
+      "classes": ["form-group","col-md-12", "lock_if_public"]
     },
     {
       "field_name": "name",
@@ -657,8 +658,8 @@
       },
       "fieldset": 2,
       "fieldset_name": "Describe the file",
-      "classes": ["form-group","col-md-12"],
-      "validators": "lock_if_public" 
+      "classes": ["form-group","col-md-12", "lock_if_public"],
+      "validators": "lock_if_public_resource" 
     },
     {
       "field_name": "description_translated",
@@ -667,9 +668,9 @@
         "fr": "Description"
       },
       "preset": "fluent_core_translated",
-      "validators" : "fluent_text lock_if_public",
+      "validators" : "fluent_text lock_if_public_resource",
       "form_snippet": "fluent_markdown.html",
-      "classes": ["form-group","col-md-12"],
+      "classes": ["form-group","col-md-12", "lock_if_public"],
       "form_placeholder": "Some useful notes about the file"
     },
     {
@@ -679,10 +680,10 @@
         "fr": "Type"
       },
       "preset": "select",
-      "validators": "ignore_missing scheming_choices lock_if_public",
+      "validators": "ignore_missing scheming_choices lock_if_public_resource",
       "fieldset": 3,
       "fieldset_name": "Details",
-      "classes": ["form-group","col-md-12"],
+      "classes": ["form-group","col-md-12", "lock_if_public"],
       "choices": [
         {
           "value": "data",
@@ -731,9 +732,9 @@
       "help_text": {
         "en": "The language the resource is provided in"
       },
-      "classes": ["form-group","col-md-12"],
+      "classes": ["form-group","col-md-12", "lock_if_public"],
       "preset": "select",
-      "validators": "ignore_missing scheming_choices lock_if_public",
+      "validators": "ignore_missing scheming_choices lock_if_public_resource",
       "choices": [
         {
           "value": "english",
@@ -761,9 +762,9 @@
       "help_text": {
         "en": "Does this resource have mappable information (e.g., latitude and longitude coordinates, mappable shape information)?"
       }, 
-      "classes": ["form-group","col-md-12"],
+      "classes": ["form-group","col-md-12", "lock_if_public"],
       "preset": "select",
-      "validators": "boolean_validator lock_if_public",
+      "validators": "boolean_validator lock_if_public_resource",
       "choices": [
         {
           "value": "true",
@@ -791,9 +792,9 @@
       "help_text": {
         "en": "The date that the resource first was available to the public"
       },
-      "classes": ["form-group","col-md-12"], 
+      "classes": ["form-group","col-md-12", "lock_if_public"], 
       "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date lock_if_public",
+      "validators": "ignore_missing isodate convert_to_json_if_date lock_if_public_resource",
       "form_placeholder": "yyyy-mm-dd"
     },
     {
@@ -806,9 +807,9 @@
       "help_text": {
         "en": "The starting date of the span of time the resource describes"
       }, 
-      "classes": ["form-group","col-md-12"],
+      "classes": ["form-group","col-md-12", "lock_if_public"],
       "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date lock_if_public",
+      "validators": "ignore_missing isodate convert_to_json_if_date lock_if_public_resource",
       "form_placeholder": "yyyy-mm-dd"
     },
     {
@@ -821,9 +822,9 @@
       "help_text": {
         "en": "The ending date of the span of time the resource describes"
       }, 
-      "classes": ["form-group","col-md-12"],
+      "classes": ["form-group","col-md-12", "lock_if_public"],
       "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date lock_if_public",
+      "validators": "ignore_missing isodate convert_to_json_if_date lock_if_public_resource",
       "form_placeholder": "yyyy-mm-dd"
     },
     {
@@ -836,17 +837,17 @@
       "help_text": {
         "en": "The date this resource was first created (outside of any system)"
       }, 
-      "classes": ["form-group","col-md-12"],
+      "classes": ["form-group","col-md-12", "lock_if_public"],
       "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date lock_if_public",
+      "validators": "ignore_missing isodate convert_to_json_if_date lock_if_public_resource",
       "form_placeholder": "yyyy-mm-dd"
     },
     {
       "field_name": "version",
       "label": "Version",
       "form_placeholder": "1.0",
-      "validators": "ignore_missing unicode package_version_validator lock_if_public",
-      "classes": ["form-group","col-md-12"]
+      "validators": "ignore_missing unicode package_version_validator lock_if_public_resource",
+      "classes": ["form-group","col-md-12", "lock_if_public"]
     }
   ]
 }

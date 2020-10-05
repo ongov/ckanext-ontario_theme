@@ -351,7 +351,8 @@ type data_last_updated
 
     def get_validators(self):
         return {
-                'lock_if_public': validators.lock_if_public
+                'lock_if_public': validators.lock_if_public,
+                'lock_if_public_resource': validators.lock_if_public_resource
                 }
 
 
