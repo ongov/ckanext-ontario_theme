@@ -8,7 +8,8 @@ ckan.module('lock_if_public', function ($) {
     initialize: function () {
       var public_id = $(this.el).val()
       if (!!public_id) {
-        $(".lock_if_public input, .lock_if_public select").prop("readonly","readonly")
+        $(".lock_if_public textarea, .lock_if_public input").prop("readonly","readonly")
+        $(".lock_if_public select").attr("readonly","readonly")
       }
       return null
     }
