@@ -488,3 +488,20 @@ section.additional-info table.table {
       border-right: none;
   }
 }
+
+/* =====================================================
+   Create styles for readonly textarea
+   ===================================================== */
+
+textarea[readonly] {
+  background: #eee;
+  border-color: #ccc;
+  color: #999;
+  &:focus {
+    outline: none;
+  }
+  &::placeholder {
+      opacity: 1;
+      color: #999;
+  }
+}

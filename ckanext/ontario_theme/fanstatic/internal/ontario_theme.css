@@ -1107,6 +1107,21 @@ section.additional-info table.table tbody tr td.dataset-details {
   }
 }
 /* =====================================================
+   Create styles for readonly textarea
+   ===================================================== */
+textarea[readonly] {
+  background: #eee;
+  border-color: #ccc;
+  color: #999;
+}
+textarea[readonly]:focus {
+  outline: none;
+}
+textarea[readonly]::placeholder {
+  opacity: 1;
+  color: #999;
+}
+/* =====================================================
    The "account masthead" bar across the top of the site
    ===================================================== */
 .account-masthead {
