@@ -6,37 +6,6 @@
   "form_languages": ["en", "fr"],
   "dataset_fields": [
     {
-      "field_name": "asset_type",
-      "label": {
-        "en": "Asset Type",
-        "fr": "Statut des données"
-      },
-      "required": true,
-      "help_inline" : true,
-      "help_text": {
-        "en": "What type of asset are you disclosing?"
-      }, 
-      "classes": ["form-group","col-md-12"],
-      "preset": "select",
-      "validators": "scheming_choices scheming_required default(dataset)",
-      "choices": [
-        {
-          "value": "dataset",
-          "label": {
-            "en": "Dataset",
-            "fr": "Ouvertes"
-          }
-        },
-        {
-          "value": "algorithm",
-          "label": {
-            "en": "Algorithm",
-            "fr": "Restreintes"
-          }
-        }
-      ]
-    },
-    {
       "field_name": "title_translated",
       "label": {
         "en": "Title",
@@ -75,6 +44,37 @@
       "preset": "fluent_core_translated",
       "form_snippet": "fluent_markdown.html",
       "form_placeholder": "e.g., Some useful notes about the data"
+    },
+    {
+      "field_name": "asset_type",
+      "label": {
+        "en": "Asset Type",
+        "fr": "Statut des données"
+      },
+      "required": true,
+      "help_inline" : true,
+      "help_text": {
+        "en": "What type of asset are you disclosing?"
+      }, 
+      "classes": ["form-group","col-md-12"],
+      "preset": "select",
+      "validators": "scheming_choices scheming_required default(dataset)",
+      "choices": [
+        {
+          "value": "dataset",
+          "label": {
+            "en": "Dataset",
+            "fr": "Ouvertes"
+          }
+        },
+        {
+          "value": "algorithm",
+          "label": {
+            "en": "Algorithm",
+            "fr": "Restreintes"
+          }
+        }
+      ]
     },
     {
       "field_name": "keywords",
