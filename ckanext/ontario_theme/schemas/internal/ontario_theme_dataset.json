@@ -41,7 +41,7 @@
       "help_text": {
         "en": "Add a general, plain language description that everyone within the OPS can understand and provides context for these resources. Feel free to link to other pages (e.g., links to your program area, ministry, similar resources). If there is no French description, please include the English description in the French field."
       },
-      "classes": ["form-group","col-md-12"],
+      "classes": ["form-group","col-md-12", "lock_if_public"],
       "preset": "fluent_core_translated",
       "validators" : "fluent_text lock_if_public",
       "form_snippet": "fluent_markdown.html",
@@ -79,7 +79,7 @@
       "help_text": {
         "en": "What geographic area does this resource describe/cover?"
       },
-      "classes": ["col-md-12","form-group"],      
+      "classes": ["col-md-12","form-group", "lock_if_public"],      
       "preset": "fluent_text",
       "validators": "fluent_text lock_if_public",
       "form_placeholder": "e.g., Ontario"
@@ -96,7 +96,7 @@
       }, 
       "preset": "select",
       "validators": "ignore_missing scheming_choices lock_if_public",
-      "classes": ["form-group","col-md-12"],
+      "classes": ["form-group","col-md-12", "lock_if_public"],
       "choices": [
         {
           "value": "",
@@ -148,7 +148,7 @@
       "form_placeholder": "e.g., http://example.com/description-of-this-dataset",
       "display_property": "foaf:homepage",
       "display_snippet": "link.html",
-      "classes": ["form-group","col-md-12"]
+      "classes": ["form-group","col-md-12", "lock_if_public"]
     },
     {
       "field_name": "owner_org",
@@ -163,7 +163,7 @@
       },
       "preset": "dataset_organization",
       "validators": "owner_org_validator unicode lock_if_public",
-      "classes": ["col-md-12","form-group"]
+      "classes": ["col-md-12","form-group", "lock_if_public"]
     },
     {
       "field_name": "maintainer_translated",
@@ -274,7 +274,7 @@
       }, 
       "preset": "select",
       "validators": "ignore_missing scheming_choices lock_if_public",
-      "classes": ["form-group","col-md-12"],
+      "classes": ["form-group","col-md-12", "lock_if_public"],
       "choices": [
         {
           "value": "as_required",
@@ -389,7 +389,7 @@
       "help_text": {
         "en": "Explain any additional steps needed to access the resource"
       },
-      "classes": ["form-group","col-md-12"],
+      "classes": ["form-group","col-md-12","lock_if_public"],
       "preset": "fluent_markdown",
       "validators": "fluent_text lock_if_public",
       "form_placeholder": "e.g., Users will need to register with the website to recieve a login and provide an email address. Visit http://www.example.com/register."
@@ -406,7 +406,7 @@
         "en": "Are you releasing this under a licence?",
         "fr": "Licence s’appliquant au jeu de données"
       },
-      "classes": ["col-md-12","form-group"],
+      "classes": ["col-md-12","form-group","lock_if_public"],
       "validators": "lock_if_public"
     },
     {
@@ -489,7 +489,7 @@
       "help_text": {
         "en": "When the first resource initially (the actual files) was added to the public-facing Open Data Catalogue."
       },
-      "classes": ["form-group","col-md-12"], 
+      "classes": ["form-group","col-md-12","lock_if_public"], 
       "preset": "date",
       "validators": "ignore_missing isodate convert_to_json_if_date lock_if_public",
       "form_placeholder": "yyyy-mm-dd"
@@ -504,7 +504,7 @@
       "help_text": {
         "en": "What is the specific exemption for this collection of resources to not be shared with the public? Refer to the <a href='https://www.ontario.ca/document/open-data-guidebook-guide-open-data-directive-2015/data-inventory#section-1' target='_blank'>Open Data Guidebook</a> for more on exemptions."
       },
-      "classes": ["form-group","col-md-12"],
+      "classes": ["form-group","col-md-12","lock_if_public"],
       "preset": "select",
       "validators": "ignore_missing default(none) scheming_choices lock_if_public",
       "choices": [
@@ -562,9 +562,10 @@
       "help_text": {
         "en": "Explain why the resource cannot be disclosed to the public"
       }, 
-      "classes": ["form-group","col-md-12"],
+      "classes": ["form-group","col-md-12","lock_if_public"],
       "form_placeholder": "e.g., This dataset cannot be sufficiently de-identified to assure users cannot use it to identify members of the public.",      
-      "preset": "fluent_markdown"
+      "preset": "fluent_markdown",
+      "validators": "fluent_text lock_if_public"
     },
     {
       "field_name": "cluster_application_id",
