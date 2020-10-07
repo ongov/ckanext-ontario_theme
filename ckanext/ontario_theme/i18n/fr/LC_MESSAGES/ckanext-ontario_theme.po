@@ -2634,11 +2634,11 @@ msgstr "Algorithme/actif d’IA"
 #: ckanext/ontario_theme/templates/internal/package/read.html:9
 msgid ""
 " This record describes an algorithm or artificial intelligence asset. It does"
-" not describe a dataset. <a href=\"/collection/about/artificial-intelligence-"
+" not describe a dataset. <a href=\"/group/about/artificial-intelligence-"
 "and-algorithms\">Learn more here about how the Government of Ontario is "
 "working to grow our catalogue beyond data for greater transparency and "
 "accountability.</a> "
-msgstr "Cet enregistrement décrit un algorithme ou actif d’intelligence artificielle. Il ne s’agit pas d’un jeu de données. <a href=\"/fr/collection/about/artificial-intelligence-"
+msgstr "Cet enregistrement décrit un algorithme ou actif d’intelligence artificielle. Il ne s’agit pas d’un jeu de données. <a href=\"/fr/group/about/artificial-intelligence-"
 "and-algorithms\">Apprenez-en plus ici sur les mesures prises par le gouvernement de l’Ontario pour ajouter à notre catalogue des éléments autres que des données à des fins de transparence et de responsabilité accrues.</a>"
 
 #: ckanext/ontario_theme/templates/internal/snippets/package_item.html:10
