@@ -48,6 +48,22 @@
       "form_placeholder": "e.g., Some useful notes about the data"
     },
     {
+      "field_name": "colby_notes",
+      "label": {
+        "en": "Internal Notes",
+        "fr": "Notes internes"
+      },
+      "help_inline" : true,
+      "required": "true",
+      "help_text": {
+        "en": "Add any additional notes on the the asset specific to its internal use."
+      },
+      "classes": ["form-group","col-md-12"],
+      "validators" : "unicode",
+      "form_snippet": "markdown.html",
+      "form_placeholder": "e.g., Some useful notes about the data"
+    },
+    {
       "field_name": "keywords",
       "label": {
         "en": "Tags",

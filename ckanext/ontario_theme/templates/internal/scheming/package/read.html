@@ -15,6 +15,15 @@
       {{ h.render_markdown(h.scheming_language_text(pkg['notes_translated'])) }}
     </div>
   {% endif %}
+
+  {% if h.scheming_field_by_name(schema.dataset_fields, 'colby_notes') %}
+    <h3>
+      {{ h.scheming_language_text(h.scheming_field_by_name(schema.dataset_fields, 'colby_notes').label) }}
+    </h3>
+    <div class="colby_notes embedded-content">
+      {{ h.render_markdown(h.scheming_language_text(pkg['colby_notes'])) }}
+    </div>
+  {% endif %}  
 {% endblock %}
 
 {% block package_additional_info %}
