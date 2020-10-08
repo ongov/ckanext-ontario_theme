@@ -14,6 +14,8 @@ from ckan.model import Package
 
 from resource_upload import ResourceUpload
 
+from ckanext.ontario_theme import validators
+
 import logging
 log = logging.getLogger(__name__)
 
@@ -264,7 +266,6 @@ def get_package_keywords(language='en'):
     package_top_keywords = package_top_keywords['search_facets'][facet]['items']
     return package_top_keywords
 
-
 def default_locale():
     '''Wrap the ckan default locale in a helper function to access
     in templates.
@@ -356,6 +357,7 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IBlueprint)
+    plugins.implements(plugins.IValidators)
     plugins.implements(plugins.ITemplateHelpers)
     plugins.implements(plugins.IUploader, inherit=True)
     plugins.implements(plugins.IFacets)
@@ -381,12 +383,23 @@ ckanext.fluent:presets.json
         config_['scheming.organization_schemas'] = """
 ckanext.ontario_theme:schemas/ontario_theme_organization.json
 """
+
+    # IValidators
+
+    def get_validators(self):
+        return {
+                'conditional_save': validators.conditional_save,
+                'required_if': validators.required_if
+                }
+
+
         config_['ckan.tracking_enabled'] = """
 true
 """
         config_['ckan.extra_resource_fields'] = """
 type data_last_updated
 """
+
     # ITemplateHelpers
 
     def get_helpers(self):
