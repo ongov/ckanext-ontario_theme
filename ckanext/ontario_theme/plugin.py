@@ -233,14 +233,11 @@ def get_license(license_id):
     '''
     return Package.get_license_register().get(license_id)
 
-
-
 def get_translated_lang(data_dict, field, specified_language):
     try:
         return data_dict[field + u'_translated'][specified_language]
     except KeyError:
         return helpers.get_translated(data_dict, field)
-
 
 
 def get_package_keywords(language='en'):
@@ -391,7 +388,6 @@ true
         config_['ckan.extra_resource_fields'] = """
 type data_last_updated
 """
-
     # ITemplateHelpers
 
     def get_helpers(self):
@@ -499,5 +495,4 @@ type data_last_updated
        return {
             'ontario_theme_copy_fluent_keywords_to_tags': ontario_theme_copy_fluent_keywords_to_tags,
             'ontario_tag_name_validator': validators.tag_name_validator
-
        }
