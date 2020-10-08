@@ -395,12 +395,6 @@ true
 type data_last_updated
 """
 
-    # IValidators
-
-    def get_validators(self):
-        return {
-                'ontario_tag_name_validator': validators.tag_name_validator}
-
     # ITemplateHelpers
 
     def get_helpers(self):
@@ -505,4 +499,8 @@ type data_last_updated
     # IValidators
 
     def get_validators(self):
-       return {'ontario_theme_copy_fluent_keywords_to_tags': ontario_theme_copy_fluent_keywords_to_tags}
+       return {
+            'ontario_theme_copy_fluent_keywords_to_tags': ontario_theme_copy_fluent_keywords_to_tags,
+            'ontario_tag_name_validator': validators.tag_name_validator
+
+       }
