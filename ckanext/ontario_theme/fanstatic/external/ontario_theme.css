@@ -62,6 +62,18 @@
   content: "\f023";
   color: #D81A21;
 }
+.new-alert.alert-algorithms::before {
+  content: "\f121";
+  margin-left: -7px;
+  color: #1080A6;
+}
+.new-alert.alert-huge {
+  padding-left: 160px;
+}
+.new-alert.alert-huge::before {
+  font-size: 125px;
+  line-height: 125px;
+}
 .new-alert.alert-large {
   min-height: 80px;
   padding-left: 90px;
@@ -471,6 +483,9 @@ div.card p {
 .label {
   color: #FFFFFF;
 }
+.label.right {
+  float: right;
+}
 .label[data-format=html],
 .label[data-format*=html] {
   background-color: #55a1ce;
@@ -556,6 +571,12 @@ div.card p {
 }
 .label-english_and_french {
   background-color: #e6fad2;
+}
+.label-info {
+  color: #4d4d4d;
+  border: solid 1px #1080A6;
+  border-left: solid 5px #1080A6;
+  background-color: #E2F0F4;
 }
 .label-default {
   background-color: #fcaf17;

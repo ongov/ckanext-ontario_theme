@@ -46,6 +46,37 @@
       "form_placeholder": "e.g., Some useful notes about the data"
     },
     {
+      "field_name": "asset_type",
+      "label": {
+        "en": "Asset Type",
+        "fr": "Statut des données"
+      },
+      "required": true,
+      "help_inline" : true,
+      "help_text": {
+        "en": "What type of asset are you disclosing?"
+      }, 
+      "classes": ["form-group","col-md-12"],
+      "preset": "select",
+      "validators": "default(dataset) scheming_choices scheming_required",
+      "choices": [
+        {
+          "value": "dataset",
+          "label": {
+            "en": "Dataset",
+            "fr": "Ouvertes"
+          }
+        },
+        {
+          "value": "algorithm",
+          "label": {
+            "en": "Algorithm",
+            "fr": "Restreintes"
+          }
+        }
+      ]
+    },
+    {
       "field_name": "keywords",
       "label": {
         "en": "Tags",
