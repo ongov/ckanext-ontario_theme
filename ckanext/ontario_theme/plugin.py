@@ -11,9 +11,6 @@ import ckanapi_exporter.exporter as exporter
 import json
 import ckan.lib.helpers as helpers
 
-import ckan.lib.navl.dictization_functions as df
-Invalid = df.Invalid
-
 from ckan.model import Package
 
 from resource_upload import ResourceUpload
