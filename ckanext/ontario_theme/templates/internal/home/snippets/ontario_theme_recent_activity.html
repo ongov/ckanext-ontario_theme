@@ -7,7 +7,7 @@ Renders a list of the site's most recent activity.
   {% for dataset in recently_updated_datasets %}
 
   <div class="row">
-    <div class="col-md-3 col-sm-3 col-xs-4" style="min-height: 4rem">
+    <div class="col-md-3 col-sm-3 col-xs-4 recently_updated_date_label">
       <span class="label label-default">{{ h.render_datetime(dataset.current_as_of) }}</span>
     </div>
     <div class="col-md-9 col-sm-9 col-xs-8">
