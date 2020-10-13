@@ -295,5 +295,32 @@
         "en": "This website was created by the Ontario Ministry of Natural Resources (the ministry). Use of this site and any of the data, text, maps and other information on the site (collectively \"content\") is governed by the terms and conditions set out below (\"Terms of Use\"). Use of the site implies acceptance of these terms.",
         "fr": "Le présent site Web a été mis sur pied par le ministère des Richesses naturelles de l’Ontario (le ministère). L’utilisation de ce site et de toute partie de ses données, de ses textes, de ses cartes et de toute autre information que contient le site (collectivement appelés « contenu ») est régie par les modalités stipulées ci-dessous (« modalités d’utilisation »). En utilisant le présent site, vous en acceptez les modalités d’utilisation."
     }
+  },
+  {
+    "domain_content": false,
+    "domain_data": false,
+    "domain_software": false,
+    "family": "",
+    "id": "apache-license-2.0",
+    "is_generic": true,
+    "maintainer": "",
+    "od_conformance": "not reviewed",
+    "osd_conformance": "not reviewed",
+    "status": "active",
+    "title": "Apache License 2.0",
+    "title_translated" : {
+        "en": "Apache License 2.0",
+        "fr": "Licence Apache 2.0"
+    },
+    "url": "https://www.apache.org/licenses/LICENSE-2.0",
+    "url_translated": {
+        "en": "https://www.apache.org/licenses/LICENSE-2.0",
+        "fr": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "description": "Apache 2.0 is a free and open license without “copyleft”. This authorizes the use, modification and possibly redistribution of the source code of these projects under any other license, but requires recognition from the ASF and the inclusion of the text of the license, and prohibits the use of trademarks of the ASF.",
+    "description_translated" : {
+        "en": "Apache 2.0 is a free and open license without “copyleft”. This authorizes the use, modification and possibly redistribution of the source code of these projects under any other license, but requires recognition from the ASF and the inclusion of the text of the license, and prohibits the use of trademarks of the ASF.",
+        "fr": "Apache 2.0 est une licence libre et ouverte sans « copyleft ». Celle-ci autorise l'utilisation, la modification et éventuellement la redistribution du code source de ces projets sous toute autre licence, mais requiert une reconnaissance de l'ASF (Apache Software Foundation) et l'inclusion du texte de la licence, et interdit l'utilisation des marques de commerce de l'ASF."
+    }
   }
 ]
