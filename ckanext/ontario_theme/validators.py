@@ -31,5 +31,5 @@ def tag_name_validator(value, context):
 
     if not tagname_match.match(value):
         raise Invalid(_(u'Tag "%s" must be alphanumeric '
-                        'characters or symbols: \'-_.') % (value))
+                        u'characters or symbols: ’\'-_.') % (value))
     return value
