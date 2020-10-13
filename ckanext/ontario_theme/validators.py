@@ -21,10 +21,10 @@ def tag_name_validator(value, context):
     value = separator_search.sub(" ", value)
 
     if u',' in value:
-        raise Invalid(_(u'Tag "%s" may not contain commas') % (value,))
+        raise Invalid(_(u'Tag "%s" may not contain commas') % (value))
     if u'  ' in value:
         raise Invalid(
-            _(u'Tag "%s" may not contain consecutive spaces') % (value,))
+            _(u'Tag "%s" may not contain consecutive spaces') % (value))
 
     # same as core tag_name_validator except for the addition of ' and ’
     tagname_match = re.compile(ur'[\w ’\'\-.]*$', re.UNICODE)
