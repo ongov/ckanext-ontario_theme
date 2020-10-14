@@ -455,6 +455,7 @@
         "en": "When the first resource initially (the actual files) was added to the public-facing Open Data Catalogue."
       },
       "form_attrs": {
+        "class" : "form-control",
         "data-module": "conditional_behaviours",
         "data-module-trigger_field": "#field-access_level",
         "data-module-show_if": "open"
@@ -475,6 +476,7 @@
         "en": "What is the specific exemption for this collection of resources to not be shared with the public? Refer to the <a href='https://www.ontario.ca/document/open-data-guidebook-guide-open-data-directive-2015/data-inventory#section-1' target='_blank'>Open Data Guidebook</a> for more on exemptions."
       },
       "form_attrs": {
+        "class" : "form-control",
         "data-module": "conditional_behaviours",
         "data-module-trigger_field": "#field-access_level",
         "data-module-show_if": "restricted"
