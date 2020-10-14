@@ -11,9 +11,9 @@ ckan.module('conditional_behaviours', function ($) {
     initialize: function () {
 
       $(this.options.trigger_field).on('change', jQuery.proxy(this._onChange, this));
-      // which values will trigger hide/show
+      // which values will trigger enable.disable
       this.trigger_values = ("show_if" in this.options ? this.options.show_if : this.options.hide_if).split(",")
-      this.field_container = this.el.parents("div.controls.row")
+      //this.field_container = this.el.parents("div.controls.row")
 
       $(this.options.trigger_field).change()
       return null
@@ -23,19 +23,19 @@ ckan.module('conditional_behaviours', function ($) {
 
       if ($.inArray(value_selected, this.trigger_values) != -1) {
         if (!!this.options.hide_if) {
-          this.field_container.hide()
+          this.el.prop("readonly","readonly")
+          this.el.attr("readonly","readonly")
         }
         else if (!!this.options.show_if) {
-          this.field_container.show()
-
+          this.el.removeAttr("readonly")
         }
       } else {
         if (!!this.options.hide_if) {
-          this.field_container.show()
+          this.el.removeAttr("readonly")
         }
         else if (!!this.options.show_if) {
-          this.field_container.hide()
-
+          this.el.prop("readonly","readonly")
+          this.el.attr("readonly","readonly")
         }
       }
     }
