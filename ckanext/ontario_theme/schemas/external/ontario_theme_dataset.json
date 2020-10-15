@@ -540,6 +540,7 @@
         "en": "Explain why the resource cannot be disclosed to the public"
       }, 
       "form_attrs": {
+        "class" : "col-md-6",
         "data-module": "conditional_behaviours",
         "data-module-trigger_field": "#field-access_level",
         "data-module-show_if": "restricted"
