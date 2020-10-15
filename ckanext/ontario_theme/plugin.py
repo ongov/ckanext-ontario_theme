@@ -1,4 +1,5 @@
 import ckan.plugins as plugins
+from ckanext.ontario_theme import validators
 import ckan.plugins.toolkit as toolkit
 from ckan.lib.plugins import DefaultTranslation
 from ckan.common import config
@@ -491,4 +492,7 @@ type data_last_updated
     # IValidators
 
     def get_validators(self):
-       return {'ontario_theme_copy_fluent_keywords_to_tags': ontario_theme_copy_fluent_keywords_to_tags}
+       return {
+            'ontario_theme_copy_fluent_keywords_to_tags': ontario_theme_copy_fluent_keywords_to_tags,
+            'ontario_tag_name_validator': validators.tag_name_validator
+       }

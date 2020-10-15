@@ -89,6 +89,7 @@
       "help_text": {
         "en": "Help people find this resource by adding terms they might think of when looking for it. You can use \n OPS terms like \"Transfer Payments\" \n descriptive terms like \"remoteness index\", \"temperatures\" \n or associated terms like \"economy\", \"housing\", \"climate change\""
       },
+      "tag_validators": "tag_length_validator ontario_tag_name_validator",
       "preset": "fluent_tags",
       "validators": "fluent_tags ontario_theme_copy_fluent_keywords_to_tags",
       "output_validators": "fluent_tags_output",
