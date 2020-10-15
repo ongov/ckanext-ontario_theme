@@ -208,6 +208,13 @@ def csv_dump():
         (b'attachment; filename="output.csv"')
     return resp
 
+def get_group(group_id):
+    '''Helper to return 3 freshest datasets
+    '''
+    group_dict = toolkit.get_action('group_show')(
+        data_dict={'id': group_id})
+    return group_dict
+
 def get_recently_updated_datasets():
     '''Helper to return 3 freshest datasets
     '''
@@ -395,6 +402,7 @@ type data_last_updated
         return {'ontario_theme_get_license': get_license,
                 'ontario_theme_get_translated_lang': get_translated_lang,
                 'ontario_theme_get_popular_datasets': get_popular_datasets,
+                'ontario_theme_get_group': get_group,
                 'ontario_theme_get_recently_updated_datasets': get_recently_updated_datasets,
                 'extrafields_default_locale': default_locale,
                 'ontario_theme_get_package_keywords': get_package_keywords}
