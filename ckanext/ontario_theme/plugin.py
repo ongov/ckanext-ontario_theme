@@ -208,7 +208,6 @@ def csv_dump():
         (b'attachment; filename="output.csv"')
     return resp
 
-
 def get_recently_updated_datasets():
     '''Helper to return 3 freshest datasets
     '''
@@ -350,6 +349,9 @@ ckanext.fluent:presets.json
 """
         config_['scheming.organization_schemas'] = """
 ckanext.ontario_theme:schemas/ontario_theme_organization.json
+"""
+        config_['scheming.group_schemas'] = """
+ckanext.ontario_theme:schemas/ontario_theme_group.json
 """
 
 class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
