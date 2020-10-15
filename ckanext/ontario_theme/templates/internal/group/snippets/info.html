@@ -1,5 +1,22 @@
 {% ckan_extends %}
 
+{% block heading %}
+<h1 class="heading">
+  {{ group.display_name }}
+  {% if group.state == 'deleted' %}
+    [{{ _('Deleted') }}]
+  {% endif %}
+</h1>
+{% endblock %}
+{% block description %}
+{% if group.description %}
+  <p>
+    {{ h.markdown_extract(group.description, 180) }}
+    {% link_for _('read more'), controller='group', action='about', id=group.name %}
+  </p>
+{% endif %}
+{% endblock %}
+
 {% block nums %}
   <div class="nums">
     <dl>
