@@ -1,14 +1,42 @@
 {#
-  resources_inner block changed to remove anchor on resource name.
+  Snippet changes include:
+    - resources_inner block changed to remove anchor on resource name.
+    - adding AI label # TODO: remove from h3 element, it's not the heading
+    - adding organization info below heading
+
 #}
 
 {% ckan_extends %}
 
-{% block heading_title %}
-  {{ h.link_to(h.truncate(h.get_translated(package, 'title'), truncate_title), h.url_for(package.type + '_read', controller='package', action='read', id=package.name)) }}
-  {% if package.get("asset_type") == "algorithm" %}
-    <div class="label label-info right">{% trans %}Agorithm/AI{% endtrans %}</div>
-  {% endif %}
+{% block heading %}
+  <h3 class="dataset-heading">
+    {% block heading_private %}
+      {{ super() }}
+    {% endblock %}
+
+    {% block heading_title %}
+      {{ h.link_to(h.truncate(h.get_translated(package, 'title'), truncate_title), h.url_for(package.type + '_read', controller='package', action='read', id=package.name)) }}
+      {% if package.get("asset_type") == "algorithm" %}
+        <div class="label label-info right">{% trans %}Agorithm/AI{% endtrans %}</div>
+      {% endif %}
+    {% endblock %}
+
+    {% block heading_meta %}
+      {{ super() }}
+    {% endblock %}
+  </h3>
+  {# Get the org to get all extras then get the schema for choices/labels of values #}
+  {% set organization = h.get_organization(package['owner_org']) %}
+  {%- set schema = h.scheming_get_organization_schema('organization') -%}
+  <p class="text-muted">
+    <small>
+      {{ h.get_translated(organization, 'title') }} 
+        <em>(
+          {%- snippet 'scheming/snippets/display_field.html', field=h.scheming_field_by_name(schema.fields, 'jurisdiction'), data=organization, schema=schema -%} &nbsp; 
+          {%- snippet 'scheming/snippets/display_field.html', field=h.scheming_field_by_name(schema.fields, 'category'), data=organization, schema=schema -%}
+        )</em>
+    </small>
+  </p>
 {% endblock %}
 
 {% block resources %}

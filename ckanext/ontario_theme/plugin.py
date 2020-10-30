@@ -431,6 +431,8 @@ type data_last_updated
         facets_dict['keywords_en'] = toolkit._('Keywords')
         facets_dict['keywords_fr'] = toolkit._('Keywords')
         facets_dict.pop('tags', None) # Remove tags in favor of keywords
+        facets_dict['organization_jurisdiction'] = toolkit._('Jurisdiction')
+        facets_dict['organization_category'] = toolkit._('Category')
         return facets_dict
 
     def group_facets(self, facets_dict, group_type, package_type):
@@ -460,6 +462,11 @@ type data_last_updated
         kw = json.loads(pkg_dict.get('extras_keywords', '{}'))
         pkg_dict['keywords_en'] = kw.get('en', [])
         pkg_dict['keywords_fr'] = kw.get('fr', [])
+
+        # Index some organization extras fields from fluent/scheming.
+        organization_dict = toolkit.get_action('organization_show')(data_dict={'id': pkg_dict['organization']})
+        pkg_dict['organization_jurisdiction'] = organization_dict.get('jurisdiction', '')
+        pkg_dict['organization_category'] = organization_dict.get('category', '')
         return pkg_dict
 
     def before_view(self, pkg_dict):

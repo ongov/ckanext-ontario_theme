@@ -10,6 +10,7 @@
 
 {% block facet_list_heading %}
   {% with items = items or h.get_facet_items_dict(name) %}
+
   <h2 class="module-heading">
     <i class="fa fa-filter"></i>
     {% set title = title or h.get_facet_title(name) %}
@@ -25,12 +26,13 @@
   {% endwith %}
 {% endblock %}
 {% block facet_list_items %}
+
   {% with items = items or h.get_facet_items_dict(name) %}
   {% if items %}
     <nav>
       <ul class="{{ nav_class or 'list-unstyled nav nav-simple nav-facet' }}">
         {% for item in items %}
-          {% set scheming_choices = h.scheming_field_by_name(fields, name).choices or None%}
+          {# set scheming_choices = scheming_choices or h.scheming_field_by_name(fields, name).choices or None #}
           {% do item.update({'display_name': h.scheming_choices_label(scheming_choices, item.display_name)}) if scheming_choices %}
           {% do item.update({'display_name': h.get_translated( h.ontario_theme_get_license(item.name), "title" )}) if name == "license_id" %}
           {% do item.update({'display_name': h.get_translated( h.get_organization(item.name), "title") or item.display_name}) if name == "organization" %}
