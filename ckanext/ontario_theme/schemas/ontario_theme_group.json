@@ -1,0 +1,45 @@
+{
+  "scheming_version": 1,
+  "group_type": "group",
+  "form_languages": ["en", "fr"],
+  "about_url": "http://github.com/ckan/ckanext-scheming",
+  "fields": [
+    {
+      "field_name": "title_translated",
+      "label": {
+        "en": "Name",
+        "fr": "Nom"
+      },
+      "preset": "fluent_core_translated",
+      "form_snippet": "extrafields_fluent_title.html",
+      "form_placeholder": "Group name",
+      "classes": ["col-md-12","form-group"]
+    },
+    {
+      "field_name": "name",
+      "label": "URL",
+      "validators": "not_empty unicode name_validator group_name_validator",
+      "form_snippet": "slug.html",
+      "form_placeholder": "group-name",
+      "classes": ["col-md-12","form-group"]
+    },
+    {
+      "field_name": "description_translated",
+      "label": {
+        "en": "Description",
+        "fr": "La description"
+      },
+      "help_inline" : true,
+      "preset": "fluent_core_translated",
+      "form_snippet": "fluent_markdown.html",
+      "form_placeholder": "A little information about my group...",
+      "classes": ["col-md-12","form-group"]
+    },
+    {
+      "field_name": "image_url",
+      "validators": "ignore_missing unicode remove_whitespace",
+      "form_snippet": "ontario_theme_organization_upload.html",
+      "classes": ["col-md-12","form-group"]
+    }
+  ]
+}

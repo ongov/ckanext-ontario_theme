@@ -209,6 +209,15 @@ def csv_dump():
         (b'attachment; filename="output.csv"')
     return resp
 
+def get_group(group_id):
+    '''Helper to return the group.
+    CKAN core has a get_organization helper but does not have one for groups.
+    This also allows us to access the group with all extras which are needed to 
+    access the scheming/fluent fields.
+    '''
+    group_dict = toolkit.get_action('group_show')(
+        data_dict={'id': group_id})
+    return group_dict
 
 def get_recently_updated_datasets():
     '''Helper to return 3 freshest datasets
@@ -352,6 +361,9 @@ ckanext.fluent:presets.json
         config_['scheming.organization_schemas'] = """
 ckanext.ontario_theme:schemas/ontario_theme_organization.json
 """
+        config_['scheming.group_schemas'] = """
+ckanext.ontario_theme:schemas/ontario_theme_group.json
+"""
 
 class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
@@ -394,6 +406,7 @@ type data_last_updated
         return {'ontario_theme_get_license': get_license,
                 'ontario_theme_get_translated_lang': get_translated_lang,
                 'ontario_theme_get_popular_datasets': get_popular_datasets,
+                'ontario_theme_get_group': get_group,
                 'ontario_theme_get_recently_updated_datasets': get_recently_updated_datasets,
                 'extrafields_default_locale': default_locale,
                 'ontario_theme_get_package_keywords': get_package_keywords}

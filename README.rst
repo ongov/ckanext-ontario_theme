@@ -72,10 +72,10 @@ Update the development.ini (or production.ini) plugins::
     # Note: This extension needs to be before scheming and fluent in the *.ini config file to let the form overrides work.
     
     # For external catalogue
-    ckan.plugins = [...] ontario_theme_external ontario_theme scheming_datasets scheming_organizations fluent [...]
+    ckan.plugins = [...] ontario_theme_external ontario_theme scheming_datasets scheming_organizations scheming_groups fluent [...]
 
     # For internal catalogue
-    ckan.plugins = [...] ontario_theme scheming_datasets scheming_organizations fluent [...]
+    ckan.plugins = [...] ontario_theme scheming_datasets scheming_organizations scheming_groups fluent [...]
 
     # For both, add licenses:
     licenses_group_url = file:///<path to this extension>/ckanext/ontario_theme/schemas/licences.json
