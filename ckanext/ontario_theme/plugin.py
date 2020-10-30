@@ -209,7 +209,10 @@ def csv_dump():
     return resp
 
 def get_group(group_id):
-    '''Helper to return 3 freshest datasets
+    '''Helper to return the group.
+    CKAN core has a get_organization helper but does not have one for groups.
+    This also allows us to access the group with all extras which are needed to 
+    access the scheming/fluent fields.
     '''
     group_dict = toolkit.get_action('group_show')(
         data_dict={'id': group_id})
