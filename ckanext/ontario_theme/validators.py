@@ -3,6 +3,8 @@
 import re
 from ckan.common import _
 from ckantoolkit import Invalid
+from ckanext.scheming.validation import scheming_validator
+from ckanext.fluent.validators import fluent_text_output
 
 def tag_name_validator(value, context):
     '''
@@ -33,3 +35,31 @@ def tag_name_validator(value, context):
         raise Invalid(_(u'Tag "%s" must be alphanumeric '
                         u'characters or symbols: ’\'-_.') % (value))
     return value
+
+@scheming_validator
+def ontario_theme_copy_fluent_keywords_to_tags(field, schema):
+    def validator(key, data, errors, context):
+        """
+        Copy keywords to tags.
+        This will let the tag autocomplete endpoint to work as desired.
+
+        Fluent tag validation and CKAN's tag validation handles validation.
+
+        This replaces tags with the keywords for all languages in the schema
+        so it will remove (deactivate) tags as necessary as well.
+
+        This validator is dependent on scheming and fluent.
+
+        Usage:
+        "validators": "fluent_tags ontario_theme_copy_fluent_keywords_to_tags",
+        """
+
+        fluent_tags = fluent_text_output(data[key])
+        data[('tags'),] = []
+        for key, value in fluent_tags.items():
+            for tag in value:
+                data[('tags'),].append(
+                    {'name': tag}
+                )
+
+    return validator
