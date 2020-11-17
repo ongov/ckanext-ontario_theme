@@ -15,8 +15,10 @@ def __lock_value(value, original_value):
     '''
 
     # avoid mismatches due to extra spaces, etc
-    value = value.strip().replace("\r\n", "\n")
-    original_value = original_value.strip().replace("\r\n", "\n")
+    if type(value) == str:
+        value = value.strip().replace("\r\n", "\n")
+    if type(original_value) == str:
+        original_value = original_value.strip().replace("\r\n", "\n")
     if value != original_value:
         return False
     return True
@@ -54,6 +56,30 @@ def __check_all_values(key, value, original_value, errors, message, sub_validato
 
     return errors
 
+
+def __check_all_resource_values(key, value, original_value, errors, message, sub_validator):
+    '''
+        Adds error for fluent and non-fluent fields
+    '''
+
+    try:
+        check_value = json.loads(value)
+        original_value = json.loads(original_value)
+        if isinstance(check_value, dict):
+            for fkey, fvalue in check_value.items():
+                if fkey not in original_value:
+                    original_value[fkey] = ""
+                if not sub_validator(fvalue, original_value[fkey]):
+                    resource_field_name = key[0:2] + ((''.join(key[2:3]) + '-' + fkey),)
+                    errors = __add_error_message(errors, resource_field_name, message)
+        else:
+            if not sub_validator(value, original_value):
+                errors = __add_error_message(errors, key, message)
+    except:
+        if not sub_validator(value, original_value):
+            errors = __add_error_message(errors, key, message)
+
+    return errors
 
 
 def __get_original_resource(context, data, key):
@@ -121,8 +147,8 @@ def __if_change_submitted(key, data, context, errors, message):
         original = __get_value(key, package)
         # now we have to run each value (fluent or not, through the validator and add errors)
         errors = __check_all_values(key, current, original, errors, message, __lock_value)
-        return errors
-    return False
+
+    return errors
 
 
 def __if_resource_change_submitted(key, data, context, errors, message):
@@ -136,9 +162,8 @@ def __if_resource_change_submitted(key, data, context, errors, message):
     if original_resource:
         current = data.get(key, '')
         original = __get_value(key[2:3], original_resource)
-        errors = __check_all_values(key, value, original, errors, message, __lock_value)
-        return errors
-    return False
+        errors = __check_all_resource_values(key, current, original, errors, message, __lock_value)
+    return errors
 
 
 def lock_if_public(key, data, errors, context):
@@ -157,5 +182,5 @@ def lock_if_public_resource(key, data, errors, context):
     '''
 
     if __is_public_resource(context, data, key) and not is_sysadmin(context['user']):
-        errors = __if_resource_change_submitted(key, data, context)
+        errors = __if_resource_change_submitted(key, data, context, errors, _(u'This is a public catalogue field and can\'t be changed.'))
     return
