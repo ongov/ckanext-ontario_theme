@@ -10,6 +10,7 @@ assert_equals = nose.tools.assert_equals
 import ckan.model as model
 import ckan.plugins
 import ckan.tests.factories as factories
+import ckan.logic as logic
 
 import ckan.tests.helpers as helpers
 
@@ -201,3 +202,98 @@ class TestOntarioThemeTagNameValidator(object):
             url = 'http://data')
 
         assert_equals(resource["url"], 'http://data')
+
+    def test_ontario_theme_creates_resource_with_two_spaces(self):
+        '''A dataset and resource should save with apostrophes in tag
+        strings (one of the modified features in new validator).
+        '''
+
+        try:
+            org = factories.Organization()
+            dataset = helpers.call_action(
+                'package_create',
+                name = 'package-name',
+                maintainer_translated = {
+                    'en': u'Joe Smith',
+                    'fr': u'...'
+                },
+                maintainer_email = 'Joe.Smith@ontario.ca',
+                title_translated = {
+                    'en': u'A Novel By Tolstoy',
+                    'fr':u'Un novel par Tolstoy'
+                },
+                notes_translated = {
+                    'en': u'short description',
+                    'fr': u'...'
+                },
+                owner_org = org['name'], # depends on config.
+                keywords = {
+                    'en': [u'English', u"French and  Italian"],
+                    'fr': [u'Français'],
+                    'de': [u'...']
+                },
+            )
+
+            assert_equals(dataset['keywords'], {
+                    'en': [u'English'],
+                    'fr': [u'Français'],
+                    'de': [u'...']
+                })
+
+            resource = helpers.call_action(
+                'resource_create',
+                package_id = dataset["id"],
+                url = 'http://data')
+
+        except logic.ValidationError as e:
+            assert_equals(
+                e.error_dict['keywords'],
+                [u'Tag "French and  Italian" may not contain consecutive spaces']
+            )
+
+    def test_ontario_theme_creates_resource_with_comma(self):
+        '''A dataset and resource should save with apostrophes in tag
+        strings (one of the modified features in new validator).
+        '''
+        try:
+            org = factories.Organization()
+            dataset = helpers.call_action(
+                'package_create',
+                name = 'package-name',
+                maintainer_translated = {
+                    'en': u'Joe Smith',
+                    'fr': u'...'
+                },
+                maintainer_email = 'Joe.Smith@ontario.ca',
+                title_translated = {
+                    'en': u'A Novel By Tolstoy',
+                    'fr':u'Un novel par Tolstoy'
+                },
+                notes_translated = {
+                    'en': u'short description',
+                    'fr': u'...'
+                },
+                owner_org = org['name'], # depends on config.
+                keywords = {
+                    'en': [u'English', u"Languages, dialects and locales"],
+                    'fr': [u'Français'],
+                    'de': [u'...']
+                },
+            )
+
+            assert_equals(dataset['keywords'], {
+                    'en': [u'English'],
+                    'fr': [u'Français'],
+                    'de': [u'...']
+                })
+
+            resource = helpers.call_action(
+                'resource_create',
+                package_id = dataset["id"],
+                url = 'http://data')
+
+        except logic.ValidationError as e:
+            assert_equals(
+                e.error_dict['keywords'],
+                [u'Tag "Languages, dialects and locales" may not contain commas']
+            )
