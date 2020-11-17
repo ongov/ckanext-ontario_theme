@@ -42,6 +42,9 @@ h2 {
 
 h3 { 
   font-size: 20px;
+  &.dataset-heading {
+    margin-bottom: 0px;
+  }
 }
 #landing-page-body h2 {
   font-size: 40px;
@@ -65,7 +68,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: Raleway,Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 
-a {
+a, .dataset-heading a {
   color: @ontario-link-colour;
 }
 
@@ -458,6 +461,14 @@ section.additional-info table.table {
 
 .empty {
   color: @grey;
+}
+
+.contact-us.alert-contact {
+  margin-top: 40px;
+}
+
+.recently_updated_date_label {
+  min-height: 4rem; 
 }
 
 .pagination>.disabled>span, .pagination>.disabled>span:hover, .pagination>.disabled>span:focus, .pagination>.disabled>a, .pagination>.disabled>a:hover, .pagination>.disabled>a:focus, .media-item span.count, .text-muted {

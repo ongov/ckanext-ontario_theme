@@ -20,9 +20,6 @@ from resource_upload import ResourceUpload
 import logging
 log = logging.getLogger(__name__)
 
-from ckanext.scheming.validation import scheming_validator
-from ckanext.fluent.validators import fluent_text_output
-
 
 '''
 default_tags_schema added because when tags are validated on 
@@ -252,6 +249,15 @@ def csv_dump():
         (b'attachment; filename="output.csv"')
     return resp
 
+def get_group(group_id):
+    '''Helper to return the group.
+    CKAN core has a get_organization helper but does not have one for groups.
+    This also allows us to access the group with all extras which are needed to 
+    access the scheming/fluent fields.
+    '''
+    group_dict = toolkit.get_action('group_show')(
+        data_dict={'id': group_id})
+    return group_dict
 
 def get_recently_updated_datasets():
     '''Helper to return 3 freshest datasets
@@ -345,35 +351,6 @@ def num_resources_filter_scrub(search_params):
     return search_params
 
 
-@scheming_validator
-def ontario_theme_copy_fluent_keywords_to_tags(field, schema):
-    def validator(key, data, errors, context):
-        """
-        Copy keywords to tags.
-        This will let the tag autocomplete endpoint to work as desired.
-
-        Fluent tag validation and CKAN's tag validation handles validation.
-
-        This replaces tags with the keywords for all languages in the schema
-        so it will remove (deactivate) tags as necessary as well.
-
-        This validator is dependent on scheming and fluent.
-
-        Usage:
-        "validators": "fluent_tags ontario_theme_copy_fluent_keywords_to_tags",
-        """
-
-        fluent_tags = fluent_text_output(data[key])
-        data[('tags'),] = []
-        for key, value in fluent_tags.items():
-            for tag in value:
-                data[('tags'),].append(
-                    {'name': tag}
-                )
-
-    return validator
-
-
 class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
     plugins.implements(plugins.IConfigurer)
@@ -394,6 +371,9 @@ ckanext.fluent:presets.json
 """
         config_['scheming.organization_schemas'] = """
 ckanext.ontario_theme:schemas/ontario_theme_organization.json
+"""
+        config_['scheming.group_schemas'] = """
+ckanext.ontario_theme:schemas/ontario_theme_group.json
 """
 
 class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
@@ -437,6 +417,7 @@ type data_last_updated
         return {'ontario_theme_get_license': get_license,
                 'ontario_theme_get_translated_lang': get_translated_lang,
                 'ontario_theme_get_popular_datasets': get_popular_datasets,
+                'ontario_theme_get_group': get_group,
                 'ontario_theme_get_recently_updated_datasets': get_recently_updated_datasets,
                 'extrafields_default_locale': default_locale,
                 'ontario_theme_get_package_keywords': get_package_keywords}
@@ -474,6 +455,8 @@ type data_last_updated
         facets_dict['keywords_en'] = toolkit._('Keywords')
         facets_dict['keywords_fr'] = toolkit._('Keywords')
         facets_dict.pop('tags', None) # Remove tags in favor of keywords
+        facets_dict['organization_jurisdiction'] = toolkit._('Jurisdiction')
+        facets_dict['organization_category'] = toolkit._('Category')
         return facets_dict
 
     def group_facets(self, facets_dict, group_type, package_type):
@@ -503,6 +486,11 @@ type data_last_updated
         kw = json.loads(pkg_dict.get('extras_keywords', '{}'))
         pkg_dict['keywords_en'] = kw.get('en', [])
         pkg_dict['keywords_fr'] = kw.get('fr', [])
+
+        # Index some organization extras fields from fluent/scheming.
+        organization_dict = toolkit.get_action('organization_show')(data_dict={'id': pkg_dict['organization']})
+        pkg_dict['organization_jurisdiction'] = organization_dict.get('jurisdiction', '')
+        pkg_dict['organization_category'] = organization_dict.get('category', '')
         return pkg_dict
 
     def before_view(self, pkg_dict):
@@ -536,6 +524,6 @@ type data_last_updated
 
     def get_validators(self):
        return {
-            'ontario_theme_copy_fluent_keywords_to_tags': ontario_theme_copy_fluent_keywords_to_tags,
+            'ontario_theme_copy_fluent_keywords_to_tags': validators.ontario_theme_copy_fluent_keywords_to_tags,
             'ontario_tag_name_validator': validators.tag_name_validator
        }

@@ -14,17 +14,31 @@ block. super() will end up calling the facets twice.
   <div class="filters">
     <div>
       {{ h.snippet('snippets/ontario_theme_keywords_facet.html',
-      extras={'id':c.group_dict.id}) }}
+                   extras={'id':c.group_dict.id}) }}
+    </div>
+
+    <div>
+      {{ h.snippet('snippets/ontario_theme_jurisdiction_facet.html',
+                   extras={'id':c.group_dict.id}) }}
+    </div>
+
+    <div>
+      {{ h.snippet('snippets/ontario_theme_category_facet.html',
+                   extras={'id':c.group_dict.id}) }}
+    </div>
+
+    <div>
       {# 
         Flag facets to be ignored from standard loop that calls facets.
       #}
       {% set excluded_facets = [
+        'organization_jurisdiction',
+        'organization_category',
         'keywords_en',
         'keywords_fr'
         ]
       %}
-    </div>
-    <div>
+
       {% for facet in c.facet_titles %}
         {% if facet not in excluded_facets %}
           {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet, extras={'id':c.group_dict.id}) }}
