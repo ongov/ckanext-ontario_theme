@@ -54,12 +54,11 @@
         "fr": "Notes internes"
       },
       "help_inline" : true,
-      "required": "true",
       "help_text": {
         "en": "Add any additional notes on the the asset specific to its internal use."
       },
       "classes": ["form-group","col-md-12"],
-      "validators" : "unicode",
+      "validators" : "ignore_missing unicode",
       "form_snippet": "markdown.html",
       "form_placeholder": "e.g., Some useful notes about the data"
     },
@@ -638,7 +637,7 @@
       },
       "form_snippet": "hidden.html",
       "display_snippet": null,
-      "validators": "ignore_missing lock_if_public_resource"
+      "validators": "ignore_missing"
     },
     {
       "field_name": "url",
