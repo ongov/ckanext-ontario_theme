@@ -13,11 +13,12 @@ import ckan.lib.helpers as helpers
 
 from ckan.model import Package
 
+from ckanext.ontario_theme import controller
+
 from resource_upload import ResourceUpload
 
 import logging
 log = logging.getLogger(__name__)
-
 
 def help():
     '''New help page for site.

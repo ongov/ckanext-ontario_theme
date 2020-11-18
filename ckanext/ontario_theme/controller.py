@@ -54,7 +54,8 @@ def _save_new(self, context, package_type=None):
                 h.redirect_to(url)
             # Make sure we don't index this dataset
             if request.params['save'] not in ['go-resource',
-                                              'go-metadata']:
+                                              'go-metadata',
+                                              'save-and-finish']:
                 data_dict['state'] = 'draft'
             # allow the state to be changed
             context['allow_state_change'] = True
@@ -62,6 +63,12 @@ def _save_new(self, context, package_type=None):
         data_dict['type'] = package_type
         context['message'] = data_dict.get('log_message', '')
         pkg_dict = get_action('package_create')(context, data_dict)
+
+        if request.params['save'] == 'save-and-finish':
+            url = h.url_for(controller='package',
+                action='read',
+                id=pkg_dict['name'])
+            h.redirect_to(url)
 
         if ckan_phase:
             # redirect to add dataset resources
