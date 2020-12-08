@@ -2,6 +2,8 @@ import ckan.plugins as plugins
 from ckanext.ontario_theme import validators
 import ckan.plugins.toolkit as toolkit
 from ckan.lib.plugins import DefaultTranslation
+import ckan.logic.schema
+from ckan.logic.schema import validator_args
 from ckan.common import config
 
 from flask import Blueprint, make_response
@@ -18,6 +20,47 @@ from resource_upload import ResourceUpload
 import logging
 log = logging.getLogger(__name__)
 
+
+'''
+default_tags_schema added because when tags are validated on 
+resource_create/resource_update, it doesn't pull tag validators 
+from scheming, rather applies core tag validators.
+
+We considered adding tags back into the schema so we could include new
+tag validators for tags, but it seemed neater to continue to keep it out 
+of the schema.
+
+We also considered using _modify_package_schema, but it doesn't work with
+the scheming plugin.
+
+Instead we're modifying default_tags_schema to include the correct validators.
+This is lifted from core and the only change is:
+tag_name_validator
+to
+validators.tag_name_validator
+'''
+@validator_args
+def default_tags_schema(
+        not_missing, not_empty, unicode_safe, tag_length_validator,
+        tag_name_validator, ignore_missing, vocabulary_id_exists,
+        ignore):
+
+    return {
+        'name': [not_missing,
+                 not_empty,
+                 unicode_safe,
+                 tag_length_validator,
+                 validators.tag_name_validator
+                 ],
+        'vocabulary_id': [ignore_missing,
+                          unicode_safe,
+                          vocabulary_id_exists],
+        'revision_timestamp': [ignore],
+        'state': [ignore],
+        'display_name': [ignore],
+    }
+
+ckan.logic.schema.default_tags_schema = default_tags_schema
 
 def help():
     '''New help page for site.
