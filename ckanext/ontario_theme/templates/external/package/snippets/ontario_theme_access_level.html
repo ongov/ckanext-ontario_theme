@@ -8,10 +8,34 @@
     {% if pkg['access_level'] == 'open' %}
       <strong>{{ _("Data Available") }}</strong>
         <p>
-          {% trans license_url=pkg.license_url %}
-            The data described here is available for you to use. <a href="https://www.ontario.ca/page/ontarios-open-data-directive">[Learn more]</a><br />
-          <a href="{{ license_url }}">[See the licence for how you're allowed to use this data.]</a>
-          {% endtrans %}
+            You can download and use this data under: 
+            <a href="{{pkg.license_url}}">
+            {{pkg.license_title}}.
+            </a>
+            <br />
+            {% if pkg.license_id == "OGL-ON-1.0" %}
+            <br />
+            To use this dataset, you:
+            <ul class="licence-list fa-ul">
+              <li class="licence-can">
+                <i class="fa-li fa fa-check-circle"></i>
+                can copy, modify, adapt, publish, or distribute this data in any medium, mode or format for any legal purpose including personal and commercial reasons
+              </li>
+              <li class="licence-can">
+                <i class="fa-li fa fa-check-circle"></i>
+                are encouraged to link to this page wherever you use this data
+              </li>
+              <li class="licence-must">
+                <i class="fa-li fa fa-warning"></i>
+                must review the <a href="{{pkg.license_url}}">Open Government Licence</a>
+              </li>
+              <li class="licence-must">
+                <i class="fa-li fa fa-warning"></i>
+                must credit the Government of Ontario as the source of this data
+              </li>
+            </ul>
+            {% endif %}
+
         </p>
     {% elif pkg['access_level'] == 'restricted' %} 
       <strong>{{ _("Data Not Available") }}</strong>    
