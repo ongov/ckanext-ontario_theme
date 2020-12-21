@@ -58,8 +58,8 @@ msgid "Contact Us"
 msgstr "Contactez-nous"
 
 #: ckanext/ontario_theme/templates/footer.html:15
-msgid "https://www.ontario.ca/feedback/contact-us?id=33142&nid=53950"
-msgstr "https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=33143&nid=53983"
+msgid "https://www.ontario.ca/feedback/contact-us?id=33142&nid=138269"
+msgstr "https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=33143&nid=138269"
 
 #: ckanext/ontario_theme/templates/footer.html:21
 msgid ""
