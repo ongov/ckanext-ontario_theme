@@ -15,11 +15,12 @@ import ckan.lib.helpers as helpers
 
 from ckan.model import Package
 
+from ckanext.ontario_theme import controller
+
 from resource_upload import ResourceUpload
 
 import logging
 log = logging.getLogger(__name__)
-
 
 '''
 default_tags_schema added because when tags are validated on 
