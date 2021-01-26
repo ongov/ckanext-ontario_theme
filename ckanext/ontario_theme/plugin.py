@@ -282,6 +282,16 @@ def get_license(license_id):
     '''
     return Package.get_license_register().get(license_id)
 
+def extract_package_name(url):
+    import re
+    package_pattern = "\/dataset\/([-a-z-0-9A-Z\n\r]*)"
+    find_package = re.compile(package_pattern)
+    get_package_name = find_package.findall(url)
+    if len(get_package_name) > 0:
+        return get_package_name[0]
+    else:
+        return False
+
 def get_translated_lang(data_dict, field, specified_language):
     try:
         return data_dict[field + u'_translated'][specified_language]
@@ -415,6 +425,7 @@ type data_last_updated
 
     def get_helpers(self):
         return {'ontario_theme_get_license': get_license,
+                'ontario_theme_extract_package_name': extract_package_name,
                 'ontario_theme_get_translated_lang': get_translated_lang,
                 'ontario_theme_get_popular_datasets': get_popular_datasets,
                 'ontario_theme_get_group': get_group,
