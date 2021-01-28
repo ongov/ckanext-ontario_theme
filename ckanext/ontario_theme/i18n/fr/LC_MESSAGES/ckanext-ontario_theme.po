@@ -2760,13 +2760,15 @@ msgstr "Pour la période de"
 msgid "Supporting Files"
 msgstr "Autres fichiers"
 
-#: ckanext/ontario_theme/templates/scheming/package/read.html:24
-msgid "Contact"
-msgstr "Contactez-nous"
+#: ckanext/ontario_theme/templates/scheming/package/read.html:20
+#: ckanext/ontario_theme/templates/scheming/organization/about.html:28
+msgid "For more information:"
+msgstr "Pour en savoir plus"
 
-#: ckanext/ontario_theme/templates/scheming/package/read.html:25
-msgid "Ontario's Open Data Team"
-msgstr "L'équipe de données ouvertes de l'Ontario"
+#: ckanext/ontario_theme/templates/scheming/package/read.html:37
+#: ckanext/ontario_theme/templates/scheming/organization/about.html:30
+msgid "Contact"
+msgstr "Communiquez avec"
 
 #: ckanext/ontario_theme/templates/snippets/search_form.html:29
 msgid "Keywords"

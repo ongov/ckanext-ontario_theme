@@ -2,6 +2,7 @@
 {% set exclude_fields = [
     'name',
     'title_translated',
+    'org_contact_translated',
     'image_url',
     'description_translated'
     ] %}
@@ -22,5 +23,11 @@
 	{% endif %}
       {% endfor %}
     </dl>
+  {% endblock %}
+  {% block organization_contact %}
+    <h3>{% trans %}For more information:{% endtrans %} </h3>
+    <a href="{{ h.get_translated(c.group_dict, 'org_contact')}}" >
+      {% trans %}Contact{% endtrans %} {{ h.get_translated(c.group_dict, "title") }}
+    </a>
   {% endblock %}
 {% endblock %}
