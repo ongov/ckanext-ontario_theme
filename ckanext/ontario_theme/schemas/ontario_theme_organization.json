@@ -36,7 +36,7 @@
             "en": "Organization Contact",
             "fr": "FR_Organization Contact"
           },
-          "preset": "fluent_core_translated",
+          "preset": "fluent_text",
           "required": true,
           "classes": ["form-group","col-md-12"]
         },
