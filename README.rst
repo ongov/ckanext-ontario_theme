@@ -53,7 +53,7 @@ Installation
 To install ckanext-ontario_theme for development, activate your CKAN 
 virtualenv and do::
 
-    git clone https://github.com/boykoc/ckanext-ontario_theme.git
+    git clone https://github.com/ongov/ckanext-ontario_theme.git
     cd ckanext-ontario_theme
     python setup.py develop
     pip install -r dev-requirements.txt
