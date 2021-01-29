@@ -23,7 +23,11 @@
   {% if (not contact_name) and (not contact_email) %}
     {% set organization = h.get_organization(pkg['owner_org']) %}
     {% set contact_page = h.get_translated(organization, 'org_contact') %}
-  {% endif %}  
+    {% if (not contact_page) %}
+      {% set contact_name = _("Ontario's Open Data Team") %}
+      {% set contact_email = "opengov@ontario.ca" %} 
+    {% endif %}
+  {% endif %}
 
   <div>
     {% if contact_name %}  

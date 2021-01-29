@@ -2770,6 +2770,10 @@ msgstr "Pour en savoir plus"
 msgid "Contact"
 msgstr "Communiquez avec"
 
+#: ckanext/ontario_theme/templates/scheming/package/read.html:27
+msgid "Ontario's Open Data Team"
+msgstr "L'équipe de données ouvertes de l'Ontario"
+
 #: ckanext/ontario_theme/templates/snippets/search_form.html:29
 msgid "Keywords"
 msgstr "Mots clés"
