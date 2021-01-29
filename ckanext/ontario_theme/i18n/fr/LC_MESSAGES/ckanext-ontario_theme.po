@@ -2762,7 +2762,7 @@ msgstr "Autres fichiers"
 
 #: ckanext/ontario_theme/templates/scheming/package/read.html:20
 #: ckanext/ontario_theme/templates/scheming/organization/about.html:28
-msgid "For more information:"
+msgid "For more information"
 msgstr "Pour en savoir plus"
 
 #: ckanext/ontario_theme/templates/scheming/package/read.html:37
