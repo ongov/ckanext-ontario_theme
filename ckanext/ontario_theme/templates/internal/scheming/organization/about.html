@@ -2,6 +2,7 @@
 {% set exclude_fields = [
     'name',
     'title_translated',
+    'org_contact',
     'image_url',
     'description_translated'
     ] %}
@@ -22,5 +23,14 @@
 	{% endif %}
       {% endfor %}
     </dl>
+  {% endblock %}
+  {% block organization_contact %}
+    {% set contact_page = h.scheming_language_text(c.group_dict['org_contact']) %}
+    {% if contact_page %}
+      <h3>{% trans %}For more information{% endtrans %} </h3>
+      <a href="{{ contact_page }}" >
+        {% trans %}Contact{% endtrans %} {{ h.get_translated(c.group_dict, "title") }}
+      </a>
+    {% endif %}
   {% endblock %}
 {% endblock %}

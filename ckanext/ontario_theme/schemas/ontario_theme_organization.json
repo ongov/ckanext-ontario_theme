@@ -31,6 +31,15 @@
           "classes": ["col-md-12","form-group"]
         },
         {
+          "field_name": "org_contact",
+          "label": {
+            "en": "Organization Contact",
+            "fr": "Contact de l'Organisation"
+          },
+          "preset": "fluent_text",
+          "classes": ["form-group","col-md-12"]
+        },
+        {
           "field_name": "jurisdiction",
           "label": {
             "en": "Jurisdiction",
