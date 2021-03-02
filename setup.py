@@ -83,9 +83,9 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points='''
         [ckan.plugins]
+        ontario_json_harvester=ckanext.ontario_theme.harvesters:OntarioJSONHarvester
         ontario_theme_external=ckanext.ontario_theme.plugin:OntarioThemeExternalPlugin
         ontario_theme=ckanext.ontario_theme.plugin:OntarioThemePlugin
-
         [babel.extractors]
         ckan = ckan.lib.extract:extract_ckan
     ''',

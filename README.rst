@@ -36,7 +36,14 @@ Requirements
    - `ckanapi-exporter <https://github.com/ckan/ckanapi-exporter>`_
    - master
    - N/A
-
+ * - ckanext-harvest
+   - `ckanext-harvest <https://github.com/ckan/ckanext-harvest>`_
+   - master
+   - N/A
+ * - ckanext-dcat
+   - `ckanext-dcat <https://github.com/ckan/ckanext-dcat>`_
+   - master
+   - N/A
 
 ------------
 Plugins in this Extension
@@ -68,14 +75,14 @@ virtualenv and do::
 
 Update the development.ini (or production.ini) plugins::
 
-    # This relies on scheming and fluent, make sure these are already installed.
+    # This relies on scheming and fluent as well as harvest (and ckanext-dcat), make sure these are already installed.
     # Note: This extension needs to be before scheming and fluent in the *.ini config file to let the form overrides work.
     
     # For external catalogue
-    ckan.plugins = [...] ontario_theme_external ontario_theme scheming_datasets scheming_organizations scheming_groups fluent [...]
+    ckan.plugins = [...] harvest ckan_harvester dcat ontario_theme_external ontario_theme scheming_datasets scheming_organizations scheming_groups fluent [...]
 
     # For internal catalogue
-    ckan.plugins = [...] ontario_theme scheming_datasets scheming_organizations scheming_groups fluent [...]
+    ckan.plugins = [...] harvest ckan_harvester dcat ontario_theme scheming_datasets scheming_organizations scheming_groups fluent [...]
 
     # For both, add licenses:
     licenses_group_url = file:///<path to this extension>/ckanext/ontario_theme/schemas/licences.json

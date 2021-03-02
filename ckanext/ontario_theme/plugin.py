@@ -17,6 +17,7 @@ from ckan.model import Package
 
 from ckanext.ontario_theme import controller
 from ckanext.ontario_theme import helpers as ontario_theme_helpers
+from ckanext.ontario_theme import converters as ontario_converters
 from resource_upload import ResourceUpload
 
 import logging
