@@ -433,6 +433,13 @@
           }
         },
         {
+          "value": "fortnightly",
+          "label": {
+            "en": "Every two weeks",
+            "fr": "Toutes les deux semaines"
+          }
+        },
+        {
           "value": "yearly",
           "label": {
             "en": "Yearly",
