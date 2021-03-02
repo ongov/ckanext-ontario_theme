@@ -16,7 +16,7 @@ import ckan.lib.helpers as helpers
 from ckan.model import Package
 
 from ckanext.ontario_theme import controller
-
+from ckanext.ontario_theme import helpers as ontario_theme_helpers
 from resource_upload import ResourceUpload
 
 import logging
@@ -250,92 +250,6 @@ def csv_dump():
         (b'attachment; filename="output.csv"')
     return resp
 
-def get_group(group_id):
-    '''Helper to return the group.
-    CKAN core has a get_organization helper but does not have one for groups.
-    This also allows us to access the group with all extras which are needed to 
-    access the scheming/fluent fields.
-    '''
-    group_dict = toolkit.get_action('group_show')(
-        data_dict={'id': group_id})
-    return group_dict
-
-def get_recently_updated_datasets():
-    '''Helper to return 3 freshest datasets
-    '''
-    recently_updated_datasets = toolkit.get_action('package_search')(
-        data_dict={'rows': 3,
-                    'sort': 'current_as_of desc'})
-    return recently_updated_datasets['results']
-
-
-def get_popular_datasets():
-    '''Helper to return most popular datasets, based on ckan core tracking feature
-    '''
-    popular_datasets = toolkit.get_action('package_search')(
-        data_dict={'rows': 3,
-                    'sort': 'views_recent desc'})
-    return popular_datasets['results']
-
-
-def get_license(license_id):
-    '''Helper to return license based on id.
-    '''
-    return Package.get_license_register().get(license_id)
-
-def extract_package_name(url):
-    import re
-    package_pattern = "\/dataset\/([-a-z-0-9A-Z\n\r]*)"
-    find_package = re.compile(package_pattern)
-    get_package_name = find_package.findall(url)
-    if len(get_package_name) > 0:
-        return get_package_name[0]
-    else:
-        return False
-
-def get_translated_lang(data_dict, field, specified_language):
-    try:
-        return data_dict[field + u'_translated'][specified_language]
-    except KeyError:
-        return helpers.get_translated(data_dict, field)
-
-
-def get_package_keywords(language='en'):
-    '''Helper to return a list of the top 3 keywords based on specified
-    language.
-
-    List structure matches the get_facet_items_dict() helper which doesn't
-    load custom facets on the home page.
-    [{
-        'count': 1,
-        'display_name': u'English Tag',
-        'name': u'English Tag'
-    },
-    {
-        'count': 1,
-        'display_name': u'Second Tag',
-        'name': u'Second Tag'
-    }]
-    '''
-    facet = "keywords_{}".format(language)
-    package_top_keywords = toolkit.get_action('package_search')(
-        data_dict={'facet.field': [facet],
-                   'facet.limit': 3,
-                   'rows': 0})
-    package_top_keywords = package_top_keywords['search_facets'][facet]['items']
-    return package_top_keywords
-
-
-def default_locale():
-    '''Wrap the ckan default locale in a helper function to access
-    in templates.
-    Returns 'en' by default.
-    :rtype: string
-    '''
-    value = config.get('ckan.locale_default', 'en')
-    return value
-
-
 def num_resources_filter_scrub(search_params):
     u'''Remove any quotes around num_resources value to enable prober filter
     query.
@@ -425,14 +339,15 @@ type data_last_updated
     # ITemplateHelpers
 
     def get_helpers(self):
-        return {'ontario_theme_get_license': get_license,
-                'ontario_theme_extract_package_name': extract_package_name,
-                'ontario_theme_get_translated_lang': get_translated_lang,
-                'ontario_theme_get_popular_datasets': get_popular_datasets,
-                'ontario_theme_get_group': get_group,
-                'ontario_theme_get_recently_updated_datasets': get_recently_updated_datasets,
-                'extrafields_default_locale': default_locale,
-                'ontario_theme_get_package_keywords': get_package_keywords}
+        return {'ontario_theme_get_license': ontario_theme_helpers.get_license,
+                'ontario_theme_extract_package_name': ontario_theme_helpers.extract_package_name,
+                'ontario_theme_get_translated_lang': ontario_theme_helpers.get_translated_lang,
+                'ontario_theme_get_popular_datasets': ontario_theme_helpers.get_popular_datasets,
+                'ontario_theme_get_group': ontario_theme_helpers.get_group,
+                'ontario_theme_get_recently_updated_datasets': ontario_theme_helpers.get_recently_updated_datasets,
+                'extrafields_default_locale': ontario_theme_helpers.default_locale,
+                'ontario_theme_get_package_keywords': ontario_theme_helpers.get_package_keywords
+            }
 
     # IBlueprint
 
