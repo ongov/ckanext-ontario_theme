@@ -300,6 +300,15 @@ def get_translated_lang(data_dict, field, specified_language):
         return helpers.get_translated(data_dict, field)
 
 
+def resource_update_auth(context, data_dict=None):
+    isHarvestedResource = False
+    if data_dict: 
+        isHarvestedResource = data_dict.get('harvested_resource', False)
+    if isHarvestedResource:
+        return {'success': False, 'msg': 'This user is not allowed to edit this resource'}
+    return {'success': True, 'msg': 'This package is editable.'}
+
+
 def get_package_keywords(language='en'):
     '''Helper to return a list of the top 3 keywords based on specified
     language.
@@ -387,6 +396,7 @@ ckanext.ontario_theme:schemas/ontario_theme_organization.json
 ckanext.ontario_theme:schemas/ontario_theme_group.json
 """
 
+
 class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
     plugins.implements(plugins.IConfigurer)
@@ -396,6 +406,7 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.IPackageController)
     plugins.implements(plugins.IValidators)
+    plugins.implements(plugins.IAuthFunctions)
 
     # IConfigurer
 
@@ -422,6 +433,14 @@ true
         config_['ckan.extra_resource_fields'] = """
 type data_last_updated
 """
+
+    # IAuthFunctions
+
+    def get_auth_functions(self):
+        return {
+            'resource_update': resource_update_auth
+            } 
+
     # ITemplateHelpers
 
     def get_helpers(self):

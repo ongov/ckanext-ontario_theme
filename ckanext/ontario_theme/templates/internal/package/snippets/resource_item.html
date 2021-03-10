@@ -66,6 +66,7 @@
               {% endif %}
             </a>
           {% endif %}
+          {% set can_edit = h.check_access('package_update', {'id':pkg.id }) and h.check_access('resource_update', res) %}
           {% if can_edit %}
             <a href="{{ h.url_for(controller='package', action='resource_edit', id=pkg.name, resource_id=res.id) }}" class="btn btn-primary">
               <i class="fa fa-pencil-square-o"></i>
