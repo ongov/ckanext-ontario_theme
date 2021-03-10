@@ -46,6 +46,21 @@
       "form_placeholder": "e.g., Some useful notes about the data"
     },
     {
+      "field_name": "colby_notes",
+      "label": {
+        "en": "Internal Notes",
+        "fr": "Notes internes"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "Add any additional notes on the the asset specific to its internal use."
+      },
+      "classes": ["form-group","col-md-12"],
+      "validators" : "ignore_missing unicode",
+      "form_snippet": "markdown.html",
+      "form_placeholder": "e.g., Some useful notes about the data"
+    },
+    {
       "field_name": "asset_type",
       "label": {
         "en": "Asset Type",
@@ -798,6 +813,13 @@
           }
         },
         {
+          "value": "english_and_french",
+          "label": {
+            "en": "English and French",
+            "fr": "Anglais et Français"
+          }
+        },
+        {
           "value": "french",
           "label": {
             "en": "French",
@@ -882,6 +904,21 @@
       "form_placeholder": "yyyy-mm-dd"
     },
     {
+      "field_name": "data_last_updated",
+      "label": {
+        "en": "Data Last Updated",
+        "fr": "Dernière mise à jour des données"
+      },
+      "help_inline" : true,
+      "help_text": {
+        "en": "The last time this data was updated to add or be replaced with more recent data."
+      }, 
+      "classes": ["form-group","col-md-12","lock_if_public"],
+      "preset": "date",
+      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "form_placeholder": "yyyy-mm-dd"
+    },
+    {
       "field_name": "data_birth_date",
       "label": {
         "en": "Data birth date",
@@ -897,11 +934,11 @@
       "form_placeholder": "yyyy-mm-dd"
     },
     {
-      "field_name": "version",
-      "label": "Version",
-      "form_placeholder": "1.0",
-      "validators": "ignore_missing unicode package_version_validator",
-      "classes": ["form-group","col-md-12"]
+      "field_name": "harvested_resource",
+      "label": "Harvested Resource?",
+      "form_snippet": "hidden.html",
+      "display_snippet": null,
+      "validators": "ignore_missing"
     }
   ]
 }
