@@ -18,74 +18,7 @@ from ckanext.dcat.harvesters.base import DCATHarvester
 
 log = logging.getLogger(__name__)
 
-blacklist = [
-    "https://geohub.lio.gov.on.ca/datasets/874e7fa67ce94cc5b1e8e98c59ca06eb_17",
-    "https://geohub.lio.gov.on.ca/datasets/b83d0aef05fa49da9e12288bdb36992b_16",
-    "https://geohub.lio.gov.on.ca/datasets/07ee3e454ce64271b49247d27b366920_33",
-    "https://geohub.lio.gov.on.ca/datasets/7eed650db8dc4973bb65338c3b8dddb1_32",
-    "https://geohub.lio.gov.on.ca/datasets/68853b605c844c6ebe041003b4c71b56_26",
-    "https://geohub.lio.gov.on.ca/datasets/d7f97a8758894bf48993ee2c2d477b6a",
-    "https://geohub.lio.gov.on.ca/datasets/0d640cfa721149169a0766273b73b5df",
-    "https://geohub.lio.gov.on.ca/datasets/cfd2c039e0f0447fa051e5ee5b3f96ce",
-    "https://geohub.lio.gov.on.ca/datasets/6a1fb58c285046939295372883782856_18",
-    "https://geohub.lio.gov.on.ca/datasets/9356556635ca4b0ab92376202c6b899e_19",
-    "https://geohub.lio.gov.on.ca/datasets/a22d6994220e486db81ba564413e54bf",
-    "https://geohub.lio.gov.on.ca/datasets/63fcfaa0914b4e9389e2835fc5fc990c",
-    "https://geohub.lio.gov.on.ca/datasets/4a83d157a2c24b4b9f32266d997e3632_23",
-    "https://geohub.lio.gov.on.ca/datasets/4e27c9fcc492483c9012d443b26ec346",
-    "https://geohub.lio.gov.on.ca/datasets/2d7925bc21754eae92cae9bd68b91531",
-    "https://geohub.lio.gov.on.ca/datasets/4ee94762ab4e453f95fd977bfbf59e4a",
-    "https://geohub.lio.gov.on.ca/datasets/fc220beef25d47ef91b390b52db183dd",
-    "https://geohub.lio.gov.on.ca/datasets/bb33adeb800e4a6f9cbeb9488ed6ff47",
-    "https://geohub.lio.gov.on.ca/datasets/d334a6822306406496fc46247903c0b0",
-    "https://geohub.lio.gov.on.ca/datasets/05e11a3eb7494e1aacf34a38905a37c7",
-    "https://geohub.lio.gov.on.ca/datasets/b1c5673c187e4a23a1f489068a1fb6dd",
-    "https://geohub.lio.gov.on.ca/datasets/0b85652fc2614214804aa926764bae1a",
-    "https://geohub.lio.gov.on.ca/datasets/dbf3c6d432b34076bcd36b904bafedd3",
-    "https://geohub.lio.gov.on.ca/datasets/da3cab4e0d5c44319141a00fe05f9142",
-    "https://geohub.lio.gov.on.ca/datasets/5b639418e0844745bdd10fed3eabe8dc",
-    "https://geohub.lio.gov.on.ca/datasets/b277c8f786ba450683d8453cb7d4ae5b",
-    "https://geohub.lio.gov.on.ca/datasets/881f283adce5471fa12c464bd876f222",
-    "https://geohub.lio.gov.on.ca/datasets/8972af640eb24f42b9a99616f69d8fd4",
-    "https://geohub.lio.gov.on.ca/datasets/56d95c5e3254491a87ab43dde8c82e29",
-    "https://geohub.lio.gov.on.ca/datasets/90e1d11778c9451ea7a60663252a684c",
-    "https://geohub.lio.gov.on.ca/datasets/a82a502e21ca4bd390f1e12b3d9f7c69",
-    "https://geohub.lio.gov.on.ca/datasets/27fc653f66e74452873dafc0b7655171",
-    "https://geohub.lio.gov.on.ca/datasets/165de3ea58fb4cbdb1ac8575ded000d4_39",
-    "https://geohub.lio.gov.on.ca/datasets/8f066c0289fe49a2938bbf2a4208b2fe_37",
-    "https://geohub.lio.gov.on.ca/datasets/96516cf38756446d976fc996f9210036_36",
-    "https://geohub.lio.gov.on.ca/datasets/3c17da38a83f41e88facaec7b9d48360_35",
-    "https://geohub.lio.gov.on.ca/datasets/1affe762e956487f8158b87f89434440_34",
-    "https://geohub.lio.gov.on.ca/datasets/6e60708204ef4ea5870422a2bbed99f7",
-    "https://geohub.lio.gov.on.ca/datasets/08ce425de40b47508552133e29bdf695",
-    "https://geohub.lio.gov.on.ca/datasets/64fb702e16204c3e88b528d9759f1174_14",
-    "https://geohub.lio.gov.on.ca/datasets/11be9127e6ae43c4850793a3a2ee943c_13",
-    "https://geohub.lio.gov.on.ca/datasets/d0656e0ec1284a0db0593eb2d04b4578",
-    "https://geohub.lio.gov.on.ca/datasets/e92db937280d4b57bc0a8b0ad912ff6f",
-    "https://geohub.lio.gov.on.ca/datasets/9862a351316343a491f0830a51751856",
-    "https://geohub.lio.gov.on.ca/datasets/3649ef49222e4f6890b38c1a867da887",
-    "https://geohub.lio.gov.on.ca/datasets/66e1d7fff92740a69ea2d9241d5e7c47",
-    "https://geohub.lio.gov.on.ca/datasets/5c7234afb69845bba528203016a9d4d3",
-    "https://geohub.lio.gov.on.ca/datasets/601abb68588c4a258c23a12c911f18f9",
-    "https://geohub.lio.gov.on.ca/datasets/e33d18ed2a7d435ebee948c9e08022ae",
-    "https://geohub.lio.gov.on.ca/datasets/9ff6a35dea43406f8b0c4b269b3d93a7",
-    "https://geohub.lio.gov.on.ca/datasets/a9d3c2f21f824e9eba071124ec053875",
-    "https://geohub.lio.gov.on.ca/datasets/9b043f7475f3462d846469b2c66e2e87_12",
-    "https://geohub.lio.gov.on.ca/datasets/9de0dad6f1b3435eb46df8ee49f4ecfd",
-    "https://geohub.lio.gov.on.ca/datasets/f5161b64430e49ff9b2839d2c4ac6299_0",
-    "https://geohub.lio.gov.on.ca/datasets/c936574a192346a1a416efaaa62119f8",
-    "https://geohub.lio.gov.on.ca/datasets/0d7e26b1b48142a8a44dc4175615e538",
-    "https://geohub.lio.gov.on.ca/datasets/3af9d132e00840e3b3bcdf04beaa1778",
-    "https://geohub.lio.gov.on.ca/datasets/6eb8f15364be4c128b5c73402e0de82e",
-    "https://geohub.lio.gov.on.ca/datasets/06021cf20bdb460c9092d3e79709ce0e",
-    "https://geohub.lio.gov.on.ca/datasets/3b7b68205baa4e138eb4e29671876b22",
-    "https://geohub.lio.gov.on.ca/datasets/b5bee6164e8a4490beb01d2423feab13",
-    "https://geohub.lio.gov.on.ca/datasets/fc0bb25784544c16bb5fb1384c7ceb1a",
-    "https://geohub.lio.gov.on.ca/datasets/8bbd4c5d1e214465b58b016d602de979",
-    "https://geohub.lio.gov.on.ca/datasets/5872f3b8cb9541aa915762833246795e",
-    "https://geohub.lio.gov.on.ca/datasets/e2417e9c460c488987f81485ac5169e8",
-    "https://geohub.lio.gov.on.ca/datasets/1e75654c85134e5da8bae36de212867a"
-]
+blacklist_url = "https://services9.arcgis.com/a03W7iZ8T3s5vB7p/ArcGIS/rest/services/odc_sync_blacklist_vw/FeatureServer/0/query?where=1%3D1&outFields=geohub_dataset_url&f=json"
 
 class OntarioJSONHarvester(DCATHarvester):
 
@@ -123,7 +56,13 @@ class OntarioJSONHarvester(DCATHarvester):
         }
 
 
+    def _get_blacklist(self):
+        blacklist_response = requests.get(blacklist_url)
+        return list(map(lambda x: x['attributes']['geohub_dataset_url'], blacklist_response.json()['features']))
+
     def _get_guids_and_datasets(self, content):
+
+        blacklist = self._get_blacklist()
 
         doc = json.loads(content)
 
