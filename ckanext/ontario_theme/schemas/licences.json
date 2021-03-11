@@ -24,6 +24,20 @@
     "description_translated" : {
         "en": "Data in this record is open and is published in the language in which it’s collected. Please contact us to obtain assistance in either official language.",
         "fr": "Les données de cette série sont ouvertes et sont publiées dans la langue dans laquelle elles ont été recueillies. Veuillez nous contacter pour obtenir de l’aide dans l’une des langues officielles."
+    },
+    "summary_translated": {
+        "en": "You can download, copy, modify, adapt, publish, or share this data for any legal purpose including commercial sale under the [Open Government Licence - Ontario](https://www.ontario.ca/page/open-government-licence-ontario).",
+        "fr": "You can download, copy, modify, adapt, publish, or share this data for any legal purpose including commercial sale under the Open Government Licence - Ontario."
+    },
+    "breakdown_summary_translated": {
+        "en" : [
+             "Include a link to this page whenever you share information from this data set",
+             "Credit this data source using the following statement: _Contains information from the Ontario Data Catalogue, made available under the Open Government Licence - Ontario_"
+        ],
+        "fr" : [
+             "Include a link to this page whenever you share information from this data set",
+             "Credit this data source using the following statement: _Contains information from the Ontario Data Catalogue, made available under the Open Government Licence - Ontario_"
+        ]
     }
   },
   {
@@ -51,6 +65,22 @@
     "description_translated" : {
         "en": "Data in this record is open and is published in the language in which it’s collected. Please contact us to obtain assistance in either official language.",
         "fr": "Les données de cette série sont ouvertes et sont publiées dans la langue dans laquelle elles ont été recueillies. Veuillez nous contacter pour obtenir de l’aide dans l’une des langues officielles."
+    },
+    "summary_translated": {
+        "en": "You can download and use this data according to the Terms of Use. Request permission from Energy, Northern Development and Mines if you want to sell the data, reproduce images or use the information for commercial reasons.",
+        "fr": "You can download and use this data according to the Terms of Use. Request permission from Energy, Northern Development and Mines if you want to sell the data, reproduce images or use the information for commercial reasons."
+    },
+    "breakdown_summary_translated": {
+        "en" : [
+             "Request permission if you want to reproduce images or use the data for commercial reasons",
+             "Include a link to this page whenever you share information from this data set",
+             "Credit this data source with the following statement: <i>Contains information from the Ontario Data Catalogue, Ontario Geological Survey, Queens Printer.</i>"
+        ],
+        "fr" : [
+             "Request permission if you want to reproduce images or use the data for commercial reasons",
+             "Include a link to this page whenever you share information from this data set",
+             "Credit this data source with the following statement: <i>Contains information from the Ontario Data Catalogue, Ontario Geological Survey, Queens Printer.</i>"
+        ]
     }
   },
   {
@@ -78,6 +108,16 @@
     "description_translated" : {
         "en": "Data in this record is open and is published in the language in which it’s collected. Please contact us to obtain assistance in either official language.",
         "fr": "Les données de cette série sont ouvertes et sont publiées dans la langue dans laquelle elles ont été recueillies. Veuillez nous contacter pour obtenir de l’aide dans l’une des langues officielles."
+    },
+    "summary_translated": {
+        "en": "You can download, copy, modify, adapt, publish, or share this data for any legal purpose including commercial sale under the [Open Government Licence - Ontario](https://www.ontario.ca/page/open-government-licence-ontario).",
+        "fr": "You can download, copy, modify, adapt, publish, or share this data for any legal purpose including commercial sale under the Open Government Licence - Ontario."
+    },
+    "breakdown_summary_translated": {
+        "en" : [
+        ],
+        "fr" : [
+        ]
     }
   },
   {
@@ -105,6 +145,16 @@
     "description_translated" : {
         "en": "Data in this record is open and is published in the language in which it’s collected. Please contact us to obtain assistance in either official language.",
         "fr": "Les données de cette série sont ouvertes et sont publiées dans la langue dans laquelle elles ont été recueillies. Veuillez nous contacter pour obtenir de l’aide dans l’une des langues officielles."
+    },
+    "summary_translated": {
+        "en": "You can download, copy, modify, adapt, publish, or share this data for any legal purpose including commercial sale under the [Open Government Licence - Ontario](https://www.ontario.ca/page/open-government-licence-ontario).",
+        "fr": "You can download, copy, modify, adapt, publish, or share this data for any legal purpose including commercial sale under the Open Government Licence - Ontario."
+    },
+    "breakdown_summary_translated": {
+        "en" : [
+        ],
+        "fr" : [
+        ]
     }
   },
   {
@@ -132,6 +182,16 @@
     "description_translated" : {
         "en": "Data in this record is open and is published in the language in which it’s collected. Please contact us to obtain assistance in either official language.",
         "fr": "Les données de cette série sont ouvertes et sont publiées dans la langue dans laquelle elles ont été recueillies. Veuillez nous contacter pour obtenir de l’aide dans l’une des langues officielles."
+    },
+    "summary_translated": {
+        "en": "You can download, copy, modify, adapt, publish, or share this data for any legal purpose including commercial sale under the [Open Government Licence - Ontario](https://www.ontario.ca/page/open-government-licence-ontario).",
+        "fr": "You can download, copy, modify, adapt, publish, or share this data for any legal purpose including commercial sale under the Open Government Licence - Ontario."
+    },
+    "breakdown_summary_translated": {
+        "en" : [
+        ],
+        "fr" : [
+        ]
     }
   },
   {
@@ -159,6 +219,16 @@
     "description_translated" : {
         "en": "Data in this record is open and is published in the language in which it’s collected. Please contact us to obtain assistance in either official language.",
         "fr": "Les données de cette série sont ouvertes et sont publiées dans la langue dans laquelle elles ont été recueillies. Veuillez nous contacter pour obtenir de l’aide dans l’une des langues officielles."
+    },
+    "summary_translated": {
+        "en": "You can download, copy, modify, adapt, publish, or share this data for any legal purpose including commercial sale under the [Open Government Licence - Ontario](https://www.ontario.ca/page/open-government-licence-ontario).",
+        "fr": "You can download, copy, modify, adapt, publish, or share this data for any legal purpose including commercial sale under the Open Government Licence - Ontario."
+    },
+    "breakdown_summary_translated": {
+        "en" : [
+        ],
+        "fr" : [
+        ]
     }
   },
   {
@@ -186,6 +256,16 @@
     "description_translated" : {
         "en": "Data in this record is open and is published in the language in which it’s collected. Please contact us to obtain assistance in either official language.",
         "fr": "Les données de cette série sont ouvertes et sont publiées dans la langue dans laquelle elles ont été recueillies. Veuillez nous contacter pour obtenir de l’aide dans l’une des langues officielles."
+    },
+    "summary_translated": {
+        "en": "You can download, copy, modify, adapt, publish, or share this data for any legal purpose including commercial sale under the [Open Government Licence - Ontario](https://www.ontario.ca/page/open-government-licence-ontario).",
+        "fr": "You can download, copy, modify, adapt, publish, or share this data for any legal purpose including commercial sale under the Open Government Licence - Ontario."
+    },
+    "breakdown_summary_translated": {
+        "en" : [
+        ],
+        "fr" : [
+        ]
     }
   },
   {
@@ -213,6 +293,16 @@
     "description_translated" : {
         "en": "Data in this record is open and is published in the language in which it’s collected. Please contact us to obtain assistance in either official language.",
         "fr": "Les données de cette série sont ouvertes et sont publiées dans la langue dans laquelle elles ont été recueillies. Veuillez nous contacter pour obtenir de l’aide dans l’une des langues officielles."
+    },
+    "summary_translated": {
+        "en": "You can download, copy, modify, adapt, publish, or share this data for any legal purpose including commercial sale under the [Open Government Licence - Ontario](https://www.ontario.ca/page/open-government-licence-ontario).",
+        "fr": "You can download, copy, modify, adapt, publish, or share this data for any legal purpose including commercial sale under the Open Government Licence - Ontario."
+    },
+    "breakdown_summary_translated": {
+        "en" : [
+        ],
+        "fr" : [
+        ]
     }
   },
   {
@@ -240,6 +330,16 @@
     "description_translated" : {
         "en": "Data in this record is open and is published in the language in which it’s collected. Please contact us to obtain assistance in either official language.",
         "fr": "Les données de cette série sont ouvertes et sont publiées dans la langue dans laquelle elles ont été recueillies. Veuillez nous contacter pour obtenir de l’aide dans l’une des langues officielles."
+    },
+    "summary_translated": {
+        "en": "You can download, copy, modify, adapt, publish, or share this data for any legal purpose including commercial sale under the [Open Government Licence - Ontario](https://www.ontario.ca/page/open-government-licence-ontario).",
+        "fr": "You can download, copy, modify, adapt, publish, or share this data for any legal purpose including commercial sale under the Open Government Licence - Ontario."
+    },
+    "breakdown_summary_translated": {
+        "en" : [
+        ],
+        "fr" : [
+        ]
     }
   },
   {
@@ -294,6 +394,16 @@
     "description_translated" : {
         "en": "This website was created by the Ontario Ministry of Natural Resources (the ministry). Use of this site and any of the data, text, maps and other information on the site (collectively \"content\") is governed by the terms and conditions set out below (\"Terms of Use\"). Use of the site implies acceptance of these terms.",
         "fr": "Le présent site Web a été mis sur pied par le ministère des Richesses naturelles de l’Ontario (le ministère). L’utilisation de ce site et de toute partie de ses données, de ses textes, de ses cartes et de toute autre information que contient le site (collectivement appelés « contenu ») est régie par les modalités stipulées ci-dessous (« modalités d’utilisation »). En utilisant le présent site, vous en acceptez les modalités d’utilisation."
+    },
+    "summary_translated": {
+        "en": "You can download, copy, modify, adapt, publish, or share this data for any legal purpose including commercial sale under the [Open Government Licence - Ontario](https://www.ontario.ca/page/open-government-licence-ontario).",
+        "fr": "You can download, copy, modify, adapt, publish, or share this data for any legal purpose including commercial sale under the Open Government Licence - Ontario."
+    },
+    "breakdown_summary_translated": {
+        "en" : [
+        ],
+        "fr" : [
+        ]
     }
   },
   {
@@ -321,6 +431,16 @@
     "description_translated" : {
         "en": "Apache 2.0 is a free and open license without “copyleft”. This authorizes the use, modification and possibly redistribution of the source code of these projects under any other license, but requires recognition from the ASF and the inclusion of the text of the license, and prohibits the use of trademarks of the ASF.",
         "fr": "Apache 2.0 est une licence libre et ouverte sans « copyleft ». Celle-ci autorise l'utilisation, la modification et éventuellement la redistribution du code source de ces projets sous toute autre licence, mais requiert une reconnaissance de l'ASF (Apache Software Foundation) et l'inclusion du texte de la licence, et interdit l'utilisation des marques de commerce de l'ASF."
+    },
+    "summary_translated": {
+        "en": "You can download, copy, modify, adapt, publish, or share this data for any legal purpose including commercial sale under the [Open Government Licence - Ontario](https://www.ontario.ca/page/open-government-licence-ontario).",
+        "fr": "You can download, copy, modify, adapt, publish, or share this data for any legal purpose including commercial sale under the Open Government Licence - Ontario."
+    },
+    "breakdown_summary_translated": {
+        "en" : [
+        ],
+        "fr" : [
+        ]
     }
   }
 ]

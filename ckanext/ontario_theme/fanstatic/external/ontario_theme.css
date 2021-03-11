@@ -13,6 +13,10 @@
   padding-top: 15px;
   position: relative;
 }
+.new-alert.alert-large.alert-default {
+  background-color: #F2F2F2;
+  padding-left: .9375rem;
+}
 .new-alert.alert-success::before,
 .new-alert.alert-info::before,
 .new-alert.alert-warning::before,

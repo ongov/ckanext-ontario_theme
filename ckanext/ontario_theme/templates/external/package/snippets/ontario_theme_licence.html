@@ -1,0 +1,31 @@
+{% if pkg['access_level'] == 'open' %}
+  {% set license = h.ontario_theme_get_license(pkg.license_id) %}
+  <h3>
+    {% trans %}Before you download{% endtrans %}
+  </h3>
+  <p>
+    <strong>
+      {% trans %}Use of this website and its contents is at your own risk.{% endtrans %}
+    </strong>
+  </p>
+  <p>
+    {% trans %}
+    This website and all its content are provided "As Is". The ministry does not endorse or assume any responsibility for the safety, accuracy or availability of linked Web sites or the information contained on them. 
+    {% endtrans %}
+  </p>
+  <div class="new-alert alert-large alert-clear alert-default">
+    <p>
+      <strong>{% trans %}Make sure you:{% endtrans %}</strong>
+    </p>
+    <ul>
+      <li>
+        <p>
+        {% trans %}Review and follow the{% endtrans %} <a href="{{ h.get_translated(license._data, 'url_translated') }}">{{ h.get_translated(license._data, 'title') }}</a>
+        </p>
+      </li>
+      {% for summary_item in h.get_translated(license._data, 'breakdown_summary') %}
+      <li>{{ h.render_markdown(summary_item) }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}

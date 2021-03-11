@@ -5,6 +5,8 @@
 {# block package_notes customization compared to base. #}
 
 {% block package_notes %}
+  {% snippet "package/snippets/ontario_theme_access_level.html",
+      pkg=pkg, dataset_type=dataset_type, schema=schema %}
   {%- if not dataset_type -%}
     <p>
     dataset_type not passed to template. your version of CKAN
@@ -13,6 +15,7 @@
   {%- endif -%}
   {% if h.scheming_field_by_name(schema.dataset_fields, 'notes_translated') and
     pkg.notes %}
+  <h3>{{ _("About this data") }}</h3>
     <div class="notes embedded-content">
       {{ h.render_markdown(h.scheming_language_text(pkg['notes_translated'])) }}
     </div>
@@ -37,6 +40,8 @@
     </a>
     {% endif %}
   </div>
+  {% snippet "package/snippets/ontario_theme_licence.html",
+      pkg=pkg, dataset_type=dataset_type, schema=schema %}
 {% endblock %}
 
 {% block package_tags %}

@@ -6,37 +6,11 @@
     pkg.access_level %}
     <div class="new-alert alert-{{pkg['access_level']}} alert-large alert-clear">
     {% if pkg['access_level'] == 'open' %}
+      {% set license = h.ontario_theme_get_license(pkg.license_id) %}
       <strong>{{ _("Data Available") }}</strong>
         <p>
-            You can download and use this data under: 
-            <a href="{{pkg.license_url}}">
-            {{pkg.license_title}}.
-            </a>
-            <br />
-            {% if pkg.license_id == "OGL-ON-1.0" %}
-            <br />
-            To use this dataset, you:
-            <ul class="licence-list fa-ul">
-              <li class="licence-can">
-                <i class="fa-li fa fa-check-circle"></i>
-                can copy, modify, adapt, publish, or distribute this data in any medium, mode or format for any legal purpose including personal and commercial reasons
-              </li>
-              <li class="licence-can">
-                <i class="fa-li fa fa-check-circle"></i>
-                are encouraged to link to this page wherever you use this data
-              </li>
-              <li class="licence-must">
-                <i class="fa-li fa fa-warning"></i>
-                must review the <a href="{{pkg.license_url}}">Open Government Licence</a>
-              </li>
-              <li class="licence-must">
-                <i class="fa-li fa fa-warning"></i>
-                must credit the Government of Ontario as the source of this data
-              </li>
-            </ul>
-            {% endif %}
-
-        </p>
+            {{ h.render_markdown(h.get_translated(license._data, 'summary')) }}
+        </p>   
     {% elif pkg['access_level'] == 'restricted' %} 
       <strong>{{ _("Data Not Available") }}</strong>    
       <p>
