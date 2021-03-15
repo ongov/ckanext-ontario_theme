@@ -44,12 +44,16 @@
           {% endfor %}
         {% endblock %}
       <h3>{{ _("Supporting Files") }}</h3>
-      <ul class="resource-list">
-          {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
-          {% for resource in resources|rejectattr("type","equalto","data") %}
-            {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=resource, can_edit=can_edit, schema=schema %}
-          {% endfor %}
-      </ul>
+      {% if resources | rejectattr("type","equalto","data") | list | length > 0 %}
+        <ul class="resource-list">
+            {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
+            {% for resource in resources|rejectattr("type","equalto","data") %}
+              {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=resource, can_edit=can_edit, schema=schema %}
+            {% endfor %}
+        </ul>
+      {% else %}
+        <p class="empty">{{ _('This dataset has no supporting files') }}</p>
+      {% endif %}
     {% else %}
       {% if h.check_access('resource_create', {'package_id': pkg['id']}) %}
         {% trans url=h.url_for(controller='package', action='new_resource', id=pkg.name) %}
