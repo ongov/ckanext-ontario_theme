@@ -2791,8 +2791,12 @@ msgid "Licenses"
 msgstr "Licences"
 
 #: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Asset Type"
+msgstr "Types d'ensembles de données"
+
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
 msgid "Access Level"
-msgstr "Statut"
+msgstr "Niveau d’accès"
 
 #: ckanext/ontario_theme/templates/snippets/search_form.html:29
 msgid "Update Frequency"
