@@ -15,8 +15,9 @@
       "help_text": {
         "en": "Add a simple, descriptive, short (100 characters or less) title that everyone will understand (you can include the \"technical title\" for subject matter experts in your description). If there is no French title, please use an online translation tool to make one."
       },
-      "classes": ["form-group","col-md-12"],
+      "classes": ["form-group","col-md-12", "lock_if_odc"],
       "preset": "fluent_core_translated",
+      "validators": "fluent_text lock_if_odc",
       "form_placeholder": "e.g., A descriptive title",
       "required": "true",
       "fieldset": 1,
@@ -40,8 +41,9 @@
       "help_text": {
         "en": "Add a general, plain language description that everyone within the OPS can understand and provides context for these resources. Feel free to link to other pages (e.g., links to your program area, ministry, similar resources). If there is no French description, please include the English description in the French field."
       },
-      "classes": ["form-group","col-md-12"],
+      "classes": ["form-group","col-md-12", "lock_if_odc"],
       "preset": "fluent_core_translated",
+      "validators": "fluent_text lock_if_odc",
       "form_snippet": "fluent_markdown.html",
       "form_placeholder": "e.g., Some useful notes about the data"
     },
@@ -71,9 +73,9 @@
       "help_text": {
         "en": "What type of asset are you disclosing?"
       }, 
-      "classes": ["form-group","col-md-12"],
+      "classes": ["form-group","col-md-12", "lock_if_odc"],
       "preset": "select",
-      "validators": "default(dataset) scheming_choices scheming_required",
+      "validators": "default(dataset) scheming_choices scheming_required lock_if_odc",
       "choices": [
         {
           "value": "dataset",
@@ -106,10 +108,10 @@
       },
       "tag_validators": "tag_length_validator ontario_tag_name_validator",
       "preset": "fluent_tags",
-      "validators": "fluent_tags ontario_theme_copy_fluent_keywords_to_tags",
+      "validators": "fluent_tags ontario_theme_copy_fluent_keywords_to_tags lock_if_odc",
       "output_validators": "fluent_tags_output",
       "form_placeholder": "e.g., housing, GDP per capita, greenhouse gas mitigation",
-      "classes": ["form-group","col-md-6"],
+      "classes": ["form-group","col-md-6", "lock_if_odc"],
       "form_attrs": {
         "data-module": "autocomplete",
         "data-module-tags": "e.g., housing, GDP per capita",
@@ -126,8 +128,9 @@
       "help_text": {
         "en": "What geographic area does this resource describe/cover?"
       },
-      "classes": ["col-md-12","form-group"],      
+      "classes": ["col-md-12","form-group", "lock_if_odc"],      
       "preset": "fluent_text",
+      "validators" : "fluent_text lock_if_odc",
       "form_placeholder": "e.g., Ontario"
     },
     {
@@ -141,8 +144,8 @@
         "en": "Does this resource have data that breaks down by smaller geographies (e.g., municipalities, census sub-division, cities, watersheds)?"
       }, 
       "preset": "select",
-      "validators": "ignore_missing scheming_choices",
-      "classes": ["form-group","col-md-12"],
+      "validators": "ignore_missing scheming_choices lock_if_odc",
+      "classes": ["form-group","col-md-12", "lock_if_odc"],
       "choices": [
         {
           "value": "",
@@ -236,7 +239,7 @@
       "form_placeholder": "e.g., http://example.com/description-of-this-dataset",
       "display_property": "foaf:homepage",
       "display_snippet": "link.html",
-      "classes": ["form-group","col-md-12"]
+      "classes": ["form-group","col-md-12", "lock_if_odc"]
     },
     {
       "field_name": "owner_org",
@@ -250,7 +253,8 @@
         "en": "The ministry managing this resource within the OPS"
       },
       "preset": "dataset_organization",
-      "classes": ["col-md-12","form-group"]
+      "validators": "owner_org_validator unicode lock_if_odc",
+      "classes": ["col-md-12","form-group", "lock_if_odc"]
     },
     {
       "field_name": "maintainer_translated",
@@ -360,8 +364,8 @@
         "en": "Let others know when they can expect new data."
       }, 
       "preset": "select",
-      "validators": "ignore_missing scheming_choices",
-      "classes": ["form-group","col-md-12"],
+      "validators": "ignore_missing scheming_choices lock_if_odc",
+      "classes": ["form-group","col-md-12", "lock_if_odc"],
       "choices": [
         {
           "value": "as_required",
@@ -476,7 +480,8 @@
       "help_text": {
         "en": "Explain any additional steps needed to access the resource"
       },
-      "classes": ["form-group","col-md-12"],
+      "classes": ["form-group","col-md-12", "lock_if_odc"],
+      "validators": "fluent_text lock_if_odc",
       "preset": "fluent_markdown",
       "form_placeholder": "e.g., Users will need to register with the website to recieve a login and provide an email address. Visit http://www.example.com/register."
     },
@@ -492,7 +497,8 @@
         "en": "Are you releasing this under a licence?",
         "fr": "Licence s’appliquant au jeu de données"
       },
-      "classes": ["col-md-12","form-group"]
+      "classes": ["col-md-12","form-group", "lock_if_odc"],
+      "validators": "lock_if_odc"
     },
     {
       "field_name": "licence_range_start",
@@ -537,9 +543,9 @@
       "help_text": {
         "en": "Who can access these resources?"
       }, 
-      "classes": ["form-group","col-md-12"],
+      "classes": ["form-group","col-md-12", "lock_if_odc"],
       "preset": "select",
-      "validators": "ignore_missing scheming_choices",
+      "validators": "ignore_missing scheming_choices lock_if_odc",
       "choices": [
         {
           "value": "open",
@@ -574,9 +580,9 @@
       "help_text": {
         "en": "When the first resource initially (the actual files) was added to the public-facing Open Data Catalogue."
       },
-      "classes": ["form-group","col-md-12"], 
+      "classes": ["form-group","col-md-12", "lock_if_odc"], 
       "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date",
+      "validators": "ignore_missing isodate convert_to_json_if_date lock_if_odc",
       "form_placeholder": "yyyy-mm-dd"
     },
     {
@@ -589,9 +595,9 @@
       "help_text": {
         "en": "What is the specific exemption for this collection of resources to not be shared with the public? Refer to the <a href='https://www.ontario.ca/document/open-data-guidebook-guide-open-data-directive-2015/data-inventory#section-1' target='_blank'>Open Data Guidebook</a> for more on exemptions."
       },
-      "classes": ["form-group","col-md-12"],
+      "classes": ["form-group","col-md-12", "lock_if_odc"],
       "preset": "select",
-      "validators": "ignore_missing default(none) scheming_choices",
+      "validators": "ignore_missing default(none) scheming_choices lock_if_odc",
       "choices": [
         {
           "value": "commercial_sensitivity",
@@ -647,9 +653,10 @@
       "help_text": {
         "en": "Explain why the resource cannot be disclosed to the public"
       }, 
-      "classes": ["form-group","col-md-12"],
+      "classes": ["form-group","col-md-12", "lock_if_odc"],
       "form_placeholder": "e.g., This dataset cannot be sufficiently de-identified to assure users cannot use it to identify members of the public.",      
-      "preset": "fluent_markdown"
+      "preset": "fluent_markdown",
+      "validators": "fluent_text lock_if_odc"
     },
     {
       "field_name": "cluster_application_id",
@@ -681,15 +688,17 @@
       "form_placeholder": "P00000"
     },
     {
-      "field_name": "node_id",
+      "field_name": "harvester",
       "label": {
-        "en": "Ontario node ID",
-        "fr": "Ontario node ID"
+        "en": "Harvester ID",
+        "fr": "Harvester ID"
       },
-      "form_snippet": null,
+      "form_attrs": {
+        "data-module": "lock_if_odc"
+      },
+      "form_snippet": "hidden.html",
       "display_snippet": null,
-      "form_placeholder": "4321",
-      "validators": "ignore_missing int_validator"
+      "validators": "ignore_missing"
     }
   ],
   "resource_fields": [
@@ -913,7 +922,7 @@
       "help_text": {
         "en": "The last time this data was updated to add or be replaced with more recent data."
       }, 
-      "classes": ["form-group","col-md-12","lock_if_public"],
+      "classes": ["form-group","col-md-12"],
       "preset": "date",
       "validators": "ignore_missing isodate convert_to_json_if_date",
       "form_placeholder": "yyyy-mm-dd"
