@@ -2760,6 +2760,10 @@ msgstr "Pour la période de"
 msgid "Supporting Files"
 msgstr "Autres fichiers"
 
+#: ckanext/ontario_theme/templates/package/snippets/resources_list.html:55
+msgid "This dataset has no supporting files"
+msgstr "Ce jeu de données n'a pas de autres fichiers"
+
 #: ckanext/ontario_theme/templates/scheming/package/read.html:20
 #: ckanext/ontario_theme/templates/scheming/organization/about.html:28
 msgid "For more information"
