@@ -111,7 +111,7 @@ class OntarioDataCatalogueHarvester(CKANHarvester):
                     '''
 
                     package_dict['owner_org'] = package_dict['organization']['name']
-                    
+                    package_dict['harvester'] = "ontario-data-catalogue"
                     if package_dict.get("maintainer_email", "") == "":
                     	del package_dict['maintainer_email']
                     if "maintainer_translated" in package_dict:
@@ -198,6 +198,7 @@ class OntarioDataCatalogueHarvester(CKANHarvester):
                 model.Session.flush()
 
                 package_dict['owner_org'] = package_dict['organization']['name']
+                package_dict['harvester'] = "ontario-data-catalogue"
                 for resource in package_dict['resources']:
                     resource.update({"harvested_resource" : True})
 
