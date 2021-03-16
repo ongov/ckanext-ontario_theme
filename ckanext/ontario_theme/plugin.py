@@ -150,19 +150,6 @@ def csv_dump():
         }),
         ("Keywords FR", {
             "pattern": ["^keywords$", "^fr$"]
-        }),
-        ("Contains geopgrapic markers", {
-            "pattern": ["^resources$", "^contains_geographic_markers$"],
-            "deduplicate": "true"
-        }),
-        ("License Id", {
-            "pattern": "^license_id$"
-        }),
-        ("Data Range Start", {
-            "pattern": ["^resources$", "^data_range_start$"]
-        }),
-        ("Data Range End", {
-            "pattern": ["^resources$", "^data_range_end$"]
         })
     ])
 
