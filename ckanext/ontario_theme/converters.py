@@ -4,7 +4,6 @@ import re
 import requests
 import ckan
 import json
-import html2markdown
 import html2text
 
 # do we need all these?
