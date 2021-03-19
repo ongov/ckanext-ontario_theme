@@ -5,22 +5,137 @@ from hashlib import sha1
 import traceback
 import uuid
 
+import six
 from ckan import model
 from ckan import logic
 from ckan import plugins as p
 from ckanext.harvest.model import HarvestObject, HarvestObjectExtra
-
-from ckanext.dcat import converters
+from ckanext.harvest.harvesters import HarvesterBase
 from ckanext.ontario_theme import converters as ontario_converters
-
-
-from ckanext.dcat.harvesters.base import DCATHarvester
 
 log = logging.getLogger(__name__)
 
 blacklist_url = "https://services9.arcgis.com/a03W7iZ8T3s5vB7p/ArcGIS/rest/services/odc_sync_blacklist_vw/FeatureServer/0/query?where=1%3D1&outFields=geohub_dataset_url&f=json"
 
-class OntarioJSONHarvester(DCATHarvester):
+class OntarioGeohubHarvester(HarvesterBase):
+
+    force_import = False
+    # modified from the DCATHarvester harvester from https://github.com/ckan/ckanext-dcat
+    def _get_content_and_type(self, url, harvest_job, page=1,
+                              content_type=None):
+        '''
+        Gets the content and type of the given url.
+        :param url: a web url (starting with http) or a local path
+        :param harvest_job: the job, used for error reporting
+        :param page: adds paging to the url
+        :param content_type: will be returned as type
+        :return: a tuple containing the content and content-type
+        '''
+        try:
+
+            log.debug('Getting file %s', url)
+
+            # get the `requests` session object
+            session = requests.Session()
+
+            r = session.get(url, stream=True)
+            content = r.content
+
+            if not six.PY2:
+                content = content.decode('utf-8')
+
+            if content_type is None and r.headers.get('content-type'):
+                content_type = r.headers.get('content-type').split(";", 1)[0]
+
+            return content, content_type
+
+        except requests.exceptions.HTTPError as error:
+            msg = 'Could not get content from %s. Server responded with %s %s'\
+                % (url, error.response.status_code, error.response.reason)
+            self._save_gather_error(msg, harvest_job)
+            return None, None
+        except requests.exceptions.ConnectionError as error:
+            msg = '''Could not get content from %s because a
+                                connection error occurred. %s''' % (url, error)
+            self._save_gather_error(msg, harvest_job)
+            return None, None
+        except requests.exceptions.Timeout as error:
+            msg = 'Could not get content from %s because the connection timed'\
+                ' out.' % url
+            self._save_gather_error(msg, harvest_job)
+            return None, None
+
+    def _get_object_extra(self, harvest_object, key):
+        '''
+        Helper function for retrieving the value from a harvest object extra,
+        given the key
+        '''
+        for extra in harvest_object.extras:
+            if extra.key == key:
+                return extra.value
+        return None
+
+    def _get_package_name(self, harvest_object, title):
+
+        package = harvest_object.package
+        if package is None or package.title != title:
+            name = self._gen_new_name(title)
+            if not name:
+                raise Exception(
+                    'Could not generate a unique name from the title or the '
+                    'GUID. Please choose a more unique title.')
+        else:
+            name = package.name
+
+        return name
+
+    def get_original_url(self, harvest_object_id):
+        obj = model.Session.query(HarvestObject). \
+            filter(HarvestObject.id == harvest_object_id).\
+            first()
+        if obj:
+            return obj.source.url
+        return None
+
+    def _read_datasets_from_db(self, guid):
+        '''
+        Returns a database result of datasets matching the given guid.
+        '''
+
+        datasets = model.Session.query(model.Package.id) \
+                                .join(model.PackageExtra) \
+                                .filter(model.PackageExtra.key == 'guid') \
+                                .filter(model.PackageExtra.value == guid) \
+                                .filter(model.Package.state == 'active') \
+                                .all()
+        return datasets
+
+    def _get_existing_dataset(self, guid):
+        '''
+        Checks if a dataset with a certain guid extra already exists
+        Returns a dict as the ones returned by package_show
+        '''
+
+        datasets = self._read_datasets_from_db(guid)
+
+        if not datasets:
+            return None
+        elif len(datasets) > 1:
+            log.error('Found more than one dataset with the same guid: {0}'
+                      .format(guid))
+
+        return p.toolkit.get_action('package_show')({}, {'id': datasets[0][0]})
+
+    # Start hooks
+
+    def modify_package_dict(self, package_dict, dcat_dict, harvest_object):
+        '''
+            Allows custom harvesters to modify the package dict before
+            creating or updating the actual package.
+        '''
+        return package_dict
+
+    # End hooks
 
     def geohub_identifier_from_url(self, identifier_url):
         '''Returns a string id with the layer index if it exists.
@@ -49,10 +164,9 @@ class OntarioJSONHarvester(DCATHarvester):
 
     def info(self):
         return {
-            'name': 'ontario_json',
+            'name': 'ontario_geohub',
             'title': 'Ontario Geohub',
-            'description': 'Harvester for DCAT dataset descriptions ' +
-                           'serialized as JSON into Ontario schema'
+            'description': 'Harvester for Ontario Geohub'
         }
 
 

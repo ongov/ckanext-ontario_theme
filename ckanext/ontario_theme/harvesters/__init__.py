@@ -1,3 +1,2 @@
-from ckanext.ontario_theme.harvesters.ontario_json import OntarioJSONHarvester
-#from ckanext.ontario_theme.harvesters.ontario_geohub import OntarioGeohubHarvester
+from ckanext.ontario_theme.harvesters.ontario_geohub import OntarioGeohubHarvester
 
