@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import six
+import requests 
 
 from ckan import model
 from ckan.model import Session
@@ -24,6 +25,33 @@ class OntarioDataCatalogueHarvester(CKANHarvester):
             'description': 'Harvester for Ontario Data Catalogue' +
                            'to pull into the internal data catalogue.'
         }
+
+    def gather_stage(self, harvest_job):
+        # make sure we have all the right organizations
+
+        url = harvest_job.source.url     
+
+        session = requests.Session()
+        r = session.get("{}/api/action/organization_list".format(url))
+        if r.json()["success"]:
+            remote_organizations = r.json()['result']
+            local_organizations = model.Group.all("organization")
+            local_organization_names = [org.name for org in local_organizations]
+            for remote_org in remote_organizations:
+                if remote_org not in local_organization_names:
+                    context = {
+                        'model': model,
+                        'session': Session,
+                        'user': self._get_user_name(),
+                        'ignore_auth': True,
+                    }
+                    session = requests.Session()
+                    r = session.get("{}/api/action/organization_show?id={}".format(url, remote_org))
+                    if r.json()["success"]:
+                        remote_organization = r.json()['result']
+                        new_package = p.toolkit.get_action("organization_create")(context, remote_organization) 
+
+        return CKANHarvester.gather_stage(self, harvest_job)
 
     def _create_or_update_package(self, package_dict, harvest_object,
                                   package_dict_form='rest'):
