@@ -136,8 +136,13 @@ class OntarioDataCatalogueHarvester(CKANHarvester):
                     		- not overwrite maintainer name or maintainer email or maintainer branch with blank information
                     		- not include resources because it will overwrite the existing resources
                             - match owner_org
+                            - not overwrite all keywords (just add)
                     '''
 
+                    package_dict['keywords'] = {
+                        "en" : list(set(existing_package_dict['keywords']['en'] + package_dict['keywords']['en'])),
+                        "fr" : list(set(existing_package_dict['keywords']['fr'] + package_dict['keywords']['fr']))
+                    }
                     package_dict['owner_org'] = package_dict['organization']['name']
                     package_dict['harvester'] = "ontario-data-catalogue"
                     if package_dict.get("maintainer_email", "") == "":
