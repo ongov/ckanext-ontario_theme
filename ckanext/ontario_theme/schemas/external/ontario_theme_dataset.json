@@ -652,7 +652,7 @@
       "form_placeholder": "e.g., January 2011 Gold Prices",
       "help_inline" : true,
       "help_text": {
-        "en": "Create a human-readable title that will help users understand what the file contains."
+        "en": "Create a human-readable title that will help users understand what the file contains. Leaving the field blank will default the resource name to 'Data'. Add a name if the data describes something different than other files in the same dataset (e.g., 'Stone fruit crops' vs 'Non-stone fruit crops'). Leave blank if information about the data is captured by other fields in this form."
       },
       "fieldset": 2,
       "fieldset_name": "Describe the file",

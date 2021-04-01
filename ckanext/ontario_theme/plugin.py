@@ -14,6 +14,7 @@ from flask import render_template, render_template_string
 import ckanapi_exporter.exporter as exporter
 import json
 import ckan.lib.helpers as helpers
+from ckan.lib.helpers import core_helper
 
 from ckan.model import Package
 
@@ -64,6 +65,24 @@ def default_tags_schema(
     }
 
 ckan.logic.schema.default_tags_schema = default_tags_schema
+
+@core_helper
+def resource_display_name(resource_dict):
+    # TODO: (?) support resource objects as well
+    name = helpers.get_translated(resource_dict, 'name')
+    description = helpers.get_translated(resource_dict, 'description')
+    if name:
+        return name
+    elif description:
+        description = description.split('.')[0]
+        max_len = 60
+        if len(description) > max_len:
+            description = description[:max_len] + '...'
+        return description
+    else:
+        return helpers._("Data")
+
+ckan.lib.helpers.resource_display_name = resource_display_name
 
 def help():
     '''New help page for site.
