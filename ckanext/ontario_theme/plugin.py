@@ -250,12 +250,13 @@ def get_date_range(date_start, date_end):
         if dt_start.month == 1 and dt_start.day == 1 and \
                 dt_end.month == 12 and dt_end.day == 31:
             if dt_start.year == dt_end.year:
-                date_range = 'Calendar: '+str(dt_start.year)
+                date_range = str(dt_start.year)
             else:
-                date_range = 'Calendar: '+str(dt_start.year)+' - '+str(dt_end.year)
+                date_range = str(dt_start.year)+' - '+str(dt_end.year)
         elif dt_start.month == 4 and dt_start.day == 1 and \
                 dt_end.month == 3 and dt_end.day == 31:
-            date_range = 'Fiscal: '+str(dt_start.year)+' - '+str(dt_end.year)
+            date_range = helpers._("Fiscal: ")+str(dt_start.year) \
+                +' - '+str(dt_end.year)
         else:
             date_range = str(date_start) + ' - ' + str(date_end)
 

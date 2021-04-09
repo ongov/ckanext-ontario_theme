@@ -17,7 +17,7 @@
           {% for group in resources|selectattr("type","equalto","data")|groupby("data_range")|sort(attribute="grouper", reverse=True) %}
 
             {% if group.list[0].data_range != "N/A - N/A" %}
-              <h4> {{ _("Covers") }} {{group.list[0].data_range}}</h4>
+              <h4>{{group.list[0].data_range}}</h4>
             {% else %}
               <h4 class="empty">{{ _("No date range") }}</h4>
             {% endif %}
