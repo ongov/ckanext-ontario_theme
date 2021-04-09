@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 import ckan.plugins as plugins
 from ckanext.ontario_theme import validators
 import ckan.plugins.toolkit as toolkit
@@ -7,6 +9,9 @@ from ckan.logic.schema import validator_args
 from ckan.common import config
 from collections import OrderedDict
 import datetime
+from webhelpers.html import literal
+import ckan.authz as authz
+import ckan.lib.i18n as i18n
 
 from flask import Blueprint, make_response
 from flask import render_template, render_template_string
@@ -69,6 +74,29 @@ def help():
     '''New help page for site.
     '''
     return render_template('home/help.html')
+
+
+# replace the core get_snippet_actor to anonymize the activity stream when user
+# is not logged in
+
+def get_snippet_actor(activity, detail):
+    user = authz.auth_is_loggedin_user()
+    if not user:
+        if i18n.get_lang() == 'fr':
+            return literal('''<span class="actor">%s</span>'''
+                % "L'équipe de données ouvertes de l'Ontario".decode('utf8')
+                )
+        else:
+            return literal('''<span class="actor">Ontario's Open Data Team \
+                </span>'''
+                )
+    else:
+        return literal('''<span class="actor">%s</span>'''
+            % (helpers.linked_user(activity['user_id'], 0, 30))
+            )
+
+ckan.lib.activity_streams.get_snippet_actor = get_snippet_actor
+ckan.lib.activity_streams.activity_snippet_functions['actor'] = get_snippet_actor
 
 
 def csv_dump():
