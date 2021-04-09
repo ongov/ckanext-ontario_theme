@@ -702,11 +702,12 @@
       "classes": ["form-group","col-md-12"]
     },
     {
-      "field_name": "name",
+      "field_name": "name_translated",
       "label": {
         "en": "Name",
         "fr": "Nom"
       },
+      "preset": "fluent_core_translated",
       "form_placeholder": "e.g., January 2011 Gold Prices",
       "help_inline" : true,
       "help_text": {
