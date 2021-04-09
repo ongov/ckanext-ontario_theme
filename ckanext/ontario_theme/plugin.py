@@ -239,6 +239,27 @@ def get_package_keywords(language='en'):
     package_top_keywords = package_top_keywords['search_facets'][facet]['items']
     return package_top_keywords
 
+def get_date_range(date_start, date_end):
+
+    if date_start == 'N/A' or date_end == 'N/A':
+        date_range = str(date_start) + ' - ' + str(date_end)
+    else:
+        dt_start = datetime.datetime.strptime(date_start, "%Y-%m-%d")
+        dt_end = datetime.datetime.strptime(date_end, "%Y-%m-%d")
+
+        if dt_start.month == 1 and dt_start.day == 1 and \
+                dt_end.month == 12 and dt_end.day == 31:
+            if dt_start.year == dt_end.year:
+                date_range = 'Calendar: '+str(dt_start.year)
+            else:
+                date_range = 'Calendar: '+str(dt_start.year)+' - '+str(dt_end.year)
+        elif dt_start.month == 4 and dt_start.day == 1 and \
+                dt_end.month == 3 and dt_end.day == 31:
+            date_range = 'Fiscal: '+str(dt_start.year)+' - '+str(dt_end.year)
+        else:
+            date_range = str(date_start) + ' - ' + str(date_end)
+
+    return date_range
 
 def default_locale():
     '''Wrap the ckan default locale in a helper function to access
@@ -345,6 +366,7 @@ type data_last_updated
                 'ontario_theme_get_popular_datasets': get_popular_datasets,
                 'ontario_theme_get_group': get_group,
                 'ontario_theme_get_recently_updated_datasets': get_recently_updated_datasets,
+                'ontario_theme_get_date_range' : get_date_range,
                 'extrafields_default_locale': default_locale,
                 'ontario_theme_get_package_keywords': get_package_keywords}
 
