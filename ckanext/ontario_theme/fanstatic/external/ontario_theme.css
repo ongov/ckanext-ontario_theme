@@ -833,7 +833,7 @@ div.add-dataset {
   top: 0px;
   left: -35px;
 }
-.resource-item .label {
+.resource-item .label[data-format] {
   top: 0px;
   left: -35px;
   height: 40px;
