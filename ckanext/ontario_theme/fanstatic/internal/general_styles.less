@@ -14,12 +14,50 @@ h2 {
   font-size: 25px;
 } 
 
+#about {
+  h2 {
+    margin-top: 30px;
+  }
+  .metadata-item, .format-item {
+    border-bottom: solid 1px #ccc;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    p {
+      margin-bottom: 5px;
+    }
+    .p-intro {
+      font-weight: bold;
+      color: #094a60;
+    }
+    .note {
+      font-size: 90%;
+      font-style: italic;
+    }
+  }
+  .format-item h4, .metadata-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0px;
+  }
+}
+
 h3 { 
   font-size: 20px;
+  &.dataset-heading {
+    margin-bottom: 0px;
+  }
+}
+#landing-page-body h2 {
+  font-size: 40px;
+  text-align: left;
 }
 
 h4 {
   font-size: 17px
+}
+
+#landing-page-body h3 {
+  font-size: 20px;
+  text-align: left;
 }
 
 h1, h2, h3, h4 {
@@ -30,7 +68,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: Raleway,Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 
-a {
+a, .dataset-heading a {
   color: @ontario-link-colour;
 }
 
@@ -87,6 +125,10 @@ hr.thick {
 
 .top-margin {
   margin-top: 40px;
+}
+
+.float-right {
+  float: right;
 }
 
 /* =====================================================
@@ -159,12 +201,104 @@ li.resource-item div.btn-wrapper {
   position: relative;
   display: inline-block;
 }
+
+
 .hero {
-  background-image: none;
-  background: linear-gradient(0deg,rgba(0,0,0,.3),rgba(0,0,0,0.3)), url(/images/backgrounds/richard-balog-647377-unsplash_converted.jpg);
-  background-size: cover, cover;
-  height: auto;
-  background-position: 50% 50%;
+  min-height: 400px;
+  line-height: 400px;
+  background-color: @primary-darker;
+  background-image: url(/images/co-homepage-supergraphic.svg);
+  background-position-x: 49vw;
+  background-position-y: top;
+  background-size: 58rem;
+  background-repeat: no-repeat;
+  .hero-container {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    color: white;
+    a, a:focus {
+      color: white;
+    }
+    a, a:focus, a:hover {
+      text-decoration: underline;
+    }
+    .welcome {
+      text-align: left;
+      line-height: 1rem;
+      span.greeting {
+        background: @primary-darker;
+        font-size: 4.5rem;
+        letter-spacing: .04rem;
+        line-height: 1.29;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+      p {
+        background: @primary-darker;
+        font-size: 2.375rem;
+        line-height: 1.4;
+      }
+    }
+    .stats {
+      text-align: center;
+      font-size: 7rem;
+      font-weight: bold;
+      vertical-align: bottom;
+      line-height: 0; 
+      a {
+        text-decoration: none;
+      } 
+      a, a:visited {
+        color: white;
+      }
+      span.above-stat {
+        font-size: 1.6rem;
+        line-height: 8rem;
+      }
+      span.stat {
+        line-height: 1rem; 
+      }
+      span.below-stat {
+        font-size: 2rem;
+        line-height: 2rem;
+        display: inline-block;
+        margin-top: 3rem;
+      }
+    }
+  }
+}
+
+.fill-sky {
+  fill: #00B2E3;
+}
+
+.contact-us {
+  div.container {
+    width: 100%;
+    div.symbol {
+      text-align: center;
+      i.fa {
+        font-size: 125px; 
+        color: #1080A6;
+      }   
+    }
+    div.message p {
+      padding-top: 20px; 
+      padding-left: 30px; 
+      padding-right: 30px; 
+      padding-bottom: 20px;
+      font-size:2.375rem; 
+      line-height: 1.4;
+    }
+  }  
+}
+
+@media (max-width: 768px) {
+  .contact-us div.container div.message p {
+    padding: 0;
+  }
 }
 
 .ie8 .hero,
@@ -195,8 +329,8 @@ li.resource-item div.btn-wrapper {
       }
       li.active a {
         border: none;
-        border-bottom: solid 2px @primary-colour;
-        color: @primary-colour;
+        border-bottom: solid 2px @primary-darker;
+        color: @primary-darker;
       }
     }
   }
@@ -230,12 +364,46 @@ li.resource-item div.btn-wrapper {
   background: none;
   box-shadow: none;
   a.tag {
-    background-color: @primary-colour;
+    background-color: @primary-darker;
     color: #fff;
     font-weight: bold;
     border: none;
     box-shadow: none;
   }
+}
+
+.homepage-section {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+#sub-intro {
+  font-size: 2.2rem;
+}
+
+#news {
+  color: white; 
+  padding-top: 15px; 
+  padding-bottom: 15px;
+  img {
+    width: 100%;
+  }
+  a {
+    color: white;
+    text-decoration: underline;
+  }
+  .dataset-list {
+    .row {
+      a {
+        font-size: 1.7rem;
+      }
+    }
+  }
+}
+
+.metadata-list-item {
+  font-size: 1rem;
+  border-bottom: solid 1px #333;
 }
 
 section.additional-info table.table {
@@ -261,8 +429,54 @@ section.additional-info table.table {
   border: none;
 }
 
+.banner-section {
+  background: @primary-darker; 
+  width: 100%;
+  a {
+    color: white;
+    text-decoration: underline;
+  }
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: black;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: black;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: black;
+}
+
 .page_primary_action .add-dataset, .page_primary_action .add-organization, .page_primary_action .add-group {
   text-align: right; 
+}
+
+.simple-input .field .btn-search {
+  color: @black;
+}
+
+.empty {
+  color: @grey;
+}
+
+.contact-us.alert-contact {
+  margin-top: 40px;
+}
+
+.recently_updated_date_label {
+  min-height: 4rem; 
+}
+
+.pagination>.disabled>span, .pagination>.disabled>span:hover, .pagination>.disabled>span:focus, .pagination>.disabled>a, .pagination>.disabled>a:hover, .pagination>.disabled>a:focus, .media-item span.count, .text-muted {
+  color: @grey;
+}
+
+.nav-item.active>a, .nav-aside li.active a {
+  background-color: @primary-darker;
 }
 
 /* =====================================================

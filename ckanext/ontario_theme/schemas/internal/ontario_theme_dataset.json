@@ -46,6 +46,37 @@
       "form_placeholder": "e.g., Some useful notes about the data"
     },
     {
+      "field_name": "asset_type",
+      "label": {
+        "en": "Asset Type",
+        "fr": "Types d'ensembles de données"
+      },
+      "required": true,
+      "help_inline" : true,
+      "help_text": {
+        "en": "What type of asset are you disclosing?"
+      }, 
+      "classes": ["form-group","col-md-12"],
+      "preset": "select",
+      "validators": "default(dataset) scheming_choices scheming_required",
+      "choices": [
+        {
+          "value": "dataset",
+          "label": {
+            "en": "Dataset",
+            "fr": "Ouvertes"
+          }
+        },
+        {
+          "value": "algorithm",
+          "label": {
+            "en": "Algorithm",
+            "fr": "Restreintes"
+          }
+        }
+      ]
+    },
+    {
       "field_name": "keywords",
       "label": {
         "en": "Tags",
@@ -58,7 +89,10 @@
       "help_text": {
         "en": "Help people find this resource by adding terms they might think of when looking for it. You can use \n OPS terms like \"Transfer Payments\" \n descriptive terms like \"remoteness index\", \"temperatures\" \n or associated terms like \"economy\", \"housing\", \"climate change\""
       },
+      "tag_validators": "tag_length_validator ontario_tag_name_validator",
       "preset": "fluent_tags",
+      "validators": "fluent_tags ontario_theme_copy_fluent_keywords_to_tags",
+      "output_validators": "fluent_tags_output",
       "form_placeholder": "e.g., housing, GDP per capita, greenhouse gas mitigation",
       "classes": ["form-group","col-md-6"],
       "form_attrs": {
@@ -128,6 +162,48 @@
           "label": {
             "en": "Municipality",
             "fr": "Municipalité"
+          }
+        },
+        {
+          "value": "province",
+          "label": {
+            "en": "Province",
+            "fr": "Province"
+          }
+        },
+        {
+          "value": "wmu",
+          "label": {
+            "en": "Wildlife Management Unit",
+            "fr": "Unités de gestion de la faune"
+          }
+        },
+        {
+          "value": "fmu",
+          "label": {
+            "en": "Forest Management Unit",
+            "fr": "Unités de gestion forestière"
+          }
+        },
+        {
+          "value": "county",
+          "label": {
+            "en": "County",
+            "fr": "Comté"
+          }
+        },
+        {
+          "value": "district",
+          "label": {
+            "en": "District",
+            "fr": "District"
+          }
+        },
+        {
+          "value": "fsa",
+          "label": {
+            "en": "Forward Sortation Area",
+            "fr": "régions de tri d’acheminement"
           }
         }
       ]
@@ -266,7 +342,7 @@
       },
       "help_inline" : true,
       "help_text": {
-        "en": "Let others know when they can expect new data. [more information on selecting an update frequency]"
+        "en": "Let others know when they can expect new data."
       }, 
       "preset": "select",
       "validators": "ignore_missing scheming_choices",
@@ -390,7 +466,7 @@
       "form_placeholder": "e.g., Users will need to register with the website to recieve a login and provide an email address. Visit http://www.example.com/register."
     },
     {
-      "field_name": "licence_id",
+      "field_name": "license_id",
       "label": {
         "en": "Licence",
         "fr": "Licence"
@@ -437,7 +513,7 @@
       "field_name": "access_level",
       "label": {
         "en": "Access level",
-        "fr": "Statut des données"
+        "fr": "Niveau d’accès"
       },
       "help_inline" : true,
       "fieldset": 6,
@@ -626,15 +702,16 @@
       "classes": ["form-group","col-md-12"]
     },
     {
-      "field_name": "name",
+      "field_name": "name_translated",
       "label": {
         "en": "Name",
         "fr": "Nom"
       },
+      "preset": "fluent_core_translated",
       "form_placeholder": "e.g., January 2011 Gold Prices",
       "help_inline" : true,
       "help_text": {
-        "en": "Create a human-readable title that will help users understand what the file contains."
+        "en": "Create a human-readable title that will help users understand what the file contains. Leaving the field blank will default the resource name to 'Data'. Add a name if the data describes something different than other files in the same dataset (e.g., 'Stone fruit crops' vs 'Non-stone fruit crops'). Leave blank if information about the data is captured by other fields in this form."
       },
       "fieldset": 2,
       "fieldset_name": "Describe the file",

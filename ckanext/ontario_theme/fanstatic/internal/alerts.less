@@ -54,6 +54,18 @@
     content:"\f023";
     color: #D81A21;   
   }
+  &.alert-algorithms::before {
+    content:"\f121";
+    margin-left: -7px;
+    color: #1080A6;   
+  }
+  &.alert-huge {
+    padding-left: 160px;
+    &::before {
+      font-size: 125px;
+      line-height: 125px;
+    }
+  }
   &.alert-large {
     min-height: 80px;
     padding-left: 90px;
@@ -75,6 +87,11 @@
   }
   &.alert-restricted {
     background-color: #fad2d2;
+  }
+  &.alert-contact {
+    background: #E2F0F4;
+    border-color: #1080A6;
+    padding: .9375rem 2rem .9375rem .9375rem;
   }
   &.alert-clear {
     margin-bottom: 30px;

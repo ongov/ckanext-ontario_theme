@@ -1,0 +1,10 @@
+{% ckan_extends %}
+
+{% block title %}
+  <h3 class="media-heading">{{ h.get_translated(group,"title") }}</h3>
+{% endblock %}
+{% block description %}
+  {% if h.get_translated(group,"description") %}
+    <p>{{ h.markdown_extract(h.get_translated(group,"description"), extract_length=80) }}</p>
+  {% endif %}
+{% endblock %}

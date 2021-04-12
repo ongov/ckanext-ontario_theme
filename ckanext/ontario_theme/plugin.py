@@ -1,16 +1,31 @@
+# encoding: utf-8
+
 import ckan.plugins as plugins
+from ckanext.ontario_theme import validators
 import ckan.plugins.toolkit as toolkit
 from ckan.lib.plugins import DefaultTranslation
+
+import ckan.logic.schema
+from ckan.logic.schema import validator_args
 from ckan.common import config, request, g, _
+from collections import OrderedDict
+import datetime
+from webhelpers.html import literal
+import ckan.authz as authz
+import ckan.lib.i18n as i18n
 
 from flask import Blueprint, make_response
 from flask import render_template, render_template_string
 
 import ckanapi_exporter.exporter as exporter
 import json
+import ckan.lib.helpers as helpers
+from ckan.lib.helpers import core_helper
 
 from ckan.model import Package
 import ckan.model as model
+
+from ckanext.ontario_theme import controller
 
 from resource_upload import ResourceUpload
 
@@ -100,11 +115,92 @@ def image_uploaded():
 # See https://flask.palletsprojects.com/en/1.1.x/api/#view-function-options
 image_uploaded.methods = ['POST', 'OPTIONS']
 
+'''
+default_tags_schema added because when tags are validated on 
+resource_create/resource_update, it doesn't pull tag validators 
+from scheming, rather applies core tag validators.
+
+We considered adding tags back into the schema so we could include new
+tag validators for tags, but it seemed neater to continue to keep it out 
+of the schema.
+
+We also considered using _modify_package_schema, but it doesn't work with
+the scheming plugin.
+
+Instead we're modifying default_tags_schema to include the correct validators.
+This is lifted from core and the only change is:
+tag_name_validator
+to
+validators.tag_name_validator
+'''
+@validator_args
+def default_tags_schema(
+        not_missing, not_empty, unicode_safe, tag_length_validator,
+        tag_name_validator, ignore_missing, vocabulary_id_exists,
+        ignore):
+
+    return {
+        'name': [not_missing,
+                 not_empty,
+                 unicode_safe,
+                 tag_length_validator,
+                 validators.tag_name_validator
+                 ],
+        'vocabulary_id': [ignore_missing,
+                          unicode_safe,
+                          vocabulary_id_exists],
+        'revision_timestamp': [ignore],
+        'state': [ignore],
+        'display_name': [ignore],
+    }
+
+ckan.logic.schema.default_tags_schema = default_tags_schema
+
+@core_helper
+def resource_display_name(resource_dict):
+    # TODO: (?) support resource objects as well
+    name = helpers.get_translated(resource_dict, 'name')
+    description = helpers.get_translated(resource_dict, 'description')
+    if name:
+        return name
+    elif description:
+        description = description.split('.')[0]
+        max_len = 60
+        if len(description) > max_len:
+            description = description[:max_len] + '...'
+        return description
+    else:
+        return helpers._("Data")
+
+ckan.lib.helpers.resource_display_name = resource_display_name
 
 def help():
     '''New help page for site.
     '''
     return render_template('home/help.html')
+
+
+# replace the core get_snippet_actor to anonymize the activity stream when user
+# is not logged in
+
+def get_snippet_actor(activity, detail):
+    user = authz.auth_is_loggedin_user()
+    if not user:
+        if i18n.get_lang() == 'fr':
+            return literal('''<span class="actor">%s</span>'''
+                % "L'équipe de données ouvertes de l'Ontario".decode('utf8')
+                )
+        else:
+            return literal('''<span class="actor">Ontario's Open Data Team \
+                </span>'''
+                )
+    else:
+        return literal('''<span class="actor">%s</span>'''
+            % (helpers.linked_user(activity['user_id'], 0, 30))
+            )
+
+ckan.lib.activity_streams.get_snippet_actor = get_snippet_actor
+ckan.lib.activity_streams.activity_snippet_functions['actor'] = get_snippet_actor
 
 
 def csv_dump():
@@ -116,183 +212,138 @@ def csv_dump():
     into single comma seperated string.
     deduplicate needed to be "true" not true.
     '''
-    columns = {
-                "Title EN": {
-                    "pattern": ["^title_translated$", "^en$"]
-                },
-                "Title FR": {
-                    "pattern": ["^title_translated$", "^fr$"]
-                },
-                "Notes EN": {
-                    "pattern": ["^notes_translated$", "^en$"]
-                },
-                "Notes FR": {
-                    "pattern": ["^notes_translated$", "^fr$"]
-                },
-                "Met Service Standard": {
-                    "pattern": "^met_service_standard$"
-                },
-                "License Title": {
-                    "pattern": "^license_title$"
-                },
-                "Technical Documents": {
-                    "pattern": "^technical_documents$"
-                },
-                "Contains geopgrapic markers": {
-                    "pattern": "^contains_geographic_markers$"
-                },
-                "Maintainer Branch EN": {
-                    "pattern": ["^maintainer_branch$", "^en$"]
-                },
-                "Maintainer Branch FR": {
-                    "pattern": ["^maintainer_branch$", "^fr$"]
-                },
-                "Keywords EN": {
-                    "pattern": ["^keywords$", "^en$"]
-                },
-                "Keywords FR": {
-                    "pattern": ["^keywords$", "^fr$"]
-                },
-                "Broken Links": {
-                    "pattern": "^broken_links$"
-                },
-                "Id": {
-                    "pattern": "^id$"
-                },
-                "Metadata Created": {
-                    "pattern": "^metadata_created$"
-                },
-                "Open Access": {
-                    "pattern": "^open_access$"
-                },
-                "Removed": {
-                    "pattern": "^removed$"
-                },
-                "Metadata Modified": {
-                    "pattern": "^metadata_modified$"
-                },
-                "Meets Update Frequency": {
-                    "pattern": "^meets_update_frequency$"
-                },
-                "Comments EN": {
-                    "pattern": ["^comments$", "^en$"]
-                },
-                "Comments FR": {
-                    "pattern": ["^comments$", "^fr$"]
-                },
-                "Access Level": {
-                    "pattern": "^access_level$"
-                },
-                "Data Range End": {
-                    "pattern": "^data_range_end$"
-                },
-                "Exemption Rationale EN": {
-                    "pattern": ["^exemption_rationale$", "^en$"]
-                },
-                "Exemption Rationale FR": {
-                    "pattern": ["^exemption_rationale$", "^fr$"]
-                },
-                "Issues": {
-                    "pattern": "^issues$"
-                },
-                "Short Description EN": {
-                    "pattern": ["^short_description$", "^en$"]
-                },
-                "Short Description FR": {
-                    "pattern": ["^short_description$", "^fr$"]
-                },
-                "Type": {
-                    "pattern": "^type$"
-                },
-                "Resources Format": {
-                    "pattern": ["^resources$", "^format$"],
-                    "deduplicate": "true"
-                },
-                "Num Resources": {
-                    "pattern": "^num_resources$"
-                },
-                "Tags": {
-                    "pattern": ["^tags$", "^name$"],
-                    "deduplicate": "true"
-                },
-                "Data Range Start": {
-                    "pattern": "^data_range_start$"
-                },
-                "State": {
-                    "pattern": "^state$"
-                },
-                "License Id": {
-                    "pattern": "^license_id$"
-                },
-                "Exemption": {
-                    "pattern": "^exemption$"
-                },
-                "Submission Comments EN": {
-                    "pattern": ["^submission_comments$", "^en$"]
-                },
-                "Submission Comments FR": {
-                    "pattern": ["^submission_comments$", "^fr$"]
-                },
-                "Geographic Coverage EN": {
-                    "pattern": ["^geographic_coverage$", "^en$"]
-                },
-                "Geographic Coverage FR": {
-                    "pattern": ["^geographic_coverage$", "^fr$"]
-                },
-                "Rush": {
-                    "pattern": "^rush$"
-                },
-                "Organization Title": {
-                    "pattern": ["^organization$", "^title$"]
-                },
-                "Submission Communication Plan EN": {
-                    "pattern": ["^submission_communication_plan$", "^en$"]
-                },
-                "Submission Communication Plan FR": {
-                    "pattern": ["^submission_communication_plan$", "^fr$"]
-                },
-                "Name": {
-                    "pattern": "^name$"
-                },
-                "Is Open": {
-                    "pattern": "^isopen$"
-                },
-                "URL": {
-                    "pattern": "^url$"
-                },
-                "Technical Title EN": {
-                    "pattern": ["^technical_title$", "^en$"]
-                },
-                "Technical Title FR": {
-                    "pattern": ["^technical_title$", "^fr$"]
-                },
-                "Node Id": {
-                    "pattern": "^node_id$"
-                },
-                "Removal Rationale EN": {
-                    "pattern": ["^removal_rationale$", "^en$"]
-                },
-                "Removal Rationale FR": {
-                    "pattern": ["^removal_rationale$", "^fr$"]
-                },
-                "Update Frequency": {
-                    "pattern": "^update_frequency$"
-                }
-              }
+    columns = OrderedDict([
+        ("Id", {
+            "pattern": "^id$"
+        }),
+        ("Name", {
+            "pattern": "^name$"
+        }),
+        ("Title EN", {
+            "pattern": ["^title_translated$", "^en$"]
+        }),
+        ("Notes EN", {
+            "pattern": ["^notes_translated$", "^en$"]
+        }),
+        ("Organization Title", {
+            "pattern": ["^organization$", "^title$"]
+        }),
+        ("Access Level", {
+            "pattern": "^access_level$"
+        }),
+        ("Type", {
+            "pattern": "^type$"
+        }),
+        ("Update Frequency", {
+            "pattern": "^update_frequency$"
+        }),
+        ("Metadata Created", {
+            "pattern": "^metadata_created$"
+        }),
+        ("Metadata Modified", {
+            "pattern": "^metadata_modified$"
+        }),
+        ("License Title", {
+            "pattern": "^license_title$"
+        }),
+        ("Keywords EN", {
+            "pattern": ["^keywords$", "^en$"]
+        }),
+        ("Package Date Opened", {
+            "pattern": "^opened_date$"
+        }),
+        ("Package Last Validated Date", {
+            "pattern": "^current_as_of$"
+        }),
+        ("Exemption", {
+            "pattern": "^exemption$"
+        }),
+        ("Exemption Rationale EN", {
+            "pattern": ["^exemption_rationale$", "^en$"]
+        }),
+        ("Geographic Coverage EN", {
+            "pattern": ["^geographic_coverage_translated$", "^en$"]
+        }),
+        ("Resources Format", {
+            "pattern": ["^resources$", "^format$"],
+            "deduplicate": "true"
+        }),
+        ("Num Resources", {
+            "pattern": "^num_resources$"
+        }),
+        ("Title FR", {
+            "pattern": ["^title_translated$", "^fr$"]
+        }),
+        ("Geographic Coverage FR", {
+            "pattern": ["^geographic_coverage_translated$", "^fr$"]
+        }),
+        ("Exemption Rationale FR", {
+            "pattern": ["^exemption_rationale$", "^fr$"]
+        }),
+        ("Keywords FR", {
+            "pattern": ["^keywords$", "^fr$"]
+        })
+    ])
 
     site_url = config.get('ckan.site_url')
     csv_string = exporter.export(site_url, columns)
-    resp = make_response(csv_string, 200)
+    timestamp = datetime.datetime.now().strftime('%Y-%m-%d')
+    csv_filename = 'ontario_data_catalogue_inventory_' + timestamp + '.csv'
+
+    resp = make_response(u'\uFEFF'.encode('utf-8') + csv_string, 200)
     resp.headers['Content-Type'] = b'text/csv; charset=utf-8'
     resp.headers['Content-disposition'] = \
-        (b'attachment; filename="output.csv"')
+        (b'attachment; filename=%s' % csv_filename)
     return resp
+
+def get_group(group_id):
+    '''Helper to return the group.
+    CKAN core has a get_organization helper but does not have one for groups.
+    This also allows us to access the group with all extras which are needed to 
+    access the scheming/fluent fields.
+    '''
+    group_dict = toolkit.get_action('group_show')(
+        data_dict={'id': group_id})
+    return group_dict
+
+def get_recently_updated_datasets():
+    '''Helper to return 3 freshest datasets
+    '''
+    recently_updated_datasets = toolkit.get_action('package_search')(
+        data_dict={'rows': 3,
+                    'sort': 'current_as_of desc'})
+    return recently_updated_datasets['results']
+
+
+def get_popular_datasets():
+    '''Helper to return most popular datasets, based on ckan core tracking feature
+    '''
+    popular_datasets = toolkit.get_action('package_search')(
+        data_dict={'rows': 3,
+                    'sort': 'views_recent desc'})
+    return popular_datasets['results']
 
 
 def get_license(license_id):
     '''Helper to return license based on id.
     '''
     return Package.get_license_register().get(license_id)
+
+def extract_package_name(url):
+    import re
+    package_pattern = "\/dataset\/([-a-z-0-9A-Z\n\r]*)"
+    find_package = re.compile(package_pattern)
+    get_package_name = find_package.findall(url)
+    if len(get_package_name) > 0:
+        return get_package_name[0]
+    else:
+        return False
+
+def get_translated_lang(data_dict, field, specified_language):
+    try:
+        return data_dict[field + u'_translated'][specified_language]
+    except KeyError:
+        return helpers.get_translated(data_dict, field)
 
 
 def get_package_keywords(language='en'):
@@ -407,11 +458,12 @@ ckanext.ontario_theme:schemas/external/ontario_theme_dataset.json
 ckanext.scheming:presets.json
 ckanext.fluent:presets.json
 """
-
         config_['scheming.organization_schemas'] = """
 ckanext.ontario_theme:schemas/ontario_theme_organization.json
 """
-
+        config_['scheming.group_schemas'] = """
+ckanext.ontario_theme:schemas/ontario_theme_group.json
+"""
 
 class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
@@ -419,9 +471,9 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.IBlueprint)
     plugins.implements(plugins.ITemplateHelpers)
     plugins.implements(plugins.IUploader, inherit=True)
-    plugins.implements(plugins.IDatasetForm)
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.IPackageController)
+    plugins.implements(plugins.IValidators)
 
     # IConfigurer
 
@@ -441,6 +493,12 @@ ckanext.fluent:presets.json
 
         config_['scheming.organization_schemas'] = """
 ckanext.ontario_theme:schemas/ontario_theme_organization.json
+"""
+        config_['ckan.tracking_enabled'] = """
+true
+"""
+        config_['ckan.extra_resource_fields'] = """
+type data_last_updated
 """
 
     def update_config_schema(self, schema):
@@ -521,6 +579,11 @@ ckanext.ontario_theme:schemas/ontario_theme_organization.json
 
     def get_helpers(self):
         return {'ontario_theme_get_license': get_license,
+                'ontario_theme_extract_package_name': extract_package_name,
+                'ontario_theme_get_translated_lang': get_translated_lang,
+                'ontario_theme_get_popular_datasets': get_popular_datasets,
+                'ontario_theme_get_group': get_group,
+                'ontario_theme_get_recently_updated_datasets': get_recently_updated_datasets,
                 'extrafields_default_locale': default_locale,
                 'ontario_theme_get_package_keywords': get_package_keywords,
                 'ontario_theme_home_block': home_block,
@@ -553,9 +616,9 @@ ckanext.ontario_theme:schemas/ontario_theme_organization.json
         # Add url rules to Blueprint object.
         rules = [
             (u'/help', u'help', help),
-            (u'/dataset/csv_dump', u'csv_dump', csv_dump),
             (u'/ckan-admin/image-uploader', u'image_uploader', image_uploader),
-            (u'/ckan-admin/image-uploaded', u'image_uploaded', image_uploaded)
+            (u'/ckan-admin/image-uploaded', u'image_uploaded', image_uploaded),
+            (u'/dataset/inventory', u'inventory', csv_dump)
         ]
         for rule in rules:
             blueprint.add_url_rule(*rule)
@@ -567,27 +630,19 @@ ckanext.ontario_theme:schemas/ontario_theme_organization.json
     def get_resource_uploader(self, data_dict):
         return ResourceUpload(data_dict)
 
-    # IDatasetForm
-
-    def is_fallback(self):
-        # Return True to register this plugin as the default handler for
-        # package types not handled by any other IDatasetForm plugin.
-        return True
-
-    def package_types(self):
-        # This plugin doesn't handle any special package types, it just
-        # registers itself as the default (above).
-        return []
-
     # IFacets
 
     def dataset_facets(self, facets_dict, package_type):
         '''Add new search facet (filter) for datasets.
         '''
         facets_dict['access_level'] = toolkit._('Access Level')
+        facets_dict['asset_type'] = toolkit._('Asset Type')
         facets_dict['update_frequency'] = toolkit._('Update Frequency')
         facets_dict['keywords_en'] = toolkit._('Keywords')
         facets_dict['keywords_fr'] = toolkit._('Keywords')
+        facets_dict.pop('tags', None) # Remove tags in favor of keywords
+        facets_dict['organization_jurisdiction'] = toolkit._('Jurisdiction')
+        facets_dict['organization_category'] = toolkit._('Category')
         return facets_dict
 
     def group_facets(self, facets_dict, group_type, package_type):
@@ -617,6 +672,11 @@ ckanext.ontario_theme:schemas/ontario_theme_organization.json
         kw = json.loads(pkg_dict.get('extras_keywords', '{}'))
         pkg_dict['keywords_en'] = kw.get('en', [])
         pkg_dict['keywords_fr'] = kw.get('fr', [])
+
+        # Index some organization extras fields from fluent/scheming.
+        organization_dict = toolkit.get_action('organization_show')(data_dict={'id': pkg_dict['organization']})
+        pkg_dict['organization_jurisdiction'] = organization_dict.get('jurisdiction', '')
+        pkg_dict['organization_category'] = organization_dict.get('category', '')
         return pkg_dict
 
     def before_view(self, pkg_dict):
@@ -645,3 +705,11 @@ ckanext.ontario_theme:schemas/ontario_theme_organization.json
 
     def after_show(self, context, pkg_dict):
         return pkg_dict
+
+    # IValidators
+
+    def get_validators(self):
+       return {
+            'ontario_theme_copy_fluent_keywords_to_tags': validators.ontario_theme_copy_fluent_keywords_to_tags,
+            'ontario_tag_name_validator': validators.tag_name_validator
+       }

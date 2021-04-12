@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2>
+      {% trans %}Resources and information{% endtrans %}
+    </h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <h4>
+      <a href="{% trans %}https://www.ontario.ca/page/sharing-government-data{% endtrans %}">
+        {% trans %}What's Open Data?{% endtrans %}
+      </a>
+    </h4>
+    <svg alt="" height="5" viewBox="0 0 7 1" width="35"><polygon class="fill-sky" points="0,0 7,0 7,1 0,1" shape-rendering="geometricPrecision"></polygon></svg>
+    <p>
+      {% trans %}Learn about Open Data and the Ontario Data Catalogue.{% endtrans %}
+    </p>
+  </div>
+  <div class="col-md-3">
+    <h4>
+      <a href="/{{ request.environ.CKAN_LANG }}/about#licensing">
+        {% trans %}Licences and Using Data{% endtrans %}
+      </a>
+    </h4>
+    <svg alt="" height="5" viewBox="0 0 7 1" width="35"><polygon class="fill-sky" points="0,0 7,0 7,1 0,1" shape-rendering="geometricPrecision"></polygon></svg>
+    <p>
+      {% trans %}Learn about the conditions and terms of use for using data.{% endtrans %}
+    </p>
+  </div>
+  <div class="col-md-3">
+    <h4>
+      <a href="/{{ request.environ.CKAN_LANG }}/about#developers">
+        {% trans %}Developers{% endtrans %}
+      </a>
+    </h4>
+    <svg alt="" height="5" viewBox="0 0 7 1" width="35"><polygon class="fill-sky" points="0,0 7,0 7,1 0,1" shape-rendering="geometricPrecision"></polygon></svg>
+    <p>
+      {% trans %}If you are using the catalogue in a software application.{% endtrans %}
+    </p>
+  </div>
+  <div class="col-md-3">
+    <h4>
+      <a href="/{{ request.environ.CKAN_LANG }}/about#training-materials">
+        {% trans %}Training Materials{% endtrans %}
+      </a>
+    </h4>
+    <svg alt="" height="5" viewBox="0 0 7 1" width="35"><polygon class="fill-sky" points="0,0 7,0 7,1 0,1" shape-rendering="geometricPrecision"></polygon></svg>
+    <p>
+      {% trans %}Learn to work with government data.{% endtrans %}
+    </p>
+  </div>
+</div>

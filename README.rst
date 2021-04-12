@@ -53,7 +53,7 @@ Installation
 To install ckanext-ontario_theme for development, activate your CKAN 
 virtualenv and do::
 
-    git clone https://github.com/boykoc/ckanext-ontario_theme.git
+    git clone https://github.com/ongov/ckanext-ontario_theme.git
     cd ckanext-ontario_theme
     python setup.py develop
     pip install -r dev-requirements.txt
@@ -72,13 +72,23 @@ Update the development.ini (or production.ini) plugins::
     # Note: This extension needs to be before scheming and fluent in the *.ini config file to let the form overrides work.
     
     # For external catalogue
-    ckan.plugins = [...] ontario_theme_external ontario_theme scheming_datasets scheming_organizations fluent [...]
+    ckan.plugins = [...] ontario_theme_external ontario_theme scheming_datasets scheming_organizations scheming_groups fluent [...]
 
     # For internal catalogue
-    ckan.plugins = [...] ontario_theme scheming_datasets scheming_organizations fluent [...]
+    ckan.plugins = [...] ontario_theme scheming_datasets scheming_organizations scheming_groups fluent [...]
 
     # For both, add licenses:
     licenses_group_url = file:///<path to this extension>/ckanext/ontario_theme/schemas/licences.json
+
+Setup for CKAN tracking by running the paster cmds and adding cron jobs. The
+config setting is in the `plugin.py` already::
+
+    paster --plugin=ckan tracking update --config=/etc/ckan/default/production.ini
+    paster --plugin=ckan search-index rebuild --config=/etc/ckan/default/production.ini
+    crontab -e
+    # Add this line
+    @hourly /usr/lib/ckan/default/bin/paster --plugin=ckan tracking
+    update -c /etc/ckan/default/production.ini && /usr/lib/ckan/default/bin/paster --plugin=ckan search-index rebuild -r -c /etc/ckan/default/production.ini
 
 Create a sysadmin user, login and set the HomePage layout under Admin -> Config to the third option. Our homepage uses this layout as it's base.
 
@@ -138,17 +148,20 @@ Running the Tests
 To run the tests, make sure your ckan install is `setup for tests <https://docs.ckan.org/en/latest/contributing/test.html>`_, do::
 
     cd ckanext-ontario_theme # go to extension directory
-    nosetests --nologcapture --with-pylons=test.ini # active vertual environment that has nosetests.
+    nosetests --nologcapture --with-pylons=test.ini # run in virtual environment that has nosetests.
 
 To run the tests and produce a coverage report, first make sure you have
 coverage installed in your virtualenv (``pip install coverage``) then run::
 
     nosetests --nologcapture --with-pylons=test.ini --with-coverage --cover-package=ckanext.ontario_theme --cover-inclusive --cover-erase --cover-tests
 
-Also, add scheming and fluent to ``/usr/lib/ckan/default/src/ckan/test-core.ini``::
+Our custom config settings are in ``./test.ini``.
 
-    ckan.plugins = stats scheming_datasets fluent
-    scheming.dataset_schemas = ckanext.extrafields:ontario_theme_dataset.json
-    scheming.presets = ckanext.scheming:presets.json
-                       ckanext.fluent:presets.json
+Additional ways to run tests:
 
+    # Single Test method
+    nosetests ckanext/ontario_theme/tests/test_create_dataset.py:TestCreateDataset.test_package_create_with_invalid_update_frequency --nologcapture --with-pylons=test.ini
+    # Single Test class
+    nosetests ckanext/ontario_theme/tests/test_create_dataset.py:TestCreateDataset --nologcapture --with-pylons=test.ini
+    # Single Test module
+    nosetests ckanext/ontario_theme/tests/test_create_dataset.py --nologcapture --with-pylons=test.ini
