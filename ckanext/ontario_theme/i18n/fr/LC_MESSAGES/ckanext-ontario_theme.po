@@ -2756,6 +2756,10 @@ msgstr "Pas de intervalle"
 msgid "Covers"
 msgstr "Pour la période de"
 
+#: ckanext/ontario_theme/templates/package/snippets/resources_list.html:20
+msgid "Fiscal: "
+msgstr "Exercice: "
+
 #: ckanext/ontario_theme/templates/package/snippets/resources_list.html:33
 msgid "Supporting Files"
 msgstr "Autres fichiers"
