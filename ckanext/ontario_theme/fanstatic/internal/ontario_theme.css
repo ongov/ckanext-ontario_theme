@@ -1014,6 +1014,9 @@ li.resource-item div.btn-wrapper {
 }
 #news a {
   color: white;
+  text-decoration: none;
+}
+#news a h3 {
   text-decoration: underline;
 }
 #news .dataset-list .row a {

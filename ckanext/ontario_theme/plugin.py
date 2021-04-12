@@ -4,9 +4,10 @@ import ckan.plugins as plugins
 from ckanext.ontario_theme import validators
 import ckan.plugins.toolkit as toolkit
 from ckan.lib.plugins import DefaultTranslation
+
 import ckan.logic.schema
 from ckan.logic.schema import validator_args
-from ckan.common import config
+from ckan.common import config, request, g, _
 from collections import OrderedDict
 import datetime
 from webhelpers.html import literal
@@ -22,13 +23,97 @@ import ckan.lib.helpers as helpers
 from ckan.lib.helpers import core_helper
 
 from ckan.model import Package
+import ckan.model as model
 
 from ckanext.ontario_theme import controller
 
 from resource_upload import ResourceUpload
 
+# For Image Uploader
+from ckan.controllers.home import CACHE_PARAMETERS
+import ckan.lib.navl.dictization_functions as dict_fns
+import ckan.logic as logic
+import os
+import ckan.lib.uploader as uploader
+import ckan.lib.helpers as h
+
 import logging
 log = logging.getLogger(__name__)
+
+def image_uploader():
+    '''View function that renders the image uploader form.
+    Passes `'image_url': 'submitted-image-path'` and `'uploads': {'path',}'`
+    to template.
+    '''
+    try:
+        uploads_with_path = []
+        try:
+            # Get all the images from the home uploader.
+            path = uploader.get_storage_path()
+            storage_path = os.path.join(path,
+                                        'storage',
+                                        'uploads',
+                                        'home')
+            uploads = sorted(os.listdir(storage_path))
+
+            # Build the static content paths for each image.
+            for upload in uploads:
+                image_path = 'uploads/home/'
+                value = h.url_for_static('{0}{1}'.format(image_path, upload))
+                uploads_with_path.append(value)
+        except OSError:
+            log.error("The uploads directory does not exist yet. Upload an image.")
+
+        # This is somewhat odd, toolkit.render calls flask.render_template.
+        # But toolkit.render unpacks the args properly to access them in the
+        # template without needing 'extra_vars["data"]'. Lots of time trouble
+        # shooting to get this combo working.
+        return toolkit.render('admin/ontario_theme_image_uploader.html',
+                              extra_vars={
+                                  'data': {},
+                                  'errors': {},
+                                  'image_url': request.args.get("image_url", ''),
+                                  'uploads': uploads_with_path
+                              })
+    except Exception as e:
+        log.error(e)
+
+
+def image_uploaded():
+    '''View function to handle uploading arbitrary images for the home page.
+    Passes `'image_url': 'submitted-image-path'` to template/view function.
+    '''
+    data_dict = {}
+    try:
+        # Cleanup the data_dict for the uploader.
+        req = request.form.copy()
+        req.update(request.files.to_dict())
+        data_dict = logic.clean_dict(
+            dict_fns.unflatten(
+                logic.tuplize_dict(
+                    logic.parse_params(req,
+                                       ignore_keys=CACHE_PARAMETERS))))
+
+        # Upload the image.
+        upload = uploader.get_uploader('home')
+        upload.update_data_dict(data_dict, 'image_url',
+                                'image_upload', 'clear_upload')
+        upload.upload(uploader.get_max_image_size())
+
+        image_url = ''
+        # Build and return the image url.
+        for key, value in data_dict.iteritems():
+            if key == 'image_url' and value and not value.startswith('http')\
+                    and not value.startswith('/'):
+                image_path = 'uploads/home/'
+                value = h.url_for_static('{0}{1}'.format(image_path, value))
+                image_url = value
+    except Exception as e:
+        log.error(e)
+    return h.redirect_to(u'ontario_theme.image_uploader', image_url=image_url)
+# Had to add the extra options for methods here instead of in the blueprint add_url_rule to avoid invalid syntax error.
+# See https://flask.palletsprojects.com/en/1.1.x/api/#view-function-options
+image_uploaded.methods = ['POST', 'OPTIONS']
 
 '''
 default_tags_schema added because when tags are validated on 
@@ -323,6 +408,38 @@ def num_resources_filter_scrub(search_params):
     return search_params
 
 
+def home_block(block='one'):
+    '''Helper to make the new configuration available to templates.
+    Returns the configuration or empty string for the specified home block
+    markdown content. Defaults to English but returns french if language is
+    french.
+    '''
+    value = config.get('ckanext.ontario_theme.home_block_{}-en'.format(block), '')
+    if h.lang() == 'fr':
+        value = config.get('ckanext.ontario_theme.home_block_{}-fr'.format(block), '')
+    return value
+
+
+def home_block_image(block='one'):
+    '''Helper to make the new configuration available to templates.
+    Returns the configuration or empty string for the specified home block
+    image path.
+    '''
+    value = config.get('ckanext.ontario_theme.home_block_{}_image'.format(block), '')
+    return value
+
+
+def home_block_link(block='one'):
+    '''Helper to make the new configuraiton avialable to templates. Returns
+    the configuraiton or empty string for the specified home block link.
+    Defaults to English but returns french if language is french.
+    '''
+    value = config.get('ckanext.ontario_theme.home_block_{}_link-en'.format(block), '')
+    if h.lang() == 'fr':
+        value = config.get('ckanext.ontario_theme.home_block_{}_link-fr'.format(block), '')
+    return value
+
+
 class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
     plugins.implements(plugins.IConfigurer)
@@ -383,6 +500,81 @@ true
         config_['ckan.extra_resource_fields'] = """
 type data_last_updated
 """
+
+    def update_config_schema(self, schema):
+        '''Add's new fields to the schema for run-time editable configuration
+        options.
+        '''
+        ignore_missing = toolkit.get_validator('ignore_missing')
+        # Added piece of mind.
+        ignore_not_sysadmin = toolkit.get_validator('ignore_not_sysadmin')
+        unicode_safe = toolkit.get_validator('unicode_safe')
+        # Remove leading and trailing whitespace.
+        remove_whitespace = toolkit.get_converter('remove_whitespace')
+
+        schema.update({
+            # Custom configuration options for home page content.
+            'ckanext.ontario_theme.home_block_one-en':      [ignore_missing,
+                                                             ignore_not_sysadmin,
+                                                             unicode_safe],
+            'ckanext.ontario_theme.home_block_one-fr':      [ignore_missing,
+                                                             ignore_not_sysadmin,
+                                                             unicode_safe],
+            'ckanext.ontario_theme.home_block_one_image':   [ignore_missing,
+                                                             ignore_not_sysadmin,
+                                                             unicode_safe,
+                                                             remove_whitespace],
+            'ckanext.ontario_theme.home_block_one_link-en': [ignore_missing,
+                                                             ignore_not_sysadmin,
+                                                             unicode_safe,
+                                                             remove_whitespace],
+            'ckanext.ontario_theme.home_block_one_link-fr': [ignore_missing,
+                                                             ignore_not_sysadmin,
+                                                             unicode_safe,
+                                                             remove_whitespace],
+
+            'ckanext.ontario_theme.home_block_two-en':      [ignore_missing,
+                                                             ignore_not_sysadmin,
+                                                             unicode_safe],
+            'ckanext.ontario_theme.home_block_two-fr':      [ignore_missing,
+                                                             ignore_not_sysadmin,
+                                                             unicode_safe],
+            'ckanext.ontario_theme.home_block_two_image':   [ignore_missing,
+                                                             ignore_not_sysadmin,
+                                                             unicode_safe,
+                                                             remove_whitespace],
+            'ckanext.ontario_theme.home_block_two_link-en': [ignore_missing,
+                                                             ignore_not_sysadmin,
+                                                             unicode_safe,
+                                                             remove_whitespace],
+            'ckanext.ontario_theme.home_block_two_link-fr': [ignore_missing,
+                                                             ignore_not_sysadmin,
+                                                             unicode_safe,
+                                                             remove_whitespace],
+
+            'ckanext.ontario_theme.home_block_three-en':      [ignore_missing,
+                                                               ignore_not_sysadmin,
+                                                               unicode_safe],
+            'ckanext.ontario_theme.home_block_three-fr':      [ignore_missing,
+                                                               ignore_not_sysadmin,
+                                                               unicode_safe],
+            'ckanext.ontario_theme.home_block_three_image':   [ignore_missing,
+                                                               ignore_not_sysadmin,
+                                                               unicode_safe,
+                                                               remove_whitespace],
+            'ckanext.ontario_theme.home_block_three_link-en': [ignore_missing,
+                                                               ignore_not_sysadmin,
+                                                               unicode_safe,
+                                                               remove_whitespace],
+            'ckanext.ontario_theme.home_block_three_link-fr': [ignore_missing,
+                                                               ignore_not_sysadmin,
+                                                               unicode_safe,
+                                                               remove_whitespace],
+        })
+
+        return schema
+
+
     # ITemplateHelpers
 
     def get_helpers(self):
@@ -393,7 +585,10 @@ type data_last_updated
                 'ontario_theme_get_group': get_group,
                 'ontario_theme_get_recently_updated_datasets': get_recently_updated_datasets,
                 'extrafields_default_locale': default_locale,
-                'ontario_theme_get_package_keywords': get_package_keywords}
+                'ontario_theme_get_package_keywords': get_package_keywords,
+                'ontario_theme_home_block': home_block,
+                'ontario_theme_home_block_image': home_block_image,
+                'ontario_theme_home_block_link': home_block_link}
 
     # IBlueprint
 
@@ -403,9 +598,26 @@ type data_last_updated
 
         blueprint = Blueprint(self.name, self.__module__)
         blueprint.template_folder = u'templates'
+
+        @blueprint.before_request
+        def before_request():
+            '''Could call this from within the applicable views but this pattern I like better I think.
+            Could also add this as it's own IAuthFunctions as a new auth function, then call that, 
+            but I don't want to override or really create a new one, I want to use the existing sysadmin
+            auth function from my own views.
+            '''
+            if request.endpoint in ['ontario_theme.image_uploader', 'ontario_theme.image_uploaded']:
+                try:
+                    context = dict(model=model, user=g.user, auth_user_obj=g.userobj)
+                    logic.check_access(u'sysadmin', context)
+                except logic.NotAuthorized:
+                    toolkit.abort(403, _(u'Need to be system administrator to administer'))
+
         # Add url rules to Blueprint object.
         rules = [
             (u'/help', u'help', help),
+            (u'/ckan-admin/image-uploader', u'image_uploader', image_uploader),
+            (u'/ckan-admin/image-uploaded', u'image_uploaded', image_uploaded),
             (u'/dataset/inventory', u'inventory', csv_dump)
         ]
         for rule in rules:
