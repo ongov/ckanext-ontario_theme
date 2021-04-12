@@ -2,41 +2,15 @@
 
 Renders a row of 3 featured content cards on the home page.
 
-These are hardcoded values, typically highlighting datasets
-already existing in the system.
-
 #}
-
-<div class="col-md-4">
-  <img src="images/internal/featured_content/workers.png" />
-  <h4>
-    <a href="/{{ request.environ.CKAN_LANG }}/dataset/statscan-census-2016-labour-force-market-data-labour-force-status">
-      Labour Force Market Data
+{% set feature_list = ['one','two','three'] %}
+{% for feature_item in feature_list %}
+  <div class="col-md-4">
+    <a href="{{ h.ontario_theme_home_block_link(feature_item) }}">
+      <img src="{{ h.ontario_theme_home_block_image(feature_item) }}" alt="{% trans %}Decorative image{% endtrans %}" />
+      
+        {{ h.render_markdown(h.ontario_theme_home_block(feature_item)) }}
+      
     </a>
-  </h4>
-  <p>
-    <i>July 4, 2020</i> - 2016 census data from Statistics Canada with population counts that you can filter by location, age, gender, highest certification and more.
-  </p>
-</div>
-<div class="col-md-4">
-  <img src="images/internal/featured_content/featureddata-ai.jpg" />
-  <h4>
-    <a href="/{{ request.environ.CKAN_LANG }}/dataset/artificial-intelligence-companies-in-ontario">
-      AI Companies in Ontario
-    </a>
-  </h4>
-  <p>
-    <i>March 11, 2019</i> - We've launched draft guidelines on AI transparency, and we want your feedback. Tell us what you think.
-  </p>
-</div>
-<div class="col-md-4">
-  <img src="images/internal/featured_content/featureddata-ai_and_algs.jpg" />
-  <h4>
-    <a href="/{{ request.environ.CKAN_LANG }}/group/artificial-intelligence-and-algorithms">
-      Artificial intelligence and algorithms
-    </a>
-  </h4>
-  <p>
-    <i>June 1, 2020</i> - Explore Ontario's growing inventory of artificial intelligence applications and algorithms in use in the Government of Ontario.
-  </p>
-</div>
+  </div>
+{% endfor %}
