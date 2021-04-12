@@ -1,0 +1,51 @@
+{# extends "page.html" #}
+
+
+{% extends "admin/base.html" %}
+
+
+{% import 'macros/form.html' as form %}
+
+{% block primary_content_inner %}
+
+  {% if image_url %}
+    <div class="alert alert-success" role="alert">
+      <p>
+        <i class="fa fa-info-circle" aria-hidden="true"></i> 
+        Upload complete. You can access this image with the following path:
+        <code>{{ image_url }}</code>
+      </p>
+    </div>
+  {% endif %}
+
+  {{ form.errors(error_summary) }}
+  <form method='post' action="/ckan-admin/image-uploaded" id="admin-config-form" enctype="multipart/form-data">
+    {% block admin_form %}
+      {{ form.image_upload(data, errors, is_upload_enabled=true) }}
+    {% endblock %}
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" name="save">{{ _('Upload Image') }}</button>
+    </div>
+  </form>
+
+  <p><strong>Existing Uploads:</strong></p>
+  <ul>
+    {% for upload in uploads %}
+      <li><code>{{ upload }}</code></li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
+
+{% block secondary_content %}
+  <div class="module module-narrow module-shallow">
+    <h2 class="module-heading">
+      <i class="fa fa-info-circle"></i>
+      {{ _('Image Uploader') }}
+    </h2>
+    <div class="module-content">
+      <p>This is for uploading images for the home page feature content.</p>
+      <p>Please resize the filesize to make them as small as possible.</p>
+    </div>
+  </div>
+{% endblock %}

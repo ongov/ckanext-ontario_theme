@@ -192,6 +192,15 @@ div.add-dataset {
     top: 0px;
     left: -35px;
 }
+.resource-item .label[data-format] {
+  top: 0px;
+  left: -35px;
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  padding: 1em .2em;
+  font-size: 90%;
+}
 li.resource-item .btn-group.download {
   position: unset;
   top: unset;
@@ -390,7 +399,10 @@ li.resource-item div.btn-wrapper {
   }
   a {
     color: white;
-    text-decoration: underline;
+    text-decoration: none;
+    h3 {
+      text-decoration: underline;
+    }
   }
   .dataset-list {
     .row {

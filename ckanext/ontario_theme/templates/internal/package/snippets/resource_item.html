@@ -11,7 +11,12 @@
   <div class="col-md-6 col-xs-12">
     {% block resource_item_title %}
       <a class="heading" href="{{ url }}" title="{{ res.name or res.description }}">
-        {{ h.resource_display_name(res) | truncate(50) }}<span class="format-label" property="dc:format" data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span> 
+        {% if res.format in h.dict_list_reduce(pkg.resources, 'format') and res.format | length < 5 %}
+            <span class="label label-default" property="dc:format" data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span> 
+        {% else %}
+          <span class="label label-default" data-format="other">other</span>
+        {% endif %}
+        {{ h.resource_display_name(res) | truncate(50) }}
         {% if res.size %}
           <span class="text-muted small"> 
             ({{ h.localised_filesize(res.size) }})
