@@ -120,7 +120,7 @@
         {
           "field_name": "image_url",
           "validators": "ignore_missing unicode remove_whitespace",
-          "form_snippet": "organization_upload.html"
+          "form_snippet": "ontario_theme_organization_upload.html"
         }
     ]
 }

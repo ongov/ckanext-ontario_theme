@@ -2,7 +2,7 @@
 
 {% set is_upload = data.image_url and not data.image_url.startswith('http') %}
 {% set is_url = data.image_url and data.image_url.startswith('http') %}
-<div class="form-group col-md-12 control-full">
+<div class="col-md-12 control-full">
 {{ form.image_upload(
     data,
     errors,
