@@ -804,7 +804,7 @@
     {
       "field_name": "data_last_updated",
       "label": {
-        "en": "Data Last Updated",
+        "en": "Data last updated",
         "fr": "Dernière mise à jour des données"
       },
       "help_inline" : true,
