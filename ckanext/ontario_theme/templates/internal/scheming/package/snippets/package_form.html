@@ -17,6 +17,7 @@ control-rows to align french and english fields side by side.
 {% endblock %}
 
 {% block basic_fields %}
+  {% resource 'ontario_theme/ontario_theme_lock_if_odc.js' %}
   {%- if not dataset_type -%}
     <p>
     dataset_type not passed to template. your version of CKAN
