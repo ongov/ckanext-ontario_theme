@@ -6,7 +6,7 @@
   <h3>{{ _('Data') }}</h3>
   {% block resource_list %}
     {% snippet "package/snippets/ontario_theme_access_level.html",
-      pkg=pkg, dataset_type=dataset_type, schema=schema %}
+      pkg=pkg, dataset_type=dataset_type, schema=schema, resources=resources %}
 
     {% if resources %}
         {% block resource_list_inner %}
