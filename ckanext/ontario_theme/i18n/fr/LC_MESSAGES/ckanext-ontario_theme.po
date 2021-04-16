@@ -2651,6 +2651,10 @@ msgstr "Cet enregistrement décrit un algorithme ou actif d’intelligence artif
 msgid "Agorithm/AI"
 msgstr "Algorithme/IA"
 
+#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:10
+msgid "ON Geohub"
+msgstr "CarrefourGéo ON"
+
 #: ckanext/ontario_theme/templates/package/resource_read.html:25
 msgid "Open"
 msgstr "Ouvert"
