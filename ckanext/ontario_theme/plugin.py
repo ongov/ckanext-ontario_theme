@@ -161,6 +161,7 @@ def resource_display_name(resource_dict):
     # TODO: (?) support resource objects as well
     name = helpers.get_translated(resource_dict, 'name')
     description = helpers.get_translated(resource_dict, 'description')
+    resource_type = helpers.get_translated(resource_dict, 'type')
     if name:
         return name
     elif description:
@@ -169,8 +170,10 @@ def resource_display_name(resource_dict):
         if len(description) > max_len:
             description = description[:max_len] + '...'
         return description
+    elif resource_type:
+        return resource_type.replace('_',' ').capitalize()
     else:
-        return helpers._("Data")
+        return helpers._("Supporting file")
 
 ckan.lib.helpers.resource_display_name = resource_display_name
 
