@@ -301,6 +301,87 @@
     "domain_data": false,
     "domain_software": false,
     "family": "",
+    "id": "ogde",
+    "is_generic": true,
+    "maintainer": "",
+    "od_conformance": "not reviewed",
+    "osd_conformance": "not reviewed",
+    "status": "active",
+    "title": "Ontario Geospatial Data Exchange",
+    "title_translated" : {
+        "en": "Ontario Geospatial Data Exchange",
+        "fr": "Ontario Geospatial Data Exchange"
+    },
+    "url": "https://www.sdc.gov.on.ca/sites/MNRF-PublicDocs/EN/CMID/LIO-OGDE-MembershipForm.pdf",
+    "url_translated": {
+        "en": "https://www.sdc.gov.on.ca/sites/MNRF-PublicDocs/EN/CMID/LIO-OGDE-MembershipForm.pdf",
+        "fr": "https://www.sdc.gov.on.ca/sites/MNRF-PublicDocs/EN/CMID/LIO-OGDE-MembershipForm.pdf"
+    },
+    "description": "An Organization which is eligible for OGDE membership and wishes to become an OGDE member must complete and sign the OGDE Membership Application Form and submit it to the Ontario Ministry of Natural Resources and Forestry (OMNRF) for acceptance. By completing and signing that Form and submitting it to OMNRF, the Organization (“Member”) applies for OGDE membership and accepts and agrees to be bound by and comply with these OGDE Membership Terms and Conditions, as amended from time to time, referred to in the Membership Application Form if its application is accepted.",
+    "description_translated" : {
+        "en": "An Organization which is eligible for OGDE membership and wishes to become an OGDE member must complete and sign the OGDE Membership Application Form and submit it to the Ontario Ministry of Natural Resources and Forestry (OMNRF) for acceptance. By completing and signing that Form and submitting it to OMNRF, the Organization (“Member”) applies for OGDE membership and accepts and agrees to be bound by and comply with these OGDE Membership Terms and Conditions, as amended from time to time, referred to in the Membership Application Form if its application is accepted.",
+        "fr": "An Organization which is eligible for OGDE membership and wishes to become an OGDE member must complete and sign the OGDE Membership Application Form and submit it to the Ontario Ministry of Natural Resources and Forestry (OMNRF) for acceptance. By completing and signing that Form and submitting it to OMNRF, the Organization (“Member”) applies for OGDE membership and accepts and agrees to be bound by and comply with these OGDE Membership Terms and Conditions, as amended from time to time, referred to in the Membership Application Form if its application is accepted."
+    }
+  },
+  {
+    "domain_content": false,
+    "domain_data": false,
+    "domain_software": false,
+    "family": "",
+    "id": "rul",
+    "is_generic": true,
+    "maintainer": "",
+    "od_conformance": "not reviewed",
+    "osd_conformance": "not reviewed",
+    "status": "active",
+    "title": "Ontario Ministry of Natural Resources and Forestry Electronic Intellectual Property End-User Licence Agreement",
+    "title_translated" : {
+        "en": "Ontario Ministry of Natural Resources and Forestry Electronic Intellectual Property End-User Licence Agreement",
+        "fr": "Ontario Ministry of Natural Resources and Forestry Electronic Intellectual Property End-User Licence Agreement"
+    },
+    "url": "https://www.sdc.gov.on.ca/sites/MNRF-PublicDocs/EN/CMID/ElectronicIntellectualPropertyLicence.pdf",
+    "url_translated": {
+        "en": "https://www.sdc.gov.on.ca/sites/MNRF-PublicDocs/EN/CMID/ElectronicIntellectualPropertyLicence.pdf",
+        "fr": "https://www.sdc.gov.on.ca/sites/MNRF-PublicDocs/EN/CMID/ElectronicIntellectualPropertyLicence.pdf"
+    },
+    "description": "The Licensor grants to the Licensee a non-transferable, non-exclusive, limited-use licence for the EIP. TheLicensee may use and make copies of the EIP for its professional or non-commercial end-use only. The Licensee is required to display the following text on all reproductions of the EIP: Produced by (insert Licensee’s name here) under Licence with the Ontario Ministry of Natural Resources and Forestry© Queen’s Printer for Ontario, 20** (** insert year of publication of EIP).",
+    "description_translated" : {
+        "en": "The Licensor grants to the Licensee a non-transferable, non-exclusive, limited-use licence for the EIP. TheLicensee may use and make copies of the EIP for its professional or non-commercial end-use only. The Licensee is required to display the following text on all reproductions of the EIP: Produced by (insert Licensee’s name here) under Licence with the Ontario Ministry of Natural Resources and Forestry© Queen’s Printer for Ontario, 20** (** insert year of publication of EIP).",
+        "fr": "The Licensor grants to the Licensee a non-transferable, non-exclusive, limited-use licence for the EIP. TheLicensee may use and make copies of the EIP for its professional or non-commercial end-use only. The Licensee is required to display the following text on all reproductions of the EIP: Produced by (insert Licensee’s name here) under Licence with the Ontario Ministry of Natural Resources and Forestry© Queen’s Printer for Ontario, 20** (** insert year of publication of EIP)."
+    }
+  },
+  {
+    "domain_content": false,
+    "domain_data": false,
+    "domain_software": false,
+    "family": "",
+    "id": "nhic",
+    "is_generic": true,
+    "maintainer": "",
+    "od_conformance": "not reviewed",
+    "osd_conformance": "not reviewed",
+    "status": "active",
+    "title": "The Natural Heritage Information Centre",
+    "title_translated" : {
+        "en": "The Natural Heritage Information Centre",
+        "fr": "The Natural Heritage Information Centre"
+    },
+    "url": "https://www.ontario.ca/page/get-natural-heritage-information",
+    "url_translated": {
+        "en": "https://www.ontario.ca/page/get-natural-heritage-information",
+        "fr": "https://www.ontario.ca/page/get-natural-heritage-information"
+    },
+    "description": "To access sensitive or detailed data on biodiversity, you will need a Sensitive Data Use Licence. To get a licence, you must:\n - demonstrate a legitimate need to know \n - complete data sensitivity training \n\n Email the Natural Heritage Information Centre or phone us at 705-755-2159 to inquire about a Sensitive Data Use Licence.",
+    "description_translated" : {
+        "en": "To access sensitive or detailed data on biodiversity, you will need a Sensitive Data Use Licence. To get a licence, you must:\n - demonstrate a legitimate need to know \n - complete data sensitivity training \n\n Email the Natural Heritage Information Centre or phone us at 705-755-2159 to inquire about a Sensitive Data Use Licence.",
+        "fr": "Pour pouvoir consulter des données sensibles ou détaillées en matière de biodiversité, vous devrez vous procurer une convention de droits d’utilisation de données sensibles. Pour l'obtenir, vous devez :\n - démontrer que vous avez un besoin légitime d'avoir accès à ces données \n - suivre la formation sur la sensibilité des données \n\n Veuillez envoyer un courriel au Centre d'information sur le patrimoine naturel ou communiquer avec nous par téléphone au numéro 705 755-2159 pour demander une convention de droits d'utilisation de données sensibles."
+    }
+  },
+  {
+    "domain_content": false,
+    "domain_data": false,
+    "domain_software": false,
+    "family": "",
     "id": "apache-license-2.0",
     "is_generic": true,
     "maintainer": "",

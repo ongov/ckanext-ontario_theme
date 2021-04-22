@@ -696,6 +696,13 @@
           }
         },
         {
+          "value": "metadata",
+          "label": {
+            "en": "metadata",
+            "fr": "Métadonnées"
+          }
+        },
+        {
           "value": "information",
           "label": {
             "en": "Information",
