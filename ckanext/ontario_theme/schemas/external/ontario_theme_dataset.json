@@ -571,13 +571,6 @@
           }
         },
         {
-          "value": "none",
-          "label": {
-            "en": "None",
-            "fr": "Aucun"
-          }
-        },
-        {
           "value": "privacy",
           "label": {
             "en": "Privacy",
