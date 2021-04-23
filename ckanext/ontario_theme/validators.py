@@ -41,6 +41,15 @@ def tag_name_validator(value, context):
                         u'characters or symbols: ’\'-_.') % (value))
     return value
 
+def exemption_validator(key, data, errors, context):
+    '''
+        If access level is restricted then an exemption must be selected
+    '''
+
+    if data[('access_level'),] == 'restricted' and data[key] == '':
+        raise Invalid('Exemption must be specified if access is Restricted')
+
+
 @scheming_validator
 def ontario_theme_copy_fluent_keywords_to_tags(field, schema):
     def validator(key, data, errors, context):

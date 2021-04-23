@@ -597,7 +597,7 @@
       },
       "classes": ["form-group","col-md-12", "lock_if_odc"],
       "preset": "select",
-      "validators": "ignore_missing default(none) scheming_choices lock_if_odc",
+      "validators": "ignore_missing ontario_exemption_validator scheming_choices lock_if_odc",
       "choices": [
         {
           "value": "commercial_sensitivity",
@@ -618,6 +618,13 @@
           "label": {
             "en": "Legal and contractual obligations",
             "fr": "Obligations juridiques et contractuelles"
+          }
+        },
+        {
+          "value": "other",
+          "label": {
+            "en": "Other",
+            "fr": "Autre"
           }
         },
         {
