@@ -40,6 +40,31 @@
           "classes": ["form-group","col-md-12"]
         },
         {
+          "field_name": "og_lead_name",
+          "label": {
+            "en": "OG Lead",
+            "fr": "Contact de l'OG"
+          },
+          "classes": ["form-group","col-md-12"]
+        },
+        {
+          "field_name": "og_lead_email",
+          "label": {
+            "en": "OG Lead Email",
+            "fr": "Email du OG Lead"
+          },
+          "help_inline" : true,
+          "help_text": {
+            "en": "Contact information of Open Government Lead"
+          },
+          "form_placeholder": "e.g., joe@example.com",
+          "display_property": "dc:contributor",
+          "display_snippet": "email.html",
+          "display_email_name_field": "og_lead",
+          "validators": "email_validator",
+          "classes": ["col-md-12","form-group"]
+        },
+        {
           "field_name": "jurisdiction",
           "label": {
             "en": "Jurisdiction",

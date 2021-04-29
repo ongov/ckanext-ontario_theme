@@ -17,11 +17,14 @@
       {{ h.render_markdown(h.scheming_language_text(pkg['notes_translated'])) }}
     </div>
   {% endif %}
+
   <h3>{% trans %}For more information{% endtrans %} </h3>
+  {# maintainer email > Org Contact page > Ontario Open data team #}
   {% set contact_name = h.get_translated(pkg, 'maintainer') %}
   {% set contact_email = pkg.maintainer_email %}
+  {% set organization = h.get_organization(pkg['owner_org']) %}
+  
   {% if (not contact_name) and (not contact_email) %}
-    {% set organization = h.get_organization(pkg['owner_org']) %}
     {% set contact_page = h.scheming_language_text(organization['org_contact']) %}
     {% if (not contact_page) %}
       {% set contact_name = _("Ontario's Open Data Team") %}
