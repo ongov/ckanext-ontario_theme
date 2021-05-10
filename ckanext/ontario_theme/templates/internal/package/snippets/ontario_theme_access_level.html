@@ -1,51 +1,46 @@
-{% if h.scheming_field_by_name(schema.dataset_fields, 'access_level') and
-    pkg.access_level %}
-    <hr />
-    <strong>{{ _("Status") }}: </strong>
-    <span class="label {{ pkg['access_level'] }}">
-  {{ h.scheming_choices_label(h.scheming_field_choices(h.scheming_field_by_name(schema.dataset_fields, 'access_level')), pkg['access_level']) }}
-    </span>
-    {% if pkg['access_level'] == 'open' %}
-      {% trans %}
-        <p>
-          Data in this record is open and is published in the language in which it’s collected. Please
-          <a href="https://www.ontario.ca/feedback/contact-us?id=14655&amp;nid=8691">
-            contact us
-          </a>
-          to obtain assistance in either official language.  
-        </p>      
-      {% endtrans %}
+{#
+  Custom snippet to display if any resources exist for the package
+#}
+
+{% if pkg['harvester'] == "ontario-data-catalogue" %}
+  <div class="new-alert alert-info alert-large alert-clear">
+    <strong>Ontario Data Catalogue Record</strong>
       <p>
-        {% trans %}Data in this record was opened{% endtrans %} {{ h.scheming_language_text(pkg['opened_date']) }}.
-      </p>      
-    {% elif pkg['access_level'] == 'restricted' %}     
-      {% trans %}
+        The information here is from the Ontario Data Catalogue
+        <a href="https://data.ontario.ca/dataset/{{pkg.id}}">[The record on the Ontario Data Catalogue can be found here]</a>
+      </p>
+      {% if pkg['access_level'] == 'open' %}
         <p>
-          Data in this record cannot be released because of legal, privacy, security, confidentiality or commercially-sensitive reasons, as outlined by the <a href="https://www.ontario.ca/page/ontarios-open-data-directive">Open Data Directive</a>. 
+          This dataset is available to the public.
         </p>
-      {% endtrans %}          
+      {% elif pkg['access_level'] == 'restricted' %} 
         <p>
-          <strong>{{ h.scheming_language_text(h.scheming_field_by_name(schema.dataset_fields,"exemption").label) }}:</strong> 
-          {{ h.scheming_choices_label(h.scheming_field_choices(h.scheming_field_by_name(schema.dataset_fields,"exemption")),pkg['exemption']) }}
+          This dataset is not open to the public. It has been determined to be restricted as it has an exemption.
         </p>
         <p>
-          <strong>{{ h.scheming_language_text(h.scheming_field_by_name(schema.dataset_fields,"exemption_rationale").label) }}:</strong> 
-          {{ h.scheming_language_text(pkg['exemption_rationale']) }}
+          The rationale is: {{ h.scheming_choices_label(h.scheming_field_choices(h.scheming_field_by_name(schema.dataset_fields,"exemption")),pkg['exemption']) }} 
+          - {{ h.scheming_language_text(pkg['exemption_rationale']) }}
         </p>
-    {% elif pkg['access_level'] == 'under_review' %}     
-      {% trans %}
+      {% elif pkg['access_level'] == 'under_review' %}
         <p>
-          We are reviewing the data in this record to determine if it can be made open, in support of the
-          <a href="http://www.ontario.ca/page/ontarios-open-data-directive">Open Data Directive</a>.
+          This dataset is not open to the public. It is currently under review to determine whether it can be made open to the public
         </p>
-      {% endtrans %}
-    {% elif pkg['access_level'] == 'to_be_opened' %}     
-      {% trans %}
-        <p>
-          Data in this record has been reviewed and will be made open in the future, in support of the
-          <a href="http://www.ontario.ca/page/ontarios-open-data-directive">Open Data Directive</a>.
-        </p>
-      {% endtrans %}
-    {% endif %}
-  <hr />
+      {% endif %}
+  </div>
+{% endif %}
+
+{% if resources | selectattr("type","equalto","data") | list | length > 0 %}
+  <div class="new-alert alert-open alert-large alert-clear">
+    <strong>Data Available</strong>
+      <p>
+          This dataset is currently available to the OPS.
+      </p>
+  </div>
+{% else %}
+  <div class="new-alert alert-danger alert-large alert-clear">
+    <strong>Data Not Available</strong>
+      <p>
+          This dataset is currently not available to the OPS.
+      </p>
+  </div>
 {% endif %}

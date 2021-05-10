@@ -498,6 +498,8 @@ div.card p {
 }
 .label[data-format=text],
 .label[data-format*=text],
+.label[data-format=txt],
+.label[data-format*=txt],
 .label[data-format=doc],
 .label[data-format*=doc] {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(116, 203, 236, 0.8)), #74cbec;
@@ -1121,6 +1123,21 @@ section.additional-info table.table tbody tr td.dataset-details {
   .wrapper:before {
     border-right: none;
   }
+}
+/* =====================================================
+   Create styles for readonly textarea
+   ===================================================== */
+textarea[readonly] {
+  background: #eee;
+  border-color: #ccc;
+  color: #999;
+}
+textarea[readonly]:focus {
+  outline: none;
+}
+textarea[readonly]::placeholder {
+  opacity: 1;
+  color: #999;
 }
 /* =====================================================
    The "account masthead" bar across the top of the site
