@@ -83,6 +83,7 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points='''
         [ckan.plugins]
+        ontario_data_catalogue_harvester=ckanext.ontario_theme.harvesters:OntarioDataCatalogueHarvester
         ontario_theme_external=ckanext.ontario_theme.plugin:OntarioThemeExternalPlugin
         ontario_theme=ckanext.ontario_theme.plugin:OntarioThemePlugin
 
