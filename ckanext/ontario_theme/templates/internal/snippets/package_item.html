@@ -17,7 +17,7 @@
     {% block heading_title %}
       {{ h.link_to(h.truncate(h.get_translated(package, 'title'), truncate_title), h.url_for(package.type + '_read', controller='package', action='read', id=package.name)) }}
       {% if package.get("asset_type") == "algorithm" %}
-        <div class="label label-info right">{% trans %}Agorithm/AI{% endtrans %}</div>
+        <div class="label label-info right">{% trans %}Algorithm/AI{% endtrans %}</div>
       {% endif %}
     {% endblock %}
 
