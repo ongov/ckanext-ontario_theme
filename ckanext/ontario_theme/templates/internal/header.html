@@ -126,7 +126,7 @@
         <form class="section site-search simple-input" action="{% url_for controller='package', action='search' %}" method="get">
           <div class="field">
             <label for="field-sitewide-search">{% block header_site_search_label %}{{ _('Search Datasets') }}{% endblock %}</label>
-            <input id="field-sitewide-search" type="text" class="form-control" name="q" placeholder="{{ _('Search') }}" />
+            <input id="field-sitewide-search" type="text" class="form-control" name="q" placeholder="{{ _("Search Ontario's Data") | truncate(26) }}" />
             <button class="btn-search" type="submit" aria-label="{{ _('Submit Search') }}"><i class="fa fa-search" aria-hidden="true"></i><span class="sr-only">{{ _('Submit Search') }}</span></button>
           </div>
         </form>
