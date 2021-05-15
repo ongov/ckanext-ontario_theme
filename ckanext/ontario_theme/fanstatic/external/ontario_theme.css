@@ -3,9 +3,9 @@
 }
 .new-alert {
   border-color: rgba(0, 0, 0, 0.1);
-  border-width: 0 0 0 .9375rem;
+  border-width: 0 0 0 0.9375rem;
   border-style: solid;
-  padding: .9375rem 2rem .9375rem .9375rem;
+  padding: 0.9375rem 2rem 0.9375rem 0.9375rem;
   color: #333;
   border-radius: 0px;
   min-height: 50px;
@@ -109,7 +109,7 @@
 .new-alert.alert-contact {
   background: #E2F0F4;
   border-color: #1080A6;
-  padding: .9375rem 2rem .9375rem .9375rem;
+  padding: 0.9375rem 2rem 0.9375rem 0.9375rem;
 }
 .new-alert.alert-clear {
   margin-bottom: 30px;
@@ -118,10 +118,10 @@
    Generic classes for Colby colours
    ===================================================== */
 .primary-bg {
-  background-color: #00b2e3;
+  background-color: #00B2E3;
 }
 .secondary-bg {
-  background-color: #fcaf17;
+  background-color: #FCAF17;
 }
 .recent-activity .module-content {
   padding: 0px;
@@ -145,7 +145,7 @@
 .simple-input button span,
 a.skip-main {
   background-color: #ffffff;
-  color: #1a1a1a;
+  color: #1A1A1A;
 }
 a.skip-main:focus,
 a.skip-main:active {
@@ -182,7 +182,7 @@ a.skip-main:active {
   color: #fff;
 }
 .btn-secondary {
-  color: #1a1a1a;
+  color: #1A1A1A;
 }
 .btn-secondary:focus,
 .btn-secondary.focus,
@@ -191,26 +191,26 @@ a.skip-main:active {
 .btn-secondary:hover,
 .btn-secondary:active,
 .btn-secondary.active {
-  color: #1a1a1a;
+  color: #1A1A1A;
 }
 .btn-primary {
-  background-color: #1080a6;
+  background-color: #1080A6;
   border-color: #094a60;
 }
 .btn-primary:hover {
   background-color: #094a60;
-  border-color: #00b2e3;
+  border-color: #00B2E3;
 }
 .btn-primary:focus,
 .btn-primary.focus {
-  background-color: #1080a6;
-  border-color: #00b2e3;
+  background-color: #1080A6;
+  border-color: #00B2E3;
 }
 .btn-primary:active,
 .btn-primary.active,
 .btn-primary .open > .dropdown-toggle.btn-primary {
   background-color: #094a60;
-  border-color: #00b2e3;
+  border-color: #00B2E3;
   background-image: none;
 }
 .btn-primary:active:hover,
@@ -223,7 +223,7 @@ a.skip-main:active {
 .btn-primary.active.focus,
 .btn-primary .open > .dropdown-toggle.btn-primary.focus {
   background-color: #094a60;
-  border-color: #00b2e3;
+  border-color: #00B2E3;
 }
 .btn-primary.disabled:hover,
 .btn-primary[disabled]:hover,
@@ -234,30 +234,30 @@ a.skip-main:active {
 .btn-primary.disabled.focus,
 .btn-primary[disabled].focus,
 .btn-primary fieldset[disabled] .btn-primary.focus {
-  background-color: #00b2e3;
+  background-color: #00B2E3;
   border-color: #094a60;
 }
 .btn-primary.badge {
-  color: #1080a6;
+  color: #1080A6;
   background-color: #ffffff;
 }
 .btn-secondary {
-  background-color: #fcaf17;
-  border-color: #8a600d;
+  background-color: #FCAF17;
+  border-color: #8A600D;
 }
 .btn-secondary:hover {
-  background-color: #8a600d;
+  background-color: #8A600D;
   border-color: #442f06;
 }
 .btn-secondary:focus,
 .btn-secondary.focus {
-  background-color: #8a600d;
+  background-color: #8A600D;
   border-color: #442f06;
 }
 .btn-secondary:active,
 .btn-secondary.active,
 .btn-secondary .open > .dropdown-toggle.btn-secondary {
-  background-color: #8a600d;
+  background-color: #8A600D;
   border-color: #442f06;
   background-image: none;
 }
@@ -270,7 +270,7 @@ a.skip-main:active {
 .btn-secondary:active.focus,
 .btn-secondary.active.focus,
 .btn-secondary .open > .dropdown-toggle.btn-secondary.focus {
-  background-color: #8a600d;
+  background-color: #8A600D;
   border-color: #442f06;
 }
 .btn-secondary.disabled:hover,
@@ -282,21 +282,21 @@ a.skip-main:active {
 .btn-secondary.disabled.focus,
 .btn-secondary[disabled].focus,
 .btn-secondary fieldset[disabled] .btn-secondary.focus {
-  background-color: #fcaf17;
-  border-color: #8a600d;
+  background-color: #FCAF17;
+  border-color: #8A600D;
 }
 .btn-secondary.badge {
-  color: #fcaf17;
+  color: #FCAF17;
   background-color: #ffffff;
 }
 .btn-grey {
   color: #fff;
-  background-color: #666666;
-  border-color: #444444;
+  background-color: #666;
+  border-color: #444;
 }
 .btn-grey:hover {
-  background-color: #444444;
-  border-color: #222222;
+  background-color: #444;
+  border-color: #222;
 }
 .btn-grey:hover,
 .btn-grey:visited {
@@ -304,14 +304,14 @@ a.skip-main:active {
 }
 .btn-grey:focus,
 .btn-grey.focus {
-  background-color: #444444;
-  border-color: #222222;
+  background-color: #444;
+  border-color: #222;
 }
 .btn-grey:active,
 .btn-grey.active,
 .btn-grey .open > .dropdown-toggle.btn-grey {
-  background-color: #444444;
-  border-color: #222222;
+  background-color: #444;
+  border-color: #222;
   background-image: none;
 }
 .btn-grey:active:hover,
@@ -323,8 +323,8 @@ a.skip-main:active {
 .btn-grey:active.focus,
 .btn-grey.active.focus,
 .btn-grey .open > .dropdown-toggle.btn-grey.focus {
-  background-color: #444444;
-  border-color: #222222;
+  background-color: #444;
+  border-color: #222;
 }
 .btn-grey.disabled:hover,
 .btn-grey[disabled]:hover,
@@ -335,11 +335,11 @@ a.skip-main:active {
 .btn-grey.disabled.focus,
 .btn-grey[disabled].focus,
 .btn-grey fieldset[disabled] .btn-grey.focus {
-  background-color: #666666;
-  border-color: #444444;
+  background-color: #666;
+  border-color: #444;
 }
 .btn-grey.badge {
-  color: #666666;
+  color: #666;
   background-color: #ffffff;
 }
 @font-face {
@@ -347,9 +347,8 @@ a.skip-main:active {
   font-style: normal;
   font-weight: 400;
   src: url(/fonts/material/MaterialIcons-Regular.eot);
-  src: local('Material Icons'), local('MaterialIcons-Regular'), url(/fonts/material/MaterialIcons-Regular.woff2) format('woff2'), url(/fonts/material/MaterialIcons-Regular.woff) format('woff'), url(/fonts/material/MaterialIcons-Regular.ttf) format('truetype');
-  
   /* For IE6-8 */
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url(/fonts/material/MaterialIcons-Regular.woff2) format('woff2'), url(/fonts/material/MaterialIcons-Regular.woff) format('woff'), url(/fonts/material/MaterialIcons-Regular.ttf) format('truetype');
 }
 .material-icons {
   font-family: 'Material Icons';
@@ -378,7 +377,7 @@ a.skip-main:active {
   white-space: normal;
 }
 a.card div {
-  background-color: #cccccc;
+  background-color: #CCCCCC;
   transition: 1s;
   transition: box-shadow 135ms cubic-bezier(0.4, 0, 0.2, 1), width 235ms cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 2px 4px #666;
@@ -465,7 +464,7 @@ div.card p {
   margin: 0 10px 0 0;
 }
 .module.search .tags a.tag {
-  background-color: #00b2e3;
+  background-color: #00B2E3;
   color: #fff;
   font-weight: bold;
   border: none;
@@ -506,7 +505,7 @@ div.card p {
 }
 .label[data-format=csv],
 .label[data-format*=csv] {
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(133, 106, 0, 0.8)), #856a00;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(133, 106, 0, 0.8)), #856A00;
 }
 .label[data-format=xls],
 .label[data-format*=xls] {
@@ -584,7 +583,7 @@ div.card p {
   background-color: #E2F0F4;
 }
 .label-default {
-  background-color: #fcaf17;
+  background-color: #FCAF17;
   color: #fff;
 }
 .stats .number {
@@ -604,7 +603,7 @@ div.card p {
   font-family: Raleway, Open Sans, sans-serif;
   border-radius: 50%;
   color: white;
-  background-color: #1080a6;
+  background-color: #1080A6;
   display: inline-block;
   font-weight: 700;
   margin-bottom: 0.5rem;
@@ -618,8 +617,8 @@ div.card p {
   line-height: 1.7;
   font-size: 2rem;
   text-align: center;
-  color: #1a1a1a;
-  background: #fcaf17;
+  color: #1A1A1A;
+  background: #FCAF17;
 }
 .c-small-text {
   padding-top: 0.5rem;
@@ -634,7 +633,7 @@ div#topics {
   margin-bottom: 20px;
 }
 div#topics a {
-  color: #1a1a1a;
+  color: #1A1A1A;
 }
 div#topics div {
   text-align: center;
@@ -643,10 +642,10 @@ div#topics div {
 }
 div#topics div i {
   font-size: 64px;
-  color: #1080a6;
+  color: #1080A6;
 }
 div#topics div i:hover {
-  color: #00b2e3;
+  color: #00B2E3;
 }
 div#topics div.row {
   margin-bottom: 20px;
@@ -724,7 +723,7 @@ h6 {
 }
 a,
 .dataset-heading a {
-  color: #0066cc;
+  color: #06c;
 }
 a:hover,
 a:focus {
@@ -841,7 +840,7 @@ div.add-dataset {
   height: 40px;
   width: 40px;
   position: absolute;
-  padding: 1em .2em;
+  padding: 1em 0.2em;
   font-size: 90%;
 }
 li.resource-item .btn-group.download {
@@ -856,7 +855,7 @@ li.resource-item div.btn-wrapper {
 .hero {
   min-height: 400px;
   line-height: 400px;
-  background-color: #1080a6;
+  background-color: #1080A6;
   background-image: url(/images/co-homepage-supergraphic.svg);
   background-position-x: 49vw;
   background-position-y: top;
@@ -883,16 +882,16 @@ li.resource-item div.btn-wrapper {
   line-height: 1rem;
 }
 .hero .hero-container .welcome span.greeting {
-  background: #1080a6;
+  background: #1080A6;
   font-size: 4.5rem;
-  letter-spacing: .04rem;
+  letter-spacing: 0.04rem;
   line-height: 1.29;
   font-weight: bold;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 .hero .hero-container .welcome p {
-  background: #1080a6;
+  background: #1080A6;
   font-size: 2.375rem;
   line-height: 1.4;
 }
@@ -978,8 +977,8 @@ li.resource-item div.btn-wrapper {
 }
 .wrapper header.page-header ul.nav.nav-tabs li.active a {
   border: none;
-  border-bottom: solid 2px #1080a6;
-  color: #1080a6;
+  border-bottom: solid 2px #1080A6;
+  color: #1080A6;
 }
 .module-heading {
   border-top: none;
@@ -1005,7 +1004,7 @@ li.resource-item div.btn-wrapper {
   box-shadow: none;
 }
 .well a.tag {
-  background-color: #1080a6;
+  background-color: #1080A6;
   color: #fff;
   font-weight: bold;
   border: none;
@@ -1064,7 +1063,7 @@ section.additional-info table.table tbody tr td.dataset-details {
   border: none;
 }
 .banner-section {
-  background: #1080a6;
+  background: #1080A6;
   width: 100%;
 }
 .banner-section a {
@@ -1091,7 +1090,7 @@ section.additional-info table.table tbody tr td.dataset-details {
   text-align: right;
 }
 .simple-input .field .btn-search {
-  color: #1a1a1a;
+  color: #1A1A1A;
 }
 .empty {
   color: #666666;
@@ -1114,7 +1113,7 @@ section.additional-info table.table tbody tr td.dataset-details {
 }
 .nav-item.active > a,
 .nav-aside li.active a {
-  background-color: #1080a6;
+  background-color: #1080A6;
 }
 /* =====================================================
    Sub page left panel border removal
@@ -1123,6 +1122,33 @@ section.additional-info table.table tbody tr td.dataset-details {
   .wrapper:before {
     border-right: none;
   }
+}
+/* =====================================================
+   Create styles for readonly textarea
+   ===================================================== */
+textarea[readonly] {
+  background: #eee;
+  border-color: #ccc;
+  color: #999;
+}
+textarea[readonly]:focus {
+  outline: none;
+}
+textarea[readonly]::placeholder {
+  opacity: 1;
+  color: #999;
+}
+.badge-harvest {
+  color: #fff;
+  border: solid 1px;
+}
+.badge-harvest[data-harvest*=ontario-data-catalogue] {
+  background-color: #1080A6;
+  border-color: #1080a69d;
+}
+.badge-harvest[data-harvest*=ontario-geohub] {
+  background-color: #774503;
+  border-color: #774503dc;
 }
 /* =====================================================
    The "account masthead" bar across the top of the site
@@ -1159,7 +1185,7 @@ section.additional-info table.table tbody tr td.dataset-details {
    The main masthead bar that contains the site logo, nav links, and search
    ======================================================================== */
 .masthead {
-  background-color: #1080a6;
+  background-color: #1080A6;
 }
 .masthead a,
 .masthead a:focus,
@@ -1210,7 +1236,7 @@ section.additional-info table.table tbody tr td.dataset-details {
   top: 1px;
 }
 .toolbar .breadcrumb a {
-  color: #8a600d;
+  color: #8A600D;
   font-size: 15px;
 }
 .logo img {
