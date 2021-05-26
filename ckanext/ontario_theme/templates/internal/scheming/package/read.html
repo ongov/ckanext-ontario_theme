@@ -62,6 +62,7 @@
       </a>
     {% endif %}
     {% if od_email %}
+      <p>{% trans %}Contact the ministry open data lead:{% endtrans %} </p>
       <a href="mailto:{{contact_email}}?subject={{pkg.title}}">
         {% for email in od_email %}
           <p>{{email}}</p>
