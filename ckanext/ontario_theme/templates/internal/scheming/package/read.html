@@ -32,11 +32,11 @@
   {% set organization = h.get_organization(pkg['owner_org']) %}
 
   {% if (not contact_name) and (not contact_email) %}
-    {% set contact_name = h.scheming_language_text(organization['og_lead_name']) %}
-    {% set contact_email = h.scheming_language_text(organization['og_lead_email']) %}
+    {% set od_email = [h.scheming_language_text(organization['od_lead_email_1']),h.scheming_language_text(organization['od_lead_email_2']),h.scheming_language_text(organization['od_lead_email_3'])] %}
+    {% set len_od_email = h.scheming_language_text(organization['od_lead_email_1'])|length + h.scheming_language_text(organization['od_lead_email_2'])|length + h.scheming_language_text(organization['od_lead_email_3'])|length %}
   {% endif %}
   
-  {% if (not contact_name) and (not contact_email) %}
+  {% if (not contact_name) and (not contact_email) and (len_od_email == 0) %}
     {% set contact_page = h.scheming_language_text(organization['org_contact']) %}
     {% if (not contact_page) %}
       {% set contact_name = _("Ontario's Open Data Team") %}
@@ -52,14 +52,21 @@
       &nbsp;|&nbsp;
     {% endif %}
     {% if contact_page %}
-    <a href="{{contact_page}}">
-      {% trans %}Contact{% endtrans %} {{ h.get_translated(organization, 'title') }}
-    </a>
+      <a href="{{contact_page}}">
+        {% trans %}Contact{% endtrans %} {{ h.get_translated(organization, 'title') }}
+      </a>
     {% endif %}
     {% if contact_email %}  
-    <a href="mailto:{{contact_email}}?subject={{pkg.title}}">
-      {{contact_email}}
-    </a>
+      <a href="mailto:{{contact_email}}?subject={{pkg.title}}">
+        {{contact_email}}
+      </a>
+    {% endif %}
+    {% if od_email %}
+      <a href="mailto:{{contact_email}}?subject={{pkg.title}}">
+        {% for email in od_email %}
+          <p>{{email}}</p>
+        {% endfor %}
+      </a>
     {% endif %}
 
   </div>

@@ -40,18 +40,44 @@
           "classes": ["form-group","col-md-12"]
         },
         {
-          "field_name": "od_lead_name",
+          "field_name": "od_lead_email_1",
           "label": {
-            "en": "Open Data Lead",
-            "fr": "Contact de le Donnée Ouvertes"
+            "en": "Open Data Lead Email 1",
+            "fr": "Email du Contact de le Donnée Ouvertes 1"
           },
-          "classes": ["form-group","col-md-12"]
+          "help_inline" : true,
+          "help_text": {
+            "en": "Contact information of Open Government Lead"
+          },
+          "form_placeholder": "e.g., joe@example.com",
+          "display_property": "dc:contributor",
+          "display_snippet": "email.html",
+          "display_email_name_field": "og_lead",
+          "validators": "email_validator",
+          "classes": ["col-md-12","form-group"]
         },
         {
-          "field_name": "od_lead_email",
+          "field_name": "od_lead_email_2",
           "label": {
-            "en": "Open Data Lead Email",
-            "fr": "Email du Contact de le Donnée Ouvertes"
+            "en": "Open Data Lead Email 2",
+            "fr": "Email du Contact de le Donnée Ouvertes 2"
+          },
+          "help_inline" : true,
+          "help_text": {
+            "en": "Contact information of Open Government Lead"
+          },
+          "form_placeholder": "e.g., joe@example.com",
+          "display_property": "dc:contributor",
+          "display_snippet": "email.html",
+          "display_email_name_field": "og_lead",
+          "validators": "email_validator",
+          "classes": ["col-md-12","form-group"]
+        },
+        {
+          "field_name": "od_lead_email_3",
+          "label": {
+            "en": "Open Data Lead Email 3",
+            "fr": "Email du Contact de le Donnée Ouvertes 3"
           },
           "help_inline" : true,
           "help_text": {
