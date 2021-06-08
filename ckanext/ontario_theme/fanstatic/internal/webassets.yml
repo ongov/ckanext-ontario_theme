@@ -1,0 +1,14 @@
+ 
+ontario_theme_css:
+  contents: ontario_theme.css
+  output: ontario_theme/%(version)s_ontario_theme.css
+
+msappproxy_js:
+  filters: rjsmin
+  contents: msappproxy.js
+  output: ontario_theme/%(version)s_msappproxy.js
+
+ontario_theme_lock_if_odc_js:
+  filters: rjsmin
+  contents: ontario_theme_lock_if_odc.js
+  output: ontario_theme/%(version)s_ontario_theme_lock_if_odc.js

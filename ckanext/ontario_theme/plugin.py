@@ -10,14 +10,12 @@ from ckan.logic.schema import validator_args
 from ckan.common import config, request, g, _
 from collections import OrderedDict
 import datetime
-from webhelpers.html import literal
 import ckan.authz as authz
 import ckan.lib.i18n as i18n
 
 from flask import Blueprint, make_response
 from flask import render_template, render_template_string
 
-import ckanapi_exporter.exporter as exporter
 import json
 import ckan.lib.helpers as helpers
 from ckan.lib.helpers import core_helper
@@ -25,12 +23,12 @@ from ckan.lib.helpers import core_helper
 from ckan.model import Package
 import ckan.model as model
 
-from ckanext.ontario_theme import controller
+#from ckanext.ontario_theme import controller
 
-from resource_upload import ResourceUpload
+from ckan.lib.uploader import ResourceUpload
 
 # For Image Uploader
-from ckan.controllers.home import CACHE_PARAMETERS
+#from ckan.controllers.home import CACHE_PARAMETERS
 import ckan.lib.navl.dictization_functions as dict_fns
 import ckan.logic as logic
 import os
@@ -92,7 +90,7 @@ def image_uploaded():
             dict_fns.unflatten(
                 logic.tuplize_dict(
                     logic.parse_params(req,
-                                       ignore_keys=CACHE_PARAMETERS))))
+                                       ignore_keys=''))))
 
         # Upload the image.
         upload = uploader.get_uploader('home')
@@ -183,121 +181,7 @@ def help():
     return render_template('home/help.html')
 
 
-# replace the core get_snippet_actor to anonymize the activity stream when user
-# is not logged in
 
-def get_snippet_actor(activity, detail):
-    user = authz.auth_is_loggedin_user()
-    if not user:
-        if i18n.get_lang() == 'fr':
-            return literal('''<span class="actor">%s</span>'''
-                % "L'équipe de données ouvertes de l'Ontario".decode('utf8')
-                )
-        else:
-            return literal('''<span class="actor">Ontario's Open Data Team \
-                </span>'''
-                )
-    else:
-        return literal('''<span class="actor">%s</span>'''
-            % (helpers.linked_user(activity['user_id'], 0, 30))
-            )
-
-ckan.lib.activity_streams.get_snippet_actor = get_snippet_actor
-ckan.lib.activity_streams.activity_snippet_functions['actor'] = get_snippet_actor
-
-
-def csv_dump():
-    '''The pattern allows you to go deeper into the nested structures.
-    `["^title_translated$", "en"]` grabs the english title_translated value.
-    It doesn't seem to handle returning a dict such as
-    `{'en': 'english', 'fr': 'french'}`.
-    Exporting resource metadata is limited. It combines resource values
-    into single comma seperated string.
-    deduplicate needed to be "true" not true.
-    '''
-    columns = OrderedDict([
-        ("Id", {
-            "pattern": "^id$"
-        }),
-        ("Name", {
-            "pattern": "^name$"
-        }),
-        ("Title EN", {
-            "pattern": ["^title_translated$", "^en$"]
-        }),
-        ("Notes EN", {
-            "pattern": ["^notes_translated$", "^en$"]
-        }),
-        ("Organization Title", {
-            "pattern": ["^organization$", "^title$"]
-        }),
-        ("Access Level", {
-            "pattern": "^access_level$"
-        }),
-        ("Type", {
-            "pattern": "^type$"
-        }),
-        ("Update Frequency", {
-            "pattern": "^update_frequency$"
-        }),
-        ("Metadata Created", {
-            "pattern": "^metadata_created$"
-        }),
-        ("Metadata Modified", {
-            "pattern": "^metadata_modified$"
-        }),
-        ("License Title", {
-            "pattern": "^license_title$"
-        }),
-        ("Keywords EN", {
-            "pattern": ["^keywords$", "^en$"]
-        }),
-        ("Package Date Opened", {
-            "pattern": "^opened_date$"
-        }),
-        ("Package Last Validated Date", {
-            "pattern": "^current_as_of$"
-        }),
-        ("Exemption", {
-            "pattern": "^exemption$"
-        }),
-        ("Exemption Rationale EN", {
-            "pattern": ["^exemption_rationale$", "^en$"]
-        }),
-        ("Geographic Coverage EN", {
-            "pattern": ["^geographic_coverage_translated$", "^en$"]
-        }),
-        ("Resources Format", {
-            "pattern": ["^resources$", "^format$"],
-            "deduplicate": "true"
-        }),
-        ("Num Resources", {
-            "pattern": "^num_resources$"
-        }),
-        ("Title FR", {
-            "pattern": ["^title_translated$", "^fr$"]
-        }),
-        ("Geographic Coverage FR", {
-            "pattern": ["^geographic_coverage_translated$", "^fr$"]
-        }),
-        ("Exemption Rationale FR", {
-            "pattern": ["^exemption_rationale$", "^fr$"]
-        }),
-        ("Keywords FR", {
-            "pattern": ["^keywords$", "^fr$"]
-        })
-    ])
-
-    site_url = config.get('ckan.site_url')
-    csv_string = exporter.export(site_url, columns)
-    timestamp = datetime.datetime.now().strftime('%Y-%m-%d')
-    csv_filename = 'ontario_data_catalogue_inventory_' + timestamp + '.csv'
-
-    resp = make_response(u'\uFEFF'.encode('utf-8') + csv_string, 200)
-    resp.headers['Content-Type'] = b'text/csv; charset=utf-8'
-    resp.headers['Content-disposition'] = \
-        (b'attachment; filename=%s' % csv_filename)
-    return resp
 
 def get_group(group_id):
     '''Helper to return the group.
@@ -662,8 +546,8 @@ type data_last_updated
         rules = [
             (u'/help', u'help', help),
             (u'/ckan-admin/image-uploader', u'image_uploader', image_uploader),
-            (u'/ckan-admin/image-uploaded', u'image_uploaded', image_uploaded),
-            (u'/dataset/inventory', u'inventory', csv_dump)
+            (u'/ckan-admin/image-uploaded', u'image_uploaded', image_uploaded)
+            #(u'/dataset/inventory', u'inventory', csv_dump)
         ]
         for rule in rules:
             blueprint.add_url_rule(*rule)
