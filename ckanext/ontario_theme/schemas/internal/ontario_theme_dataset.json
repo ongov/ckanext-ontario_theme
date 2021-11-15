@@ -90,6 +90,13 @@
             "en": "Algorithm",
             "fr": "Restreintes"
           }
+        },
+        {
+          "value": "software_application",
+          "label": {
+            "en": "Software Application",
+            "fr": "Application logicielle"
+          }
         }
       ]
     },
