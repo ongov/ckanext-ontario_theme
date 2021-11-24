@@ -34,10 +34,4 @@
       </tr>
     {%- endif -%}
   {%- endfor -%}
-  {% if h.check_access('package_update',{'id':pkg_dict.id}) %}
-    <tr>
-      <th scope="row" class="dataset-label">{{ _("State") }}</th>
-      <td class="dataset-details">{{ _(pkg_dict.state) }}</td>
-    </tr>
-  {% endif %}
 {% endblock %}

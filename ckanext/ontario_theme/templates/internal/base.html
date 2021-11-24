@@ -3,6 +3,8 @@
 {%- block links -%}
   {{ super() }}
   <script src="//www.webservices.gov.on.ca/metrics.js" type="text/javascript" charset="utf-8"></script>
+  {% resource 'ontario_theme/msappproxy.js' %}
+  {% snippet "gtm.html" %}  
 {% endblock %}
 
 {% block styles %}

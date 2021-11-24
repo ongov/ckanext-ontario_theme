@@ -6,18 +6,18 @@
   <h3>{{ _('Data') }}</h3>
   {% block resource_list %}
     {% snippet "package/snippets/ontario_theme_access_level.html",
-      pkg=pkg, dataset_type=dataset_type, schema=schema %}
+      pkg=pkg, dataset_type=dataset_type, schema=schema, resources=resources %}
 
     {% if resources %}
         {% block resource_list_inner %}
           {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
           {% for resource in resources %}
-            {% do resource.update({"data_range": resource.data_range_start|default("N/A") + " - " + resource.data_range_end|default("N/A")}) %}            
+            {% do resource.update({"data_range": h.ontario_theme_get_date_range(resource.data_range_start|default("N/A"),resource.data_range_end|default("N/A"))}) %}          
           {% endfor %}
           {% for group in resources|selectattr("type","equalto","data")|groupby("data_range")|sort(attribute="grouper", reverse=True) %}
 
             {% if group.list[0].data_range != "N/A - N/A" %}
-              <h4> {{ _("Covers") }} {{group.list[0].data_range}}</h4>
+              <h4>{{group.list[0].data_range}}</h4>
             {% else %}
               <h4 class="empty">{{ _("No date range") }}</h4>
             {% endif %}
@@ -44,12 +44,16 @@
           {% endfor %}
         {% endblock %}
       <h3>{{ _("Supporting Files") }}</h3>
-      <ul class="resource-list">
-          {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
-          {% for resource in resources|rejectattr("type","equalto","data") %}
-            {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=resource, can_edit=can_edit, schema=schema %}
-          {% endfor %}
-      </ul>
+      {% if resources | rejectattr("type","equalto","data") | list | length > 0 %}
+        <ul class="resource-list">
+            {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
+            {% for resource in resources|rejectattr("type","equalto","data") %}
+              {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=resource, can_edit=can_edit, schema=schema %}
+            {% endfor %}
+        </ul>
+      {% else %}
+        <p class="empty">{{ _('This dataset has no supporting files') }}</p>
+      {% endif %}
     {% else %}
       {% if h.check_access('resource_create', {'package_id': pkg['id']}) %}
         {% trans url=h.url_for(controller='package', action='new_resource', id=pkg.name) %}

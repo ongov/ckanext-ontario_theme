@@ -3,7 +3,7 @@ import re
 import datetime
 from ckan.model import Package
 from ckan.common import config
-
+import ckan.plugins.toolkit as toolkit
 
 def get_license(license_id):
     '''Helper to return license based on id.

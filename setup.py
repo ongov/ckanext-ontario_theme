@@ -84,6 +84,7 @@ setup(
     entry_points='''
         [ckan.plugins]
         ontario_geohub_harvester=ckanext.ontario_theme.harvesters:OntarioGeohubHarvester
+        ontario_data_catalogue_harvester=ckanext.ontario_theme.harvesters:OntarioDataCatalogueHarvester
         ontario_theme_external=ckanext.ontario_theme.plugin:OntarioThemeExternalPlugin
         ontario_theme=ckanext.ontario_theme.plugin:OntarioThemePlugin
         [babel.extractors]

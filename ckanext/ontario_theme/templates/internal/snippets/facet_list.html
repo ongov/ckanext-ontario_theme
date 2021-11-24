@@ -36,6 +36,7 @@
           {% do item.update({'display_name': h.scheming_choices_label(scheming_choices, item.display_name)}) if scheming_choices %}
           {% do item.update({'display_name': h.get_translated( h.ontario_theme_get_license(item.name), "title" )}) if name == "license_id" %}
           {% do item.update({'display_name': h.get_translated( h.get_organization(item.name), "title") or item.display_name}) if name == "organization" %}
+          {% do item.update({'display_name': h.get_translated( h.ontario_theme_get_group(item.name), "title") or item.display_name}) if name == "groups" %}
           {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
           {% set label = label_function(item) if label_function else item.display_name %}
           {% set label_truncated = h.truncate(label, 22) if not label_function else label %}

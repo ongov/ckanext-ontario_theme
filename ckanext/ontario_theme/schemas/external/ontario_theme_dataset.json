@@ -49,7 +49,7 @@
       "field_name": "asset_type",
       "label": {
         "en": "Asset Type",
-        "fr": "Statut des données"
+        "fr": "Types d'ensembles de données"
       },
       "required": true,
       "help_inline" : true,
@@ -489,7 +489,7 @@
       "field_name": "access_level",
       "label": {
         "en": "Access level",
-        "fr": "Statut des données"
+        "fr": "Niveau d’accès"
       },
       "required": true,
       "form_include_blank_choice": true,
@@ -651,15 +651,16 @@
       "classes": ["form-group","col-md-12"]
     },
     {
-      "field_name": "name",
+      "field_name": "name_translated",
       "label": {
         "en": "Name",
         "fr": "Nom"
       },
+      "preset": "fluent_core_translated",
       "form_placeholder": "e.g., January 2011 Gold Prices",
       "help_inline" : true,
       "help_text": {
-        "en": "Create a human-readable title that will help users understand what the file contains."
+        "en": "Create a human-readable title that will help users understand what the file contains. Leaving the field blank will default the resource name to 'Data'. Add a name if the data describes something different than other files in the same dataset (e.g., 'Stone fruit crops' vs 'Non-stone fruit crops'). Leave blank if information about the data is captured by other fields in this form."
       },
       "fieldset": 2,
       "fieldset_name": "Describe the file",
@@ -817,7 +818,7 @@
     {
       "field_name": "data_last_updated",
       "label": {
-        "en": "Data Last Updated",
+        "en": "Data last updated",
         "fr": "Dernière mise à jour des données"
       },
       "help_inline" : true,
