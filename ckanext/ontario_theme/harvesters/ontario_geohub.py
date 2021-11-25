@@ -263,7 +263,7 @@ class OntarioGeohubHarvester(HarvesterBase):
             if contact:
                 package_dict['maintainer_email'] = contact.strip()
                 if geohub_dict["contactPoint"]["fn"]:
-                    geohub_dict["contactPoint"]["fn"]
+                    package_dict['maintainer_translated']['en'] = geohub_dict["contactPoint"]["fn"]
                 elif package_dict['maintainer_email'].replace("@ontario.ca","").find(".") == -1:
                     package_dict['maintainer_translated']['en'] = package_dict['maintainer_email'].replace("@ontario.ca","").strip()
                 else:
