@@ -217,6 +217,8 @@ class OntarioGeohubHarvester(HarvesterBase):
             "groups": [{'name': 'ontario-geohub'}] # optional
         }
 
+        if package_dict["notes_translated"]["en"] == "" and get_backup_description_from_xml(english_xml):
+            package_dict["notes_translated"]["en"] = get_backup_description_from_xml(english_xml)
 
         # get license
         # license = get_license_from_xml(english_xml)
@@ -1007,6 +1009,15 @@ def get_license_from_xml(root):
         return license_text
     return False
 
+def get_backup_description_from_xml(root):
+    '''Returns the revise date (comparable to data_range_end) for that dataset.
+    '''
+    desc_path = root.xpath("//dataIdInfo/idPurp")
+    if desc_path:
+        desc_text = desc_path[0].text
+        if desc_text:
+            return desc_text
+    return False
 
 def get_revise_date_from_xml(root):
     '''Returns the revise date (comparable to data_range_end) for that dataset.
