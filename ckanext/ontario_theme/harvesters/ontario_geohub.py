@@ -24,6 +24,45 @@ log = logging.getLogger(__name__)
 
 blacklist_url = "https://services9.arcgis.com/a03W7iZ8T3s5vB7p/ArcGIS/rest/services/odc_sync_blacklist_vw/FeatureServer/0/query?where=1%3D1&outFields=geohub_dataset_url&f=json"
 
+restricted_tags = {
+    "MNRFNHICClassifiedData": {
+        "access_instructions" : {
+            "en": "Email the Natural Heritage Information Centre or phone us at 705-755-2159 to inquire about a Sensitive Data Use Licence.",
+            "fr": "Veuillez envoyer un courriel au Centre d'information sur le patrimoine naturel ou communiquer avec nous par téléphone au numéro 705 755-2159 pour demander une convention de droits d'utilisation de données sensibles."
+        },
+        "exemption" : "security",
+        "exemption_rationale": {
+            "en": "Potential for deliberate harm to critical infrastructure (some data include sensitive values or locations of at-risk species)",
+            "fr": "Des dommages pourraient délibérément être causés à l’infrastructure essentielle (certaines données incluent des valeurs sensibles ou l’emplacement d’espèces en péril)"
+        }
+    },
+    "RUL": {
+        "exemption":"security",
+        "exemption_rationale": {
+            "en": "Potential for deliberate harm to critical infrastructure (some data include sensitive values or locations of at-risk species). Data subject to existing licensing agreement.",
+            "fr": "Des dommages pourraient délibérément être causés à l’infrastructure essentielle (certaines données incluent des valeurs sensibles ou l’emplacement d’espèces en péril). Les données sont assujetties à un contrat de licence existant."
+        } 
+    },
+    "OGDE": {
+        "exemption": "security",
+        "exemption_rationale": {
+            "en": "Potential for deliberate harm to critical infrastructure (some data include sensitive values or locations of at-risk species). Data subject to existing licensing agreement.",
+            "fr": "Des dommages pourraient délibérément être causés à l’infrastructure essentielle (certaines données incluent des valeurs sensibles ou l’emplacement d’espèces en péril). Les données sont assujetties à un contrat de licence existant."
+        },  
+        "access_instructions": {
+            "en": "Complete and sign the [OGDE Membership Application Form](https://www.sdc.gov.on.ca/sites/MNRF-PublicDocs/EN/CMID/LIO-OGDE-MembershipForm.pdf) and submit it to the Ontario Ministry of Natural Resources and Forestry.",
+            "fr": "[Remplir le formulaire](https://www.sdc.gov.on.ca/sites/MNRF-PublicDocs/EN/CMID/LIO-OGDE-MembershipForm.pdf) and submit it to the Ontario Ministry of Natural Resources and Forestry."
+        }  
+    },
+    "OntarioParcel": {
+        "exemption": "legal",
+        "exemption_rationale": {
+            "en": "Subject to other restrictions, do not have the right to release publicly (tri-party commercial product).",
+            "fr": "Sous réserve d’autres restrictions, il est interdit de publier les données publiquement (produit commercial tripartite)."
+        } 
+    }
+}
+
 class OntarioGeohubHarvester(HarvesterBase):
 
     force_import = False
@@ -134,44 +173,6 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         return p.toolkit.get_action('package_show')({}, {'id': datasets[0][0]})
 
-    restricted_tags = {
-        "MNRFNHICClassifiedData": {
-            "access_instructions" : {
-                "en": "Email the Natural Heritage Information Centre or phone us at 705-755-2159 to inquire about a Sensitive Data Use Licence.",
-                "fr": "Veuillez envoyer un courriel au Centre d'information sur le patrimoine naturel ou communiquer avec nous par téléphone au numéro 705 755-2159 pour demander une convention de droits d'utilisation de données sensibles."
-            },
-            "exemption" : "security",
-            "exemption_rationale": {
-                "en": "Potential for deliberate harm to critical infrastructure (some data include sensitive values or locations of at-risk species)",
-                "fr": "Des dommages pourraient délibérément être causés à l’infrastructure essentielle (certaines données incluent des valeurs sensibles ou l’emplacement d’espèces en péril)"
-            }
-        },
-        "RUL": {
-            "exemption":"security",
-            "exemption_rationale": {
-                "en": "Potential for deliberate harm to critical infrastructure (some data include sensitive values or locations of at-risk species). Data subject to existing licensing agreement.",
-                "fr": "Des dommages pourraient délibérément être causés à l’infrastructure essentielle (certaines données incluent des valeurs sensibles ou l’emplacement d’espèces en péril). Les données sont assujetties à un contrat de licence existant."
-            } 
-        },
-        "OGDE": {
-            "exemption": "security",
-            "exemption_rationale": {
-                "en": "Potential for deliberate harm to critical infrastructure (some data include sensitive values or locations of at-risk species). Data subject to existing licensing agreement.",
-                "fr": "Des dommages pourraient délibérément être causés à l’infrastructure essentielle (certaines données incluent des valeurs sensibles ou l’emplacement d’espèces en péril). Les données sont assujetties à un contrat de licence existant."
-            },  
-            "access_instructions": {
-                "en": "Complete and sign the [OGDE Membership Application Form](https://www.sdc.gov.on.ca/sites/MNRF-PublicDocs/EN/CMID/LIO-OGDE-MembershipForm.pdf) and submit it to the Ontario Ministry of Natural Resources and Forestry.",
-                "fr": "[Remplir le formulaire](https://www.sdc.gov.on.ca/sites/MNRF-PublicDocs/EN/CMID/LIO-OGDE-MembershipForm.pdf) and submit it to the Ontario Ministry of Natural Resources and Forestry."
-            }  
-        },
-        "OntarioParcel": {
-            "exemption": "legal",
-            "exemption_rationale": {
-                "en": "Subject to other restrictions, do not have the right to release publicly (tri-party commercial product).",
-                "fr": "Sous réserve d’autres restrictions, il est interdit de publier les données publiquement (produit commercial tripartite)."
-            } 
-        }
-    }
 
     def _make_package_dict(self, geohub_dict, harvest_object):
         english_xml = english_metadata_xml_response(geohub_dict['identifier'])
