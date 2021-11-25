@@ -217,6 +217,7 @@ class OntarioGeohubHarvester(HarvesterBase):
             "groups": [{'name': 'ontario-geohub'}] # optional
         }
 
+
         # get license
         # license = get_license_from_xml(english_xml)
         if 'open data' in package_dict['keywords']['en']:
@@ -269,18 +270,22 @@ class OntarioGeohubHarvester(HarvesterBase):
 
 
         # first, check whether the ministry is in the metadata
-        ministry = get_ministry_from_xml(english_xml)
-        if ministry:
-            package_dict['owner_org'] = get_org_id(ministry) 
-        # if it isn't there, look in the description for ministry names           
         if not package_dict.get("owner_org", False):
-            # extract ministry
-            ministry = extract_ministry(package_dict['notes_translated']['en'], package_dict['maintainer_email'])
+            ministry = get_ministry_from_xml(english_xml)
             if ministry:
-                package_dict['owner_org'] = get_org_id(ministry)
-
-        if not package_dict.get("owner_org", False):
-            package_dict['owner_org'] = get_org_id("natural-resources-and-forestry")
+                package_dict['owner_org'] = get_org_id(ministry) 
+            # if it isn't there, look in the description for ministry names           
+            else:
+                # extract ministry
+                ministry = extract_ministry(package_dict['notes_translated']['en'], package_dict['maintainer_email'])
+                if ministry:
+                    package_dict['owner_org'] = get_org_id(ministry)
+                else:
+                    ministry = publisher_ministry(geohub_dict)
+                    if ministry:
+                        package_dict['owner_org'] = get_org_id(ministry)
+                    else:
+                        package_dict['owner_org'] = get_org_id("natural-resources-and-forestry")
 
         return package_dict
 
@@ -676,14 +681,14 @@ calls_to_infogo = {}
         description to determine what ministry the dataset belongs to.
 '''
 ministries = {
-    "Ontario Ministry of Natural Resources and Forestry" : "natural-resources-and-forestry",
+    "Ontario Ministry of Natural Resources and Forestry" : "northern-development-mines-natural-resources-and-forestry",
     #"Ontario Ministry of Natural Resources" : "natural-resources-and-forestry",
     "Ontario Ministry of Children, Community and Social Services" : "children-community-and-social-services",
     "Ontario Ministry of Health" : "health",
     "Ontario Ministry of Long-term care" : "long-term-care",
     "Ontario Ministry of Government and Consumer Services" : "government-and-consumer-services",
     "Ontario Ministry of Environment, Conservation and Parks" : "environment-conservation-and-parks",
-    "Ontario Ministry of Energy, Northern Development and Mines" : "energy-northern-development-and-mines",
+    "Ontario Ministry of Energy, Northern Development and Mines" : "northern-development-mines-natural-resources-and-forestry",
     "Ontario Ministry of Municipal Affairs and Housing" : "municipal-affairs-and-housing",
     "Ontario Ministry of Education" : "education",
     "Ontario Ministry of Agriculture Food and Rural Affairs" : "agriculture-food-and-rural-affairs",
@@ -694,16 +699,16 @@ ministries = {
         metadata to the corresponding organization_name in the catalogue
 '''
 geohub_metadata_ministry_names = {
-    "Ontario Ministry of Natural Resources and Forestry" : "natural-resources-and-forestry",
+    "Ontario Ministry of Natural Resources and Forestry" : "northern-development-mines-natural-resources-and-forestry",
     "Ontario Ministry of Agriculture, Food and Rural Affairs" : "agriculture-food-and-rural-affairs",
     "Ontario Ministry of the Environment, Conservation and Parks" : "environment-conservation-and-parks",
     "Ontario Ministry of Transportation" : "transportation",
     "Ontario Ministry of Health" : "health",
     "Ontario Ministry of Education" : "education",
     "Ontario Ministry of Municipal Affairs and Housing" : "municipal-affairs-and-housing",
-    "Ontario Ministry of Natural Resources and Forestry - Provincial Mapping Unit" : "natural-resources-and-forestry",
+    "Ontario Ministry of Natural Resources and Forestry - Provincial Mapping Unit" : "northern-development-mines-natural-resources-and-forestry",
     "Ontario Ministry of Indigenous Affairs": "indigenous-affairs",
-    "Ontario Ministry of Energy, Northern Development and Mines" : "energy-northern-development-and-mines"    
+    "Ontario Ministry of Energy, Northern Development and Mines" : "northern-development-mines-natural-resources-and-forestry"    
 }
 
 ''' infogo_ministry_names maps the ministry labels in infogo to the 
@@ -717,7 +722,7 @@ infogo_ministry_names = {
     "Colleges and Universities" : "colleges-and-universities",
     "Economic Development, Job Creation and Trade" : "economic-development-job-creation-and-trade",
     "Education" : "education",
-    "Energy, Northern Development and Mines" : "energy-northern-development-and-mines",
+    "Energy, Northern Development and Mines" : "northern-development-mines-natural-resources-and-forestry",
     "Environment, Conservation and Parks" : "environment-conservation-and-parks",
     "Finance" : "finance",
     "Francophone Affairs" : "francophone-affairs",
@@ -730,11 +735,26 @@ infogo_ministry_names = {
     "Labour, Training and Skills Development" : "labour-training-and-skills-development",
     "Long-Term Care" : "long-term-care",
     "Municipal Affairs and Housing" : "municipal-affairs-and-housing",
-    "Natural Resources and Forestry" : "natural-resources-and-forestry",
+    "Natural Resources and Forestry" : "northern-development-mines-natural-resources-and-forestry",
     "Seniors and Accessibility" : "seniors-and-accessibility",
     "Solicitor General" : "solicitor-general",
     "Transportation" : "transportation",
     "Treasury Board Secretariat" : "treasury-board-secretariat"
+}
+
+publisher_ministries = {
+    "Ontario Ministry of Agriculture, Food and Rural Affairs" : "agriculture-food-and-rural-affairs",
+    "Ontario Ministry of Natural Resources and Forestry" : "northern-development-mines-natural-resources-and-forestry",
+    "OMAFRA" : "agriculture-food-and-rural-affairs",
+    "Ontario Ministry of Energy, Northern Development and Mines" : "northern-development-mines-natural-resources-and-forestry",
+    "Ontario Ministry of Municipal Affairs and Housing" : "municipal-affairs-and-housing",
+    "Ontario Ministry of the Environment, Conservation and Parks" : "environment-conservation-and-parks",
+    "Ontario Ministry of Natural Resources and Forestry - Provincial Mapping Unit" : "northern-development-mines-natural-resources-and-forestry",
+    "Ontario Ministry of Health" : "health",
+    "Ontario Ministry of Education" : "education",
+    "Ontario Ministry of Indigenous Affairs" : "indigenous-affairs",
+    "Ontario Ministry of Northern Development, Mines, Natural Resources and Forestry" : "northern-development-mines-natural-resources-and-forestry",
+    "Ontario Ministry of Transportation" : "transportation"
 }
 
 
@@ -891,6 +911,12 @@ def extract_date(date_str):
         return None
 
 
+def publisher_ministry(geohub_dict):
+    if "publisher" in geohub_dict:
+        if geohub_dict['publisher'].get("name", False) in publisher_ministries:
+            return publisher_ministries[geohub_dict['publisher']['name']]
+    return False
+
 def extract_ministry(description, email):
     for ministry_search_text, ministry_name in ministries.items():
         if description.find(ministry_search_text):
@@ -1014,6 +1040,7 @@ def get_ministry_from_xml(root):
         if ministry in geohub_metadata_ministry_names:
             return geohub_metadata_ministry_names[ministry]
     return False
+
 
 def build_resources(distribution, id, english_xml, dataset_url):
     ''' Harvest all resources/files for the dataset
