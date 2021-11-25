@@ -298,6 +298,17 @@ class OntarioGeohubHarvester(HarvesterBase):
         identifier = identifier_url.split('/')[-1] # keep layer index.
         return identifier
 
+    def has_french(self, identifier_url):
+        '''Returns boolean.
+        '''
+
+        identifier = self.geohub_identifier_from_url(identifier_url)
+        french_xml = french_metadata_xml_response(identifier) 
+
+        if french_notes(french_xml) == "Placeholder":
+            return False
+        else:
+            return True
 
     def hubtype_table(self, identifier_url):
         '''Returns boolean.
@@ -355,7 +366,7 @@ class OntarioGeohubHarvester(HarvesterBase):
                 # This is bad, any ideas welcomed
                 guid = sha1(as_string).hexdigest()
 
-            if guid not in blacklist and not self.hubtype_table(guid):
+            if guid not in blacklist and not self.hubtype_table(guid) and self.has_french(guid):
                 yield guid, as_string
 
     def fetch_stage(self, harvest_object):
