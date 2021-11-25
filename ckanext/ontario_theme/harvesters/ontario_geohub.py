@@ -173,7 +173,7 @@ class OntarioGeohubHarvester(HarvesterBase):
         }
     }
 
-    def _make_package_dict(self, geohub_dict, harvest_object, org_ids):
+    def _make_package_dict(self, geohub_dict, harvest_object):
         english_xml = english_metadata_xml_response(geohub_dict['identifier'])
         french_xml = french_metadata_xml_response(geohub_dict['identifier']) 
 
@@ -379,7 +379,7 @@ class OntarioGeohubHarvester(HarvesterBase):
         geohub_dict = json.loads(content)
 
         package_dict = self._make_package_dict(geohub_dict,
-                                                harvest_object, org_ids)
+                                                harvest_object)
 
         return package_dict, geohub_dict
 
