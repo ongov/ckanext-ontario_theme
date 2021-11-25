@@ -134,7 +134,44 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         return p.toolkit.get_action('package_show')({}, {'id': datasets[0][0]})
 
-    # Start hooks
+    restricted_tags = {
+        "MNRFNHICClassifiedData": {
+            "access_instructions" : {
+                "en": "Email the Natural Heritage Information Centre or phone us at 705-755-2159 to inquire about a Sensitive Data Use Licence.",
+                "fr": "Veuillez envoyer un courriel au Centre d'information sur le patrimoine naturel ou communiquer avec nous par téléphone au numéro 705 755-2159 pour demander une convention de droits d'utilisation de données sensibles."
+            },
+            "exemption" : "security",
+            "exemption_rationale": {
+                "en": "Potential for deliberate harm to critical infrastructure (some data include sensitive values or locations of at-risk species)",
+                "fr": "Des dommages pourraient délibérément être causés à l’infrastructure essentielle (certaines données incluent des valeurs sensibles ou l’emplacement d’espèces en péril)"
+            }
+        },
+        "RUL": {
+            "exemption":"security",
+            "exemption_rationale": {
+                "en": "Potential for deliberate harm to critical infrastructure (some data include sensitive values or locations of at-risk species). Data subject to existing licensing agreement.",
+                "fr": "Des dommages pourraient délibérément être causés à l’infrastructure essentielle (certaines données incluent des valeurs sensibles ou l’emplacement d’espèces en péril). Les données sont assujetties à un contrat de licence existant."
+            } 
+        },
+        "OGDE": {
+            "exemption": "security",
+            "exemption_rationale": {
+                "en": "Potential for deliberate harm to critical infrastructure (some data include sensitive values or locations of at-risk species). Data subject to existing licensing agreement.",
+                "fr": "Des dommages pourraient délibérément être causés à l’infrastructure essentielle (certaines données incluent des valeurs sensibles ou l’emplacement d’espèces en péril). Les données sont assujetties à un contrat de licence existant."
+            },  
+            "access_instructions": {
+                "en": "Complete and sign the [OGDE Membership Application Form](https://www.sdc.gov.on.ca/sites/MNRF-PublicDocs/EN/CMID/LIO-OGDE-MembershipForm.pdf) and submit it to the Ontario Ministry of Natural Resources and Forestry.",
+                "fr": "[Remplir le formulaire](https://www.sdc.gov.on.ca/sites/MNRF-PublicDocs/EN/CMID/LIO-OGDE-MembershipForm.pdf) and submit it to the Ontario Ministry of Natural Resources and Forestry."
+            }  
+        },
+        "OntarioParcel": {
+            "exemption": "legal",
+            "exemption_rationale": {
+                "en": "Subject to other restrictions, do not have the right to release publicly (tri-party commercial product).",
+                "fr": "Sous réserve d’autres restrictions, il est interdit de publier les données publiquement (produit commercial tripartite)."
+            } 
+        }
+    }
 
     def _make_package_dict(self, geohub_dict, harvest_object, org_ids):
         english_xml = english_metadata_xml_response(geohub_dict['identifier'])
@@ -186,23 +223,11 @@ class OntarioGeohubHarvester(HarvesterBase):
             package_dict["license_id"] = "OGL-ON-1.0"
             package_dict['keywords']['en'].remove('open data')
 
-        restricted_tags = ['RUL', 'OGDE', 'NHIC', 'OntarioParcel']
-        restricted_licenses = ['RUL', 'OGDE', 'NHIC']
         for restricted_tag in restricted_tags:
             if restricted_tag in package_dict['keywords']['en']:
                 package_dict['access_level'] = "restricted"
-                if restricted_tag in restricted_licenses:
-                    package_dict["license_id"] = restricted_tag.lower()
-                if restricted_tag == "NHIC":
-                    package_dict['access_instructions'] = {
-                        "en": "Email the Natural Heritage Information Centre or phone us at 705-755-2159 to inquire about a Sensitive Data Use Licence.",
-                        "fr": "Veuillez envoyer un courriel au Centre d'information sur le patrimoine naturel ou communiquer avec nous par téléphone au numéro 705 755-2159 pour demander une convention de droits d'utilisation de données sensibles."
-                    }
-                if restricted_tag == "OGDE":
-                    package_dict['access_instructions'] = {
-                        "en": "Complete and sign the [OGDE Membership Application Form](https://www.sdc.gov.on.ca/sites/MNRF-PublicDocs/EN/CMID/LIO-OGDE-MembershipForm.pdf) and submit it to the Ontario Ministry of Natural Resources and Forestry.",
-                        "fr": "Complete and sign the [OGDE Membership Application Form](https://www.sdc.gov.on.ca/sites/MNRF-PublicDocs/EN/CMID/LIO-OGDE-MembershipForm.pdf) and submit it to the Ontario Ministry of Natural Resources and Forestry."
-                    }                    
+                package_dict["license_id"] = restricted_tag.lower()  
+                package_dict.update(restricted_tags[restricted_tag])                                  
                 break
 
         geohub_update_frequency = extract_update_frequency(package_dict['notes_translated']['en'])
