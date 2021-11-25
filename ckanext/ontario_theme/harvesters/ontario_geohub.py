@@ -296,6 +296,7 @@ class OntarioGeohubHarvester(HarvesterBase):
         identifier = identifier_url.split('/')[-1] # keep layer index.
         return identifier
 
+
     def hubtype_table(self, identifier_url):
         '''Returns boolean.
         If hubtype_table returns true, skip the record.
@@ -1041,6 +1042,18 @@ def get_ministry_from_xml(root):
             return geohub_metadata_ministry_names[ministry]
     return False
 
+def get_file_type(resource):
+    '''
+        Returns the media type of a resource.
+    '''
+    if 'mediaType' in resource:
+        return resource['mediaType']
+    elif resource.get("accessURL", False):
+        import urlparse, os
+        path = urlparse.urlparse(resource.get("accessURL", False)).path
+        ext = os.path.splitext(path)[1]
+        return ext
+    return False
 
 def build_resources(distribution, id, english_xml, dataset_url):
     ''' Harvest all resources/files for the dataset
@@ -1059,7 +1072,6 @@ def build_resources(distribution, id, english_xml, dataset_url):
                         "en": "Preview and download via [Ontario GeoHub]({})".format(dataset_url),
                         "fr": "Preview and download via [Ontario GeoHub]({})".format(dataset_url)
                   },
-                    "format": resource["mediaType"],
                     "url": resource.get("accessURL", "") }
         revise_date = get_revise_date_from_xml(english_xml)
         if revise_date:
@@ -1068,6 +1080,9 @@ def build_resources(distribution, id, english_xml, dataset_url):
         create_date = get_create_date_from_xml(english_xml)
         if create_date:
             resource_dict['data_range_start'] = create_date
+        file_type = get_file_type(resource)
+        if file_type:
+            resource_dict['format'] = file_type
         if resource["title"] in metadata_titles:
             resource_dict['type'] = "metadata"
         resources.append(
