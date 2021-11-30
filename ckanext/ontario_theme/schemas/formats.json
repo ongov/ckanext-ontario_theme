@@ -1,0 +1,274 @@
+{
+	"csv" : {
+		"format": "CSV",
+		"proprietary_format" : false,
+		"machine_readable": true,
+		"name_translated": {
+			"en": "Comma Separated Values",
+			"fr": ""
+		},
+		"description_translated": {
+			"en": "A text file that stores a table of data as text separated by commas. CSV files don't contain formatted text or extra visual features.\n Some Excel Spreadsheet files (XLS and XLSX) may be converted to CSV format to share data in a way that doesn't require a specific software application.",
+			"fr": ""
+		},
+		"open_with_translated": {
+			"en": "Open with any spreadsheet application or text editor.",
+			"fr": ""
+		}
+	},
+	"txt": {
+		"format": "TXT",
+		"proprietary_format" : false,
+		"machine_readable": false,
+		"name_translated": {
+			"en": "Text file",
+			"fr": ""
+		},
+		"description_translated": {
+			"en": "A text file that provides just information without formatted text or extra visual features.",
+			"fr": ""
+		},
+		"open_with_translated": {
+			"en": "Open with any word processor (e.g. WordPad, Microsoft Word, can be opened with any word processer available on your device).",
+			"fr": ""
+		}
+	},
+	"xls": {
+		"format": "XLS",
+		"proprietary_format" : true,
+		"machine_readable": false,
+		"name_translated": {
+			"en": "Excel Spreadsheet",
+			"fr": ""
+		},
+		"description_translated": {
+			"en": "An Excel spreadsheet file. This file can contain data stored multiple pages of tables and may include charts, graphs and formatting.",
+			"fr": ""
+		},
+		"open_with_translated": {
+			"en": "Open with Microsoft Excel. Data can be converted to a CSV for a non-proprietary format of the same data without formatted text or extra visual features.",
+			"fr": ""
+		}
+	},
+	"xlsx": {
+		"format": "XLSX",
+		"proprietary_format" : true,
+		"machine_readable": false,
+		"name_translated": {
+			"en": "Excel Spreadsheet",
+			"fr": ""
+		},
+		"description_translated": {
+			"en": "An Excel spreadsheet file. This file can contain data stored multiple pages of tables and may include charts, graphs and formatting.",
+			"fr": ""
+		},
+		"open_with_translated": {
+			"en": "Open with Microsoft Excel. Data can be converted to a CSV for a non-proprietary format of the same data without formatted text or extra visual features.",
+			"fr": ""
+		}
+	},
+	"shp": {
+		"format": "SHP",
+		"proprietary_format" : false,
+		"machine_readable": true,
+		"name_translated": {
+			"en": "Shape file",
+			"fr": ""
+		},
+		"description_translated": {
+			"en": "A shapefile provides geographic information that can be used to create a map or do analysis based on geographic areas.",
+			"fr": ""
+		},
+		"open_with_translated": {
+			"en": "Open with a geographic information system (GIS) software program (e.g. ArcGIS).",
+			"fr": ""
+		}
+	},
+	"zip": {
+		"format": "ZIP",
+		"proprietary_format" : false,
+		"machine_readable": false,
+		"name_translated": {
+			"en": "Zip file",
+			"fr": ""
+		},
+		"description_translated": {
+			"en": "A package of files and folders.\nThe package can contain any number of different file types.\nNote: If a ZIP file contains .shp, .shx, and .dbt file types, it is an ArcGIS ZIP: a package of shapefiles which provide information to create maps or perform geospatial analysis that can be opened with ArcGIS (a geographic information system software program).",
+			"fr": ""
+		},
+		"open_with_translated": {
+			"en": "Open with the built-in unzipping program on Windows/Mac or download an unzipping program.",
+			"fr": ""
+		}
+	}, 
+	"geojson": {
+		"format": "GeoJSON",
+		"proprietary_format" : false,
+		"machine_readable": true,
+		"name_translated": {
+			"en": "Geospatial JavaScript Object Notation",
+			"fr": ""
+		}, 
+		"description_translated": {
+			"en": "A file that contains geospatial locations (i.e., points, lines, and areas) and information related to those locations (e.g., phone number, email, address, average rainfall, number of owl sightings in 2011).",
+			"fr": ""
+		},
+		"open_with_translated": {
+			"en": "Open using a geographic information system software application (e.g., qGIS, ArcGIS) software to create a map or do geospatial analysis. The raw data can also be viewed in a text editor.",
+			"fr": ""
+		} 
+	}, 
+	"json": {
+		"format": "JSON",
+		"proprietary_format" : false,
+		"machine_readable": true,
+		"name_translated": {
+			"en": "JavaScript Object Notation",
+			"fr": ""
+		}, 
+		"description_translated": {
+			"en": "JSON files store data as plain text in a way that allows it to store tables and more complex data structures (e.g., data that doesn't have the same field names and data that has multiple pieces of information in one field).",
+			"fr": ""
+		},
+		"open_with_translated": {
+			"en": "Open with text editors (e.g. Notepad) or access through any browser.",
+			"fr": ""
+		} 
+	}, 
+	"xml": {
+		"format": "XML",
+		"proprietary_format" : false,
+		"machine_readable": true,
+		"name_translated": {
+			"en": "Extensible Markup Language",
+			"fr": ""
+		}, 
+		"description_translated": {
+			"en": "XML files store data as plain text in a way that allows it to store tables and more complex data structures (e.g., data that doesn't have the same field names and data that has multiple pieces of information in one field).",
+			"fr": ""
+		},
+		"open_with_translated": {
+			"en": "Open with any text editor (e.g. Notepad, Word) to view the raw data.",
+			"fr": ""
+		} 
+	},
+	"kml": {
+		"format": "KML",
+		"proprietary_format" : false,
+		"machine_readable": true,
+		"name_translated": {
+			"en": "Keyhole Markup Language",
+			"fr": ""
+		}, 
+		"description_translated": {
+			"en": "A file with text in XML format that contains geospatial locations (i.e., points, lines, and areas) and information related to those locations (e.g., phone number, email, address, average rainfall, number of owl sightings in 2011).",
+			"fr": ""
+		},
+		"open_with_translated": {
+			"en": "Use with geographic information systems software that accepts KML files.",
+			"fr": ""
+		} 
+	}, 
+	"ivt": {
+		"format": "IVT",
+		"proprietary_format" : true,
+		"machine_readable": true,
+		"name_translated": {
+			"en": "Beyond 20/20 Table Files",
+			"fr": ""
+		}, 
+		"description_translated": {
+			"en": "IVT files are used by Statistics Canada to store census data in tables.",
+			"fr": ""
+		},
+		"open_with_translated": {
+			"en": "Use with the Beyond 20/20 application for Statistics Canada census data.",
+			"fr": ""
+		} 
+	}, 
+	"mdb": {
+		"format": "Microsoft Access Database",
+		"proprietary_format" : true,
+		"machine_readable": false,
+		"name_translated": {
+			"en": "Beyond 20/20 Table Files",
+			"fr": ""
+		}, 
+		"description_translated": {
+			"en": "A file that contains data, queries, and procedures combined together in Microsoft Access.\nThe database file can be converted to a CSV/TXT to make the data machine-readable, but human-readable formatting will be lost.",
+			"fr": ""
+		},
+		"open_with_translated": {
+			"en": "Open with Microsoft Office Access (a database management system used to develop application software).",
+			"fr": ""
+		} 
+	},
+	"pdf": {
+		"format": "PDF",
+		"proprietary_format" : true,
+		"machine_readable": false,
+		"name_translated": {
+			"en": "Portable Document Format",
+			"fr": ""
+		}, 
+		"description_translated": {
+			"en": "PDFs contain data with its formatting and layout preserved so that it appears consistently from computer to computer.",
+			"fr": ""
+		},
+		"open_with_translated": {
+			"en": "Open with web browsers and PDF viewers.",
+			"fr": ""
+		} 
+	},
+	"doc": {
+		"format": "DOC",
+		"proprietary_format" : true,
+		"machine_readable": false,
+		"name_translated": {
+			"en": "Microsoft Document Format",
+			"fr": ""
+		}, 
+		"description_translated": {
+			"en": "A text file which can include images, tables and many other formatting options.",
+			"fr": ""
+		},
+		"open_with_translated": {
+			"en": "Open with Microsoft Word or Microsoft Word compatible word processors.",
+			"fr": ""
+		} 
+	},
+	"docx": {
+		"format": "DOCX",
+		"proprietary_format" : true,
+		"machine_readable": false,
+		"name_translated": {
+			"en": "Microsoft Document Format",
+			"fr": ""
+		}, 
+		"description_translated": {
+			"en": "A text file which can include images, tables and many other formatting options.",
+			"fr": ""
+		},
+		"open_with_translated": {
+			"en": "Open with Microsoft Word or Microsoft Word compatible word processors.",
+			"fr": ""
+		} 
+	},
+	"rtf": {
+		"format": "RTF",
+		"proprietary_format" : true,
+		"machine_readable": false,
+		"name_translated": {
+			"en": "Rich Text Format",
+			"fr": ""
+		}, 
+		"description_translated": {
+			"en": "A text file which can include basic text formatting and images.",
+			"fr": ""
+		},
+		"open_with_translated": {
+			"en": "Opens with most word processors (e.g. OpenOffice, WordPad).",
+			"fr": ""
+		} 
+	}
+}

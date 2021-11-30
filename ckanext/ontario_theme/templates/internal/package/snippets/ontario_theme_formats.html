@@ -1,0 +1,18 @@
+{#
+  Custom language notification in the cases that users are viewing the site in one language and a resource in another
+#}
+{% if res.get("format", "") != "" and h.ontario_theme_has_format_information(res.get("format", "")|lower) %}
+  {% set format_information = h.ontario_theme_get_format_information(res.get("format", "")|lower) %}
+  <div class="new-alert alert-plain format-information">
+      <strong>
+        About the {{ format_information['name_translated']['en'] }} format
+      </strong>
+      <span class="label label-default" data-format="{{format_information['format']}}">{{format_information['format']}}</span>
+      <p>
+        {{ format_information['description_translated']['en'] }}
+      </p>
+      <p>
+        <em>Using this file:</em> {{ format_information['open_with_translated']['en'] }}
+      </p>
+  </div>
+{% endif %}

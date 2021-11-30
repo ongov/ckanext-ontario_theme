@@ -332,6 +332,27 @@ def get_license(license_id):
     '''
     return Package.get_license_register().get(license_id)
 
+def get_formats():
+    formats = []
+    format_path = os.path.join(os.path.dirname(__file__),
+                                        'schemas/formats.json')
+    with open(format_path) as format_file:
+        formats = json.loads(format_file.read())  
+        return  formats
+    return False  
+
+def has_format_information(format_name):
+    formats = get_formats()
+    if format_name in formats:
+        return True
+    return False
+
+def get_format_information(format_name):
+    formats = get_formats()
+    if format_name in formats:
+        return formats[format_name]
+    return False
+
 def extract_package_name(url):
     import re
     package_pattern = "\/dataset\/([-a-z-0-9A-Z\n\r]*)"
@@ -623,6 +644,8 @@ type data_last_updated
 
     def get_helpers(self):
         return {'ontario_theme_get_license': get_license,
+                'ontario_theme_get_format_information': get_format_information,
+                'ontario_theme_has_format_information': has_format_information,
                 'ontario_theme_extract_package_name': extract_package_name,
                 'ontario_theme_get_translated_lang': get_translated_lang,
                 'ontario_theme_get_popular_datasets': get_popular_datasets,
