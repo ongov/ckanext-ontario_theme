@@ -67,6 +67,23 @@
 			"fr": ""
 		}
 	},
+	"xlsb": {
+		"format": "XLSB",
+		"proprietary_format" : true,
+		"machine_readable": false,
+		"name_translated": {
+			"en": "Excel Binary Workbook",
+			"fr": ""
+		},
+		"description_translated": {
+			"en": "An Excel spreadsheet file. This file can contain data stored multiple pages of tables and may include charts, graphs and formatting.",
+			"fr": ""
+		},
+		"open_with_translated": {
+			"en": "Open with Microsoft Excel. Data can be converted to a CSV for a non-proprietary format of the same data without formatted text or extra visual features.",
+			"fr": ""
+		}
+	},
 	"shp": {
 		"format": "SHP",
 		"proprietary_format" : false,
