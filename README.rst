@@ -145,7 +145,27 @@ Additional Info:
 Running the Tests
 -----------------
 
-To run the tests, make sure your ckan install is `setup for tests <https://docs.ckan.org/en/latest/contributing/test.html>`_, do::
+To run the tests, set up your ckan install for testing (following the `initial steps of the ckan documentation <https://docs.ckan.org/en/latest/contributing/test.html>`_)::
+
+Create test databases::
+
+    sudo -u postgres createdb -O ckan_default ckan_test -E utf-8
+    sudo -u postgres createdb -O ckan_default datastore_test -E utf-8
+
+When the tests run they will use these databases, because in ``test-core.ini`` they are specified in the ``sqlalchemy.url`` and ``ckan.datastore.write_url`` connection strings. Edit the ``test-core.ini`` file in ``/usr/lib/ckan/default/src/ckan`` to include the passwords for user ``ckan_default`` and user ``datastore_default`` on these test databases::
+
+    # Specify the Postgres database for SQLAlchemy to use
+    sqlalchemy.url = postgresql://ckan_default:{CKAN_PASSWD}@localhost/ckan_test
+
+    ## Datastore
+    ckan.datastore.write_url = postgresql://ckan_default:{CKAN_PASSWD}@localhost/datastore_test
+    ckan.datastore.read_url = postgresql://datastore_default:{DATASTORE_PASS}@localhost/datastore_test
+
+Set the permissions by running this ``paster`` command in the directory containing ``test-core.ini`` (``/usr/lib/ckan/default/src/ckan``)::
+
+    $ paster --plugin=ckan datastore set-permissions -c test-core.ini | sudo -u postgres psql
+
+We don't need to configure Solr for multi-cores. Proceed to the ``ckanext-ontario_theme/`` directory (e.g. ``/usr/lib/ckan/default/src/ckan/ckanext/ckanext-ontario_theme``) and run the nosetests::
 
     cd ckanext-ontario_theme # go to extension directory
     nosetests --nologcapture --with-pylons=test.ini # run in virtual environment that has nosetests.
@@ -157,11 +177,13 @@ coverage installed in your virtualenv (``pip install coverage``) then run::
 
 Our custom config settings are in ``./test.ini``.
 
-Additional ways to run tests:
+Additional ways to run tests::
 
     # Single Test method
     nosetests ckanext/ontario_theme/tests/test_create_dataset.py:TestCreateDataset.test_package_create_with_invalid_update_frequency --nologcapture --with-pylons=test.ini
+    
     # Single Test class
     nosetests ckanext/ontario_theme/tests/test_create_dataset.py:TestCreateDataset --nologcapture --with-pylons=test.ini
+    
     # Single Test module
     nosetests ckanext/ontario_theme/tests/test_create_dataset.py --nologcapture --with-pylons=test.ini
