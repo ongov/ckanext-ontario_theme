@@ -1132,9 +1132,13 @@ def build_resources(distribution, id, english_xml, dataset_url):
                     "url": metadata_url(id) })
 
     # Include resources from XML, putting them first.
-    complete_resources = additional_resources_from_xml(english_xml) + resources
+    additional_resources = additional_resources_from_xml(english_xml)
+    resource_links = list(map(lambda x: x['url'], resources))
+    for r in additional_resources:
+        if r['url'] not in resource_links:
+            resources.append(r)
 
-    return complete_resources
+    return resources
 
 
 def geohub_french_id_from_xml(english_id):
