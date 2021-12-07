@@ -1067,9 +1067,11 @@ def get_ministry_from_xml(root):
 
 def get_file_type(resource):
     '''
-        Returns the media type of a resource.
+        Returns the file format of a resource.
     '''
-    if 'mediaType' in resource:
+    if 'format' in resource:
+        return resource['format']
+    elif 'mediaType' in resource:
         return resource['mediaType']
     elif resource.get("accessURL", False):
         import urlparse, os
