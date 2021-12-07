@@ -1093,10 +1093,6 @@ def build_resources(distribution, id, english_xml, dataset_url):
                         "fr": resource["title"]
                     },
                     "type": 'data',
-                    "description_translated": {
-                        "en": "Preview and download via [Ontario GeoHub]({})".format(dataset_url),
-                        "fr": "Preview and download via [Ontario GeoHub]({})".format(dataset_url)
-                  },
                     "url": resource.get("accessURL", "") }
         revise_date = get_revise_date_from_xml(english_xml)
         if revise_date:
@@ -1123,10 +1119,6 @@ def build_resources(distribution, id, english_xml, dataset_url):
                         "fr": "Métadonnées dans ISO 19115"
                         },
                     "type": 'technical_document',
-                    "description_translated": {
-                        "en": "Preview and download via [Ontario GeoHub]({})".format(dataset_url),
-                        "fr": "Preview and download via [Ontario GeoHub]({})".format(dataset_url)
-                  },
                     "format": "html",
                     "url": "https://www.arcgis.com/sharing/rest/content/items/{}/info/metadata/metadata.xml?format=default&output=html".format(id) })
     resources.append(
@@ -1136,10 +1128,6 @@ def build_resources(distribution, id, english_xml, dataset_url):
                         "fr": "Métadonnées au format ESRI"
                       },
                     "type": 'technical_document',
-                    "description_translated": {
-                        "en": "Preview and download via [Ontario GeoHub]({})".format(dataset_url),
-                        "fr": "Preview and download via [Ontario GeoHub]({})".format(dataset_url)
-                  },
                     "format": "xml",
                     "url": metadata_url(id) })
 
