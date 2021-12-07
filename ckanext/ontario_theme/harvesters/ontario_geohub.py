@@ -1117,7 +1117,11 @@ def build_resources(distribution, id, english_xml, dataset_url):
 
     # Add in the metadata URLs
     resources.append(
-                  { "name": "Metadata in ISO 19115 NAP Format",
+                  { 
+                    "name_translated": {
+                        "en": "Metadata in ISO 19115 NAP Format",
+                        "fr": "Métadonnées dans ISO 19115"
+                        },
                     "type": 'technical_document',
                     "description_translated": {
                         "en": "Preview and download via [Ontario GeoHub]({})".format(dataset_url),
@@ -1126,7 +1130,11 @@ def build_resources(distribution, id, english_xml, dataset_url):
                     "format": "html",
                     "url": "https://www.arcgis.com/sharing/rest/content/items/{}/info/metadata/metadata.xml?format=default&output=html".format(id) })
     resources.append(
-                  { "name": "Metadata in Full Esri Format",
+                  { 
+                    "name_translated": {
+                        "en": "Metadata in Full Esri Format",
+                        "fr": "Métadonnées au format ESRI"
+                      },
                     "type": 'technical_document',
                     "description_translated": {
                         "en": "Preview and download via [Ontario GeoHub]({})".format(dataset_url),
@@ -1197,8 +1205,12 @@ def additional_resources_from_xml(root):
         # default values. They seem to use the data source instead without a name.
         additional_resources.append(
             {"url": onLineSrc.findtext('linkage'),
-             "name": onLineSrc.findtext('orName',
+             "name_translated": {
+                "en": onLineSrc.findtext('orName',
                                         default=onLineSrc.findtext('linkage')),
+                "fr": onLineSrc.findtext('orName',
+                                        default=onLineSrc.findtext('linkage'))
+            },
              "type": 'data'}
             )
     return additional_resources
