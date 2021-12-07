@@ -1106,6 +1106,11 @@ def build_resources(distribution, id, english_xml, dataset_url):
             resource_dict['format'] = file_type
         if resource["title"] in metadata_titles:
             resource_dict['type'] = "metadata"
+        if resource["title"] is None:
+            resource_dict['name_translated'] = {
+                "en": "Resource",
+                "fr": "Ressource"
+                }
         resources.append(
                     resource_dict
                   ) # Some resources are missing links
