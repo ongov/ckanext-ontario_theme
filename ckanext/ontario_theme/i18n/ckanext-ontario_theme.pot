@@ -127,8 +127,12 @@ msgstr ""
 #: ckanext/ontario_theme/templates/external/home/help.html:33
 msgid ""
 "A. Try using the <a href=\"/dataset\" target=\"_blank\">catalogue search "
-"page</a>. Enter your keywords in the search bar and refine your search, using"
-" the filters provided."
+"page</a>. Enter your keywords in the search bar and refine your search, "
+"using the filters provided. Some dataset entries previously available on "
+"the catalogue have been removed. View the <a href=\"https://data.ontario.ca/dataset/"
+"entries-removed-from-the-ontario-data-catalogue\" target=\"_blank\">Entries "
+"removed from the Ontario data catalogue</a> dataset to see if the dataset"
+" entry you're looking for has been removed from the catalogue."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/help.html:41
