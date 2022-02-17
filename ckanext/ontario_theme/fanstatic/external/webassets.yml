@@ -1,3 +1,3 @@
 ontario_theme_css:
-  contents: ontario_theme.css
-  output: ontario_theme_external/ontario_theme.css
+  contents: 
+    - ontario_theme.css

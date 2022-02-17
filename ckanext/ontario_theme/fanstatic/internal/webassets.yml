@@ -1,7 +1,7 @@
  
 ontario_theme_css:
-  contents: ontario_theme.css
-  output: ontario_theme/%(version)s_ontario_theme.css
+  contents: 
+    - ontario_theme.css
 
 msappproxy_js:
   filters: rjsmin
