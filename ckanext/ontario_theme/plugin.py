@@ -23,7 +23,6 @@ from ckan.lib.helpers import core_helper
 from ckan.model import Package
 import ckan.model as model
 
-#from ckanext.ontario_theme import controller
 
 from ckan.lib.uploader import ResourceUpload
 
@@ -37,6 +36,7 @@ import ckan.lib.helpers as h
 
 import logging
 log = logging.getLogger(__name__)
+
 
 def image_uploader():
     '''View function that renders the image uploader form.
@@ -181,6 +181,183 @@ def help():
     return render_template('home/help.html')
 
 
+def csv_dump():
+    '''
+        This was rewritten to be compatible with python3.6/ckan2.9
+        It used to use ckanapi_exporter, but that was replaced with borrowing csv generation 
+        from the datastore extension
+    '''
+    fields = [
+        {   "id": "Id",
+            "pattern": ["id"],
+            "type": "text"
+        },
+        {
+            "id": "Name",
+            "pattern": ["name"],
+            "type": "text"
+        },
+        {
+            "id":"Title EN",
+            "pattern": ["title_translated", "en"],
+            "type": "text"
+        },
+        {
+            "id":"Notes EN",
+            "pattern": ["notes_translated", "en"],
+            "type": "text"
+        },
+        {
+            "id":"Organization Title",
+            "pattern": ["organization", "title"],
+            "type": "text"
+        },
+        {
+            "id":"Access Level",
+            "pattern": ["access_level"],
+            "type": "text"
+        },
+        {
+            "id":"Type",
+            "pattern": ["type"],
+            "type": "text"
+        },
+        {
+            "id":"Update Frequency",
+            "pattern": ["update_frequency"],
+            "type": "text"
+        },
+        {
+            "id":"Metadata Created",
+            "pattern": ["metadata_created"],
+            "type": "timestamp"
+        },
+        {
+            "id":"Metadata Modified",
+            "pattern": ["metadata_modified"],
+            "type": "timestamp"
+        },
+        {
+            "id":"License Title",
+            "pattern": ["license_title"],
+            "type": "text"
+        },
+        {
+            "id":"Keywords EN",
+            "pattern": ["keywords", "en"],
+            "type": "text"
+        },
+        {
+            "id":"Package Date Opened",
+            "pattern": ["opened_date"],
+            "type": "text"
+        },
+        {
+            "id":"Package Last Validated Date",
+            "pattern": ["current_as_of"],
+            "type": "timestamp"
+        },
+        {
+            "id":"Exemption",
+            "pattern": ["exemption"],
+            "type": "text"
+        },
+        {
+            "id":"Exemption Rationale EN",
+            "pattern": ["exemption_rationale", "en"],
+            "type": "text"
+        },
+        {
+            "id":"Geographic Coverage EN",
+            "pattern": ["geographic_coverage_translated", "en"],
+            "type": "text"
+        },
+        {
+            "id":"Resources Format",
+            "pattern": ["resources", "format"],
+            "deduplicate": "true",
+            "type": "text"
+        },
+        {
+            "id":"Num Resources",
+            "pattern": ["num_resources"],
+            "type": "int"
+        },
+        {
+            "id":"Title FR",
+            "pattern": ["title_translated", "fr"],
+            "type": "text"
+        },
+        {
+            "id":"Geographic Coverage FR",
+            "pattern": ["geographic_coverage_translated", "fr"],
+            "type": "text"
+        },
+        {
+            "id":"Exemption Rationale FR",
+            "pattern": ["exemption_rationale", "fr"],
+            "type": "text"
+        },
+        {
+            "id":"Keywords FR",
+            "pattern": ["keywords", "fr"],
+            "type": "text"
+        }
+    ]
+
+    import csv
+    from ckanext.datastore.writer import csv_writer
+    
+    def returnValues(value, pattern):
+        pattern_step = pattern[0]
+        if isinstance(value, list) and len(value) > 0:
+            for sub_value in value:
+                return " ".join(returnValues(sub_value, pattern))
+        elif len(pattern) is 1 and pattern_step in value:
+            return value[pattern_step]                 
+        elif pattern_step in value:
+            return returnValues(value[pattern_step], pattern[1:])
+        else:
+            return ""
+
+    def write_packages(records_chunk):
+        rows = []
+        for dataset_row in records_chunk:
+            row = []
+            for v in fields:
+                row.append(returnValues(dataset_row, v['pattern']))
+            csv.writer(response.stream).writerow(row)            
+
+    def result_page(offs, lim):
+        get_packages=toolkit.get_action('package_search')(
+                data_dict={
+                        'sort': 'title desc',
+                        'start': offs,
+                        'rows': lim
+                        })
+        return get_packages
+
+    limit = 1000
+
+    # create file name
+    timestamp = datetime.datetime.now().strftime('%Y-%m-%d')
+    csv_filename = 'ontario_data_catalogue_inventory_' + timestamp
+
+    #start response
+    response = make_response()
+    response.headers[u'content-type'] = u'application/octet-stream'
+
+    with csv_writer(response, fields, csv_filename, True) as wr:
+        start = 0
+        count = 1
+        while start < count:
+            result = result_page(start, limit)
+            if count == 1:
+                count = result["count"] 
+            write_packages(result["results"])
+            start = start + limit
+
+    return response
 
 
 def get_group(group_id):
@@ -402,6 +579,7 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic/internal', 'ontario_theme')
 
+
         if 'scheming.dataset_schemas' not in config_:
             config_['scheming.dataset_schemas'] = """
 ckanext.ontario_theme:schemas/internal/ontario_theme_dataset.json
@@ -546,9 +724,10 @@ type data_last_updated
         rules = [
             (u'/help', u'help', help),
             (u'/ckan-admin/image-uploader', u'image_uploader', image_uploader),
-            (u'/ckan-admin/image-uploaded', u'image_uploaded', image_uploaded)
-            #(u'/dataset/inventory', u'inventory', csv_dump)
+            (u'/ckan-admin/image-uploaded', u'image_uploaded', image_uploaded),
+            (u'/dataset/inventory', u'inventory', csv_dump)
         ]
+
         for rule in rules:
             blueprint.add_url_rule(*rule)
 
