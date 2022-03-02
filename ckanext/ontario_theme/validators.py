@@ -5,7 +5,6 @@ from ckan.common import _
 from ckantoolkit import Invalid
 from ckanext.scheming.validation import scheming_validator
 from ckanext.fluent.validators import fluent_text_output
-from pylons.i18n import _
 from ckantoolkit import Invalid
 from ckan.authz import is_sysadmin
 import json
