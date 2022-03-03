@@ -492,13 +492,12 @@
         "fr": "Licence"
       },
       "form_snippet": "license.html",
-      "default": "OGL-ON-1.0",
       "help_text": {
         "en": "Are you releasing this under a licence?",
         "fr": "Licence s’appliquant au jeu de données"
       },
       "classes": ["col-md-12","form-group", "lock_if_odc"],
-      "validators": "lock_if_odc"
+      "validators": "default(none) lock_if_odc"
     },
     {
       "field_name": "licence_range_start",
