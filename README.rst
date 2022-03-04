@@ -32,10 +32,6 @@ Requirements
    - `open-data/ckanext-fluent <https://github.com/open-data/ckanext-fluent>`_
    - master
    - ``fluent``
- * - ckanapi-exporter
-   - `ckanapi-exporter <https://github.com/ckan/ckanapi-exporter>`_
-   - master
-   - N/A
 
 
 ------------
@@ -58,11 +54,6 @@ virtualenv and do::
     python setup.py develop
     pip install -r dev-requirements.txt
     
-    # Install ckanapi-exporter master from github to get around query limit 
-    # of 1000 datasets in package_search.
-    # TODO: Update to pip install after new release.
-    git clone https://github.com/ckan/ckanapi-exporter.git
-    cd ckanapi-exporter
     python setup.py develop
     pip install -r dev-requirements.txt
 
