@@ -36,7 +36,7 @@ msgid "Contact Us"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/footer.html:17
-msgid "https://www.ontario.ca/feedback/contact-us?id=33142&nid=53950"
+msgid "https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/header.html:9
