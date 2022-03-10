@@ -23,8 +23,7 @@ from ckan.lib.helpers import core_helper
 from ckan.model import Package
 import ckan.model as model
 
-
-from ckan.lib.uploader import ResourceUpload
+from ckanext.ontario_theme.resource_upload import ResourceUpload
 
 # For Image Uploader
 #from ckan.controllers.home import CACHE_PARAMETERS
@@ -545,6 +544,7 @@ class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
         toolkit.add_template_directory(config_, 'templates/external')
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic/external', 'ontario_theme_external')
+
 
         config_['scheming.dataset_schemas'] = """
 ckanext.ontario_theme:schemas/external/ontario_theme_dataset.json
