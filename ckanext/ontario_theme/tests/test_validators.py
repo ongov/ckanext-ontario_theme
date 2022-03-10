@@ -199,7 +199,6 @@ class TestOntarioThemeTagNameValidator(object):
                 url = 'http://data')
 
         except logic.ValidationError as e:
-            print(e.error_dict['keywords'])
             assert e.error_dict['keywords'] == [u'Tag "French and  Italian" may not contain consecutive spaces']
 
 

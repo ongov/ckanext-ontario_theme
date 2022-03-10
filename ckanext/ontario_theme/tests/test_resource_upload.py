@@ -167,8 +167,6 @@ class TestResourceCreate(object):
                 url="http://data",
                 package_id=dataset["id"],
                 name="A nice resource")
-            print("***********************************")
-            print(result)
 
         
                 
