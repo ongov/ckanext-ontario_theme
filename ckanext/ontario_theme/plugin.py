@@ -24,6 +24,7 @@ from ckan.model import Package
 import ckan.model as model
 
 from ckanext.ontario_theme.resource_upload import ResourceUpload
+from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
 
 # For Image Uploader
 #from ckan.controllers.home import CACHE_PARAMETERS
@@ -35,7 +36,6 @@ import ckan.lib.helpers as h
 
 import logging
 log = logging.getLogger(__name__)
-
 
 def image_uploader():
     '''View function that renders the image uploader form.
@@ -312,7 +312,7 @@ def csv_dump():
         if isinstance(value, list) and len(value) > 0:
             for sub_value in value:
                 return " ".join(returnValues(sub_value, pattern))
-        elif len(pattern) is 1 and pattern_step in value:
+        elif len(pattern) == 1 and pattern_step in value:
             return value[pattern_step]                 
         elif pattern_step in value:
             return returnValues(value[pattern_step], pattern[1:])
@@ -703,7 +703,7 @@ type data_last_updated
         '''Return a Flask Blueprint object to be registered by the app.
         '''
 
-        blueprint = Blueprint(self.name, self.__module__)
+        blueprint = Blueprint(self.name, self.__module__,url_defaults={u'package_type': u'dataset'})
         blueprint.template_folder = u'templates'
 
         @blueprint.before_request
@@ -730,7 +730,7 @@ type data_last_updated
 
         for rule in rules:
             blueprint.add_url_rule(*rule)
-
+        blueprint.add_url_rule('/dataset/new', view_func=OntarioThemeCreateView.as_view(str(u'new')))
         return blueprint
 
     # IUploader
