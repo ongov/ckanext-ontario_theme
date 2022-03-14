@@ -10,14 +10,12 @@ from ckan.logic.schema import validator_args
 from ckan.common import config, request, g, _
 from collections import OrderedDict
 import datetime
-from webhelpers.html import literal
 import ckan.authz as authz
 import ckan.lib.i18n as i18n
 
 from flask import Blueprint, make_response
 from flask import render_template, render_template_string
 
-import ckanapi_exporter.exporter as exporter
 import json
 import ckan.lib.helpers as helpers
 from ckan.lib.helpers import core_helper
@@ -25,13 +23,11 @@ from ckan.lib.helpers import core_helper
 from ckan.model import Package
 import ckan.model as model
 
-from ckanext.ontario_theme import controller
-from ckanext.ontario_theme import helpers as ontario_theme_helpers
-from ckanext.ontario_theme import converters as ontario_converters
-from resource_upload import ResourceUpload
+from ckanext.ontario_theme.resource_upload import ResourceUpload
+from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
 
 # For Image Uploader
-from ckan.controllers.home import CACHE_PARAMETERS
+#from ckan.controllers.home import CACHE_PARAMETERS
 import ckan.lib.navl.dictization_functions as dict_fns
 import ckan.logic as logic
 import os
@@ -93,7 +89,7 @@ def image_uploaded():
             dict_fns.unflatten(
                 logic.tuplize_dict(
                     logic.parse_params(req,
-                                       ignore_keys=CACHE_PARAMETERS))))
+                                       ignore_keys=''))))
 
         # Upload the image.
         upload = uploader.get_uploader('home')
@@ -162,6 +158,7 @@ def resource_display_name(resource_dict):
     # TODO: (?) support resource objects as well
     name = helpers.get_translated(resource_dict, 'name')
     description = helpers.get_translated(resource_dict, 'description')
+    resource_type = helpers.get_translated(resource_dict, 'type')
     if name:
         return name
     elif description:
@@ -170,8 +167,10 @@ def resource_display_name(resource_dict):
         if len(description) > max_len:
             description = description[:max_len] + '...'
         return description
+    elif resource_type:
+        return resource_type.replace('_',' ').capitalize()
     else:
-        return helpers._("Data")
+        return helpers._("Supporting file")
 
 ckan.lib.helpers.resource_display_name = resource_display_name
 
@@ -181,121 +180,184 @@ def help():
     return render_template('home/help.html')
 
 
-# replace the core get_snippet_actor to anonymize the activity stream when user
-# is not logged in
-
-def get_snippet_actor(activity, detail):
-    user = authz.auth_is_loggedin_user()
-    if not user:
-        if i18n.get_lang() == 'fr':
-            return literal('''<span class="actor">%s</span>'''
-                % "L'équipe de données ouvertes de l'Ontario".decode('utf8')
-                )
-        else:
-            return literal('''<span class="actor">Ontario's Open Data Team \
-                </span>'''
-                )
-    else:
-        return literal('''<span class="actor">%s</span>'''
-            % (helpers.linked_user(activity['user_id'], 0, 30))
-            )
-
-ckan.lib.activity_streams.get_snippet_actor = get_snippet_actor
-ckan.lib.activity_streams.activity_snippet_functions['actor'] = get_snippet_actor
-
-
 def csv_dump():
-    '''The pattern allows you to go deeper into the nested structures.
-    `["^title_translated$", "en"]` grabs the english title_translated value.
-    It doesn't seem to handle returning a dict such as
-    `{'en': 'english', 'fr': 'french'}`.
-    Exporting resource metadata is limited. It combines resource values
-    into single comma seperated string.
-    deduplicate needed to be "true" not true.
     '''
-    columns = OrderedDict([
-        ("Id", {
-            "pattern": "^id$"
-        }),
-        ("Name", {
-            "pattern": "^name$"
-        }),
-        ("Title EN", {
-            "pattern": ["^title_translated$", "^en$"]
-        }),
-        ("Notes EN", {
-            "pattern": ["^notes_translated$", "^en$"]
-        }),
-        ("Organization Title", {
-            "pattern": ["^organization$", "^title$"]
-        }),
-        ("Access Level", {
-            "pattern": "^access_level$"
-        }),
-        ("Type", {
-            "pattern": "^type$"
-        }),
-        ("Update Frequency", {
-            "pattern": "^update_frequency$"
-        }),
-        ("Metadata Created", {
-            "pattern": "^metadata_created$"
-        }),
-        ("Metadata Modified", {
-            "pattern": "^metadata_modified$"
-        }),
-        ("License Title", {
-            "pattern": "^license_title$"
-        }),
-        ("Keywords EN", {
-            "pattern": ["^keywords$", "^en$"]
-        }),
-        ("Package Date Opened", {
-            "pattern": "^opened_date$"
-        }),
-        ("Package Last Validated Date", {
-            "pattern": "^current_as_of$"
-        }),
-        ("Exemption", {
-            "pattern": "^exemption$"
-        }),
-        ("Exemption Rationale EN", {
-            "pattern": ["^exemption_rationale$", "^en$"]
-        }),
-        ("Geographic Coverage EN", {
-            "pattern": ["^geographic_coverage_translated$", "^en$"]
-        }),
-        ("Resources Format", {
-            "pattern": ["^resources$", "^format$"],
-            "deduplicate": "true"
-        }),
-        ("Num Resources", {
-            "pattern": "^num_resources$"
-        }),
-        ("Title FR", {
-            "pattern": ["^title_translated$", "^fr$"]
-        }),
-        ("Geographic Coverage FR", {
-            "pattern": ["^geographic_coverage_translated$", "^fr$"]
-        }),
-        ("Exemption Rationale FR", {
-            "pattern": ["^exemption_rationale$", "^fr$"]
-        }),
-        ("Keywords FR", {
-            "pattern": ["^keywords$", "^fr$"]
-        })
-    ])
+        This was rewritten to be compatible with python3.6/ckan2.9
+        It used to use ckanapi_exporter, but that was replaced with borrowing csv generation 
+        from the datastore extension
+    '''
+    fields = [
+        {   "id": "Id",
+            "pattern": ["id"],
+            "type": "text"
+        },
+        {
+            "id": "Name",
+            "pattern": ["name"],
+            "type": "text"
+        },
+        {
+            "id":"Title EN",
+            "pattern": ["title_translated", "en"],
+            "type": "text"
+        },
+        {
+            "id":"Notes EN",
+            "pattern": ["notes_translated", "en"],
+            "type": "text"
+        },
+        {
+            "id":"Organization Title",
+            "pattern": ["organization", "title"],
+            "type": "text"
+        },
+        {
+            "id":"Access Level",
+            "pattern": ["access_level"],
+            "type": "text"
+        },
+        {
+            "id":"Type",
+            "pattern": ["type"],
+            "type": "text"
+        },
+        {
+            "id":"Update Frequency",
+            "pattern": ["update_frequency"],
+            "type": "text"
+        },
+        {
+            "id":"Metadata Created",
+            "pattern": ["metadata_created"],
+            "type": "timestamp"
+        },
+        {
+            "id":"Metadata Modified",
+            "pattern": ["metadata_modified"],
+            "type": "timestamp"
+        },
+        {
+            "id":"License Title",
+            "pattern": ["license_title"],
+            "type": "text"
+        },
+        {
+            "id":"Keywords EN",
+            "pattern": ["keywords", "en"],
+            "type": "text"
+        },
+        {
+            "id":"Package Date Opened",
+            "pattern": ["opened_date"],
+            "type": "text"
+        },
+        {
+            "id":"Package Last Validated Date",
+            "pattern": ["current_as_of"],
+            "type": "timestamp"
+        },
+        {
+            "id":"Exemption",
+            "pattern": ["exemption"],
+            "type": "text"
+        },
+        {
+            "id":"Exemption Rationale EN",
+            "pattern": ["exemption_rationale", "en"],
+            "type": "text"
+        },
+        {
+            "id":"Geographic Coverage EN",
+            "pattern": ["geographic_coverage_translated", "en"],
+            "type": "text"
+        },
+        {
+            "id":"Resources Format",
+            "pattern": ["resources", "format"],
+            "deduplicate": "true",
+            "type": "text"
+        },
+        {
+            "id":"Num Resources",
+            "pattern": ["num_resources"],
+            "type": "int"
+        },
+        {
+            "id":"Title FR",
+            "pattern": ["title_translated", "fr"],
+            "type": "text"
+        },
+        {
+            "id":"Geographic Coverage FR",
+            "pattern": ["geographic_coverage_translated", "fr"],
+            "type": "text"
+        },
+        {
+            "id":"Exemption Rationale FR",
+            "pattern": ["exemption_rationale", "fr"],
+            "type": "text"
+        },
+        {
+            "id":"Keywords FR",
+            "pattern": ["keywords", "fr"],
+            "type": "text"
+        }
+    ]
 
-    site_url = config.get('ckan.site_url')
-    csv_string = exporter.export(site_url, columns)
+    import csv
+    from ckanext.datastore.writer import csv_writer
+    
+    def returnValues(value, pattern):
+        pattern_step = pattern[0]
+        if isinstance(value, list) and len(value) > 0:
+            for sub_value in value:
+                return " ".join(returnValues(sub_value, pattern))
+        elif len(pattern) == 1 and pattern_step in value:
+            return value[pattern_step]                 
+        elif pattern_step in value:
+            return returnValues(value[pattern_step], pattern[1:])
+        else:
+            return ""
+
+    def write_packages(records_chunk):
+        rows = []
+        for dataset_row in records_chunk:
+            row = []
+            for v in fields:
+                row.append(returnValues(dataset_row, v['pattern']))
+            csv.writer(response.stream).writerow(row)            
+
+    def result_page(offs, lim):
+        get_packages=toolkit.get_action('package_search')(
+                data_dict={
+                        'sort': 'title desc',
+                        'start': offs,
+                        'rows': lim
+                        })
+        return get_packages
+
+    limit = 1000
+
+    # create file name
     timestamp = datetime.datetime.now().strftime('%Y-%m-%d')
-    csv_filename = 'ontario_data_catalogue_inventory_' + timestamp + '.csv'
+    csv_filename = 'ontario_data_catalogue_inventory_' + timestamp
 
-    resp = make_response(u'\uFEFF'.encode('utf-8') + csv_string, 200)
-    resp.headers['Content-Type'] = b'text/csv; charset=utf-8'
-    resp.headers['Content-disposition'] = \
-        (b'attachment; filename=%s' % csv_filename)
-    return resp
+    #start response
+    response = make_response()
+    response.headers[u'content-type'] = u'application/octet-stream'
+
+    with csv_writer(response, fields, csv_filename, True) as wr:
+        start = 0
+        count = 1
+        while start < count:
+            result = result_page(start, limit)
+            if count == 1:
+                count = result["count"] 
+            write_packages(result["results"])
+            start = start + limit
+
+    return response
+
 
 def get_license(license_id):
     '''Helper to return license based on id.
@@ -454,6 +516,7 @@ class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic/external', 'ontario_theme_external')
 
+
         config_['scheming.dataset_schemas'] = """
 ckanext.ontario_theme:schemas/external/ontario_theme_dataset.json
 """
@@ -486,6 +549,7 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
         toolkit.add_template_directory(config_, 'templates/internal')
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic/internal', 'ontario_theme')
+
 
         if 'scheming.dataset_schemas' not in config_:
             config_['scheming.dataset_schemas'] = """
@@ -613,7 +677,7 @@ type data_last_updated
         '''Return a Flask Blueprint object to be registered by the app.
         '''
 
-        blueprint = Blueprint(self.name, self.__module__)
+        blueprint = Blueprint(self.name, self.__module__,url_defaults={u'package_type': u'dataset'})
         blueprint.template_folder = u'templates'
 
         @blueprint.before_request
@@ -637,9 +701,10 @@ type data_last_updated
             (u'/ckan-admin/image-uploaded', u'image_uploaded', image_uploaded),
             (u'/dataset/inventory', u'inventory', csv_dump)
         ]
+
         for rule in rules:
             blueprint.add_url_rule(*rule)
-
+        blueprint.add_url_rule('/dataset/new', view_func=OntarioThemeCreateView.as_view(str(u'new')))
         return blueprint
 
     # IUploader

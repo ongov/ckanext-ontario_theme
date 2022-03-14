@@ -11,7 +11,7 @@ Renders a list of the site's most recent activity.
       <span class="label label-default">{{ h.render_datetime(dataset.current_as_of) }}</span>
     </div>
     <div class="col-md-9 col-sm-9 col-xs-8">
-      <a href="{% url_for controller='package', action='read', id=dataset.name %}" class="hp_recently_updated">{{ h.get_translated(dataset, "title") }}</a>
+      <a href="{% url_for 'dataset.read', id=dataset.name %}" class="hp_recently_updated">{{ h.get_translated(dataset, "title") }}</a>
     </div>
   </div>
   {% endfor %}

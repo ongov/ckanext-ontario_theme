@@ -12,7 +12,7 @@
   {% if h.get_translated(organization,"description") %}
     <p>
       {{ h.markdown_extract(h.get_translated(organization,"description"), 180) }}
-      {% link_for _('read more'), controller='organization', action='about', id=organization.name %}
+      {% link_for _('read more'), named_route='organization.about', id=organization.name %}
     </p>
   {% else %}
     <p class="empty">{{ _('There is no description for this organization') }}</p>

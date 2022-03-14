@@ -7,7 +7,7 @@
 
 {% macro license_string_from_license(license) %}
   <span property="dc:rights">
-    {% if license['url'] %}
+    {% if license.get('url', False) %}
       <a href="{{ h.get_translated(license, 'url') }}" rel="dc:rights">{{ h.get_translated(license, 'title') }}</a>
     {% else %}
       {{ h.get_translated(license, 'title') }}
@@ -18,14 +18,15 @@
 {% set license = h.ontario_theme_get_license(pkg_dict.license_id) %}
 
 {% block license_content %}
+  {% if license %}
   <p class="module-content">
     {% block license_content_inner %}
-      {{ license_string_from_license(license._data) }}
-      {% if pkg_dict.isopen %}
-        <a href="http://opendefinition.org/okd/" title="{{ _('This dataset satisfies the Open Definition.') }}">
-            <img class="open-data" src="{{ h.url_for_static('/base/images/od_80x15_blue.png') }}" alt="[Open Data]" />
-        </a>
-      {% endif %}
+        {{ license_string_from_license(license._data) }}
+        {% if pkg_dict.isopen %}
+          <a href="http://opendefinition.org/okd/" title="{{ _('This dataset satisfies the Open Definition.') }}">
+              <img class="open-data" src="{{ h.url_for_static('/base/images/od_80x15_blue.png') }}" alt="[Open Data]" />
+          </a>
+        {% endif %}
     {% endblock %}
   </p>
   <p class="module-content">
@@ -33,4 +34,5 @@
       {{ h.get_translated(license._data, 'description') }}
     {% endif %}
   </p>
+  {% endif %}
 {% endblock %}

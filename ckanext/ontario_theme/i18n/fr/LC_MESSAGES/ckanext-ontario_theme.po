@@ -2634,7 +2634,7 @@ msgstr "Trouvez une liste des ministères de l'Ontario ici. Cliquez sur un minis
 "ses jeux de données."
 
 #: ckanext/ontario_theme/templates/internal/package/read.html:7
-msgid "Agorithm/AI Asset"
+msgid "Algorithm/AI Asset"
 msgstr "Algorithme/actif d’IA"
 
 #: ckanext/ontario_theme/templates/internal/package/read.html:9
@@ -2648,8 +2648,12 @@ msgstr "Cet enregistrement décrit un algorithme ou actif d’intelligence artif
 "and-algorithms\">Apprenez-en plus ici sur les mesures prises par le gouvernement de l’Ontario pour ajouter à notre catalogue des éléments autres que des données à des fins de transparence et de responsabilité accrues.</a>"
 
 #: ckanext/ontario_theme/templates/internal/snippets/package_item.html:10
-msgid "Agorithm/AI"
+msgid "Algorithm/AI"
 msgstr "Algorithme/IA"
+
+#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:10
+msgid "ON Geohub"
+msgstr "CarrefourGéo ON"
 
 #: ckanext/ontario_theme/templates/package/resource_read.html:25
 msgid "Open"
@@ -2763,6 +2767,22 @@ msgstr "Exercice: "
 #: ckanext/ontario_theme/templates/package/snippets/resources_list.html:33
 msgid "Supporting Files"
 msgstr "Autres fichiers"
+
+#: ckanext/ontario_theme/templates/package/snippets/resources_list.html:33
+msgid "Supporting file"
+msgstr "Autres fichier"
+
+#: ckanext/ontario_theme/templates/package/snippets/resources_list.html:33
+msgid "data"
+msgstr "Données"
+
+#: ckanext/ontario_theme/templates/package/snippets/resources_list.html:33
+msgid "data_dictionary"
+msgstr "Dictionnaire des données"
+
+#: ckanext/ontario_theme/templates/package/snippets/resources_list.html:33
+msgid "technical_document"
+msgstr "Document technique"
 
 #: ckanext/ontario_theme/templates/package/snippets/resources_list.html:55
 msgid "This dataset has no supporting files"

@@ -32,18 +32,11 @@ Requirements
    - `open-data/ckanext-fluent <https://github.com/open-data/ckanext-fluent>`_
    - master
    - ``fluent``
- * - ckanapi-exporter
-   - `ckanapi-exporter <https://github.com/ckan/ckanapi-exporter>`_
-   - master
-   - N/A
  * - ckanext-harvest
    - `ckanext-harvest <https://github.com/ckan/ckanext-harvest>`_
    - master
    - N/A
- * - ckanext-dcat
-   - `ckanext-dcat <https://github.com/ckan/ckanext-dcat>`_
-   - master
-   - N/A
+   
 
 ------------
 Plugins in this Extension
@@ -65,11 +58,6 @@ virtualenv and do::
     python setup.py develop
     pip install -r dev-requirements.txt
     
-    # Install ckanapi-exporter master from github to get around query limit 
-    # of 1000 datasets in package_search.
-    # TODO: Update to pip install after new release.
-    git clone https://github.com/ckan/ckanapi-exporter.git
-    cd ckanapi-exporter
     python setup.py develop
     pip install -r dev-requirements.txt
 
@@ -155,20 +143,29 @@ Running the Tests
 To run the tests, make sure your ckan install is `setup for tests <https://docs.ckan.org/en/latest/contributing/test.html>`_, do::
 
     cd ckanext-ontario_theme # go to extension directory
-    nosetests --nologcapture --with-pylons=test.ini # run in virtual environment that has nosetests.
+    pytest --ckan-ini=test.ini ckanext/ontario_theme/tests/
 
 To run the tests and produce a coverage report, first make sure you have
 coverage installed in your virtualenv (``pip install coverage``) then run::
 
-    nosetests --nologcapture --with-pylons=test.ini --with-coverage --cover-package=ckanext.ontario_theme --cover-inclusive --cover-erase --cover-tests
+    coverage run -m pytest --ckan-ini=test.ini ckanext/ontario_theme/tests/
+
+You can then run:: 
+
+    coverage html
+
+or::
+
+    coverage report
+
+You can then find the coverage reports in a generated htmlcov folder.
 
 Our custom config settings are in ``./test.ini``.
 
 Additional ways to run tests:
 
-    # Single Test method
-    nosetests ckanext/ontario_theme/tests/test_create_dataset.py:TestCreateDataset.test_package_create_with_invalid_update_frequency --nologcapture --with-pylons=test.ini
     # Single Test class
-    nosetests ckanext/ontario_theme/tests/test_create_dataset.py:TestCreateDataset --nologcapture --with-pylons=test.ini
+    coverage run -m pytest --ckan-ini=test.ini ckanext/ontario_theme/tests/test_create_dataset.py::test_package_create_with_invalid_update_frequency 
+
     # Single Test module
-    nosetests ckanext/ontario_theme/tests/test_create_dataset.py --nologcapture --with-pylons=test.ini
+    coverage run -m pytest --ckan-ini=test.ini ckanext/ontario_theme/tests/test_create_dataset.py

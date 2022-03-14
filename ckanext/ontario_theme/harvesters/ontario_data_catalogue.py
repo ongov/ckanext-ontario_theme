@@ -58,31 +58,6 @@ class OntarioDataCatalogueHarvester(CKANHarvester):
         '''
         Creates a new package or updates an existing one according to the
         package dictionary provided.
-        The package dictionary can be in one of two forms:
-        1. 'rest' - as seen on the RESTful API:
-                http://datahub.io/api/rest/dataset/1996_population_census_data_canada
-           This is the legacy form. It is the default to provide backward
-           compatibility.
-           * 'extras' is a dict e.g. {'theme': 'health', 'sub-theme': 'cancer'}
-           * 'tags' is a list of strings e.g. ['large-river', 'flood']
-        2. 'package_show' form, as provided by the Action API (CKAN v2.0+):
-               http://datahub.io/api/action/package_show?id=1996_population_census_data_canada
-           * 'extras' is a list of dicts
-                e.g. [{'key': 'theme', 'value': 'health'},
-                        {'key': 'sub-theme', 'value': 'cancer'}]
-           * 'tags' is a list of dicts
-                e.g. [{'name': 'large-river'}, {'name': 'flood'}]
-        Note that the package_dict must contain an id, which will be used to
-        check if the package needs to be created or updated (use the remote
-        dataset id).
-        If the remote server provides the modification date of the remote
-        package, add it to package_dict['metadata_modified'].
-        :returns: The same as what import_stage should return. i.e. True if the
-                  create or update occurred ok, 'unchanged' if it didn't need
-                  updating or False if there were errors.
-        TODO: Not sure it is worth keeping this function. If useful it should
-        use the output of package_show logic function (maybe keeping support
-        for rest api based dicts
         '''
         assert package_dict_form in ('rest', 'package_show')
         try:
@@ -148,8 +123,8 @@ class OntarioDataCatalogueHarvester(CKANHarvester):
                     if package_dict.get("maintainer_email", "") == "":
                     	del package_dict['maintainer_email']
                     if "maintainer_translated" in package_dict:
-                    	if package_dict['maintainer_translated'].get("en","") == "" and package_dict['maintainer_translated'].get("fr","") == "":
-                    		del package_dict['maintainer_translated']
+                        if package_dict['maintainer_translated'].get("en","") == "" and package_dict['maintainer_translated'].get("fr","") == "":
+                    	    del package_dict['maintainer_translated']
                         elif package_dict['maintainer_translated'].get("en","") != "" and package_dict['maintainer_translated'].get("fr","") == "":
                             package_dict['maintainer_translated']['fr'] = package_dict['maintainer_translated']['en'] 
                         elif package_dict['maintainer_translated'].get("en","") == "" and package_dict['maintainer_translated'].get("fr","") != "":

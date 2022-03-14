@@ -5,7 +5,6 @@ from ckan.common import _
 from ckantoolkit import Invalid
 from ckanext.scheming.validation import scheming_validator
 from ckanext.fluent.validators import fluent_text_output
-from pylons.i18n import _
 from ckantoolkit import Invalid
 from ckan.authz import is_sysadmin
 import json
@@ -24,7 +23,7 @@ def tag_name_validator(value, context):
     value = value.strip()
 
     # replace any other separators with a space
-    separator_search = re.compile(ur'[\s]', re.UNICODE)
+    separator_search = re.compile(u'[\s]', re.UNICODE)
     value = separator_search.sub(" ", value)
 
     if u',' in value:
@@ -34,7 +33,7 @@ def tag_name_validator(value, context):
             _(u'Tag "%s" may not contain consecutive spaces') % (value))
 
     # same as core tag_name_validator except for the addition of ' and ’
-    tagname_match = re.compile(ur'[\w ’\'\-.]*$', re.UNICODE)
+    tagname_match = re.compile(u'[\w ’\'\-.]*$', re.UNICODE)
 
     if not tagname_match.match(value):
         raise Invalid(_(u'Tag "%s" must be alphanumeric '

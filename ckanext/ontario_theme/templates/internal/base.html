@@ -3,12 +3,12 @@
 {%- block links -%}
   {{ super() }}
   <script src="//www.webservices.gov.on.ca/metrics.js" type="text/javascript" charset="utf-8"></script>
-  {% resource 'ontario_theme/msappproxy.js' %}
+  {% asset 'ontario_theme/msappproxy_js' %}
   {% snippet "gtm.html" %}  
 {% endblock %}
 
 {% block styles %}
   {{ super() }}
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
-  {% resource 'ontario_theme/ontario_theme.css' %}
+  {% asset 'ontario_theme/ontario_theme_css' %}
 {% endblock %}

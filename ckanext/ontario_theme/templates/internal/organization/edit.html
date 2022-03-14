@@ -1,10 +1,8 @@
 {% ckan_extends %}
 
-{% block subtitle %}{{ h.get_translated(c.group_dict, "title") }} - {{ _('Organizations') }}{% endblock %}
-
 {% block breadcrumb_content %}
   <li>{% link_for _('Organizations'), named_route='organization.index', named_route=group_type + '_index' %}</li>
-  {% block breadcrumb_content_inner %}
+  {% block breadcrumb_content_inner %} 
     <li>{% link_for h.get_translated(organization,"title")|truncate(35), named_route=group_type+'.read', id=organization.name %}</li>
     <li class="active">{% link_for _('Edit'), named_route=group_type+'.edit', id=organization.name %}</li>
   {% endblock %}

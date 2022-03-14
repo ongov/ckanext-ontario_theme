@@ -1,46 +1,40 @@
 """Tests for plugin.py."""
-from nose.tools import eq_, ok_
-from ckan.exceptions import HelperError
-import ckan.plugins as plugins
+
+import pytest
+
+import datetime
 import ckan.tests.helpers as helpers
-import ckan.model as model
 
-
+@pytest.mark.usefixtures('clean_db', 'with_plugins', 'with_request_context','app')
 class TestOntarioThemePlugin(helpers.FunctionalTestBase):
+
     def setup(self):
-        self.app = helpers._get_test_app()
-
-        if not plugins.plugin_loaded(u'ontario_theme'):
-            plugins.load(u'ontario_theme')
-            plugin = plugins.get_plugin(u'ontario_theme')
-            self.app.flask_app.register_extension_blueprint(
-                plugin.get_blueprint())
-
-    def teardown(self):
-        '''Nose runs this method after each test method in our test class.'''
-        # Rebuild CKAN's database after each test method, so that each test
-        # method runs with a clean slate.
-        model.repo.rebuild_db()
-
-    @classmethod
-    def teardown_class(cls):
-        '''Nose runs this method once after all the test methods in our class
-        have been run.
-
+        """Reset the database and clear the search indexes."""
         '''
-        # We have to unload the plugin we loaded, so it doesn't affect any
-        # tests that run after ours.
-        plugins.unload(u'ontario_theme')
+        We need to overwrite the CKAN Core setup function
+        because it calls functions that don't exist.
+        We already clean/reset the db using the clean_db fixture
+        '''
+        return True
 
     # For the test, change the ckan.site_url to localhost.
     @helpers.change_config('ckan.site_url', 'http://127.0.0.1')
-    def test_csv_dump_route(self):
-        '''If `/datasets/csv_dump` route is called it returns csv export.
+    def test_csv_dump_route(self, app):
+        '''If `/datasets/inventory` route is called it returns csv export.
         '''
-        # res = self.app.get(u'/dataset/csv_dump')
 
-        # eq_(u'200 OK', res._status)
-        # ok_(('Content-Type', 'text/csv; charset=utf-8') in res._headerlist)
-        # ok_(('Content-disposition',
-        #      'attachment; filename="output.csv"') in res._headerlist)
+        res = app.get(u'/dataset/inventory')
+
+        timestamp = datetime.datetime.now().strftime('%Y-%m-%d')
+        csv_filename = 'ontario_data_catalogue_inventory_' + timestamp
+
+        assert u'200 OK' == res._status
+        assert (
+            res.headers.get("Content-Type")
+            == 'text/csv; charset=utf-8'
+        )
+        assert (
+            res.headers.get("Content-disposition")
+            == 'attachment; filename="'+csv_filename+'.csv"'
+        )
         pass
