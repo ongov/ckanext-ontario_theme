@@ -703,7 +703,7 @@ type data_last_updated
         '''Return a Flask Blueprint object to be registered by the app.
         '''
 
-        blueprint = Blueprint(self.name, self.__module__,url_defaults={u'package_type': u'dataset'})
+        blueprint = Blueprint(self.name, self.__module__)
         blueprint.template_folder = u'templates'
 
         @blueprint.before_request
@@ -730,7 +730,7 @@ type data_last_updated
 
         for rule in rules:
             blueprint.add_url_rule(*rule)
-        blueprint.add_url_rule('/dataset/new', view_func=OntarioThemeCreateView.as_view(str(u'new')))
+        blueprint.add_url_rule('/dataset/new', view_func=OntarioThemeCreateView.as_view(str(u'new')), defaults={u'package_type': u'dataset'})
         return blueprint
 
     # IUploader
