@@ -615,7 +615,7 @@ class OntarioGeohubHarvester(HarvesterBase):
                 package_id = p.toolkit.get_action(action)(context, package_dict)
                 log.info('%s dataset with id %s', message_status, package_id)
 
-        except Exception, e:
+        except Exception as e:
             dataset = json.loads(harvest_object.content)
             dataset_name = dataset.get('name', '')
 
