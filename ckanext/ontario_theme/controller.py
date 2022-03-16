@@ -31,7 +31,6 @@ def _save_new(self, context, package_type=None):
                 data_dict['tags'] = self._tag_string_to_list(
                     data_dict['tag_string'])
             if data_dict.get('pkg_name'):
-                log.info("is_an_update")
                 is_an_update = True
                 # This is actually an update not a save
                 data_dict['id'] = data_dict['pkg_name']
