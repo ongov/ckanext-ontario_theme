@@ -1,0 +1,177 @@
+{
+    "scheming_version": 1,
+    "about_url": "http://github.com/ckan/ckanext-scheming",
+    "type": "organization",
+    "organization_type": "organization",
+    "form_languages": ["en", "fr"],
+    "fields": [
+        {
+          "field_name": "title_translated",
+          "label": {
+            "en": "Name",
+            "fr": "Nom"
+          },
+          "preset": "fluent_core_translated",
+          "form_snippet": "extrafields_fluent_title.html",
+          "classes": ["col-md-12","form-group"]
+        },
+        {
+          "field_name": "name",
+          "label": "URL",
+          "preset": "dataset_slug",
+          "form_placeholder": "eg. my-organization"
+        },
+        {
+          "field_name": "description_translated",
+          "label": {
+            "en": "Description",
+            "fr": "Description"
+          },
+          "preset": "fluent_core_translated",
+          "classes": ["col-md-12","form-group"]
+        },
+        {
+          "field_name": "org_contact",
+          "label": {
+            "en": "Organization Contact",
+            "fr": "Contact de l'Organisation"
+          },
+          "preset": "fluent_text",
+          "classes": ["form-group","col-md-12"]
+        },
+        {
+          "field_name": "od_lead_email_1",
+          "label": {
+            "en": "Open Data Lead Email 1",
+            "fr": "Email du Contact de le Donnée Ouvertes 1"
+          },
+          "help_inline" : true,
+          "help_text": {
+            "en": "Contact information of Open Government Lead"
+          },
+          "form_placeholder": "e.g., joe@example.com",
+          "display_property": "dc:contributor",
+          "display_snippet": "email.html",
+          "display_email_name_field": "og_lead",
+          "validators": "email_validator",
+          "classes": ["col-md-12","form-group"]
+        },
+        {
+          "field_name": "od_lead_email_2",
+          "label": {
+            "en": "Open Data Lead Email 2",
+            "fr": "Email du Contact de le Donnée Ouvertes 2"
+          },
+          "help_inline" : true,
+          "help_text": {
+            "en": "Contact information of Open Government Lead"
+          },
+          "form_placeholder": "e.g., joe@example.com",
+          "display_property": "dc:contributor",
+          "display_snippet": "email.html",
+          "display_email_name_field": "og_lead",
+          "validators": "email_validator",
+          "classes": ["col-md-12","form-group"]
+        },
+        {
+          "field_name": "od_lead_email_3",
+          "label": {
+            "en": "Open Data Lead Email 3",
+            "fr": "Email du Contact de le Donnée Ouvertes 3"
+          },
+          "help_inline" : true,
+          "help_text": {
+            "en": "Contact information of Open Government Lead"
+          },
+          "form_placeholder": "e.g., joe@example.com",
+          "display_property": "dc:contributor",
+          "display_snippet": "email.html",
+          "display_email_name_field": "og_lead",
+          "validators": "email_validator",
+          "classes": ["col-md-12","form-group"]
+        },
+        {
+          "field_name": "jurisdiction",
+          "label": {
+            "en": "Jurisdiction",
+            "fr": "Juridiction"
+          },
+          "required": true,
+          "help_inline" : true,
+          "help_text": {
+            "en": "The extent or range of judicial, law enforcement or other authority. Example: Level of government that contributed the dataset.",
+            "fr": "Étendue de l’autorité judiciaire, de l’autorité d’application de la loi ou d’un autre type d’autorité. Par exemple, l'ordre de gouvernement ayant fourni le jeu de données."
+          }, 
+          "classes": ["form-group","col-md-12"],
+          "preset": "select",
+          "validators": "default(provincial) scheming_choices scheming_required",
+          "choices": [
+            {
+              "value": "provincial",
+              "label": {
+                "en": "Provincial",
+                "fr": "Provinciale"
+              }
+            },
+            {
+              "value": "federal",
+              "label": {
+                "en": "Federal",
+                "fr": "Fédérale"
+              }
+            },
+            {
+              "value": "municipal",
+              "label": {
+                "en": "Municipal",
+                "fr": "Municipal"
+              }
+            }
+          ]
+        },
+        {
+          "field_name": "category",
+          "label": {
+            "en": "Category",
+            "fr": "Catégorie"
+          },
+          "required": true,
+          "help_inline" : true,
+          "help_text": {
+            "en": "The classification or type of organization. Ministry is most common for this catalogue but in some rare circumstances another category of organization is needed.",
+            "fr": "La classification ou le type d'organisation. Le ministère est le plus courant pour ce catalogue, mais dans de rares cas, une autre catégorie d'organisation est nécessaire."
+          }, 
+          "classes": ["form-group","col-md-12"],
+          "preset": "select",
+          "validators": "default(ministry) scheming_choices scheming_required",
+          "choices": [
+            {
+              "value": "ministry",
+              "label": {
+                "en": "Ministry",
+                "fr": "Ministère"
+              }
+            },
+            {
+              "value": "agency",
+              "label": {
+                "en": "Agency",
+                "fr": "Agence"
+              }
+            },
+            {
+              "value": "crown_corporation",
+              "label": {
+                "en": "Crown Corporation",
+                "fr": "Société d'État"
+              }
+            }
+          ]
+        },
+        {
+          "field_name": "image_url",
+          "validators": "ignore_missing unicode remove_whitespace",
+          "form_snippet": "ontario_theme_organization_upload.html"
+        }
+    ]
+}

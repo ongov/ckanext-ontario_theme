@@ -2802,6 +2802,11 @@ msgstr "Communiquez avec"
 msgid "Ontario's Open Data Team"
 msgstr "L'équipe de données ouvertes de l'Ontario"
 
+#: ckanext/ontario_theme/templates/scheming/package/read.html:37
+#: ckanext/ontario_theme/templates/scheming/organization/about.html:30
+msgid "Contact the ministry open data lead:"
+msgstr "Communiquez avec le ministère responsable des données ouvertes:"
+
 #: ckanext/ontario_theme/templates/snippets/search_form.html:29
 msgid "Keywords"
 msgstr "Mots clés"

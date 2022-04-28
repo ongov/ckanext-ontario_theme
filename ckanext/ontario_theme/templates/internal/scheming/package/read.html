@@ -25,6 +25,49 @@
     </div>
   {% endif %}
   
+  <h3>{% trans %}For more information{% endtrans %} </h3>
+  {# maintainer email > Org Contact page > Ontario Open data team #}
+  {% set contact_name = h.get_translated(pkg, 'maintainer') %}
+  {% set contact_email = pkg.maintainer_email %}
+  {% set organization = h.get_organization(pkg['owner_org']) %}
+  
+  {% if (not contact_name) and (not contact_email) %}
+    {% set contact_page = h.scheming_language_text(organization['org_contact']) %}
+    {% if (not contact_page) %}
+      {% set contact_name = _("Ontario's Open Data Team") %}
+      {% set contact_email = "opengov@ontario.ca" %} 
+    {% endif %}
+  {% endif %}
+
+  {% set od_email = [h.scheming_language_text(organization['od_lead_email_1']),h.scheming_language_text(organization['od_lead_email_2']),h.scheming_language_text(organization['od_lead_email_3'])] %}
+
+  <div>
+    {% if contact_name %}  
+      {{contact_name}}
+    {% endif %}
+    {% if contact_name and contact_email %}
+      &nbsp;|&nbsp;
+    {% endif %}
+    {% if contact_page %}
+      <a href="{{contact_page}}">
+        {% trans %}Contact{% endtrans %} {{ h.get_translated(organization, 'title') }}
+      </a>
+    {% endif %}
+    {% if contact_email %}  
+      <a href="mailto:{{contact_email}}?subject={{pkg.title}}">
+        {{contact_email}}
+      </a><br><br>
+    {% endif %}
+    {% if od_email %}
+      <p>{% trans %}Contact the ministry open data lead:{% endtrans %} </p>
+      <a href="mailto:{{contact_email}}?subject={{pkg.title}}">
+        {% for email in od_email %}
+          <p>{{email}}</p>
+        {% endfor %}
+      </a>
+    {% endif %}
+
+  </div>
 {% endblock %}
 
 {% block package_tags %}
