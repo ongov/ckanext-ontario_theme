@@ -4,6 +4,12 @@
     'title_translated',
     'org_contact',
     'image_url',
+    'od_lead_name_1',
+    'od_lead_name_2',
+    'od_lead_name_3',
+    'od_lead_email_1',
+    'od_lead_email_2',
+    'od_lead_email_3',
     'description_translated'
     ] %}
 
@@ -26,8 +32,21 @@
   {% endblock %}
   {% block organization_contact %}
     {% set contact_page = h.scheming_language_text(c.group_dict['org_contact']) %}
+    <h3>{% trans %}For more information{% endtrans %} </h3>
+    {% if c.group_dict.get('od_lead_email_1') or c.group_dict.get('od_lead_email_2') or c.group_dict.get('od_lead_email_3')  %}
+      <h4>Ministry open data leads:</h4>
+      {% for i in [1,2,3] %}
+        {% if c.group_dict.get('od_lead_email_'+(loop.index|string)) %}
+
+
+          {{ h.snippet('snippets/ontario_theme_email.html',
+                       contact_name=c.group_dict.get('od_lead_name_'+(loop.index|string)),
+                       contact_email=c.group_dict.get('od_lead_email_'+(loop.index|string))) }}<br />
+        {% endif %}
+      {% endfor %} 
+    {% endif %}
     {% if contact_page %}
-      <h3>{% trans %}For more information{% endtrans %} </h3>
+      <h4>Public inquiries:</h4>
       <a href="{{ contact_page }}" >
         {% trans %}Contact{% endtrans %} {{ h.get_translated(c.group_dict, "title") }}
       </a>
