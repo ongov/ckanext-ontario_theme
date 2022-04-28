@@ -32,7 +32,12 @@ Requirements
    - `open-data/ckanext-fluent <https://github.com/open-data/ckanext-fluent>`_
    - master
    - ``fluent``
+ * - Harvest extension
+   - `ckan/ckanext-harvest <https://github.com/ckan/ckanext-harvest>`_
+   - master
+   - ``harvest``
 
+(The harvest extension might not run without adding the following command "sudo mkdir -p /var/log/ckan/std")
 
 ------------
 Plugins in this Extension
@@ -40,6 +45,7 @@ Plugins in this Extension
 
 * ``ontario_theme`` base and internal facing Ontario data catalogue
 * ``ontario_theme_external`` customizations for external facing Ontario data catalogue (requires ``ontario_theme``)
+* ``ontario_data_catalogue_harvester`` harvester for internal data catalogue to sync with the external data catalogue.
 
 
 ------------
@@ -82,6 +88,12 @@ config setting is in the `plugin.py` already::
     update -c /etc/ckan/default/production.ini && /usr/lib/ckan/default/bin/paster --plugin=ckan search-index rebuild -r -c /etc/ckan/default/production.ini
 
 Create a sysadmin user, login and set the HomePage layout under Admin -> Config to the third option. Our homepage uses this layout as it's base.
+
+------------
+Harvesters
+------------
+
+ontario_data_catalogue_harvester - only for use on the internal catalogue. add the plugin in the ini file and restart the server. visit /harvest and add a harvester for the url https://data.ontario.ca
 
 -----------------
 Development
