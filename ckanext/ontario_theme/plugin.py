@@ -588,8 +588,8 @@ ckanext.ontario_theme:schemas/internal/ontario_theme_dataset.json
 ckanext.scheming:presets.json
 ckanext.fluent:presets.json
 """
-
-        config_['scheming.organization_schemas'] = """
+        if 'scheming.organization_schemas' not in config_:
+            config_['scheming.organization_schemas'] = """
 ckanext.ontario_theme:schemas/internal/ontario_theme_organization.json
 """
         config_['ckan.tracking_enabled'] = """
