@@ -58,8 +58,8 @@ msgid "Contact Us"
 msgstr "Contactez-nous"
 
 #: ckanext/ontario_theme/templates/footer.html:15
-msgid "https://www.ontario.ca/feedback/contact-us?id=33142&nid=138269"
-msgstr "https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=33143&nid=138269"
+msgid "https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269"
+msgstr "https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=532365&nid=138269"
 
 #: ckanext/ontario_theme/templates/footer.html:21
 msgid ""
@@ -157,9 +157,19 @@ msgstr "Q. Pouvez-vous m’aviser des mises à jour du catalogue?"
 msgid ""
 "A. Try using the <a href=\"/dataset\" target=\"_blank\">catalogue search "
 "page</a>. Enter your keywords in the search bar and refine your search, "
-"using the filters provided."
+"using the filters provided. Some dataset entries previously available on "
+"the catalogue have been removed. View the <a href=\"https://data.ontario.ca/dataset/"
+"entries-removed-from-the-ontario-data-catalogue\" target=\"_blank\">Entries "
+"removed from the Ontario data catalogue</a> dataset to see if the dataset"
+" entry you're looking for has been removed from the catalogue."
 msgstr "R. Essayez d’utiliser la <a href=\"/fr/dataset\" "
-"target=\"_blank\">page de recherche du catalogue</a>. Entrez vos mots clés dans la barre de recherche et affinez votre recherche en utilisant les filtres proposés."
+"target=\"_blank\">page de recherche du catalogue</a>. Entrez vos mots clés"
+" dans la barre de recherche et affinez votre recherche en utilisant les"
+" filtres proposés. Certaines entrées de l’ensemble de données du catalogue"
+" ont été retirées. Pour voir si c’est le cas de l’entrée que vous cherchez,"
+" consultez l’ensemble de données intitulé <a href=\"https://"
+"data.ontario.ca/fr/dataset/entries-removed-from-the-ontario-data-catalogue"
+"\" target=\"_blank\">Éléments retirés du catalogue de données de l’Ontario</a>."
 
 
 
