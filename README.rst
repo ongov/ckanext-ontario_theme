@@ -77,15 +77,7 @@ Update the development.ini (or production.ini) plugins::
     # For both, add licenses:
     licenses_group_url = file:///<path to this extension>/ckanext/ontario_theme/schemas/licences.json
 
-Setup for CKAN tracking by running the paster cmds and adding cron jobs. The
-config setting is in the `plugin.py` already::
-
-    paster --plugin=ckan tracking update --config=/etc/ckan/default/production.ini
-    paster --plugin=ckan search-index rebuild --config=/etc/ckan/default/production.ini
-    crontab -e
-    # Add this line
-    @hourly /usr/lib/ckan/default/bin/paster --plugin=ckan tracking
-    update -c /etc/ckan/default/production.ini && /usr/lib/ckan/default/bin/paster --plugin=ckan search-index rebuild -r -c /etc/ckan/default/production.ini
+Setup for CKAN tracking (https://docs.ckan.org/en/2.9/maintaining/tracking.html). The config setting is in the `plugin.py` already.
 
 Create a sysadmin user, login and set the HomePage layout under Admin -> Config to the third option. Our homepage uses this layout as it's base.
 
