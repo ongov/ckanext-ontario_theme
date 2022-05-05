@@ -11,9 +11,11 @@ Theme for Ontario ckan including:
 -------------------
 Directory Structure
 -------------------
+Three main directories compose this repository
 
-* - scripts: contains scripts to setup CKAN and required applications
-* - config: contains configuraiton files needed for installation and configuration of CKAN
+* **scripts:** contains scripts to setup CKAN and required applications
+* **config:** contains configuraiton files needed for installation and configuration of CKAN
+* **ckanext:** Ontario Theme Extention files for CKAN
 
 ------------
 Requirements
