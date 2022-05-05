@@ -8,6 +8,12 @@ Theme for Ontario ckan including:
 * forms
 * templates and design
 
+-------------------
+Directory Structure
+-------------------
+
+* - scripts: contains scripts to setup CKAN and required applications
+* - config: contains configuraiton files needed for installation and configuration of CKAN
 
 ------------
 Requirements
