@@ -33,12 +33,7 @@ cp $REPODIR/../config/solr/managed-schema .
 echo $SUDOPASS | sudo -S -k chmod 775 managed-schema
 echo "Schema fetched."
 
-echo "Creating a CKAN core..."
-echo $SUDOPASS | sudo -S -k su solr <<EOF
-cd /opt/solr/bin
-pwd
-./solr create -c ckan
-exit
-EOF
-echo "CKAN core created."
+echo "Creating a ckan core..."
+echo $SUDOPASS | sudo -S -k -u solr /opt/solr/bin/solr create -c ckan
+echo "ckan core created."
 
