@@ -11,7 +11,7 @@ STATUS_ERROR_MSG='Solr failed to install. Check status_out.txt.'
 # Install Dependencies
 echo "Installing packages..."
 echo $SUDOPASS | sudo -S -k apt-get update
-echo $SUDOPASS | sudo -S -k apt-get install -y net-tools openssh-server openjdk-11-jre
+echo $SUDOPASS | sudo -S -k apt-get install -y net-tools=1.60+git20180626.aebd88e-1ubuntu1 openjdk-11-jre=11.0.15+10-0ubuntu0.20.04.1
 
 # Install and Configure SOLR
 echo "Installing Solr binary installer for version ${SOLRVER}..."
