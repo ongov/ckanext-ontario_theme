@@ -5,7 +5,6 @@
 
 # Vars
 SOLRVER=8.11.1
-STATUSCHECK=$(grep 'status=0/SUCCESS' status_out.txt | wc -l)
 STATUS_ERROR_MSG='Solr failed to install. Check status_out.txt.'
 
 # Install Dependencies
@@ -20,6 +19,7 @@ tar xzf solr-$SOLRVER.tgz
 sleep 5
 echo $SUDOPASS | sudo -S -k ./solr-$SOLRVER/bin/install_solr_service.sh solr-$SOLRVER.tgz > status_out.txt
 sleep 5
+STATUSCHECK=$(grep 'status=0/SUCCESS' status_out.txt | wc -l)
 if [[ $STATUSCHECK -eq 0 ]]; then
      echo >&2 "ERROR: $STATUS_ERROR_MSG"; exit 1;
 fi
