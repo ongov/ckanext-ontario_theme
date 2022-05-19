@@ -34,7 +34,32 @@ cd scripts
 ```
 unset SUDOPASS
 ```
+### Check status  
+Check the success of the installation on the command line and/or the browser.
 
+**Command line:**  
+- check that response status is 200:
+```
+$ curl -s -o /dev/null -I -w '%{http_code}' http://{ip_address}:8983/solr/admin/cores?action=STATUS
+
+200
+```
+- check that the Solr node is found:
+```
+$ sudo /etc/init.d/solr status
+
+Found 1 Solr nodes:
+```
+- check that Solr service is running:
+```
+$ sudo service solr status
+
+solr.service - LSB: Controls Apache Solr as a Service
+     Loaded: loaded (/etc/init.d/solr; generated)
+     Active: active (exited) 
+```
+
+**Browser:**  
 Check that Solr is running on `http://127.0.0.1:8983/solr/`. The ckan core should be listed in the Core Admin menu with `instanceDir /var/solr/data/ckan`.
 
 You can also check that the schema properties reflect the Ontario theme. In the Core Selector dropdown menu, choose ckan, and then select Schema from the menu. The Unique Key Field should be `index_id`.
