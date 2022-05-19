@@ -18,14 +18,16 @@ Note that the bash script installs Solr but does not rebuild the index: this mus
 export SUDOPASS='xxxx'
 ```
 
-2. Install git, clone this repository, fetch the `solr8` branch, change to the scripts directory, and run the script:
+2. Install git, clone this repository, fetch the `ckan_2.9_upgrade` branch, change to the scripts directory, and run the script:
 ```
 echo $SUDOPASS | sudo -S -k apt-get update
 echo $SUDOPASS | sudo -S -k apt-get install git
 git clone https://github.com/ongov/ckanext-ontario_theme.git
 cd ckanext-ontario_theme
-git fetch origin solr8:solr8
-git checkout solr8
+
+git fetch origin ckan_2.9_upgrade:ckan_2.9_upgrade
+git checkout ckan_2.9_upgrade
+
 cd scripts
 ./setup_solr.sh
 ```
