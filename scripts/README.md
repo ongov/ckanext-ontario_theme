@@ -15,24 +15,24 @@ Note that the bash script installs Solr but does not rebuild the index: this mus
 
 1. Export your sudo password as an environment variable named `SUDOPASS`:
 ```
-$ export SUDOPASS='xxxx'
+export SUDOPASS='xxxx'
 ```
 
 2. Install git, clone this repository, fetch the `solr8` branch, change to the scripts directory, and run the script:
 ```
-$ sudo apt-get update
-$ sudo apt-get install git
-$ git clone https://github.com/ongov/ckanext-ontario_theme.git
-$ cd ckanext-ontario_theme
-$ git fetch origin solr8:solr8
-$ git checkout solr8
-$ cd scripts
-$ ./setup_solr.sh
+echo $SUDOPASS | sudo -S -k apt-get update
+echo $SUDOPASS | sudo -S -k apt-get install git
+git clone https://github.com/ongov/ckanext-ontario_theme.git
+cd ckanext-ontario_theme
+git fetch origin solr8:solr8
+git checkout solr8
+cd scripts
+./setup_solr.sh
 ```
 
 3. Unset the SUDOPASS environment variable:
 ```
-$ unset SUDOPASS
+unset SUDOPASS
 ```
 
 Check that Solr is running on `http://127.0.0.1:8983/solr/`. The ckan core should be listed in the Core Admin menu with `instanceDir /var/solr/data/ckan`.
