@@ -31,6 +31,10 @@ echo $SUDOPASS | sudo chown -R `whoami` /etc/ckan/
 # Configuring ckan.ini to /etc/ckan/default/
 
 
+# Link to who.ini
+ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini
+
+# Create database tables
 
 
 
