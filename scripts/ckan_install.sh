@@ -1,12 +1,19 @@
 #! /bin/bash
 
 export SUDOPASS='1'
+export CKANUSER='ckan_default'
+export CKANPASS='ckan_default'
+export CKANDB='ckan_default'
+export DATASTOREUSER='datastore_default'
+export DATASTOREPASS='datastore_default'
+export DATASTOREDB='datastore_default'
+
 # echo $SUDOPASS | sudo -S -k apt-get install -y git git-core
 
 # Install Dependencies
 echo "Installing packages..."
 echo $SUDOPASS | sudo -S -k apt-get update
-echo $SUDOPASS | sudo -S -k apt-get install -y libpq-dev redis-server python3-pip python3-virtualenv python3-dev python3.8-venv postgresql postgresql-contrib
+echo $SUDOPASS | sudo -S -k apt-get install -y redis-server python3-pip python3-virtualenv python3-dev python3.8-venv
 
 # Install CKAN into py virt env
 echo $SUDOPASS | sudo -S -k mkdir -p /usr/lib/ckan/default
@@ -18,6 +25,13 @@ python3 -m venv /usr/lib/ckan/default
 pip3 install setuptools==45 wheel==0.37.1
 pip3 install -e 'git+https://github.com/ckan/ckan.git@ckan-2.9.5#egg=ckan[requirements]'
 
-# PostgreSQL db setup
+echo $SUDOPASS | sudo -S -k mkdir -p /etc/ckan/default
+echo $SUDOPASS | sudo chown -R `whoami` /etc/ckan/
+
+# Configuring ckan.ini to /etc/ckan/default/
+
+
+
+
 
 
