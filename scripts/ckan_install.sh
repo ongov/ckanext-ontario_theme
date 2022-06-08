@@ -34,8 +34,14 @@ echo $SUDOPASS | sudo chown -R `whoami` /etc/ckan/
 # Link to who.ini
 ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini
 
-# Create database tables
+# setup firestore & ckan admin account
+ckan -c /etc/ckan/default/ckan.ini sysadmin add admin email=admin@localhost name=admin
+echo $SUDOPASS | sudo chown -R `whoami` /usr/lib/ckan/default
+echo $SUDOPASS | sudo chown -R u+rw /usr/lib/ckan/default
+
+# setup datastore
 
 
+# xloader
 
 
