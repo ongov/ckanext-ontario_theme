@@ -21,7 +21,7 @@ export SUDOPASS='xxxx'
 2. Install git, clone this repository, fetch the `ckan_2.9_upgrade` branch, change to the scripts directory, and run the script:
 ```
 echo $SUDOPASS | sudo -S -k apt-get update
-echo $SUDOPASS | sudo -S -k apt-get install git
+{ echo $SUDOPASS; echo 'Y'; } | sudo -S -k apt-get install git
 git clone https://github.com/ongov/ckanext-ontario_theme.git
 cd ckanext-ontario_theme
 
@@ -31,6 +31,9 @@ git checkout ckan_2.9_upgrade
 cd scripts
 ./setup_solr.sh
 ```
+
+Note: After the tar file is extracted, there will be a message:
+`[sudo] password for ckan29: id: ‘solr’: no such user`. This is normal and can be ignored.
 
 3. Unset the SUDOPASS environment variable:
 ```
