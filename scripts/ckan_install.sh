@@ -26,15 +26,15 @@ pip3 install setuptools==45 wheel==0.37.1
 pip3 install -e 'git+https://github.com/ckan/ckan.git@ckan-2.9.5#egg=ckan[requirements]'
 
 echo $SUDOPASS | sudo -S -k mkdir -p /etc/ckan/default
-echo $SUDOPASS | sudo chown -R `whoami` /etc/ckan/
+echo $SUDOPASS | sudo -S -k chown -R `whoami` /etc/ckan/
 
-# Configuring ckan.ini to /etc/ckan/default/
+# TODO: Configuring ckan.ini to /etc/ckan/default/
 
 
 # Link to who.ini
 ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini
 
-# setup firestore & ckan admin account
+# setup filestore & ckan admin account
 ckan -c /etc/ckan/default/ckan.ini sysadmin add admin email=admin@localhost name=admin
 echo $SUDOPASS | sudo chown -R `whoami` /usr/lib/ckan/default
 echo $SUDOPASS | sudo chown -R u+rw /usr/lib/ckan/default
