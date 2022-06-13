@@ -67,3 +67,12 @@ Check that Solr is running on `http://127.0.0.1:8983/solr/`. The ckan core shoul
 You can also check that the schema properties reflect the Ontario theme. In the Core Selector dropdown menu, choose ckan, and then select Schema from the menu. The Unique Key Field should be `index_id`.
 
 ![image](https://user-images.githubusercontent.com/1254764/167931044-3bb4686a-eebd-4651-92ce-b6a82cb0309f.png)
+
+## CKAN
+
+Bash script: `ckan_install.sh`  
+
+This bash script needs postgreSQL and relevant databases to be setup before being executed. For local setup, this can be done by using `postgres_install.sh` and `create_datatables.sh`
+
+The bash script also needs a base config `ckan.ini` file. This is copied from `config/ckan` to `/etc/ckan/default/ckan.ini`, and modified during the course of execution of the script
+
