@@ -11,7 +11,7 @@ export DATASTOREDB='datastore_default'
 # Install Postgres Dependencies
 echo "Installing packages..."
 echo $SUDOPASS | sudo -S -k apt-get update
-echo $SUDOPASS | sudo -S -k apt-get install -y libpq-dev postgresql postgresql-contrib
+echo $SUDOPASS | sudo -S -k apt-get install -y postgresql postgresql-contrib
 
 # PostgreSQL db setup
 output=`echo $SUDOPASS | sudo -S -k -u postgres psql -l`

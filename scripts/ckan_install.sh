@@ -13,7 +13,7 @@ export DATASTOREDB='datastore_default'
 # Install Dependencies
 echo "Installing packages..."
 echo $SUDOPASS | sudo -S -k apt-get update
-echo $SUDOPASS | sudo -S -k apt-get install -y redis-server python3-pip python3-virtualenv python3-dev python3.8-venv
+echo $SUDOPASS | sudo -S -k apt-get install -y libpq-dev redis-server python3-pip python3-virtualenv python3-dev python3.8-venv
 
 # Install CKAN into py virt env
 echo $SUDOPASS | sudo -S -k mkdir -p /usr/lib/ckan/default
