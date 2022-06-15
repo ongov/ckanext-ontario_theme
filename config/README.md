@@ -5,10 +5,15 @@ This folder contains configuration files for the following applications:
 | Application | Version     |Config file |
 | ----------- | ----------- |----------- |
 | nginx       | nginx/1.18.0 (Ubuntu)    |`ckan`|
+| uswgi       |     |`ckan-uwsgi.conf`|
 | Solr        | 8.11.1      |`managed-schema`|
 
 ## nginx
-The `ckan` config file was copied from the CKAN documentation for [deploying a source install](https://docs.ckan.org/en/2.9/maintaining/installing/deployment.html#create-the-nginx-config-file). This config file is retrieved by the `ckan_install.sh` script.
+The `ckan` config file was copied from the CKAN documentation for [deploying a source install](https://docs.ckan.org/en/2.9/maintaining/installing/deployment.html#create-the-nginx-config-file) for production. This config file is retrieved when the `ckan_install.sh` script is run.
+
+## uwsgi
+The `ckan-uwsgi` config file was copied from the CKAN documentation for [deploying a source install](https://docs.ckan.org/en/2.9/maintaining/installing/deployment.html#id2) for production. This config file is retrieved when the `ckan_install.sh` script is run.
+
 
 ## Solr
 
