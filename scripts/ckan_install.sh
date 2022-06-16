@@ -1,4 +1,5 @@
 #! /bin/bash
+source ./helper_functions.sh
 
 export SUDOPASS='1'
 export POSTGRESSERVER="localhost"
@@ -15,13 +16,6 @@ export DATASTOREPASS='datastore_default'
 export DATASTOREDB='datastore_default'
 export SOLRURL='http://127.0.0.1'
 export SOLRPORT='8983'
-
-# helper functions
-# TODO: Move helpers out to helpers.sh
-function str_to_sed_str(){
-        sed_str=$(sed 's/[&/\]/\\&/g' <<<$@)
-        echo $sed_str
-}
 
 # echo $SUDOPASS | sudo -S -k apt-get install -y git git-core
 
@@ -41,7 +35,7 @@ pip3 install setuptools==45 wheel==0.37.1
 pip3 install -e 'git+https://github.com/ckan/ckan.git@ckan-2.9.5#egg=ckan[requirements]'
 
 echo $SUDOPASS | sudo -S -k mkdir -p /etc/ckan/default
-echo $SUDOPASS | sudo chown -R `whoami` /etc/ckan/
+echo $SUDOPASS | sudo -S -k chown -R `whoami` /etc/ckan/
 
 # Copying and Configuring ckan.ini to /etc/ckan/default/
 cp `pwd`/../config/ckan/ckan.ini /etc/ckan/default/
@@ -59,7 +53,7 @@ CKANSITE_URL_REPLACEMENT_STRING=`str_to_sed_str "ckan.site_url = http://$CKANURL
 sed -i -r 's/'"$CKANSITE_URL_STRING"'/'"$CKANSITE_URL_REPLACEMENT_STRING"'/' $CKANINIPATH
 
 # solr_url
-SOLR_URL_STRING=`str_to_sed_str "#solr_url = http://127.0.0.1:8983/solr"`
+SOLR_URL_STRING=`str_to_sed_str "solr_url = http://127.0.0.1:8983/solr/ckan"`
 SOLR_URL_REPLACEMENT_STRING=`str_to_sed_str "solr_url = $SOLRURL:$SOLRPORT/solr/ckan"`
 
 sed -i -r 's/'"$SOLR_URL_STRING"'/'"$SOLR_URL_REPLACEMENT_STRING"'/' $CKANINIPATH
@@ -67,12 +61,22 @@ sed -i -r 's/'"$SOLR_URL_STRING"'/'"$SOLR_URL_REPLACEMENT_STRING"'/' $CKANINIPAT
 # Link to who.ini
 ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini
 
+# TODO: if local setup, create data tables by running datatables script
+
 # setup filestore & ckan admin account
 ckan -c /etc/ckan/default/ckan.ini sysadmin add admin email=admin@localhost name=admin
 echo $SUDOPASS | sudo -S chown -R `whoami` /usr/lib/ckan/default
 echo $SUDOPASS | sudo -S chmod -R u+rw /usr/lib/ckan/default
 
 # setup datastore
+
+DATASTORE_WRITE_URL="ckan.datastore.write_url = postgresql://ckan_default:pass@localhost/datastore_default"
+DATASTORE_WRITE_URL_REPLACEMENT="ckan.datastore.write_url = postgresql://$CKANUSER@$POSTGRESSERVER:$CKANPASS@$POSTGESSERVERURL:$POSTGRESSERVERPORT/$DATASTOREDB?sslmode=require"
+replace_string_in_ckan_ini DATASTORE_WRITE_URL DATASTORE_WRITE_URL_REPLACEMENT
+
+DATASTORE_READ_URL="ckan.datastore.read_url = postgresql://datastore_default:pass@localhost/datastore_def"
+DATASTORE_READ_URL_REPLACEMENT="ckan.datastore.write_url = postgresql://$DATASTOREUSER@$POSTGRESSERVER:$DATASTOREPASS@$POSTGESSERVERURL:$POSTGRESSERVERPORT/$DATASTOREDB?sslmode=require"
+replace_string_in_ckan_ini DATASTORE_READ_URL DATASTORE_READ_URL_REPLACEMENT
 
 
 # xloader
