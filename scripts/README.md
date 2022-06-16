@@ -1,6 +1,6 @@
 # Installation Scripts
 
-Bash scripts to install Ontario ckan 2.9 and Solr 8.11.1 on separate Ubuntu 20.04 virtual machines.
+Bash scripts to install and set up Ontario CKAN 2.9 and Solr 8.11.1
 
 ## Solr
 
@@ -70,3 +70,8 @@ Check that Solr is running on `http://127.0.0.1:8983/solr/`. The ckan core shoul
 You can also check that the schema properties reflect the Ontario theme. In the Core Selector dropdown menu, choose ckan, and then select Schema from the menu. The Unique Key Field should be `index_id`.
 
 ![image](https://user-images.githubusercontent.com/1254764/167931044-3bb4686a-eebd-4651-92ce-b6a82cb0309f.png)
+
+## Ontario CKAN
+
+### Local production
+If running CKAN in production on a local virtual machine, run [localprod_ssl.sh](https://github.com/ongov/ckanext-ontario_theme/blob/localckan_script/scripts/localprod_ssl.sh) to set up the application to run on `https://localhost` instead of `http://localhost`.
