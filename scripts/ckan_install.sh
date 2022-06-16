@@ -8,9 +8,13 @@ export CKANINIPATH="/etc/ckan/default/ckan.ini"
 export CKANUSER='ckan_default'
 export CKANPASS='ckan_default'
 export CKANDB='ckan_default'
+export CKANURL='localhost'
+export CKANPORT='5000'
 export DATASTOREUSER='datastore_default'
 export DATASTOREPASS='datastore_default'
 export DATASTOREDB='datastore_default'
+export SOLRURL='http://127.0.0.1'
+export SOLRPORT='8983'
 
 # helper functions
 # TODO: Move helpers out to helpers.sh
@@ -47,6 +51,18 @@ SQLALCHEMY_STRING=`str_to_sed_str "sqlalchemy.url = postgresql://ckan_default:pa
 SQLALCHEMY_REPLACEMENT_STRING=`str_to_sed_str "sqlalchemy.url = postgresql://$CKANUSER@$POSTGRESSERVER:$CKANPASS@$POSTGESSERVERURL:$POSTGRESSERVERPORT/$CKANDB?sslmode=require"`
 
 sed -i -r 's/'"$SQLALCHEMY_STRING"'/'"$SQLALCHEMY_REPLACEMENT_STRING"'/' $CKANINIPATH
+
+# ckan.site_url
+CKANSITE_URL_STRING=`str_to_sed_str "ckan.site_url ="`
+CKANSITE_URL_REPLACEMENT_STRING=`str_to_sed_str "ckan.site_url = http://$CKANURL:$CKANPORT"`
+
+sed -i -r 's/'"$CKANSITE_URL_STRING"'/'"$CKANSITE_URL_REPLACEMENT_STRING"'/' $CKANINIPATH
+
+# solr_url
+SOLR_URL_STRING=`str_to_sed_str "#solr_url = http://127.0.0.1:8983/solr"`
+SOLR_URL_REPLACEMENT_STRING=`str_to_sed_str "solr_url = $SOLRURL:$SOLRPORT/solr/ckan"`
+
+sed -i -r 's/'"$SOLR_URL_STRING"'/'"$SOLR_URL_REPLACEMENT_STRING"'/' $CKANINIPATH
 
 # Link to who.ini
 ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini
