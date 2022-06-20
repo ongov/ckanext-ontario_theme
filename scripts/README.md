@@ -75,3 +75,11 @@ You can also check that the schema properties reflect the Ontario theme. In the 
 
 ### Local production
 If running CKAN in production on a local virtual machine, run [localprod_ssl.sh](https://github.com/ongov/ckanext-ontario_theme/blob/localckan_script/scripts/localprod_ssl.sh) to set up the application to run on `https://localhost` instead of `http://localhost`.
+## CKAN
+
+Bash script: `ckan_install.sh`  
+
+This bash script needs postgreSQL and relevant databases to be setup before being executed. For local setup, this can be done by using `postgres_install.sh` and `create_datatables.sh`
+
+The bash script also needs a base config `ckan.ini` file. This is copied from `config/ckan` to `/etc/ckan/default/ckan.ini`, and modified during the course of execution of the script
+
