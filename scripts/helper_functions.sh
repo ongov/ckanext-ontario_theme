@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# function to convert a string into a Sed escaped string.
+# Function to convert a string into a Sed escaped string.
 # This string can be used in sed replace command.
 # arguments: 1 String to be modified with escape chars
 # return: Modified String with escape chars
@@ -18,7 +18,21 @@ function str_to_sed_str(){
 # example:
 #    replace_str_in_ckan_ini "replace this" "by this"
 function replace_str_in_ckan_ini() {
-    ORIGINAL_STR = "$1"
-    REPLACEMENT_STR = "$2"
+    ORIGINAL_STR="$1"
+    REPLACEMENT_STR="$2"
     sed -i -r 's/'"$ORIGINAL_STR"'/'"$REPLACEMENT_STR"'/' $CKANINIPATH
+}
+
+# replaces a given string with the replacement string inside
+# a specified file. 
+# arguments: string needing replacement, replacement string, file
+# return: none
+# example:
+#    replace_str_in_file "replace this" "by this" file
+function replace_str_in_file() {
+    ORIGINAL_STR="$1"
+    REPLACEMENT_STR="$2"
+    FILE="$3"
+    echo $REPLACEMENT_STR
+    sed -i -r 's/'"$ORIGINAL_STR"'/'"$REPLACEMENT_STR"'/' $FILE
 }

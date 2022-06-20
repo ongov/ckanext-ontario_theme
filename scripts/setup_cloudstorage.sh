@@ -1,4 +1,5 @@
 #!/bin/bash
+source ./helper_functions.sh
 
 # Assume that the sudo password has been exported as an environment variable
 # export SUDOPASS="mypassword"
@@ -29,22 +30,29 @@ pip3 install zope.interface==5.0.0
 # Make additional py3 upgrades
 cd /usr/lib/ckan/default/src/ckanext-cloudstorage
 git checkout -b ckan2.9
-sed -i -r 's/'"$PYLONSIMPORT"'/'"$PYLONSIMPORT_REPLACEMENT"'/g' $STORAGEPY
-sed -i -r 's/'"$PYLONSIMPORT"'/'"$PYLONSIMPORT_REPLACEMENT"'/g' $MULTIPARTPY
+replace_str_in_file "$PYLONSIMPORT" "$PYLONSIMPORT_REPLACEMENT" "$STORAGEPY"
+replace_str_in_file "$PYLONSIMPORT" "$PYLONSIMPORT_REPLACEMENT" "$MULTIPARTPY"
 
 python3 setup.py develop
 python3 setup.py install
 
 # Add cloudstorage to ckan.plugins in ckan.ini
-sed -i -r 's/'"$CKANPLUGINS"'/'"$CKANPLUGINS_REPLACEMENT"'/g' $CKANINI
+replace_str_in_file "$CKANPLUGINS" "$CKANPLUGINS_REPLACEMENT" "$CKANINI"
 
-# Add Azure params to snippet
-sed -i '/<blob name>/ r '"$AZUREBLOB"'' $AZURESNIPPET
-sed -i '/<storage container name>/ r '"$AZURECONTAINER"'' $AZURESNIPPET
-sed -i '/<access key 1>/ r '"$AZURESECRET"'' $AZURESNIPPET
-
-# Add cloudstorage params to ckan.ini
+# Add Azure snippet to ckan.ini
 sed -i '/'"$CKANPLUGINS_REPLACEMENT"'/ r '"$AZURESNIPPET"'' $CKANINI
+
+# Replace Azure placeholders with pre-defined values
+replace_str_in_file "<blob name>" "$AZUREBLOB" "$CKANINI"
+replace_str_in_file "<storage container name>" "$AZURECONTAINER" "$CKANINI"
+# Escape special characters in Azure secret with str_to_sed_str() 
+# and duplicate any % chars
+AZURESECRET_FORMATTED=$(str_to_sed_str $(sed '/%/s/$/%%/' <<<$AZURESECRET))
+# Store formatted Azure secret in a text file
+echo "\"${AZURESECRET_FORMATTED}\"" > secret_snippet.txt
+# Add secret to ckan.ini by appending text file
+sed -i '/"secret":/ r secret_snippet.txt' $CKANINI
+rm secret_snippet.txt
 
 echo $SUDOPASS | sudo -S service supervisor restart
 
