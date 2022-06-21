@@ -13,6 +13,9 @@ export CKANINI="/etc/ckan/default/ckan.ini"
 export CKANPLUGINS="recline_view datastore xloader"
 export CKANPLUGINS_REPLACEMENT="recline_view datastore xloader cloudstorage"
 export AZURESNIPPET="/usr/lib/ckan/default/src/ckanext-ontario_theme/config/cloudstorage/azure_snippet.txt"
+export CLOUDSTORAGESNIPPET="/usr/lib/ckan/default/src/ckanext-ontario_theme/config/cloudstorage/cloudstorage_snippet.txt"
+export UTILSFILE="/usr/lib/ckan/default/src/ckanext-cloudstorage/ckanext/cloudstorage/utils.py"
+export IMPORTLINE="import (CloudStorage, ResourceCloudStorage)"
 
 . /usr/lib/ckan/default/bin/activate
 pip3 install apache-libcloud==2.8.2
@@ -53,6 +56,13 @@ echo "\"${AZURESECRET_FORMATTED}\"" > secret_snippet.txt
 # Add secret to ckan.ini by appending text file
 sed -i '/"secret":/ r secret_snippet.txt' $CKANINI
 rm secret_snippet.txt
+
+# Import ResourceCloudStorage(resource) into utils.py
+sed -i '/'"$IMPORTLINE"'/ r '"$CLOUDSTORAGESNIPPET"'' $UTILSFILE
+
+# Use storage instead of upload in utils.py
+replace_str_in_file "upload.get_url_from_filename" "storage.get_url_from_filename" $UTILSFILE
+
 
 echo $SUDOPASS | sudo -S service supervisor restart
 
