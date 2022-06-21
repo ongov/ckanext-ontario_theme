@@ -2,14 +2,19 @@
 source ./helper_functions.sh
 
 # Assume that the sudo password has been exported as an environment variable
-# export SUDOPASS="mypassword"
+# export SUDOPASS="<sudo_passwd>"
+
 # Assume that the Azure params have previously been exported
 # AZUREBLOB, AZURECONTAINER, AZURESECRET
+# Escape special characters in Azure secret with replace_str_in_ckan_ini() 
+# and duplicate any % chars:
+export SECRET_ESCAPED=$(str_to_sed_str $(sed '/%/s/$/%%/' <<<$AZURESECRET))
+
 export STORAGEPY="/usr/lib/ckan/default/src/ckanext-cloudstorage/ckanext/cloudstorage/storage.py"
 export MULTIPARTPY="/usr/lib/ckan/default/src/ckanext-cloudstorage/ckanext/cloudstorage/logic/action/multipart.py"
 export PYLONSIMPORT="from pylons import config"
 export PYLONSIMPORT_REPLACEMENT="from ckantoolkit import config"
-export CKANINI="/etc/ckan/default/ckan.ini"
+export CKANINIPATH="/etc/ckan/default/ckan.ini"
 export CKANPLUGINS="recline_view datastore xloader"
 export CKANPLUGINS_REPLACEMENT="recline_view datastore xloader cloudstorage"
 export AZURESNIPPET="/usr/lib/ckan/default/src/ckanext-ontario_theme/config/cloudstorage/azure_snippet.txt"
@@ -40,22 +45,15 @@ python3 setup.py develop
 python3 setup.py install
 
 # Add cloudstorage to ckan.plugins in ckan.ini
-replace_str_in_file "$CKANPLUGINS" "$CKANPLUGINS_REPLACEMENT" "$CKANINI"
+replace_str_in_file "$CKANPLUGINS" "$CKANPLUGINS_REPLACEMENT" "$CKANINIPATH"
 
 # Add Azure snippet to ckan.ini
-sed -i '/'"$CKANPLUGINS_REPLACEMENT"'/ r '"$AZURESNIPPET"'' $CKANINI
+sed -i '/'"$CKANPLUGINS_REPLACEMENT"'/ r '"$AZURESNIPPET"'' $CKANINIPATH
 
 # Replace Azure placeholders with pre-defined values
-replace_str_in_file "<blob name>" "$AZUREBLOB" "$CKANINI"
-replace_str_in_file "<storage container name>" "$AZURECONTAINER" "$CKANINI"
-# Escape special characters in Azure secret with str_to_sed_str() 
-# and duplicate any % chars
-AZURESECRET_FORMATTED=$(str_to_sed_str $(sed '/%/s/$/%%/' <<<$AZURESECRET))
-# Store formatted Azure secret in a text file
-echo "\"${AZURESECRET_FORMATTED}\"" > secret_snippet.txt
-# Add secret to ckan.ini by appending text file
-sed -i '/"secret":/ r secret_snippet.txt' $CKANINI
-rm secret_snippet.txt
+replace_str_in_file "<blob name>" "$AZUREBLOB" "$CKANINIPATH"
+replace_str_in_file "<storage container name>" "$AZURECONTAINER" "$CKANINIPATH"
+replace_str_in_ckan_ini "<access key 1>" "$SECRET_ESCAPED" "$CKANINIPATH"
 
 # Import ResourceCloudStorage(resource) into utils.py
 sed -i '/'"$IMPORTLINE"'/ r '"$CLOUDSTORAGESNIPPET"'' $UTILSFILE
