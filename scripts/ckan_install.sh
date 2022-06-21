@@ -16,6 +16,7 @@ export DATASTOREPASS='datastore_default'
 export DATASTOREDB='datastore_default'
 export SOLRURL='http://127.0.0.1'
 export SOLRPORT='8983'
+export XLOADER_REQ_VER='0.9.0'
 
 # echo $SUDOPASS | sudo -S -k apt-get install -y git git-core
 
@@ -72,13 +73,28 @@ echo $SUDOPASS | sudo -S chmod -R u+rw /usr/lib/ckan/default
 
 DATASTORE_WRITE_URL="ckan.datastore.write_url = postgresql://ckan_default:pass@localhost/datastore_default"
 DATASTORE_WRITE_URL_REPLACEMENT="ckan.datastore.write_url = postgresql://$CKANUSER@$POSTGRESSERVER:$CKANPASS@$POSTGESSERVERURL:$POSTGRESSERVERPORT/$DATASTOREDB?sslmode=require"
-replace_string_in_ckan_ini DATASTORE_WRITE_URL DATASTORE_WRITE_URL_REPLACEMENT
+replace_string_in_ckan_ini $DATASTORE_WRITE_URL $DATASTORE_WRITE_URL_REPLACEMENT
 
 DATASTORE_READ_URL="ckan.datastore.read_url = postgresql://datastore_default:pass@localhost/datastore_def"
-DATASTORE_READ_URL_REPLACEMENT="ckan.datastore.write_url = postgresql://$DATASTOREUSER@$POSTGRESSERVER:$DATASTOREPASS@$POSTGESSERVERURL:$POSTGRESSERVERPORT/$DATASTOREDB?sslmode=require"
-replace_string_in_ckan_ini DATASTORE_READ_URL DATASTORE_READ_URL_REPLACEMENT
+DATASTORE_READ_URL_REPLACEMENT="ckan.datastore.write_url = \postgresql://$DATASTOREUSER@$POSTGRESSERVER:$DATASTOREPASS@$POSTGESSERVERURL:$POSTGRESSERVERPORT/$DATASTOREDB?sslmode=require"
+replace_string_in_ckan_ini $DATASTORE_READ_URL $DATASTORE_READ_URL_REPLACEMENT
 
+# datastore permissions
+# ckan -c /etc/ckan/default/ckan.ini datastore set-permissions | sudo -u postgres psql --ser ON_ERROR_STOP=1
 
 # xloader
-
+## clone and install
+cd usr/lib/ckan/default/src
+git clone http://github.com/ckan/ckanext-xloader.git
+cd ckanext-xloader
+python3 setup.py develop
+pip3 install -r requirements.txt
+pip3 install -r dev-requirements.txt
+## verify version
+XLOADER_INSTALLED_VER=`pip3 list | grep xloader`
+if [[ $XLOADER_INSTALLED_VER == *$XLOADER_REQ_VER* ]]; then
+  echo "xloader installed successfully."
+else
+  echo "incorrect xloader version $XLOADER_INSTALLED_VER";
+fi
 

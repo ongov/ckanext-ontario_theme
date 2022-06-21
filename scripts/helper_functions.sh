@@ -18,8 +18,8 @@ function str_to_sed_str(){
 # example:
 #    replace_str_in_ckan_ini "replace this" "by this"
 function replace_str_in_ckan_ini() {
-    ORIGINAL_STR="$1"
-    REPLACEMENT_STR="$2"
+    ORIGINAL_STR=`str_to_sed_str "$1"`
+    REPLACEMENT_STR=`str_to_sed_str "$2"`
     sed -i -r 's/'"$ORIGINAL_STR"'/'"$REPLACEMENT_STR"'/' $CKANINIPATH
 }
 
