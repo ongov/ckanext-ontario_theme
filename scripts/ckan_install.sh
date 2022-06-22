@@ -48,7 +48,7 @@ SQLALCHEMY_REPLACEMENT_STRING=`str_to_sed_str "sqlalchemy.url = postgresql://$CK
 sed -i -r 's/'"$SQLALCHEMY_STRING"'/'"$SQLALCHEMY_REPLACEMENT_STRING"'/' $CKANINIPATH
 
 # ckan.site_url
-CKANSITE_URL_STRING=`str_to_sed_str "ckan.site_url ="`
+CKANSITE_URL_STRING=`str_to_sed_str "ckan.site_url = http://localhost:5000"`
 CKANSITE_URL_REPLACEMENT_STRING=`str_to_sed_str "ckan.site_url = http://$CKANURL:$CKANPORT"`
 
 sed -i -r 's/'"$CKANSITE_URL_STRING"'/'"$CKANSITE_URL_REPLACEMENT_STRING"'/' $CKANINIPATH
@@ -62,15 +62,13 @@ sed -i -r 's/'"$SOLR_URL_STRING"'/'"$SOLR_URL_REPLACEMENT_STRING"'/' $CKANINIPAT
 # Link to who.ini
 ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini
 
-# TODO: if local setup, create data tables by running datatables script
-
 # setup filestore & ckan admin account
 ckan -c /etc/ckan/default/ckan.ini sysadmin add admin email=admin@localhost name=admin
-echo $SUDOPASS | sudo -S chown -R `whoami` /usr/lib/ckan/default
-echo $SUDOPASS | sudo -S chmod -R u+rw /usr/lib/ckan/default
+echo $SUDOPASS | sudo -S -k chown -R `whoami` /usr/lib/ckan/default
+echo $SUDOPASS | sudo -S -k chmod -R u+rw /usr/lib/ckan/default
 
-# setup datastore
-
+# datastore
+# update datastore in ckan.ini
 DATASTORE_WRITE_URL="ckan.datastore.write_url = postgresql://ckan_default:pass@localhost/datastore_default"
 DATASTORE_WRITE_URL_REPLACEMENT="ckan.datastore.write_url = postgresql://$CKANUSER@$POSTGRESSERVER:$CKANPASS@$POSTGESSERVERURL:$POSTGRESSERVERPORT/$DATASTOREDB?sslmode=require"
 replace_string_in_ckan_ini $DATASTORE_WRITE_URL $DATASTORE_WRITE_URL_REPLACEMENT
@@ -80,21 +78,26 @@ DATASTORE_READ_URL_REPLACEMENT="ckan.datastore.write_url = \postgresql://$DATAST
 replace_string_in_ckan_ini $DATASTORE_READ_URL $DATASTORE_READ_URL_REPLACEMENT
 
 # datastore permissions
-# ckan -c /etc/ckan/default/ckan.ini datastore set-permissions | sudo -u postgres psql --ser ON_ERROR_STOP=1
+
+# echo $SUDOPASS | sudo -S -k && ckan -c /etc/ckan/default/ckan.ini datastore set-permissions | sudo -u postgres psql --set ON_ERROR_STOP=1
+# {echo $SUDOPASS; ckan -c /etc/ckan/default/ckan.ini datastore set-permissions} | sudo -u postgres psql --set ON_ERROR_STOP=1
 
 # xloader
-## clone and install
+# update xloader in ckan.ini
+XLOADER_URI="ckanext.xloader.jobs_db.uri = postgresql://ckan_default:pass@localhost/ckan_default"
+XLOADER_URI_REPLACEMENT="ckan.datastore.write_url = postgresql://$CKANUSER@$POSTGRESSERVER:$CKANPASS@$POSTGESSERVERURL:$POSTGRESSERVERPORT/$CKANDB?sslmode=require"
+replace_string_in_ckan_ini $XLOADER_URI $XLOADER_URI_REPLACEMENT
+# clone and install
 cd usr/lib/ckan/default/src
 git clone http://github.com/ckan/ckanext-xloader.git
 cd ckanext-xloader
 python3 setup.py develop
 pip3 install -r requirements.txt
 pip3 install -r dev-requirements.txt
-## verify version
+# verify version
 XLOADER_INSTALLED_VER=`pip3 list | grep xloader`
 if [[ $XLOADER_INSTALLED_VER == *$XLOADER_REQ_VER* ]]; then
   echo "xloader installed successfully."
 else
   echo "incorrect xloader version $XLOADER_INSTALLED_VER";
 fi
-
