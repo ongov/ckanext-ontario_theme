@@ -2,16 +2,15 @@
 source ./helper_functions.sh
 
 export SUDOPASS='1'
-export POSTGRESSERVER="localhost"
 export POSTGRESSERVERURL="localhost"
 export POSTGRESSERVERPORT="5432"
 export CKANINIPATH="/etc/ckan/default/ckan.ini"
-export CKANUSER='ckan_default'
+export CKANUSER='ckan_default' # ckan_default or ckan_default@ops-postgres-009
 export CKANPASS='ckan_default'
 export CKANDB='ckan_default'
 export CKANURL='localhost'
 export CKANPORT='5000'
-export DATASTOREUSER='datastore_default'
+export DATASTOREUSER='datastore_default' # datastore_default or datastore_default@ops-postgre-009
 export DATASTOREPASS='datastore_default'
 export DATASTOREDB='datastore_default'
 export SOLRURL='http://127.0.0.1'
@@ -43,7 +42,7 @@ cp `pwd`/../config/ckan/ckan.ini /etc/ckan/default/
 
 # sqlalchemy.url
 SQLALCHEMY_STRING=`str_to_sed_str "sqlalchemy.url = postgresql://ckan_default:pass@localhost/ckan_default"`
-SQLALCHEMY_REPLACEMENT_STRING=`str_to_sed_str "sqlalchemy.url = postgresql://$CKANUSER@$POSTGRESSERVER:$CKANPASS@$POSTGESSERVERURL:$POSTGRESSERVERPORT/$CKANDB?sslmode=require"`
+SQLALCHEMY_REPLACEMENT_STRING=`str_to_sed_str "sqlalchemy.url = postgresql://$CKANUSER:$CKANPASS@$POSTGRESSERVERURL:$POSTGRESSERVERPORT/$CKANDB?sslmode=require"`
 
 sed -i -r 's/'"$SQLALCHEMY_STRING"'/'"$SQLALCHEMY_REPLACEMENT_STRING"'/' $CKANINIPATH
 
@@ -74,11 +73,11 @@ echo $SUDOPASS | sudo -S -k chmod -R u+rw /usr/lib/ckan/default
 # datastore
 # update datastore in ckan.ini
 DATASTORE_WRITE_URL="ckan.datastore.write_url = postgresql://ckan_default:pass@localhost/datastore_default"
-DATASTORE_WRITE_URL_REPLACEMENT="ckan.datastore.write_url = postgresql://$CKANUSER@$POSTGRESSERVER:$CKANPASS@$POSTGESSERVERURL:$POSTGRESSERVERPORT/$DATASTOREDB?sslmode=require"
+DATASTORE_WRITE_URL_REPLACEMENT="ckan.datastore.write_url = postgresql://$CKANUSER:$CKANPASS@$POSTGRESSERVERURL:$POSTGRESSERVERPORT/$DATASTOREDB?sslmode=require"
 replace_string_in_ckan_ini $DATASTORE_WRITE_URL $DATASTORE_WRITE_URL_REPLACEMENT
 
 DATASTORE_READ_URL="ckan.datastore.read_url = postgresql://datastore_default:pass@localhost/datastore_def"
-DATASTORE_READ_URL_REPLACEMENT="ckan.datastore.write_url = \postgresql://$DATASTOREUSER@$POSTGRESSERVER:$DATASTOREPASS@$POSTGESSERVERURL:$POSTGRESSERVERPORT/$DATASTOREDB?sslmode=require"
+DATASTORE_READ_URL_REPLACEMENT="ckan.datastore.write_url = \postgresql://$DATASTOREUSER:$DATASTOREPASS@$POSTGRESSERVERURL:$POSTGRESSERVERPORT/$DATASTOREDB?sslmode=require"
 replace_string_in_ckan_ini $DATASTORE_READ_URL $DATASTORE_READ_URL_REPLACEMENT
 
 # datastore permissions
@@ -91,7 +90,7 @@ echo "datastore enabled successfully."
 # xloader
 # update xloader in ckan.ini
 XLOADER_URI="ckanext.xloader.jobs_db.uri = postgresql://ckan_default:pass@localhost/ckan_default"
-XLOADER_URI_REPLACEMENT="ckan.datastore.write_url = postgresql://$CKANUSER@$POSTGRESSERVER:$CKANPASS@$POSTGESSERVERURL:$POSTGRESSERVERPORT/$CKANDB?sslmode=require"
+XLOADER_URI_REPLACEMENT="ckan.datastore.write_url = postgresql://$CKANUSER:$CKANPASS@$POSTGRESSERVERURL:$POSTGRESSERVERPORT/$CKANDB?sslmode=require"
 replace_string_in_ckan_ini $XLOADER_URI $XLOADER_URI_REPLACEMENT
 # clone and install
 cd usr/lib/ckan/default/src
