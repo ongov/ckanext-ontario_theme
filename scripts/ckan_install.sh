@@ -23,7 +23,7 @@ export XLOADER_REQ_VER='0.9.0'
 # Install Dependencies
 echo "Installing packages..."
 echo $SUDOPASS | sudo -S -k apt-get update
-echo $SUDOPASS | sudo -S -k apt-get install -y redis-server python3-pip python3-virtualenv python3-dev python3.8-venv
+echo $SUDOPASS | sudo -S -k apt-get install -y redis-server python3-pip python3-virtualenv python3-dev python3.8-venv libpq-dev
 
 # Install CKAN into py virt env
 echo $SUDOPASS | sudo -S -k mkdir -p /usr/lib/ckan/default
@@ -53,11 +53,15 @@ CKANSITE_URL_REPLACEMENT_STRING=`str_to_sed_str "ckan.site_url = http://$CKANURL
 
 sed -i -r 's/'"$CKANSITE_URL_STRING"'/'"$CKANSITE_URL_REPLACEMENT_STRING"'/' $CKANINIPATH
 
+echo "ckan installed successfully."
+
 # solr_url
 SOLR_URL_STRING=`str_to_sed_str "solr_url = http://127.0.0.1:8983/solr/ckan"`
 SOLR_URL_REPLACEMENT_STRING=`str_to_sed_str "solr_url = $SOLRURL:$SOLRPORT/solr/ckan"`
 
 sed -i -r 's/'"$SOLR_URL_STRING"'/'"$SOLR_URL_REPLACEMENT_STRING"'/' $CKANINIPATH
+
+echo "solr connected successfully."
 
 # Link to who.ini
 ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini
@@ -80,7 +84,9 @@ replace_string_in_ckan_ini $DATASTORE_READ_URL $DATASTORE_READ_URL_REPLACEMENT
 # datastore permissions
 
 # echo $SUDOPASS | sudo -S -k && ckan -c /etc/ckan/default/ckan.ini datastore set-permissions | sudo -u postgres psql --set ON_ERROR_STOP=1
-# {echo $SUDOPASS; ckan -c /etc/ckan/default/ckan.ini datastore set-permissions} | sudo -u postgres psql --set ON_ERROR_STOP=1
+{ echo $SUDOPASS; ckan -c /etc/ckan/default/ckan.ini datastore set-permissions; } | sudo -u postgres psql --set ON_ERROR_STOP=1
+
+echo "datastore enabled successfully."
 
 # xloader
 # update xloader in ckan.ini
