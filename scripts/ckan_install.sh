@@ -17,6 +17,7 @@ export SOLRURL='http://127.0.0.1'
 export SOLRPORT='8983'
 export XLOADER_REQ_VER='0.9.0'
 
+CKAN_ONT_THEME_ROOT="`pwd`/.."
 # echo $SUDOPASS | sudo -S -k apt-get install -y git git-core
 
 # Install Dependencies
@@ -109,3 +110,22 @@ if [[ $XLOADER_INSTALLED_VER == *$XLOADER_REQ_VER* ]]; then
 else
   echo "incorrect xloader version $XLOADER_INSTALLED_VER";
 fi
+
+# install theme
+
+CKAN_VENV='/usr/lib/ckan/default'
+cd $CKAN_VENV/src/
+
+# install ckan schema
+pip3 install -e "git+https://github.com/ckan/ckanext-scheming.git#egg=ckanext-scheming"
+
+# install fluent
+git clone https://github.com/ckan/ckanext-fluent.git
+cd ckanext-fluent
+python3 setup.py develop
+pip3 install -r requirements.txt
+
+# install ontario theme
+cd $CKAN_ONT_THEME_ROOT
+python3 setup.py develop
+pip3 install -r dev-requirements.txt
