@@ -72,8 +72,8 @@ echo $SUDOPASS | sudo -S -k chown -R `whoami` /usr/lib/ckan/default
 echo $SUDOPASS | sudo -S -k chmod -R u+rw /usr/lib/ckan/default
 
 # for local, create data tables
-# ckan -c /etc/ckan/default/ckan.ini db init
-# echo $SUDOPASS | sudo -S -k -u postgres psql -c "SELECT table_name FROM information_schema.tables"
+ckan -c /etc/ckan/default/ckan.ini db init
+echo $SUDOPASS | sudo -S -k -u postgres psql -c "SELECT table_name FROM information_schema.tables"
 
 # datastore
 # update datastore in ckan.ini
@@ -82,7 +82,7 @@ DATASTORE_WRITE_URL_REPLACEMENT="ckan.datastore.write_url = postgresql://$CKANUS
 replace_str_in_ckan_ini "$DATASTORE_WRITE_URL" "$DATASTORE_WRITE_URL_REPLACEMENT"
 
 DATASTORE_READ_URL="ckan.datastore.read_url = postgresql://datastore_default:pass@localhost/datastore_def"
-DATASTORE_READ_URL_REPLACEMENT="ckan.datastore.write_url = \postgresql://$DATASTOREUSER:$DATASTOREPASS@$POSTGRESSERVERURL:$POSTGRESSERVERPORT/$DATASTOREDB?sslmode=require"
+DATASTORE_READ_URL_REPLACEMENT="ckan.datastore.read_url = postgresql://$DATASTOREUSER:$DATASTOREPASS@$POSTGRESSERVERURL:$POSTGRESSERVERPORT/$DATASTOREDB?sslmode=require"
 replace_str_in_ckan_ini "$DATASTORE_READ_URL" "$DATASTORE_READ_URL_REPLACEMENT"
 
 # datastore permissions
