@@ -23,7 +23,8 @@ from ckan.lib.helpers import core_helper
 from ckan.model import Package
 import ckan.model as model
 
-from ckanext.ontario_theme.resource_upload import ResourceUpload
+# from ckanext.ontario_theme.resource_upload import ResourceUpload ##CN
+from ckanext.cloudstorage.storage import (CloudStorage, ResourceCloudStorage) ##CN
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
 
 # For Image Uploader
@@ -444,27 +445,30 @@ def get_package_keywords(language='en'):
     return package_top_keywords
 
 def get_date_range(date_start, date_end):
+    print("HUOM! date_start: ", date_start)
+    print("HUOM! date_end: ", date_end)
 
-    if date_start == 'N/A' or date_end == 'N/A':
-        date_range = str(date_start) + ' - ' + str(date_end)
-    else:
-        dt_start = datetime.datetime.strptime(date_start, "%Y-%m-%d")
-        dt_end = datetime.datetime.strptime(date_end, "%Y-%m-%d")
+    # if date_start == 'N/A' or date_end == 'N/A':
+    #     date_range = str(date_start) + ' - ' + str(date_end)
+    # else:
+    #     dt_start = datetime.datetime.strptime(date_start, "%Y-%m-%d")
+    #     dt_end = datetime.datetime.strptime(date_end, "%Y-%m-%d")
 
-        if dt_start.month == 1 and dt_start.day == 1 and \
-                dt_end.month == 12 and dt_end.day == 31:
-            if dt_start.year == dt_end.year:
-                date_range = str(dt_start.year)
-            else:
-                date_range = str(dt_start.year)+' - '+str(dt_end.year)
-        elif dt_start.month == 4 and dt_start.day == 1 and \
-                dt_end.month == 3 and dt_end.day == 31:
-            date_range = helpers._("Fiscal: ")+str(dt_start.year) \
-                +' - '+str(dt_end.year)
-        else:
-            date_range = str(date_start) + ' - ' + str(date_end)
+    #     if dt_start.month == 1 and dt_start.day == 1 and \
+    #             dt_end.month == 12 and dt_end.day == 31:
+    #         if dt_start.year == dt_end.year:
+    #             date_range = str(dt_start.year)
+    #         else:
+    #             date_range = str(dt_start.year)+' - '+str(dt_end.year)
+    #     elif dt_start.month == 4 and dt_start.day == 1 and \
+    #             dt_end.month == 3 and dt_end.day == 31:
+    #         date_range = helpers._("Fiscal: ")+str(dt_start.year) \
+    #             +' - '+str(dt_end.year)
+    #     else:
+    #         date_range = str(date_start) + ' - ' + str(date_end)
 
-    return date_range
+    # return date_range
+    return "1999.01.01 - 1999.12.31"
 
 def default_locale():
     '''Wrap the ckan default locale in a helper function to access
@@ -736,7 +740,8 @@ type data_last_updated
     # IUploader
 
     def get_resource_uploader(self, data_dict):
-        return ResourceUpload(data_dict)
+        # return ResourceUpload(data_dict) ##CN
+        return ResourceCloudStorage(data_dict) ##CN
 
     # IFacets
 
