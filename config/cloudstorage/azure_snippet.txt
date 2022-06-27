@@ -4,7 +4,7 @@ ckanext.cloudstorage.container_name = <blob name>
 
 ckanext.cloudstorage.driver_options = {
   "key": "<storage container name>", 
-  "secret":
+  "secret": "<access key 1>"
   }
 
 ckanext.cloudstorage.use_secure_urls = 1
