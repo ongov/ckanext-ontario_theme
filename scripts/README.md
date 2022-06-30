@@ -91,23 +91,52 @@ api_token = "your_api_key_here"
 
 ```
 
-### Usage 
-Run the script after ensuring your CKAN application is running locally at `http://localhost`. The script will download CSV files.
+## CKAN Local installation in Developer Mode
 
-1. Open a terminal and navigate to the repository directory.
-2. Execute the script with the following command:
+Bash script: `ckan_local_install.sh`  
+
+This bash script installs CKAN in developer mode locally. It needs Solr, postgreSQL and relevant databases to be setup before being executed. This can be done by installing SOLR and Postgres running the accompanying scirpts in shell. 
+The script also needs a base config `ckan.ini` file. This is copied from `config/ckan` to `/etc/ckan/default/ckan.ini`, and modified during the course of execution of the script
+
+### Running the script
+
+**Command line:**  
+
+1. Export your sudo password as an environment variable named `SUDOPASS`:
 ```
-$ python scripts/load_organization_data.py
-
+export SUDOPASS='xxxx'
 ```
 
-The script processes the CSV files and creates organizations in your CKAN application. It also uploads and attaches any resources associated with the organizations. 
+2. setup solr and postgresql
+```
+bash setup_solr.sh && bash postgres_install.sh && bash create_datatables.sh
+```
 
-Monitor the script output for any error messages or failed resource uploads. After completion, check if the organizations and their associated resources were created successfully in your CKAN application.
+3. run script to install ckan
+```
+bash ckan_local_install.sh
+```
 
-### Additional Notes
-The script expects the CSV files to be in the uploads directory. Ensure that the CSV files follow the correct format and contain the necessary data for creating organizations and resources.
+4. Unset the SUDOPASS environment variable:
+```
+unset SUDOPASS
+```
 
-If any errors occur during resource uploads, review the error messages and the `failed_resource_writes` list in the script output. Address any issues related to resource files or network connectivity. 
+5. run ckan
+```
+. /usr/lib/ckan/default/bin/activate
+ckan -c /etc/ckan/default/ckan.ini run
+```
 
-You may modify the script further to meet specific requirements or change its behavior as needed.
+**Browser:** 
+Check ckan status by going to  `http://127.0.0.1:5000` in a browser
+
+## CKAN Local installation in Production Mode
+
+[TODO]
+
+## CKAN Standalone installation in Developer Mode
+
+[TODO]
+
+## CKAN Standalone installation in Production Mode
