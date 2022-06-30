@@ -97,7 +97,7 @@ XLOADER_URI="ckanext.xloader.jobs_db.uri = postgresql://ckan_default:pass@localh
 XLOADER_URI_REPLACEMENT="ckan.datastore.write_url = postgresql://$CKANUSER:$CKANPASS@$POSTGRESSERVERURL:$POSTGRESSERVERPORT/$CKANDB?sslmode=require"
 replace_str_in_ckan_ini "$XLOADER_URI" "$XLOADER_URI_REPLACEMENT"
 # clone and install
-cd usr/lib/ckan/default/src
+cd /usr/lib/ckan/default/src
 git clone http://github.com/ckan/ckanext-xloader.git
 cd ckanext-xloader
 python3 setup.py develop
@@ -111,12 +111,7 @@ else
   echo "incorrect xloader version $XLOADER_INSTALLED_VER";
 fi
 
-# install theme
-
-CKAN_VENV='/usr/lib/ckan/default'
-cd $CKAN_VENV/src/
-
-# install ckan schema
+# install ckan scheming
 pip3 install -e "git+https://github.com/ckan/ckanext-scheming.git#egg=ckanext-scheming"
 
 # install fluent
@@ -129,3 +124,10 @@ pip3 install -r requirements.txt
 cd $CKAN_ONT_THEME_ROOT
 python3 setup.py develop
 pip3 install -r dev-requirements.txt
+
+# update plugins
+PLUGINS="ckan.plugins = stats text_view image_view recline_view"
+PLUGINS_REPLACEMENT="ckan.plugins = ontario_theme_external ontario_theme scheming_datasets scheming_organizations scheming_groups fluent stats text_view image_view recline_view datastore xloader"
+replace_str_in_ckan_ini "$PLUGINS" "$PLUGINS_REPLACEMENT"
+
+# TODO: install msl & add it to the plugins
