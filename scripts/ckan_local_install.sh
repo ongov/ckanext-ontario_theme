@@ -86,7 +86,7 @@ DATASTORE_READ_URL_REPLACEMENT="ckan.datastore.read_url = postgresql://$DATASTOR
 replace_str_in_ckan_ini "$DATASTORE_READ_URL" "$DATASTORE_READ_URL_REPLACEMENT"
 
 # datastore permissions
-{ echo $SUDOPASS; ckan -c /etc/ckan/default/ckan.ini datastore set-permissions; } | sudo -u postgres psql --set ON_ERROR_STOP=1
+{ echo $SUDOPASS; ckan -c /etc/ckan/default/ckan.ini datastore set-permissions; } | sudo -S -k -u postgres psql --set ON_ERROR_STOP=1
 
 echo "datastore enabled successfully."
 
