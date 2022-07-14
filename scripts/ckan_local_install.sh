@@ -66,7 +66,8 @@ echo "solr connected successfully."
 ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini
 
 # setup filestore & ckan admin account
-ckan -c /etc/ckan/default/ckan.ini sysadmin add admin email=admin@localhost name=admin
+ckan -c /etc/ckan/default/ckan.ini user add admin email=admin@localhost password=admin123
+ckan -c /etc/ckan/default/ckan.ini sysadmin add admin
 echo $SUDOPASS | sudo -S -k chown -R `whoami` /usr/lib/ckan/default
 echo $SUDOPASS | sudo -S -k chmod -R u+rw /usr/lib/ckan/default
 
@@ -92,7 +93,7 @@ echo "datastore enabled successfully."
 # xloader
 # update xloader in ckan.ini
 XLOADER_URI="ckanext.xloader.jobs_db.uri = postgresql://ckan_default:pass@localhost/ckan_default"
-XLOADER_URI_REPLACEMENT="ckan.datastore.write_url = postgresql://$CKANUSER:$CKANPASS@$POSTGRESSERVERURL:$POSTGRESSERVERPORT/$CKANDB?sslmode=require"
+XLOADER_URI_REPLACEMENT="ckanext.xloader.jobs_db.uri = postgresql://$CKANUSER:$CKANPASS@$POSTGRESSERVERURL:$POSTGRESSERVERPORT/$CKANDB?sslmode=require"
 replace_str_in_ckan_ini "$XLOADER_URI" "$XLOADER_URI_REPLACEMENT"
 # clone and install
 cd /usr/lib/ckan/default/src

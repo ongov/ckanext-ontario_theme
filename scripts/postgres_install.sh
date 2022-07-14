@@ -1,10 +1,10 @@
 #! /bin/bash
 
 export SUDOPASS='1'
-export CKANUSER='ckan_default@localhost'
+export CKANUSER='ckan_default'
 export CKANPASS='ckan_default'
 export CKANDB='ckan_default'
-export DATASTOREUSER='datastore_default@localhost'
+export DATASTOREUSER='datastore_default'
 export DATASTOREPASS='datastore_default'
 export DATASTOREDB='datastore_default'
 
