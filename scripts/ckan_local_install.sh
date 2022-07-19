@@ -81,7 +81,7 @@ DATASTORE_WRITE_URL="ckan.datastore.write_url = postgresql://ckan_default:pass@l
 DATASTORE_WRITE_URL_REPLACEMENT="ckan.datastore.write_url = postgresql://$CKANUSER:$CKANPASS@$POSTGRESSERVERURL:$POSTGRESSERVERPORT/$DATASTOREDB?sslmode=require"
 replace_str_in_ckan_ini "$DATASTORE_WRITE_URL" "$DATASTORE_WRITE_URL_REPLACEMENT"
 
-DATASTORE_READ_URL="ckan.datastore.read_url = postgresql://datastore_default:pass@localhost/datastore_def"
+DATASTORE_READ_URL="ckan.datastore.read_url = postgresql://datastore_default:pass@localhost/datastore_default"
 DATASTORE_READ_URL_REPLACEMENT="ckan.datastore.read_url = postgresql://$DATASTOREUSER:$DATASTOREPASS@$POSTGRESSERVERURL:$POSTGRESSERVERPORT/$DATASTOREDB?sslmode=require"
 replace_str_in_ckan_ini "$DATASTORE_READ_URL" "$DATASTORE_READ_URL_REPLACEMENT"
 
