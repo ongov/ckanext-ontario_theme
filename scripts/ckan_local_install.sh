@@ -66,10 +66,11 @@ echo "solr connected successfully."
 ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini
 
 # setup filestore & ckan admin account
-ckan -c /etc/ckan/default/ckan.ini user add admin email=admin@localhost password=admin123
+ckan -c /etc/ckan/default/ckan.ini user add admin email=admin@localhost password=admin
 ckan -c /etc/ckan/default/ckan.ini sysadmin add admin
-echo $SUDOPASS | sudo -S -k chown -R `whoami` /usr/lib/ckan/default
-echo $SUDOPASS | sudo -S -k chmod -R u+rw /usr/lib/ckan/default
+# ckan.storage_path is already enabled and set to /var/lib/ckan/default
+echo $SUDOPASS | sudo -S -k chown -R www-data /var/lib/ckan/default
+echo $SUDOPASS | sudo -S -k chmod -R u+rw /var/lib/ckan/default
 
 # for local, create data tables
 ckan -c /etc/ckan/default/ckan.ini db init
