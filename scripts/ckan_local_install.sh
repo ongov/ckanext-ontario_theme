@@ -69,7 +69,7 @@ ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini
 # ckan.storage_path is already enabled and set to /var/lib/ckan/default
 echo $SUDOPASS | sudo -S -k mkdir -p /var/lib/ckan/default
 echo $SUDOPASS | sudo -S -k chown -R www-data /var/lib/ckan/default
-echo $SUDOPASS | sudo -S -k chmod -R u+rw /var/lib/ckan/default
+echo $SUDOPASS | sudo -S -k chmod -R 777 /var/lib/ckan/default # production should use `u+rw`
 ckan -c /etc/ckan/default/ckan.ini user add admin email=admin@localhost password=admin
 ckan -c /etc/ckan/default/ckan.ini sysadmin add admin
 
