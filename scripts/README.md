@@ -109,7 +109,7 @@ export SUDOPASS='xxxx'
 
 2. setup solr and postgresql
 ```
-bash setup_solr.sh && bash postgres_install.sh && bash create_datatables.sh
+bash setup_solr.sh && bash postgres_install.sh
 ```
 
 3. run script to install ckan
