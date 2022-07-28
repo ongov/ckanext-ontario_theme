@@ -91,11 +91,11 @@ api_token = "your_api_key_here"
 
 ```
 
-## CKAN Local installation in Developer Mode
+## CKAN+Ontario Theme Local installation in Developer Mode
 
 Bash script: `ckan_local_install.sh`  
 
-This bash script installs CKAN in developer mode locally. It needs Solr, postgreSQL and relevant databases to be setup before being executed. This can be done by installing SOLR and Postgres running the accompanying scirpts in shell. 
+This bash script installs CKAN in developer mode locally. It needs Solr, postgreSQL and relevant databases to be setup before being executed. This can be done by installing SOLR and Postgres by running the accompanying scirpts in shell. 
 The script also needs a base config `ckan.ini` file. This is copied from `config/ckan` to `/etc/ckan/default/ckan.ini`, and modified during the course of execution of the script
 
 ### Running the script
@@ -131,12 +131,28 @@ ckan -c /etc/ckan/default/ckan.ini run
 **Browser:** 
 Check ckan status by going to  `http://127.0.0.1:5000` in a browser
 
-## CKAN Local installation in Production Mode
+## CKAN & Ontario Theme Local installation in Production Mode
 
-[TODO]
+Bash script: `ckan_localprod_install.sh`  
 
-## CKAN Standalone installation in Developer Mode
+This bash script installs CKAN in production mode with SSL Certificates locally. It needs Solr, postgreSQL and relevant databases, ckan and ontario theme to be setup before being executed. This can be done by installing SOLR, Postgres, CKAN and Ontario Theme by running the accompanying scirpts in shell. 
+The script also needs a base config `config/nginx/local_ckan_ssl`, and `config/supervisor/ckan-uwsgi.conf` files. These are copied to `/etc/nginx/sites-enabled/` and `/etc/supervisor/conf.d/ckan-uwsgi.conf` respectively.
 
-[TODO]
+### Running the script
 
-## CKAN Standalone installation in Production Mode
+**Command line:**  
+
+1. Install CKAN & Ontario Theme locally using instructions in [CKAN Local Install](#CKAN-&-Ontario-Theme-Local -nstallation-in-Production-Mode).
+
+2. Apply settings for production environment using the following command
+```
+bash ckan_localprod_install.sh
+```
+
+3. Unset the SUDOPASS environment variable:
+```
+unset SUDOPASS
+```
+
+**Browser:** 
+Check ckan status by going to  `https://localhost` in a browser
