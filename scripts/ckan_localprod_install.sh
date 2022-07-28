@@ -7,6 +7,7 @@ export CKANINIPATH=$CKANINIROOT"ckan.ini"
 # uwsgi script & server
 echo $SUDOPASS | sudo -S -k cp /usr/lib/ckan/default/src/ckan/wsgi.py /etc/ckan/default/
 echo $SUDOPASS | sudo -S -k chown www-data /etc/ckan/default/wsgi.py
+echo $SUDOPASS | sudo -S -k chown -R www-data /var/lib/ckan/default/webassets
 . /usr/lib/ckan/default/bin/activate
 pip3 install -Iv uwsgi==2.0.20
 echo $SUDOPASS | sudo -S -k cp /usr/lib/ckan/default/src/ckan/ckan-uwsgi.ini /etc/ckan/default/

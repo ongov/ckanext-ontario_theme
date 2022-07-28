@@ -70,7 +70,7 @@ ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini
 echo $SUDOPASS | sudo -S -k mkdir -p /var/lib/ckan/default
 echo $SUDOPASS | sudo -S -k chown -R www-data /var/lib/ckan/default
 echo $SUDOPASS | sudo -S -k chmod -R 777 /var/lib/ckan/default # production should use `u+rw`
-ckan -c /etc/ckan/default/ckan.ini user add admin email=admin@localhost password=admin
+ckan -c /etc/ckan/default/ckan.ini user add admin email=admin@localhost password=admin123
 ckan -c /etc/ckan/default/ckan.ini sysadmin add admin
 
 # for local, create data tables
