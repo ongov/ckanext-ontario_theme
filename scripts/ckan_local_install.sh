@@ -1,7 +1,7 @@
 #! /bin/bash
 source ./helper_functions.sh
 
-export SUDOPASS='1'
+#export SUDOPASS='1'
 export POSTGRESSERVERURL="localhost"
 export POSTGRESSERVERPORT="5432"
 export CKANINIPATH="/etc/ckan/default/ckan.ini"
@@ -132,5 +132,3 @@ pip3 install -r dev-requirements.txt
 PLUGINS="ckan.plugins = stats text_view image_view recline_view"
 PLUGINS_REPLACEMENT="ckan.plugins = ontario_theme_external ontario_theme scheming_datasets scheming_organizations scheming_groups fluent stats text_view image_view recline_view datastore xloader"
 replace_str_in_ckan_ini "$PLUGINS" "$PLUGINS_REPLACEMENT"
-
-# TODO: install msl & add it to the plugins

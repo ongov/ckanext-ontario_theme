@@ -19,9 +19,6 @@ echo $SUDOPASS | sudo -S -k cp /usr/lib/ckan/default/src/ckan/ckan-uwsgi.ini /et
 echo $SUDOPASS | sudo -S -k apt-get -y install supervisor=4.1.0-1ubuntu1
 echo $SUDOPASS | sudo -S -k cp `pwd`/../config/supervisor/ckan-uwsgi.conf /etc/supervisor/conf.d/ckan-uwsgi.conf
 
-# install an email server 
-# TODO
-
 # install and configure nginx
 echo $SUDOPASS | sudo -S -k apt-get -y install nginx=1.18.0-0ubuntu1.3
 echo $SUDOPASS | sudo -S -k cp `pwd`/../config/nginx/local_ckan_ssl /etc/nginx/sites-available/

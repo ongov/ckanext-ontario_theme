@@ -15,7 +15,6 @@ echo $SUDOPASS | sudo -S -k apt-get install -y libpq-dev postgresql postgresql-c
 
 # PostgreSQL db setup
 output=`echo $SUDOPASS | sudo -S -k -u postgres psql -l`
-# TODO: verify that $output contains '3 rows'
 
 # CKAN DB
 echo $SUDOPASS | sudo -S -k -u postgres psql -c "CREATE USER \"$CKANUSER\" WITH PASSWORD '$CKANPASS' NOSUPERUSER NOCREATEDB NOCREATEROLE LOGIN"
