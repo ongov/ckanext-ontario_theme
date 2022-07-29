@@ -65,17 +65,19 @@ echo "solr connected successfully."
 # Link to who.ini
 ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini
 
-# setup filestore & ckan admin account
+# setup filestore
 # ckan.storage_path is already enabled and set to /var/lib/ckan/default
 echo $SUDOPASS | sudo -S -k mkdir -p /var/lib/ckan/default
 echo $SUDOPASS | sudo -S -k chown -R www-data /var/lib/ckan/default
 echo $SUDOPASS | sudo -S -k chmod -R 777 /var/lib/ckan/default # production should use `u+rw`
-ckan -c /etc/ckan/default/ckan.ini user add admin email=admin@localhost password=admin123
-ckan -c /etc/ckan/default/ckan.ini sysadmin add admin
 
 # for local, create data tables
 ckan -c /etc/ckan/default/ckan.ini db init
 echo $SUDOPASS | sudo -S -k -u postgres psql -c "SELECT table_name FROM information_schema.tables"
+
+# create ckan admin account
+ckan -c /etc/ckan/default/ckan.ini user add admin email=admin@localhost password=admin123
+ckan -c /etc/ckan/default/ckan.ini sysadmin add admin
 
 # datastore
 # update datastore in ckan.ini
