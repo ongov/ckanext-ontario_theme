@@ -4,6 +4,9 @@ source ./helper_functions.sh
 export CKANINIROOT="/etc/ckan/default/"
 export CKANINIPATH=$CKANINIROOT"ckan.ini"
 
+# set permissions for cache dir
+echo $SUDOPASS | sudo -S -k chmod -R 777 /tmp/default/*
+
 # uwsgi script & server
 echo $SUDOPASS | sudo -S -k cp /usr/lib/ckan/default/src/ckan/wsgi.py /etc/ckan/default/
 echo $SUDOPASS | sudo -S -k chown www-data /etc/ckan/default/wsgi.py
