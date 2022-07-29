@@ -18,6 +18,7 @@ export SOLRPORT='8983'
 export XLOADER_REQ_VER='0.9.0'
 
 CKAN_ONT_THEME_ROOT="`pwd`/.."
+CKAN_EXT_ROOT="/usr/lib/ckan/default/src"
 
 # Install CKAN Dependencies
 echo "Installing packages..."
@@ -124,7 +125,11 @@ python3 setup.py develop
 pip3 install -r requirements.txt
 
 # install ontario theme
-cd $CKAN_ONT_THEME_ROOT
+cd $CKAN_EXT_ROOT
+git clone https://github.com/ongov/ckanext-ontario_theme.git
+cd ckanext-ontario_theme
+git fetch
+git ckeckout -b ckan_script origin/ckan_script
 python3 setup.py develop
 pip3 install -r dev-requirements.txt
 
