@@ -22,7 +22,7 @@ Requirements
    - Plugins
  * - CKAN
    - `ckan/ckan <https://github.com/ckan/ckan/>`_
-   - ckan-2.8.x
+   - ckan-2.9.x
    - N/A
  * - Scheming extension
    - `open-data/ckanext-scheming <https://github.com/open-data/ckanext-scheming>`_
