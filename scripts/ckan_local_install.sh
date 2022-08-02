@@ -129,7 +129,7 @@ cd $CKAN_EXT_ROOT
 git clone https://github.com/ongov/ckanext-ontario_theme.git
 cd ckanext-ontario_theme
 git fetch
-git ckeckout -b ckan_script origin/ckan_script
+git checkout -b ckan_script origin/ckan_script
 python3 setup.py develop
 pip3 install -r dev-requirements.txt
 
