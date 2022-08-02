@@ -26,8 +26,8 @@ setup(
     url='https://github.com/boykoc/ckanext-ontario_theme',
 
     # Author details
-    author='''Cody Boyko''',
-    author_email='''codywboyko@gmail.com''',
+    author='''Ontario Digital Service''',
+    author_email='''https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269''',
 
     # Choose your license
     license='AGPL',
@@ -46,7 +46,7 @@ setup(
 
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.
-        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.8',
     ],
 
 
