@@ -23,7 +23,7 @@ setup(
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://github.com/boykoc/ckanext-ontario_theme',
+    url='https://github.com/ongov/ckanext-ontario_theme',
 
     # Author details
     author='''Ontario Digital Service''',
