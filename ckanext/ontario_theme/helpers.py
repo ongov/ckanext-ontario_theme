@@ -110,8 +110,8 @@ def remove_odd_chars_from_keywords(keyword_list):
     '''Keywords must be alphanumeric characters or symbols: -_.
     commas and slashes cannot be accepted.
     '''
-    cleaned_keyword_list = [keyword.replace("'", '') for keyword in keyword_list]
-    cleaned_keyword_list = [re.sub("[\W_-]+", ' ', keyword) for keyword in cleaned_keyword_list]
+    #cleaned_keyword_list = [str(keyword).replace("'", '') for keyword in keyword_list]
+    cleaned_keyword_list = [re.sub("[\W_-]+", ' ', str(keyword)) for keyword in keyword_list]
     return cleaned_keyword_list
 
 def name_cleaner(name):

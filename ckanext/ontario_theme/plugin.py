@@ -34,6 +34,8 @@ import os
 import ckan.lib.uploader as uploader
 import ckan.lib.helpers as h
 
+import ckanext.ontario_theme.helpers as ontario_theme_helpers
+
 import logging
 log = logging.getLogger(__name__)
 

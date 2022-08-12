@@ -1,4 +1,11 @@
 # coding=utf-8
+
+'''
+This harvester works specifically for the Ontario Geohub geospatial catalogue at:
+
+https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.0.1.json
+
+''' 
 import json
 import datetime
 import re
@@ -175,48 +182,50 @@ class OntarioGeohubHarvester(HarvesterBase):
 
 
     def _make_package_dict(self, geohub_dict, harvest_object):
-        english_xml = english_metadata_xml_response(geohub_dict['identifier'])
-        french_xml = french_metadata_xml_response(geohub_dict['identifier']) 
+        english_xml = english_metadata_xml_response(geohub_dict)
+        french_xml = french_metadata_xml_response(geohub_dict) 
+        english_json = english_metadata_json_response(geohub_dict)
 
         package_dict = {
-            "id": identifier_from_url_with_index(geohub_dict['identifier']), # Use geohub ID.
-            "url": geohub_dict["landingPage"],
+            "id": geohub_dict['ontario_geohub_id'], # Use geohub ID.
+            "url": geohub_dict["dct:identifier"],
             "license_id": "other-open", 
             "title_translated": {
-                "en": geohub_dict["title"],
+                "en": geohub_dict["dct:title"],
                 "fr": french_title(french_xml)
             },
             "notes_translated": {
-                "en": html2text.html2text(geohub_dict["description"]),
+                "en": html2text.html2text(geohub_dict["dct:description"]),
                 "fr": html2text.html2text(french_notes(french_xml))
             },
             "keywords": {
-                "en": ontario_theme_helpers.remove_odd_chars_from_keywords(geohub_dict["keyword"]) + ['ontario-geohub'],
+                "en": ontario_theme_helpers.remove_odd_chars_from_keywords(geohub_dict["dcat:keyword"]) + ['ontario-geohub'],
                 "fr": ontario_theme_helpers.remove_odd_chars_from_keywords(french_keywords(french_xml)) + ['ontario-geohub']
             },
-            "opened_date": ontario_theme_helpers.date_parse(geohub_dict["issued"], '%Y-%m-%dT%H:%M:%S.%fZ'),
-            "current_as_of": ontario_theme_helpers.date_parse(geohub_dict["modified"], '%Y-%m-%dT%H:%M:%S.%fZ'),
+            "opened_date": get_create_date_from_json(english_json), #ontario_theme_helpers.date_parse(geohub_dict["dct:issued"], '%Y-%m-%dT%H:%M:%S.%fZ'),
+            "current_as_of": get_current_as_of_date_from_json(english_json), #ontario_theme_helpers.date_parse(geohub_dict["dct:modified"], '%Y-%m-%dT%H:%M:%S.%fZ'),
+            "metadata_created" : get_create_date_from_json(english_json),
             "maintainer_translated": {
                 "en" : "Land Information Ontario",
                 "fr" : "Information sur les terres de l'Ontario"
             },
             "maintainer_email": "lio@ontario.ca",
             "access_level": "open",
-            "resources": build_resources(geohub_dict['distribution'],
-                                         identifier_from_url(geohub_dict['identifier']),
-                                         english_xml,
-                                         geohub_dict['landingPage']),
+            "resources": build_resources(geohub_dict['ontario_geohub_id'], geohub_dict,
+                                         english_xml, english_json),
             "update_frequency": "other",
             "exemption": "none",
             "exemption_rationale": {
                 "en": "",
                 "fr": ""
             },
-            "name": ontario_theme_helpers.name_cleaner(geohub_dict["title"]),
+            "name": ontario_theme_helpers.name_cleaner(geohub_dict["dct:title"]),
             "private": False,
             "state": "active",
             "groups": [{'name': 'ontario-geohub'}] # optional
         }
+
+
 
         if package_dict["notes_translated"]["en"] == "" and get_backup_description_from_xml(english_xml):
             package_dict["notes_translated"]["en"] = get_backup_description_from_xml(english_xml)
@@ -263,8 +272,8 @@ class OntarioGeohubHarvester(HarvesterBase):
             contact = extract_ontario_email(package_dict['notes_translated']['en'])
             if contact:
                 package_dict['maintainer_email'] = contact.strip()
-                if geohub_dict["contactPoint"]["fn"]:
-                    package_dict['maintainer_translated']['en'] = geohub_dict["contactPoint"]["fn"]
+                if geohub_dict["dcat:contactPoint"]["vcard:fn"]:
+                    package_dict['maintainer_translated']['en'] = geohub_dict["dcat:contactPoint"]["vcard:fn"]
                 elif package_dict['maintainer_email'].replace("@ontario.ca","").find(".") == -1:
                     package_dict['maintainer_translated']['en'] = package_dict['maintainer_email'].replace("@ontario.ca","").strip()
                 else:
@@ -293,25 +302,25 @@ class OntarioGeohubHarvester(HarvesterBase):
         return package_dict
 
 
-    def geohub_identifier_from_url(self, identifier_url):
-        '''Returns a string id with the layer index if it exists.
-        '''
-        identifier = identifier_url.split('/')[-1] # keep layer index.
-        return identifier
-
-    def has_french(self, identifier_url):
+    def has_french(self, dataset_obj):
         '''Returns boolean.
         '''
 
-        identifier = self.geohub_identifier_from_url(identifier_url)
-        french_xml = french_metadata_xml_response(identifier) 
+        french_xml = french_metadata_xml_response(dataset_obj) 
 
         if french_notes(french_xml) == "Placeholder":
             return False
         else:
             return True
 
-    def hubtype_table(self, identifier_url):
+    def not_blacklisted(self, dataset_obj):
+        if "ODCSYNC" in dataset_obj['dcat:keyword']:
+            return True
+        return False
+        return True
+
+
+    def hubtype_table(self, dataset_obj):
         '''Returns boolean.
         If hubtype_table returns true, skip the record.
         hubtype: "table" ignore it.  These are "sub-sets" of existing datasets.
@@ -320,7 +329,7 @@ class OntarioGeohubHarvester(HarvesterBase):
         '''
         is_table = False
 
-        identifier = self.geohub_identifier_from_url(identifier_url)
+        identifier = dataset_obj['ontario_geohub_id']
         geohub_endpoint = "https://geohub.lio.gov.on.ca/api/v3/datasets/{}".format(identifier)
         geohub_response = requests.get(geohub_endpoint)
         hubType = geohub_response.json()["data"]["attributes"]["hubType"]
@@ -352,7 +361,7 @@ class OntarioGeohubHarvester(HarvesterBase):
             # Assume a list of datasets
             datasets = doc
         elif isinstance(doc, dict):
-            datasets = doc.get('dataset', [])
+            datasets = doc.get('dcat:dataset', [])
         else:
             raise ValueError('Wrong JSON object')
 
@@ -361,13 +370,13 @@ class OntarioGeohubHarvester(HarvesterBase):
             as_string = json.dumps(dataset)
 
             # Get identifier
-            guid = dataset.get('identifier')
+            guid = dataset.get('ontario_geohub_id')
 
             if not guid:
                 # This is bad, any ideas welcomed
                 guid = sha1(as_string).hexdigest()
 
-            if guid not in blacklist and not self.hubtype_table(guid) and self.has_french(guid):
+            if guid not in blacklist and not self.hubtype_table(dataset) and self.not_blacklisted(dataset) and self.has_french(dataset):
                 yield guid, as_string
 
     def fetch_stage(self, harvest_object):
@@ -584,15 +593,15 @@ class OntarioGeohubHarvester(HarvesterBase):
 
                 # We need to explicitly provide a package 
 
-                package_dict['id'] = self.geohub_identifier_from_url(geohub_dict['identifier'])
+                package_dict['id'] = geohub_dict['ontario_geohub_id']
                 if 'extras' not in package_dict:
                     package_dict['extras'] = []    
                 package_dict['extras'].append(
                     { 
                         "key": "guid",
-                        "value": geohub_dict['identifier']
+                        "value": geohub_dict['ontario_geohub_id']
                     })
-                package_schema['id'] = [unicode]
+                #package_schema['id'] = [unicode]
 
                 # Save reference to the package on the object
                 harvest_object.package_id = package_dict['id']
@@ -611,7 +620,6 @@ class OntarioGeohubHarvester(HarvesterBase):
             if status in ['new', 'change']:
                 action = 'package_create' if status == 'new' else 'package_update'
                 message_status = 'Created' if status == 'new' else 'Updated'
-
                 package_id = p.toolkit.get_action(action)(context, package_dict)
                 log.info('%s dataset with id %s', message_status, package_id)
 
@@ -1007,7 +1015,8 @@ def french_keywords(french_xml):
     french_keywords_element = root.xpath("//searchKeys")
     if french_keywords_element:
         for keyword in french_keywords_element[0]:
-            french_keywords.append(keyword.text)
+            if len(keyword.text) < 100:
+                french_keywords.append(keyword.text)
       
     return french_keywords
 
@@ -1031,10 +1040,36 @@ def get_backup_description_from_xml(root):
             return desc_text
     return False
 
+
+
+def get_data_last_updated_from_json(json_metadata):
+    '''
+            json[“data”][“attributes”][“modified”] – Date that the data was last updated.
+
+    '''
+    return datetime.datetime.utcfromtimestamp(json_metadata["data"]["attributes"]["modified"]/1000).isoformat()
+
+
+def get_current_as_of_date_from_json(json_metadata):
+    '''
+            This can be obtained from a combination of two values.
+
+            Using this API endpoint: https://opendata.arcgis.com/api/v3/datasets/{id}
+
+            json[“data”][“attributes”][“itemModified”] – Date that the ArcGIS Online item was last modified, including metadata updates. Equivalent to ModDate + ModTime from the metadata XML
+
+            json[“data”][“attributes”][“modified”] – Date that the data was last updated.
+
+            The values returned are unix timestamps in milliseconds. Compare and use the larger one of the two.
+
+    '''
+    current_as_of = max(json_metadata["data"]["attributes"]["itemModified"],json_metadata["data"]["attributes"]["modified"])
+    return datetime.datetime.utcfromtimestamp(current_as_of/1000).isoformat()
+
 def get_revise_date_from_xml(root):
     '''Returns the revise date (comparable to data_range_end) for that dataset.
     '''
-    revise_date_path = root.xpath("//dataIdInfo/idCitation/date/reviseDate")
+    revise_date_path = root.xpath("//metadata/Esri/ModDate") #//dataIdInfo/idCitation/date/reviseDate
     if revise_date_path:
         revise_date_text = revise_date_path[0].text
         revise_date = extract_date(revise_date_text)
@@ -1042,11 +1077,13 @@ def get_revise_date_from_xml(root):
             return revise_date
     return False
 
+def get_create_date_from_json(json_metadata):
+    return datetime.datetime.utcfromtimestamp(json_metadata["data"]["attributes"]["created"]/1000).isoformat()
 
 def get_create_date_from_xml(root):
     '''Returns the create date (comparable to data_range_start) for that dataset.
     '''
-    create_date_path = root.xpath("//dataIdInfo/idCitation/date/createDate")
+    create_date_path = root.xpath("//metadata/Esri/CreaDate") #//dataIdInfo/idCitation/date/createDate
     if create_date_path:
         create_date_text = create_date_path[0].text
         create_date = extract_date(create_date_text)
@@ -1080,40 +1117,69 @@ def get_file_type(resource):
         return ext
     return False
 
-def build_resources(distribution, id, english_xml, dataset_url):
+def build_resources(id, geohub_dict, english_xml, english_json):
     ''' Harvest all resources/files for the dataset
     '''
     metadata_titles = ["ArcGIS Hub Dataset","Esri Rest API"]
     resources = []
+    resource_links = []
+    if 'distribution' in geohub_dict:
+        for resource in geohub_dict['distribution']:
+            resource_dict = { 
+                        "name_translated": {
+                            "en": resource["title"],
+                            "fr": resource["title"]
+                        },
+                        "type": 'data',
+                        "url": resource.get("accessURL", "") }
+            resource_links.append(resource.get("accessURL", ""))
+            revise_date = get_revise_date_from_xml(english_xml)
+            resource_dict['data_range_end'] = get_data_last_updated_from_json(english_json)
+            if revise_date:
+                resource_dict['data_last_updated'] = revise_date
+            create_date = get_create_date_from_xml(english_xml)
+            if create_date:
+                resource_dict['data_range_start'] = create_date
+            file_type = get_file_type(resource)
+            if file_type:
+                resource_dict['format'] = file_type
+            if name in metadata_titles:
+                resource_dict['type'] = "metadata"
+            resources.append(
+                        resource_dict
+                      ) # Some resources are missing links
+
+    distribution = english_xml.xpath("//distInfo/distTranOps/onLineSrc")
 
     for resource in distribution:
-        resource_dict = { 
-                    "name_translated": {
-                        "en": resource["title"],
-                        "fr": resource["title"]
-                    },
-                    "type": 'data',
-                    "url": resource.get("accessURL", "") }
-        revise_date = get_revise_date_from_xml(english_xml)
-        if revise_date:
-            resource_dict['data_last_updated'] = revise_date
-            resource_dict['data_range_end'] = revise_date
-        create_date = get_create_date_from_xml(english_xml)
-        if create_date:
-            resource_dict['data_range_start'] = create_date
-        file_type = get_file_type(resource)
-        if file_type:
-            resource_dict['format'] = file_type
-        if resource["title"] in metadata_titles:
-            resource_dict['type'] = "metadata"
-        if resource["title"] is None:
-            resource_dict['name_translated'] = {
-                "en": "Resource",
-                "fr": "Ressource"
-                }
-        resources.append(
-                    resource_dict
-                  ) # Some resources are missing links
+        if len(resource.xpath("//linkage")) == 1 and len(resource.xpath("//orName")) == 1:
+            link = resource.xpath("//linkage")[0].text
+            name= resource.xpath("//orName")[0].text
+
+            if link not in resource_links:
+                resource_dict = { 
+                            "name_translated": {
+                                "en": name,
+                                "fr": name
+                            },
+                            "type": 'data',
+                            "url": link }
+                revise_date = get_revise_date_from_xml(english_xml)
+                resource_dict['data_range_end'] = get_data_last_updated_from_json(english_json)
+                if revise_date:
+                    resource_dict['data_last_updated'] = revise_date
+                create_date = get_create_date_from_xml(english_xml)
+                if create_date:
+                    resource_dict['data_range_start'] = create_date
+                file_type = get_file_type(resource)
+                if file_type:
+                    resource_dict['format'] = file_type
+                if name in metadata_titles:
+                    resource_dict['type'] = "metadata"
+
+                resources.append(
+                            resource_dict
+                          ) # Some resources are missing links
 
 
     # Add in the metadata URLs
@@ -1146,7 +1212,7 @@ def build_resources(distribution, id, english_xml, dataset_url):
     return resources
 
 
-def geohub_french_id_from_xml(english_id):
+def geohub_french_id_from_xml(dataset_obj):
     '''Return the french id from the english xml or empty string if not record.
     It's only available in the ?format=default version, so a seperate call.
     '''
@@ -1155,9 +1221,7 @@ def geohub_french_id_from_xml(english_id):
     geohub_french_record_id_text = ''
 
     # Get resources from XML.
-    metadata_xml_request = requests.get(metadata_url(english_id))
-    # parse the response.
-    root = lxml.etree.fromstring(metadata_xml_request.content)
+    root = english_metadata_xml_response(dataset_obj)
 
     # Get the element then grab the text.
     
@@ -1171,13 +1235,14 @@ def geohub_french_id_from_xml(english_id):
 
 
 
-def identifier_from_url(identifier_url):
+def identifier_from_url(identifier):
     '''Accepts a string of the identifier URL that's part of data.json for 
     each dataset/record, and parses into just ID.
     '''
     # ID is at the end but sometimes there's extra bits we dont want that are
     # the underlying layer index.
-    identifier = identifier_url.split('/')[-1].split('_')[0]
+    #identifier = identifier_url.split('/')[-1].split('_')[0]
+    identifier = identifier.split('_')[0]
     return identifier
 
 
@@ -1212,28 +1277,35 @@ def additional_resources_from_xml(root):
             )
     return additional_resources
 
-def english_metadata_xml_response(english_identifier):
+def english_metadata_json_response(dataset_obj):
+    english_id = dataset_obj['ontario_geohub_id']
+    english_metadata_url = "https://opendata.arcgis.com/api/v3/datasets/{}".format(english_id)
+    metadata_json_request = requests.get(english_metadata_url)
+    return metadata_json_request.json()
+    
+
+def english_metadata_xml_response(dataset_obj):
     '''Returns the english metadata xml
     '''
 
-    english_id = identifier_from_url(english_identifier)
+    english_id = identifier_from_url(dataset_obj['ontario_geohub_id'])
     english_metadata_url = metadata_url(english_id)
     metadata_xml_request = requests.get(english_metadata_url)
     # parse the response to get the additional resources.
     root = lxml.etree.fromstring(metadata_xml_request.content)
     return root
 
-def french_metadata_xml_response(english_identifier):
+def french_metadata_xml_response(dataset_obj):
     '''Returns the french metadata xml.
     To build this we need to grab the french values for some fields. Easiest
     so far is to loop over english and make a call to the matching french
     record. This will be used for a few payload values so calling once here.
     '''
 
-    english_id = identifier_from_url(english_identifier)
-    french_id = geohub_french_id_from_xml(english_id)
-    french_id = identifier_from_url(french_id)
-    french_metadata_xml_url = metadata_url(french_id)
+    english_id = dataset_obj['ontario_geohub_id']
+    french_id = geohub_french_id_from_xml(dataset_obj)
+    #french_id = identifier_from_url(french_id)
+    french_metadata_xml_url = metadata_url(identifier_from_url(french_id))
     # Now can make request for xml.
     french_xml_response = requests.get(french_metadata_xml_url)
 
