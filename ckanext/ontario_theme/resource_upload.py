@@ -14,7 +14,8 @@ import logging
 import magic
 import mimetypes
 import tempfile
-import copy
+from zipfile import ZipFile
+import io
 
 from werkzeug.datastructures import FileStorage as FlaskFileStorage
 
@@ -136,6 +137,37 @@ class ResourceUpload(DefaultResourceUpload):
                 self.mimetype = magic.from_buffer(self.upload_file.read(),
                                                 mime=True)
                 self.upload_file.seek(0, os.SEEK_SET)
+
+                # If zip file, check mimetypes of contents
+                if 'zip' in self.mimetype:
+                    # Wrap zip object in a StringIO
+                    # see: /usr/lib/ckan/default/lib/python3.8/site-packages/messytables/ods.py
+                    fileobj = io.BytesIO(self.upload_file.read())
+
+                    with ZipFile(fileobj) as this_zip:
+                        zip_list = this_zip.namelist()
+                        print(zip_list)
+                        for zip_item in zip_list:
+                            print(zip_item)
+                            # print('zip item ext: ',zip_item.rsplit('.', 1)[1].upper())
+                            with this_zip.open(zip_item) as each_file:
+                                try: 
+                                    each_mimetype = magic.from_buffer(each_file.read(),
+                                                    mime=True)
+                                    print('each_mimetype: ', each_mimetype)
+                                except:
+                                    print('NONE')
+                                
+          
+                            if not allowed_mimetype(each_mimetype):
+                                print('not allowed')
+                                print('')
+                                alert_invalidfile(resource, self.filename)
+                            else:
+                                print('ok')
+                                print('')
+                            
+
 
                 if not allowed_mimetype(self.mimetype):
                     alert_invalidfile(resource, self.filename)
