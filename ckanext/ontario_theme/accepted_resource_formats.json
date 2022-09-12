@@ -35,5 +35,10 @@
   ["GeoJSON", "Geographic JavaScript Object Notation", "application/geo+json", ["geojson"]],
   ["IVT", "Beyond 20/20 Table Files", "", []],
   ["MAT", "MATLAB File", "", []],
-  ["PBIX", "Power BI Desktop File", "", []]
+  ["PBIX", "Power BI Desktop File", "", []],
+  ["DBF", "dBASE Table File Format (DBF)", "application/x-dbf", []],
+  ["SBN", "", "application/octet-stream", []],
+  ["SBX", "", "application/octet-stream", []],
+  ["SHP", "", "application/octet-stream", []],
+  ["SHX", "", "application/octet-stream", []]
 ]
