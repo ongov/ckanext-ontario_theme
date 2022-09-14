@@ -13,6 +13,8 @@ import datetime
 import logging
 import magic
 import mimetypes
+from zipfile import ZipFile
+import io
 
 from werkzeug.datastructures import FileStorage as FlaskFileStorage
 
@@ -32,25 +34,51 @@ _max_image_size = None
 
 
 def accepted_resource_formats():
-    '''Returns list of accepted file extensions.
+    '''Returns list of accepted file extensions and a
+    list of accepted mime types.
     '''
-    resource_formats = []
     resource_format_path = os.path.join(os.path.dirname(__file__),
                                         'accepted_resource_formats.json')
+    resource_exts = []
+    resource_types = []
     with open(resource_format_path) as format_file:
         file_resource_formats = json.loads(format_file.read())
 
         for format_line in file_resource_formats:
-            resource_formats.append(format_line[0].upper())
-    return resource_formats
+            resource_exts.append(format_line[0].upper())
+            resource_types.append(format_line[2])
+    return resource_exts, resource_types
 
-
-def allowed_file(filename):
+def allowed_ext(filename):
     '''Returns boolean. Checks if the file extension is acceptable.
     '''
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].upper() in accepted_resource_formats()
+    resource_exts, resource_types = accepted_resource_formats()
+    return filename.rsplit('.', 1)[1].upper() in resource_exts
 
+def allowed_mimetype(magic_mimetype):
+    '''Returns boolean. Checks if the magic mimetype is acceptable.
+    '''
+    resource_exts, resource_types = accepted_resource_formats()
+    # HACK UNTIL UNIX FILE UPGRADED
+    if magic_mimetype == 'application/csv':
+        return True
+
+    if magic_mimetype == 'text/xml':
+        return True
+
+    return magic_mimetype in resource_types
+
+def alert_invalidfile(resource, this_filename):
+    log.error('Upload: Invalid upload file format.{}'.format
+        (this_filename))
+    # remove file - by default a resource can be added without any
+    # values
+    resource['url'] = None
+    resource['url_type'] = ''
+    raise logic.ValidationError(
+        {'upload':
+        ['Invalid upload file format, file has been removed.']}
+    )
 
 class ResourceUpload(DefaultResourceUpload):
     def __init__(self, resource):
@@ -96,35 +124,42 @@ class ResourceUpload(DefaultResourceUpload):
             # go back to the beginning of the file buffer
             self.upload_file.seek(0, os.SEEK_SET)
 
-            # MODIFICATION START
-            # Note: If resubmitting a failed form without clearing the file
-            # the ResourceUpload.upload function would be called skipping the
-            # init call.
-            if not allowed_file(self.filename):
-                log.error('Upload: Invalid upload file format.{}'.format
-                    (self.filename))
-                # remove file - by default a resource can be added without any
-                # values
-                resource['url'] = None
-                resource['url_type'] = ''
-                raise logic.ValidationError(
-                    {'upload':
-                     ['Invalid upload file format, file has been removed.']}
-                )
+            # MODIFICATION START: check extension
+            if  '.' in self.filename and not allowed_ext(self.filename):
+                alert_invalidfile(resource, self.filename)
             # MODIFICATION END
 
-            # check if the mimetype failed from guessing with the url
-            if not self.mimetype and config_mimetype_guess == 'file_ext':
-                self.mimetype = mimetypes.guess_type(self.filename)[0]
+            # MODIFICATION START: identify file type with python-magic
+            try:
+                self.mimetype = magic.from_buffer(self.upload_file.read(),
+                                                mime=True)
+                self.upload_file.seek(0, os.SEEK_SET)
 
-            if not self.mimetype and config_mimetype_guess == 'file_contents':
-                try:
-                    self.mimetype = magic.from_buffer(self.upload_file.read(),
-                                                      mime=True)
-                    self.upload_file.seek(0, os.SEEK_SET)
-                except IOError as e:
-                    # Not that important if call above fails
-                    self.mimetype = None
+                # If zip file, check mimetypes of contents
+                if 'zip' in self.mimetype:
+                    # Wrap zip object in a StringIO
+                    # see: /usr/lib/ckan/default/lib/python3.8/site-packages/messytables/ods.py
+                    fileobj = io.BytesIO(self.upload_file.read())
+
+                    with ZipFile(fileobj) as this_zip:
+                        zip_list = this_zip.namelist()
+                        for zip_item in zip_list:
+                            with this_zip.open(zip_item) as each_file:
+                                try: 
+                                    each_mimetype = magic.from_buffer(each_file.read(),
+                                                    mime=True)
+                                except:
+                                    alert_invalidfile(resource, self.filename)
+                                
+                            if not allowed_mimetype(each_mimetype):
+                                alert_invalidfile(resource, self.filename)
+                            
+                if not allowed_mimetype(self.mimetype):
+                    alert_invalidfile(resource, self.filename)
+            except IOError as e:
+                # Not that important if call above fails
+                self.mimetype = None
+            # MODIFICATION END
 
         elif self.clear:
             resource['url_type'] = ''
