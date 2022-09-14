@@ -146,29 +146,17 @@ class ResourceUpload(DefaultResourceUpload):
 
                     with ZipFile(fileobj) as this_zip:
                         zip_list = this_zip.namelist()
-                        print(zip_list)
                         for zip_item in zip_list:
-                            print(zip_item)
-                            # print('zip item ext: ',zip_item.rsplit('.', 1)[1].upper())
                             with this_zip.open(zip_item) as each_file:
                                 try: 
                                     each_mimetype = magic.from_buffer(each_file.read(),
                                                     mime=True)
-                                    print('each_mimetype: ', each_mimetype)
                                 except:
-                                    print('NONE')
+                                    alert_invalidfile(resource, self.filename)
                                 
-          
                             if not allowed_mimetype(each_mimetype):
-                                print('not allowed')
-                                print('')
                                 alert_invalidfile(resource, self.filename)
-                            else:
-                                print('ok')
-                                print('')
                             
-
-
                 if not allowed_mimetype(self.mimetype):
                     alert_invalidfile(resource, self.filename)
             except IOError as e:
