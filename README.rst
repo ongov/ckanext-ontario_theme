@@ -162,10 +162,12 @@ You can then find the coverage reports in a generated htmlcov folder.
 
 Our custom config settings are in ``./test.ini``.
 
-Additional ways to run tests:
+Running a single test:
 
-    # Single Test class
+*Single Test class*::
+
     coverage run -m pytest --ckan-ini=test.ini ckanext/ontario_theme/tests/test_create_dataset.py::test_package_create_with_invalid_update_frequency 
 
-    # Single Test module
+*Single Test module*::
+
     coverage run -m pytest --ckan-ini=test.ini ckanext/ontario_theme/tests/test_create_dataset.py
