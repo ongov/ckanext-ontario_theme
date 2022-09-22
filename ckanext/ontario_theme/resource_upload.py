@@ -156,7 +156,26 @@ class ResourceUpload(DefaultResourceUpload):
 
                 # If zip file, check mimetypes of contents
                 if 'zip' in self.mimetype:
+<<<<<<< HEAD
                     _check_zip_mimetype(self.upload_file, self.filename)
+=======
+                    # Wrap zip object in a StringIO
+                    # see: /usr/lib/ckan/default/lib/python3.8/site-packages/messytables/ods.py
+                    fileobj = io.BytesIO(self.upload_file.read())
+
+                    with ZipFile(fileobj) as this_zip:
+                        zip_list = this_zip.namelist()
+                        for zip_item in zip_list:
+                            with this_zip.open(zip_item) as each_file:
+                                try: 
+                                    each_mimetype = magic.from_buffer(each_file.read(),
+                                                    mime=True)
+                                except:
+                                    alert_invalidfile(resource, self.filename)
+                                
+                            if not allowed_mimetype(each_mimetype):
+                                alert_invalidfile(resource, self.filename)
+>>>>>>> 54b412be3caf2657661477dbc86cae00b2cb4539
                             
                 if not allowed_mimetype(self.mimetype):
                     alert_invalidfile(resource, self.filename)
