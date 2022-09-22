@@ -8,6 +8,15 @@ Theme for Ontario ckan including:
 * forms
 * templates and design
 
+-------------------
+Directory Structure
+-------------------
+Four directories compose this repository
+
+* **scripts:** contains scripts to setup CKAN and required applications
+* **config:** contains configuration files needed for installation and configuration of CKAN
+* **ckanext:** Ontario Theme Extension files for CKAN
+* **bin:** contains CI scripts that are no longer being used. This directory is pending deletion/cleanup
 
 ------------
 Requirements
