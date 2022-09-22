@@ -98,8 +98,6 @@ class TestResourceCreate(object):
         )
         assert dataset['name'] == 'package-name'
 
-        # MODIFICATION: assert mimetype in dict instead
-        # of popping it out and asserting later
         result = create_with_upload(file_data, "test.json", 
             url="http://data",
             package_id=dataset["id"],
