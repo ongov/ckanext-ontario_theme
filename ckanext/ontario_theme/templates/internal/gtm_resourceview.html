@@ -1,0 +1,13 @@
+<script>
+    let res_name= '{{res.name}}' ? '{{res.name}}' : 'Data';
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        'event': 'Resourceview',
+        'ministryTag': '{{pkg.organization.title}}',
+        'group': '{{pkg.groups}}',
+        'dataAvailability': '{{pkg.access_level}}',
+        'datasetName': '{{pkg.title}}',
+        'dataResourceName': res_name
+    });
+</script>
