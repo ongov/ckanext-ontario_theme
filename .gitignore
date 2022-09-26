@@ -42,4 +42,5 @@ coverage.xml
 docs/_build/
 
 # Google analytics
-gtm*.html
+gtm.html
+gtm_ns.html
