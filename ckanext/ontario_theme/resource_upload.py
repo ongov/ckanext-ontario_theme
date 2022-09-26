@@ -82,6 +82,39 @@ def alert_invalidfile(resource, this_filename):
 
 class ResourceUpload(DefaultResourceUpload):
     def __init__(self, resource):
+        def _check_file_mimetype(self):
+            try:
+                self.mimetype = magic.from_buffer(self.upload_file.read(),
+                                                mime=True)
+                self.upload_file.seek(0, os.SEEK_SET)
+
+                # If zip file, check mimetypes of each file
+                if 'zip' in self.mimetype:
+                    _check_zip_mimetype(self)
+
+                if not allowed_mimetype(self.mimetype):
+                    alert_invalidfile(resource, self.filename)
+            except IOError as e:
+                # Not that important if call above fails
+                self.mimetype = None
+
+        def _check_zip_mimetype(self):
+            # Wrap zip object in a StringIO
+            # see: /usr/lib/ckan/default/lib/python3.8/site-packages/messytables/ods.py
+            fileobj = io.BytesIO(self.upload_file.read())
+
+            with ZipFile(fileobj) as this_zip:
+                zip_list = this_zip.namelist()
+                for zip_item in zip_list:
+                    with this_zip.open(zip_item) as each_file:
+                        try:
+                            each_mimetype = magic.from_buffer(each_file.read(),
+                                            mime=True)
+                            if not allowed_mimetype(each_mimetype):
+                                alert_invalidfile(resource, self.filename)
+                        except:
+                            alert_invalidfile(resource, self.filename)
+
         path = get_storage_path()
         config_mimetype_guess = config.get('ckan.mimetype_guess', 'file_ext')
 
@@ -110,10 +143,7 @@ class ResourceUpload(DefaultResourceUpload):
             self.filesize = 0  # bytes
 
             self.filename = upload_field_storage.filename
-            # MODIFICATION START
-            self.filename = secure_filename(self.filename) # Overkill but I
-            # trust werkzueg over ckan.
-            # MODIFICATION END
+            self.filename = secure_filename(self.filename) # werkzueg
             self.filename = munge.munge_filename(self.filename)
             resource['url'] = self.filename
             resource['url_type'] = 'upload'
@@ -124,42 +154,12 @@ class ResourceUpload(DefaultResourceUpload):
             # go back to the beginning of the file buffer
             self.upload_file.seek(0, os.SEEK_SET)
 
-            # MODIFICATION START: check extension
+            # Check extension against allowed list of extensions
             if  '.' in self.filename and not allowed_ext(self.filename):
                 alert_invalidfile(resource, self.filename)
-            # MODIFICATION END
 
-            # MODIFICATION START: identify file type with python-magic
-            try:
-                self.mimetype = magic.from_buffer(self.upload_file.read(),
-                                                mime=True)
-                self.upload_file.seek(0, os.SEEK_SET)
-
-                # If zip file, check mimetypes of contents
-                if 'zip' in self.mimetype:
-                    # Wrap zip object in a StringIO
-                    # see: /usr/lib/ckan/default/lib/python3.8/site-packages/messytables/ods.py
-                    fileobj = io.BytesIO(self.upload_file.read())
-
-                    with ZipFile(fileobj) as this_zip:
-                        zip_list = this_zip.namelist()
-                        for zip_item in zip_list:
-                            with this_zip.open(zip_item) as each_file:
-                                try: 
-                                    each_mimetype = magic.from_buffer(each_file.read(),
-                                                    mime=True)
-                                except:
-                                    alert_invalidfile(resource, self.filename)
-                                
-                            if not allowed_mimetype(each_mimetype):
-                                alert_invalidfile(resource, self.filename)
-                            
-                if not allowed_mimetype(self.mimetype):
-                    alert_invalidfile(resource, self.filename)
-            except IOError as e:
-                # Not that important if call above fails
-                self.mimetype = None
-            # MODIFICATION END
+            # Determine mimetype with python-magic
+            _check_file_mimetype(self)
 
         elif self.clear:
             resource['url_type'] = ''
