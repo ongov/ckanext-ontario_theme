@@ -10,8 +10,8 @@
   {% set this_res = '' %}
   {% if pkg %}
     {% if pkg.organization %}
-      {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
       {% set this_pkg = pkg %}
+      {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
       {% if res %}
         {% set this_res = res %}
       {% endif %}

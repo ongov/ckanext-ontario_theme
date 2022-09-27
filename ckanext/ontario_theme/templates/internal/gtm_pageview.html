@@ -5,6 +5,7 @@
     // page views. Otherwise, empty values are passed.
 
     window.dataLayer = window.dataLayer || [];
+    groupName = '';
 
     // Set `resourceName` for resource page views.
     // {{this_res}} is only non-empty for resource views
@@ -21,10 +22,16 @@
     // Set `datasetName` for dataset and resource page views.
     // {{this_pkg}} is non-empty for both page views and resource views
     if ('{{this_pkg}}'.length > 0) {
+	    // Check that {{this_pkg.groups}} is not '[]'; i.e. has length > 2
+	    if ('{{this_pkg.groups}}'.length > 2) { 
+		    result = '{{this_pkg.groups}}';
+		    clean = result.replaceAll('&#39;','"').replaceAll('u"','"');
+                    groupName = JSON.parse("[" + clean + "]")[0][0]['display_name'];
+	    }
         window.dataLayer.push({
             'event': 'Pageview',
             'ministryTag': '{{this_org}}',
-            'group': '{{this_pkg.groups}}',
+            'group': groupName,
             'dataAvailability': '{{this_pkg.access_level}}',
             'datasetName': '{{this_pkg.title}}',
             'resourceName': resourceName
