@@ -26,7 +26,7 @@
 	    if ('{{this_pkg.groups}}'.length > 2) { 
 		    result = '{{this_pkg.groups}}';
 		    clean = result.replaceAll('&#39;','"').replaceAll('u"','"');
-                    groupName = JSON.parse("[" + clean + "]")[0][0]['display_name'];
+                    groupName = JSON.parse("[" + clean + "]")[0][0]['name'];
 	    }
         window.dataLayer.push({
             'event': 'Pageview',
