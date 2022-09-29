@@ -58,21 +58,21 @@
     "domain_data": true,
     "domain_software": false,
     "family": "",
-    "id": "queens-printers-on",
+    "id": "kings-printers-on",
     "is_generic": false,
     "maintainer": "Ontario Government",
     "od_conformance": "",
     "osd_conformance": "",
     "status": "active",
-    "title": "Queen's Printer for Ontario",
+    "title": "King's Printer for Ontario",
     "title_translated" : {
-        "en": "Queen's Printer for Ontario",
-        "fr": "Imprimeur de la Reine pour l’Ontario"
+        "en": "King's Printer for Ontario",
+        "fr": "Imprimeur du Roi pour l’Ontario"
     },
-    "url": "https://www.ontario.ca/page/copyright-information-c-queens-printer-ontario",
+    "url": "https://www.ontario.ca/page/copyright-information-c-kings-printer-ontario",
     "url_translated": {
-        "en": "https://www.ontario.ca/page/copyright-information-c-queens-printer-ontario",
-        "fr": "https://www.ontario.ca/fr/page/droits-dauteur-imprimeur-de-la-reine-pour-lontarioc"
+        "en": "https://www.ontario.ca/page/copyright-information-c-kings-printer-ontario",
+        "fr": "https://www.ontario.ca/fr/page/droits-dauteur-imprimeur-du-roi-pour-lontarioc"
     },
     "description": "Data in this record is open and is published in the language in which it’s collected. Please contact us to obtain assistance in either official language.",
     "description_translated" : {
