@@ -41,6 +41,6 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
-# Google analytics
+# Google Tag Manager
 gtm.html
 gtm_ns.html
