@@ -166,11 +166,18 @@ coverage installed in your virtualenv (``pip install coverage``) then run::
 
 Our custom config settings are in ``./test.ini``.
 
-Additional ways to run tests:
+Running a single test:
 
-    # Single Test method
+**NOTE: some of these tests will clear the database with `teardown` methods. Make sure you don't run these tests if connected to the real database.**
+
+*Single Test method*::
+
     nosetests ckanext/ontario_theme/tests/test_create_dataset.py:TestCreateDataset.test_package_create_with_invalid_update_frequency --nologcapture --with-pylons=test.ini
-    # Single Test class
+
+*Single Test class*::
+
     nosetests ckanext/ontario_theme/tests/test_create_dataset.py:TestCreateDataset --nologcapture --with-pylons=test.ini
-    # Single Test module
+
+*Single Test module*::
+
     nosetests ckanext/ontario_theme/tests/test_create_dataset.py --nologcapture --with-pylons=test.ini
