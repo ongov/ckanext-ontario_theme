@@ -46,8 +46,8 @@ msgid "terms of use"
 msgstr "conditions d’utilisation"
 
 #: ckanext/ontario_theme/templates/footer.html:15
-msgid "https://www.ontario.ca/page/copyright-information-c-kings-printer-ontario"
-msgstr "https://www.ontario.ca/fr/page/droits-dauteur-imprimeur-du-roi-pour-lontarioc"
+msgid "https://www.ontario.ca/page/copyright-information"
+msgstr "https://www.ontario.ca/fr/page/droits-dauteur"
 
 #: ckanext/ontario_theme/templates/footer.html:15
 msgid "&copy; King&#8217;s Printer for Ontario"
