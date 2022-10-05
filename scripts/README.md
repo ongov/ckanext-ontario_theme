@@ -1,11 +1,11 @@
 # Installation Scripts
 
-Bash scripts to install Ontario ckan 2.9 and Solr 8.11.1 on separate Ubuntu 20.04 virtual machines.
+Bash scripts to install Ontario ckan 2.9 and Solr 8.11.2 on separate Ubuntu 20.04 virtual machines.
 
 ## Solr
 
 Bash script: `setup_solr.sh`  
-Version: Solr 8.11.1
+Version: Solr 8.11.2
 
 The bash script requires the `managed-schema` config file customized for Ontario ckan, stored in the `config/solr` directory of this repository. This config file is obtained in the script by copying the file from `config/solr` into the Solr config folder `/opt/solr/server/solr/configsets/_default/`.
 
