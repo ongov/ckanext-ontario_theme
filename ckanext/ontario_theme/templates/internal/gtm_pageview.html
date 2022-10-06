@@ -1,0 +1,51 @@
+<script>
+    // This dataLayer will fire on all page loads, but dataset-related
+    // parameter values are filled in only on dataset page views, and
+    // resource-related parameter values are filled in only on resource
+    // page views. Otherwise, empty values are passed.
+
+    window.dataLayer = window.dataLayer || [];
+    groupName = '';
+
+    // Set `resourceName` for resource page views.
+    // {{this_res}} is only non-empty for resource views
+    if ('{{this_res}}'.length > 0) {
+        // If a resource exists, it might not have a name.
+        // In this case, default to name "Data".
+        resourceName = '{{this_res.name}}' ? '{{this_res.name}}' : 'Data';
+    }
+    // Pass an empty string for all pages other than resource views
+    else {
+        resourceName = '';
+    }
+
+    // Set `datasetName` for dataset and resource page views.
+    // {{this_pkg}} is non-empty for both page views and resource views
+    if ('{{this_pkg}}'.length > 0) {
+	    // Check that {{this_pkg.groups}} is not '[]'; i.e. has length > 2
+	    if ('{{this_pkg.groups}}'.length > 2) { 
+		    result = '{{this_pkg.groups}}';
+		    clean = result.replaceAll('&#39;','"').replaceAll('u"','"');
+                    groupName = JSON.parse("[" + clean + "]")[0][0]['name'];
+	    }
+        window.dataLayer.push({
+            'event': 'Pageview',
+            'ministryTag': '{{this_org}}',
+            'group': groupName,
+            'dataAvailability': '{{this_pkg.access_level}}',
+            'datasetName': '{{this_pkg.title}}',
+            'resourceName': resourceName
+        });
+    }
+    // Push an empty dict when a page other than a dataset or resource page is viewed
+    else {
+        window.dataLayer.push({
+            'event': 'Pageview',
+            'ministryTag': '',
+            'group': '',
+            'dataAvailability': '',
+            'datasetName': '',
+            'resourceName': ''
+        });
+    }
+</script>

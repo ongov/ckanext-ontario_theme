@@ -4,6 +4,20 @@
   {{ super() }}
   <script src="//www.webservices.gov.on.ca/metrics.js" type="text/javascript" charset="utf-8"></script>
   {% resource 'ontario_theme/msappproxy.js' %}
+  {% snippet "gtm.html" %}  
+  {% set this_pkg = '' %}
+  {% set this_org = '' %}
+  {% set this_res = '' %}
+  {% if pkg %}
+    {% if pkg.organization %}
+      {% set this_pkg = pkg %}
+      {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
+      {% if res %}
+        {% set this_res = res %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+  {% snippet "gtm_pageview.html", this_pkg=this_pkg, this_org=this_org, this_res=this_res %}
   {% snippet "gtm.html" %}
 {% endblock %}
 
