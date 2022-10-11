@@ -21,37 +21,41 @@ msgstr ""
 "Generated-By: Babel 2.3.4\n"
 
 
-#: ckanext/ontario_theme/templates/footer.html:9
+#: ckanext/ontario_theme/templates/internal/footer.html:9
 msgid "https://www.ontario.ca/page/accessibility"
 msgstr "https://www.ontario.ca/fr/page/accessibilite"
 
-#: ckanext/ontario_theme/templates/footer.html:9
+#: ckanext/ontario_theme/templates/internal/footer.html:9
 msgid "accessibility"
 msgstr "accessibilité"
 
-#: ckanext/ontario_theme/templates/footer.html:10
+#: ckanext/ontario_theme/templates/internal/footer.html:10
 msgid "https://www.ontario.ca/page/privacy-statement"
 msgstr "https://www.ontario.ca/fr/page/declaration-concernant-la-protection-de-la-vie-privee"
 
-#: ckanext/ontario_theme/templates/footer.html:10
+#: ckanext/ontario_theme/templates/internal/footer.html:10
 msgid "privacy"
 msgstr "confidentialité"
 
-#: ckanext/ontario_theme/templates/footer.html:11
+#: ckanext/ontario_theme/templates/internal/footer.html:11
 msgid "https://www.ontario.ca/page/terms-use"
 msgstr "https://www.ontario.ca/fr/page/conditions-dutilisation"
 
-#: ckanext/ontario_theme/templates/footer.html:11
+#: ckanext/ontario_theme/templates/internal/footer.html:11
 msgid "terms of use"
 msgstr "conditions d’utilisation"
 
 #: ckanext/ontario_theme/templates/footer.html:15
-msgid "https://www.ontario.ca/page/copyright-information-c-kings-printer-ontario"
-msgstr "https://www.ontario.ca/fr/page/droits-dauteur-imprimeur-du-roi-pour-lontarioc"
+msgid "https://www.ontario.ca/page/copyright-information"
+msgstr "https://www.ontario.ca/fr/page/droits-dauteur"
 
 #: ckanext/ontario_theme/templates/footer.html:15
 msgid "&copy; King&#8217;s Printer for Ontario"
 msgstr "&copy; Imprimeur du Roi pour l’Ontario"
+
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read:73
+msgid "Queen&#8217;s Printer for Ontario"
+msgstr "Imprimeur de la Reine pour l’Ontario"
 
 #: ckanext/ontario_theme/templates/footer.html:15
 msgid "Contact Us"
@@ -97,10 +101,10 @@ msgstr "Veuillez répondre à notre sondage"
 #: ckanext/ontario_theme/templates/home/help.html:14
 msgid ""
 "<p>Need more help or want to learn more about the data catalogue? <a "
-"href=\"mailto:opengov@ontario.ca\">Contact the Open Government team</a> —"
+"href=\"https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269\">Contact us</a> —"
 " we’ll gladly answer any questions you might have!</p>"
 msgstr "<p>Vous avez besoin d’aide supplémentaire ou vous souhaitez en savoir plus sur le catalogue de données? <a "
-"href=\"mailto:opengov@ontario.ca\">Contactez l’équipe du Gouvernement ouvert</a>; c’est avec plaisir que nous répondrons à toutes vos questions!</p>"
+"href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=532365&nid=138269\">Contactez-nous</a>; c’est avec plaisir que nous répondrons à toutes vos questions!</p>"
 
 #: ckanext/ontario_theme/templates/home/help.html:17
 #: ckanext/ontario_theme/templates/home/help.html:30
@@ -157,30 +161,19 @@ msgstr "Q. Pouvez-vous m’aviser des mises à jour du catalogue?"
 msgid ""
 "A. Try using the <a href=\"/dataset\" target=\"_blank\">catalogue search "
 "page</a>. Enter your keywords in the search bar and refine your search, "
-"using the filters provided. Some dataset entries previously available on "
-"the catalogue have been removed. View the <a href=\"https://data.ontario.ca/dataset/"
-"entries-removed-from-the-ontario-data-catalogue\" target=\"_blank\">Entries "
-"removed from the Ontario data catalogue</a> dataset to see if the dataset"
-" entry you're looking for has been removed from the catalogue."
+"using the filters provided."
 msgstr "R. Essayez d’utiliser la <a href=\"/fr/dataset\" "
-"target=\"_blank\">page de recherche du catalogue</a>. Entrez vos mots clés"
-" dans la barre de recherche et affinez votre recherche en utilisant les"
-" filtres proposés. Certaines entrées de l’ensemble de données du catalogue"
-" ont été retirées. Pour voir si c’est le cas de l’entrée que vous cherchez,"
-" consultez l’ensemble de données intitulé <a href=\"https://"
-"data.ontario.ca/fr/dataset/entries-removed-from-the-ontario-data-catalogue"
-"\" target=\"_blank\">Éléments retirés du catalogue de données de l’Ontario</a>."
+"target=\"_blank\">page de recherche du catalogue</a>. Entrez vos mots clés dans la barre de recherche et affinez votre recherche en utilisant les filtres proposés."
 
 
 
 
 #: ckanext/ontario_theme/templates/home/help.html:57
 msgid ""
-"Email us at <a href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a> "
-"or <a href=\"https://www.ontario.ca/feedback/contact-"
-"us?id=14655&nid=74524\">use our contact form</a> to tell us what data you"
+"<a href=\"https://www.ontario.ca/feedback/contact-"
+"us?id=14655&nid=74524\">Use our contact form</a> to tell us what data you"
 " are looking for. We will review your request and reply."
-msgstr "Envoyez-nous un courriel à <a href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a> ou <a href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=33143&nid=53983\">utilisez notre formulaire de contact</a> pour nous dire quelles sont les données que vous recherchez. Nous étudierons votre demande et vous enverrons une réponse."
+msgstr "<a href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=532365&nid=138269\">Utilisez notre formulaire de contact</a> pour nous dire quelles sont les données que vous recherchez. Nous étudierons votre demande et vous enverrons une réponse."
 
 #: ckanext/ontario_theme/templates/home/help.html:68
 msgid ""
@@ -373,12 +366,10 @@ msgstr "Q. Et si un ensemble de données n’est pas disponible dans le format d
 
 #: ckanext/ontario_theme/templates/home/help.html:173
 msgid ""
-"A. For any issues related to our datasets, email us at <a "
-"href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a> or send us a "
-"message through our <a href=\"https://www.ontario.ca/feedback/contact-"
-"us?id=14655&nid=74524\">contact us form</a>. We will review your issue "
+"A. For any issues related to our datasets, send us a "
+"message through our <a href=\"https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269\">contact us form</a>. We will review your issue "
 "and reply."
-msgstr "R. Pour tout problème concernant nos ensembles de données, envoyez-nous un courriel à <a href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a> ou un message en utilisant <a href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=33143&nid=53983\">notre formulaire de contact</a>. Nous examinerons le problème et vous répondrons."
+msgstr "R. Pour tout problème concernant nos ensembles de données, envoyez-nous un message en utilisant <a href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=532365&nid=138269\">notre formulaire de contact</a>. Nous examinerons le problème et vous répondrons."
 
 #: ckanext/ontario_theme/templates/home/help.html:181
 msgid ""
@@ -388,18 +379,9 @@ msgstr "R. Commencez par consulter le champ <strong>Fréquence de mise à jour</
 
 #: ckanext/ontario_theme/templates/home/help.html:184
 msgid ""
-"If the dataset hasn’t been updated as frequently as stated, send an email"
-" to the dataset maintainer, using the <strong>Maintainer Name</strong> "
-"and <strong>Maintainer Email</strong> fields."
-msgstr "Si l’ensemble de données n’a pas été mis à jour aussi souvent qu’indiqué, envoyez un courriel au responsable de la maintenance des données, en utilisant les champs <strong>Responsable maintenance</strong> et <strong>Courriel maintenance</strong>."
-
-#: ckanext/ontario_theme/templates/home/help.html:187
-msgid ""
-"If a maintainer isn’t listed, email us at <a "
-"href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a> or send us a "
-"message through our <a href=\"https://www.ontario.ca/feedback/contact-"
-"us?id=14655&nid=74524\">contact us form</a>."
-msgstr "Si le responsable de la maintenance n’est pas indiqué, envoyez-nous un courriel à <a href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a> ou un message en utilisant <a href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=33143&nid=53983\">notre formulaire de contact</a>."
+"If the dataset hasn’t been updated as frequently as stated, send an email to the contact "
+"listed (in the \"For more information\" section)."
+msgstr "Si l’ensemble de données n’a pas été mis à jour aussi souvent qu’indiqué, envoyez un courriel au contact indiqué (dans la section 'Pour en savoir plus')."
 
 #: ckanext/ontario_theme/templates/home/help.html:192
 msgid ""
@@ -409,20 +391,10 @@ msgstr "Q. Comment puis-je signaler des erreurs/problèmes ou fournir une rétro
 
 #: ckanext/ontario_theme/templates/home/help.html:195
 msgid ""
-"A. Start by sending an email to the dataset maintainer, using the "
-"Maintainer Name and Maintainer Email fields."
+"A. Start by sending an email to the contact listed (in the \"For more information\" section)."
 msgstr "R. "
-"Commencez par envoyer un courriel au responsable de la maintenance de l’ensemble de données, en utilisant les champs Responsable maintenance et Courriel maintenance."  
+"Commencez par envoyer un courriel au contact indiqué (dans la section \"Pour en savoir plus\")."  
 
-#: ckanext/ontario_theme/templates/home/help.html:198
-msgid ""
-"If a maintainer isn’t listed, email us at <a "
-"href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a> or send us a "
-"message through our <a href=\"https://www.ontario.ca/feedback/contact-"
-"us?id=14655&nid=74524\">contact us form</a>. Please specify which "
-"dataset(s) you’d like us to review."
-msgstr "Si le responsable de la maintenance n’est pas indiqué, envoyez-nous un courriel à <a href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a> ou un message en utilisant <a "
-"href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=33143&nid=53983\">notre formulaire de contact</a>. Veuillez préciser quel(s) ensemble(s) de données vous souhaitez que nous examinions."
 
 #: ckanext/ontario_theme/templates/home/help.html:203
 msgid "Q. Why isn't the data for a dataset available?"
@@ -430,16 +402,9 @@ msgstr "Q. Pourquoi un ensemble de données n’est-il pas disponible?"
 
 #: ckanext/ontario_theme/templates/home/help.html:206
 msgid ""
-"A. There are three reasons why the data for a dataset might not be "
+"A. There are two reasons why the data for a dataset might not be "
 "available:"
-msgstr "R. Il y a trois raisons pour lesquelles un ensemble de données pourrait ne pas être disponible:"
-
-#: ckanext/ontario_theme/templates/home/help.html:210
-msgid ""
-"The dataset is <strong>To be opened</strong> (you will see this on the "
-"catalogue page). The government has screened the files for any privacy "
-"concerns and is prepping them to share with the public."
-msgstr "L’ensemble de données est <strong>En voie d’être ouvert</strong> (vous verrez cela sur la page du catalogue). Pour des raisons de confidentialité, le gouvernement a examiné les fichiers et est en train de les préparer en vue de les rendre publics."
+msgstr "R. Il y a deux raisons pour lesquelles un ensemble de données pourrait ne pas être disponible:"
 
 #: ckanext/ontario_theme/templates/home/help.html:213
 msgid ""
@@ -604,7 +569,7 @@ msgid "\n"
 "  If a dataset doesn’t have a licence, you don’t have the right to use the data. \n"
 "</p>\n"
 "<p>\n"
-"  If you have questions about how you can use a specific dataset, please contact us at <a href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a>.  \n"
+"  If you have questions about how you can use a specific dataset, please <a href=\"https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269\">contact us</a>.\n"
 "</p>\n"
 "<h2><a name=\"developers\"></a>\n"
 "  Developers\n"
@@ -1456,7 +1421,8 @@ msgid "\n"
 "</p>\n"
 "<ul>\n"
 "  <li>\n"
-"    <strong>Email us at <a href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a>.</strong>\n"
+"    <strong><a href=\"https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269\">"
+"Contact us</a>.</strong>\n"
 "    <p>\n"
 "      As we improve the catalogue, we want you to tell us what you think of it. This catalogue is for you, so the more feedback we get, the better our final product. \n"
 "    </p>\n"
@@ -1464,13 +1430,7 @@ msgid "\n"
 "  <li>\n"
 "    <strong>Participate in user testing.</strong>\n"
 "    <p>\n"
-"      Work with us directly by testing the catalogue in our offices. If you are interested in doing this, send an email to <a href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a>. \n"
-"    </p>\n"
-"  </li>\n"
-"  <li>\n"
-"    <strong>Join community consultations.</strong>\n"
-"    <p>\n"
-"      We will be coming out to communities across the province. We will let you know where we are headed and we are also open to suggestions. If you want to recommend a region, meeting or event where we can hold a consultation, email us at <a href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a>.\n"
+"      Work with us directly by testing the catalogue in our offices. If you are interested in doing this, <a href=\"https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269\">contact us</a>.\n"
 "    </p>\n"
 "  </li>\n"
 "  <li>\n"
@@ -1568,7 +1528,7 @@ msgstr "\n"
 "    Si un ensemble de données ne fait pas l’objet d’une licence, vous n’avez pas le droit d’utiliser ces données. \n"
 "  </p>\n"
 "  <p>\n"
-"    Si vous avez des questions sur la manière d’utiliser un ensemble de données particulier, veuillez nous contacter à <a href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a>.  \n"
+"    Si vous avez des questions sur la manière d’utiliser un ensemble de données particulier, veuillez <a href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=532365&nid=138269\">nous contacter</a>.  \n"
 "  </p>\n"
 "<h2><a name=\"developers\"></a>\n"
 "  Concepteurs\n"
@@ -2419,7 +2379,11 @@ msgstr "\n"
 "  </p>\n"
 "  <ul>\n"
 "    <li>\n"
-"      <strong>Adressez-nous un courriel à <a href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a>.</strong>\n"
+"      <strong>\n"
+"		<a href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=532365&nid=138269\">\n"
+"			Contactez-nous\n"
+"		</a>.\n"
+"	   </strong>\n"
 "      <p>\n"
 "        Le développement du catalogue s’étendra, et nous aimerions savoir ce que vous en pensez. Ce catalogue vous est destiné, et plus nous obtenons de rétroaction, plus notre produit final sera performant. \n"
 "      </p>\n"
@@ -2427,13 +2391,7 @@ msgstr "\n"
 "    <li>\n"
 "      <strong>Participez aux tests utilisateur.</strong>\n"
 "      <p>\n"
-"        Collaborez avec nous directement en testant le catalogue dans nos bureaux. Si vous êtes intéressé(e), envoyez un courriel à <a href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a>. \n"
-"      </p>\n"
-"    </li>\n"
-"    <li>\n"
-"      <strong>Joignez-vous aux consultations communautaires.</strong>\n"
-"      <p>\n"
-"        Nous allons nous rendre dans les communautés de toute la province. Nous vous communiquerons notre itinéraire et sommes également ouverts aux suggestions. Si vous souhaitez recommander une région, une réunion ou un événement où nous pourrions tenir une consultation, envoyez-nous un courriel à <a href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a>.\n"
+"        Collaborez avec nous directement en testant le catalogue dans nos bureaux. Si vous êtes intéressé(e), <a href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=532365&nid=138269\">contactez-nous</a>.\n"
 "      </p>\n"
 "    </li>\n"
 "    <li>\n"
@@ -2455,10 +2413,9 @@ msgid "Contact us"
 msgstr "Contactez-nous"
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_contact_us.html:12
-msgid "Have feedback or questions? We want to hear from you! Email us at <a "
-"href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a>."
-msgstr "Des commentaires ou des questions? Votre opinion nous intéresse! Envoyez-nous un courriel à <a "
-"href=\"mailto:opengov@ontario.ca\">opengov@ontario.ca</a>."
+msgid "Have feedback or questions? We want to hear from you! <a "
+"href=\"https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269\">Contact us</a>."
+msgstr "Des commentaires ou des questions? Votre opinion nous intéresse! <a href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=532365&nid=138269\">Contactez-nous</a>."
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:11
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:22
@@ -2665,11 +2622,11 @@ msgstr "Algorithme/IA"
 msgid "ON Geohub"
 msgstr "CarrefourGéo ON"
 
-#: ckanext/ontario_theme/templates/package/resource_read.html:25
+#: ckanext/ontario_theme/templates/internal/package/resource_read.html:25
 msgid "Open"
 msgstr "Ouvert"
 
-#: ckan/templates/package/resource_read.html:88
+#: ckan/templates/internal/scheming/package/resource_read.html:30
 #, python-format
 msgid "Source: <a href=\"%(url)s\">%(dataset)s</a>"
 msgstr "L'origine: <a href=\"%(url)s\">%(dataset)s</a>"
@@ -2858,8 +2815,8 @@ msgid "Provide feedback"
 msgstr "Fournir rétroaction"
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:30
-msgid "As we work to develop the catalogue, <a href=\"mailto:opengov@ontario.ca\">tell us what you think</a>."
-msgstr "Au fur et à mesure que nous travaillons à son amélioration le catalogue, nous aimerions savoir ce que <a href=\"mailto:opengov@ontario.ca\">vous en pensez</a>."
+msgid "As we work to develop the catalogue, <a href=\"https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269\">tell us what you think</a>."
+msgstr "Au fur et à mesure que nous travaillons à son amélioration le catalogue, nous aimerions savoir ce que <a href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=532365&nid=138269\">vous en pensez</a>."
 
 
 

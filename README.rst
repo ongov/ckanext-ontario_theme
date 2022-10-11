@@ -8,6 +8,15 @@ Theme for Ontario ckan including:
 * forms
 * templates and design
 
+-------------------
+Directory Structure
+-------------------
+Four directories compose this repository
+
+* **scripts:** contains scripts to setup CKAN and required applications
+* **config:** contains configuration files needed for installation and configuration of CKAN
+* **ckanext:** Ontario Theme Extension files for CKAN
+* **bin:** contains CI scripts that are no longer being used. This directory is pending deletion/cleanup
 
 ------------
 Requirements
@@ -22,7 +31,7 @@ Requirements
    - Plugins
  * - CKAN
    - `ckan/ckan <https://github.com/ckan/ckan/>`_
-   - ckan-2.8.x
+   - ckan-2.9.x
    - N/A
  * - Scheming extension
    - `open-data/ckanext-scheming <https://github.com/open-data/ckanext-scheming>`_
@@ -162,10 +171,12 @@ You can then find the coverage reports in a generated htmlcov folder.
 
 Our custom config settings are in ``./test.ini``.
 
-Additional ways to run tests:
+Running a single test:
 
-    # Single Test class
+*Single Test class*::
+
     coverage run -m pytest --ckan-ini=test.ini ckanext/ontario_theme/tests/test_create_dataset.py::test_package_create_with_invalid_update_frequency 
 
-    # Single Test module
+*Single Test module*::
+
     coverage run -m pytest --ckan-ini=test.ini ckanext/ontario_theme/tests/test_create_dataset.py
