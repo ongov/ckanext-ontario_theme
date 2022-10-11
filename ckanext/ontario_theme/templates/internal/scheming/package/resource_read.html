@@ -67,7 +67,7 @@
           </tr>
         {%- endblock -%}
         {%- block resource_license -%}
-          {% set license = h.ontario_theme_get_license(pkg_dict.license_id) %}
+          {% set license = h.ontario_theme_get_license(pkg.license_id) %}
           <tr>
             <th scope="row">{{ _('License') }}</th>
             <td><a href="{{ h.get_translated(license, 'url') }}">{{ h.get_translated(license, 'title') }}</a></td>
