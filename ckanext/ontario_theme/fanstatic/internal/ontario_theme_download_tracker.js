@@ -1,23 +1,11 @@
-// From: https://docs.ckan.org/en/2.9/theming/javascript.html
-// Calls the ckan.module() function to register a new JavaScript module with CKAN.
-// -------------------------------------------------------------------------------
-
 // Enable JavaScript's strict mode. Strict mode catches some common
 // programming errors and throws exceptions, prevents some unsafe actions from
 // being taken, and disables some confusing and bad JavaScript features.
-// "use strict";
+"use strict";
 
-console.log('in module')
+function trackDownload(resourceUrl, orgName, pkgTitle, groupName) {
 
-
-function myFunction(resourceUrl, orgName, pkgTitle, groupName) {
-
-  console.log('CLICKED !!!! file: ', resourceUrl)
   let fileName = resourceUrl.split('download/')[1];
-  console.log('this_file: ', fileName)
-  console.log('org_name: ', orgName)
-  console.log('pkg.title: ', pkgTitle)
-  console.log('groupName: ', groupName)
 
   if (groupName.length > 2) { 
     // clean = groupName.replaceAll('&#39;','"').replaceAll('u"','"');
@@ -25,7 +13,8 @@ function myFunction(resourceUrl, orgName, pkgTitle, groupName) {
     groupName = "TBD";
   } else {
     groupName = "";
-  }   
+  }
+  console.log('groupName after fix: ', groupName)
 
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
@@ -35,8 +24,4 @@ function myFunction(resourceUrl, orgName, pkgTitle, groupName) {
     'datasetName': pkgTitle,
     'dataResourceName': fileName
   });
-  
-
-  // Object.keys(myarray).forEach(key => console.log(myarray[key]));
-
 }

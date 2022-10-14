@@ -64,7 +64,7 @@
           {% if res.url and h.is_url(res.url) %}
             {% asset 'ontario_theme/ontario_theme_download_tracker_js' %}
             {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
-            <a href="{{ res.url }}" class="resource-url-analytics btn btn-primary dataset-download-link" target="_blank" onclick="myFunction('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ pkg.groups }}');return true;">
+            <a href="{{ res.url }}" class="resource-url-analytics btn btn-primary dataset-download-link" target="_blank" onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ pkg.groups }}');return true;">
               {% if res.has_views or res.url_type == 'upload' %}
                 <i class="fa fa-arrow-circle-o-down"></i>
                 {{ _('Download') }}
