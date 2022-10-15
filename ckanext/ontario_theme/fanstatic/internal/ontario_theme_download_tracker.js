@@ -7,8 +7,6 @@ function trackDownload(resourceUrl, orgName, pkgTitle, groupName) {
 
   let fileName = resourceUrl.split('download/')[1];
 
-  console.log('groupName: ', groupName)
-
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
     'event': 'File Download',
