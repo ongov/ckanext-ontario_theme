@@ -11,13 +11,18 @@
   {% if pkg %}
     {% if pkg.organization %}
       {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
+      {% if pkg.groups %}
+        {% set this_group = pkg.groups[0]['name'] %}
+      {% else %}
+        {% set this_group = '' %}
+      {% endif %}
       {% set this_pkg = pkg %}
       {% if res %}
         {% set this_res = res %}
       {% endif %}
     {% endif %}
   {% endif %}  
-  {% snippet "gtm_pageview.html", this_pkg=this_pkg, this_org=this_org, this_res=this_res %}
+  {% snippet "gtm_pageview.html", this_pkg=this_pkg, this_org=this_org, this_group=this_group, this_res=this_res %}
 
 
 {% endblock %}
