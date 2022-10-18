@@ -5,7 +5,10 @@
 
 function trackDownload(resourceUrl, orgName, pkgTitle, groupName) {
 
-  let fileName = resourceUrl.split('download/')[1];
+  let fileName;
+  let urlArray;
+  urlArray = resourceUrl.split('/');
+  fileName = urlArray[urlArray.length - 1];
 
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
