@@ -69,7 +69,7 @@
             {% else %}
               {% set this_group = '' %}
             {% endif %}
-            <a href="{{ res.url }}" class="resource-url-analytics btn btn-primary dataset-download-link" target="_blank" onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">
+            <a href="{{ res.url }}" class="resource-url-analytics btn btn-primary dataset-download-link" onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">
               {% if res.has_views or res.url_type == 'upload' %}
                 <i class="fa fa-arrow-circle-o-down"></i>
                 {{ _('Download') }}

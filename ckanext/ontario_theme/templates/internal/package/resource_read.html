@@ -51,13 +51,13 @@
             <ul class="dropdown-menu">
               <li>
                 <a class="dataset-download-link" href="{{ h.url_for('datastore.dump', resource_id=res.id, bom=True) }}"
-                  target="_blank" onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"> <span>CSV</span></a>
+                  onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"> <span>CSV</span></a>
                 <a class="dataset-download-link" href="{{ h.url_for('datastore.dump', resource_id=res.id, format='tsv', bom=True) }}"
-                  target="_blank" onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"><span>TSV</span></a>
+                  onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"><span>TSV</span></a>
                 <a class="dataset-download-link" href="{{ h.url_for('datastore.dump', resource_id=res.id, format='json') }}"
-                  target="_blank" onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"><span>JSON</span></a>
+                  onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"><span>JSON</span></a>
                 <a class="dataset-download-link" href="{{ h.url_for('datastore.dump', resource_id=res.id, format='xml') }}"
-                  target="_blank" onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"><span>XML</span></a>
+                  onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"><span>XML</span></a>
               </li>
             </ul>
           {%endif%}
