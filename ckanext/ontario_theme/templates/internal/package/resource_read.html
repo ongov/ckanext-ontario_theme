@@ -1,8 +1,16 @@
 {% ckan_extends %}
 
 {% block resource_read_url %}
+  {% asset 'ontario_theme/ontario_theme_download_tracker_js' %}
+  {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
+  {% if pkg.groups %}
+    {% set this_group = pkg.groups[0]['name'] %}
+  {% else %}
+    {% set this_group = '' %}
+  {% endif %}
   {% if res.url and h.is_url(res.url) %}
-    <p class="text-muted ellipsis">{{ _('URL:') }} <a class="resource-url-analytics dataset-download-link" href="{{ res.url }}" title="{{ res.url }}">{{ res.url }}</a></p>
+    {# Download link URL on resource page #}
+    <p class="text-muted ellipsis">{{ _('URL:') }} <a class="resource-url-analytics dataset-download-link" href="{{ res.url }}" title="{{ res.url }}" onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">{{ res.url }}</a></p>
   {% elif res.url %}
     <p class="text-muted break-word">{{ _('URL:') }} {{ res.url }}</p>
   {% endif %}
@@ -10,44 +18,53 @@
 {% endblock %}
 
 {% block resource_actions_inner %}
-{% if h.check_access('package_update', {'id':pkg.id }) %}
-  <li>{% link_for _('Edit'), named_route=pkg.type + '_resource.edit', id=pkg.name, resource_id=res.id, class_='btn btn-default', icon='wrench' %}</li>
-{% endif %}
-{% if res.url and h.is_url(res.url) %}
-  <li>
-    <div class="btn-group">
-    <a class="btn btn-primary dataset-download-link resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ res.url }}">
-      {% if res.resource_type in ('listing', 'service') %}
-        <i class="fa fa-eye"></i> {{ _('View') }}
-      {% elif  res.resource_type == 'api' %}
-        <i class="fa fa-key"></i> {{ _('API Endpoint') }}
-      {% elif (not res.has_views or not res.can_be_previewed) and not res.url_type == 'upload' %}
-        <i class="fa fa-external-link"></i> {{ _('Open') }}
-      {% else %}
-        <i class="fa fa-arrow-circle-o-down"></i> {{ _('Download') }}
-      {% endif %}
-    </a>
-     {% block download_resource_button %}
-      {%if res.datastore_active %}
-    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-        <span class="caret"></span>
-      </button>
-    <ul class="dropdown-menu">
-      <li>
-        <a class="dataset-download-link" href="{{ h.url_for('datastore.dump', resource_id=res.id, bom=True) }}"
-          target="_blank"><span>CSV</span></a>
-        <a class="dataset-download-link" href="{{ h.url_for('datastore.dump', resource_id=res.id, format='tsv', bom=True) }}"
-          target="_blank"><span>TSV</span></a>
-        <a class="dataset-download-link" href="{{ h.url_for('datastore.dump', resource_id=res.id, format='json') }}"
-          target="_blank"><span>JSON</span></a>
-        <a class="dataset-download-link" href="{{ h.url_for('datastore.dump', resource_id=res.id, format='xml') }}"
-          target="_blank"><span>XML</span></a>
-      </li>
-    </ul>
-    {%endif%} {% endblock %}
-    </div>
-  </li>
-{% endif %}
+  {% asset 'ontario_theme/ontario_theme_download_tracker_js' %}
+  {% if h.check_access('package_update', {'id':pkg.id }) %}
+    <li>{% link_for _('Edit'), named_route=pkg.type + '_resource.edit', id=pkg.name, resource_id=res.id, class_='btn btn-default', icon='wrench' %}</li>
+  {% endif %}
+  {% if res.url and h.is_url(res.url) %}
+    {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
+    {% if pkg.groups %}
+      {% set this_group = pkg.groups[0]['name'] %}
+    {% else %}
+      {% set this_group = '' %}
+    {% endif %}
+    <li>
+      <div class="btn-group">
+        <a class="btn btn-primary dataset-download-link resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ res.url }}" onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">
+          {% if res.resource_type in ('listing', 'service') %}
+            <i class="fa fa-eye"></i> {{ _('View') }}
+          {% elif  res.resource_type == 'api' %}
+            <i class="fa fa-key"></i> {{ _('API Endpoint') }}
+          {% elif (not res.has_views or not res.can_be_previewed) and not res.url_type == 'upload' %}
+            <i class="fa fa-external-link"></i> {{ _('Open') }}
+          {% else %}
+            <i class="fa fa-arrow-circle-o-down"></i> {{ _('Download') }}
+          {% endif %}
+        </a>
+        {% block download_resource_button %}
+          {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
+          {%if res.datastore_active %}
+            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dataset-download-link" href="{{ h.url_for('datastore.dump', resource_id=res.id, bom=True) }}"
+                  onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"> <span>CSV</span></a>
+                <a class="dataset-download-link" href="{{ h.url_for('datastore.dump', resource_id=res.id, format='tsv', bom=True) }}"
+                  onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"><span>TSV</span></a>
+                <a class="dataset-download-link" href="{{ h.url_for('datastore.dump', resource_id=res.id, format='json') }}"
+                  onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"><span>JSON</span></a>
+                <a class="dataset-download-link" href="{{ h.url_for('datastore.dump', resource_id=res.id, format='xml') }}"
+                  onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"><span>XML</span></a>
+              </li>
+            </ul>
+          {%endif%}
+        {% endblock %}
+      </div>
+    </li>
+  {% endif %}
 {% endblock %}
 
 {% block data_preview %}

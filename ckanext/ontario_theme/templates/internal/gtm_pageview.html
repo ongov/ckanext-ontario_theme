@@ -1,8 +1,6 @@
 <script>
     window.dataLayer = window.dataLayer || [];
 
-    groupName = '';
-
     // Only resource views have a resourceName
     if ('{{this_res}}'.length > 0) {
         // Even if a resource exists, it might not have a name.
@@ -16,16 +14,10 @@
 
     // Pushed when a dataset page or a resource page is viewed
     if ('{{this_pkg}}'.length > 0) {
-        // Check that {{this_pkg.groups}} is not '[]'; i.e. has length > 2
-        if ('{{this_pkg.groups}}'.length > 2) { 
-		    result = '{{this_pkg.groups}}';
-		    clean = result.replaceAll('&#39;','"').replaceAll('u"','"');
-            groupName = JSON.parse("[" + clean + "]")[0][0]['name'];
-	    }   
         window.dataLayer.push({
             'event': 'Pageview',
             'ministryTag': '{{this_org}}',
-            'group': groupName,
+            'group': '{{this_group}}',
             'dataAvailability': '{{this_pkg.access_level}}',
             'datasetName': '{{this_pkg.title}}',
             'resourceName': resourceName

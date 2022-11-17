@@ -18,3 +18,11 @@ ontario_theme_lock_if_odc_js:
   extra:
     preload:
       - vendor/jquery
+
+ontario_theme_download_tracker_js:
+  filters: rjsmin
+  contents: ontario_theme_download_tracker.js
+  output: ontario_theme/%(version)s_ontario_theme_download_tracker.js
+  extra:
+    preload:
+      - vendor/jquery
