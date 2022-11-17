@@ -21,27 +21,27 @@ msgstr ""
 "Generated-By: Babel 2.3.4\n"
 
 
-#: ckanext/ontario_theme/templates/footer.html:9
+#: ckanext/ontario_theme/templates/internal/footer.html:9
 msgid "https://www.ontario.ca/page/accessibility"
 msgstr "https://www.ontario.ca/fr/page/accessibilite"
 
-#: ckanext/ontario_theme/templates/footer.html:9
+#: ckanext/ontario_theme/templates/internal/footer.html:9
 msgid "accessibility"
 msgstr "accessibilité"
 
-#: ckanext/ontario_theme/templates/footer.html:10
+#: ckanext/ontario_theme/templates/internal/footer.html:10
 msgid "https://www.ontario.ca/page/privacy-statement"
 msgstr "https://www.ontario.ca/fr/page/declaration-concernant-la-protection-de-la-vie-privee"
 
-#: ckanext/ontario_theme/templates/footer.html:10
+#: ckanext/ontario_theme/templates/internal/footer.html:10
 msgid "privacy"
 msgstr "confidentialité"
 
-#: ckanext/ontario_theme/templates/footer.html:11
+#: ckanext/ontario_theme/templates/internal/footer.html:11
 msgid "https://www.ontario.ca/page/terms-use"
 msgstr "https://www.ontario.ca/fr/page/conditions-dutilisation"
 
-#: ckanext/ontario_theme/templates/footer.html:11
+#: ckanext/ontario_theme/templates/internal/footer.html:11
 msgid "terms of use"
 msgstr "conditions d’utilisation"
 
@@ -52,6 +52,10 @@ msgstr "https://www.ontario.ca/fr/page/droits-dauteur"
 #: ckanext/ontario_theme/templates/footer.html:15
 msgid "&copy; King&#8217;s Printer for Ontario"
 msgstr "&copy; Imprimeur du Roi pour l’Ontario"
+
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read:73
+msgid "King&#8217;s Printer for Ontario"
+msgstr "Imprimeur du Roi pour l’Ontario"
 
 #: ckanext/ontario_theme/templates/footer.html:15
 msgid "Contact Us"
@@ -2618,11 +2622,11 @@ msgstr "Algorithme/IA"
 msgid "ON Geohub"
 msgstr "CarrefourGéo ON"
 
-#: ckanext/ontario_theme/templates/package/resource_read.html:25
+#: ckanext/ontario_theme/templates/internal/package/resource_read.html:25
 msgid "Open"
 msgstr "Ouvert"
 
-#: ckan/templates/package/resource_read.html:88
+#: ckan/templates/internal/package/resource_read.html:88
 #, python-format
 msgid "Source: <a href=\"%(url)s\">%(dataset)s</a>"
 msgstr "L'origine: <a href=\"%(url)s\">%(dataset)s</a>"
