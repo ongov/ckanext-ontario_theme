@@ -19,6 +19,7 @@ export XLOADER_REQ_VER='0.9.0'
 
 CKAN_ONT_THEME_ROOT="`pwd`/.."
 CKAN_EXT_ROOT="/usr/lib/ckan/default/src"
+GTM_PATH=$CKAN_EXT_ROOT"/ckanext-ontario_theme/ckanext/ontario_theme/templates/internal"
 
 # Install CKAN Dependencies
 echo "Installing packages..."
@@ -39,7 +40,7 @@ echo $SUDOPASS | sudo -S -k mkdir -p /etc/ckan/default
 echo $SUDOPASS | sudo -S -k chown -R `whoami` /etc/ckan/
 
 # Copying and Configuring ckan.ini to /etc/ckan/default/
-cp `pwd`/../config/ckan/ckan.ini /etc/ckan/default/
+cp $CKAN_ONT_THEME_ROOT/config/ckan/ckan.ini $CKANINIPATH
 
 # sqlalchemy.url
 SQLALCHEMY_STRING=`str_to_sed_str "sqlalchemy.url = postgresql://ckan_default:pass@localhost/ckan_default"`
@@ -132,6 +133,9 @@ git fetch
 git checkout -b ckan_script origin/ckan_script
 python3 setup.py develop
 pip3 install -r dev-requirements.txt
+
+# copy google tag manager (placeholder) files
+cp $CKAN_ONT_THEME_ROOT/config/gtm/* $GTM_PATH/
 
 # update plugins
 PLUGINS="ckan.plugins = stats text_view image_view recline_view"
