@@ -1,6 +1,6 @@
 #! /bin/bash
 
-export SUDOPASS='1'
+# export SUDOPASS='1'
 export CKANUSER='ckan_default'
 export CKANPASS='ckan_default'
 export CKANDB='ckan_default'
@@ -23,4 +23,3 @@ echo $SUDOPASS | sudo -S -k -u postgres psql -c "CREATE DATABASE $CKANDB OWNER \
 # DATASTORE DB
 echo $SUDOPASS | sudo -S -k -u postgres psql -c "CREATE USER \"$DATASTOREUSER\" WITH PASSWORD '$DATASTOREPASS' NOSUPERUSER NOCREATEDB NOCREATEROLE LOGIN"
 echo $SUDOPASS | sudo -S -k -u postgres psql -c "CREATE DATABASE $DATASTOREDB OWNER \"$CKANUSER\" ENCODING UTF8"
-
