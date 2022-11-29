@@ -1228,16 +1228,34 @@ textarea[readonly]::placeholder {
 /* ========================================================================
    Breadcrumbs
    ======================================================================== */
-.breadcrumb > li_li:before {
+.toolbar ol.breadcrumb {
   color: #aaa;
-  content: "→";
-  margin: 0 0.75rem;
-  position: relative;
-  top: 1px;
+  padding: 10px 16px;
+  list-style: none;
+}
+.toolbar ol.breadcrumb li {
+  display: inline;
+  font-size: 18px;
+}
+.toolbar ol.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: ">";
+}
+.toolbar ol.breadcrumb li a {
+  color: #06c;
+  text-decoration: underline;
+}
+.toolbar ol.breadcrumb li a:hover {
+  color: #00478f;
+  text-decoration: underline;
 }
 .toolbar .breadcrumb a {
-  color: #8A600D;
-  font-size: 15px;
+  font-size: 16px;
+}
+.toolbar .breadcrumb .active a,
+.toolbar .breadcrumb a.active {
+  font-weight: normal;
 }
 .logo img {
   width: 153px;
