@@ -517,6 +517,7 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
         toolkit.add_template_directory(config_, 'templates/internal')
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic/internal', 'ontario_theme')
+        toolkit.add_resource('fanstatic', 'ontario_theme_common')
 
         if 'scheming.dataset_schemas' not in config_:
             config_['scheming.dataset_schemas'] = """

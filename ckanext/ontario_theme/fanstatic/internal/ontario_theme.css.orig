@@ -1225,6 +1225,20 @@ textarea[readonly]::placeholder {
 .mastead .site-search {
   margin: 0;
 }
+/* ========================================================================
+   Breadcrumbs
+   ======================================================================== */
+.breadcrumb > li_li:before {
+  color: #aaa;
+  content: "→";
+  margin: 0 0.75rem;
+  position: relative;
+  top: 1px;
+}
+.toolbar .breadcrumb a {
+  color: #8A600D;
+  font-size: 15px;
+}
 .logo img {
   width: 153px;
 }
