@@ -544,7 +544,7 @@ class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
         toolkit.add_template_directory(config_, 'templates/external')
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic/external', 'ontario_theme_external')
-
+        toolkit.add_resource('fanstatic', 'ontario_theme_common')
 
         config_['scheming.dataset_schemas'] = """
 ckanext.ontario_theme:schemas/external/ontario_theme_dataset.json
@@ -578,6 +578,7 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
         toolkit.add_template_directory(config_, 'templates/internal')
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic/internal', 'ontario_theme')
+        toolkit.add_resource('fanstatic', 'ontario_theme_common')
 
 
         if 'scheming.dataset_schemas' not in config_:
