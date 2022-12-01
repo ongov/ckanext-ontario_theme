@@ -6,6 +6,7 @@ ontario_theme_css:
 ontario_theme_common:
   contents: 
     - common.css
+    - fonts_googleapis.css
 
 msappproxy_js:
   filters: rjsmin
