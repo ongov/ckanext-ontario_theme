@@ -1,0 +1,32 @@
+/* ========================================================================
+   Breadcrumbs - à la Design System
+   ======================================================================== */
+.toolbar ol.breadcrumb {
+  color: #aaa;
+  padding: 10px 16px;
+  list-style: none;
+}
+.toolbar ol.breadcrumb li {
+  display: inline;
+  font-size: 18px;
+}
+.toolbar ol.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: ">";
+}
+.toolbar ol.breadcrumb li a {
+  color: #06c;
+  text-decoration: underline;
+}
+.toolbar ol.breadcrumb li a:hover {
+  color: #00478f;
+  text-decoration: underline;
+}
+.toolbar .breadcrumb a {
+  font-size: 16px;
+}
+.toolbar .breadcrumb .active a,
+.toolbar .breadcrumb a.active {
+  font-weight: normal;
+}
