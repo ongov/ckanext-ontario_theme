@@ -30,3 +30,144 @@
 .toolbar .breadcrumb a.active {
   font-weight: normal;
 }
+/* ========================================================================
+   Page Alerts -Design System
+   ======================================================================== */
+   .ontario-alert{
+    border-width:0 0 0 0.9375rem;
+    border-style:solid;
+    padding:1.5rem;
+    margin:2rem 0 2.5rem 0;
+}
+.ontario-alert__header{
+    display:flex
+}
+.ontario-alert__header-icon{
+    display:inline-block;
+    vertical-align:top;
+    margin-right:.95rem;
+}
+.ontario-alert__header-icon svg{
+    width:36px;
+    height:36px
+}
+@media screen and (max-width: 40em){
+    .ontario-alert__header-icon svg{
+        width:32px;
+        height:32px
+    }
+}
+.ontario-alert__header-title{
+    margin-bottom:.75rem;
+    padding-top:2px
+}
+.ontario-alert__body{
+    margin-left:3.25rem;
+    max-width:48rem;
+}
+@media screen and (max-width: 40em){
+    .ontario-alert__body{
+        margin-left:0
+    }
+}
+.ontario-alert__body p{
+    margin-top:0;
+    font-size: 16px;
+}
+.ontario-alert__body p:last-of-type{
+    margin-bottom:.5rem
+}
+.ontario-alert__body p:last-of-type+ul{
+    margin-top:1rem
+}
+.ontario-alert__body ul:last-of-type{
+    margin-bottom:.5rem
+}
+.ontario-alert--error ul{
+    margin-left:1.25rem
+}
+.ontario-alert--error ul:last-of-type{
+    margin-bottom:.5rem
+}
+.ontario-alert--informational{
+    border-color:#1080a6;
+    background-color:#e2f0f4
+}
+.ontario-alert--informational svg{
+    fill:#1080a6
+}
+.ontario-alert--warning{
+    border-color:#ffd440;
+    background-color:#fef6dc
+}
+.ontario-alert--warning svg{
+    fill:#ffd440
+}
+.ontario-alert--success{
+    border-color:#118847;
+    background-color:#e5f0e9
+}
+.ontario-alert--success svg{
+    fill:#118847
+}
+.ontario-alert--error{
+    border-color:#cd0000;
+    background-color:#fceff0
+}
+.ontario-alert--error svg{
+    fill:#cd0000
+}
+.ontario-alert--error a{
+    color:#cd0000
+}
+.ontario-alert--error a:hover,.ontario-alert--error a:focus{
+    color:#6b0000
+}
+.ontario-alert--error a:active{
+    color:#280000
+}
+/* =============
+   Overrides
+   ============= */
+   
+/* font styling to be removed when font is updated to DS*/
+.ontario-h4{
+  font-size: 24px !important;
+  line-height: 1.43;
+  font-weight: 700;
+  letter-spacing: 0.02rem;
+  text-align: unset !important;
+}
+.fa.fa-comments {
+  font-size: 100px;
+  color: #1080A6;
+}
+.feedback.ontario-alert__header-icon{
+  height:100px;
+  width:100px;
+  margin-left: 3rem;
+}
+@media screen and (max-width: 40em){
+  .fa.fa-comments{
+      font-size: 80px;
+  }
+  .feedback.ontario-alert__header-icon{
+    height:80px;
+    width:80px;
+    margin-left: .5rem;
+  }
+  .feedback.ontario-alert__body h2{
+    margin-top: unset !important;
+  }
+}
+.feedback.ontario-alert {
+  display: flex;
+  min-height: 198px;
+}
+.feedback.ontario-alert__body {
+  max-width: unset;
+  margin-left: 1rem;
+}
+.feedback.ontario-alert__body p{
+  padding-top: 1rem;
+}

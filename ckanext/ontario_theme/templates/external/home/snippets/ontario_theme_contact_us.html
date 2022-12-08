@@ -4,19 +4,14 @@ Renders contact information for the site on the home page.
 
 #}
 
-<div class="contact-us new-alert alert-contact alert-clear">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-2 symbol">
-          <i class="fa fa-comments"></i>
-        </div>
-        <div class="col-md-10 message">
-          <p>
-            {% trans %}Have feedback or questions? Have a data or catalogue request? We want to hear from you! We use your feedback to drive our work.{% endtrans %}
-            <br />
-            <a href="{% trans %}https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269{% endtrans %}" class="btn btn-secondary float-right">{{ _("Contact Us") }}!</a>
-          </p>  
-        </div>
+<div class="feedback ontario-alert ontario-alert--informational">
+  <div class="feedback ontario-alert__header">
+      <div class="feedback ontario-alert__header-icon">
+            <i class="fa fa-comments"></i>
       </div>
-    </div>
+  </div>
+  <div class="feedback ontario-alert__body">
+    <h2 class="feedback ontario-alert__header-title ontario-h4">{% trans %}Help us improve the Data Catalogue{% endtrans %}</h2>
+    <p>{% trans %}Take a <a href="https://www.ontario.ca/form/survey-open-data-catalogue?page=/">2-minute survey</a> and tell us what you think about this page.{% endtrans %}</p>
+  </div>
 </div>
