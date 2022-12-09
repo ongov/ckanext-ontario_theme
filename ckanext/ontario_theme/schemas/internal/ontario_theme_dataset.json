@@ -270,7 +270,6 @@
         "fr": "Mainteneur"
       },
       "help_inline" : true,
-      "required": "true",
       "help_text": {
         "en": "Name of a person or organization within the OPS that can be contacted about the resource"
       },
@@ -286,7 +285,6 @@
         "fr": "Email du mainteneur"
       },
       "help_inline" : true,
-      "required": "true",
       "help_text": {
         "en": "Contact information of a person or organization within the OPS that can be contacted about the resource"
       },

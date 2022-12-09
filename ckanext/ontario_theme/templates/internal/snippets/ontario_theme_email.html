@@ -1,0 +1,11 @@
+{% if contact_name %}  
+  {{contact_name}}
+{% endif %}
+{% if contact_name and contact_email %}
+  &nbsp;|&nbsp;
+{% endif %}
+{% if contact_email %}  
+  <a href="mailto:{{contact_email}}{{"?subject="+subject if subject}}">
+    {{contact_email}}
+  </a>
+{% endif %}

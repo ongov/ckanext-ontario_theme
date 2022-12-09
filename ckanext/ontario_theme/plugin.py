@@ -553,7 +553,7 @@ ckanext.scheming:presets.json
 ckanext.fluent:presets.json
 """
         config_['scheming.organization_schemas'] = """
-ckanext.ontario_theme:schemas/ontario_theme_organization.json
+ckanext.ontario_theme:schemas/external/ontario_theme_organization.json
 """
         config_['scheming.group_schemas'] = """
 ckanext.ontario_theme:schemas/ontario_theme_group.json
@@ -588,9 +588,9 @@ ckanext.ontario_theme:schemas/internal/ontario_theme_dataset.json
 ckanext.scheming:presets.json
 ckanext.fluent:presets.json
 """
-
-        config_['scheming.organization_schemas'] = """
-ckanext.ontario_theme:schemas/ontario_theme_organization.json
+        if 'scheming.organization_schemas' not in config_:
+            config_['scheming.organization_schemas'] = """
+ckanext.ontario_theme:schemas/internal/ontario_theme_organization.json
 """
         config_['ckan.tracking_enabled'] = """
 true

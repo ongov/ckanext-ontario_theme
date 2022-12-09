@@ -25,6 +25,32 @@
     </div>
   {% endif %}
   
+  <h3>{% trans %}For more information{% endtrans %} </h3>
+  {# maintainer email > Open data lead #}
+  {% set contact_name = h.get_translated(pkg, 'maintainer') %}
+  {% set contact_email = pkg.maintainer_email %}
+  {% set organization = h.get_organization(pkg['owner_org']) %}
+  
+  <div>
+    {% if contact_email %}
+      {{ h.snippet('snippets/ontario_theme_email.html',
+                   subject=pkg.title,
+                   contact_name=contact_name,
+                   contact_email=contact_email) }}<br /><br />
+    {% endif %}
+    {% if organization.get('od_lead_email_1') or organization.get('od_lead_email_2') or organization.get('od_lead_email_3')  %}
+      {{ "Or r" if contact_email else "R"}}each out to the ministry open data leads:<br/>
+      {% for i in [1,2,3] %}
+        {% if organization.get('od_lead_email_'+(loop.index|string)) %}
+        {{ h.snippet('snippets/ontario_theme_email.html',
+                     subject=pkg.title,
+                     contact_name=organization.get('od_lead_name_'+(loop.index|string)),
+                     contact_email=organization.get('od_lead_email_'+(loop.index|string))) }}<br />
+        {% endif %}
+      {% endfor %} 
+    {% endif %}
+
+  </div>
 {% endblock %}
 
 {% block package_tags %}
