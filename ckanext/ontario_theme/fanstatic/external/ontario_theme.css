@@ -855,22 +855,13 @@ li.resource-item div.btn-wrapper {
 .hero {
   min-height: 400px;
   line-height: 400px;
-  background-color: #1080A6;
-  background-image: url(/images/co-homepage-supergraphic.svg);
-  background-position-x: 49vw;
-  background-position-y: top;
-  background-size: 58rem;
-  background-repeat: no-repeat;
+  background-image: unset;
 }
 .hero .hero-container {
-  display: inline-block;
   vertical-align: middle;
   text-align: center;
-  color: white;
-}
-.hero .hero-container a,
-.hero .hero-container a:focus {
-  color: white;
+  color: #1A1A1A;
+  width: 100%;
 }
 .hero .hero-container a,
 .hero .hero-container a:focus,
@@ -881,46 +872,9 @@ li.resource-item div.btn-wrapper {
   text-align: left;
   line-height: 1rem;
 }
-.hero .hero-container .welcome span.greeting {
-  background: #1080A6;
-  font-size: 4.5rem;
-  letter-spacing: 0.04rem;
-  line-height: 1.29;
-  font-weight: bold;
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
 .hero .hero-container .welcome p {
-  background: #1080A6;
   font-size: 2.375rem;
   line-height: 1.4;
-}
-.hero .hero-container .stats {
-  text-align: center;
-  font-size: 7rem;
-  font-weight: bold;
-  vertical-align: bottom;
-  line-height: 0;
-}
-.hero .hero-container .stats a {
-  text-decoration: none;
-}
-.hero .hero-container .stats a,
-.hero .hero-container .stats a:visited {
-  color: white;
-}
-.hero .hero-container .stats span.above-stat {
-  font-size: 1.6rem;
-  line-height: 8rem;
-}
-.hero .hero-container .stats span.stat {
-  line-height: 1rem;
-}
-.hero .hero-container .stats span.below-stat {
-  font-size: 2rem;
-  line-height: 2rem;
-  display: inline-block;
-  margin-top: 3rem;
 }
 .fill-sky {
   fill: #00B2E3;
@@ -1072,17 +1026,17 @@ section.additional-info table.table tbody tr td.dataset-details {
 }
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: black;
+  color: #999999;
   opacity: 1;
   /* Firefox */
 }
 :-ms-input-placeholder {
   /* Internet Explorer 10-11 */
-  color: black;
+  color: #999999;
 }
 ::-ms-input-placeholder {
   /* Microsoft Edge */
-  color: black;
+  color: #999999;
 }
 .page_primary_action .add-dataset,
 .page_primary_action .add-organization,

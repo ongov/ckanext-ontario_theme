@@ -4,21 +4,9 @@
     <div class="container">
       <div class="hero-container">
         <div class="row">
-          <div class="col-md-6 welcome">
+          <div class="col-md-12 welcome">
             {% block intro %}
               {% snippet 'home/snippets/ontario_theme_intro.html' %}
-            {% endblock %}
-          </div>
-          <div class="col-md-6 stats">
-            {% block stats %}
-              {% snippet 'home/snippets/ontario_theme_datasets_stats.html' %}
-            {% endblock %}            
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            {% block search %}
-              {% snippet 'home/snippets/search.html' %}
             {% endblock %}
           </div>
         </div>
