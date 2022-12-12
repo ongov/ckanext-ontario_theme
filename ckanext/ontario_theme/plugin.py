@@ -370,6 +370,8 @@ def get_group(group_id):
     return group_dict
 
 def get_keyword_count(keyword):
+    '''Helper to return the dataset count of the indicated group
+    '''
     tags = 'tags:"{}"'.format(keyword)
     keyword_count = toolkit.get_action('package_search')(
         data_dict={'fq': tags})
@@ -383,6 +385,13 @@ def get_popular_datasets():
                     'sort': 'views_recent desc'})
     return popular_datasets['results']
 
+def get_recently_updated_datasets():
+    '''Helper to return 3 freshest datasets
+    '''
+    recently_updated_datasets = toolkit.get_action('package_search')(
+        data_dict={'rows': 3,
+                    'sort': 'current_as_of desc'})
+    return recently_updated_datasets['results']
 
 def get_license(license_id):
     '''Helper to return license based on id.
@@ -686,6 +695,7 @@ type data_last_updated
                 'ontario_theme_get_translated_lang': get_translated_lang,
                 'ontario_theme_get_popular_datasets': get_popular_datasets,
                 'ontario_theme_get_group': get_group,
+                'ontario_theme_get_recently_updated_datasets': get_recently_updated_datasets,
                 'ontario_theme_get_date_range' : get_date_range,
                 'extrafields_default_locale': default_locale,
                 'ontario_theme_get_package_keywords': get_package_keywords,
