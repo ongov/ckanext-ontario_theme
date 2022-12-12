@@ -369,14 +369,11 @@ def get_group(group_id):
         data_dict={'id': group_id})
     return group_dict
 
-def get_recently_updated_datasets():
-    '''Helper to return 3 freshest datasets
-    '''
-    recently_updated_datasets = toolkit.get_action('package_search')(
-        data_dict={'rows': 3,
-                    'sort': 'current_as_of desc'})
-    return recently_updated_datasets['results']
-
+def get_keyword_count(keyword):
+    tags = 'tags:"{}"'.format(keyword)
+    keyword_count = toolkit.get_action('package_search')(
+        data_dict={'fq': tags})
+    return keyword_count['count']
 
 def get_popular_datasets():
     '''Helper to return most popular datasets, based on ckan core tracking feature
@@ -689,13 +686,14 @@ type data_last_updated
                 'ontario_theme_get_translated_lang': get_translated_lang,
                 'ontario_theme_get_popular_datasets': get_popular_datasets,
                 'ontario_theme_get_group': get_group,
-                'ontario_theme_get_recently_updated_datasets': get_recently_updated_datasets,
                 'ontario_theme_get_date_range' : get_date_range,
                 'extrafields_default_locale': default_locale,
                 'ontario_theme_get_package_keywords': get_package_keywords,
                 'ontario_theme_home_block': home_block,
                 'ontario_theme_home_block_image': home_block_image,
-                'ontario_theme_home_block_link': home_block_link}
+                'ontario_theme_home_block_link': home_block_link,
+                'ontario_theme_get_keyword_count': get_keyword_count
+                }
 
     # IBlueprint
 
