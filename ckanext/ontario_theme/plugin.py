@@ -377,12 +377,21 @@ def get_recently_updated_datasets():
                     'sort': 'current_as_of desc'})
     return recently_updated_datasets['results']
 
+def get_group_datasets(group_id):
+    '''Helper to return 10 of the most popular datasets in the desired group
+    '''
+    group_id = 'groups:{}'.format(group_id)
+    group_datasets = toolkit.get_action('package_search')(
+        data_dict={ 'fq': group_id,
+                    'rows': 10,
+                    'sort': 'views_recent desc'})
+    return group_datasets['results']
 
 def get_popular_datasets():
     '''Helper to return most popular datasets, based on ckan core tracking feature
     '''
     popular_datasets = toolkit.get_action('package_search')(
-        data_dict={'rows': 3,
+        data_dict={'rows': 10,
                     'sort': 'views_recent desc'})
     return popular_datasets['results']
 
@@ -695,7 +704,9 @@ type data_last_updated
                 'ontario_theme_get_package_keywords': get_package_keywords,
                 'ontario_theme_home_block': home_block,
                 'ontario_theme_home_block_image': home_block_image,
-                'ontario_theme_home_block_link': home_block_link}
+                'ontario_theme_home_block_link': home_block_link,
+                'ontario_theme_get_group_datasets': get_group_datasets
+                }
 
     # IBlueprint
 
