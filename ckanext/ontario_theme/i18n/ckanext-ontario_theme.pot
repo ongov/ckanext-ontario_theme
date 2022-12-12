@@ -1675,5 +1675,5 @@ msgid "My Groups"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_covid_datasets.html:14
-msgid "Show more"
+msgid "<a href=\"/dataset?groups=2019-novel-coronavirus\" class=\"show-more\">Show more</a>"
 msgstr ""
