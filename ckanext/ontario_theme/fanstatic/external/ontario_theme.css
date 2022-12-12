@@ -1076,6 +1076,11 @@ section.additional-info table.table tbody tr td.dataset-details {
 .banner-section a {
   text-decoration: underline;
 }
+.show-more {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 26px;
+}
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: black;

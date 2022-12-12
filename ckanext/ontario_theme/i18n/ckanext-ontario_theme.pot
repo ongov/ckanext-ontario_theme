@@ -1241,7 +1241,7 @@ msgid "Most popular datasets"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:56
-msgid "Recently updated datasets"
+msgid "COVID datasets"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_datasets_stats.html:11
@@ -1674,3 +1674,6 @@ msgstr ""
 msgid "My Groups"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_covid_datasets.html:14
+msgid "Show more"
+msgstr ""
