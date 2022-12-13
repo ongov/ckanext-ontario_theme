@@ -11,7 +11,9 @@ Renders a list of the 10 most popular COVID datasets
     <ul class="banner-datasets">
       <li><a href="{% url_for 'dataset.read', id=dataset.name %}" class="hp_covid">{{ h.get_translated(dataset, "title") }}</a></li>
     </ul>
-    {% trans %}<a href="/dataset?groups=2019-novel-coronavirus" class="show-more">Show more</a>{% endtrans %}
   </div>
 </div>
 {% endfor %}
+<div class="show-more">
+  {% trans %}<a href="/dataset?groups=2019-novel-coronavirus">Show more</a>{% endtrans %}
+</div>

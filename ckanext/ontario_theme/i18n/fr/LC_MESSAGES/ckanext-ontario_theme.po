@@ -2818,7 +2818,6 @@ msgstr "Fournir rétroaction"
 msgid "As we work to develop the catalogue, <a href=\"https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269\">tell us what you think</a>."
 msgstr "Au fur et à mesure que nous travaillons à son amélioration le catalogue, nous aimerions savoir ce que <a href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=532365&nid=138269\">vous en pensez</a>."
 
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_covid_datasets.html:14
-msgid "<a href=\"/dataset?groups=2019-novel-coronavirus\" class=\"show-more\">Show more</a>"
-msgstr "<a href=\"/fr/dataset?groups=2019-novel-coronavirus\" class=\"show-more\">Afficher plus d’options</a>"
-
+#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_covid_datasets.html:18
+msgid "<a href=\"/dataset?groups=2019-novel-coronavirus\">Show more</a>"
+msgstr "<a href=\"/fr/dataset?groups=2019-novel-coronavirus\">Afficher plus d’options</a>"
