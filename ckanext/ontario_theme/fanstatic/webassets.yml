@@ -2,3 +2,4 @@ ontario_theme_common:
   contents: 
     - common.css
     - fonts_googleapis.css
+    - fonts_ds.css
