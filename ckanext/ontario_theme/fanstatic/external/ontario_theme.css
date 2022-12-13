@@ -739,7 +739,6 @@ body,
 .ie7 .main {
   background-image: none;
   background-color: #fff;
-  font-family: 'Open Sans';
 }
 @media (min-width: 768px) {
   [role=main],
