@@ -663,15 +663,6 @@ div#topics div.row {
 /* =====================================================
    Typography
    ===================================================== */
-body {
-  font-size: 16px;
-}
-h1 {
-  font-size: 35px;
-}
-h2 {
-  font-size: 25px;
-}
 #about h2 {
   margin-top: 30px;
 }
@@ -700,37 +691,6 @@ h2 {
   font-size: 1.5rem;
   margin-bottom: 0px;
 }
-h3 {
-  font-size: 20px;
-}
-h3.dataset-heading {
-  margin-bottom: 0px;
-}
-#landing-page-body h2 {
-  font-size: 40px;
-  text-align: left;
-}
-h4 {
-  font-size: 17px;
-}
-#landing-page-body h3 {
-  font-size: 20px;
-  text-align: left;
-}
-h1,
-h2,
-h3,
-h4 {
-  font-weight: 600;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: Raleway, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
-}
 a,
 .dataset-heading a {
   color: #06c;
@@ -741,9 +701,6 @@ a:focus {
 }
 a:visited {
   color: #8138b3;
-}
-.intro-text {
-  font-size: 24px;
 }
 figure {
   background-color: #eee;
@@ -759,12 +716,6 @@ figure figcaption {
   margin-top: 10px;
   font-style: italic;
   font-size: 1em;
-}
-p {
-  font-family: inherit;
-  font-weight: 400;
-  margin-bottom: 1.25rem;
-  text-rendering: optimizeLegibility;
 }
 /* =====================================================
    Helpers
@@ -798,7 +749,6 @@ body,
 .ie7 .main {
   background-image: none;
   background-color: #fff;
-  font-family: 'Open Sans';
 }
 @media (min-width: 768px) {
   [role=main],
