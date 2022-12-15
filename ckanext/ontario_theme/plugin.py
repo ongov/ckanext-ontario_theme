@@ -369,6 +369,16 @@ def get_group(group_id):
         data_dict={'id': group_id})
     return group_dict
 
+def get_group_datasets(group_id):
+    '''Helper to return 10 of the most popular datasets in the desired group
+    '''
+    group_id = 'groups:{}'.format(group_id)
+    group_datasets = toolkit.get_action('package_search')(
+        data_dict={ 'fq': group_id,
+                    'rows': 10,
+                    'sort': 'views_recent desc'})
+    return group_datasets['results']
+
 def get_keyword_count(keyword_lang, language):
     '''Helper to return the dataset count of the indicated group by language
     '''
@@ -708,11 +718,8 @@ type data_last_updated
                 'ontario_theme_home_block': home_block,
                 'ontario_theme_home_block_image': home_block_image,
                 'ontario_theme_home_block_link': home_block_link,
-<<<<<<< HEAD
-                'ontario_theme_get_group_datasets': get_group_datasets
-=======
+                'ontario_theme_get_group_datasets': get_group_datasets,
                 'ontario_theme_get_keyword_count': get_keyword_count
->>>>>>> ckan_2.9_upgrade_ds
                 }
 
     # IBlueprint
