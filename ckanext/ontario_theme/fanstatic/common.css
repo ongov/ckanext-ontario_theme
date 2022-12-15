@@ -42,6 +42,7 @@
 .ontario-alert__header{
     display:flex
 }
+/* In place for the addition of the svg icon */
 .ontario-alert__header-icon{
     display:inline-block;
     vertical-align:top;
@@ -80,9 +81,6 @@
 .ontario-alert--informational{
     border-color:#1080a6;
     background-color:#e2f0f4
-}
-.ontario-alert--informational svg{
-    fill:#1080a6
 }
 /* =============
    Overrides
