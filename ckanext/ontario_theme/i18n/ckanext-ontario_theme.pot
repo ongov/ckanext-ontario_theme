@@ -893,10 +893,13 @@ msgid ""
 "</p> </li> </ul> "
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:15
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:14
 msgid ""
-"Have feedback or questions? Have a data or catalogue request? We want to hear"
-" from you! We use your feedback to drive our work."
+"Help us improve the Data Catalogue"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:15
+msgid "Take a <a href=\"https://www.ontario.ca/form/survey-open-data-catalogue?page=/\">2-minute survey</a> and tell us what you think about this page."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:11
