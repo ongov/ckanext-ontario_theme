@@ -369,15 +369,20 @@ def get_group(group_id):
         data_dict={'id': group_id})
     return group_dict
 
-def get_group_datasets(group_id):
-    '''Helper to return 10 of the most popular datasets in the desired group
+def get_keyword_count(keyword_lang, language):
+    '''Helper to return the dataset count of the indicated group by language
     '''
-    group_id = 'groups:{}'.format(group_id)
-    group_datasets = toolkit.get_action('package_search')(
-        data_dict={ 'fq': group_id,
-                    'rows': 10,
-                    'sort': 'views_recent desc'})
-    return group_datasets['results']
+    facet = "keywords_{}".format(language)
+    package_keywords = toolkit.get_action('package_search')(
+    data_dict={'facet.field': [facet],
+        'rows': 0})
+    active_keywords = package_keywords['facets'][facet]
+    if keyword_lang in active_keywords:
+        keyword_count_by_lang = active_keywords[keyword_lang]
+    else:
+        keyword_count_by_lang = 0
+
+    return keyword_count_by_lang
 
 def get_popular_datasets():
     '''Helper to return most popular datasets, based on ckan core tracking feature
@@ -387,6 +392,13 @@ def get_popular_datasets():
                     'sort': 'views_recent desc'})
     return popular_datasets['results']
 
+def get_recently_updated_datasets():
+    '''Helper to return 3 freshest datasets
+    '''
+    recently_updated_datasets = toolkit.get_action('package_search')(
+        data_dict={'rows': 3,
+                    'sort': 'current_as_of desc'})
+    return recently_updated_datasets['results']
 
 def get_license(license_id):
     '''Helper to return license based on id.
@@ -696,7 +708,11 @@ type data_last_updated
                 'ontario_theme_home_block': home_block,
                 'ontario_theme_home_block_image': home_block_image,
                 'ontario_theme_home_block_link': home_block_link,
+<<<<<<< HEAD
                 'ontario_theme_get_group_datasets': get_group_datasets
+=======
+                'ontario_theme_get_keyword_count': get_keyword_count
+>>>>>>> ckan_2.9_upgrade_ds
                 }
 
     # IBlueprint
