@@ -1232,7 +1232,7 @@ msgid "Home"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:34
-msgid "Browse by category"
+msgid "Topics"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:44
