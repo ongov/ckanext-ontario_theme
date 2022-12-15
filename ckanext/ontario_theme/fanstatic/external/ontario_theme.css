@@ -637,8 +637,9 @@ div#topics a {
 }
 div#topics div {
   text-align: center;
-  font-weight: normal;
-  font-size: 1.7rem;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 25px;
 }
 div#topics div i {
   font-size: 48px;
