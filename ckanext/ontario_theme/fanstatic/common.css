@@ -239,14 +239,6 @@ input[type=reset].ontario-search-reset.home{
   background-size: 40px;
   right:100px;
 }
-/* to be removed after implementing DS typography*/
-.ontario-lead-statement{
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-size: 22px !important;
-  line-height: 1.6;
-  font-weight: 400;
-}
 .greet {
   padding: 15px 0 15px 0;
 }
@@ -260,10 +252,4 @@ input[type=reset].ontario-search-reset.home{
   vertical-align:middle;
   overflow:hidden;
   margin-bottom:2px
-}
-.data-h1{
-font-size: 48px !important;
-line-height: 65px;
-font-weight: 600;
-letter-spacing: 0.04rem;
 }

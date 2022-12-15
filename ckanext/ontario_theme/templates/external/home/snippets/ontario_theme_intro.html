@@ -6,10 +6,10 @@ Renders a hard coded site description/introduction.
 {% set stats = h.get_site_statistics() %}
 
 <div>
-	<h1 class="data-h1">{{ _("Ontario Data Catalogue") }}</h1>
+	<h1>{{ _("Ontario Data Catalogue") }}</h1>
 </div>
 <div class="greet">
-	<p class="ontario-lead-statement greet">{{ _("Find public data and explore ") }} <span class="stat">{{ stats.dataset_count }}</span> {{ _(" datasets published by the Government of Ontario.") }}</p>
+	<p class="greet">{{ _("Find public data and explore ") }} <span class="stat">{{ stats.dataset_count }}</span> {{ _(" datasets published by the Government of Ontario.") }}</p>
 	<div class="row greet">
           <div class="col-md-12">
             {% block search %}
