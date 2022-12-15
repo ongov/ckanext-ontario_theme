@@ -2511,11 +2511,14 @@ msgstr ""
 msgid "Optional"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:15
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:14
 msgid ""
-"Have feedback or questions? Have a data or catalogue request? We want to hear"
-" from you! We use your feedback to drive our work."
-msgstr "Vous avez des commentaires ou des questions? Vous avez une demande concernant des données ou le catalogue? Nous voulons recevoir vos commentaires! Nous nous servons de la rétroaction pour orienter notre travail."
+"Help us improve the Data Catalogue"
+msgstr "Aidez-nous à améliorer le Catalogue de données."
+
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:15
+msgid "Take a <a href=\"https://www.ontario.ca/form/survey-open-data-catalogue?page=/\">2-minute survey</a> and tell us what you think about this page."
+msgstr "Répondez à un <a href=\"https://www.ontario.ca/fr/forme/enquete-catalogue-de-donnees-de-lontario\">sondage de deux minutes</a> et faites-nous part de vos impressions sur cette page."
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:7
 msgid "Welcome!"
