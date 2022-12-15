@@ -92,14 +92,6 @@
   margin-bottom: 10px;
   line-height: 25.6px;
 }
-   
-/* font styling to be removed when font is updated to DS*/
-.ontario-h4{
-  font-size: 24px !important;
-  line-height: 1.43;
-  font-weight: 700;
-  letter-spacing: 0.0313rem;
-}
 /* fa and feedback classes can be removed once icon is replaced with a svg */
 .fa.fa-comments {
   font-size: 100px;
