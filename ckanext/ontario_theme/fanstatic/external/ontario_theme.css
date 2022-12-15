@@ -637,11 +637,21 @@ div#topics a {
 }
 div#topics div {
   text-align: center;
-  font-weight: normal;
-  font-size: 1.7rem;
+}
+div#topics div p {
+  position: relative;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 25px;
+}
+@media (min-width: 1200px) {
+  div#topics div p {
+    left: 26px;
+    max-width: 182px;
+  }
 }
 div#topics div i {
-  font-size: 64px;
+  font-size: 48px;
   color: #1080A6;
 }
 div#topics div i:hover {
@@ -968,22 +978,26 @@ li.resource-item div.btn-wrapper {
   font-size: 2.2rem;
 }
 #news {
-  color: white;
+  color: #000000;
   padding-top: 15px;
   padding-bottom: 15px;
 }
 #news img {
   width: 100%;
 }
-#news a {
-  color: white;
+#news ul a {
+  color: #000000;
   text-decoration: none;
 }
-#news a h3 {
-  text-decoration: underline;
+#news h3 {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 33px;
 }
-#news .dataset-list .row a {
-  font-size: 1.7rem;
+#news .dataset-list .row li {
+  font-weight: 400;
+  line-height: 27px;
+  font-size: 20px;
 }
 .metadata-list-item {
   font-size: 1rem;
@@ -1012,13 +1026,20 @@ section.additional-info table.table tbody tr td.dataset-details {
 .media-grid {
   border: none;
 }
+.banner-datasets {
+  padding-left: 20px;
+}
 .banner-section {
-  background: #1080A6;
+  background: #F2F2F2;
   width: 100%;
 }
 .banner-section a {
-  color: white;
   text-decoration: underline;
+}
+.show-more {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 26px;
 }
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */

@@ -893,10 +893,13 @@ msgid ""
 "</p> </li> </ul> "
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:15
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:14
 msgid ""
-"Have feedback or questions? Have a data or catalogue request? We want to hear"
-" from you! We use your feedback to drive our work."
+"Help us improve the Data Catalogue"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:15
+msgid "Take a <a href=\"https://www.ontario.ca/form/survey-open-data-catalogue?page=/\">2-minute survey</a> and tell us what you think about this page."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:11
@@ -1229,7 +1232,7 @@ msgid "Home"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:34
-msgid "Browse by category"
+msgid "Topics"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:44
@@ -1241,7 +1244,7 @@ msgid "Most popular datasets"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:56
-msgid "Recently updated datasets"
+msgid "COVID datasets"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_datasets_stats.html:11
@@ -1674,3 +1677,6 @@ msgstr ""
 msgid "My Groups"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_covid_datasets.html:18
+msgid "<a href=\"/dataset?groups=2019-novel-coronavirus\">Show more</a>"
+msgstr ""
