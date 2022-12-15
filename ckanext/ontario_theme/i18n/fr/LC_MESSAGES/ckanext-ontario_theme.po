@@ -2452,8 +2452,8 @@ msgid ""
 msgstr "Le gouvernement de l'Ontario prend des mesures afin de concevoir des logiciels ouverts, et le fait de partager sur GitHub le travail réalisé sur notre catalogue constitue l’une de ces mesures."
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:34
-msgid "Browse by category"
-msgstr "Naviguer par catégorie"
+msgid "Topics"
+msgstr "Sujets"
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:44
 msgid "What's new"
