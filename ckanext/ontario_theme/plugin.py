@@ -369,13 +369,20 @@ def get_group(group_id):
         data_dict={'id': group_id})
     return group_dict
 
-def get_keyword_count(keyword):
-    '''Helper to return the dataset count of the indicated group
+def get_keyword_count(keyword_lang, language):
+    '''Helper to return the dataset count of the indicated group by language
     '''
-    tags = 'tags:"{}"'.format(keyword)
-    keyword_count = toolkit.get_action('package_search')(
-        data_dict={'fq': tags})
-    return keyword_count['count']
+    facet = "keywords_{}".format(language)
+    package_keywords = toolkit.get_action('package_search')(
+    data_dict={'facet.field': [facet],
+        'rows': 0})
+    active_keywords = package_keywords['facets'][facet]
+    if keyword_lang in active_keywords:
+        keyword_count_by_lang = active_keywords[keyword_lang]
+    else:
+        keyword_count_by_lang = 0
+
+    return keyword_count_by_lang
 
 def get_popular_datasets():
     '''Helper to return most popular datasets, based on ckan core tracking feature

@@ -42,6 +42,7 @@
 ]
 %}
 
+{% set language = h.lang() %}
 {% for iter1 in [0,5] %}
 <div class="row">
   {% for iter2 in [0,1,2,3,4] %}
@@ -50,7 +51,7 @@
     <div class="col-md-2-10">
       <i class="fa fa-{{topics[i]['fa-icon']}}"></i> <br>
         {{ _(topics[i]['label']) }}
-        ({{ h.ontario_theme_get_keyword_count(topics[i]['label']) }})
+        ({{ h.ontario_theme_get_keyword_count(topics[i]['label'], language) }})
     </div>
   </a>
   {% endfor %}
