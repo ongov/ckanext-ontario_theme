@@ -3,10 +3,19 @@
 Renders a hard coded site description/introduction.
 
 #}
+{% set stats = h.get_site_statistics() %}
+
 <div>
-	<span class="greeting">{{ _("Welcome") }}!</span>
+	<h1>{{ _("Ontario Data Catalogue") }}</h1>
 </div>
-<p>
-{% trans %}Here you will find thousands of datasets that are maintained by the Ontario Government.{% endtrans %} 
-{% trans %}<a href="/about">Learn more</a> about what is covered and how to use data.{% endtrans %}
-</p>
+<div class="greet">
+	<p class="ontario-lead-statement">{{ _("Find public data and explore ") }} <span class="stat">{{ stats.dataset_count }}</span> {{ _(" datasets published by the Government of Ontario.") }}</p>
+	<div class="row">
+          <div class="col-md-12">
+            {% block search %}
+              {% snippet 'home/snippets/search.html' %}
+            {% endblock %}
+          </div>
+    </div>
+	<p class="greet learn-more">{% trans %}Learn more about <a href="/about#training-materials">what is covered and how to use data.</a>{% endtrans %}</p>
+</div>

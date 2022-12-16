@@ -938,18 +938,20 @@ msgid ""
 "steps."
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:7
-msgid "Welcome!"
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:9
+msgid "Ontario Data Catalogue"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:10
-msgid ""
-"Here you will find thousands of datasets that are maintained by the Ontario "
-"Government."
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:12
+msgid "Find public data and explore "
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:11
-msgid "<a href=\"/about\">Learn more</a> about what is covered and how to use data."
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:12
+msgid " datasets published by the Government of Ontario."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:20
+msgid "Learn more about <a href=\"/about#training-materials\">what is covered and how to use data.</a>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:4
@@ -1247,18 +1249,6 @@ msgstr ""
 msgid "COVID datasets"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_datasets_stats.html:11
-msgid "Explore Ontario's"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_datasets_stats.html:13
-msgid "data assets"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_datasets_stats.html:14
-msgid "View All"
-msgstr ""
-
 #: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_intro.html:12
 msgid ""
 " Here you'll find thousands of datasets that are maintained by the Ontario "
@@ -1269,9 +1259,6 @@ msgstr ""
 msgid "Search Ontario's Data"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/home/snippets/search.html:12
-msgid "Search datasets"
-msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/organization/index.html:12
 msgid "Add Organization"
