@@ -1249,18 +1249,6 @@ msgstr ""
 msgid "COVID datasets"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_datasets_stats.html:11
-msgid "Explore Ontario's"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_datasets_stats.html:13
-msgid "data assets"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_datasets_stats.html:14
-msgid "View All"
-msgstr ""
-
 #: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_intro.html:12
 msgid ""
 " Here you'll find thousands of datasets that are maintained by the Ontario "
@@ -1271,13 +1259,6 @@ msgstr ""
 msgid "Search Ontario's Data"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/home/snippets/search.html:12
-msgid "Search"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/search.html:16
-msgid "Search"
-msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/organization/index.html:12
 msgid "Add Organization"

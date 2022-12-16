@@ -54,56 +54,11 @@
   padding:.625rem 1rem;
   transition:box-shadow .1s ease-in-out
 }
-.ontario-input--2-char-width{
-  max-width:8ex;
-  max-width:8ex
-}
-.ontario-input--3-char-width{
-  max-width:10ex;
-  min-width:10ex
-}
-.ontario-input--4-char-width{
-  max-width:12ex;
-  min-width:12ex
-}
-.ontario-input--5-char-width{
-  max-width:14ex;
-  min-width:14ex
-}
-.ontario-input--7-char-width{
-  max-width:17ex;
-  min-width:17ex
-}
-.ontario-input--10-char-width{
-  max-width:23ex;
-  min-width:23ex
-}
-.ontario-input--20-char-width{
-  max-width:41ex;
-  min-width:41ex
-}
 .ontario-form-group:last-of-type{
   margin-bottom:3rem
 }
 .ontario-form-group:last-of-type .ontario-checkboxes,.ontario-form-group:last-of-type .ontario-radios{
   margin-bottom:0
-}
-.ontario-date__group{
-  display:flex
-}
-.ontario-date__group label{
-  font-weight:600
-}
-.ontario-date__group input{
-  margin-top:1rem
-}
-.ontario-date__group-input{
-  display:flex;
-  flex-direction:column;
-  margin-right:1.5rem
-}
-.ontario-date--error input{
-  border:.125rem solid #cd0000
 }
 /* ========================================================================
     Search - Design System
@@ -207,7 +162,7 @@ input[type=reset].ontario-search-reset{
 input[type=reset].ontario-search-reset:focus{
   box-shadow:0 0 0 4px #009adb
 }
-/*Show for sr*/
+/*Show for screen reader*/
 .ontario-show-for-sr {
   position: absolute !important;
   width: 1px;

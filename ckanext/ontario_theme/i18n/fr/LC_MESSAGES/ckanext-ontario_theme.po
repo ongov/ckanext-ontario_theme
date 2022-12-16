@@ -2467,18 +2467,6 @@ msgstr "Ensembles de données les plus populaires"
 msgid "COVID datasets"
 msgstr "Jeux de données sur la COVID"
 
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_datasets_stats.html:11
-msgid "Explore Ontario's"
-msgstr "Explorez les"
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_datasets_stats.html:13
-msgid "data assets"
-msgstr "ensembles de données"
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_datasets_stats.html:14
-msgid "View All"
-msgstr "Voir tous les ensembles"
-
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:9
 msgid "Welcome to the Ontario Data catalogue!"
 msgstr "Bienvenue à la catalogue de données de l’Ontario!"
@@ -2498,14 +2486,6 @@ msgstr "Activité récente"
 #: ckanext/ontario_theme/templates/internal/home/snippets/search.html:7
 msgid "Search Ontario's Data"
 msgstr "Rechercher les données de l'Ontario"
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/search.html:12
-msgid "Search"
-msgstr "Rechercher"
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/search.html:16
-msgid "Search"
-msgstr "Rechercher"
 
 #: ckanext/ontario_theme/templates/home/snippets/search.html:21
 msgid "Popular keywords"
