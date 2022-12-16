@@ -369,6 +369,39 @@ def get_group(group_id):
         data_dict={'id': group_id})
     return group_dict
 
+def get_group_datasets(group_id):
+    '''Helper to return 10 of the most popular datasets in the desired group
+    '''
+    group_id = 'groups:{}'.format(group_id)
+    group_datasets = toolkit.get_action('package_search')(
+        data_dict={ 'fq': group_id,
+                    'rows': 10,
+                    'sort': 'views_recent desc'})
+    return group_datasets['results']
+
+def get_keyword_count(keyword_lang, language):
+    '''Helper to return the dataset count of the indicated group by language
+    '''
+    facet = "keywords_{}".format(language)
+    package_keywords = toolkit.get_action('package_search')(
+    data_dict={'facet.field': [facet],
+        'rows': 0})
+    active_keywords = package_keywords['facets'][facet]
+    if keyword_lang in active_keywords:
+        keyword_count_by_lang = active_keywords[keyword_lang]
+    else:
+        keyword_count_by_lang = 0
+
+    return keyword_count_by_lang
+
+def get_popular_datasets():
+    '''Helper to return most popular datasets, based on ckan core tracking feature
+    '''
+    popular_datasets = toolkit.get_action('package_search')(
+        data_dict={'rows': 10,
+                    'sort': 'views_recent desc'})
+    return popular_datasets['results']
+
 def get_recently_updated_datasets():
     '''Helper to return 3 freshest datasets
     '''
@@ -376,16 +409,6 @@ def get_recently_updated_datasets():
         data_dict={'rows': 3,
                     'sort': 'current_as_of desc'})
     return recently_updated_datasets['results']
-
-
-def get_popular_datasets():
-    '''Helper to return most popular datasets, based on ckan core tracking feature
-    '''
-    popular_datasets = toolkit.get_action('package_search')(
-        data_dict={'rows': 3,
-                    'sort': 'views_recent desc'})
-    return popular_datasets['results']
-
 
 def get_license(license_id):
     '''Helper to return license based on id.
@@ -689,13 +712,15 @@ type data_last_updated
                 'ontario_theme_get_translated_lang': get_translated_lang,
                 'ontario_theme_get_popular_datasets': get_popular_datasets,
                 'ontario_theme_get_group': get_group,
-                'ontario_theme_get_recently_updated_datasets': get_recently_updated_datasets,
                 'ontario_theme_get_date_range' : get_date_range,
                 'extrafields_default_locale': default_locale,
                 'ontario_theme_get_package_keywords': get_package_keywords,
                 'ontario_theme_home_block': home_block,
                 'ontario_theme_home_block_image': home_block_image,
-                'ontario_theme_home_block_link': home_block_link}
+                'ontario_theme_home_block_link': home_block_link,
+                'ontario_theme_get_group_datasets': get_group_datasets,
+                'ontario_theme_get_keyword_count': get_keyword_count
+                }
 
     # IBlueprint
 

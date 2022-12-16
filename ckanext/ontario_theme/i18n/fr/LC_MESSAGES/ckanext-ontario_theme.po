@@ -2452,8 +2452,8 @@ msgid ""
 msgstr "Le gouvernement de l'Ontario prend des mesures afin de concevoir des logiciels ouverts, et le fait de partager sur GitHub le travail réalisé sur notre catalogue constitue l’une de ces mesures."
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:34
-msgid "Browse by category"
-msgstr "Naviguer par catégorie"
+msgid "Topics"
+msgstr "Sujets"
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:44
 msgid "What's new"
@@ -2464,8 +2464,8 @@ msgid "Most popular datasets"
 msgstr "Ensembles de données les plus populaires"
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:56
-msgid "Recently updated datasets"
-msgstr "Ensembles de données récemment mis à jour"
+msgid "COVID datasets"
+msgstr "Jeux de données sur la COVID"
 
 #: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_datasets_stats.html:11
 msgid "Explore Ontario's"
@@ -2519,11 +2519,14 @@ msgstr ""
 msgid "Optional"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:15
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:14
 msgid ""
-"Have feedback or questions? Have a data or catalogue request? We want to hear"
-" from you! We use your feedback to drive our work."
-msgstr "Vous avez des commentaires ou des questions? Vous avez une demande concernant des données ou le catalogue? Nous voulons recevoir vos commentaires! Nous nous servons de la rétroaction pour orienter notre travail."
+"Help us improve the Data Catalogue"
+msgstr "Aidez-nous à améliorer le Catalogue de données."
+
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:15
+msgid "Take a <a href=\"https://www.ontario.ca/form/survey-open-data-catalogue?page=/\">2-minute survey</a> and tell us what you think about this page."
+msgstr "Répondez à un <a href=\"https://www.ontario.ca/fr/forme/enquete-catalogue-de-donnees-de-lontario\">sondage de deux minutes</a> et faites-nous part de vos impressions sur cette page."
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:9
 msgid "Ontario Data Catalogue"
@@ -2828,5 +2831,6 @@ msgstr "Fournir rétroaction"
 msgid "As we work to develop the catalogue, <a href=\"https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269\">tell us what you think</a>."
 msgstr "Au fur et à mesure que nous travaillons à son amélioration le catalogue, nous aimerions savoir ce que <a href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=532365&nid=138269\">vous en pensez</a>."
 
-
-
+#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_covid_datasets.html:18
+msgid "<a href=\"/dataset?groups=2019-novel-coronavirus\">Show more</a>"
+msgstr "<a href=\"/fr/dataset?groups=2019-novel-coronavirus\">Afficher plus d’options</a>"

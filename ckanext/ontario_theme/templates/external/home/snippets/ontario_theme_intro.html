@@ -9,13 +9,13 @@ Renders a hard coded site description/introduction.
 	<h1>{{ _("Ontario Data Catalogue") }}</h1>
 </div>
 <div class="greet">
-	<p class="greet">{{ _("Find public data and explore ") }} <span class="stat">{{ stats.dataset_count }}</span> {{ _(" datasets published by the Government of Ontario.") }}</p>
-	<div class="row greet">
+	<p class="ontario-lead-statement">{{ _("Find public data and explore ") }} <span class="stat">{{ stats.dataset_count }}</span> {{ _(" datasets published by the Government of Ontario.") }}</p>
+	<div class="row">
           <div class="col-md-12">
             {% block search %}
               {% snippet 'home/snippets/search.html' %}
             {% endblock %}
           </div>
     </div>
-	<p class="greet">{% trans %}Learn more about <a href="/about#training-materials">what is covered and how to use data.</a>{% endtrans %}</p>
+	<p class="greet learn-more">{% trans %}Learn more about <a href="/about#training-materials">what is covered and how to use data.</a>{% endtrans %}</p>
 </div>
