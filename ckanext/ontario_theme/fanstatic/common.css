@@ -90,7 +90,7 @@
   font-size: 20px;
   font-weight: 600;
   margin-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 19px;
   line-height: 25.6px;
 }
 /* fa and feedback classes can be removed once icon is replaced with a svg */
@@ -103,7 +103,13 @@
   width:100px;
   margin-left: 3rem;
 }
-@media screen and (max-width: 40em){
+.feedback.ontario-alert__body {
+  max-width: unset;
+  margin-left: 1rem;
+  padding-top: 22px;
+}
+
+@media screen and (max-width: 992px){
   .fa.fa-comments{
       font-size: 80px;
   }
@@ -115,15 +121,11 @@
   .feedback.ontario-alert__body h2{
     margin-top: unset;
   }
+  .feedback.ontario-alert__body {
+    padding-top: unset;
+  }
 }
 .feedback.ontario-alert {
   display: flex;
   min-height: 198px;
-}
-.feedback.ontario-alert__body {
-  max-width: unset;
-  margin-left: 1rem;
-}
-.feedback.ontario-alert__body p{
-  padding-top: 1rem;
 }
