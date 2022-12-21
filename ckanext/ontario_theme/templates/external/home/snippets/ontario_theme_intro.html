@@ -13,7 +13,10 @@ Renders a hard coded site description/introduction.
 	<div class="row">
           <div class="col-md-12">
             {% block search %}
-              {% snippet 'home/snippets/search.html' %}
+              {% set placeholder = _("Search Ontario's Data") %}
+              {% set sr_input_text = _("Search") %}
+              {% set sr_submit_text = _("Search") %}
+              {% snippet 'search_module.html', placeholder=placeholder, sr_input_text=sr_input_text, sr_submit_text=sr_submit_text %}
             {% endblock %}
           </div>
     </div>
