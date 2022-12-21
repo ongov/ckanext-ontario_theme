@@ -2467,18 +2467,6 @@ msgstr "Ensembles de données les plus populaires"
 msgid "COVID datasets"
 msgstr "Jeux de données sur la COVID"
 
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_datasets_stats.html:11
-msgid "Explore Ontario's"
-msgstr "Explorez les"
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_datasets_stats.html:13
-msgid "data assets"
-msgstr "ensembles de données"
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_datasets_stats.html:14
-msgid "View All"
-msgstr "Voir tous les ensembles"
-
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:9
 msgid "Welcome to the Ontario Data catalogue!"
 msgstr "Bienvenue à la catalogue de données de l’Ontario!"
@@ -2520,19 +2508,21 @@ msgstr "Aidez-nous à améliorer le Catalogue de données."
 msgid "Take a <a href=\"https://www.ontario.ca/form/survey-open-data-catalogue?page=/\">2-minute survey</a> and tell us what you think about this page."
 msgstr "Répondez à un <a href=\"https://www.ontario.ca/fr/forme/enquete-catalogue-de-donnees-de-lontario\">sondage de deux minutes</a> et faites-nous part de vos impressions sur cette page."
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:7
-msgid "Welcome!"
-msgstr "Bienvenue!"
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:9
+msgid "Ontario Data Catalogue"
+msgstr "Catalogue de données ouvertes de l’Ontario"
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:10
-msgid ""
-"Here you will find thousands of datasets that are maintained by the Ontario "
-"Government."
-msgstr "Vous trouverez ici des milliers d’ensembles de données maintenus par le gouvernement de l’Ontario."
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:12
+msgid "Find public data and explore "
+msgstr "Trouvez des données publiques et explorez"
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:11
-msgid "<a href=\"/about\">Learn more</a> about what is covered and how to use data."
-msgstr "<a href=\"/fr/about\">Renseignez-vous</a> sur les sujets traités et la façon d’utiliser les données."
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:12
+msgid " datasets published by the Government of Ontario."
+msgstr " jeux de données publiés par le gouvernement de l’Ontario."
+
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:20
+msgid "Learn more about <a href=\"/about#training-materials\">what is covered and how to use data.</a>"
+msgstr "Apprenez-en davantage sur <a href=\"/fr/about#training-materials\">ce qui est couvert et sur la façon d’utiliser les données.</a>"
 
 #: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_cateogories.html
 msgid "Justice and Public Safety"

@@ -30,9 +30,187 @@
 .toolbar .breadcrumb a.active {
   font-weight: normal;
 }
+/* ========================================================================
+   Text Inputs - Design System
+   ======================================================================== */
+
+.ontario-input:focus,.ontario-input:active{
+  box-shadow:0 0 0 4px #009adb;
+  outline:4px solid transparent;
+  transition:box-shadow .1s ease-in-out
+}
+.ontario-input{
+  border:2px solid #CCCCCC;
+  border-radius:4px;
+  box-sizing:border-box;
+  color:#1a1a1a;
+  display:block;
+  font-size:24px;
+  font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  line-height:1.5;
+  margin:0 0 2.5rem;
+  max-width:48rem;
+  width:100%;
+  padding:.625rem 1rem;
+  transition:box-shadow .1s ease-in-out
+}
+.ontario-form-group:last-of-type{
+  margin-bottom:3rem
+}
+.ontario-form-group:last-of-type .ontario-checkboxes,.ontario-form-group:last-of-type .ontario-radios{
+  margin-bottom:0
+}
+/* ========================================================================
+    Search - Design System
+    ======================================================================== */
+.ontario-search-container{
+  position:relative;
+}
+@media screen and (min-width: 73em){
+  .ontario-search-container{
+      display:flex
+  }
+}
+.ontario-search-input.ontario-input:invalid+input[type=reset]{
+  display:none
+}
+.ontario-search-input.ontario-input:focus~.ontario-search-submit{
+  background-color:#06c;
+  color:#fff
+}
+.ontario-search-input.ontario-input:focus~.ontario-search-submit:hover{
+  background-color:#00478f;
+  color:#fff
+}
+.ontario-search-input.ontario-input::-ms-clear{
+  display:none;
+  width:0;
+  height:0
+}
+.ontario-search-input.ontario-input:invalid:focus{
+  box-shadow:0 0 0 4px #009adb;
+  -moz-box-shadow:none
+}
+.ontario-search-input.ontario-input:invalid:not(:focus){
+  box-shadow:none;
+  -moz-box-shadow:none
+}
+@media screen and (min-width: 40em)and (max-width: 73em){
+  .ontario-search-input.ontario-input{
+      padding-left:1rem;
+      padding-right:6.4rem
+  }
+}
+.ontario-search-submit{
+  /* Changed from Design System */
+  border:2px solid #CCCCCC;
+  border-radius:0 3px 3px 0;
+  /* Changed from Design System */
+  background-color: #f2f2f2;;
+  color:#1a1a1a;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:"Open Sans",sans-serif;
+  font-weight:600;
+  font-size:1.125rem;
+  height:100%;
+  line-height:1.56;
+  position:absolute;
+  right:0;
+  top:0;
+  cursor:pointer;
+  padding-left:12px;
+  padding-right:12px
+}
+.ontario-search-submit:hover{
+  background-color:#00478f;
+  color:#fff
+}
+.ontario-search-submit:focus{
+  outline:none;
+  box-shadow:0 0 0 4px #009adb;
+  background-color:#00478f;
+  color:#fff
+}
+.ontario-search-submit:active{
+  background-color:#002142;
+  color:#fff
+}
+.ontario-search-submit svg{
+  margin-right:0
+}
+input[type=reset].ontario-search-reset{
+  position:absolute;
+  display:flex;
+  align-items:center;
+  top:11px;
+  right:80px;
+  height: 28px;
+  width:28px;
+  color:#000;
+  margin:0;
+  padding:.5rem;
+  background-image:url(/images/ontario-icon-close.svg);
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-color:transparent;
+  outline:none;
+  border:none;
+  cursor:pointer
+}
+input[type=reset].ontario-search-reset:focus{
+  box-shadow:0 0 0 4px #009adb
+}
+/*Show for screen reader*/
+.ontario-show-for-sr {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+.ontario-icon{
+  display:inline-block;
+  width:24px;
+  height:24px;
+  stroke-width:0;
+  stroke:currentColor;
+  fill:currentColor;
+  vertical-align:middle;
+  overflow:hidden;
+  margin-bottom:2px
+}
+/* ================================
+  Custom overrides - text inputs
+  ================================= */
+.ontario-search-input.ontario-input{
+  margin-bottom:0;
+  height:84px;
+  max-width: unset !important;
+}
+input[type=reset].ontario-search-reset.home{
+  top:28px;
+  background-size: 40px;
+  right:100px;
+}
+.greet {
+  padding: 15px 0 15px 0;
+}
+.ontario-icon.search{
+  display:inline-block;
+  width:52px;
+  height:52px;
+  stroke-width:0;
+  stroke:currentColor;
+  fill:currentColor;
+  vertical-align:middle;
+  overflow:hidden;
+  margin-bottom:2px
+}
 
 /* ========================================================================
-   Page Alerts -Design System
+   Page Alerts - Design System
    ======================================================================== */
 .ontario-alert{
     border-width:0 0 0 0.9375rem;
@@ -83,9 +261,9 @@
     border-color:#1080a6;
     background-color:#e2f0f4
 }
-/* =============
-   Overrides
-   ============= */
+/* ===============================
+   Custom overrides - page alerts
+   =============================== */
 .data-h4{
   font-size: 20px;
   font-weight: 600;
