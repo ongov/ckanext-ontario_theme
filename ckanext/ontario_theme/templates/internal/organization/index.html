@@ -5,9 +5,8 @@
 
 {% block ontario_theme_search_form %}
   {# Custom block for search form. 
+  #}
     
-    
-    #}
   <div class="row no-padding">
     <div class="page_primary_action">
       <div class="add-organization">
@@ -23,8 +22,44 @@
       {% set sr_input_text = _("Search") %}
       {% set sr_submit_text = _("Search") %}
       {% snippet 'snippets/search_module_internal.html', placeholder=placeholder, sr_input_text=sr_input_text, sr_submit_text=sr_submit_text %}
-      {% snippet 'snippets/search_form.html', form_id='organization-search-form', type='organization', query=c.q, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=_('Search organizations...'), show_empty=request.params, no_bottom_border=true if c.page.items, sorting = [(_('Name Ascending'), 'title asc'), (_('Name Descending'), 'title desc')] %}
-      {% endblock %}
+      {# % snippet 'snippets/search_form.html', form_id='organization-search-form', type='organization', query=c.q, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=_('Search organizations...'), show_empty=request.params, no_bottom_border=true if c.page.items, sorting = [(_('Name Ascending'), 'title asc'), (_('Name Descending'), 'title desc')] % #}
+    
+   
+    {% block search_sortby %}
+      {% set sorting = [(_('Name Ascending'), 'title asc'), (_('Name Descending'), 'title desc')] %}
+   
+       <form>
+        {% if sorting %}
+          <div class="form-select form-group control-order-by">
+            <label for="field-order-by">{{ _('Order by') }}</label>
+            <select id="field-order-by" name="sort" class="form-control">
+              {% for label, value in sorting %}
+                {% if label and value %}
+                  <option value="{{ value }}"{% if sorting_selected == value %} selected="selected"{% endif %}>{{ label }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+            {% block search_sortby_button %}
+              <!-- <button class="btn btn-default js-hide" type="submit">{{ _('Go') }}</button> -->
+              <button class="btn btn-default" type="submit">{{ _('Go') }}</button>
+              {% endblock %}
+          </div>
+        {% endif %}
+      </form>
+    {% endblock %}
+
+    {% block search_title %}
+      {% set type = 'organization' %}
+      {% set query = c.q %}
+      {% set sorting_selected = c.sort_by_selected %}
+      {% set count = c.page.item_count %}
+
+      <h2>{% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}</h2>
+    {% endblock %}
+    
+    
+    
+    {% endblock %}
   </div>
 {% endblock %}
 
