@@ -4,7 +4,10 @@
 {% endblock %}
 
 {% block ontario_theme_search_form %}
-  {# Custom block for search form. #}
+  {# Custom block for search form. 
+    
+    
+    #}
   <div class="row no-padding">
     <div class="page_primary_action">
       <div class="add-organization">
@@ -15,8 +18,13 @@
     </div>
     <h1 class="hide-heading">{% block page_heading %}{{ _('Organizations') }}{% endblock %}</h1>
     {% block organizations_search_form %}
+      
+      {% set placeholder = _("Search organizations...") %}
+      {% set sr_input_text = _("Search") %}
+      {% set sr_submit_text = _("Search") %}
+      {% snippet 'snippets/search_module_internal.html', placeholder=placeholder, sr_input_text=sr_input_text, sr_submit_text=sr_submit_text %}
       {% snippet 'snippets/search_form.html', form_id='organization-search-form', type='organization', query=c.q, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=_('Search organizations...'), show_empty=request.params, no_bottom_border=true if c.page.items, sorting = [(_('Name Ascending'), 'title asc'), (_('Name Descending'), 'title desc')] %}
-    {% endblock %}
+      {% endblock %}
   </div>
 {% endblock %}
 
