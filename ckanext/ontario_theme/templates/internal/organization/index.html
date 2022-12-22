@@ -42,7 +42,7 @@
       {% endif %}
     {% else %}
       <p class="empty">
-        {{ _('There are currently no organizations for this site') }}.
+        {{ _('There are currently no ministries for this site') }}.
         {% if h.check_access('organization_create') %}
           {% link_for _('How about creating one?'), named_route='organization.new' %}</a>.
         {% endif %}
@@ -55,7 +55,7 @@
 {% endblock %}
 </div>
 <div class="row">
-  <div class="module-content col-md-12 col-sm-12"> 
+  <div class="module-content col-md-12 col-sm-12">
       {% snippet 'home/snippets/ontario_theme_contact_us.html' %}
   </div>
 </div>
