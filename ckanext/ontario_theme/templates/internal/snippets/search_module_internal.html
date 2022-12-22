@@ -3,22 +3,30 @@
 Renders a custom search component for the home page.
 Uncomment type="reset" after header is implemented.
 
-Source: Ontario Design System
-
 #}
 
-<div class="module search">
-  <form class="module-content search-form" method="get">
-    <div class="ontario-search-container">
-      <label class="ontario-label ontario-show-for-sr" for="ontario-search-input-field">{{ sr_input_text }}</label>
-      <input class="ontario-search-input ontario-input" type="text" id="ontario-search-input-field" name="q" placeholder="{% block search_placeholder %}{{ placeholder }}{% endblock %}" value="{{ query }}" autocomplete="off">
-      {# <input class="ontario-search-reset home" id="ontario-search-reset" type="reset" value="" aria-label="Clear field" /> #}
-      <button class="ontario-search-submit" id="ontario-search-submit" type="submit">
-        <span class="ontario-show-for-sr">{{ sr_submit_text }}</span>
-        <svg class="ontario-icon search" focusable="false" sol:category="primary" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
-            <use xlink:href="#ontario-icon-search"></use>
-        </svg>
-    </button>
+
+{% extends "snippets/search_form.html" %}
+
+<!-- Customize search_input block by replacing search bar with the Design System search bar -->
+{% block search_input %}
+  <div class="module search">
+    <form class="module-content search-form" method="get">
+      <div class="ontario-search-container">
+        <label class="ontario-label ontario-show-for-sr" for="ontario-search-input-field">{{ sr_input_text }}</label>
+        <input class="ontario-search-input ontario-input" type="text" id="ontario-search-input-field" name="q" placeholder="{% block search_placeholder %}{{ placeholder }}{% endblock %}" value="{{ query }}" autocomplete="off">
+        {# <input class="ontario-search-reset home" id="ontario-search-reset" type="reset" value="" aria-label="Clear field" /> #}
+        <button class="ontario-search-submit" id="ontario-search-submit" type="submit">
+          <span class="ontario-show-for-sr">{{ sr_submit_text }}</span>
+          <svg class="ontario-icon search" focusable="false" sol:category="primary" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+              <use xlink:href="#ontario-icon-search"></use>
+          </svg>
+      </button>
+    </div>
   </div>
-  </form>
-</div>
+{% endblock %}
+
+<!-- variables for the remaining blocks in snippets/search_form.html -->
+{% set sorting_selected = c.sort_by_selected %}
+{% set count = c.page.item_count %}
+{% set type = 'organization' %}
