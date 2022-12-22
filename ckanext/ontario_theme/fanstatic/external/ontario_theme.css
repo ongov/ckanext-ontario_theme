@@ -780,8 +780,8 @@ div.add-dataset {
   position: relative;
   border-bottom: 1px solid #dddddd;
 }
-.media-item:last-child {
-  border-bottom: none;
+.media-item:first-child{
+  border-top: 1px solid #dddddd;
 }
 .media-image {
   float: left;

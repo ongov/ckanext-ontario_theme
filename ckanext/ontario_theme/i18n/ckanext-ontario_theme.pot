@@ -1117,6 +1117,9 @@ msgid "Datasets"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/header.html:89
+msgid "Ministries"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/organization/edit_base.html:3
 #: ckanext/ontario_theme/templates/internal/organization/edit_base.html:6
 #: ckanext/ontario_theme/templates/internal/organization/index.html:16
@@ -1265,7 +1268,7 @@ msgid "Add Organization"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/organization/index.html:18
-msgid "Search organizations..."
+msgid "Find data published by each of Ontario’s ministries."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/organization/index.html:34
@@ -1287,9 +1290,12 @@ msgid ""
 "Colby by [instructions]. </p--> "
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/organization/snippets/organization_item.html:13
 #: ckanext/ontario_theme/templates/internal/organization/snippets/organization_item.html:14
 msgid "View {organization_name}"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/organization/snippets/organization_item.html:13
+msgid "Datasets: {num}"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/package/base.html:17
