@@ -8,12 +8,12 @@ Source: Ontario Design System
 #}
 
 <div class="module search">
-  <form class="module-content search-form" method="get" action="{% url_for 'dataset.search' %}">
+  <form class="module-content search-form" method="get">
     <div class="ontario-search-container">
       <label class="ontario-label ontario-show-for-sr" for="ontario-search-input-field">{{ sr_input_text }}</label>
-      <input class="ontario-search-input ontario-input" type="text" id="ontario-search-input-field" name="q" placeholder="{% block search_placeholder %}{{ placeholder }}{% endblock %}" value="" autocomplete="off">
+      <input class="ontario-search-input ontario-input" type="text" id="ontario-search-input-field" name="q" placeholder="{% block search_placeholder %}{{ placeholder }}{% endblock %}" value="{{ query }}" autocomplete="off">
       {# <input class="ontario-search-reset home" id="ontario-search-reset" type="reset" value="" aria-label="Clear field" /> #}
-      <button class="ontario-search-submit" id="ontario-search-submit" type="submit" onclick="doSearch()">
+      <button class="ontario-search-submit" id="ontario-search-submit" type="submit">
         <span class="ontario-show-for-sr">{{ sr_submit_text }}</span>
         <svg class="ontario-icon search" focusable="false" sol:category="primary" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
             <use xlink:href="#ontario-icon-search"></use>
