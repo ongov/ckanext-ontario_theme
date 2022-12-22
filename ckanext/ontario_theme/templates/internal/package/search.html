@@ -40,9 +40,6 @@ in the core template for search.html.
       {% set query = c.q %}
       {% set sr_submit_text = _("Search") %}
       {% snippet 'snippets/search_module_internal.html', sr_input_text=sr_input_text, placeholder=placeholder, query=query, sr_submit_text=sr_submit_text, type=dataset_type, sorting=sorting, facets=facets, error=c.query_error, fields=c.fields %}
-    
-
-
     {% endblock %}
   </div>
 {% endblock %}
