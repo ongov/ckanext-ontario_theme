@@ -1,22 +1,20 @@
 {% ckan_extends %}
 
 {% block item_inner %}
-{% block image %}
-{% endblock %}
-{% block title %}
-{# change class and heading to link #}
-  <a href="{{ url }}" title="{{ _('View {organization_name}').format(organization_name=organization_name) }}" class="media-heading h3">{{ h.get_translated(organization, "title") or organization.name }}</a>
-{% endblock %}
-{% block description %}
-{% endblock %}
-{% block datasets %}
-  <p>{{ ungettext('Datasets: {num}', _('Datasets: {num}'), organization.package_count).format(num=organization.package_count) }}</p>
-{% endblock %}
-{% block link %}
-{# may need to remove this #}
-  {% set organization_name = (h.get_translated(organization, "title") or organization.name) %}
-  <a href="{{ url }}" title="{{ _('View {organization_name}').format(organization_name=organization_name) }}" class="media-view">
-    <span>{{ _('View {organization_name}').format(organization_name=organization_name) }}</span>
-  </a>
-{% endblock %}
+  {% block image %}
+  {% endblock %}
+  {% block title %}
+    <p class="ministry-heading">{{ h.get_translated(organization, "title") or organization.name }}</p>
+  {% endblock %}
+  {% block description %}
+  {% endblock %}
+  {% block datasets %}
+    <p>{{ ungettext('Datasets: {num}', _('Datasets : {num}'), organization.package_count).format(num=organization.package_count) }}</p>
+  {% endblock %}
+  {% block link %}
+    {% set organization_name = (h.get_translated(organization, "title") or organization.name) %}
+    <a href="{{ url }}" title="{{ _('View {organization_name}').format(organization_name=organization_name) }}" class="media-view">
+      <span>{{ _('View {organization_name}').format(organization_name=organization_name) }}</span>
+    </a>
+  {% endblock %}
 {% endblock %}

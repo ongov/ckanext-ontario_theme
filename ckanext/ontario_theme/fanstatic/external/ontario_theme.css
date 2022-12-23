@@ -1203,3 +1203,11 @@ footer.site-footer .ckan-footer-logo {
 #resources_and_information h2{
   margin-bottom: 34px;
 }
+.ministry-heading {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 45px;
+  margin: unset;
+  text-decoration: underline;
+  color: #0066CC;
+}

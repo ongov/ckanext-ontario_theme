@@ -2825,4 +2825,4 @@ msgstr "Trouvez des données publiées par chacun des ministères de l'Ontario."
 
 #: ckanext/ontario_theme/templates/internal/organization/snippets/organization_item.html:13
 msgid "Datasets: {num}"
-msgstr "Jeux de données: {num}"
+msgstr "Jeux de données : {num}"
