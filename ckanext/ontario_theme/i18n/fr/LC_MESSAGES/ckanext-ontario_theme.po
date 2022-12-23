@@ -2586,13 +2586,6 @@ msgstr "Documents de formation"
 msgid "Learn to work with government data."
 msgstr "Apprenez à travailler avec les données du gouvernement."
 
-#: ckanext/ontario_theme/templates/organization/snippets/helper.html:13
-msgid ""
-" <p> Find a list of Ontario Ministries here. Click on a ministry to see "
-"its datasets. </p> "
-msgstr "Trouvez une liste des ministères de l'Ontario ici. Cliquez sur un ministère pour voir "
-"ses jeux de données."
-
 #: ckanext/ontario_theme/templates/internal/package/read.html:7
 msgid "Algorithm/AI Asset"
 msgstr "Algorithme/actif d’IA"
@@ -2849,7 +2842,13 @@ msgid "Are you sure you want to delete this Ministry?"
 msgstr "Etes-vous sûr de vouloir supprimer ce ministère ?"
 
 #: ckanext/ontario_theme/templates/external/organization/snippets/helper.html:13
-msgid ""
-" <p> Find a list of Ontario Ministries here. Click on a ministry to see its "
-"datasets. </p> "
-msgstr ""
+msgid "Find a list of Ontario Ministries here. Click on a ministry to see its datasets."
+msgstr "Trouvez une liste des ministères de l'Ontario ici. Cliquez sur un ministère pour voir ses jeux de données."
+
+#: ckanext/ontario_theme/templates/internal/snippets/organization.html:18
+msgid "There is no description for this ministry"
+msgstr "Il n'y a pas de description pour ce ministère"
+
+#: ckanext/ontario_theme/templates/internal/organization/index.html:34
+msgid "There are currently no ministries for this site"
+msgstr "Il n'y a actuellement aucun ministère pour ce site."
