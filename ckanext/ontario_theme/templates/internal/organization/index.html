@@ -17,13 +17,15 @@
     </div>
     <h1 class="hide-heading">{% block page_heading %}{{ _('Organizations') }}{% endblock %}</h1>
     {% block organizations_search_form %}
-      <!-- variables for the Design System search bar + form in search_module_internal.html -->
+      <!-- arguments for DS search bar -->
       {% set sr_input_text = _("Search") %}
       {% set placeholder = _("Search organizations...") %}
       {% set query = c.q %}
       {% set sr_submit_text = _("Search") %}
+      <!-- arguments for seach form -->
+      {% set form_id = 'organization-search-form' %}
       {% set type = 'organization' %}
-      {% snippet 'snippets/search_module_internal.html', sr_input_text=sr_input_text, placeholder=placeholder, query=query, sr_submit_text=sr_submit_text, type=type %}
+      {% snippet 'snippets/search_form.html', form_id=form_id, type=type, query=query, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=placeholder, sr_input_text=sr_input_text, sr_submit_text=sr_submit_text, facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields %}
     {% endblock %}
   </div>
 {% endblock %}
