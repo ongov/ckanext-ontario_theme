@@ -1,8 +1,10 @@
 {% ckan_extends %}
 
+{% block subtitle %}{{ _('Create a Ministry') }}{% endblock %}
+
 {% block breadcrumb_content %}
   <li>{{ h.nav_link(_('Ministries'), named_route=group_type+'.index') }}</li>
-  <li class="active">{% block breadcrumb_link %}{{ h.nav_link(_('Add a Ministry'), named_route=group_type+'.new') }}{% endblock %}</li>
+  <li class="active">{% block breadcrumb_link %}{{ h.nav_link(_('Create a Ministry'), named_route=group_type+'.new') }}{% endblock %}</li>
 {% endblock %}
 
 {% block page_heading %}{{ _('Create a Ministry') }}{% endblock %}

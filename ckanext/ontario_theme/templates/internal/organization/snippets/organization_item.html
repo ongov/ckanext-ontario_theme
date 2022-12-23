@@ -9,7 +9,7 @@
   {% block description %}
   {% endblock %}
   {% block datasets %}
-    <p>{{ ungettext('Datasets: {num}', _('Datasets : {num}'), organization.package_count).format(num=organization.package_count) }}</p>
+    <p>{{ ungettext( _('Datasets: {num}'), _('Datasets: {num}'), organization.package_count).format(num=organization.package_count) }}</p>
   {% endblock %}
   {% block link %}
     {% set organization_name = (h.get_translated(organization, "title") or organization.name) %}
