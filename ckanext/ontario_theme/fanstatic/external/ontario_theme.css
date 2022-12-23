@@ -634,15 +634,23 @@ div#topics {
 }
 div#topics a {
   color: #1A1A1A;
+  text-decoration: none;
 }
 .hp_category {
   text-align: center;
+  display: grid;
 }
 div#topics div p {
   position: relative;
   font-weight: 600;
   font-size: 18px;
   line-height: 25px;
+}
+.hp_category:hover p {
+  text-decoration: underline;
+}
+div#topics div a:hover i {
+  color: #00B2E3;
 }
 @media (min-width: 1200px) {
   div#topics div p {
@@ -654,9 +662,7 @@ div#topics div i {
   font-size: 48px;
   color: #1080A6;
 }
-div#topics div i:hover {
-  color: #00B2E3;
-}
+
 div#topics div.row {
   margin-bottom: 20px;
 }
@@ -690,17 +696,6 @@ div#topics div.row {
 #about .metadata-item h3 {
   font-size: 1.5rem;
   margin-bottom: 0px;
-}
-a,
-.dataset-heading a {
-  color: #06c;
-}
-a:hover,
-a:focus {
-  color: #004e99;
-}
-a:visited {
-  color: #8138b3;
 }
 figure {
   background-color: #eee;
@@ -943,6 +938,9 @@ li.resource-item div.btn-wrapper {
 #news ul a {
   color: #000000;
   text-decoration: none;
+}
+#news ul a:hover {
+  text-decoration: underline;
 }
 #news h3 {
   font-weight: 600;
