@@ -82,6 +82,10 @@ msgstr ""
 msgid "Help"
 msgstr "Aider"
 
+#: putting this here for now
+msgid "Ministries"
+msgstr "Ministères"
+
 #: ckanext/ontario_theme/templates/header.html:76
 msgid "Data Catalogue"
 msgstr "Catalogue de données"
@@ -2486,6 +2490,9 @@ msgstr "Activité récente"
 #: ckanext/ontario_theme/templates/internal/home/snippets/search.html:7
 msgid "Search Ontario's Data"
 msgstr "Rechercher les données de l'Ontario"
+
+msgid "Search ministries..."
+msgstr "Rechercher les ministères..."
 
 #: ckanext/ontario_theme/templates/home/snippets/search.html:21
 msgid "Popular keywords"

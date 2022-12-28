@@ -1125,6 +1125,8 @@ msgstr ""
 #: ckanext/ontario_theme/templates/internal/package/base.html:9
 msgid "Organizations"
 msgstr ""
+msgid "Ministries"
+msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/group/edit_base.html:3
 #: ckanext/ontario_theme/templates/internal/group/index.html:7
@@ -1266,6 +1268,9 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/organization/index.html:18
 msgid "Search organizations..."
+msgstr ""
+
+msgid "Search ministries..."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/organization/index.html:34
