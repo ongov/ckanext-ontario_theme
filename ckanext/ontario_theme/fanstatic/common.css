@@ -313,10 +313,6 @@ input[type=reset].ontario-search-reset.home{
   display: flex;
   min-height: 198px;
 }
-.media-item a {
-  color: #06c;
-  text-decoration: underline;
-}
 .search-page-heading {
   padding: 0 30px;
 }
