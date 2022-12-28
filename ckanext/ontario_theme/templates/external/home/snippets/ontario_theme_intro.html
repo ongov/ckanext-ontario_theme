@@ -11,11 +11,14 @@ Renders a hard coded site description/introduction.
 <div class="greet">
 	<p class="ontario-lead-statement">{{ _("Find public data and explore ") }} <span class="stat">{{ stats.dataset_count }}</span> {{ _(" datasets published by the Government of Ontario.") }}</p>
 	<div class="row">
-          <div class="col-md-12">
-            {% block search %}
-              {% snippet 'home/snippets/search.html' %}
-            {% endblock %}
-          </div>
+    <div class="col-md-12">
+      {% block search %}
+        {% set placeholder = _("Search Ontario's Data") %}
+        {% set sr_input_text = _("Search") %}
+        {% set sr_submit_text = _("Search") %}
+        {% snippet 'home/snippets/search.html', placeholder=placeholder, sr_input_text=sr_input_text, sr_submit_text=sr_submit_text %}
+      {% endblock %}
     </div>
+  </div>
 	<p class="greet learn-more">{% trans %}Learn more about <a href="/about#training-materials">what is covered and how to use data.</a>{% endtrans %}</p>
 </div>

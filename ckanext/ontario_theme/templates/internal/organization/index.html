@@ -4,7 +4,9 @@
 {% endblock %}
 
 {% block ontario_theme_search_form %}
-  {# Custom block for search form. #}
+  {# Custom block for search form. 
+  #}
+    
   <div class="row no-padding">
     <div class="page_primary_action">
       <div class="add-organization">
@@ -15,7 +17,15 @@
     </div>
     <h1 class="hide-heading">{% block page_heading %}{{ _('Organizations') }}{% endblock %}</h1>
     {% block organizations_search_form %}
-      {% snippet 'snippets/search_form.html', form_id='organization-search-form', type='organization', query=c.q, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=_('Search organizations...'), show_empty=request.params, no_bottom_border=true if c.page.items, sorting = [(_('Name Ascending'), 'title asc'), (_('Name Descending'), 'title desc')] %}
+      <!-- arguments for DS search bar -->
+      {% set sr_input_text = _("Search") %}
+      {% set placeholder = _("Search organizations...") %}
+      {% set query = c.q %}
+      {% set sr_submit_text = _("Search") %}
+      <!-- arguments for seach form -->
+      {% set form_id = 'organization-search-form' %}
+      {% set type = 'organization' %}
+      {% snippet 'snippets/search_form.html', form_id=form_id, type=type, query=query, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=placeholder, sr_input_text=sr_input_text, sr_submit_text=sr_submit_text, facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields %}
     {% endblock %}
   </div>
 {% endblock %}
