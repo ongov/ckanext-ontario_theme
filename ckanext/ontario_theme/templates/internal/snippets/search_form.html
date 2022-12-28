@@ -25,6 +25,14 @@
   </div>
 {% endblock %}
 
+{% block search_title %}
+    {% if not error %}
+      <div class="search-count">{% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}</div>
+    {% else %}
+      <div>Error</div>
+    {% endif %}
+{% endblock %}
+
 <!-- block for package searches -->
 {% block search_facets %}
   {% if facets %}
