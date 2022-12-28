@@ -313,14 +313,13 @@ input[type=reset].ontario-search-reset.home{
   display: flex;
   min-height: 198px;
 }
-<<<<<<< HEAD
 .media-item a {
   color: #06c;
   text-decoration: underline;
 }
 .search-page-heading {
   padding: 0 30px;
-=======
+}
 /* ========================================================================
    Links - Design System
    ======================================================================== */
@@ -341,5 +340,4 @@ a:focus {
   box-shadow: 0 0 0 4px #009ADB;
   outline: 4px solid transparent;
   transition: all 0.1s ease-in-out;
->>>>>>> ckan_2.9_upgrade_ds
 }
