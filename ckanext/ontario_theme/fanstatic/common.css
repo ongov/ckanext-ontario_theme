@@ -271,6 +271,12 @@ input[type=reset].ontario-search-reset.home{
   margin-bottom: 19px;
   line-height: 25.6px;
 }
+.data-h4 a{
+  text-decoration: none;
+}
+.data-h4 a:hover{
+  text-decoration: underline;
+}
 /* fa and feedback classes can be removed once icon is replaced with a svg */
 .fa.fa-comments {
   font-size: 100px;
@@ -306,4 +312,25 @@ input[type=reset].ontario-search-reset.home{
 .feedback.ontario-alert {
   display: flex;
   min-height: 198px;
+}
+/* ========================================================================
+   Links - Design System
+   ======================================================================== */
+a, .dataset-heading a {
+  color: #0066CC;
+  text-decoration: underline;
+}
+a:visited {
+  color: #551A8B;
+}
+a:hover {
+  color: #00478F;
+}
+a:active {
+  color: #002142;
+}
+a:focus {
+  box-shadow: 0 0 0 4px #009ADB;
+  outline: 4px solid transparent;
+  transition: all 0.1s ease-in-out;
 }
