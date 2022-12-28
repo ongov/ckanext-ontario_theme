@@ -1207,7 +1207,7 @@ msgid "Add Group"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/group/index.html:16
-msgid "Search groups..."
+msgid "Search groups"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/group/index.html:16
@@ -1270,7 +1270,7 @@ msgstr ""
 msgid "Search organizations..."
 msgstr ""
 
-msgid "Search ministries..."
+msgid "Search ministries"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/organization/index.html:34

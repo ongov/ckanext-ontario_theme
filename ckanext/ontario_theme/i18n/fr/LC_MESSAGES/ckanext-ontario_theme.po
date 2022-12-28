@@ -2491,8 +2491,11 @@ msgstr "Activité récente"
 msgid "Search Ontario's Data"
 msgstr "Rechercher les données de l'Ontario"
 
-msgid "Search ministries..."
-msgstr "Rechercher les ministères..."
+msgid "Search ministries"
+msgstr "Rechercher les ministères"
+
+msgid "Search groups"
+msgstr "Rechercher les groupes"
 
 #: ckanext/ontario_theme/templates/home/snippets/search.html:21
 msgid "Popular keywords"
