@@ -24,7 +24,7 @@
       {% set sr_submit_text = _("Search") %}
       <!-- arguments for seach form -->
       {% set form_id = 'organization-search-form' %}
-      {% set type = 'organization' %}
+      {% set type = 'ministry' %}
       {% set searchbar_title = _('Search ministries') %}
       {% snippet 'snippets/search_form.html', searchbar_title=searchbar_title, form_id=form_id, type=type, query=query, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=placeholder, sr_input_text=sr_input_text, sr_submit_text=sr_submit_text, facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields %}
     {% endblock %}
