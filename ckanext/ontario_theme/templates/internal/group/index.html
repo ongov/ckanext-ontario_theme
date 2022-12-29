@@ -12,6 +12,9 @@
     {% endif %}
     </div>
   </div>
+
+  <h1 class="ontario-h1">{% block page_heading %}{{ _('Groups') }}{% endblock %}</h1>
+
   {% block groups_search_form %}
     <!-- arguments for DS search bar -->
     {% set sr_input_text = _("Search") %}
