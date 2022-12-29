@@ -191,10 +191,10 @@ input[type=reset].ontario-search-reset:focus{
   margin-bottom:2px
 }
 /* ========================================================================
-   Search bar UI
+   Search bar UI -- based on Figma
    ======================================================================== */
    .module h2 {
-    color: initial; /* use DS default header text colour for searchbar title*/
+    color: initial; /* DS default header text colour for searchbar title*/
   }
 
    /* parent div: */
@@ -204,7 +204,7 @@ input[type=reset].ontario-search-reset:focus{
   }
   /* child div 1: shows search result count */
   .search-form .search-count {
-    order: 2; /* Count text should be above Order By menu */
+    order: 2; /* Displays count text above Order By menu */
     text-align-last: right;   /* always end text at same point, no matter how long it is */
     font-size: 20px; /* According to DS, body text should be 16px */
   }
@@ -213,15 +213,25 @@ input[type=reset].ontario-search-reset:focus{
   bottom margin in external/ontario_theme.css LINE 759
   */
   .search-form .control-order-by {
-    order: 3; /* Order By menu should be below count text */
+    order: 3; /* Displays Order By menu below count text */
     display: flex;
     justify-content: end;
+    padding-top: 33px;
+  }
+
+  .search-form .control-order-by label {
+    font-size: 19px;
+    padding-top: 5px; /* used to centre label beside menu box */
+  }
+
+  .search-form .control-order-by .form-control {
+    font-size: 16px;
+    height: 36px; /* increase height to accommodate larger font size */
   }
 
   /* child div 3: shows search keywords just below searchbar */
   .filter-list {
-    position: absolute;
-    top: 296px;
+    padding-bottom: 5px; /* needed to avoid being squished in mobile mode*/
   }
   
   .module-content {
