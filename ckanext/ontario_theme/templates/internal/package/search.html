@@ -35,7 +35,7 @@ in the core template for search.html.
         (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
       %}
       <!-- arguments for DS search bar -->
-      {% set sr_input_text = _("Search") %}
+      {% set sr_input_text = _('Search ' + dataset_type + 's') %}
       {% set sr_submit_text = _("Search") %}
       {% set placeholder = _('Search ' + dataset_type + 's') %}
       {% set query = c.q %}

@@ -174,7 +174,7 @@ input[type=reset].ontario-search-reset:focus{
 /*Show for screen reader*/
 .ontario-show-for-sr {
   position: absolute !important;
-  width: 1px;
+  width: auto;
   height: 1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
