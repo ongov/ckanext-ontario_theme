@@ -82,9 +82,31 @@ msgstr ""
 msgid "Help"
 msgstr "Aider"
 
-#: putting this here for now
+#: ckanext/ontario_theme/templates/internal/organization/index.html
 msgid "Ministries"
 msgstr "Ministères"
+
+#: OVERRIDE: ckan/templates/snippets/search_result_text.html:27
+msgid "{number} ministry found for \"{query}\""
+msgid_plural "{number} ministries found for \"{query}\""
+msgstr[0] "{number} ministère trouvé pour \"{query}\""
+msgstr[1] "{number} ministères trouvés pour \"{query}\""
+msgstr[2] "{number} ministères trouvés pour \"{query}\""
+
+#: OVERRIDE: ckan/templates/snippets/search_result_text.html:28
+msgid "No ministries found for \"{query}\""
+msgstr "Aucun ministère trouvé pour \"{query}\""
+
+#: OVERRIDE: ckan/templates/snippets/search_result_text.html:29
+msgid "{number} ministry found"
+msgid_plural "{number} ministries found"
+msgstr[0] "{number} ministère trouvé"
+msgstr[1] "{number} ministères trouvés"
+msgstr[2] "{number} ministères trouvés"
+
+#: OVERRIDE: ckan/templates/snippets/search_result_text.html:30
+msgid "No ministires found"
+msgstr "Aucun ministère trouvé"
 
 #: ckanext/ontario_theme/templates/header.html:76
 msgid "Data Catalogue"

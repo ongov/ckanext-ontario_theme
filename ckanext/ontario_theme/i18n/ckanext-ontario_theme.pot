@@ -1635,8 +1635,15 @@ msgid_plural "{number} organizations found for \"{query}\""
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "{number} ministry found for \"{query}\""
+msgid_plural "{number} ministries found for \"{query}\""
+msgstr[0] ""
+msgstr[1] ""
+
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:28
 msgid "No organizations found for \"{query}\""
+msgstr ""
+msgid "No ministries found for \"{query}\""
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:29
@@ -1645,8 +1652,15 @@ msgid_plural "{number} organizations found"
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "{number} ministry found"
+msgid_plural "{number} ministries found"
+msgstr[0] ""
+msgstr[1] ""
+
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:30
 msgid "No organizations found"
+msgstr ""
+msgid "No ministires found"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/user/dashboard.html:6
