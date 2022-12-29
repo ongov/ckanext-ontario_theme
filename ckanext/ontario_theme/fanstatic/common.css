@@ -30,6 +30,11 @@
 .toolbar .breadcrumb a.active {
   font-weight: normal;
 }
+
+.search-form {
+  padding: 20px;
+  background: #fafafa;
+}
 /* ========================================================================
    Text Inputs - Design System
    ======================================================================== */
