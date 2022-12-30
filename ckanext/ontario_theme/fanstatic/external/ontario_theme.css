@@ -775,7 +775,11 @@ div.add-dataset {
   position: relative;
   border-bottom: 1px solid #dddddd;
 }
-.media-item:first-child{
+.ministry-item {
+  margin-left: 5px;
+  padding-left: unset;
+}
+.ministry-item.media-item:first-child{
   border-top: 1px solid #dddddd;
 }
 .media-item:last-child{
