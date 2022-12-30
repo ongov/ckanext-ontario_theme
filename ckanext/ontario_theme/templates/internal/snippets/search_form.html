@@ -9,7 +9,7 @@
     - sr_submit_text
   #}
   <div class="module search">
-    <h2 class="ontario-h2">{{ searchbar_title }}</h2>
+    <h2 aria-label='{{ hidden_searchbar_title }}''><p class="theme_p" aria-hidden="true">{{ searchbar_title }}</p></h2>
     <form class="module-content search-form" method="get">
       <div class="ontario-search-container">
         <label class="ontario-label ontario-show-for-sr" for="ontario-search-input-field">{{ sr_input_text }}</label>
