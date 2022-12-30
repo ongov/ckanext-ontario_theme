@@ -1660,7 +1660,7 @@ msgstr[1] ""
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:30
 msgid "No organizations found"
 msgstr ""
-msgid "No ministires found"
+msgid "No ministries found"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/user/dashboard.html:6

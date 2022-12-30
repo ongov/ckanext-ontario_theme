@@ -105,7 +105,7 @@ msgstr[1] "{number} ministères trouvés"
 msgstr[2] "{number} ministères trouvés"
 
 #: OVERRIDE: ckan/templates/snippets/search_result_text.html:30
-msgid "No ministires found"
+msgid "No ministries found"
 msgstr "Aucun ministère trouvé"
 
 #: ckanext/ontario_theme/templates/header.html:76
