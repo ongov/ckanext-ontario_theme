@@ -22,7 +22,7 @@ msgstr ""
 
 # French punctuations
 msgid ":"
-msgstr " :"
+msgstr "<span>&nbsp;:</span>"
 
 #: ckanext/ontario_theme/templates/internal/footer.html:9
 msgid "https://www.ontario.ca/page/accessibility"
