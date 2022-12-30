@@ -91,7 +91,6 @@ msgid "{number} ministry found for \"{query}\""
 msgid_plural "{number} ministries found for \"{query}\""
 msgstr[0] "{number} ministère trouvé pour \"{query}\""
 msgstr[1] "{number} ministères trouvés pour \"{query}\""
-msgstr[2] "{number} ministères trouvés pour \"{query}\""
 
 #: OVERRIDE: ckan/templates/snippets/search_result_text.html:28
 msgid "No ministries found for \"{query}\""
@@ -102,7 +101,6 @@ msgid "{number} ministry found"
 msgid_plural "{number} ministries found"
 msgstr[0] "{number} ministère trouvé"
 msgstr[1] "{number} ministères trouvés"
-msgstr[2] "{number} ministères trouvés"
 
 #: OVERRIDE: ckan/templates/snippets/search_result_text.html:30
 msgid "No ministries found"
