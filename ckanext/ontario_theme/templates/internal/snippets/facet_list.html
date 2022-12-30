@@ -14,6 +14,7 @@
   <h2 class="module-heading">
     <i class="fa fa-filter"></i>
     {% set title = title or h.get_facet_title(name) %}
+    {% if title==_('Organizations') %}{% set title = _('Ministries') %}{% endif %}
     {{ title }}
     {% set screen_reader_text = "No search filters applied for "+title+". Options are " %}
     {% if items %}
