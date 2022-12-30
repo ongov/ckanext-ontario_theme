@@ -91,7 +91,7 @@
         missing attribute error.
       #}
       <span>
-        <span class="facet">{{ _('with the keyword(s)') }}:</span>
+        <span class="facet">{{ _('with the keyword(s)') }}{{ _(':') }}</span>
         <span class="filtered pill">
           {{ query }}
           <a href="{{ facets.remove_field('q', query) }}" class="remove" title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
