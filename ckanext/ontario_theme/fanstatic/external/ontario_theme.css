@@ -762,6 +762,8 @@ body,
   border-radius: 5px;
   border: none;
   box-shadow: none;
+
+  padding-bottom: 0px;
 }
 div.add-dataset {
   width: 100%;

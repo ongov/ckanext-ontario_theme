@@ -217,6 +217,12 @@ input[type=reset].ontario-search-reset:focus{
     display: flex;
     justify-content: end;
     padding-top: 33px;
+
+    margin-bottom: 0px;
+    background-color: #fff;
+    padding-right: 20px;
+    margin-left: -20px;
+    margin-right: -20px;
   }
 
   .search-form .control-order-by label {
