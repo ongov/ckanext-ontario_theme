@@ -193,13 +193,6 @@ input[type=reset].ontario-search-reset:focus{
 /* ========================================================================
    Search bar UI -- based on Figma
    ======================================================================== */
-   .module h2 {
-    color: initial; /* DS default header text colour for searchbar title*/
-  }
-
-  /* .module p {
-    color: initial; /* Restore DS default p colour for searchbar title*/
- 
   .module .theme_p {
       font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-style: normal;
