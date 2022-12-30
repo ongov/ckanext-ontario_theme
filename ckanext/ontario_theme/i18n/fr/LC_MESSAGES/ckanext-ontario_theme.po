@@ -86,15 +86,27 @@ msgstr "Aider"
 msgid "Ministries"
 msgstr "Ministères"
 
-#: OVERRIDE: ckan/templates/snippets/search_result_text.html:27
+#: OVERRIDE: ckan/templates/snippets/search_result_text.html
+#: Datasets
+msgid "{number} dataset found for \"{query}\""
+msgid_plural "{number} datasets found for \"{query}\""
+msgstr[0] "{number}  jeu  de données trouvé pour « {query} »"
+msgstr[1] "{number}  jeux de données trouvés pour « {query} »"
+msgstr[2] "{number}  jeux de données trouvés pour « {query} »"
+
+#: ckan/templates/snippets/search_result_text.html:16
+msgid "No datasets found for \"{query}\""
+msgstr "Aucun jeu de données trouvé pour « {query} »"
+
+#: Ministries
 msgid "{number} ministry found for \"{query}\""
 msgid_plural "{number} ministries found for \"{query}\""
-msgstr[0] "{number} ministère trouvé pour \"{query}\""
-msgstr[1] "{number} ministères trouvés pour \"{query}\""
+msgstr[0] "{number} ministère trouvé pour « {query} »"
+msgstr[1] "{number} ministères trouvés pour « {query} »"
 
 #: OVERRIDE: ckan/templates/snippets/search_result_text.html:28
 msgid "No ministries found for \"{query}\""
-msgstr "Aucun ministère trouvé pour \"{query}\""
+msgstr "Aucun ministère trouvé pour « {query} »"
 
 #: OVERRIDE: ckan/templates/snippets/search_result_text.html:29
 msgid "{number} ministry found"
@@ -105,6 +117,17 @@ msgstr[1] "{number} ministères trouvés"
 #: OVERRIDE: ckan/templates/snippets/search_result_text.html:30
 msgid "No ministries found"
 msgstr "Aucun ministère trouvé"
+
+#: Groups
+msgid "{number} group found for \"{query}\""
+msgid_plural "{number} groups found for \"{query}\""
+msgstr[0] "{number} groupe  trouvé pour « {query} »"
+msgstr[1] "{number} groupes  trouvés pour « {query} »"
+msgstr[2] "{number} groupes  trouvés pour « {query} »"
+
+#: ckan/templates/snippets/search_result_text.html:22
+msgid "No groups found for \"{query}\""
+msgstr "Aucun groupe trouvé pour « {query} »"
 
 #: ckanext/ontario_theme/templates/header.html:76
 msgid "Data Catalogue"
