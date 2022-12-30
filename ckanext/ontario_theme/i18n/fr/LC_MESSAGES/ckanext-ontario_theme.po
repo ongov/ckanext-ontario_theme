@@ -90,9 +90,8 @@ msgstr "Ministères"
 #: Datasets
 msgid "{number} dataset found for \"{query}\""
 msgid_plural "{number} datasets found for \"{query}\""
-msgstr[0] "{number}  jeu  de données trouvé pour « {query} »"
-msgstr[1] "{number}  jeux de données trouvés pour « {query} »"
-msgstr[2] "{number}  jeux de données trouvés pour « {query} »"
+msgstr[0] "{number} jeu  de données trouvé pour « {query} »"
+msgstr[1] "{number} jeux de données trouvés pour « {query} »"
 
 #: ckan/templates/snippets/search_result_text.html:16
 msgid "No datasets found for \"{query}\""
@@ -121,9 +120,8 @@ msgstr "Aucun ministère trouvé"
 #: Groups
 msgid "{number} group found for \"{query}\""
 msgid_plural "{number} groups found for \"{query}\""
-msgstr[0] "{number} groupe  trouvé pour « {query} »"
-msgstr[1] "{number} groupes  trouvés pour « {query} »"
-msgstr[2] "{number} groupes  trouvés pour « {query} »"
+msgstr[0] "{number} groupe trouvé pour « {query} »"
+msgstr[1] "{number} groupes trouvés pour « {query} »"
 
 #: ckan/templates/snippets/search_result_text.html:22
 msgid "No groups found for \"{query}\""
