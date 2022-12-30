@@ -2816,6 +2816,10 @@ msgstr "Niveau d’accès"
 msgid "Update Frequency"
 msgstr "Fréquence de mise à jour"
 
+#: ckanext/ontario_theme/templates/snippets/search_form.html
+msgid "with the keyword(s)"
+msgstr "avec le(s) mot(s) clé(s)"
+
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:14
 msgid "Search"
 msgstr "Recherche"

@@ -1592,6 +1592,10 @@ msgstr ""
 msgid "Filter Results"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html
+msgid "with the keyword(s)"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:15
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:17
 msgid "{number} dataset found"
