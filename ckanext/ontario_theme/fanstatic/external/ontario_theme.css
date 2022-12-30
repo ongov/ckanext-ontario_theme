@@ -778,6 +778,9 @@ div.add-dataset {
 .media-item:first-child{
   border-top: 1px solid #dddddd;
 }
+.media-item:last-child{
+  border-bottom: none;
+}
 .media-image {
   float: left;
   margin-right: 20px;
