@@ -35,7 +35,9 @@
   padding: 20px;
   background: #fafafa;
 }
-
+.greet .search-form {
+  background: none; /* turn off background for homepage searchbar */
+}
 /* ========================================================================
    Text Inputs - Design System
    ======================================================================== */
