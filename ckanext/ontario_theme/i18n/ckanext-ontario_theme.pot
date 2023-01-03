@@ -1267,7 +1267,7 @@ msgid "Find data published by each of Ontario’s ministries."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/organization/index.html:34
-msgid "There are currently no ministries for this site"
+msgid "There are currently no ministries for this site."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/organization/snippets/helper.html:13
@@ -1573,7 +1573,7 @@ msgid "read more"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/organization.html:18
-msgid "There is no description for this ministry"
+msgid "There is no description for this ministry."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/organization.html:34

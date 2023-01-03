@@ -2846,9 +2846,9 @@ msgid "Find a list of Ontario Ministries here. Click on a ministry to see its da
 msgstr "Trouvez une liste des ministères de l'Ontario ici. Cliquez sur un ministère pour voir ses jeux de données."
 
 #: ckanext/ontario_theme/templates/internal/snippets/organization.html:18
-msgid "There is no description for this ministry"
-msgstr "Il n'y a pas de description pour ce ministère"
+msgid "There is no description for this ministry."
+msgstr "Il n'y a pas de description pour ce ministère."
 
 #: ckanext/ontario_theme/templates/internal/organization/index.html:34
-msgid "There are currently no ministries for this site"
+msgid "There are currently no ministries for this site."
 msgstr "Il n'y a actuellement aucun ministère pour ce site."

@@ -779,12 +779,6 @@ div.add-dataset {
   margin-left: 5px;
   padding-left: unset;
 }
-.ministry-item.media-item:first-child{
-  border-top: 1px solid #dddddd;
-}
-.media-item:last-child{
-  border-bottom: none;
-}
 .media-image {
   float: left;
   margin-right: 20px;
@@ -1207,12 +1201,4 @@ footer.site-footer .ckan-footer-logo {
 }
 #resources_and_information h2{
   margin-bottom: 34px;
-}
-.ministry-heading {
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 45px;
-  margin: unset;
-  text-decoration: underline;
-  color: #0066CC;
 }

@@ -342,3 +342,17 @@ a:focus {
   outline: 4px solid transparent;
   transition: all 0.1s ease-in-out;
 }
+/* ========================================================================
+   Custom overrides - ministry page
+   ======================================================================== */
+.ministry-heading {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 45px;
+}
+.ministry-item.media-item:first-child{
+  border-top: 1px solid #dddddd;
+}
+.media-item:last-child{
+  border-bottom: none;
+}
