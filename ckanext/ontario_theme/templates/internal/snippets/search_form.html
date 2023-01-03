@@ -9,6 +9,7 @@
     - sr_submit_text
   #}
   <div class="module search">
+    <h2 aria-label='{{ hidden_searchbar_title }}'><p class="theme_p" aria-hidden="true">{{ searchbar_title }}</p></h2>
     <form class="module-content search-form" method="get">
       <div class="ontario-search-container">
         <label class="ontario-label ontario-show-for-sr" for="ontario-search-input-field">{{ sr_input_text }}</label>
@@ -24,6 +25,60 @@
   </div>
 {% endblock %}
 
+{% block search_title %}
+    {% if not error %}
+      <div class="search-count">
+        {% if type == 'dataset' %}
+          {% set text_query = ungettext('{number} dataset found for "{query}"', '{number} datasets found for "{query}"', count) %}
+          {% set text_query_none = _('No datasets found for "{query}"') %}
+          {% set text_no_query = ungettext('{number} dataset found', '{number} datasets found', count) %}
+          {% set text_no_query_none = _('No datasets found') %}
+
+        {% elif type == 'group' %}
+          {% set text_query = ungettext('{number} group found for "{query}"', '{number} groups found for "{query}"', count) %}
+          {% set text_query_none = _('No groups found for "{query}"') %}
+          {% set text_no_query = ungettext('{number} group found', '{number} groups found', count) %}
+          {% set text_no_query_none = _('No groups found') %}
+
+        {% elif type == 'ministry' %}
+          {% set text_query = ungettext('{number} ministry found for "{query}"', '{number} ministries found for "{query}"', count) %}
+          {% set text_query_none = _('No ministries found for "{query}"') %}
+          {% set text_no_query = ungettext('{number} ministry found', '{number} ministries found', count) %}
+          {% set text_no_query_none = _('No ministries found') %}
+
+        {% else %}
+          {% set text_query_singular = '{number} ' + type + ' found for "{query}"' %}
+          {% set text_query_plural = '{number} ' + type + 's found for "{query}"' %}
+          {% set text_query_none_plural = 'No ' + type + 's found for "{query}"' %}
+          {% set text_no_query_singular = '{number} ' + type + ' found' %}        
+          {% set text_no_query_plural = '{number} ' + type + 's found' %}
+          {% set text_no_query_none_plural = 'No ' + type + 's found' %}      
+
+          {% set text_query = ungettext(text_query_singular, text_query_plural, count) %}
+          {% set text_query_none = _(text_query_none_plural) %}
+          {% set text_no_query = ungettext(text_no_query_singular, text_no_query_plural, count) %}
+          {% set text_no_query_none = _(text_no_query_none_plural) %}
+        {%- endif -%}
+
+        {% if query %}
+          {%- if count -%}
+            {{ text_query.format(number=h.localised_number(count), query=query, type=type) }}
+          {%- else -%}
+            {{ text_query_none.format(query=query, type=type) }}
+          {%- endif -%}
+        {%- else -%}
+          {%- if count -%}
+            {{ text_no_query.format(number=h.localised_number(count), type=type) }}
+          {%- else -%}
+            {{ text_no_query_none.format(type=type) }}
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    {% else %}
+      <div>Error</div>
+    {% endif %}
+{% endblock %}
+
 <!-- block for package searches -->
 {% block search_facets %}
   {% if facets %}
@@ -36,7 +91,7 @@
         missing attribute error.
       #}
       <span>
-        <span class="facet">with the keyword(s):</span>
+        <span class="facet">{{ _('with the keyword(s)') }}{{ _(':') }}</span>
         <span class="filtered pill">
           {{ query }}
           <a href="{{ facets.remove_field('q', query) }}" class="remove" title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>

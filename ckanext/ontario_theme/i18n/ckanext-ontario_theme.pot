@@ -18,6 +18,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
+# French punctuations
+msgid ":"
+msgstr ""
+
 #: ckanext/ontario_theme/plugin.py:396
 msgid "Access Level"
 msgstr ""
@@ -1203,7 +1207,7 @@ msgid "Add Group"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/group/index.html:16
-msgid "Search groups..."
+msgid "Search groups"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/group/index.html:16
@@ -1264,6 +1268,10 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/organization/index.html:18
 msgid "Find data published by each of Ontario’s ministries."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/organization/index.html:30
+msgid "Search ministries"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/organization/index.html:34
@@ -1593,6 +1601,10 @@ msgstr ""
 msgid "Filter Results"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html
+msgid "with the keyword(s)"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:15
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:17
 msgid "{number} dataset found"
@@ -1626,23 +1638,23 @@ msgid "No groups found"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:27
-msgid "{number} organization found for \"{query}\""
-msgid_plural "{number} organizations found for \"{query}\""
+msgid "{number} ministry found for \"{query}\""
+msgid_plural "{number} ministries found for \"{query}\""
 msgstr[0] ""
 msgstr[1] ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:28
-msgid "No organizations found for \"{query}\""
+msgid "No ministries found for \"{query}\""
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:29
-msgid "{number} organization found"
-msgid_plural "{number} organizations found"
+msgid "{number} ministry found"
+msgid_plural "{number} ministries found"
 msgstr[0] ""
 msgstr[1] ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:30
-msgid "No organizations found"
+msgid "No ministries found"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/user/dashboard.html:6
