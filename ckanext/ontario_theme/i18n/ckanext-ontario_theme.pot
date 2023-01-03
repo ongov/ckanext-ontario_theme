@@ -998,14 +998,6 @@ msgstr ""
 msgid "Learn to work with government data."
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/organization/snippets/helper.html:9
-#: ckanext/ontario_theme/templates/internal/organization/snippets/helper.html:9
-msgid "What are ministries?"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/external/organization/snippets/helper.html:13
-msgid "Find a list of Ontario Ministries here. Click on a ministry to see its datasets."
-msgstr ""
 
 #: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:9
 msgid "Data Available"

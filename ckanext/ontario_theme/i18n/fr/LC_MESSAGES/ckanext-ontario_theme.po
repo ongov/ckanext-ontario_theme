@@ -2878,11 +2878,6 @@ msgstr "Trouvez des données publiées par chacun des ministères de l'Ontario."
 msgid "Datasets: {num}"
 msgstr "Jeux de données : {num}"
 
-#: ckanext/ontario_theme/templates/external/organization/snippets/helper.html:9
-#: ckanext/ontario_theme/templates/internal/organization/snippets/helper.html:9
-msgid "What are ministries?"
-msgstr "Que sont les ministères?"
-
 #: ckanext/ontario_theme/templates/internal/organization/new.html:3
 msgid "Create a Ministry"
 msgstr "Créer un Ministère"
@@ -2899,9 +2894,6 @@ msgstr "Ajouter un ministère"
 msgid "Are you sure you want to delete this Ministry?"
 msgstr "Etes-vous sûr de vouloir supprimer ce ministère?"
 
-#: ckanext/ontario_theme/templates/external/organization/snippets/helper.html:13
-msgid "Find a list of Ontario Ministries here. Click on a ministry to see its datasets."
-msgstr "Trouvez une liste des ministères de l'Ontario ici. Cliquez sur un ministère pour voir ses jeux de données."
 
 #: ckanext/ontario_theme/templates/internal/snippets/organization.html:18
 msgid "There is no description for this ministry."
