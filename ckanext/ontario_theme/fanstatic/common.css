@@ -230,6 +230,10 @@ input[type=reset].ontario-search-reset:focus{
     margin-left: -20px;
     margin-right: -20px;
   }
+  #group-datasets-search-form, #organization-datasets-search-form {
+    border-bottom: none;
+    padding-bottom: 0px;
+  }
 
   .search-form .control-order-by label {
     font-size: 19px;
