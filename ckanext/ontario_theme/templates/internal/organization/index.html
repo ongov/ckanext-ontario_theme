@@ -15,17 +15,19 @@
       {% endif %}
       </div>
     </div>
-    <h1 class="hide-heading">{% block page_heading %}{{ _('Organizations') }}{% endblock %}</h1>
+    <h1 class="ontario-h1">{% block page_heading %}{{ _('Ministries') }}{% endblock %}</h1>
     {% block organizations_search_form %}
       <!-- arguments for DS search bar -->
-      {% set sr_input_text = _("Search") %}
-      {% set placeholder = _("Search organizations...") %}
+      {% set sr_input_text = _('Search ministries') %}
+      {% set placeholder = _('Search ministries') %}
       {% set query = c.q %}
-      {% set sr_submit_text = _("Search") %}
+      {% set sr_submit_text = _('Search') %}
       <!-- arguments for seach form -->
       {% set form_id = 'organization-search-form' %}
-      {% set type = 'organization' %}
-      {% snippet 'snippets/search_form.html', form_id=form_id, type=type, query=query, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=placeholder, sr_input_text=sr_input_text, sr_submit_text=sr_submit_text, facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields %}
+      {% set type = 'ministry' %}
+      {% set searchbar_title = _('Search ministries') + _(':') %}
+      {% set hidden_searchbar_title = _('Search ministries') %}
+      {% snippet 'snippets/search_form.html', searchbar_title=searchbar_title, hidden_searchbar_title=hidden_searchbar_title, form_id=form_id, type=type, query=query, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=placeholder, sr_input_text=sr_input_text, sr_submit_text=sr_submit_text, facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields %}
     {% endblock %}
   </div>
 {% endblock %}

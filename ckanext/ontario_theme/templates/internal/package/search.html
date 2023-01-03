@@ -17,6 +17,8 @@ in the core template for search.html.
       {{ super() }}
     {% endblock %}
 
+    <h1 class="ontario-h1">{% block page_heading %}{{ _(dataset_type + 's') |capitalize }}{% endblock %}</h1>
+
     {% block form %}
       {% set facets = {
         'fields': c.fields_grouped,
@@ -35,14 +37,16 @@ in the core template for search.html.
         (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
       %}
       <!-- arguments for DS search bar -->
-      {% set sr_input_text = _("Search") %}
+      {% set sr_input_text = _('Search ' + dataset_type + 's') %}
       {% set sr_submit_text = _("Search") %}
-      {% set placeholder = _('Search ' + dataset_type + 's') + '...' %}
+      {% set placeholder = _('Search ' + dataset_type + 's') %}
       {% set query = c.q %}
       <!-- arguments for search form -->
       {% set form_id = 'dataset-search-form' %}
       {% set type = dataset_type %}
-      {% snippet 'snippets/search_form.html', form_id=form_id, type=type, query=query, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=placeholder, sr_input_text=sr_input_text, sr_submit_text=sr_submit_text, facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields %}
+      {% set searchbar_title = _('Search ' + dataset_type + 's') + _(':') %}
+      {% set hidden_searchbar_title = _('Search ' + dataset_type + 's') %}
+      {% snippet 'snippets/search_form.html', searchbar_title=searchbar_title, hidden_searchbar_title=hidden_searchbar_title, form_id=form_id, type=type, query=query, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=placeholder, sr_input_text=sr_input_text, sr_submit_text=sr_submit_text, facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields %}
     {% endblock %}
   </div>
 {% endblock %}
