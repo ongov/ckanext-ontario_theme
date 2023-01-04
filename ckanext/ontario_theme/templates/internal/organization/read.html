@@ -6,6 +6,24 @@ Override CKAN's read.html to add some new facets.
 
 {% ckan_extends %}
 
+{% block groups_search_form %}
+  {% set facets = {
+    'fields': fields_grouped,
+    'search': search_facets,
+    'titles': facet_titles,
+    'translated_fields': translated_fields,
+    'remove_field': remove_field }
+  %}
+  {% set sorting = [
+    (_('Relevance'), 'score desc, metadata_modified desc'),
+    (_('Name Ascending'), 'name asc'),
+    (_('Name Descending'), 'tname desc'),
+    (_('Last Modified'), 'metadata_modified desc'),
+    (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
+  %}
+  {% snippet 'snippets/search_form.html', form_id='organization-datasets-search-form', type='dataset', query=q, sorting=sorting, sorting_selected=sort_by_selected, count=page.item_count, facets=facets, placeholder=_('Search datasets...'), show_empty=request.params, fields=fields %}
+{% endblock %}
+
 {% block organization_facets %}
   <div class="filters">
     <div>
