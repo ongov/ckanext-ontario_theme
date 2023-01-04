@@ -8,6 +8,8 @@ Theme for Ontario ckan including:
 * forms
 * templates and design
 
+Design has not been updated to conform to 2022 release of `Ontario Design System <https://designsystem.ontario.ca/>`_.
+
 -------------------
 Directory Structure
 -------------------
