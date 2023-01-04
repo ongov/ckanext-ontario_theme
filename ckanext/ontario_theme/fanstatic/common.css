@@ -386,6 +386,9 @@ input[type=reset].ontario-search-reset.home{
   display: flex;
   min-height: 198px;
 }
+.search-page-heading {
+  padding: 0 20px;
+}
 /* ========================================================================
    Links - Design System
    ======================================================================== */
@@ -406,4 +409,18 @@ a:focus {
   box-shadow: 0 0 0 4px #009ADB;
   outline: 4px solid transparent;
   transition: all 0.1s ease-in-out;
+}
+/* ========================================================================
+   Custom overrides - ministry page
+   ======================================================================== */
+.ministry-heading {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 45px;
+}
+.ministry-item.media-item:first-child{
+  border-top: 1px solid #dddddd;
+}
+.media-item:last-child{
+  border-bottom: none;
 }

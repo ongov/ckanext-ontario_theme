@@ -777,8 +777,9 @@ div.add-dataset {
   position: relative;
   border-bottom: 1px solid #dddddd;
 }
-.media-item:last-child {
-  border-bottom: none;
+.ministry-item {
+  margin-left: 5px;
+  padding-left: unset;
 }
 .media-image {
   float: left;
