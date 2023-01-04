@@ -33,8 +33,8 @@
         {
           "field_name": "org_contact",
           "label": {
-            "en": "Organization Contact",
-            "fr": "Contact de l'Organisation"
+            "en": "Ministry Contact",
+            "fr": "Contact du Ministère"
           },
           "preset": "fluent_text",
           "classes": ["form-group","col-md-12"]

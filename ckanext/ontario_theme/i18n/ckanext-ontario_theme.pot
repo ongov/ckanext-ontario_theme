@@ -18,6 +18,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
+# French punctuations
+msgid ":"
+msgstr ""
+
 #: ckanext/ontario_theme/plugin.py:396
 msgid "Access Level"
 msgstr ""
@@ -994,16 +998,6 @@ msgstr ""
 msgid "Learn to work with government data."
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/organization/snippets/helper.html:9
-#: ckanext/ontario_theme/templates/internal/organization/snippets/helper.html:9
-msgid "What are Organizations?"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/external/organization/snippets/helper.html:13
-msgid ""
-" <p> Find a list of Ontario Ministries here. Click on a ministry to see its "
-"datasets. </p> "
-msgstr ""
 
 #: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:9
 msgid "Data Available"
@@ -1116,14 +1110,14 @@ msgstr ""
 msgid "Datasets"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/header.html:89
 #: ckanext/ontario_theme/templates/internal/organization/edit_base.html:3
 #: ckanext/ontario_theme/templates/internal/organization/edit_base.html:6
 #: ckanext/ontario_theme/templates/internal/organization/index.html:16
 #: ckanext/ontario_theme/templates/internal/organization/read_base.html:3
 #: ckanext/ontario_theme/templates/internal/organization/read_base.html:6
 #: ckanext/ontario_theme/templates/internal/package/base.html:9
-msgid "Organizations"
+#: ckanext/ontario_theme/templates/internal/header.html:89
+msgid "Ministries"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/group/edit_base.html:3
@@ -1205,7 +1199,7 @@ msgid "Add Group"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/group/index.html:16
-msgid "Search groups..."
+msgid "Search groups"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/group/index.html:16
@@ -1261,15 +1255,19 @@ msgstr ""
 
 
 #: ckanext/ontario_theme/templates/internal/organization/index.html:12
-msgid "Add Organization"
+msgid "Add Ministry"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/organization/index.html:18
-msgid "Search organizations..."
+msgid "Find data published by each of Ontario’s ministries."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/organization/index.html:30
+msgid "Search ministries"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/organization/index.html:34
-msgid "There are currently no organizations for this site"
+msgid "There are currently no ministries for this site."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/organization/snippets/helper.html:13
@@ -1287,9 +1285,12 @@ msgid ""
 "Colby by [instructions]. </p--> "
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/organization/snippets/organization_item.html:13
 #: ckanext/ontario_theme/templates/internal/organization/snippets/organization_item.html:14
 msgid "View {organization_name}"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/organization/snippets/organization_item.html:13
+msgid "Datasets: {num}"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/package/base.html:17
@@ -1493,11 +1494,11 @@ msgid "No organization"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/scheming/organization/group_form.html:23
-msgid "Are you sure you want to delete this Organization?"
+msgid "Are you sure you want to delete this Ministry?"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/scheming/organization/group_form.html:28
-msgid "Save Organization"
+msgid "Save Ministry"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:27
@@ -1572,7 +1573,7 @@ msgid "read more"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/organization.html:18
-msgid "There is no description for this organization"
+msgid "There is no description for this ministry."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/organization.html:34
@@ -1590,6 +1591,10 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:45
 msgid "Filter Results"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html
+msgid "with the keyword(s)"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:15
@@ -1625,23 +1630,23 @@ msgid "No groups found"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:27
-msgid "{number} organization found for \"{query}\""
-msgid_plural "{number} organizations found for \"{query}\""
+msgid "{number} ministry found for \"{query}\""
+msgid_plural "{number} ministries found for \"{query}\""
 msgstr[0] ""
 msgstr[1] ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:28
-msgid "No organizations found for \"{query}\""
+msgid "No ministries found for \"{query}\""
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:29
-msgid "{number} organization found"
-msgid_plural "{number} organizations found"
+msgid "{number} ministry found"
+msgid_plural "{number} ministries found"
 msgstr[0] ""
 msgstr[1] ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:30
-msgid "No organizations found"
+msgid "No ministries found"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/user/dashboard.html:6
@@ -1657,7 +1662,7 @@ msgid "News feed"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/user/dashboard.html:11
-msgid "My Organizations"
+msgid "My Ministries"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/user/dashboard.html:12
@@ -1666,4 +1671,20 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_covid_datasets.html:18
 msgid "<a href=\"/dataset?groups=2019-novel-coronavirus\">Show more</a>"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/organization/new.html:3
+msgid "Create a Ministry"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/scheming/organization/group_form.html:28
+msgid "Save Ministry"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/organization/index.html:3
+msgid "Add Ministry"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/scheming/organization/group_form.html:23
+msgid "Are you sure you want to delete this Ministry?"
 msgstr ""

@@ -30,6 +30,14 @@
 .toolbar .breadcrumb a.active {
   font-weight: normal;
 }
+
+.search-form {
+  padding: 20px;
+  background: #fafafa;
+}
+.greet .search-form {
+  background: none; /* turn off background for homepage searchbar */
+}
 /* ========================================================================
    Text Inputs - Design System
    ======================================================================== */
@@ -62,9 +70,10 @@
 }
 /* ========================================================================
     Search - Design System
-    ======================================================================== */
+    ======================================================================== */ 
 .ontario-search-container{
   position:relative;
+  margin-bottom: 20px; /* makes the grey box wider below input text bar */
 }
 @media screen and (min-width: 73em){
   .ontario-search-container{
@@ -165,7 +174,7 @@ input[type=reset].ontario-search-reset:focus{
 /*Show for screen reader*/
 .ontario-show-for-sr {
   position: absolute !important;
-  width: 1px;
+  width: auto;
   height: 1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
@@ -181,6 +190,70 @@ input[type=reset].ontario-search-reset:focus{
   overflow:hidden;
   margin-bottom:2px
 }
+/* ========================================================================
+   Search bar UI -- based on Figma
+   ======================================================================== */
+  .module .theme_p {
+      font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 26px;
+      color: #1A1A1A;
+  }
+
+   /* parent div: */
+   .search-form {
+    display: flex;
+    flex-direction: column;
+  }
+  /* child div 1: shows search result count */
+  .search-form .search-count {
+    order: 2; /* Displays count text above Order By menu */
+    text-align-last: right;   /* always end text at same point, no matter how long it is */
+    font-size: 20px; /* According to DS, body text should be 16px */
+    padding-bottom: 26px;
+  }
+  /* child div 2: shows Order By dropdown menu.
+  Note: clearance for menu below the gray box controlled by
+  bottom margin in external/ontario_theme.css LINE 759
+  */
+  .search-form .control-order-by {
+    order: 3; /* Displays Order By menu below count text */
+    display: flex;
+    justify-content: end;
+    padding-top: 33px;
+
+    margin-bottom: 0px;
+    background-color: #fff;
+    padding-right: 20px;
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+  #group-datasets-search-form, #organization-datasets-search-form {
+    border-bottom: none;
+    padding-bottom: 0px;
+  }
+
+  .search-form .control-order-by label {
+    font-size: 19px;
+    padding-top: 5px; /* used to centre label beside menu box */
+  }
+
+  .search-form .control-order-by .form-control {
+    font-size: 16px;
+    height: 36px; /* increase height to accommodate larger font size */
+  }
+
+  /* child div 3: shows search keywords just below searchbar */
+  .filter-list {
+    padding-bottom: 5px; /* needed to avoid being squished in mobile mode*/
+  }
+  
+  .module-content {
+    padding: 0px; /* brings top of file list closer to Order By menu */
+  }
+
 /* ================================
   Custom overrides - text inputs
   ================================= */
@@ -313,6 +386,9 @@ input[type=reset].ontario-search-reset.home{
   display: flex;
   min-height: 198px;
 }
+.search-page-heading {
+  padding: 0 20px;
+}
 /* ========================================================================
    Links - Design System
    ======================================================================== */
@@ -333,4 +409,18 @@ a:focus {
   box-shadow: 0 0 0 4px #009ADB;
   outline: 4px solid transparent;
   transition: all 0.1s ease-in-out;
+}
+/* ========================================================================
+   Custom overrides - ministry page
+   ======================================================================== */
+.ministry-heading {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 45px;
+}
+.ministry-item.media-item:first-child{
+  border-top: 1px solid #dddddd;
+}
+.media-item:last-child{
+  border-bottom: none;
 }

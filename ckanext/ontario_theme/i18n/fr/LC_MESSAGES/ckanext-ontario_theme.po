@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
+# French punctuations
+msgid ":"
+msgstr "<span>&nbsp;:</span>"
 
 #: ckanext/ontario_theme/templates/internal/footer.html:9
 msgid "https://www.ontario.ca/page/accessibility"
@@ -81,6 +84,51 @@ msgstr ""
 #: ckanext/ontario_theme/templates/home/help.html:12
 msgid "Help"
 msgstr "Aider"
+
+#: ckanext/ontario_theme/templates/internal/organization/index.html
+msgid "Ministries"
+msgstr "Ministères"
+
+#: OVERRIDE: ckan/templates/snippets/search_result_text.html
+#: Datasets
+msgid "{number} dataset found for \"{query}\""
+msgid_plural "{number} datasets found for \"{query}\""
+msgstr[0] "{number} jeu  de données trouvé pour « {query} »"
+msgstr[1] "{number} jeux de données trouvés pour « {query} »"
+
+#: ckan/templates/snippets/search_result_text.html:16
+msgid "No datasets found for \"{query}\""
+msgstr "Aucun jeu de données trouvé pour « {query} »"
+
+#: Ministries
+msgid "{number} ministry found for \"{query}\""
+msgid_plural "{number} ministries found for \"{query}\""
+msgstr[0] "{number} ministère trouvé pour « {query} »"
+msgstr[1] "{number} ministères trouvés pour « {query} »"
+
+#: OVERRIDE: ckan/templates/snippets/search_result_text.html:28
+msgid "No ministries found for \"{query}\""
+msgstr "Aucun ministère trouvé pour « {query} »"
+
+#: OVERRIDE: ckan/templates/snippets/search_result_text.html:29
+msgid "{number} ministry found"
+msgid_plural "{number} ministries found"
+msgstr[0] "{number} ministère trouvé"
+msgstr[1] "{number} ministères trouvés"
+
+#: OVERRIDE: ckan/templates/snippets/search_result_text.html:30
+msgid "No ministries found"
+msgstr "Aucun ministère trouvé"
+
+#: Groups
+msgid "{number} group found for \"{query}\""
+msgid_plural "{number} groups found for \"{query}\""
+msgstr[0] "{number} groupe trouvé pour « {query} »"
+msgstr[1] "{number} groupes trouvés pour « {query} »"
+
+#: ckan/templates/snippets/search_result_text.html:22
+msgid "No groups found for \"{query}\""
+msgstr "Aucun groupe trouvé pour « {query} »"
 
 #: ckanext/ontario_theme/templates/header.html:76
 msgid "Data Catalogue"
@@ -2487,6 +2535,12 @@ msgstr "Activité récente"
 msgid "Search Ontario's Data"
 msgstr "Rechercher les données de l'Ontario"
 
+msgid "Search ministries"
+msgstr "Rechercher les ministères"
+
+msgid "Search groups"
+msgstr "Rechercher les groupes"
+
 #: ckanext/ontario_theme/templates/home/snippets/search.html:21
 msgid "Popular keywords"
 msgstr "Mots-clés populaires"
@@ -2585,13 +2639,6 @@ msgstr "Documents de formation"
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:50
 msgid "Learn to work with government data."
 msgstr "Apprenez à travailler avec les données du gouvernement."
-
-#: ckanext/ontario_theme/templates/organization/snippets/helper.html:13
-msgid ""
-" <p> Find a list of Ontario Ministries here. Click on a ministry to see "
-"its datasets. </p> "
-msgstr "Trouvez une liste des ministères de l'Ontario ici. Cliquez sur un ministère pour voir "
-"ses jeux de données."
 
 #: ckanext/ontario_theme/templates/internal/package/read.html:7
 msgid "Algorithm/AI Asset"
@@ -2786,6 +2833,10 @@ msgstr "Niveau d’accès"
 msgid "Update Frequency"
 msgstr "Fréquence de mise à jour"
 
+#: ckanext/ontario_theme/templates/snippets/search_form.html
+msgid "with the keyword(s)"
+msgstr "avec le(s) mot(s) clé(s)"
+
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:14
 msgid "Search"
 msgstr "Recherche"
@@ -2814,3 +2865,40 @@ msgstr "Au fur et à mesure que nous travaillons à son amélioration le catalog
 #: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_covid_datasets.html:18
 msgid "<a href=\"/dataset?groups=2019-novel-coronavirus\">Show more</a>"
 msgstr "<a href=\"/fr/dataset?groups=2019-novel-coronavirus\">Afficher plus d’options</a>"
+
+#: ckanext/ontario_theme/templates/internal/header.html:89
+msgid "Ministries"
+msgstr "Ministères"
+
+#: ckanext/ontario_theme/templates/organization/index.html:18
+msgid "Find data published by each of Ontario's Ministries."
+msgstr "Trouvez des données publiées par chacun des ministères de l'Ontario."
+
+#: ckanext/ontario_theme/templates/internal/organization/snippets/organization_item.html:13
+msgid "Datasets: {num}"
+msgstr "Jeux de données : {num}"
+
+#: ckanext/ontario_theme/templates/internal/organization/new.html:3
+msgid "Create a Ministry"
+msgstr "Créer un Ministère"
+
+#: ckanext/ontario_theme/templates/internal/scheming/organization/group_form.html:28
+msgid "Save Ministry"
+msgstr "Sauvegarder le Ministère"
+
+#: ckanext/ontario_theme/templates/internal/index.html:3
+msgid "Add Ministry"
+msgstr "Ajouter un ministère"
+
+#: ckanext/ontario_theme/templates/internal/scheming/organization/group_form.html:23
+msgid "Are you sure you want to delete this Ministry?"
+msgstr "Etes-vous sûr de vouloir supprimer ce ministère?"
+
+
+#: ckanext/ontario_theme/templates/internal/snippets/organization.html:18
+msgid "There is no description for this ministry."
+msgstr "Il n'y a pas de description pour ce ministère."
+
+#: ckanext/ontario_theme/templates/internal/organization/index.html:34
+msgid "There are currently no ministries for this site."
+msgstr "Il n'y a actuellement aucun ministère pour ce site."

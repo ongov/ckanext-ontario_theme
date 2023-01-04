@@ -756,12 +756,14 @@ body,
 #dataset-search-form,
 #organization-search-form,
 #group-search-form {
-  margin: 0px 0px 20px 0px;
+  margin: 0px 0px 45px 0px;
   background: #fafafa;
   padding: 20px;
   border-radius: 5px;
   border: none;
   box-shadow: none;
+
+  padding-bottom: 0px;
 }
 div.add-dataset {
   width: 100%;
@@ -775,8 +777,9 @@ div.add-dataset {
   position: relative;
   border-bottom: 1px solid #dddddd;
 }
-.media-item:last-child {
-  border-bottom: none;
+.ministry-item {
+  margin-left: 5px;
+  padding-left: unset;
 }
 .media-image {
   float: left;
