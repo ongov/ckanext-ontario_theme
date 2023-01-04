@@ -17,7 +17,9 @@ in the core template for search.html.
       {{ super() }}
     {% endblock %}
 
-    <h1 class="ontario-h1">{% block page_heading %}{{ _(dataset_type + 's') |capitalize }}{% endblock %}</h1>
+    <div class="search-page-heading">
+      <h1 class="ontario-h1">{% block page_heading %}{{ _(dataset_type + 's') |capitalize }}{% endblock %}</h1>
+    </div>
 
     {% block form %}
       {% set facets = {
