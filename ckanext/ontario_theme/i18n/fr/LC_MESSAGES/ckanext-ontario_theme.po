@@ -2535,11 +2535,14 @@ msgstr "Activité récente"
 msgid "Search Ontario's Data"
 msgstr "Rechercher les données de l'Ontario"
 
+msgid "Search datasets"
+msgstr "Rechercher des jeux de données"
+
 msgid "Search ministries"
 msgstr "Rechercher les ministères"
 
 msgid "Search groups"
-msgstr "Rechercher les groupes"
+msgstr "Rechercher des groupes"
 
 #: ckanext/ontario_theme/templates/home/snippets/search.html:21
 msgid "Popular keywords"
