@@ -2643,6 +2643,15 @@ msgstr "Documents de formation"
 msgid "Learn to work with government data."
 msgstr "Apprenez à travailler avec les données du gouvernement."
 
+#: ckanext/ontario_theme/templates/internal/package/read.html:11
+#: ckanext/ontario_theme/templates/internal/snippets/organization.html:32
+msgid "Keep updated"
+msgstr "Restez informé"
+
+#: ckanext/ontario_theme/templates/internal/package/read.html:14
+msgid "Subscribe to updates to this dataset using RSS."
+msgstr "Inscrivez-vous aux mises à jour pour cet ensemble de données à l’aide du fil RSS."
+
 #: ckanext/ontario_theme/templates/internal/package/read.html:7
 msgid "Algorithm/AI Asset"
 msgstr "Algorithme/actif d’IA"
@@ -2908,3 +2917,7 @@ msgstr "Il n'y a pas de description pour ce ministère."
 #: ckanext/ontario_theme/templates/internal/organization/index.html:34
 msgid "There are currently no ministries for this site."
 msgstr "Il n'y a actuellement aucun ministère pour ce site."
+
+#: ckanext/ontario_theme/templates/internal/snippets/organization.html:34
+msgid "Subscribe to updates to this ministry using RSS."
+msgstr "Inscrivez-vous aux mises à jour pour cet ministère à l’aide du fil RSS."
