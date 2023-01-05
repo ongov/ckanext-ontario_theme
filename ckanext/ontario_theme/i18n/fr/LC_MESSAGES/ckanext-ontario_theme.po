@@ -2699,6 +2699,9 @@ msgstr ""
 "encore plus]</a><br /> <a href=\"%(license_url)s\">[Voir la licence pour savoir comment vous "
 "êtes autorisé à utiliser ces données.]</a> "
 
+msgid "https://www.ontario.ca/page/open-government-licence-ontario"
+msgstr "https://www.ontario.ca/fr/page/licence-du-gouvernement-ouvert-ontario"
+
 #: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:17
 #: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:31
 #: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:39
