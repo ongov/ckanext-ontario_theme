@@ -1670,7 +1670,7 @@ msgid "My Groups"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_covid_datasets.html:18
-msgid "<a href=\"/dataset?groups=2019-novel-coronavirus\">Show more</a>"
+msgid "<a href=\"/group/2019-novel-coronavirus\">Show more</a>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/organization/new.html:3
