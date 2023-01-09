@@ -2920,4 +2920,4 @@ msgstr "Il n'y a actuellement aucun ministère pour ce site."
 
 #: ckanext/ontario_theme/templates/internal/snippets/organization.html:34
 msgid "Subscribe to updates to this ministry using RSS."
-msgstr "Inscrivez-vous aux mises à jour pour cet ministère à l’aide du fil RSS."
+msgstr "Inscrivez-vous aux mises à jour pour ce ministère à l’aide du fil RSS."
