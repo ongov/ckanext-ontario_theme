@@ -12,8 +12,23 @@
     {% endif %}
     </div>
   </div>
+
+  <div class="search-page-heading">
+    <h1 class="ontario-h1">{% block page_heading %}{{ _('Groups') }}{% endblock %}</h1>
+  </div>
+
   {% block groups_search_form %}
-    {% snippet 'snippets/search_form.html', form_id='group-search-form', type='group', query=c.q, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=_('Search groups...'), show_empty=request.params, no_bottom_border=true if c.page.items, sorting = [(_('Name Ascending'), 'title asc'), (_('Name Descending'), 'title desc')] %}
+    <!-- arguments for DS search bar -->
+    {% set sr_input_text = _("Search") %}
+    {% set sr_submit_text = _("Search") %}
+    {% set placeholder = _('Search groups') %}
+    {% set query = c.q %}
+    <!-- arguments for search form -->
+    {% set form_id = 'group-search-form' %}
+    {% set type = 'group' %}
+    {% set searchbar_title = _('Search groups') + _(':') %}
+    {% set hidden_searchbar_title = _('Search groups') %}
+    {% snippet 'snippets/search_form.html', searchbar_title=searchbar_title, hidden_searchbar_title=hidden_searchbar_title, form_id=form_id, type=type, query=query, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=placeholder, sr_input_text=sr_input_text, sr_submit_text=sr_submit_text, show_empty=request.params, no_bottom_border=true if c.page.items, sorting = [(_('Name Ascending'), 'name asc'), (_('Name Descending'), 'name desc')] %}
   {% endblock %}
 {% endblock %}
 

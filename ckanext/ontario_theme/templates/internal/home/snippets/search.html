@@ -1,19 +1,23 @@
 {#
 
-Renders a custom search component for the home page.
+Renders a custom search component for the home page based on 
+the Design System.
+Uncomment type="reset" after header is implemented
 
 #}
-{% set keywords = h.ontario_theme_get_package_keywords(h.lang()) %}
-{% set placeholder = _("Search Ontario's Data") %}
 
 <div class="module search">
   <form class="module-content search-form" method="get" action="{% url_for 'dataset.search' %}">
-    <div class="search-input form-group search-giant">
-      <input aria-label="{% block header_site_search_label %}{{ _('Search datasets') }}{% endblock %}" id="field-main-search" type="text" class="form-control" name="q" value="" autocomplete="off" placeholder="{% block search_placeholder %}{{ placeholder }}{% endblock %}" />
-      <button type="submit" aria-label="{{ _('Search') }}">
-        <i class="fa fa-search" aria-hidden="true"></i>
-        <span class="sr-only">{{ _('Search') }}</span>
-      </button>
-    </div>
+    <div class="ontario-search-container">
+      <label class="ontario-label ontario-show-for-sr" for="ontario-search-input-field">{{ sr_input_text }}</label>
+      <input class="ontario-search-input ontario-input" type="text" id="ontario-search-input-field" name="q" placeholder="{% block search_placeholder %}{{ placeholder }}{% endblock %}" value="" autocomplete="off">
+      {# <input class="ontario-search-reset home" id="ontario-search-reset" type="reset" value="" aria-label="Clear field" /> #}
+      <button class="ontario-search-submit" id="ontario-search-submit" type="submit">
+        <span class="ontario-show-for-sr">{{ sr_submit_text }}</span>
+        <svg class="ontario-icon search" focusable="false" sol:category="primary" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+            <use xlink:href="#ontario-icon-search"></use>
+        </svg>
+    </button>
+  </div>
   </form>
 </div>

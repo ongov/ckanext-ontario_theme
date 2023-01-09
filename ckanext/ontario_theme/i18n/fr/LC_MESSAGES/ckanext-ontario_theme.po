@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
+# French punctuations
+msgid ":"
+msgstr "<span>&nbsp;:</span>"
 
 #: ckanext/ontario_theme/templates/internal/footer.html:9
 msgid "https://www.ontario.ca/page/accessibility"
@@ -81,6 +84,51 @@ msgstr ""
 #: ckanext/ontario_theme/templates/home/help.html:12
 msgid "Help"
 msgstr "Aider"
+
+#: ckanext/ontario_theme/templates/internal/organization/index.html
+msgid "Ministries"
+msgstr "Ministères"
+
+#: OVERRIDE: ckan/templates/snippets/search_result_text.html
+#: Datasets
+msgid "{number} dataset found for \"{query}\""
+msgid_plural "{number} datasets found for \"{query}\""
+msgstr[0] "{number} jeu  de données trouvé pour « {query} »"
+msgstr[1] "{number} jeux de données trouvés pour « {query} »"
+
+#: ckan/templates/snippets/search_result_text.html:16
+msgid "No datasets found for \"{query}\""
+msgstr "Aucun jeu de données trouvé pour « {query} »"
+
+#: Ministries
+msgid "{number} ministry found for \"{query}\""
+msgid_plural "{number} ministries found for \"{query}\""
+msgstr[0] "{number} ministère trouvé pour « {query} »"
+msgstr[1] "{number} ministères trouvés pour « {query} »"
+
+#: OVERRIDE: ckan/templates/snippets/search_result_text.html:28
+msgid "No ministries found for \"{query}\""
+msgstr "Aucun ministère trouvé pour « {query} »"
+
+#: OVERRIDE: ckan/templates/snippets/search_result_text.html:29
+msgid "{number} ministry found"
+msgid_plural "{number} ministries found"
+msgstr[0] "{number} ministère trouvé"
+msgstr[1] "{number} ministères trouvés"
+
+#: OVERRIDE: ckan/templates/snippets/search_result_text.html:30
+msgid "No ministries found"
+msgstr "Aucun ministère trouvé"
+
+#: Groups
+msgid "{number} group found for \"{query}\""
+msgid_plural "{number} groups found for \"{query}\""
+msgstr[0] "{number} groupe trouvé pour « {query} »"
+msgstr[1] "{number} groupes trouvés pour « {query} »"
+
+#: ckan/templates/snippets/search_result_text.html:22
+msgid "No groups found for \"{query}\""
+msgstr "Aucun groupe trouvé pour « {query} »"
 
 #: ckanext/ontario_theme/templates/header.html:76
 msgid "Data Catalogue"
@@ -2452,8 +2500,8 @@ msgid ""
 msgstr "Le gouvernement de l'Ontario prend des mesures afin de concevoir des logiciels ouverts, et le fait de partager sur GitHub le travail réalisé sur notre catalogue constitue l’une de ces mesures."
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:34
-msgid "Browse by category"
-msgstr "Naviguer par catégorie"
+msgid "Topics"
+msgstr "Sujets"
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:44
 msgid "What's new"
@@ -2464,20 +2512,8 @@ msgid "Most popular datasets"
 msgstr "Ensembles de données les plus populaires"
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:56
-msgid "Recently updated datasets"
-msgstr "Ensembles de données récemment mis à jour"
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_datasets_stats.html:11
-msgid "Explore Ontario's"
-msgstr "Explorez les"
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_datasets_stats.html:13
-msgid "data assets"
-msgstr "ensembles de données"
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_datasets_stats.html:14
-msgid "View All"
-msgstr "Voir tous les ensembles"
+msgid "COVID datasets"
+msgstr "Jeux de données sur la COVID"
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:9
 msgid "Welcome to the Ontario Data catalogue!"
@@ -2499,6 +2535,15 @@ msgstr "Activité récente"
 msgid "Search Ontario's Data"
 msgstr "Rechercher les données de l'Ontario"
 
+msgid "Search datasets"
+msgstr "Rechercher des jeux de données"
+
+msgid "Search ministries"
+msgstr "Rechercher les ministères"
+
+msgid "Search groups"
+msgstr "Rechercher des groupes"
+
 #: ckanext/ontario_theme/templates/home/snippets/search.html:21
 msgid "Popular keywords"
 msgstr "Mots-clés populaires"
@@ -2511,25 +2556,30 @@ msgstr ""
 msgid "Optional"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:14
+msgid ""
+"Help us improve the Data Catalogue"
+msgstr "Aidez-nous à améliorer le Catalogue de données."
+
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:15
-msgid ""
-"Have feedback or questions? Have a data or catalogue request? We want to hear"
-" from you! We use your feedback to drive our work."
-msgstr "Vous avez des commentaires ou des questions? Vous avez une demande concernant des données ou le catalogue? Nous voulons recevoir vos commentaires! Nous nous servons de la rétroaction pour orienter notre travail."
+msgid "Take a <a href=\"https://www.ontario.ca/form/survey-open-data-catalogue?page=/\">2-minute survey</a> and tell us what you think about this page."
+msgstr "Répondez à un <a href=\"https://www.ontario.ca/fr/forme/enquete-catalogue-de-donnees-de-lontario\">sondage de deux minutes</a> et faites-nous part de vos impressions sur cette page."
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:7
-msgid "Welcome!"
-msgstr "Bienvenue!"
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:9
+msgid "Ontario Data Catalogue"
+msgstr "Catalogue de données ouvertes de l’Ontario"
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:10
-msgid ""
-"Here you will find thousands of datasets that are maintained by the Ontario "
-"Government."
-msgstr "Vous trouverez ici des milliers d’ensembles de données maintenus par le gouvernement de l’Ontario."
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:12
+msgid "Find public data and explore "
+msgstr "Trouvez des données publiques et explorez"
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:11
-msgid "<a href=\"/about\">Learn more</a> about what is covered and how to use data."
-msgstr "<a href=\"/fr/about\">Renseignez-vous</a> sur les sujets traités et la façon d’utiliser les données."
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:12
+msgid " datasets published by the Government of Ontario."
+msgstr " jeux de données publiés par le gouvernement de l’Ontario."
+
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:20
+msgid "Learn more about <a href=\"/about#training-materials\">what is covered and how to use data.</a>"
+msgstr "Apprenez-en davantage sur <a href=\"/fr/about#training-materials\">ce qui est couvert et sur la façon d’utiliser les données.</a>"
 
 #: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_cateogories.html
 msgid "Justice and Public Safety"
@@ -2593,12 +2643,14 @@ msgstr "Documents de formation"
 msgid "Learn to work with government data."
 msgstr "Apprenez à travailler avec les données du gouvernement."
 
-#: ckanext/ontario_theme/templates/organization/snippets/helper.html:13
-msgid ""
-" <p> Find a list of Ontario Ministries here. Click on a ministry to see "
-"its datasets. </p> "
-msgstr "Trouvez une liste des ministères de l'Ontario ici. Cliquez sur un ministère pour voir "
-"ses jeux de données."
+#: ckanext/ontario_theme/templates/internal/package/read.html:11
+#: ckanext/ontario_theme/templates/internal/snippets/organization.html:32
+msgid "Keep updated"
+msgstr "Restez informé"
+
+#: ckanext/ontario_theme/templates/internal/package/read.html:14
+msgid "Subscribe to updates to this dataset using RSS."
+msgstr "Inscrivez-vous aux mises à jour pour cet ensemble de données à l’aide du fil RSS."
 
 #: ckanext/ontario_theme/templates/internal/package/read.html:7
 msgid "Algorithm/AI Asset"
@@ -2646,15 +2698,18 @@ msgstr "Données disponibles"
 #: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:11
 #, python-format
 msgid ""
-" The data described here is available for you to use. <a "
+"The data described here is available for you to use. <a "
 "href=\"https://www.ontario.ca/page/ontarios-open-data-directive\">[Learn "
 "more]</a><br /> <a href=\"%(license_url)s\">[See the licence for how you're "
-"allowed to use this data.]</a> "
+"allowed to use this data.]</a>"
 msgstr ""
 " Les données décrites ici sont disponibles pour votre utilisation. <a "
-"href=\"https://www.ontario.ca/page/ontarios-open-data-directive\">[Apprendre "
+"href=\"https://www.ontario.ca/fr/page/directive-sur-les-donnees-ouvertes-de-lontario\">[Apprendre "
 "encore plus]</a><br /> <a href=\"%(license_url)s\">[Voir la licence pour savoir comment vous "
 "êtes autorisé à utiliser ces données.]</a> "
+
+msgid "https://www.ontario.ca/page/open-government-licence-ontario"
+msgstr "https://www.ontario.ca/fr/page/licence-du-gouvernement-ouvert-ontario"
 
 #: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:17
 #: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:31
@@ -2664,16 +2719,16 @@ msgstr "Données non disponibles"
 
 #: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:19
 msgid ""
-" This data is not and will not be made available. Data in this record cannot "
+"This data is not and will not be made available. Data in this record cannot "
 "be released because of legal, privacy, security, confidentiality or "
 "commercially-sensitive reasons, as outlined by the <a "
 "href=\"https://www.ontario.ca/page/ontarios-open-data-directive\">Open Data "
-"Directive</a>. "
+"Directive</a>."
 msgstr ""
 " Ces données ne sont pas et ne seront pas mises à disposition. Les données contenues dans ce dossier ne peuvent "
 "être divulguées pour des motifs d’application de la loi, de protection des renseignements personnels, "
 "de sécurité ou de secret commercial, comme il est énoncé dans la <a "
-"href=\"https://www.ontario.ca/page/ontarios-open-data-directive\">Directive sur "
+"href=\"https://www.ontario.ca/fr/page/directive-sur-les-donnees-ouvertes-de-lontario\">Directive sur "
 "les données ouvertes de l'Ontario</a>. "
 
 #: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:27
@@ -2682,10 +2737,10 @@ msgstr "Pourqoui"
 
 #: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:33
 msgid ""
-" This data might be made available in the future. We are reviewing the data "
+"This data might be made available in the future. We are reviewing the data "
 "in this record to determine if it can be made open. <a "
 "href=\"http://www.ontario.ca/page/ontarios-open-data-directive\">[Learn "
-"more]</a> "
+"more]</a>"
 msgstr ""
 " Ces données pourraient être mises à disposition à l'avenir. Nous sommes en train d’examiner "
 "les données de cette série pour déterminer si elles peuvent être ouvertes. <a "
@@ -2793,6 +2848,10 @@ msgstr "Niveau d’accès"
 msgid "Update Frequency"
 msgstr "Fréquence de mise à jour"
 
+#: ckanext/ontario_theme/templates/snippets/search_form.html
+msgid "with the keyword(s)"
+msgstr "avec le(s) mot(s) clé(s)"
+
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:14
 msgid "Search"
 msgstr "Recherche"
@@ -2818,5 +2877,47 @@ msgstr "Fournir rétroaction"
 msgid "As we work to develop the catalogue, <a href=\"https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269\">tell us what you think</a>."
 msgstr "Au fur et à mesure que nous travaillons à son amélioration le catalogue, nous aimerions savoir ce que <a href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=532365&nid=138269\">vous en pensez</a>."
 
+#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_covid_datasets.html:18
+msgid "<a href=\"/group/2019-novel-coronavirus\">Show more</a>"
+msgstr "<a href=\"/fr/group/2019-novel-coronavirus\">Afficher plus d’options</a>"
+
+#: ckanext/ontario_theme/templates/internal/header.html:89
+msgid "Ministries"
+msgstr "Ministères"
+
+#: ckanext/ontario_theme/templates/organization/index.html:18
+msgid "Find data published by each of Ontario's Ministries."
+msgstr "Trouvez des données publiées par chacun des ministères de l'Ontario."
+
+#: ckanext/ontario_theme/templates/internal/organization/snippets/organization_item.html:13
+msgid "Datasets: {num}"
+msgstr "Jeux de données : {num}"
+
+#: ckanext/ontario_theme/templates/internal/organization/new.html:3
+msgid "Create a Ministry"
+msgstr "Créer un Ministère"
+
+#: ckanext/ontario_theme/templates/internal/scheming/organization/group_form.html:28
+msgid "Save Ministry"
+msgstr "Sauvegarder le Ministère"
+
+#: ckanext/ontario_theme/templates/internal/index.html:3
+msgid "Add Ministry"
+msgstr "Ajouter un ministère"
+
+#: ckanext/ontario_theme/templates/internal/scheming/organization/group_form.html:23
+msgid "Are you sure you want to delete this Ministry?"
+msgstr "Etes-vous sûr de vouloir supprimer ce ministère?"
 
 
+#: ckanext/ontario_theme/templates/internal/snippets/organization.html:18
+msgid "There is no description for this ministry."
+msgstr "Il n'y a pas de description pour ce ministère."
+
+#: ckanext/ontario_theme/templates/internal/organization/index.html:34
+msgid "There are currently no ministries for this site."
+msgstr "Il n'y a actuellement aucun ministère pour ce site."
+
+#: ckanext/ontario_theme/templates/internal/snippets/organization.html:34
+msgid "Subscribe to updates to this ministry using RSS."
+msgstr "Inscrivez-vous aux mises à jour pour ce ministère à l’aide du fil RSS."

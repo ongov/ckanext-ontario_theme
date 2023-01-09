@@ -17,6 +17,10 @@ in the core template for search.html.
       {{ super() }}
     {% endblock %}
 
+    <div class="search-page-heading">
+      <h1 class="ontario-h1">{% block page_heading %}{{ _(dataset_type + 's') |capitalize }}{% endblock %}</h1>
+    </div>
+
     {% block form %}
       {% set facets = {
         'fields': c.fields_grouped,
@@ -27,15 +31,24 @@ in the core template for search.html.
       %}
       {% set sorting = [
         (_('Relevance'), 'score desc, metadata_modified desc'),
-        (_('Name Ascending'), 'title_string asc'),
-        (_('Name Descending'), 'title_string desc'),
+        (_('Name Ascending'), 'name asc'),
+        (_('Name Descending'), 'name desc'),
         (_('Last Modified'), 'metadata_modified desc'),
         (_('Recently Created'), 'dataset_published_date desc'),
         (_('Datasets With Data'), 'num_resources desc, metadata_modified desc'),
         (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
       %}
-      {% snippet 'snippets/search_form.html', form_id='dataset-search-form', type=dataset_type, query=c.q, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=_('Search ' + dataset_type + 's') + '...', facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields %}
-
+      <!-- arguments for DS search bar -->
+      {% set sr_input_text = _('Search ' + dataset_type + 's') %}
+      {% set sr_submit_text = _("Search") %}
+      {% set placeholder = _('Search ' + dataset_type + 's') %}
+      {% set query = c.q %}
+      <!-- arguments for search form -->
+      {% set form_id = 'dataset-search-form' %}
+      {% set type = dataset_type %}
+      {% set searchbar_title = _('Search ' + dataset_type + 's') + _(':') %}
+      {% set hidden_searchbar_title = _('Search ' + dataset_type + 's') %}
+      {% snippet 'snippets/search_form.html', searchbar_title=searchbar_title, hidden_searchbar_title=hidden_searchbar_title, form_id=form_id, type=type, query=query, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=placeholder, sr_input_text=sr_input_text, sr_submit_text=sr_submit_text, facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields %}
     {% endblock %}
   </div>
 {% endblock %}

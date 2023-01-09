@@ -7,12 +7,12 @@
     <div class="new-alert alert-{{pkg['access_level']}} alert-large alert-clear">
     {% if pkg['access_level'] == 'open' %}
       <strong>{{ _("Data Available") }}</strong>
-        <p>
-          {% trans license_url=pkg.license_url %}
-            The data described here is available for you to use. <a href="https://www.ontario.ca/page/ontarios-open-data-directive">[Learn more]</a><br />
-          <a href="{{ license_url }}">[See the licence for how you're allowed to use this data.]</a>
-          {% endtrans %}
-        </p>
+      <p>
+        {% trans license_url=_(pkg.license_url) %}
+        The data described here is available for you to use. <a href="https://www.ontario.ca/page/ontarios-open-data-directive">[Learn more]</a><br />
+        <a href="{{ license_url }}">[See the licence for how you're allowed to use this data.]</a>
+        {% endtrans %}
+      </p>
     {% elif pkg['access_level'] == 'restricted' %} 
       <strong>{{ _("Data Not Available") }}</strong>    
       <p>

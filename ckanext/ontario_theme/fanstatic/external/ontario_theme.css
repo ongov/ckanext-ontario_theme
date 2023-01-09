@@ -634,34 +634,41 @@ div#topics {
 }
 div#topics a {
   color: #1A1A1A;
+  text-decoration: none;
 }
-div#topics div {
+.hp_category {
   text-align: center;
-  font-weight: normal;
-  font-size: 1.7rem;
+  display: grid;
 }
-div#topics div i {
-  font-size: 64px;
-  color: #1080A6;
+div#topics div p {
+  position: relative;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 25px;
 }
-div#topics div i:hover {
+.hp_category:hover p {
+  text-decoration: underline;
+}
+div#topics div a:hover i {
   color: #00B2E3;
 }
+@media (min-width: 1200px) {
+  div#topics div p {
+    left: 26px;
+    max-width: 182px;
+  }
+}
+div#topics div i {
+  font-size: 48px;
+  color: #1080A6;
+}
+
 div#topics div.row {
   margin-bottom: 20px;
 }
 /* =====================================================
    Typography
    ===================================================== */
-body {
-  font-size: 16px;
-}
-h1 {
-  font-size: 35px;
-}
-h2 {
-  font-size: 25px;
-}
 #about h2 {
   margin-top: 30px;
 }
@@ -690,51 +697,6 @@ h2 {
   font-size: 1.5rem;
   margin-bottom: 0px;
 }
-h3 {
-  font-size: 20px;
-}
-h3.dataset-heading {
-  margin-bottom: 0px;
-}
-#landing-page-body h2 {
-  font-size: 40px;
-  text-align: left;
-}
-h4 {
-  font-size: 17px;
-}
-#landing-page-body h3 {
-  font-size: 20px;
-  text-align: left;
-}
-h1,
-h2,
-h3,
-h4 {
-  font-weight: 600;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: Raleway, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
-}
-a,
-.dataset-heading a {
-  color: #06c;
-}
-a:hover,
-a:focus {
-  color: #004e99;
-}
-a:visited {
-  color: #8138b3;
-}
-.intro-text {
-  font-size: 24px;
-}
 figure {
   background-color: #eee;
   width: 80%;
@@ -749,12 +711,6 @@ figure figcaption {
   margin-top: 10px;
   font-style: italic;
   font-size: 1em;
-}
-p {
-  font-family: inherit;
-  font-weight: 400;
-  margin-bottom: 1.25rem;
-  text-rendering: optimizeLegibility;
 }
 /* =====================================================
    Helpers
@@ -788,7 +744,6 @@ body,
 .ie7 .main {
   background-image: none;
   background-color: #fff;
-  font-family: 'Open Sans';
 }
 @media (min-width: 768px) {
   [role=main],
@@ -801,12 +756,14 @@ body,
 #dataset-search-form,
 #organization-search-form,
 #group-search-form {
-  margin: 0px 0px 20px 0px;
+  margin: 0px 0px 45px 0px;
   background: #fafafa;
   padding: 20px;
   border-radius: 5px;
   border: none;
   box-shadow: none;
+
+  padding-bottom: 0px;
 }
 div.add-dataset {
   width: 100%;
@@ -820,8 +777,9 @@ div.add-dataset {
   position: relative;
   border-bottom: 1px solid #dddddd;
 }
-.media-item:last-child {
-  border-bottom: none;
+.ministry-item {
+  margin-left: 5px;
+  padding-left: unset;
 }
 .media-image {
   float: left;
@@ -855,22 +813,13 @@ li.resource-item div.btn-wrapper {
 .hero {
   min-height: 400px;
   line-height: 400px;
-  background-color: #1080A6;
-  background-image: url(/images/co-homepage-supergraphic.svg);
-  background-position-x: 49vw;
-  background-position-y: top;
-  background-size: 58rem;
-  background-repeat: no-repeat;
+  background-image: unset;
 }
 .hero .hero-container {
-  display: inline-block;
   vertical-align: middle;
   text-align: center;
-  color: white;
-}
-.hero .hero-container a,
-.hero .hero-container a:focus {
-  color: white;
+  color: #1A1A1A;
+  width: 100%;
 }
 .hero .hero-container a,
 .hero .hero-container a:focus,
@@ -881,46 +830,10 @@ li.resource-item div.btn-wrapper {
   text-align: left;
   line-height: 1rem;
 }
-.hero .hero-container .welcome span.greeting {
-  background: #1080A6;
-  font-size: 4.5rem;
-  letter-spacing: 0.04rem;
-  line-height: 1.29;
-  font-weight: bold;
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-.hero .hero-container .welcome p {
-  background: #1080A6;
-  font-size: 2.375rem;
-  line-height: 1.4;
-}
-.hero .hero-container .stats {
-  text-align: center;
-  font-size: 7rem;
-  font-weight: bold;
-  vertical-align: bottom;
-  line-height: 0;
-}
-.hero .hero-container .stats a {
-  text-decoration: none;
-}
-.hero .hero-container .stats a,
-.hero .hero-container .stats a:visited {
-  color: white;
-}
-.hero .hero-container .stats span.above-stat {
-  font-size: 1.6rem;
-  line-height: 8rem;
-}
-.hero .hero-container .stats span.stat {
-  line-height: 1rem;
-}
-.hero .hero-container .stats span.below-stat {
-  font-size: 2rem;
-  line-height: 2rem;
-  display: inline-block;
-  margin-top: 3rem;
+.learn-more {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 26px;
 }
 .fill-sky {
   fill: #00B2E3;
@@ -1018,22 +931,29 @@ li.resource-item div.btn-wrapper {
   font-size: 2.2rem;
 }
 #news {
-  color: white;
+  color: #000000;
   padding-top: 15px;
   padding-bottom: 15px;
 }
 #news img {
   width: 100%;
 }
-#news a {
-  color: white;
+#news ul a {
+  color: #000000;
   text-decoration: none;
 }
-#news a h3 {
+#news ul a:hover {
   text-decoration: underline;
 }
-#news .dataset-list .row a {
-  font-size: 1.7rem;
+#news h3 {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 33px;
+}
+#news .dataset-list .row li {
+  font-weight: 400;
+  line-height: 27px;
+  font-size: 20px;
 }
 .metadata-list-item {
   font-size: 1rem;
@@ -1062,27 +982,34 @@ section.additional-info table.table tbody tr td.dataset-details {
 .media-grid {
   border: none;
 }
+.banner-datasets {
+  padding-left: 25px;
+}
 .banner-section {
-  background: #1080A6;
+  background: #F2F2F2;
   width: 100%;
 }
 .banner-section a {
-  color: white;
   text-decoration: underline;
+}
+.show-more {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 26px;
 }
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: black;
+  color: #999999;
   opacity: 1;
   /* Firefox */
 }
 :-ms-input-placeholder {
   /* Internet Explorer 10-11 */
-  color: black;
+  color: #999999;
 }
 ::-ms-input-placeholder {
   /* Microsoft Edge */
-  color: black;
+  color: #999999;
 }
 .page_primary_action .add-dataset,
 .page_primary_action .add-organization,
@@ -1270,4 +1197,10 @@ footer.site-footer div.footer-swoosh--right {
 }
 footer.site-footer .ckan-footer-logo {
   background: url(/base/images/ckan-logo-footer_dark.png) no-repeat top left;
+}
+#resources_and_information {
+  margin-top: 51px;
+}
+#resources_and_information h2{
+  margin-bottom: 34px;
 }
