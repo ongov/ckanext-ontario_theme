@@ -424,3 +424,9 @@ a:focus {
 .media-item:last-child{
   border-bottom: none;
 }
+/* ========================================================================
+   Custom overrides - individual pages
+   ======================================================================== */
+.embedded-content h2 {
+  font-size: 33px;
+}
