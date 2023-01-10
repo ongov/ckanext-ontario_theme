@@ -281,6 +281,28 @@ input[type=reset].ontario-search-reset.home{
   overflow:hidden;
   margin-bottom:2px
 }
+.ontario-search-input.ontario-input.header-search{
+  height: 48px;
+  font-size:18px;
+  border: unset;
+}
+.header-search::placeholder{
+  font: 'Open Sans';
+  font-weight: 400;
+  size: 16px;
+  line-height: 25.6px;
+}
+.ontario-search-container.header-search{
+  max-width: 301px;
+  margin-bottom: unset;
+}
+.ontario-icon.search.header-search{
+  width:32px;
+  height:32px;
+}
+.ontario-search-submit.header-search{
+  border: unset;
+}
 
 /* ========================================================================
    Page Alerts - Design System
@@ -423,4 +445,326 @@ a:focus {
 }
 .media-item:last-child{
   border-bottom: none;
+}
+
+/* ========================================================================
+   Header - Design System
+   ======================================================================== */
+.ontario-header {
+    position: relative;
+    overflow: hidden;
+    z-index: 5;
+    background-color: #1a1a1a;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    height: 5.75rem;
+}
+.ontario-application-subheader__heading {
+  font-style: normal;
+  font-weight: 700;
+  text-rendering: optimizeLegibility;
+  margin-bottom: 1rem;
+  font-feature-settings: normal;
+  font-family: "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.03rem;
+  line-height: 1.5;
+  margin: 0 0 0.75rem 0;
+}
+
+@media screen and (min-width: 40em) {
+  .ontario-application-subheader__heading {
+    font-size: 1.5rem;
+    letter-spacing: 0.0313rem;
+    line-height: 1.5;
+  }
+}
+
+.ontario-header.ontario-application-header {
+  height: 3.125rem;
+  z-index: 5;
+}
+
+.ontario-application-header__logo,
+.ontario-application-header__logo a,
+.ontario-application-header__lang-toggle,
+.ontario-application-subheader__container,
+.ontario-application-subheader__menu-container,
+.ontario-application-subheader__menu {
+  display: flex;
+}
+
+.ontario-application-header__logo img {
+  width: 100px;
+  height: 25px;
+}
+
+.ontario-application-header__lang-toggle {
+  justify-content: flex-end;
+}
+.ontario-application-header__lang-toggle a {
+  font-size: 1rem;
+  line-height: 1.375rem;
+  height: auto;
+  padding: 0.5rem 0.75rem;
+}
+
+.ontario-application-subheader {
+  padding: calc(0.5rem + 0.75rem) 0;
+  background-color: #404040;
+  overflow: hidden;
+  position: relative;
+  z-index: 5;
+}
+.ontario-application-subheader > .ontario-row {
+  position: relative;
+}
+
+.ontario-application-subheader .ontario-header-button {
+  visibility: visible;
+}
+
+.ontario-application-subheader .ontario-header-button {
+  background-color: #4d4d4d;
+}
+.ontario-header-button .ontario-icon {
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 0;
+}
+.ontario-application-subheader .ontario-header-button:hover {
+  background-color: #666666;
+}
+.ontario-application-subheader .ontario-header-button:active {
+  background-color: #1a1a1a;
+}
+
+.ontario-application-subheader__heading {
+  padding: 0.375rem 0;
+  margin-bottom: 0;
+  max-width: 65%;
+}
+.ontario-application-subheader__heading a {
+  color: #FFFFFF;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ontario-application-subheader__heading a:hover, .ontario-application-subheader__heading a:active, .ontario-application-subheader__heading a:visited {
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+
+.ontario-application-subheader__container {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ontario-application-subheader__menu {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+  align-items: center;
+}
+
+.ontario-application-subheader__menu li {
+  padding: 0;
+  margin-left: 1rem;
+}
+
+.ontario-application-subheader__menu a {
+  border-radius: 4px;
+  color: #FFFFFF;
+  display: block;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  height: 48px;
+  line-height: 1.4375rem;
+  padding: 0.75rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.ontario-application-subheader__menu a.ontario-link--active {
+  border-radius: 4px 4px 0 0;
+  border-bottom: 4px solid #FFFFFF;
+}
+.ontario-application-subheader__menu a:hover {
+  background-color: #666666;
+}
+.ontario-application-subheader__menu a:active {
+  background-color: #1a1a1a;
+}
+
+.ontario-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+.ontario-navigation__container {
+  background: #fff;
+  position: absolute;
+  transform: translateY(-100%);
+  transition: transform .3s ease-in-out,visibility .1s ease;
+  width: 100%;
+  visibility: hidden;
+  z-index: 4;
+}
+.ontario-navigation.ontario-navigation--open .ontario-navigation__container {
+  visibility: visible;
+  transform: translateY(0);
+  transition: transform .4s ease-in-out;
+}
+
+.ontario-navigation--open .ontario-navigation .ontario-header-button {
+  visibility: visible;
+}
+.ontario-navigation--open .ontario-application-subheader .ontario-header-button {
+  visibility: hidden;
+}
+.ontario-navigation a {
+  color: #1a1a1a;
+  display: block;
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: calc(0.75rem - (0.25rem / 3.25)) 1.5rem;
+}
+@media screen and (max-width: 73em) {
+  .ontario-navigation--open .ontario-application-subheader-menu__container {
+    position: relative;
+    z-index: 3;
+  }
+  .ontario-navigation a {
+    padding: calc(0.75rem - (0.25rem / 3.25)) 2rem;
+}
+}
+.ontario-navigation--open .ontario-overlay {
+  display: block;
+}
+@media screen and (min-width: 73em) {
+  .ontario-application-subheader{
+    z-index:0
+}
+  .ontario-navigation--open .ontario-overlay {
+    display: none;
+  }
+  .ontario-navigation {
+    position: relative;
+    max-width: 72rem;
+    width: auto;
+    margin: 0 auto;
+}
+.ontario-navigation__container {
+  box-shadow: 0 4px 12px rgb(0 0 0 / 30%);
+  border-radius: 4px;
+  display: none;
+  position: absolute;
+  right: 1rem;
+  top: calc(100% - 0.5rem);
+  transition: none;
+  min-width: 290px;
+  max-width: 30%;
+  z-index: 5;
+}
+.ontario-navigation.ontario-navigation--open .ontario-navigation__container {
+  transition: none;
+  display: block;
+}
+.ontario-navigation ul {
+  border-bottom: none;
+}
+}
+.ontario-navigation ul {
+  list-style: none;
+  padding: 0.5rem 0;
+  margin: 0;
+  border-bottom: 1px solid #ccc;
+}
+.ontario-header-button--with-outline.ontario-header-button {
+  border: 2px solid #fff;
+  margin: 0 0 0 1rem;
+  padding: 0.375rem 1rem;
+}
+.ontario-header-button--with-outline, .ontario-header-button--without-outline {
+  /* background-color: #1a1a1a; */
+  color: #fff;
+}
+.ontario-header-button {
+  background-color: #1a1a1a;
+  border: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+  box-shadow: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 1.125rem;
+  font-weight: 600;
+  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  height: 48px;
+  line-height: 1.5555555556;
+  text-align: center;
+  text-decoration: none;
+}
+.ontario-header .ontario-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.ontario-header-button--with-outline:hover, .ontario-header-button--without-outline:hover {
+  background-color: #4d4d4d;
+}
+.ontario-header-button:hover, .ontario-header-button:focus, .ontario-header-button:visited {
+  color: #fff;
+  text-decoration: none;
+}
+.ontario-navigation .ontario-header-button {
+  background-color: #4d4d4d;
+}
+.ontario-navigation .ontario-header-button {
+  visibility: hidden;
+  position: absolute;
+  right: 1rem;
+  z-index: 6;
+}
+.ontario-header__menu-toggler {
+  padding: 0.375rem 1rem;
+}
+header {
+  background-color: #1a1a1a;
+}
+.ontario-navigation a:focus, .ontario-navigation a:active {
+  box-shadow: 0 0 0 4px #009adb inset;
+  outline: 4px solid transparent;
+  transition: box-shadow .1s ease-in-out;
+}
+.ontario-navigation li {
+  border-top: 1px solid #ccc;
+  padding: 0;
+}
+.ontario-navigation li:last-of-type{
+  border-bottom:1px solid #ccc
+}
+.ontario-navigation a:hover {
+  text-decoration: underline;
+  background-color: #e6e6e6;
+}
+.ontario-header-button:focus {
+  box-shadow: 0 0 0 4px #009adb;
+  outline: 4px solid transparent;
+  transition: box-shadow .1s ease-in-out;
+}
+.ontario-application-subheader-menu__container .ontario-header-button {
+  top: calc(-4rem + -0.25rem);
+}
+.ontario-navigation{
+  position:absolute;
+  width:100%
 }
