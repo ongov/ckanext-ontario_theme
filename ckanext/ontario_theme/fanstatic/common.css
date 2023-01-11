@@ -424,6 +424,12 @@ a:focus {
 .media-item:last-child{
   border-bottom: none;
 }
+.ontario-module-h3 {
+  font-size: 18px;
+  line-height: 1.3;
+  word-break: break-word;
+  hyphens: auto;
+}
 /* ========================================================================
    Custom overrides - individual pages
    ======================================================================== */

@@ -3,7 +3,7 @@
 #}
 
 <section id="dataset-resources" class="resources">
-  <h2 class="ontario-h2">{{ _('Data') }}</h2>
+  <h2>{{ _('Data') }}</h2>
   {% block resource_list %}
     {% snippet "package/snippets/ontario_theme_access_level.html",
       pkg=pkg, dataset_type=dataset_type, schema=schema, resources=resources %}
@@ -17,9 +17,9 @@
           {% for group in resources|selectattr("type","equalto","data")|groupby("data_range")|sort(attribute="grouper", reverse=True) %}
 
             {% if group.list[0].data_range != "N/A - N/A" %}
-              <h3 class="ontario-h3">{{group.list[0].data_range}}</h3>
+              <h3>{{group.list[0].data_range}}</h3>
             {% else %}
-              <h3 class="ontario-h3">{{ _("No date range") }}</h3>
+              <h3>{{ _("No date range") }}</h3>
             {% endif %}
             <ul class="{% block resource_list_class %}resource-list{% endblock %}">
             {% for r in group.list|selectattr("format", "equalto", "CSV") %}
@@ -43,7 +43,7 @@
             </ul>
           {% endfor %}
         {% endblock %}
-      <h2 class="ontario-h2">{{ _("Supporting Files") }}</h2>
+      <h2>{{ _("Supporting Files") }}</h2>
       {% if resources | rejectattr("type","equalto","data") | list | length > 0 %}
         <ul class="resource-list">
             {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
