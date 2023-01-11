@@ -1080,32 +1080,35 @@ textarea[readonly]::placeholder {
 /* =====================================================
    The "account masthead" bar across the top of the site
    ===================================================== */
-.account-masthead {
+.account {
   background-color: #333;
-  padding: 1.5rem 0;
-  min-height: 64px;
+  min-height: 32px;
 }
 /* The "bubble" containing the number of new notifications. */
-.account-masthead .account .notifications a span {
+.account .notifications a .badge {
   background-color: #000;
 }
 /* The text and icons in the user account info. */
-.account-masthead .account ul li a {
+.account ul li a {
   color: #ededed;
   font-weight: normal;
   font-size: 14px;
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
 }
 /* The user account info text and icons, when the user's pointer is hovering
    over them. */
-.account-masthead .account ul li a:hover {
-  color: #eee;
-  background-color: #333;
+.account ul li a:hover {
+  background-color: #666666;
 }
-.account-masthead .account ul li {
+.account ul li a:hover {
+  text-decoration: underline;
+}
+.account ul li {
   display: block;
-  float: left;
-  border-left: none;
-  padding: 0;
+  float: right;
+  border-right: none;
+  padding: 0.5rem 0.75rem;
   margin-bottom: 0 !important;
 }
 /* ========================================================================
