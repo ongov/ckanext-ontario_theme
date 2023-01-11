@@ -1289,6 +1289,10 @@ msgstr ""
 msgid "View {organization_name}"
 msgstr ""
 
+#: ckan/templates/snippets/subscribe.html:2
+msgid "Subscribe"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/organization/snippets/organization_item.html:13
 msgid "Datasets: {num}"
 msgstr ""
