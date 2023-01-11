@@ -424,3 +424,12 @@ a:focus {
 .media-item:last-child{
   border-bottom: none;
 }
+/* ========================================================================
+   Custom overrides - links
+   ======================================================================== */
+a.heading:hover, ul.nav-tabs li a:hover, .table-of-contents a:hover{
+  text-decoration: underline;
+}
+a.btn, a.btn-primary, a.heading, a.tag, ul.nav-tabs li a, .table-of-contents a, .nav-item a{
+  text-decoration: none;
+}
