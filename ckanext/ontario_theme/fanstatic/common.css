@@ -424,12 +424,66 @@ a:focus {
 .media-item:last-child{
   border-bottom: none;
 }
+.ontario-module-h3 {
+  font-size: 18px;
+  line-height: 1.3;
+  word-break: break-word;
+  hyphens: auto;
+}
+/* ========================================================================
+   Custom overrides - individual pages
+   ======================================================================== */
+/* .embedded-content h2 {
+  font-size: 33px;
+} */
+/* embedded-content class used for
+dataset descriptions input by user
+via submission form. Copied from DS.*/
+.embedded-content h2 {
+  font-size: 1.6875rem;
+  letter-spacing: 0.03rem;
+  line-height: 1.37;
+  margin: 0 0 0.75rem 0;
+}
+@media screen and (min-width: 40em) {
+  .embedded-content h2 {
+    font-size: 2.0625rem;
+    letter-spacing: 0.02rem;
+    line-height: 1.33;
+  }
+}
+.embedded-content h3 {
+  font-size: 1.4375rem;
+  letter-spacing: 0.02rem;
+  line-height: 1.39;
+  margin: 0 0 0.75rem 0;
+}
+@media screen and (min-width: 40em) {
+  .embedded-content h3 {
+    font-size: 1.75rem;
+    letter-spacing: 0.02rem;
+    line-height: 1.43;
+  }
+}
+.embedded-content h4 {
+  font-size: 1.25rem;
+  letter-spacing: 0.03rem;
+  line-height: 1.5;
+  margin: 0 0 0.75rem 0;
+}
+@media screen and (min-width: 40em) {
+  .embedded-content h4 {
+    font-size: 1.5rem;
+    letter-spacing: 0.0313rem;
+    line-height: 1.5;
+  }
+}
 /* ========================================================================
    Custom overrides - links
    ======================================================================== */
-a.heading:hover, ul.nav-tabs li a:hover, .table-of-contents a:hover{
-  text-decoration: underline;
-}
-a.btn, a.btn-primary, a.heading, a.tag, ul.nav-tabs li a, .table-of-contents a, .nav-item a{
-  text-decoration: none;
-}
+   a.heading:hover, ul.nav-tabs li a:hover, .table-of-contents a:hover{
+    text-decoration: underline;
+  }
+  a.btn, a.btn-primary, a.heading, a.tag, ul.nav-tabs li a, .table-of-contents a, .nav-item a{
+    text-decoration: none;
+  }
