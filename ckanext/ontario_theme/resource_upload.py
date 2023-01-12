@@ -105,15 +105,17 @@ class ResourceUpload(DefaultResourceUpload):
 
             with ZipFile(fileobj) as this_zip:
                 zip_list = this_zip.namelist()
+                # Skip directory names
                 for zip_item in zip_list:
-                    with this_zip.open(zip_item) as each_file:
-                        try: 
-                            each_mimetype = magic.from_buffer(each_file.read(),
-                                            mime=True)
-                            if not allowed_mimetype(each_mimetype):
+                    if not zip_item.endswith("/"):
+                        with this_zip.open(zip_item) as each_file:
+                            try:
+                                each_mimetype = magic.from_buffer(each_file.read(),
+                                                mime=True)
+                                if not allowed_mimetype(each_mimetype):
+                                    alert_invalidfile(resource, self.filename)
+                            except:
                                 alert_invalidfile(resource, self.filename)
-                        except:
-                            alert_invalidfile(resource, self.filename)
                         
         path = get_storage_path()
         config_mimetype_guess = config.get('ckan.mimetype_guess', 'file_ext')
