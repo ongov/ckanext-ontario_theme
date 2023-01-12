@@ -14,12 +14,12 @@
 {% block header_wrapper %} 
   {{ super() }}
   <header id="survey">
-    <div class="alert alert-warning alert-clear alert-banner">
+    <div class="alert ontario-alert-warning alert-clear alert-banner">
       <div class="container">
         {% set survey_params = { "page": h.current_url() }  %}
         {% set package_name = h.ontario_theme_extract_package_name(h.current_url()) %}
         {% do survey_params.update({'id': package_name}) if package_name %}
-        {% trans %}Tell us what you think about our data and how you’re using it.{% endtrans %} <a href="{{ _('https://www.ontario.ca/form/survey-open-data-catalogue') }}?{{ survey_params|urlencode }}" target="_blank">{% trans %}Take our survey{% endtrans %}</a>
+        <strong>{% trans %}Tell us what you think about our data and how you’re using it.{% endtrans %} <a href="{{ _('https://www.ontario.ca/form/survey-open-data-catalogue') }}?{{ survey_params|urlencode }}" target="_blank">{% trans %}Take our survey{% endtrans %}</a></strong>
       </div>
     </div>
 </header>
