@@ -1081,8 +1081,11 @@ textarea[readonly]::placeholder {
    The "account masthead" bar across the top of the site
    ===================================================== */
 .account {
-  background-color: #333;
+  background-color: #1a1a1a;
   min-height: 32px;
+}
+.account .avatar{
+  padding-right: 16px;
 }
 /* The "bubble" containing the number of new notifications. */
 .account .notifications a .badge {
@@ -1108,7 +1111,6 @@ textarea[readonly]::placeholder {
   display: block;
   float: right;
   border-right: none;
-  padding: 0.5rem 0.75rem;
   margin-bottom: 0 !important;
 }
 /* ========================================================================
