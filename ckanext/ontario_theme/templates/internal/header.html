@@ -93,13 +93,12 @@
   {% block header_debug %} {% if g.debug and not g.debug_supress_header %}
   <div class="debug">Controller : {{ c.controller }}<br/>Action : {{ c.action }}</div>
   {% endif %} {% endblock %}
-  <section class="ontario-application-subheader">
+  <section class="ontario-application-subheader" id="ontario-application-subheader">
     <div class="ontario-row">
         <div class="ontario-columns ontario-small-12 ontario-application-subheader__container">
             <p class="ontario-application-subheader__heading">
-                <a href="{{ h.url_for('home.index') }}">Data Catalogue</a>
+                <a href="{{ h.url_for('home.index') }}">Data&nbsp;Catalogue</a>
             </p>
-
             <div class="ontario-application-subheader__menu-container">
               {% block header_site_navigation %}
                 <ul class="ontario-application-subheader__menu ontario-show-for-large">
@@ -108,26 +107,36 @@
                     <li><a href="{{ h.url_for('organization.index') }}">{{_('Ministries')}}</a></li>
                     <li><a href="{{ h.url_for('home.about') }}">{{_('About')}}</a></li>
                     <li><a href="{{ h.url_for('ontario_theme.help') }}"> {{_('Help')}}</a></li>
+                  </ul>
                     {% endblock %}
-                    <li>{% block header_site_search %}
+                    {% block header_site_search %}
                       <div class="module search">
-                        <form method="get" action="{% url_for 'dataset.search' %}">
-                          <div class="ontario-search-container header-search">
+                        <form method="get" id="ontario-search-form-container" action="{% url_for 'dataset.search' %}" class="ontario-header__search-container ontario-columns">
                             <label class="ontario-label ontario-show-for-sr" for="ontario-search-input-field">{{ sr_input_text }}</label>
-                            <input class="ontario-search-input ontario-input header-search" type="text" id="ontario-search-input-field" name="q" placeholder="{% block search_placeholder %}{{ placeholder | truncate(26) }}{% endblock %}" value="" autocomplete="off">
-                            {# <input class="ontario-search-reset home" id="ontario-search-reset" type="reset" value="" aria-label="Clear field" /> #}
-                            <button class="ontario-search-submit header-search" id="ontario-search-submit" type="submit">
+                            <input class="ontario-header__search-input ontario-input header-search" type="text" id="ontario-search-input-field" name="q" placeholder="{% block search_placeholder %}{{ placeholder | truncate(26) }}{% endblock %}" value="" autocomplete="off">
+                            <input class="ontario-header__search-reset" id="ontario-search-reset" type="reset" value="" aria-label="Clear field" />
+                            <button class="ontario-header__search-submit header-search" id="ontario-search-submit" type="submit">
                               <span class="ontario-show-for-sr">{{ sr_submit_text }}</span>
                               <svg class="ontario-icon search header-search" focusable="false" sol:category="primary" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
                                   <use xlink:href="#ontario-icon-search"></use>
                               </svg>
                           </button>
-                        </div>
                         </form>
                       </div>
-                      {% endblock %}</li>
-                </ul>
-                
+                      <button class="ontario-header__search-toggler ontario-header-button ontario-header-button--without-outline ontario-hide-for-large" id="ontario-header-search-toggler" aria-controls="ontario-search-form-container" type="button">
+                        <svg class="ontario-icon" focusable="false" sol:category="primary" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+                            <use xlink:href="#ontario-icon-search"></use>
+                        </svg>
+                    </button>
+                    <div class="ontario-header__search-close-container ontario-columns ontario-small-2 ontario-medium-3">
+                      <button class="ontario-header__search-close ontario-header-button ontario-header-button--without-outline" id="ontario-header-search-close" aria-label="close search bar" type="button">
+                          <span aria-hidden="true">close</span>
+                          <svg class="ontario-icon" focusable="false" sol:category="primary" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+                              <use xlink:href="#ontario-icon-close"></use>
+                          </svg>
+                      </button>
+                      {% endblock %}
+            </div>
                 <ul class="ontario-application-subheader__menu ontario-hide-for-small ontario-show-for-medium ontario-hide-for-large">
                   <li><a href="{{ h.url_for('dataset.search') }}">{{_('Datasets')}}</a></li>
                   <li><a href="{{ h.url_for('organization.index') }}">{{_('Ministries')}}</a></li>

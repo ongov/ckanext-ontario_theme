@@ -164,7 +164,7 @@ function deferInFn(fn) {
         return;
     }
 
-    var header = document.getElementById("ontario-header"),
+    var header = document.getElementById("ontario-application-subheader"),
         searchFormContainer = document.getElementById(
             "ontario-search-form-container"
         ),
