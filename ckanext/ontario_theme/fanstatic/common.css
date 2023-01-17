@@ -281,28 +281,6 @@ input[type=reset].ontario-search-reset.home{
   overflow:hidden;
   margin-bottom:2px
 }
-.ontario-search-input.ontario-input.header-search{
-  height: 48px;
-  font-size:18px;
-  border: unset;
-}
-.header-search::placeholder{
-  font: 'Open Sans';
-  font-weight: 400;
-  size: 16px;
-  line-height: 25.6px;
-}
-.ontario-search-container.header-search{
-  max-width: 301px;
-  margin-bottom: unset;
-}
-.ontario-icon.search.header-search{
-  width:32px;
-  height:32px;
-}
-.ontario-search-submit.header-search{
-  border: unset;
-}
 
 /* ========================================================================
    Page Alerts - Design System
@@ -526,7 +504,7 @@ a:focus {
 }
 
 .ontario-application-subheader .ontario-header-button {
-  background-color: #4d4d4d;
+  background-color: #404040;
 }
 .ontario-header-button .ontario-icon {
   width: 2rem;
@@ -570,7 +548,6 @@ a:focus {
 .ontario-application-subheader__menu li {
   padding: 0;
   margin-left: 1rem;
-  border-bottom: 4px solid #fff;
 }
 
 .ontario-application-subheader__menu a {
@@ -585,6 +562,23 @@ a:focus {
   padding: 0.75rem;
   text-decoration: none;
   white-space: nowrap;
+}
+#navigation li.active, #medium-navigation li.active{
+  border-bottom: 4px solid #fff;
+}
+@media screen and (max-width: 0em), screen and (min-width: 40em) {
+  .ontario-navigation__container li:nth-child(-n + 2) {
+    display: none !important;
+  }
+}
+@media screen and (max-width: 39.9375em){
+  .ontario-application-subheader-menu__container .ontario-header-button--with-outline{
+    top: calc(-4rem + -0.25rem);
+  }
+}
+.ontario-navigation__container li.active{
+  background-color: #f2f2f2;
+  border-left: 6px solid #404040;
 }
 .ontario-application-subheader__menu a.ontario-link--active {
   border-radius: 4px 4px 0 0;
@@ -625,7 +619,7 @@ a:focus {
 .ontario-navigation--open .ontario-navigation .ontario-header-button {
   visibility: visible;
 }
-.ontario-navigation--open .ontario-application-subheader .ontario-header-button {
+.ontario-navigation--open .ontario-application-subheader .ontario-header-button--with-outline {
   visibility: hidden;
 }
 .ontario-navigation a {
@@ -762,8 +756,10 @@ header {
   outline: 4px solid transparent;
   transition: box-shadow .1s ease-in-out;
 }
+@media screen and (min-width: 40em) and (max-width: 72.9375em) {
 .ontario-application-subheader-menu__container .ontario-header-button--with-outline {
-  top: calc(-4rem + -0.25rem);
+  top: calc(-4rem + -0.5rem);
+}
 }
 .ontario-navigation{
   position:absolute;
@@ -781,10 +777,10 @@ header {
 }
 @media screen and (min-width: 73em){
   .ontario-header__search-container{
-      display:flex;
+    display:flex;
   }
   .ontario-header__search-container.ontario-columns{
-    width: 301px;
+    width: 320px;
   }
 }
 @media screen and (min-width: 40em){
@@ -792,111 +788,35 @@ header {
       padding-right:1rem
   }
 }
-.ontario-header__search-input.ontario-input{
+.ontario-search-input.ontario-input.header-search{
+  height: 48px;
+  font-size:18px;
+  border: unset;
   border-width:0;
   margin-bottom:0;
-  height:48px;
   padding-left:.75rem;
-  padding-right:7.2rem;
-  font-size: 16px;
+  padding-right:5.625rem;
 }
-.ontario-header__search-input.ontario-input:invalid + input[type="reset"] {
-  display: none;
+.header-search::placeholder{
+  font: 'Open Sans';
+  font-weight: 400;
+  size: 16px;
+  line-height: 25.6px;
 }
-.ontario-header__search-input.ontario-input:focus~.ontario-header__search-submit{
-  background-color:#06c;
-  color:#fff
+.ontario-search-container.header-search{
+  margin-bottom: unset;
 }
-.ontario-header__search-input.ontario-input:focus~.ontario-header__search-submit:hover{
-  background-color:#00478f;
-  color:#fff
+.ontario-icon.search.header-search{
+  width:32px;
+  height:32px;
 }
-.ontario-header__search-input.ontario-input::-ms-clear{
-  display:none;
-  width:0;
-  height:0
-}
-.ontario-header__search-input.ontario-input:invalid:focus{
-  box-shadow:0 0 0 4px #009adb;
-  -moz-box-shadow:none
-}
-.ontario-header__search-input.ontario-input:invalid:not(:focus){
-  box-shadow:none;
-  -moz-box-shadow:none
-}
-@media screen and (min-width: 40em)and (max-width: 73em){
-  .ontario-header__search-input.ontario-input{
-      padding-left:1rem;
-      padding-right:6.4rem
-  }
-}
-.ontario-header__search-submit{
+.ontario-search-submit.header-search{
   border:0;
-  border-radius:0 3px 3px 0;
-  background-color:#f2f2f2;
-  color:#1a1a1a;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-family:"Open Sans",sans-serif;
-  font-weight:600;
-  font-size:1.125rem;
-  height:100%;
-  line-height:1.56;
-  position:absolute;
-  right:1rem;
-  top:0;
-  cursor:pointer;
-  padding-left:.75rem;
-  padding-right:.75rem
-}
-.ontario-header__search-submit:hover{
-  background-color:#00478f;
-  color:#fff
-}
-.ontario-header__search-submit:focus{
-  outline:none;
-  box-shadow:0 0 0 4px #009adb;
-  background-color:#00478f;
-  color:#fff
-}
-.ontario-header__search-submit:active{
-  background-color:#002142;
-  color:#fff
-}
-.ontario-header__search-submit svg{
-  margin-right:0
-}
-input[type=reset].ontario-header__search-reset{
-  position:absolute;
-  display:flex;
-  align-items:center;
-  top:11px;
-  right:80px;
-  height:28px;
-  width:28px;
-  color:#000;
-  margin:0;
-  padding:.5rem;
-  background-image:url(/images/ontario-icon-close.svg);
-  background-position:center center;
-  background-repeat:no-repeat;
-  background-color:transparent;
-  outline:none;
-  border:none;
-  cursor:pointer
-}
-input[type=reset].ontario-header__search-reset:focus{
-  box-shadow:0 0 0 4px #009adb
+  right: 1rem !important;
 }
 .ontario-header__search-toggler{
   padding:.5rem .75rem;
   margin-left:1rem
-}
-@media screen and (min-width: 40em){
-  .ontario-header__search-toggler svg{
-      margin-right:4px
-  }
 }
 .ontario-header__search-close{
   flex-direction:column-reverse;
@@ -905,7 +825,7 @@ input[type=reset].ontario-header__search-reset:focus{
   padding:.15rem .25rem;
   position:relative;
   height:60px;
-  display:none
+  display:none;
 }
 .ontario-header__search-close span{
   position:relative;
@@ -915,7 +835,7 @@ input[type=reset].ontario-header__search-reset:focus{
 }
 @media screen and (min-width: 39.9375em){
   .ontario-header__search-close span{
-      margin-right:4px
+      margin-right:4px;
   }
 }
 .ontario-header__search-close span:hover,.ontario-header__search-close span:focus{
@@ -940,14 +860,23 @@ input[type=reset].ontario-header__search-reset:focus{
       height:2.5rem
   }
 }
+@media screen and (min-width: 40em)and (max-width: 46em) {
+  .ontario-header__search-close{
+    margin-left: 3rem;
+  }
+}
 @media screen and (min-width: 73em){
   .ontario-header--search-open .ontario-header__search-close{
       display:none
   }
 }
+@media screen and (max-width: 46em){
+  .ontario-header__search-close-container{
+    justify-content:flex-end;
+  }
+}
 .ontario-header__search-close-container{
   display:none;
-  justify-content:flex-end;
   padding-right:0
 }
 @media screen and (max-width: 40em){
@@ -961,6 +890,13 @@ input[type=reset].ontario-header__search-reset:focus{
   }
   .ontario-header__search-close{
     margin-right: 0;
+  }
+  .ontario-application-subheader__menu-container{
+    width:100%;
+    justify-content: flex-end;
+  }
+  .module.search{
+    padding-top: 7px;
   }
 }
 @media screen and (max-width: 73em){
@@ -977,3 +913,4 @@ input[type=reset].ontario-header__search-reset:focus{
     padding-right: 0px;
   }
 }
+
