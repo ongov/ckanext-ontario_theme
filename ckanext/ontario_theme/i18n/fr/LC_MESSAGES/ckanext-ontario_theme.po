@@ -548,7 +548,7 @@ msgid "\n"
 "    <a href=\"#other-data\">Other data</a>\n"
 "  </li>\n"
 "  <li>\n"
-"    <a href=\"#licensing\">License to use the data</a>\n"
+"    <a href=\"#licensing\">Data licenses and use</a>\n"
 "  </li>\n"
 "  <li>\n"
 "    <a href=\"#developers\">Developers</a>\n"
@@ -568,7 +568,7 @@ msgid "\n"
 "  The Ontario government, generates and maintains thousands of datasets. Since 2012, we have shared data with Ontarians via a data catalogue.\n"
 "</p>\n"
 "<h2><a name=\"open-data\"></a>\n"
-"  Open data\n"
+"  Open Data\n"
 "</h2>\n"
 "<p>\n"
 "  Open data is data that is shared with the public. <a href=\"https://www.ontario.ca/page/sharing-government-data\">Click here to learn more about open data and why Ontario releases it</a>.\n"
@@ -594,7 +594,7 @@ msgid "\n"
 "  </li>\n"
 "</ul>\n"
 "<h2><a name=\"licensing\"></a>\n"
-"  License to use the data\n"
+"  Data licenses and use\n"
 "</h2>\n"
 "<p>\n"
 "  If you want to use data you find in the catalogue, that data must have a licence – a set of rules that describes how you can use it. A licence:\n"
@@ -724,7 +724,7 @@ msgid "\n"
 "  Each dataset record will tell you whether the data is available, and, if so, tell you about the data available.  \n"
 "</p>\n"
 "<h5>\n"
-"  Open data\n"
+"  Open Data\n"
 "</h5>\n"
 "<p> \n"
 "  An open dataset might contain several data files. These files might represent different periods of time, different sub-sets of the dataset, different regions, language translations, or other breakdowns. You can select a file and either download it or preview it. Make sure to read the licence agreement to make sure you have permission to use it the way you want. \n"
@@ -2612,7 +2612,7 @@ msgid "https://www.ontario.ca/page/sharing-government-data"
 msgstr "https://www.ontario.ca/fr/page/acces-aux-donnees-gouvernementales"
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:12
-msgid "What's Open Data?"
+msgid "What is Open Data?"
 msgstr "Qu’entend-on par données ouvertes?"
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:17
@@ -2620,7 +2620,7 @@ msgid "Learn about Open Data and the Ontario Data Catalogue."
 msgstr "Renseignez-vous sur les données ouvertes et le Catalogue de données ouvertes de l'Ontario"
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:23
-msgid "Licences and Using Data"
+msgid "Data licenses and use"
 msgstr "Licences et utilisation des données"
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:28
@@ -2632,11 +2632,11 @@ msgid "Developers"
 msgstr "Concepteurs"
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:39
-msgid "If you are using the catalogue in a software application."
+msgid "Guidance for using our data in a software application."
 msgstr "Si vous utilisez le catalogue dans une application logicielle."
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:45
-msgid "Training Materials"
+msgid "Training materials"
 msgstr "Documents de formation"
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:50
@@ -2888,6 +2888,10 @@ msgstr "Ministères"
 #: ckanext/ontario_theme/templates/organization/index.html:18
 msgid "Find data published by each of Ontario's Ministries."
 msgstr "Trouvez des données publiées par chacun des ministères de l'Ontario."
+
+#: ckan/templates/snippets/subscribe.html:2
+msgid "Subscribe"
+msgstr "Abonnez-vous"
 
 #: ckanext/ontario_theme/templates/internal/organization/snippets/organization_item.html:13
 msgid "Datasets: {num}"

@@ -1,0 +1,6 @@
+{# Override CKAN: Remove Data Explorer icon from tab #}
+<li class="{% if is_selected %} active{% endif %}" data-id="{{ view.id }}">
+  <a href="{{ url }}" data-id="{{ view.id }}">
+    {{ view.title }}
+  </a>
+</li>

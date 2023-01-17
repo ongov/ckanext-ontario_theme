@@ -483,7 +483,7 @@ msgstr ""
 msgid ""
 " <p> The Ontario government, generates and maintains thousands of datasets. "
 "Since 2012, we have shared data with Ontarians, via a data catalogue. </p> "
-"<h2><a name=\"open-data\"></a> Open data </h2> <p> Open data is data that is "
+"<h2><a name=\"open-data\"></a> Open Data </h2> <p> Open data is data that is "
 "shared with the public. <a href=\"https://www.ontario.ca/page/sharing-"
 "government-data\">Click here to learn more about open data and why Ontario "
 "releases it</a>. </p> <p> <a href=\"https://www.ontario.ca/page/ontarios-"
@@ -497,7 +497,7 @@ msgid ""
 "it may be restricted and not released. </li> <li> <strong>Restricted</strong>"
 " – The dataset has been screened and will not be released to the public. The "
 "record will be listed in the catalogue, but the data will not be shared. "
-"</li> </ul> <h2><a name=\"licensing\"></a> License to use the data </h2> <p> "
+"</li> </ul> <h2><a name=\"licensing\"></a> Data licenses and use </h2> <p> "
 "If you want to use data you find in the catalogue, that data must have a "
 "licence – a set of rules that describes how you can use it. A licence: </p> "
 "<ul> <li> grants you rights to download and use the data </li> <li> outlines "
@@ -551,7 +551,7 @@ msgid ""
 "</figure> </li> </ol> <p> <a "
 "href=\"https://docs.ckan.org/en/2.8/maintaining/datastore.html#the-datastore-"
 "api\">Read the complete documentation for CKAN's Datastore API.</a> </p> "
-"<h2><a name=\"training-materials\"></a> Training Materials </h2> <h3> How to "
+"<h2><a name=\"training-materials\"></a> Training materials </h2> <h3> How to "
 "use the catalogue </h3> <p> The Ontario Data Catalogue contains a record for "
 "each dataset that the Government of Ontario possesses. Some of these datasets"
 " will be available to you as open data. Others will not be available to you. "
@@ -575,7 +575,7 @@ msgid ""
 "you find the dataset you are looking for, click on it to go to the dataset "
 "record. </p> <h4> Dataset record </h4> <p> Each dataset record will tell you "
 "whether the data is available, and, if so, tell you about the data available."
-" </p> <h5> Open data </h5> <p> An open dataset might contain several data "
+" </p> <h5> Open Data </h5> <p> An open dataset might contain several data "
 "files. These files might represent different periods of time, different sub-"
 "sets of the dataset, different regions, language translations, or other "
 "breakdowns. You can select a file and either download it or preview it. Make "
@@ -967,7 +967,7 @@ msgid "https://www.ontario.ca/page/sharing-government-data"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:12
-msgid "What's Open Data?"
+msgid "What is Open Data?"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:17
@@ -975,7 +975,7 @@ msgid "Learn about Open Data and the Ontario Data Catalogue."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:23
-msgid "Licences and Using Data"
+msgid "Data licenses and use"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:28
@@ -987,11 +987,11 @@ msgid "Developers"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:39
-msgid "If you are using the catalogue in a software application."
+msgid "Guidance for using our data in a software application."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:45
-msgid "Training Materials"
+msgid "Training materials"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:50
@@ -1287,6 +1287,10 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/organization/snippets/organization_item.html:14
 msgid "View {organization_name}"
+msgstr ""
+
+#: ckan/templates/snippets/subscribe.html:2
+msgid "Subscribe"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/organization/snippets/organization_item.html:13
