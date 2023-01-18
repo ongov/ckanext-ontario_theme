@@ -2885,6 +2885,14 @@ msgstr "<a href=\"/fr/group/2019-novel-coronavirus\">Afficher plus d’options</
 msgid "Ministries"
 msgstr "Ministères"
 
+#: ckanext/ontario_theme/templates/internal/header.html:78
+msgid "https://www.ontario.ca/page/government-ontario"
+msgstr "https://www.ontario.ca/fr/page/gouvernement-de-lontario"
+
+#: ckanext/ontario_theme/templates/internal/header.html:79
+msgid "Government of Ontario"
+msgstr "Gouvernement de l’Ontario"
+
 #: ckanext/ontario_theme/templates/organization/index.html:18
 msgid "Find data published by each of Ontario's Ministries."
 msgstr "Trouvez des données publiées par chacun des ministères de l'Ontario."
