@@ -97,7 +97,7 @@
     <div class="ontario-row">
         <div class="ontario-columns ontario-small-12 ontario-application-subheader__container">
             <p class="ontario-application-subheader__heading">
-                <a href="{{ h.url_for('home.index') }}">Data&nbsp;Catalogue</a>
+                <a href="{{ h.url_for('home.index') }}">Data Catalogue</a>
             </p>
             <div class="ontario-application-subheader__menu-container">
               {% block header_site_navigation %}
@@ -112,7 +112,7 @@
                     {% endblock %}
                     {% block header_site_search %}
                       <div class="module search">
-                        <form method="get" id="ontario-search-form-container" action="{% url_for 'dataset.search' %}" class="ontario-header__search-container ontario-columns" name="searchForm" novalidate>
+                        <form method="get" id="ontario-search-form-container" action="{% url_for 'dataset.search' %}" class="ontario-header__search-container ontario-columns" novalidate>
                             <label class="ontario-label ontario-show-for-sr" for="ontario-search-input-field">{{ sr_input_text }}</label>
                             <input class="ontario-search-input ontario-input header-search" type="text" id="ontario-search-input-field" name="q" placeholder="{% block search_placeholder %}{{ placeholder | truncate(26) }}{% endblock %}" value="" autocomplete="off" required>
                             <input class="ontario-search-reset" id="ontario-search-reset" type="reset" value="" aria-label="Clear field" />

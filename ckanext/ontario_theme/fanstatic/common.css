@@ -31,13 +31,6 @@
   font-weight: normal;
 }
 
-.search-form {
-  padding: 20px;
-  background: #fafafa;
-}
-.greet .search-form {
-  background: none; /* turn off background for homepage searchbar */
-}
 /* ========================================================================
    Text Inputs - Design System
    ======================================================================== */
@@ -253,6 +246,14 @@ input[type=reset].ontario-search-reset:focus{
   .module-content {
     padding: 0px; /* brings top of file list closer to Order By menu */
   }
+  
+  .search-form {
+    padding: 20px;
+    background: #fafafa;
+  }
+  .greet .search-form {
+    background: none; /* turn off background for homepage searchbar */
+  }
 
 /* ================================
   Custom overrides - text inputs
@@ -460,20 +461,10 @@ a:focus {
   line-height: 1.5;
   margin: 0 0 0.75rem 0;
 }
-
-@media screen and (min-width: 40em) {
-  .ontario-application-subheader__heading {
-    font-size: 1.5rem;
-    letter-spacing: 0.0313rem;
-    line-height: 1.5;
-  }
-}
-
 .ontario-header.ontario-application-header {
   height: 3.125rem;
   z-index: 5;
 }
-
 .ontario-application-header__logo,
 .ontario-application-header__logo a,
 .ontario-application-header__lang-toggle,
@@ -482,12 +473,10 @@ a:focus {
 .ontario-application-subheader__menu {
   display: flex;
 }
-
 .ontario-application-header__logo img {
   width: 100px;
   height: 25px;
 }
-
 .ontario-application-header__lang-toggle {
   justify-content: flex-end;
 }
@@ -497,7 +486,6 @@ a:focus {
   height: auto;
   padding: 0.5rem 0.75rem;
 }
-
 .ontario-application-subheader {
   padding: calc(0.5rem + 0.75rem) 0;
   background-color: #404040;
@@ -508,11 +496,9 @@ a:focus {
 .ontario-application-subheader > .ontario-row {
   position: relative;
 }
-
 .ontario-application-subheader .ontario-header-button {
   visibility: visible;
 }
-
 .ontario-application-subheader .ontario-header-button {
   background-color: #404040;
 }
@@ -527,11 +513,11 @@ a:focus {
 .ontario-application-subheader .ontario-header-button:active {
   background-color: #1a1a1a;
 }
-
 .ontario-application-subheader__heading {
   padding: 0.375rem 0;
   margin-bottom: 0;
   max-width: 65%;
+  min-width: 184px;
 }
 .ontario-application-subheader__heading a {
   color: #FFFFFF;
@@ -542,24 +528,20 @@ a:focus {
   color: #FFFFFF;
   text-decoration: underline;
 }
-
 .ontario-application-subheader__container {
   align-items: center;
   justify-content: space-between;
 }
-
 .ontario-application-subheader__menu {
   list-style: none;
   margin: 0;
   padding-left: 0;
   align-items: center;
 }
-
 .ontario-application-subheader__menu li {
   padding: 0;
   margin-left: 1rem;
 }
-
 .ontario-application-subheader__menu a {
   border-radius: 4px;
   color: #FFFFFF;
@@ -573,18 +555,13 @@ a:focus {
   text-decoration: none;
   white-space: nowrap;
 }
-#navigation li.active, #medium-navigation li.active{
+#navigation li.active a, #medium-navigation li.active a{
   border-bottom: 4px solid #fff;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
-@media screen and (max-width: 0em), screen and (min-width: 40em) {
-  .ontario-navigation__container li:nth-child(-n + 2) {
-    display: none !important;
-  }
-}
-@media screen and (max-width: 39.9375em){
-  .ontario-application-subheader-menu__container .ontario-header-button--with-outline{
-    top: calc(-4rem + -0.25rem);
-  }
+.ontario-application-subheader-menu__container .ontario-header-button--with-outline{
+  top: calc(-4rem + -0.25rem);
 }
 .ontario-navigation__container li.active{
   background-color: #f2f2f2;
@@ -600,7 +577,6 @@ a:focus {
 .ontario-application-subheader__menu a:active {
   background-color: #1a1a1a;
 }
-
 .ontario-overlay {
   display: none;
   position: fixed;
@@ -625,7 +601,6 @@ a:focus {
   transform: translateY(0);
   transition: transform .4s ease-in-out;
 }
-
 .ontario-navigation--open .ontario-navigation .ontario-header-button {
   visibility: visible;
 }
@@ -640,50 +615,8 @@ a:focus {
   text-decoration: none;
   padding: calc(0.75rem - (0.25rem / 3.25)) 1.5rem;
 }
-@media screen and (max-width: 73em) {
-  .ontario-navigation--open .ontario-application-subheader-menu__container {
-    position: relative;
-    z-index: 3;
-  }
-  .ontario-navigation a {
-    padding: calc(0.75rem - (0.25rem / 3.25)) 2rem;
-}
-}
 .ontario-navigation--open .ontario-overlay {
   display: block;
-}
-@media screen and (min-width: 73em) {
-  .ontario-application-subheader{
-    z-index:0
-}
-  .ontario-navigation--open .ontario-overlay {
-    display: none;
-  }
-  .ontario-navigation {
-    position: relative;
-    max-width: 72rem;
-    width: auto;
-    margin: 0 auto;
-}
-.ontario-navigation__container {
-  box-shadow: 0 4px 12px rgb(0 0 0 / 30%);
-  border-radius: 4px;
-  display: none;
-  position: absolute;
-  right: 1rem;
-  top: calc(100% - 0.5rem);
-  transition: none;
-  min-width: 290px;
-  max-width: 30%;
-  z-index: 5;
-}
-.ontario-navigation.ontario-navigation--open .ontario-navigation__container {
-  transition: none;
-  display: block;
-}
-.ontario-navigation ul {
-  border-bottom: none;
-}
 }
 .ontario-navigation ul {
   list-style: none;
@@ -766,37 +699,83 @@ header {
   outline: 4px solid transparent;
   transition: box-shadow .1s ease-in-out;
 }
-@media screen and (min-width: 40em) and (max-width: 72.9375em) {
-.ontario-application-subheader-menu__container .ontario-header-button--with-outline {
-  top: calc(-4rem + -0.5rem);
-}
-}
 .ontario-navigation{
   position:absolute;
   width:100%
 }
-@media screen and (max-width: 73em){
-  .account-text{
-      display:none;
+/* ===============================
+   Header - media queries
+   =============================== */
+@media screen and (min-width: 40em) {
+  .ontario-application-subheader__heading {
+    font-size: 1.5rem;
+    letter-spacing: 0.0313rem;
+    line-height: 1.5;
   }
 }
-/* Header Search */
+@media screen and (min-width: 73em) {
+  .ontario-application-subheader{
+    z-index:0
+  }
+  .ontario-navigation--open .ontario-overlay {
+    display: none;
+  }
+  .ontario-navigation {
+    position: relative;
+    max-width: 72rem;
+    width: auto;
+    margin: 0 auto;
+  }
+  .ontario-navigation__container {
+    box-shadow: 0 4px 12px rgb(0 0 0 / 30%);
+    border-radius: 4px;
+    display: none;
+    position: absolute;
+    right: 1rem;
+    top: calc(100% - 0.5rem);
+    transition: none;
+    min-width: 290px;
+    max-width: 30%;
+    z-index: 5;
+  }
+  .ontario-navigation.ontario-navigation--open .ontario-navigation__container {
+    transition: none;
+    display: block;
+  }
+  .ontario-navigation ul {
+    border-bottom: none;
+  }
+}
+/* uses same media query as ontario-only-show-for-small for the first 2 nav tabs in
+the menu dropdowm. Datasets and ministries are displayed in the medium screen nav bar */
+@media screen and (max-width: 0em), screen and (min-width: 40em) {
+  .ontario-navigation__container li:nth-child(-n + 2) {
+    display: none !important;
+  }
+}
+@media screen and (min-width: 40em) and (max-width: 42em){
+  .ontario-header__search-toggler {
+    margin-left: 0.5rem !important;
+  }
+}
+@media screen and (max-width: 73em) {
+  .ontario-navigation--open .ontario-application-subheader-menu__container {
+    position: relative;
+    z-index: 3;
+  }
+  .ontario-navigation a {
+    padding: calc(0.75rem - (0.25rem / 3.25)) 2rem;
+  }
+  .account-text{
+    display:none;
+  }
+}
+/* ========================================================================
+   Header search - Design System
+   ======================================================================== */
 .ontario-header__search-container{
   position:relative;
   display:none
-}
-@media screen and (min-width: 73em){
-  .ontario-header__search-container{
-    display:flex;
-  }
-  .ontario-header__search-container.ontario-columns{
-    width: 320px;
-  }
-}
-@media screen and (min-width: 40em){
-  .ontario-header__search-container{
-      padding-right:1rem
-  }
 }
 .ontario-search-input.ontario-input.header-search{
   height: 48px;
@@ -843,17 +822,35 @@ header {
   font-size:1rem;
   margin-left:0
 }
-@media screen and (min-width: 39.9375em){
-  .ontario-header__search-close span{
-      margin-right:4px;
-  }
-}
 .ontario-header__search-close span:hover,.ontario-header__search-close span:focus{
   outline:none;
   text-decoration:none
 }
 .ontario-header__search-close svg{
   top:0
+}
+.ontario-header__search-close-container{
+  display:none;
+  padding-right:0
+}
+/* ===============================
+   Header search - media queries
+   =============================== */
+@media screen and (min-width: 39.9375em){
+  .ontario-header__search-close span{
+      margin-right:4px;
+  }
+}
+@media screen and (min-width: 73em){
+  .ontario-header__search-container{
+    display:flex;
+  }
+  .ontario-header__search-container.ontario-columns{
+    width: 320px;
+  }
+  .ontario-header--search-open .ontario-header__search-close{
+    display:none
+  }
 }
 @media screen and (min-width: 40em){
   .ontario-header__search-close{
@@ -869,25 +866,19 @@ header {
       width:2.5rem;
       height:2.5rem
   }
-}
-@media screen and (min-width: 40em)and (max-width: 46em) {
-  .ontario-header__search-close{
-    margin-left: 3rem;
+  .ontario-header__search-container{
+    padding-right:1rem
   }
 }
-@media screen and (min-width: 73em){
-  .ontario-header--search-open .ontario-header__search-close{
-      display:none
+@media screen and (min-width: 40em) and (max-width: 46em) {
+  .ontario-header__search-close{
+    margin-left: 3rem;
   }
 }
 @media screen and (max-width: 46em){
   .ontario-header__search-close-container{
     justify-content:flex-end;
   }
-}
-.ontario-header__search-close-container{
-  display:none;
-  padding-right:0
 }
 @media screen and (max-width: 40em){
   .ontario-header__search-close-container{
