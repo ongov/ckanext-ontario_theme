@@ -2503,6 +2503,10 @@ msgstr "Le gouvernement de l'Ontario prend des mesures afin de concevoir des log
 msgid "Topics"
 msgstr "Sujets"
 
+#: ckanext/ontario_theme/templates/internal/header.html:150
+msgid "Menu"
+msgstr "Sujets"
+
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:44
 msgid "What's new"
 msgstr "Quoi de neuf?"
