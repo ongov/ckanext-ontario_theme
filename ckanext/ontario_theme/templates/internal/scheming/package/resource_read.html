@@ -12,22 +12,26 @@
     'format',
     ] -%}
 {%- set schema = h.scheming_get_dataset_schema(dataset_type) -%}
+{% set license = h.ontario_theme_get_license(pkg.license_id) %}
 
 {% block resource_content %}
   {% block resource_read_title %}
     {{ super() }}
   {% endblock %}
-  {% block resource_read_url %}
-    {{ super() }}
-  {% endblock %}
-  <div class="prose notes" property="rdfs:label">
+  <div class="datafile-p" property="rdfs:label">
+    {% block resource_read_url %}
+            {% if res.url and h.is_url(res.url) %}
+              <p>{{ _('URL:') }} <a class="resource-url-analytics" href="{{ res.url }}" title="{{ res.url }}">{{ res.url }}</a></p>
+            {% elif res.url %}
+              <p>{{ _('URL:') }} {{ res.url }}</p>
+            {% endif %}
+    {% endblock %}
     {% if res.description %}
       {{ h.render_markdown(h.get_translated(res, "description")) }}
     {% endif %}
     {% if not res.description and c.package.notes %}
-      <h3>{{ _('From the dataset abstract') }}</h3>
-      <blockquote>{{ h.markdown_extract(h.get_translated(c.package, 'notes')) }}</blockquote>
-      <p>{% trans dataset=h.get_translated(c.package, "title"), url=h.url_for('dataset.read', id=c.package['name']) %}Source: <a href="{{ url }}">{{ dataset }}</a>{% endtrans %}
+      {{ h.render_markdown(h.get_translated(c.package, 'notes')) }}
+      <p><strong>This dataset is shared under <a href="{{ h.get_translated(license, 'url') }}"> {{ h.get_translated(license, 'title') }}</a>.</strong></p>
     {% endif %}
   </div>
 {% endblock %}

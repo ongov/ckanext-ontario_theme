@@ -492,3 +492,8 @@ via submission form. Copied from DS.*/
   a.btn, a.btn-primary, a.heading, a.tag, ul.nav-tabs li a, .table-of-contents a, .nav-item a{
     text-decoration: none;
   }
+
+  .datafile-p {
+    font-size: 20px;
+    line-height: 27.24px;
+  }
