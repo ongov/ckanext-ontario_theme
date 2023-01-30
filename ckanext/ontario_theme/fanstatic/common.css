@@ -518,7 +518,6 @@ a:focus {
   padding: 0.375rem 0;
   margin-bottom: 0;
   max-width: 65%;
-  min-width: 184px;
 }
 .ontario-application-subheader__heading a {
   color: #FFFFFF;
@@ -572,7 +571,7 @@ a:focus {
   border-radius: 4px 4px 0 0;
   border-bottom: 4px solid #FFFFFF;
 }
-.ontario-application-subheader__menu a:hover {
+.ontario-application-subheader__menu a:hover,.ontario-application-subheader__menu a:focus {
   background-color: #666666;
 }
 .ontario-application-subheader__menu a:active {
@@ -684,11 +683,10 @@ header {
 }
 .ontario-navigation a:focus, .ontario-navigation a:active {
   box-shadow: 0 0 0 4px #009adb inset;
+  text-decoration: underline;
+  background-color: #CCCCCC;
   outline: 4px solid transparent;
   transition: box-shadow .1s ease-in-out;
-}
-.ontario-navigation a:active {
-  background-color: #CCCCCC;
 }
 .ontario-navigation li {
   border-top: 1px solid #ccc;
@@ -995,4 +993,117 @@ via submission form. Copied from DS.*/
   }
   a.btn, a.btn-primary, a.heading, a.tag, ul.nav-tabs li a, .table-of-contents a, .nav-item a{
     text-decoration: none;
+  }
+/* ========================================================================
+   Visibility - Design System
+   ======================================================================== */
+  .ontario-hide {
+    display: none !important;
+  }
+  
+  .ontario-invisible {
+    visibility: hidden;
+  }
+  
+  @media screen and (max-width: 39.9375em) {
+    .ontario-hide-for-small-only {
+      display: none !important;
+    }
+  }
+  @media screen and (max-width: 0em), screen and (min-width: 40em) {
+    .ontario-show-for-small-only {
+      display: none !important;
+    }
+  }
+  @media print, screen and (min-width: 40em) {
+    .ontario-hide-for-medium {
+      display: none !important;
+    }
+  }
+  @media screen and (max-width: 39.9375em) {
+    .ontario-show-for-medium {
+      display: none !important;
+    }
+  }
+  @media screen and (min-width: 40em) and (max-width: 72.9375em) {
+    .ontario-hide-for-medium-only {
+      display: none !important;
+    }
+  }
+  @media screen and (max-width: 39.9375em), screen and (min-width: 73em) {
+    .ontario-show-for-medium-only {
+      display: none !important;
+    }
+  }
+  @media print, screen and (min-width: 73em) {
+    .ontario-hide-for-large {
+      display: none !important;
+    }
+  }
+  @media screen and (max-width: 72.9375em) {
+    .ontario-show-for-large {
+      display: none !important;
+    }
+  }
+  @media screen and (min-width: 73em) and (max-width: 95.9375em) {
+    .ontario-hide-for-large-only {
+      display: none !important;
+    }
+  }
+  @media screen and (max-width: 72.9375em), screen and (min-width: 96em) {
+    .ontario-show-for-large-only {
+      display: none !important;
+    }
+  }
+  .ontario-show-for-sr,
+  .ontario-show-on-focus {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+  
+  .ontario-show-on-focus:active,
+  .ontario-show-on-focus:focus {
+    position: static !important;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+  }
+  
+  .ontario-show-for-landscape,
+  .ontario-hide-for-portrait {
+    display: block !important;
+  }
+  
+  @media screen and (orientation: landscape) {
+    .ontario-show-for-landscape,
+  .ontario-hide-for-portrait {
+      display: block !important;
+    }
+  }
+  @media screen and (orientation: portrait) {
+    .ontario-show-for-landscape,
+  .ontario-hide-for-portrait {
+      display: none !important;
+    }
+  }
+  .ontario-hide-for-landscape,
+  .ontario-show-for-portrait {
+    display: none !important;
+  }
+  
+  @media screen and (orientation: landscape) {
+    .ontario-hide-for-landscape,
+  .ontario-show-for-portrait {
+      display: none !important;
+    }
+  }
+  @media screen and (orientation: portrait) {
+    .ontario-hide-for-landscape,
+  .ontario-show-for-portrait {
+      display: block !important;
+    }
   }

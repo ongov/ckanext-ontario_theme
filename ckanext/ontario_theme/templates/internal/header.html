@@ -155,13 +155,13 @@
         </div>
       </section>
       <nav class="ontario-navigation" id="ontario-navigation">
-        <button class="ontario-header__menu-toggler ontario-header-button ontario-header-button--with-outline {{'fr' if current_lang =='fr'}}" id="ontario-header-nav-toggler" aria-controls="ontario-navigation" aria-label="close">
+        <button class="ontario-hide-for-large ontario-header__menu-toggler ontario-header-button ontario-header-button--with-outline {{'fr' if current_lang =='fr'}}" id="ontario-header-nav-toggler" aria-controls="ontario-navigation" aria-label="close">
           <svg class="ontario-icon" focusable="false" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
               <use xlink:href="#ontario-icon-close"></use>
           </svg>
           <span class="menu-text">{{_("Menu")}}</span>
         </button>
-        <div class="ontario-navigation__container">
+        <div class="ontario-navigation__container ontario-hide-for-large-only">
           <ul>
             {{ h.build_nav_main(
               ('dataset.search', _('Datasets')),
