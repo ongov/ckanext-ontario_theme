@@ -764,9 +764,19 @@ the menu dropdowm. Datasets and ministries are displayed in the medium screen na
   }
 }
 /* Moves the closing Menu button when the French title wraps */
-@media screen and (min-width: 40em) and (max-width: 51.5em){
+@media screen and (min-width: 40em) and (max-width: 51.5em) {
   .ontario-header-button--with-outline.fr{
     top: calc(-4rem + -1.4rem);
+  }
+}
+@media screen and (min-width: 20em) and (max-width: 25.75em){
+  .ontario-header-button--with-outline.fr{
+    top: calc(-4rem + -1rem);
+  }
+}
+@media screen and (min-width: 20em) and (max-width: 21.375em){
+  .ontario-application-subheader-menu__container .ontario-header-button--with-outline{
+    top: calc(-4rem + -1rem);
   }
 }
 @media screen and (max-width: 73em) {
