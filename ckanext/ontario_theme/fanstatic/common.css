@@ -497,3 +497,15 @@ via submission form. Copied from DS.*/
     font-size: 20px;
     line-height: 27.24px;
   }
+/* ========================================================================
+   Custom overrides - datafile pages
+   ======================================================================== */
+  .additional-info-table {
+    margin-top: 64px;
+  }
+  .module-resource {
+    border-bottom: unset;
+  }
+  .table-condensed > tbody > tr > th, .table-condensed > thead > tr > th, .table-condensed > tbody > tr > td {
+    padding: 12px;
+  }
