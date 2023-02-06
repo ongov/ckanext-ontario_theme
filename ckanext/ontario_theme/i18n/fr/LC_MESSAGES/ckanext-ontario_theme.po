@@ -2937,3 +2937,11 @@ msgstr "Il n'y a actuellement aucun ministère pour ce site."
 #: ckanext/ontario_theme/templates/internal/snippets/organization.html:34
 msgid "Subscribe to updates to this ministry using RSS."
 msgstr "Inscrivez-vous aux mises à jour pour ce ministère à l’aide du fil RSS."
+
+#: ckanext/ontario_theme/templates/internal/user/dashboard.html:6
+msgid "Edit settings"
+msgstr "Éditer les réglages"
+
+#: ckanext/ontario_theme/templates/internal/header.html:39
+msgid "Settings"
+msgstr "Réglages"
