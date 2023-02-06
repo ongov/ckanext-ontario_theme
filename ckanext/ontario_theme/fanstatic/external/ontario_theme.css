@@ -1084,44 +1084,6 @@ textarea[readonly]::placeholder {
   background-color: #774503;
   border-color: #774503dc;
 }
-/* =====================================================
-   The "account masthead" bar across the top of the site
-   ===================================================== */
-.account {
-  position: relative;
-  z-index: 5;
-  background-color: #1a1a1a;
-  min-height: 32px;
-}
-.account .avatar{
-  padding-right: 16px;
-}
-/* The "bubble" containing the number of new notifications. */
-.account .notifications a .badge {
-  background-color: #000;
-}
-/* The text and icons in the user account info. */
-.account ul li a {
-  color: #ededed;
-  font-weight: normal;
-  font-size: 14px;
-  text-decoration: none;
-  padding: 0.5rem 0.75rem;
-}
-/* The user account info text and icons, when the user's pointer is hovering
-   over them. */
-.account ul li a:hover {
-  background-color: #666666;
-}
-.account ul li a:hover {
-  text-decoration: underline;
-}
-.account ul li {
-  display: block;
-  float: right;
-  border-right: none;
-  margin-bottom: 0 !important;
-}
 /* ========================================================================
    The main masthead bar that contains the site logo, nav links, and search
    ======================================================================== */

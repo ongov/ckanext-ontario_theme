@@ -1078,6 +1078,10 @@ msgstr ""
 msgid "Sysadmin settings"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/header.html:39
+msgid "Settings"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/header.html:18
 msgid "Admin"
 msgstr ""

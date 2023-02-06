@@ -995,6 +995,46 @@ via submission form. Copied from DS.*/
     line-height: 1.5;
   }
 }
+/* =====================================================
+   Custom overrides - Account bar
+   ===================================================== */
+   .account {
+    position: relative;
+    z-index: 5;
+    background-color: #1a1a1a;
+    min-height: 32px;
+  }
+  .account .avatar{
+    padding-right: 16px;
+  }
+  /* The "bubble" containing the number of new notifications. */
+  .account .notifications a .badge {
+    background-color: #000;
+  }
+  /* The text and icons in the user account info. */
+  .account ul li a {
+    color: #ededed;
+    font-weight: normal;
+    font-size: 14px;
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+  }
+  /* The user account info text and icons, when the user's pointer is hovering
+     over them. */
+  .account ul li a:hover {
+    background-color: #666666;
+  }
+  .account ul li a:hover {
+    text-decoration: underline;
+  }
+  .account ul{
+    float: right;
+  }
+  .account ul li {
+    display: inline-block;
+    border-right: none;
+    margin-bottom: 0 !important;
+  }
 /* ========================================================================
    Custom overrides - links
    ======================================================================== */
