@@ -14,11 +14,14 @@
 {%- set schema = h.scheming_get_dataset_schema(dataset_type) -%}
 {% set license = h.ontario_theme_get_license(pkg.license_id) %}
 
+{% block pre_primary %}
+<section class="module module-resource" role="complementary">
 {% block resource_content %}
+<div class="module-content">
   {% block resource_read_title %}
     {{ super() }}
   {% endblock %}
-  <div class="datafile-p" property="rdfs:label">
+  <div class="datafile-p col-sm-9 col-xs-12" property="rdfs:label">
     {% block resource_read_url %}
             {% if res.url and h.is_url(res.url) %}
               <p>{{ _('URL:') }} <a class="resource-url-analytics" href="{{ res.url }}" title="{{ res.url }}">{{ res.url }}</a></p>
@@ -31,10 +34,80 @@
     {% endif %}
     {% if not res.description and c.package.notes %}
       {{ h.render_markdown(h.get_translated(c.package, 'notes')) }}
-      <p><strong>This dataset is shared under <a href="{{ h.get_translated(license, 'url') }}"> {{ h.get_translated(license, 'title') }}</a>.</strong></p>
     {% endif %}
+    <p><strong>This dataset is shared under <a href="{{ h.get_translated(license, 'url') }}"> {{ h.get_translated(license, 'title') }}</a>.</strong></p>
   </div>
+  {% block resource_actions %}
+  {% block resource_actions_inner %}
+  {% asset 'ontario_theme/ontario_theme_download_tracker_js' %}
+  {% if h.check_access('package_update', {'id':pkg.id }) %}
+    <li>{% link_for _('Edit'), named_route=pkg.type + '_resource.edit', id=pkg.name, resource_id=res.id, class_='btn btn-default', icon='wrench' %}</li>
+  {% endif %}
+  {% if res.url and h.is_url(res.url) %}
+    {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
+    {% if pkg.groups %}
+      {% set this_group = pkg.groups[0]['name'] %}
+    {% else %}
+      {% set this_group = '' %}
+    {% endif %}
+      <div class="action-group col-sm-3 col-xs-12">
+        <h3>
+          {% if res.resource_type in ('listing', 'service') %}
+            {{ _('View data') }}
+          {% elif  res.resource_type == 'api' %}
+            {{ _('API Endpoint') }}
+          {% elif (not res.has_views or not res.can_be_previewed) and not res.url_type == 'upload' %}
+            {{ _('Open data') }}
+          {% else %}
+            {{ _('Download data') }}
+          {% endif %}
+        </h3>
+        {% if not res.datastore_active %}
+        <a class="dataset-download-link resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ res.url }}" onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">
+          data
+        </a>
+        {% endif %}
+        {% block download_resource_button %}
+          {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
+          {%if res.datastore_active %}
+            <ul>
+              <li>
+                <a class="dataset-download-link" href="{{ h.url_for('datastore.dump', resource_id=res.id, bom=True) }}"
+                  onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"> <span>CSV</span></a>
+                  </li>
+                  <li>
+                <a class="dataset-download-link" href="{{ h.url_for('datastore.dump', resource_id=res.id, format='tsv', bom=True) }}"
+                  onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"><span>TSV</span></a>
+                </li>
+                <li>
+                <a class="dataset-download-link" href="{{ h.url_for('datastore.dump', resource_id=res.id, format='json') }}"
+                  onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"><span>JSON</span></a>
+                </li>
+                <li>
+                <a class="dataset-download-link" href="{{ h.url_for('datastore.dump', resource_id=res.id, format='xml') }}"
+                  onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"><span>XML</span></a>
+              </li>
+            </ul>
+          {%endif%}
+        {% endblock %}
+      </div>
+  {% endif %}
 {% endblock %}
+<div class="action-group col-sm-3 col-xs-12">
+  <h3>Visualize data</h3>
+  <p>Use the Data Visualizer below to display this dataset as a table, graph or map.</p>
+</div>
+  {% endblock %}
+</div>
+  {% endblock %}
+  {% block data_preview %}
+  {% if res.format == "CSV" %}
+    {{ super() }}
+  {% endif %}
+{% endblock %}
+  </section>
+{% endblock %}
+
 {% block primary %}
   <div class="col-sm-9 col-xs-12" role="main">
   {% block primary_content %}
