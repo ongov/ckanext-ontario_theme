@@ -73,7 +73,7 @@
       display:flex
   }
 }
-.ontario-search-input.ontario-input:invalid+input[type=reset], .ontario-search-input.ontario-input:not([value=""])+input[type=reset]{
+.ontario-search-input.ontario-input:invalid+input[type=reset]{
   display:none
 }
 .ontario-search-input.ontario-input:focus~.ontario-search-submit{
