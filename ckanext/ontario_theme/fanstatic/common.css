@@ -717,6 +717,10 @@ header {
     letter-spacing: 0.0313rem;
     line-height: 1.5;
   }
+  #ontario-header .ontario-columns, #ontario-application-subheader .ontario-columns{
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 }
 @media screen and (min-width: 73em) {
   .ontario-application-subheader{
