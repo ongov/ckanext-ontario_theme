@@ -281,6 +281,9 @@ input[type=reset].ontario-search-reset.home{
   overflow:hidden;
   margin-bottom:2px
 }
+#group-search-form .ontario-search-container{
+  z-index: 2;
+}
 
 /* ========================================================================
    Page Alerts - Design System
