@@ -1052,15 +1052,15 @@ msgid "State"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/footer.html:9
-msgid "accessibility"
+msgid "Accessibility"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/footer.html:10
-msgid "privacy"
+msgid "Privacy"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/footer.html:11
-msgid "terms of use"
+msgid "Terms of use"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/footer.html:15

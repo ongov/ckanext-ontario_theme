@@ -29,24 +29,24 @@ msgid "https://www.ontario.ca/page/accessibility"
 msgstr "https://www.ontario.ca/fr/page/accessibilite"
 
 #: ckanext/ontario_theme/templates/internal/footer.html:9
-msgid "accessibility"
-msgstr "accessibilité"
+msgid "Accessibility"
+msgstr "Accessibilité"
 
 #: ckanext/ontario_theme/templates/internal/footer.html:10
 msgid "https://www.ontario.ca/page/privacy-statement"
 msgstr "https://www.ontario.ca/fr/page/declaration-concernant-la-protection-de-la-vie-privee"
 
 #: ckanext/ontario_theme/templates/internal/footer.html:10
-msgid "privacy"
-msgstr "confidentialité"
+msgid "Privacy"
+msgstr "Confidentialité"
 
 #: ckanext/ontario_theme/templates/internal/footer.html:11
 msgid "https://www.ontario.ca/page/terms-use"
 msgstr "https://www.ontario.ca/fr/page/conditions-dutilisation"
 
 #: ckanext/ontario_theme/templates/internal/footer.html:11
-msgid "terms of use"
-msgstr "conditions d’utilisation"
+msgid "Terms of use"
+msgstr "Conditions d’utilisation"
 
 #: ckanext/ontario_theme/templates/footer.html:15
 msgid "https://www.ontario.ca/page/copyright-information"
@@ -2637,7 +2637,7 @@ msgstr "Concepteurs"
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:39
 msgid "Guidance for using our data in a software application."
-msgstr "Si vous utilisez le catalogue dans une application logicielle."
+msgstr "Directives pour utiliser nos données dans une application logicielle."
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:45
 msgid "Training materials"
