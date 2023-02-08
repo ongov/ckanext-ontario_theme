@@ -29,8 +29,8 @@
     {% if not error %}
       <div class="search-count">
         {% if type == 'dataset' %}
-          {% set text_query = ungettext('{number} dataset found for "{query}"', '{number} datasets found for "{query}"', count) %}
-          {% set text_query_none = _('No datasets found for "{query}"') %}
+          {% set text_query = ungettext('<strong>{number}</strong> dataset found with the keyword(s) <strong>"{query}"</strong>', '<strong>{number} datasets</strong> found with the keyword(s) <strong>"{query}"</strong>', count) %}
+          {% set text_query_none = _('No datasets found with the keyword(s) "{query}"') %}
           {% set text_no_query = ungettext('{number} dataset found', '{number} datasets found', count) %}
           {% set text_no_query_none = _('No datasets found') %}
 
@@ -62,7 +62,7 @@
 
         {% if query %}
           {%- if count -%}
-            {{ text_query.format(number=h.localised_number(count), query=query, type=type) }}
+            {{ text_query.format(number=h.localised_number(count), query=query, type=type)|safe}}
           {%- else -%}
             {{ text_query_none.format(query=query, type=type) }}
           {%- endif -%}
@@ -90,13 +90,6 @@
         Only show when facets and a query are available to avoid
         missing attribute error.
       #}
-      <span>
-        <span class="facet">{{ _('with the keyword(s)') }}{{ _(':') }}</span>
-        <span class="filtered pill">
-          {{ query }}
-          <a href="{{ facets.remove_field('q', query) }}" class="remove" title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
-        </span>
-      </span>
     {% endif %}  
     {% if facets %}
         {% for field in facets.fields %}
