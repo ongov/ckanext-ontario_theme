@@ -2503,6 +2503,10 @@ msgstr "Le gouvernement de l'Ontario prend des mesures afin de concevoir des log
 msgid "Topics"
 msgstr "Sujets"
 
+#: ckanext/ontario_theme/templates/internal/header.html:150
+msgid "Menu"
+msgstr "Sujets"
+
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:44
 msgid "What's new"
 msgstr "Quoi de neuf?"
@@ -2885,6 +2889,14 @@ msgstr "<a href=\"/fr/group/2019-novel-coronavirus\">Afficher plus d’options</
 msgid "Ministries"
 msgstr "Ministères"
 
+#: ckanext/ontario_theme/templates/internal/header.html:78
+msgid "https://www.ontario.ca/page/government-ontario"
+msgstr "https://www.ontario.ca/fr/page/gouvernement-de-lontario"
+
+#: ckanext/ontario_theme/templates/internal/header.html:79
+msgid "Government of Ontario"
+msgstr "Gouvernement de l’Ontario"
+
 #: ckanext/ontario_theme/templates/organization/index.html:18
 msgid "Find data published by each of Ontario's Ministries."
 msgstr "Trouvez des données publiées par chacun des ministères de l'Ontario."
@@ -2925,3 +2937,11 @@ msgstr "Il n'y a actuellement aucun ministère pour ce site."
 #: ckanext/ontario_theme/templates/internal/snippets/organization.html:34
 msgid "Subscribe to updates to this ministry using RSS."
 msgstr "Inscrivez-vous aux mises à jour pour ce ministère à l’aide du fil RSS."
+
+#: ckanext/ontario_theme/templates/internal/user/dashboard.html:6
+msgid "Edit settings"
+msgstr "Éditer les réglages"
+
+#: ckanext/ontario_theme/templates/internal/header.html:39
+msgid "Settings"
+msgstr "Réglages"
