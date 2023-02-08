@@ -1014,7 +1014,7 @@ via submission form. Copied from DS.*/
   }
   /* The "bubble" containing the number of new notifications. */
   .account .notifications a .badge {
-    background-color: #000;
+    background-color: transparent;
   }
   /* The text and icons in the user account info. */
   .account ul li a {
