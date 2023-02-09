@@ -29,9 +29,9 @@
     {% if not error %}
       <div class="search-count">
         {% if type == 'dataset' %}
-          {% set text_query = ungettext('<strong>{number}</strong> dataset found with the keyword(s) <strong>"{query}"</strong>', '<strong>{number} datasets</strong> found with the keyword(s) <strong>"{query}"</strong>', count) %}
+          {% set text_query = ungettext('<strong>{number} dataset</strong> found with the keyword(s) <strong>"{query}"</strong>', '<strong>{number} datasets</strong> found with the keyword(s) <strong>"{query}"</strong>', count) %}
           {% set text_query_none = _('No datasets found with the keyword(s) "{query}"') %}
-          {% set text_no_query = ungettext('{number} dataset found', '{number} datasets found', count) %}
+          {% set text_no_query = ungettext('<strong>{number} dataset</strong> found', '<strong>{number} datasets</strong> found', count) %}
           {% set text_no_query_none = _('No datasets found') %}
 
         {% elif type == 'group' %}
@@ -41,9 +41,9 @@
           {% set text_no_query_none = _('No groups found') %}
 
         {% elif type == 'ministry' %}
-          {% set text_query = ungettext('{number} ministry found for "{query}"', '{number} ministries found for "{query}"', count) %}
-          {% set text_query_none = _('No ministries found for "{query}"') %}
-          {% set text_no_query = ungettext('{number} ministry found', '{number} ministries found', count) %}
+          {% set text_query = ungettext('<strong>{number} ministry</strong> found for "{query}"', '<strong>{number} ministries</strong> found with the keyword(s) <strong>"{query}"</strong>', count) %}
+          {% set text_query_none = _('No ministries found with the keyword(s) <strong>"{query}"</strong>') %}
+          {% set text_no_query = ungettext('<strong>{number} ministry</strong> ministry found', '<strong>{number} ministries</strong> found', count) %}
           {% set text_no_query_none = _('No ministries found') %}
 
         {% else %}
@@ -64,13 +64,13 @@
           {%- if count -%}
             {{ text_query.format(number=h.localised_number(count), query=query, type=type)|safe}}
           {%- else -%}
-            {{ text_query_none.format(query=query, type=type) }}
+            {{ text_query_none.format(query=query, type=type)|safe}}
           {%- endif -%}
         {%- else -%}
           {%- if count -%}
-            {{ text_no_query.format(number=h.localised_number(count), type=type) }}
+            {{ text_no_query.format(number=h.localised_number(count), type=type)|safe }}
           {%- else -%}
-            {{ text_no_query_none.format(type=type) }}
+            {{ text_no_query_none.format(type=type)|safe }}
           {%- endif -%}
         {%- endif -%}
       </div>

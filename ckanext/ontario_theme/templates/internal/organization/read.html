@@ -5,7 +5,7 @@ Override CKAN's read.html to add some new facets.
 #}
 
 {% ckan_extends %}
-
+{% set ministry = h.get_translated(c.group_dict, "title") or c.group_dict.name %}
 {% block groups_search_form %}
   {% set facets = {
     'fields': fields_grouped,
@@ -21,7 +21,9 @@ Override CKAN's read.html to add some new facets.
     (_('Last Modified'), 'metadata_modified desc'),
     (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
   %}
-  {% snippet 'snippets/search_form.html', form_id='organization-datasets-search-form', type='dataset', query=q, sorting=sorting, sorting_selected=sort_by_selected, count=page.item_count, facets=facets, placeholder=_('Search datasets'), show_empty=request.params, fields=fields %}
+  {% set searchbar_title = _('Search datasets ' + 'from the Ministry of ' + ministry) + _(':') %}
+  {% set hidden_searchbar_title = _('Search datasets ' + 'from the Ministry of ' + ministry) %}
+  {% snippet 'snippets/search_form.html', searchbar_title=searchbar_title, hidden_searchbar_title=hidden_searchbar_title, form_id='organization-datasets-search-form', type='dataset', query=q, sorting=sorting, sorting_selected=sort_by_selected, count=page.item_count, facets=facets, placeholder=hidden_searchbar_title, show_empty=request.params, fields=fields %}
 {% endblock %}
 
 {% block organization_facets %}

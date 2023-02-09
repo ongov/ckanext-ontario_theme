@@ -211,15 +211,14 @@ input[type=reset].ontario-search-reset:focus{
   .search-form .search-count {
     order: 2; /* Displays count text above Order By menu */
     text-align-last: right;   /* always end text at same point, no matter how long it is */
-    font-size: 20px; /* According to DS, body text should be 16px */
-    padding-bottom: 26px;
+    padding-bottom: 16px;
   }
   /* child div 2: shows Order By dropdown menu.
   Note: clearance for menu below the gray box controlled by
   bottom margin in external/ontario_theme.css LINE 759
   */
   .search-form .control-order-by {
-    order: 3; /* Displays Order By menu below count text */
+    order: 4; /* Displays Order By menu below count text */
     display: flex;
     justify-content: end;
     padding-top: 33px;
@@ -247,9 +246,31 @@ input[type=reset].ontario-search-reset:focus{
 
   /* child div 3: shows search keywords just below searchbar */
   .filter-list {
-    padding-bottom: 5px; /* needed to avoid being squished in mobile mode*/
+    order: 3;
+    display: flex;
+    justify-content: end;
+    padding-bottom: 10px; /* needed to avoid being squished in mobile mode*/
   }
-  
+  .search-form .filter-list, .search-form .search-count {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 25px;
+  }
+  .search-form .filter-list {
+    color:#000;
+    margin-right: -14px;
+  }
+  .pill a.remove {
+    font-size: 14px;
+  }
+  .pill a:visited{
+    color: unset;
+  }
+  .search-form .filter-list .pill{
+    line-height: unset;
+    background-color: #666666;
+    margin-right: 14px;
+  }
   .module-content {
     padding: 0px; /* brings top of file list closer to Order By menu */
   }
