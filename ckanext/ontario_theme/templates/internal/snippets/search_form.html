@@ -10,11 +10,11 @@
   #}
   <div class="module search">
     <h2 aria-label='{{ hidden_searchbar_title }}'><p class="theme_p" aria-hidden="true">{{ searchbar_title }}</p></h2>
-    <form class="module-content search-form" method="get">
+    <form class="module-content search-form" method="get" novalidate>
       <div class="ontario-search-container">
         <label class="ontario-label ontario-show-for-sr" for="ontario-search-input-field">{{ sr_input_text }}</label>
-        <input class="ontario-search-input ontario-input" type="text" id="ontario-search-input-field" name="q" placeholder="{% block search_placeholder %}{{ placeholder }}{% endblock %}" value="{{ query }}" autocomplete="off">
-        {# <input class="ontario-search-reset home" id="ontario-search-reset" type="reset" value="" aria-label="Clear field" /> #}
+        <input class="ontario-search-input ontario-input" type="text" id="ontario-search-input-field" name="q" placeholder="{% block search_placeholder %}{{ placeholder }}{% endblock %}" value="{{ query }}" autocomplete="off" required>
+        <input class="ontario-search-reset home" id="ontario-search-reset" type="reset" value="" aria-label="Clear field" />
         <button class="ontario-search-submit" id="ontario-search-submit" type="submit">
           <span class="ontario-show-for-sr">{{ sr_submit_text }}</span>
           <svg class="ontario-icon search" focusable="false" sol:category="primary" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
@@ -28,51 +28,7 @@
 {% block search_title %}
     {% if not error %}
       <div class="search-count">
-        {% if type == 'dataset' %}
-          {% set text_query = ungettext('<strong>{number} dataset</strong> found with the keyword(s) <strong>"{query}"</strong>', '<strong>{number} datasets</strong> found with the keyword(s) <strong>"{query}"</strong>', count) %}
-          {% set text_query_none = _('No datasets found with the keyword(s) "{query}"') %}
-          {% set text_no_query = ungettext('<strong>{number} dataset</strong> found', '<strong>{number} datasets</strong> found', count) %}
-          {% set text_no_query_none = _('No datasets found') %}
-
-        {% elif type == 'group' %}
-          {% set text_query = ungettext('{number} group found for "{query}"', '{number} groups found for "{query}"', count) %}
-          {% set text_query_none = _('No groups found for "{query}"') %}
-          {% set text_no_query = ungettext('{number} group found', '{number} groups found', count) %}
-          {% set text_no_query_none = _('No groups found') %}
-
-        {% elif type == 'ministry' %}
-          {% set text_query = ungettext('<strong>{number} ministry</strong> found for "{query}"', '<strong>{number} ministries</strong> found with the keyword(s) <strong>"{query}"</strong>', count) %}
-          {% set text_query_none = _('No ministries found with the keyword(s) <strong>"{query}"</strong>') %}
-          {% set text_no_query = ungettext('<strong>{number} ministry</strong> ministry found', '<strong>{number} ministries</strong> found', count) %}
-          {% set text_no_query_none = _('No ministries found') %}
-
-        {% else %}
-          {% set text_query_singular = '{number} ' + type + ' found for "{query}"' %}
-          {% set text_query_plural = '{number} ' + type + 's found for "{query}"' %}
-          {% set text_query_none_plural = 'No ' + type + 's found for "{query}"' %}
-          {% set text_no_query_singular = '{number} ' + type + ' found' %}        
-          {% set text_no_query_plural = '{number} ' + type + 's found' %}
-          {% set text_no_query_none_plural = 'No ' + type + 's found' %}      
-
-          {% set text_query = ungettext(text_query_singular, text_query_plural, count) %}
-          {% set text_query_none = _(text_query_none_plural) %}
-          {% set text_no_query = ungettext(text_no_query_singular, text_no_query_plural, count) %}
-          {% set text_no_query_none = _(text_no_query_none_plural) %}
-        {%- endif -%}
-
-        {% if query %}
-          {%- if count -%}
-            {{ text_query.format(number=h.localised_number(count), query=query, type=type)|safe}}
-          {%- else -%}
-            {{ text_query_none.format(query=query, type=type)|safe}}
-          {%- endif -%}
-        {%- else -%}
-          {%- if count -%}
-            {{ text_no_query.format(number=h.localised_number(count), type=type)|safe }}
-          {%- else -%}
-            {{ text_no_query_none.format(type=type)|safe }}
-          {%- endif -%}
-        {%- endif -%}
+        {% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}
       </div>
     {% else %}
       <div>Error</div>
@@ -99,7 +55,11 @@
             {% if (not query and not loop.index0==0) or query %}
               <span class="sr-only"> and </span>
             {% endif %}
-            {{ facets.titles.get(field, "Has Resources (data)") }}:
+            {% if field == "organization" %}
+            {{ _('Ministry') }}{{_(':')}}
+            {% else %}
+            {{ facets.titles.get(field, "Has Resources (data)") }}{{_(':')}}
+            {% endif %}
           </span>
           {% for value in facets.fields[field] %}
             <span class="filtered pill">
