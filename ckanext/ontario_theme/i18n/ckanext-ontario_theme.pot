@@ -1078,6 +1078,10 @@ msgstr ""
 msgid "Sysadmin settings"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/header.html:39
+msgid "Settings"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/header.html:18
 msgid "Admin"
 msgstr ""
@@ -1133,6 +1137,14 @@ msgstr ""
 #: ckanext/ontario_theme/templates/internal/header.html:103
 #: ckanext/ontario_theme/templates/internal/home/snippets/search.html:15
 msgid "Search"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/header.html:78
+msgid "https://www.ontario.ca/page/government-ontario"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/header.html:79
+msgid "Government of Ontario"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/page.html:4
@@ -1229,6 +1241,10 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:34
 msgid "Topics"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/header.html:150
+msgid "Menu"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:44
@@ -1696,3 +1712,4 @@ msgstr ""
 #: ckanext/ontario_theme/templates/internal/scheming/organization/group_form.html:23
 msgid "Are you sure you want to delete this Ministry?"
 msgstr ""
+
