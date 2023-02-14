@@ -50,7 +50,12 @@
   {% block organizations_list %}
     {% if c.page.items or request.params %}
       {% if c.page.items %}
-        {% snippet "organization/snippets/organization_list.html", organizations=c.page.items %}
+        {# Custom sort by language for name ascending and descending #}
+        {% set current_lang = request.environ.CKAN_LANG %}
+        {% set reverse = True if 'desc' in request.params['sort'] else False %}
+        {% set fields_dict = {'field': 'title_translated','lang': current_lang, 'reverse': reverse} %}
+        {% set sorted_org = h.ontario_theme_sort_page_items(c.page.items, fields_dict) %}
+        {% snippet "organization/snippets/organization_list.html", organizations=sorted_org %}
       {% endif %}
     {% else %}
       <p class="empty">

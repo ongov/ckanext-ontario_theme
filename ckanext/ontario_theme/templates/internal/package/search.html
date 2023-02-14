@@ -62,6 +62,7 @@ in the core template for search.html.
     <div class="module-content">
       {% block package_search_results_list %}
         {{ super() }}
+        {{ h.snippet('snippets/package_list.html', packages=packages) }}
       {% endblock %}
     </div>
 

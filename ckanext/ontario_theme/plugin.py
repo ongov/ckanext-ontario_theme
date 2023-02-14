@@ -394,6 +394,18 @@ def get_keyword_count(keyword_lang, language):
 
     return keyword_count_by_lang
 
+def sort_page_items(obj, fields_dict):
+    '''Helper to return the page items object sorted by title_translated
+    for the current language.
+    '''
+    field = fields_dict['field']
+    lang = fields_dict['lang']
+    reverse = fields_dict['reverse']
+    return sorted(obj, 
+                  key=lambda x: x[field][lang], 
+                  reverse=reverse)
+
+
 def get_popular_datasets():
     '''Helper to return most popular datasets, based on ckan core tracking feature
     '''
@@ -720,7 +732,8 @@ type data_last_updated
                 'ontario_theme_home_block_image': home_block_image,
                 'ontario_theme_home_block_link': home_block_link,
                 'ontario_theme_get_group_datasets': get_group_datasets,
-                'ontario_theme_get_keyword_count': get_keyword_count
+                'ontario_theme_get_keyword_count': get_keyword_count,
+                'ontario_theme_sort_page_items': sort_page_items
                 }
 
     # IBlueprint
