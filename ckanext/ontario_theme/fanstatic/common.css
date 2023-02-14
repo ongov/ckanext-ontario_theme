@@ -305,6 +305,26 @@ input[type=reset].ontario-search-reset.home{
 #group-search-form .ontario-search-container{
   z-index: 2;
 }
+@media screen and (max-width: 40em){
+  .ontario-search-input.ontario-input.snippet{
+    padding-right: 8rem;
+  }
+}
+::placeholder{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #999999;
+  opacity: 1;
+}
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #999999;
+}
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #999999;
+}
 
 /* ========================================================================
    Page Alerts - Design System
@@ -954,7 +974,7 @@ the menu dropdowm. Datasets and ministries are displayed in the medium screen na
   .ontario-header--search-open .ontario-header__search-container{
     padding-top: 7px;
   }
-  .ontario-search-reset{
+  #ontario-search-form-container .ontario-search-reset{
     top: 17px !important;
   }
 }

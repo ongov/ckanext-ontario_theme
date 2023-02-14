@@ -27,16 +27,14 @@
     </div>
     {% block organizations_search_form %}
       <!-- arguments for DS search bar -->
-      {% set sr_input_text = _('Search ministries') %}
-      {% set placeholder = _('Search ministries') %}
+      {% set input_text = _('Search ministries') %}
       {% set query = c.q %}
       {% set sr_submit_text = _('Search') %}
       <!-- arguments for seach form -->
       {% set form_id = 'organization-search-form' %}
       {% set type = 'ministry' %}
-      {% set searchbar_title = _('Search ministries') + _(':') %}
-      {% set hidden_searchbar_title = _('Search ministries') %}
-      {% snippet 'snippets/search_form.html', searchbar_title=searchbar_title, hidden_searchbar_title=hidden_searchbar_title, form_id=form_id, type=type, query=query, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=placeholder, sr_input_text=sr_input_text, sr_submit_text=sr_submit_text, facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields %}
+      {% set searchbar_title = input_text + _(':') %}
+      {% snippet 'snippets/search_form.html', searchbar_title=searchbar_title, hidden_searchbar_title=input_text, form_id=form_id, type=type, query=query, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=input_text, sr_input_text=input_text, sr_submit_text=sr_submit_text, facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields %}
     {% endblock %}
   </div>
 {% endblock %}
