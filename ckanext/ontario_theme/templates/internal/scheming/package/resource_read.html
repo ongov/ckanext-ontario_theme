@@ -16,12 +16,19 @@
 
 {% block pre_primary %}
 <section class="module module-resource" role="complementary">
+  {% if h.check_access('package_update', {'id':pkg.id }) %}
+  <header class="col-xs-12 page-header">
+  <div class="content_action">
+    {% link_for _('Edit'), named_route=pkg.type + '_resource.edit', id=pkg.name, resource_id=res.id, class_='btn btn-default content_action', icon='wrench' %}
+  </div>
+  </header>
+  {% endif %}
 {% block resource_content %}
 <div class="module-content">
   {% block resource_read_title %}
-    {{ super() }}
+  <h1 class="page-heading col-xs-12">{{ h.resource_display_name(res) | truncate(50) }}</h1>
   {% endblock %}
-  <div class="datafile-p col-sm-9 col-xs-12" property="rdfs:label">
+  <div class="datafile-p col-sm-8 col-xs-12" property="rdfs:label">
     {% block resource_read_url %}
             {% if res.url and h.is_url(res.url) %}
               <p>{{ _('URL:') }} <a class="resource-url-analytics" href="{{ res.url }}" title="{{ res.url }}">{{ res.url }}</a></p>
@@ -40,9 +47,7 @@
   {% block resource_actions %}
   {% block resource_actions_inner %}
   {% asset 'ontario_theme/ontario_theme_download_tracker_js' %}
-  {% if h.check_access('package_update', {'id':pkg.id }) %}
-    <li>{% link_for _('Edit'), named_route=pkg.type + '_resource.edit', id=pkg.name, resource_id=res.id, class_='btn btn-default', icon='wrench' %}</li>
-  {% endif %}
+  <div class="col-sm-4 col-xs-12">
   {% if res.url and h.is_url(res.url) %}
     {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
     {% if pkg.groups %}
@@ -50,7 +55,7 @@
     {% else %}
       {% set this_group = '' %}
     {% endif %}
-      <div class="action-group col-sm-3 col-xs-12">
+      <div class="action-group">
         <h3>
           {% if res.resource_type in ('listing', 'service') %}
             {{ _('View data') }}
@@ -92,14 +97,29 @@
         {% endblock %}
       </div>
   {% endif %}
+  {% if res.datastore_active %}
+  {% block data_api_button %}
+  <div class="action-group">
+    <h3>Use the data API</h3>
+    {% set loading_text = _('Loading...') %}
+    {% set api_info_url = h.url_for(controller='api', action='snippet', ver=1, snippet_path='api_info.html', resource_id=res.id) %}
+    <ul>
+    <li><a class="" href="{{ api_info_url }}" data-module="api-info" data-module-template="{{ api_info_url }}" data-loading-text="{{ loading_text }}">{{ _('CKAN Data API calls') }}</a></li>
+    </ul>
+  </div>
+  {% endblock %}
+  <div class="action-group">
+    <h3>Visualize data</h3>
+    <p>Use the Data Visualizer below to display this dataset as a table, graph or map.</p>
+    <img src="/images/visualize_data.PNG" alt="" width="284" height="133"/>
+  </div>
+  {% endif %}
 {% endblock %}
-<div class="action-group col-sm-3 col-xs-12">
-  <h3>Visualize data</h3>
-  <p>Use the Data Visualizer below to display this dataset as a table, graph or map.</p>
 </div>
   {% endblock %}
 </div>
   {% endblock %}
+
   {% block data_preview %}
   {% if res.format == "CSV" %}
     {{ super() }}

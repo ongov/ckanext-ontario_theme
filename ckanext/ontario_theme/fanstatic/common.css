@@ -1068,17 +1068,20 @@ via submission form. Copied from DS.*/
   }
   .action-group {
     display: block;
+    float: right;
     border-radius: 3px;
     background-color: #f2f2f2;
     padding: 28px;
     margin-bottom: 42px;
+    min-width: 100%;
   }
   .action-group p{
     font-size: 18px;
   }
   .action-group a{
-    font-weight: 600px;
+    font-weight: 600;
     font-size: 19px;
+    line-height: 34.65px;
   }
 /* ========================================================================
    Visibility - Design System
