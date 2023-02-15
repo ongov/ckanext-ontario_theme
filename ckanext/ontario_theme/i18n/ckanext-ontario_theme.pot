@@ -1709,3 +1709,8 @@ msgstr ""
 msgid "Are you sure you want to delete this Ministry?"
 msgstr ""
 
+#: Report error callout
+msgid "Report an error with this data"
+msgstr ""
+msgid "Fill out a <a href=\"https://www.ontario.ca/form/report-data-error\">Data Catalogue error report</a> to let us know if there are issues with the resources in this dataset."
+msgstr ""
