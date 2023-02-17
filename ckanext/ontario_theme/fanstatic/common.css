@@ -255,6 +255,8 @@ input[type=reset].ontario-search-reset:focus{
   .search-form .filter-list {
     color:#000;
     margin-right: -14px;
+    margin-top: 0px;
+    flex-wrap: wrap;
   }
   .pill a.remove {
     font-size: 14px;
@@ -262,10 +264,24 @@ input[type=reset].ontario-search-reset:focus{
   .pill a:visited{
     color: unset;
   }
-  .search-form .filter-list .pill{
+  .search-form .filter-list .pill {
     line-height: unset;
     background-color: #666666;
     margin-right: 14px;
+  }
+  .facet-row {
+    margin-bottom: 5px;
+  }
+  @media screen and (max-width: 39.9375em){
+    .facet-row {
+      display: flex;
+    }
+    .facet {
+      padding-right: 5px;
+    }
+  }
+  .show-filters.btn{
+    margin-bottom: 10px;
   }
   .module-content {
     padding: 0px; /* brings top of file list closer to Order By menu */

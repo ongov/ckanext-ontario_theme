@@ -2953,3 +2953,11 @@ msgstr "Éditer les réglages"
 #: ckanext/ontario_theme/templates/internal/header.html:39
 msgid "Settings"
 msgstr "Réglages"
+
+#: ckanext/ontario_theme/templates/internal/organization/read.html:24
+msgid "Search %(ministry)s datasets"
+msgstr "Rechercher les jeux de données"
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:58
+msgid "Ministry"
+msgstr "ministère"

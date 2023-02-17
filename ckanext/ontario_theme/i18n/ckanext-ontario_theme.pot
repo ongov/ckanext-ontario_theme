@@ -1713,3 +1713,10 @@ msgstr ""
 msgid "Are you sure you want to delete this Ministry?"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/organization/read.html:24
+msgid "Search %(ministry)s datasets"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:58
+msgid "Ministry"
+msgstr ""

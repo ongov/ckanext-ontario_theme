@@ -1,5 +1,5 @@
 {% ckan_extends %}
-
+{% set schema_dict = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
 {% block search_input %}
   {# 
     Design System search bar. Arguments:
@@ -23,7 +23,6 @@
     </div>
   </div>
 {% endblock %}
-
 {% block search_title %}
     {% if not error %}
       <div class="search-count">
@@ -48,27 +47,40 @@
     {% endif %}  
     {% if facets %}
         {% for field in facets.fields %}
-          <span>
+          <span class="facet-row">
           {% set search_facets_items = facets.search.get(field)['items'] %}
           <span class="facet">
             {% if (not query and not loop.index0==0) or query %}
               <span class="sr-only"> and </span>
             {% endif %}
             {% if field == "organization" %}
-            {{ _('Ministry') }}{{_(':')}}
+            {{ _('Ministry') + _(':') }}
             {% else %}
-            {{ facets.titles.get(field, "Has Resources (data)") }}{{_(':')}}
+            {{ facets.titles.get(field, "Has Resources (data)") + _(':')}}
             {% endif %}
           </span>
-          {% for value in facets.fields[field] %}
+          {% for item in h.get_facet_items_dict(field) %}
+          {% set item_id = facets.search.get(field)['title'] %}
+
+          {% if item_id == "organization_category" %}
+          {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'category'))%}
+          {% endif %}
+          {% if item_id == "organization_jurisdiction" %}
+          {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'jurisdiction'))%}
+          {% endif %}
+
+          {% set scheming_choices = choices or h.scheming_field_by_name(schema_dict, item_id).choices or None %}
+          {% do item.update({'display_name': h.scheming_choices_label(scheming_choices, item.display_name)}) if scheming_choices %}
+          {% do item.update({'display_name': h.get_translated( h.ontario_theme_get_license(item.name), "title" )}) if item_id == "license_id" %}
+          {% do item.update({'display_name': h.get_translated( h.get_organization(item.name), "title") or item.display_name}) if item_id == "organization" %}
+          {% do item.update({'display_name': h.get_translated( h.ontario_theme_get_group(item.name), "title") or item.display_name}) if item_id == "groups" %}
+          {% if item.active %}
             <span class="filtered pill">
-              {%- if facets.translated_fields and facets.translated_fields.has_key((field,value)) -%}
-                {{ facets.translated_fields[(field,value)] }}
-              {%- else -%}
-                {{ h.list_dict_filter(search_facets_items, 'name', 'display_name', value) if value != '[1 TO *]' else 'True' }}
-              {%- endif %}
+                  {{item.display_name}}
+                  {#{{ h.list_dict_filter(search_facets_items, 'name', 'display_name', value) if value != '[1 TO *]' else 'True' }}#}
               <a href="{{ facets.remove_field(field, value) }}" class="remove" title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
             </span>
+            {% endif %}
           {% endfor %}
           </span>
         {% endfor %}

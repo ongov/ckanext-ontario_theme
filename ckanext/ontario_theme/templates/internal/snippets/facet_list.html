@@ -8,11 +8,10 @@
 
 {% set fields = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
 {% set title = title or h.get_facet_title(name) %}
-  {% if title==_('Organizations') %}{% set title = _('Ministries') %}{% endif %}
+{% set title = _('Ministries') if title == _('Organizations') else title %}
 
 {% block facet_list_heading %}
   {% with items = items or h.get_facet_items_dict(name) %}
-
   <h2 class="module-heading">
     <i class="fa fa-filter"></i>
     {{ title }}
@@ -27,7 +26,6 @@
   {% endwith %}
 {% endblock %}
 {% block facet_list_items %}
-
   {% with items = items or h.get_facet_items_dict(name) %}
   {% if items %}
     <nav>

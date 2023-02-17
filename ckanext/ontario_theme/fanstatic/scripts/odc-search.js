@@ -1,3 +1,4 @@
+(function () {
 const inputIds = [{
     textId: 'organization-search-form-input',
     resetId: 'organization-search-form-reset'
@@ -22,6 +23,7 @@ const inputIds = [{
     textId: 'home-search-input-field',
     resetId: 'home-search-reset'
 }];
+
 inputIds.forEach(input => {
     const textId = document.getElementById(input.textId);
     const resetId = document.getElementById(input.resetId);
@@ -43,3 +45,4 @@ function searchReset(resetId, textId) {
         textId.focus();
     });
 }
+})();
