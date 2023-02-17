@@ -76,8 +76,7 @@
           {% do item.update({'display_name': h.get_translated( h.ontario_theme_get_group(item.name), "title") or item.display_name}) if item_id == "groups" %}
           {% if item.active %}
             <span class="filtered pill">
-                  {{item.display_name}}
-                  {#{{ h.list_dict_filter(search_facets_items, 'name', 'display_name', value) if value != '[1 TO *]' else 'True' }}#}
+              {{item.display_name}}
               <a href="{{ facets.remove_field(field, value) }}" class="remove" title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
             </span>
             {% endif %}

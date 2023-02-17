@@ -17,13 +17,16 @@ Override CKAN's read.html to add some new facets.
   {% set sorting = [
     (_('Relevance'), 'score desc, metadata_modified desc'),
     (_('Name Ascending'), 'name asc'),
-    (_('Name Descending'), 'name desc'),
+    (_('Name Descending'), 'tname desc'),
     (_('Last Modified'), 'metadata_modified desc'),
     (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
   %}
   {% set searchbar_text = gettext('Search %(ministry)s datasets', ministry=ministry) %}
   {% set searchbar_title = searchbar_text + _(':') %}
-  {% snippet 'snippets/search_form.html', searchbar_title=searchbar_title, hidden_searchbar_title=searchbar_text, form_id='organization-datasets-search-form', type='dataset', query=q, sorting=sorting, sorting_selected=sort_by_selected, count=page.item_count, facets=facets, placeholder=searchbar_text, show_empty=request.params, fields=fields %}
+  {% set form_id = 'organization-datasets-search-form' %}
+  <form {% if form_id %}id="{{ form_id }}" {% endif %}class="search-form{% if no_bottom_border %} no-bottom-border{% endif %}" method="get" data-module="select-switch" novalidate>
+  {% snippet 'snippets/search_form.html', searchbar_title=searchbar_title, hidden_searchbar_title=searchbar_text, form_id=form_id, type='dataset', query=q, sorting=sorting, sorting_selected=sort_by_selected, count=page.item_count, facets=facets, placeholder=searchbar_text, show_empty=request.params, fields=fields %}
+  </form>
 {% endblock %}
 
 {% block organization_facets %}

@@ -107,7 +107,7 @@ msgstr[0] "<strong>{number} jeu  de données</strong> trouvé"
 msgstr[1] "<strong>{number} jeux de données</strong> trouvés"
 
 #: Ministries
-msgid "<strong>{number} ministry</strong> found for \"{query}\""
+msgid "<strong>{number} ministry</strong> found for <strong>\"{query}\"</strong>"
 msgid_plural "<strong>{number} ministries</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
 msgstr[0] "<strong>{number} ministère</strong> trouvé avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
 msgstr[1] "<strong>{number} ministères</strong> trouvés avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
