@@ -48,7 +48,13 @@ in the core template for search.html.
       {% set type = dataset_type %}
       {% set searchbar_title = _('Search ' + dataset_type + 's') + _(':') %}
       {% set hidden_searchbar_title = _('Search ' + dataset_type + 's') %}
-      {% snippet 'snippets/search_form.html', searchbar_title=searchbar_title, hidden_searchbar_title=hidden_searchbar_title, form_id=form_id, type=type, query=query, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=placeholder, sr_input_text=sr_input_text, sr_submit_text=sr_submit_text, facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields %}
+      <!-- override default sort order 'score desc, metadata_modified desc' to 'metadata_modified desc' -->
+      {% set default_order = 'metadata_modified desc' %}
+      <!-- define sort_order to default_order when first landing on page, otherwise
+           set to user menu selection stored in request.params['sort']
+       -->
+      {% set sort_order = default_order if not request.params else request.params['sort'] %}
+      {% snippet 'snippets/search_form.html', searchbar_title=searchbar_title, hidden_searchbar_title=hidden_searchbar_title, form_id=form_id, type=type, query=query, sorting=sorting, sorting_selected=sort_order, count=c.page.item_count, placeholder=placeholder, sr_input_text=sr_input_text, sr_submit_text=sr_submit_text, facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields %}
     {% endblock %}
   </div>
 {% endblock %}
