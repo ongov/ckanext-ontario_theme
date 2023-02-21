@@ -98,7 +98,7 @@
       </div>
   {% endif %}
   {% if res.datastore_active %}
-  {% block data_api_button %}
+  {# {% block data_api_button %}
   <div class="action-group">
     <h3>Use the data API</h3>
     {% set loading_text = _('Loading...') %}
@@ -107,7 +107,7 @@
     <li><a class="" href="{{ api_info_url }}" data-module="api-info" data-module-template="{{ api_info_url }}" data-loading-text="{{ loading_text }}">{{ _('CKAN Data API calls') }}</a></li>
     </ul>
   </div>
-  {% endblock %}
+  {% endblock %} #}
   <div class="action-group">
     <h3>Visualize data</h3>
     <p>Use the Data Visualizer below to display this dataset as a table, graph or map.</p>
