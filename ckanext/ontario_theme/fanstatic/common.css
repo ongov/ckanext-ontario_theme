@@ -1060,6 +1060,12 @@ via submission form. Copied from DS.*/
   .additional-info-table {
     margin-top: 64px;
   }
+  .additional-info-table.table-bordered > tbody > tr > th, .additional-info-table.table-bordered > thead > tr > th {
+    border-right: unset;
+  }
+  .additional-info-table.table-bordered > tbody > tr > td, .additional-info-table.table-bordered > thead > tr > th{
+    border-left: unset;
+  }
   .module-resource {
     border-bottom: unset;
   }

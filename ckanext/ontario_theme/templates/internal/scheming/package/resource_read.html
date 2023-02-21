@@ -40,9 +40,17 @@
       {{ h.render_markdown(h.get_translated(res, "description")) }}
     {% endif %}
     {% if not res.description and c.package.notes %}
-      {{ h.render_markdown(h.get_translated(c.package, 'notes')) }}
+      {% if res.format == "CSV" %}
+        {{ h.render_markdown(h.get_translated(c.package, 'notes')) }}
+      {% else %}
+        <h3>{{ _('From the dataset abstract') }}</h3>
+        <blockquote>{{ h.markdown_extract(h.get_translated(c.package, 'notes')) }}</blockquote>
+        <p>{% trans dataset=h.get_translated(c.package, "title"), url=h.url_for('dataset.read', id=c.package['name']) %}Source: <a href="{{ url }}">{{ dataset }}</a>{% endtrans %}
+      {% endif %}
     {% endif %}
-    <p><strong>This dataset is shared under <a href="{{ h.get_translated(license, 'url') }}"> {{ h.get_translated(license, 'title') }}</a>.</strong></p>
+    {% if res.format == "CSV" %}
+      <p><strong>This dataset is shared under <a href="{{ h.get_translated(license, 'url') }}"> {{ h.get_translated(license, 'title') }}</a>.</strong></p>
+    {% endif %}
   </div>
   {% block resource_actions %}
   {% block resource_actions_inner %}
@@ -57,19 +65,15 @@
     {% endif %}
       <div class="action-group">
         <h3>
-          {% if res.resource_type in ('listing', 'service') %}
-            {{ _('View data') }}
-          {% elif  res.resource_type == 'api' %}
-            {{ _('API Endpoint') }}
-          {% elif (not res.has_views or not res.can_be_previewed) and not res.url_type == 'upload' %}
-            {{ _('Open data') }}
-          {% else %}
+          {% if res.datastore_active %}
             {{ _('Download data') }}
+          {% else %}
+            {{ _('Access data') }}
           {% endif %}
         </h3>
         {% if not res.datastore_active %}
         <a class="dataset-download-link resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ res.url }}" onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">
-          data
+          {{ h.resource_display_name(res) | truncate(50) }}
         </a>
         {% endif %}
         {% block download_resource_button %}
@@ -109,8 +113,8 @@
   </div>
   {% endblock %} #}
   <div class="action-group">
-    <h3>Visualize data</h3>
-    <p>Use the Data Visualizer below to display this dataset as a table, graph or map.</p>
+    <h3>{{ _('Visualize data') }}</h3>
+    <p>{{ _('Use the Data Visualizer below to display this dataset as a table, graph or map.') }}</p>
     <img src="/images/visualize_data.PNG" alt="" width="284" height="133"/>
   </div>
   {% endif %}
@@ -119,23 +123,24 @@
   {% endblock %}
 </div>
   {% endblock %}
-
-  {% block data_preview %}
+<div class="col-xs-12">
+{% block data_preview %}
   {% if res.format == "CSV" %}
     {{ super() }}
   {% endif %}
 {% endblock %}
+</div>
   </section>
 {% endblock %}
 
 {% block primary %}
-  <div class="col-sm-9 col-xs-12" role="main">
+  <div class="module-content col-sm-9 col-xs-12" role="main">
   {% block primary_content %}
     {% block resource_additional_information %}
       {% if res %}
         <section class="module">
           {% block resource_additional_information_inner %}
-            <div class="module-content">
+            <div>
               <h3>{{ _('Additional Information') }}</h3>
               <table class="additional-info-table datafile-p table table-striped table-bordered table-condensed" data-module="table-toggle-more">
                 <thead>
@@ -206,11 +211,9 @@
     {% endblock %}
   {% endblock %}
   </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-          {% snippet 'home/snippets/ontario_theme_contact_us.html' %}
-      </div>
+  <div class="module-content row">
+    <div class="col-sm-12">
+        {% snippet 'home/snippets/ontario_theme_contact_us.html' %}
     </div>
   </div>
 {% endblock %}
