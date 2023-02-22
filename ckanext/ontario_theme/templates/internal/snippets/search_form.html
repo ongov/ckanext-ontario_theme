@@ -60,26 +60,23 @@
             {% endif %}
           </span>
           {% for item in h.get_facet_items_dict(field) %}
-          {% set item_id = facets.search.get(field)['title'] %}
+            {% set item_id = facets.search.get(field)['title'] %}
 
-          {% if item_id == "organization_category" %}
-          {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'category'))%}
-          {% endif %}
-          {% if item_id == "organization_jurisdiction" %}
-          {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'jurisdiction'))%}
-          {% endif %}
-
-          {% set scheming_choices = choices or h.scheming_field_by_name(schema_dict, item_id).choices or None %}
-          {% do item.update({'display_name': h.scheming_choices_label(scheming_choices, item.display_name)}) if scheming_choices %}
-          {% do item.update({'display_name': h.get_translated( h.ontario_theme_get_license(item.name), "title" )}) if item_id == "license_id" %}
-          {% do item.update({'display_name': h.get_translated( h.get_organization(item.name), "title") or item.display_name}) if item_id == "organization" %}
-          {% do item.update({'display_name': h.get_translated( h.ontario_theme_get_group(item.name), "title") or item.display_name}) if item_id == "groups" %}
-          {% if item.active %}
-            <span class="filtered pill">
-              {{item.display_name}}
-              <a href="{{ facets.remove_field(field, value) }}" class="remove" title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
-            </span>
+            {% if item_id == "organization_category" %}
+              {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'category'))%}
             {% endif %}
+            {% if item_id == "organization_jurisdiction" %}
+              {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'jurisdiction'))%}
+            {% endif %}
+
+            {{ h.snippet('snippets/translate_facets.html', fields=schema_dict, name=item_id, item=item, scheming_choices=choices, extras=extras) }}
+
+              {% if item.active %}
+                <span class="filtered pill">
+                  {{item.display_name}}
+                  <a href="{{ h.remove_url_param(item_id, item.name, extras=extras, alternative_url=alternative_url) }}" class="remove" title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
+                </span>
+              {% endif %}
           {% endfor %}
           </span>
         {% endfor %}
