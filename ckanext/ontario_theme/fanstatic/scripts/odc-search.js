@@ -1,3 +1,11 @@
+/*
+ * Function for the perfomance of the search bars throughout the site
+ * 
+ * The "keyup" event listener allows the use of the escape button to clear input on each of the search bars
+ * searchReset(resetID, textID) removes preexisting values by changing the default value to empty and clears the search input
+ * const inputIds are the ids of the input text and reset fields for all search bars, not including the header search bar
+ */
+
 (function () {
 const inputIds = [{
     textId: 'organization-search-form-input',
