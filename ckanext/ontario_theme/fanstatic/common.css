@@ -269,12 +269,14 @@ input[type=reset].ontario-search-reset:focus{
     background-color: #666666;
     margin-right: 14px;
   }
-  .facet-row {
+  .filtered {
     margin-bottom: 5px;
   }
   @media screen and (max-width: 39.9375em){
     .facet-row {
-      display: flex;
+      display: block;
+      float: right;
+      text-align: right;
     }
     .facet {
       padding-right: 5px;
