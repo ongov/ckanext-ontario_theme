@@ -26,7 +26,7 @@
 {% block resource_content %}
 <div class="module-content">
   {% block resource_read_title %}
-  <h1 class="page-heading col-xs-12">{{ h.resource_display_name(res) | truncate(50) }}</h1>
+  <h1 class="page-heading col-xs-12">{{ h.resource_display_name(res) }}</h1>
   {% endblock %}
   <div class="datafile-p col-sm-8 col-xs-12" property="rdfs:label">
     {% block resource_read_url %}
@@ -47,9 +47,6 @@
         <blockquote>{{ h.markdown_extract(h.get_translated(c.package, 'notes')) }}</blockquote>
         <p>{% trans dataset=h.get_translated(c.package, "title"), url=h.url_for('dataset.read', id=c.package['name']) %}Source: <a href="{{ url }}">{{ dataset }}</a>{% endtrans %}
       {% endif %}
-    {% endif %}
-    {% if res.format == "CSV" %}
-      <p><strong>This dataset is shared under <a href="{{ h.get_translated(license, 'url') }}"> {{ h.get_translated(license, 'title') }}</a>.</strong></p>
     {% endif %}
   </div>
   {% block resource_actions %}
@@ -73,7 +70,7 @@
         </h3>
         {% if not res.datastore_active %}
         <a class="dataset-download-link resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ res.url }}" onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">
-          {{ h.resource_display_name(res) | truncate(50) }}
+          {{ h.resource_display_name(res) }}
         </a>
         {% endif %}
         {% block download_resource_button %}
