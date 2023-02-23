@@ -903,7 +903,7 @@ msgid ""
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:15
-msgid "Take a <a href=\"https://www.ontario.ca/form/survey-open-data-catalogue?page=/\">2-minute survey</a> and tell us what you think about this page."
+msgid "Take a <a href=\"https://www.ontario.ca/form/survey-open-data-catalogue?%(params)s\">2-minute survey</a> and tell us what you think about this page."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:11
@@ -1712,5 +1712,5 @@ msgstr ""
 #: Report error callout
 msgid "Report an error with this data"
 msgstr ""
-msgid "Fill out a <a href=\"https://www.ontario.ca/form/report-data-error\">Data Catalogue error report</a> to let us know if there are issues with the resources in this dataset."
+msgid "Fill out a <a href=\"https://www.ontario.ca/form/report-data-error?%(params)s\">Data Catalogue error report</a> to let us know if there are issues with the resources in this dataset."
 msgstr ""
