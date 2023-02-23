@@ -2961,3 +2961,9 @@ msgstr "Rechercher les jeux de données"
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:58
 msgid "Ministry"
 msgstr "ministère"
+
+#: Report error callout
+msgid "Report an error with this data"
+msgstr "Signalez une erreur avec ces données"
+msgid "Fill out a <a href=\"https://www.ontario.ca/form/report-data-error\">Data Catalogue error report</a> to let us know if there are issues with the resources in this dataset."
+msgstr "Remplissez un <a href=\"https://www.ontario.ca/fr/forme/signalez-une-erreur-dans-les-donnees\">rapport d’erreur du Catalogue de données</a> pour nous aviser de problèmes avec les ressources de ce jeu de données."

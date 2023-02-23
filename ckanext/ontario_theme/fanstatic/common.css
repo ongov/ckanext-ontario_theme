@@ -1221,3 +1221,23 @@ via submission form. Copied from DS.*/
       display: block !important;
     }
   }
+/* ========================================================================
+   Callouts - Design System
+   ======================================================================== */
+.ontario-callout,.ontario-aside{
+    border-left:.25rem solid #367a76;
+    padding:1.5rem
+}
+.ontario-callout *:last-child,.ontario-aside *:last-child{
+    margin-bottom:.5rem
+}
+.ontario-callout{
+    margin:2rem 0 2.5rem 0;
+    background-color:#f2f2f2
+}
+.ontario-callout__title,.ontario-aside__title{
+    margin-bottom:1rem
+}
+.ontario-border-highlight--purple{
+    border-color:#92278f !important
+}
