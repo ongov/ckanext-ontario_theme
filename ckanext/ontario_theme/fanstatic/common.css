@@ -258,20 +258,32 @@ input[type=reset].ontario-search-reset:focus{
     margin-top: 0px;
     flex-wrap: wrap;
   }
+  .pill{
+    border-radius: 52px;
+  }
   .pill a.remove {
-    font-size: 14px;
+    font-size: 20px;
   }
   .pill a:visited{
     color: unset;
   }
+  .pill a {
+    margin: auto;
+    margin-left: 5px;
+  }
+  .pill-contents{
+    display: flex;
+    padding: 0 10px;
+  }
   .search-form .filter-list .pill {
-    line-height: unset;
+    line-height: 25.6px;
     background-color: #666666;
     margin-right: 14px;
-  }
-  .filtered {
+    padding: 5px 10px;
+    text-align: left;
     margin-bottom: 5px;
   }
+
   @media screen and (max-width: 39.9375em){
     .facet-row {
       display: block;
@@ -280,6 +292,9 @@ input[type=reset].ontario-search-reset:focus{
     }
     .facet {
       padding-right: 5px;
+    }
+    .search-form .filter-list .pill {
+      margin-right: unset;
     }
   }
   .show-filters.btn{
