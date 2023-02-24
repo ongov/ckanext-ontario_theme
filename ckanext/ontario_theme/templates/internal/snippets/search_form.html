@@ -74,7 +74,7 @@
               {% if item.active %}
                 <span class="filtered pill">
                   <span class="pill-contents">
-                    <span class="pill-text">{{item.display_name}}</span>
+                    {{item.display_name}}
                     <a href="{{ h.remove_url_param(item_id, item.name, extras=extras, alternative_url=alternative_url) }}" class="remove" title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
                   </span>
                 </span>
