@@ -1,7 +1,5 @@
 {% set package_name = h.ontario_theme_extract_package_name(h.current_url()) %}
 {% set survey_params = { "page": h.current_url(), "id": package_name }  %}
-{% set resource_name = h.ontario_theme_extract_resource_name(h.current_url()) %}
-{% do survey_params.update({'id': resource_name}) if resource_name %}
 
 <div class="ontario-callout ontario-border-highlight--purple">
     <h2 class="ontario-callout__title ontario-h5">{{ _("Report an error with this data") }}</h2>
