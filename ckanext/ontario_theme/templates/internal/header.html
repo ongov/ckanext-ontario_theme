@@ -81,10 +81,7 @@
         </div>
         <div class="ontario-columns ontario-small-6 ontario-application-header__lang-toggle">
           <a href="{{ h.url_for(h.current_url(), locale=toggle_to) }}" title="{{ toggle_to }}" class="ontario-header__language-toggler ontario-header-button ontario-header-button--without-outline">
-              <abbr title="Français" class="ontario-show-for-small-only">
-                {{'FR' if current_lang =='en' else 'EN'}}
-              </abbr>
-              <span class="ontario-show-for-medium">
+              <span>
                 {{'Français' if current_lang =='en' else 'English'}}
               </span>
           </a>
@@ -161,7 +158,7 @@
           </svg>
           <span class="menu-text">{{_("Menu")}}</span>
         </button>
-        <div class="ontario-navigation__container ontario-hide-for-large-only">
+        <div class="ontario-navigation__container ontario-hide-for-large">
           <ul>
             {{ h.build_nav_main(
               ('dataset.search', _('Datasets')),
@@ -173,4 +170,5 @@
       </nav>
     </div>
   </div>
+  <div class="ontario-overlay"></div>
 {% endblock %}
