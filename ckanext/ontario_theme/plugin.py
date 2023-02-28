@@ -416,6 +416,12 @@ def get_license(license_id):
     return Package.get_license_register().get(license_id)
 
 def extract_package_name(url):
+    ''' Returns the package name or gets resource name if url is for
+        a dataset or resource page
+
+        Returns resource type or "Supporting file" if there is no resource name and
+        no resource type
+    '''
     import re
 
     package_pattern = "\/dataset\/([-a-z-0-9A-Z\n\r]*)"
