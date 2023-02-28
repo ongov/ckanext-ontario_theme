@@ -2578,8 +2578,8 @@ msgid ""
 msgstr "Aidez-nous à améliorer le Catalogue de données."
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:15
-msgid "Take a <a href=\"https://www.ontario.ca/form/survey-open-data-catalogue?page=/\">2-minute survey</a> and tell us what you think about this page."
-msgstr "Répondez à un <a href=\"https://www.ontario.ca/fr/forme/enquete-catalogue-de-donnees-de-lontario\">sondage de deux minutes</a> et faites-nous part de vos impressions sur cette page."
+msgid "Take a <a href=\"https://www.ontario.ca/form/survey-open-data-catalogue?%(params)s\">2-minute survey</a> and tell us what you think about this page."
+msgstr "Répondez à un <a href=\"https://www.ontario.ca/fr/forme/enquete-catalogue-de-donnees-de-lontario?%(params)s\">sondage de deux minutes</a> et faites-nous part de vos impressions sur cette page."
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:9
 msgid "Ontario Data Catalogue"
@@ -2965,5 +2965,5 @@ msgstr "ministère"
 #: Report error callout
 msgid "Report an error with this data"
 msgstr "Signalez une erreur avec ces données"
-msgid "Fill out a <a href=\"https://www.ontario.ca/form/report-data-error\">Data Catalogue error report</a> to let us know if there are issues with the resources in this dataset."
-msgstr "Remplissez un <a href=\"https://www.ontario.ca/fr/forme/signalez-une-erreur-dans-les-donnees\">rapport d’erreur du Catalogue de données</a> pour nous aviser de problèmes avec les ressources de ce jeu de données."
+msgid "Fill out a <a href=\"https://www.ontario.ca/form/report-data-error?%(params)s\">Data Catalogue error report</a> to let us know if there are issues with the resources in this dataset."
+msgstr "Remplissez un <a href=\"https://www.ontario.ca/fr/forme/signalez-une-erreur-dans-les-donnees?%(params)s\">rapport d’erreur du Catalogue de données</a> pour nous aviser de problèmes avec les ressources de ce jeu de données."

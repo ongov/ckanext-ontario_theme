@@ -742,7 +742,7 @@ a:focus {
 .ontario-navigation .ontario-header-button {
   visibility: hidden;
   position: absolute;
-  right: 1rem;
+  right: 0.5rem;
   z-index: 6;
 }
 .ontario-header__menu-toggler {
@@ -866,6 +866,11 @@ the menu dropdowm. Datasets and ministries are displayed in the medium screen na
   }
   .account-text{
     display:none;
+  }
+}
+@media screen and (max-width: 40em) {
+  .ontario-navigation .ontario-header-button {
+    right: 1rem;
   }
 }
 /* ========================================================================
