@@ -1,6 +1,6 @@
 {# Override CKAN: Remove Data Explorer icon from tab #}
-<li class="{% if is_selected %} active{% endif %}" data-id="{{ view.id }}">
-  <a href="{{ url }}" data-id="{{ view.id }}">
-    {{ view.title }}
-  </a>
-</li>
+{% if view.title == "Data Explorer" %}
+    <h2>{{_('Data Visualizer')}}</h2>
+{% else %}
+    <h2>{{view.title}}</h2>
+{% endif %}

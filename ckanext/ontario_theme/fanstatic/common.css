@@ -1126,6 +1126,47 @@ via submission form. Copied from DS.*/
   a.btn, a.btn-primary, a.heading, a.tag, ul.nav-tabs li a, .table-of-contents a, .nav-item a{
     text-decoration: none;
   }
+
+/* ========================================================================
+   Custom overrides - datafile pages
+   ======================================================================== */
+  .ontario-margin-top-40 {
+    margin-top: 40px;
+  }
+  .additional-info-table.table-bordered > tbody > tr > th, .additional-info-table.table-bordered > thead > tr > th {
+    border-right: unset;
+  }
+  .additional-info-table.table-bordered > tbody > tr > td, .additional-info-table.table-bordered > thead > tr > th{
+    border-left: unset;
+  }
+  .module-resource {
+    border-bottom: unset;
+    z-index: 1;
+  }
+  .table-condensed > tbody > tr > th, .table-condensed > thead > tr > th, .table-condensed > tbody > tr > td {
+    padding: 12px;
+  }
+  .action-group {
+    display: block;
+    float: right;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 28px;
+    margin-bottom: 42px;
+    width: 100%;
+  }
+  .action-group p{
+    font-size: 18px;
+  }
+  .action-group a{
+    font-weight: 600;
+    font-size: 19px;
+    line-height: 34.65px;
+  }
+  .datafile-p {
+    font-size: 20px;
+    line-height: 27.24px;
+  }
 /* ========================================================================
    Visibility - Design System
    ======================================================================== */
