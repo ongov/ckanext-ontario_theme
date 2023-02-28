@@ -25,10 +25,11 @@
   {% endif %}
 {% block resource_content %}
 <div class="module-content">
+  <div class="col-lg-8 col-md-7 col-xs-12">
   {% block resource_read_title %}
-  <h1 class="page-heading col-xs-12">{{ h.resource_display_name(res) }}</h1>
+  <h1 class="page-heading">{{ h.resource_display_name(res) }}</h1>
   {% endblock %}
-  <div class="datafile-p col-sm-8 col-xs-12" property="rdfs:label">
+  <div class="datafile-p" property="rdfs:label">
     {% block resource_read_url %}
             {% if res.url and h.is_url(res.url) %}
               <p>{{ _('URL:') }} <a class="resource-url-analytics" href="{{ res.url }}" title="{{ res.url }}">{{ res.url }}</a></p>
@@ -40,7 +41,7 @@
       {{ h.render_markdown(h.get_translated(res, "description")) }}
     {% endif %}
     {% if not res.description and c.package.notes %}
-      {% if res.format == "CSV" %}
+      {% if res.datastore_active %}
         {{ h.render_markdown(h.get_translated(c.package, 'notes')) }}
       {% else %}
         <h3>{{ _('From the dataset abstract') }}</h3>
@@ -49,10 +50,11 @@
       {% endif %}
     {% endif %}
   </div>
+</div>
   {% block resource_actions %}
   {% block resource_actions_inner %}
   {% asset 'ontario_theme/ontario_theme_download_tracker_js' %}
-  <div class="col-sm-4 col-xs-12">
+  <div class="col-md-5 col-lg-4 col-xs-12">
   {% if res.url and h.is_url(res.url) %}
     {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
     {% if pkg.groups %}
@@ -99,7 +101,8 @@
       </div>
   {% endif %}
   {% if res.datastore_active %}
-  {# {% block data_api_button %}
+  {# Data api aside box. Uncomment when Data API button is available on stage 
+  {% block data_api_button %}
   <div class="action-group">
     <h3>Use the data API</h3>
     {% set loading_text = _('Loading...') %}
@@ -131,6 +134,11 @@
 {% endblock %}
 
 {% block primary %}
+  <div class="module-content row">
+    <div class="col-sm-12">
+      {% snippet 'package/snippets/report_an_error.html' %}
+    </div>
+  </div>
   <div class="module-content col-sm-9 col-xs-12" role="main">
   {% block primary_content %}
     {% block resource_additional_information %}
@@ -139,7 +147,7 @@
           {% block resource_additional_information_inner %}
             <div>
               <h3>{{ _('Additional Information') }}</h3>
-              <table class="additional-info-table datafile-p table table-striped table-bordered table-condensed" data-module="table-toggle-more">
+              <table class="ontario-margin-top-40 additional-info-table datafile-p table table-striped table-bordered table-condensed" data-module="table-toggle-more">
                 <thead>
                   <tr>
                     <th scope="col">{{ _('Field') }}</th>

@@ -1055,15 +1055,11 @@ via submission form. Copied from DS.*/
     text-decoration: none;
   }
 
-  .datafile-p {
-    font-size: 20px;
-    line-height: 27.24px;
-  }
 /* ========================================================================
    Custom overrides - datafile pages
    ======================================================================== */
-  .additional-info-table {
-    margin-top: 64px;
+  .ontario-margin-top-40 {
+    margin-top: 40px;
   }
   .additional-info-table.table-bordered > tbody > tr > th, .additional-info-table.table-bordered > thead > tr > th {
     border-right: unset;
@@ -1073,6 +1069,7 @@ via submission form. Copied from DS.*/
   }
   .module-resource {
     border-bottom: unset;
+    z-index: 1;
   }
   .table-condensed > tbody > tr > th, .table-condensed > thead > tr > th, .table-condensed > tbody > tr > td {
     padding: 12px;
@@ -1084,7 +1081,7 @@ via submission form. Copied from DS.*/
     background-color: #f2f2f2;
     padding: 28px;
     margin-bottom: 42px;
-    min-width: 100%;
+    width: 100%;
   }
   .action-group p{
     font-size: 18px;
@@ -1093,6 +1090,10 @@ via submission form. Copied from DS.*/
     font-weight: 600;
     font-size: 19px;
     line-height: 34.65px;
+  }
+  .datafile-p {
+    font-size: 20px;
+    line-height: 27.24px;
   }
 /* ========================================================================
    Visibility - Design System
