@@ -1564,6 +1564,10 @@ msgstr ""
 msgid "License"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:190
+msgid "File size"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/snippets/add_dataset.html:6
 msgid "Add Dataset"
 msgstr ""
