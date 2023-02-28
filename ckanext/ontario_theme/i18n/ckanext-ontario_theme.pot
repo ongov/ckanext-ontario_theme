@@ -1613,35 +1613,39 @@ msgstr ""
 msgid "Filter Results"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html
-msgid "with the keyword(s)"
-msgstr ""
-
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:15
+msgid "<strong>{number} dataset</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
+msgid_plural "<strong>{number} datasets</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
+msgstr[0] ""
+msgstr[1] ""
+
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:17
-msgid "{number} dataset found"
-msgid_plural "{number} datasets found for \"{query}\""
+msgid "<strong>{number} dataset</strong> found"
+msgid_plural "<strong>{number} datasets</strong> found"
 msgstr[0] ""
 msgstr[1] ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:16
+msgid "No datasets found with the keyword(s) <strong>\"{query}\"</strong>"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:18
 msgid "No datasets found"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:21
-msgid "{number} group found for \"{query}\""
-msgid_plural "{number} groups found for \"{query}\""
+msgid "<strong>{number} group</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
+msgid_plural "<strong>{number} groups</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
 msgstr[0] ""
 msgstr[1] ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:22
-msgid "No groups found for \"{query}\""
+msgid "No groups found with the keyword(s) <strong>\"{query}\"</strong>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:23
-msgid "{number} group found"
-msgid_plural "{number} groups found"
+msgid "<strong>{number} group</strong> found"
+msgid_plural "<strong>{number} groups</strong> found"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -1650,18 +1654,18 @@ msgid "No groups found"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:27
-msgid "{number} ministry found for \"{query}\""
-msgid_plural "{number} ministries found for \"{query}\""
+msgid "<strong>{number} ministry</strong> found for <strong>\"{query}\"</strong>"
+msgid_plural "<strong>{number} ministries</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
 msgstr[0] ""
 msgstr[1] ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:28
-msgid "No ministries found for \"{query}\""
+msgid "No ministries found with the keyword(s) <strong>\"{query}\"</strong>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:29
-msgid "{number} ministry found"
-msgid_plural "{number} ministries found"
+msgid "<strong>{number} ministry</strong> found"
+msgid_plural "<strong>{number} ministries</strong> found"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -1707,6 +1711,14 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/scheming/organization/group_form.html:23
 msgid "Are you sure you want to delete this Ministry?"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/organization/read.html:24
+msgid "Search %(ministry)s datasets"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:58
+msgid "Ministry"
 msgstr ""
 
 #: Report error callout
