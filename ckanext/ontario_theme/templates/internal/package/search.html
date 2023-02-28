@@ -78,65 +78,35 @@ in the core template for search.html.
 {% block secondary_content %}
   <div class="filters">
     <div>
-      <section class="module module-narrow module-shallow">
-        {% block facet_list_heading %}
-          <h2 class="module-heading">
-            <i class="fa fa-filter"></i>
-            {% set title = _("Datasets with data") %}
-            {{ title }}
-          </h2>
-        {% endblock %}
-        {% block facet_list_items %}
-          {% set title = _("Datasets with data") %}
-          <nav>
-            <ul class="{{ nav_class or 'list-unstyled nav nav-simple nav-facet' }}">
-              {% set href = h.remove_url_param('num_resources',
-                                               extras=extras,
-                                               alternative_url=alternative_url) 
-                            if c.fields_grouped['num_resources'] 
-                            else h.add_url_param(new_params={'num_resources': '[1 TO *]' },
-                                                alternative_url=alternative_url) %}
-              <li class="{{ nav_item_class or 'nav-item' }}{% if c.fields_grouped['num_resources'] %} active{% endif %}">
-                <a href="{{ href }}" title="{{ title }}">
-                  <span>{{ title }}</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        {% endblock %}
-      </section>
+      {{ h.snippet('snippets/ontario_theme_keywords_facet.html') }}
     </div>
 
-  <div>
-    {{ h.snippet('snippets/ontario_theme_keywords_facet.html') }}
-  </div>
+    <div>
+      {{ h.snippet('snippets/ontario_theme_jurisdiction_facet.html') }}
+    </div>
 
-  <div>
-    {{ h.snippet('snippets/ontario_theme_jurisdiction_facet.html') }}
-  </div>
+    <div>
+      {{ h.snippet('snippets/ontario_theme_category_facet.html') }}
+    </div>
 
-  <div>
-    {{ h.snippet('snippets/ontario_theme_category_facet.html') }}
-  </div>
+    <div>
+      {# 
+        Flag facets to be ignored from standard loop that calls facets.
+      #}
+      {% set excluded_facets = [
+        'organization_jurisdiction',
+        'organization_category',
+        'keywords_en',
+        'keywords_fr'
+        ]
+      %}
 
-  <div>
-    {# 
-      Flag facets to be ignored from standard loop that calls facets.
-    #}
-    {% set excluded_facets = [
-      'organization_jurisdiction',
-      'organization_category',
-      'keywords_en',
-      'keywords_fr'
-      ]
-    %}
-
-    {% for facet in c.facet_titles %}
-      {% if facet not in excluded_facets %}
-        {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet) }}
-      {% endif %}
-    {% endfor %}
+      {% for facet in c.facet_titles %}
+        {% if facet not in excluded_facets %}
+          {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet) }}
+        {% endif %}
+      {% endfor %}
+    </div>
+    <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
   </div>
-  <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
-</div>
 {% endblock %}
