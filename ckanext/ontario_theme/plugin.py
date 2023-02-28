@@ -419,36 +419,27 @@ def extract_package_name(url):
     import re
 
     package_pattern = "\/dataset\/([-a-z-0-9A-Z\n\r]*)"
-    
+    resource_pattern = "\/resource\/([-a-z-0-9A-Z\n\r]*)"
+    get_resource_name = re.compile(resource_pattern).findall(url)
     get_package_name = re.compile(package_pattern).findall(url)
     
-    if len(get_package_name) > 0:
+    if len(get_resource_name) > 0:
+        try:
+            resource_name = toolkit.get_action('resource_show') (
+                data_dict={'id': get_resource_name[0]}
+                )
+            resource_type = resource_name['type']
+            resource_name = resource_name['name']
+            if not resource_type and not resource_name:
+                resource_name = "Supporting File"
+            return resource_name or resource_type
+        except ckan.logic.NotFound:
+            return False
+    elif len(get_package_name) > 0:
         return get_package_name[0]
     else:
         return False
 
-def extract_resource_name(url):
-    ''' Returns the resource name if url is for 
-        a resource page
-
-        Returns resource type or "Supporting File" if there is no resource name 
-    '''
-    import re
-
-    resource_pattern = "\/resource\/([-a-z-0-9A-Z\n\r]*)"
-    get_resource_name = re.compile(resource_pattern).findall(url)
-
-    if len(get_resource_name) > 0:
-        resource_name = toolkit.get_action('resource_show') (
-            data_dict={'id': get_resource_name[0]}
-            )
-        resource_type = resource_name['type']
-        resource_name = resource_name['name']
-        if resource_type == "":
-            resource_name = "Supporting File"
-        return resource_name or resource_type
-    else:
-        return False 
 def get_translated_lang(data_dict, field, specified_language):
     try:
         return data_dict[field + u'_translated'][specified_language]
@@ -734,7 +725,6 @@ type data_last_updated
     def get_helpers(self):
         return {'ontario_theme_get_license': get_license,
                 'ontario_theme_extract_package_name': extract_package_name,
-                'ontario_theme_extract_resource_name': extract_resource_name,
                 'ontario_theme_get_translated_lang': get_translated_lang,
                 'ontario_theme_get_popular_datasets': get_popular_datasets,
                 'ontario_theme_get_group': get_group,
