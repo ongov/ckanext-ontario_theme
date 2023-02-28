@@ -2958,6 +2958,10 @@ msgstr "Accédez aux données"
 msgid "Use the Data Visualizer below to display this dataset as a table, graph or map."
 msgstr "Servez-vous du visualiseur de données plus bas pour afficher ce jeu de données sous forme de tableau, de graphique ou de carte."
 
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:27
+msgid "From the dataset abstract"
+msgstr "Issu du résumé du jeu de données"
+
 #: Report error callout
 msgid "Report an error with this data"
 msgstr "Signalez une erreur avec ces données"
