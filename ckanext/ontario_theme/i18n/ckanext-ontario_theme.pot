@@ -1701,6 +1701,10 @@ msgstr ""
 msgid "Access data"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:47
+msgid "Data Visualizer"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_covid_datasets.html:18
 msgid "<a href=\"/group/2019-novel-coronavirus\">Show more</a>"
 msgstr ""

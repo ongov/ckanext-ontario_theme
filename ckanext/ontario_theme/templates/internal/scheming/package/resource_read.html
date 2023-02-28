@@ -126,7 +126,20 @@
 <div class="col-xs-12">
 {% block data_preview %}
   {% if res.format == "CSV" %}
-    {{ super() }}
+    {% block resource_view_nav %}
+      {% set resource_preview = h.resource_preview(resource, package) %}
+      {% snippet "package/snippets/resource_views_list.html",
+        views=resource_views,
+        pkg=pkg,
+        is_edit=false,
+        view_id=current_resource_view['id'],
+        resource_preview=resource_preview,
+        resource=resource
+      %}
+    {% endblock %}
+    {% block resource_view_content %}
+      {{ super() }}
+    {% endblock %}
   {% endif %}
 {% endblock %}
 </div>
@@ -135,17 +148,17 @@
 
 {% block primary %}
   <div class="module-content row">
-    <div class="col-sm-12">
+    <div class="col-xs-12">
       {% snippet 'package/snippets/report_an_error.html' %}
     </div>
   </div>
-  <div class="module-content col-sm-9 col-xs-12" role="main">
+  <div class="module-content" role="main">
   {% block primary_content %}
     {% block resource_additional_information %}
       {% if res %}
         <section class="module">
           {% block resource_additional_information_inner %}
-            <div>
+            <div class="col-sm-9 col-xs-12">
               <h3>{{ _('Additional Information') }}</h3>
               <table class="ontario-margin-top-40 additional-info-table datafile-p table table-striped table-bordered table-condensed" data-module="table-toggle-more">
                 <thead>
@@ -188,8 +201,7 @@
                   {%- block resource_fields -%}
                     {%- for field in schema.resource_fields -%}
                       {%- if field.field_name not in exclude_fields
-                          and field.display_snippet is not none and
-                          res[field.field_name] and (res[field.field_name] != {'fr': '', 'en': ''}) -%}
+                          and res[field.field_name] and (res[field.field_name] != {'fr': '', 'en': ''}) -%}
                         <tr>
                           <th scope="row">
                             {{- h.scheming_language_text(field.label) -}}
@@ -217,7 +229,7 @@
   {% endblock %}
   </div>
   <div class="module-content row">
-    <div class="col-sm-12">
+    <div class="col-xs-12">
         {% snippet 'home/snippets/ontario_theme_contact_us.html' %}
     </div>
   </div>

@@ -2954,6 +2954,10 @@ msgstr "Visualisez les données"
 msgid "Access data"
 msgstr "Accédez aux données"
 
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:47
+msgid "Data Visualizer"
+msgstr "Visualiseur de données"
+
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:113
 msgid "Use the Data Visualizer below to display this dataset as a table, graph or map."
 msgstr "Servez-vous du visualiseur de données plus bas pour afficher ce jeu de données sous forme de tableau, de graphique ou de carte."
