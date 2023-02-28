@@ -416,27 +416,35 @@ def get_license(license_id):
     return Package.get_license_register().get(license_id)
 
 def extract_package_name(url):
-    ''' Returns the package name or gets resource name if url is for 
+    ''' Returns the package name or gets resource name if url is for
         a dataset or resource page
 
-        Returns "Data" if there is no resource name 
+        Returns resource type or "Supporting file" if there is no resource name and
+        no resource type
     '''
     import re
+
     package_pattern = "\/dataset\/([-a-z-0-9A-Z\n\r]*)"
     resource_pattern = "\/resource\/([-a-z-0-9A-Z\n\r]*)"
     get_resource_name = re.compile(resource_pattern).findall(url)
     get_package_name = re.compile(package_pattern).findall(url)
     
     if len(get_resource_name) > 0:
-        resource_name = toolkit.get_action('resource_show') (
-            data_dict={'id': get_resource_name[0]}
-            )
-        resource_name = resource_name['name']
-        return resource_name or "Data"
+        try:
+            resource_name = toolkit.get_action('resource_show') (
+                data_dict={'id': get_resource_name[0]}
+                )
+            resource_type = resource_name['type']
+            resource_name = resource_name['name']
+            if not resource_type and not resource_name:
+                resource_name = "Supporting File"
+            return resource_name or resource_type
+        except ckan.logic.NotFound:
+            return False
     elif len(get_package_name) > 0:
         return get_package_name[0]
     else:
-        return False 
+        return False
 
 def get_translated_lang(data_dict, field, specified_language):
     try:
