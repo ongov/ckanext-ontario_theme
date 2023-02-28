@@ -6,9 +6,11 @@ language.
 #}
 
 {% if h.lang() == 'en' %}
+  {% set keyword_title = 'Topics' %}
   {{ h.snippet('snippets/facet_list.html',
-  title=c.facet_titles['keywords_en'], name='keywords_en', extras=extras) }}
+  title=keyword_title, name='keywords_en', extras=extras) }}
 {% elif h.lang() == 'fr' %}
+  {% set keyword_title = 'Sujets' %}
   {{ h.snippet('snippets/facet_list.html',
-  title=c.facet_titles['keywords_fr'], name='keywords_fr', extras=extras) }}
+  title=keyword_title, name='keywords_fr', extras=extras) }}
 {% endif %}
