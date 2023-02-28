@@ -91,44 +91,56 @@ msgstr "Ministères"
 
 #: OVERRIDE: ckan/templates/snippets/search_result_text.html
 #: Datasets
-msgid "{number} dataset found for \"{query}\""
-msgid_plural "{number} datasets found for \"{query}\""
-msgstr[0] "{number} jeu  de données trouvé pour « {query} »"
-msgstr[1] "{number} jeux de données trouvés pour « {query} »"
+msgid "<strong>{number} dataset</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
+msgid_plural "<strong>{number} datasets</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
+msgstr[0] "<strong>{number} jeu  de données</strong> trouvé avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
+msgstr[1] "<strong>{number} jeux de données</strong> trouvés avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
 
 #: ckan/templates/snippets/search_result_text.html:16
-msgid "No datasets found for \"{query}\""
-msgstr "Aucun jeu de données trouvé pour « {query} »"
+msgid "No datasets found with the keyword(s) <strong>\"{query}\"</strong>"
+msgstr "Aucun jeu de données trouvé avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:17
+msgid "<strong>{number} dataset</strong> found"
+msgid_plural "<strong>{number} datasets</strong> found"
+msgstr[0] "<strong>{number} jeu  de données</strong> trouvé"
+msgstr[1] "<strong>{number} jeux de données</strong> trouvés"
 
 #: Ministries
-msgid "{number} ministry found for \"{query}\""
-msgid_plural "{number} ministries found for \"{query}\""
-msgstr[0] "{number} ministère trouvé pour « {query} »"
-msgstr[1] "{number} ministères trouvés pour « {query} »"
+msgid "<strong>{number} ministry</strong> found for <strong>\"{query}\"</strong>"
+msgid_plural "<strong>{number} ministries</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
+msgstr[0] "<strong>{number} ministère</strong> trouvé avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
+msgstr[1] "<strong>{number} ministères</strong> trouvés avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
 
 #: OVERRIDE: ckan/templates/snippets/search_result_text.html:28
-msgid "No ministries found for \"{query}\""
-msgstr "Aucun ministère trouvé pour « {query} »"
+msgid "No ministries found with the keyword(s) <strong>\"{query}\"</strong>"
+msgstr "Aucun ministère trouvé avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
 
 #: OVERRIDE: ckan/templates/snippets/search_result_text.html:29
-msgid "{number} ministry found"
-msgid_plural "{number} ministries found"
-msgstr[0] "{number} ministère trouvé"
-msgstr[1] "{number} ministères trouvés"
+msgid "<strong>{number} ministry</strong> found"
+msgid_plural "<strong>{number} ministries</strong> found"
+msgstr[0] "<strong>{number} ministère</strong> trouvé"
+msgstr[1] "<strong>{number} ministères</strong> trouvés"
 
 #: OVERRIDE: ckan/templates/snippets/search_result_text.html:30
 msgid "No ministries found"
 msgstr "Aucun ministère trouvé"
 
 #: Groups
-msgid "{number} group found for \"{query}\""
-msgid_plural "{number} groups found for \"{query}\""
-msgstr[0] "{number} groupe trouvé pour « {query} »"
-msgstr[1] "{number} groupes trouvés pour « {query} »"
+msgid "<strong>{number} group</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
+msgid_plural "<strong>{number} groups</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
+msgstr[0] "<strong>{number} groupe</strong> trouvé avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
+msgstr[1] "<strong>{number} groupes</strong> trouvés avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
 
 #: ckan/templates/snippets/search_result_text.html:22
-msgid "No groups found for \"{query}\""
-msgstr "Aucun groupe trouvé pour « {query} »"
+msgid "No groups found with the keyword(s) <strong>\"{query}\"</strong>"
+msgstr "Aucun groupe trouvé avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:23
+msgid "<strong>{number} group</strong> found"
+msgid_plural "<strong>{number} groups</strong> found"
+msgstr[0] "<strong>{number} groupe</strong> trouvé"
+msgstr[1] "<strong>{number} groupes</strong> trouvés"
 
 #: ckanext/ontario_theme/templates/header.html:76
 msgid "Data Catalogue"
@@ -2852,10 +2864,6 @@ msgstr "Niveau d’accès"
 msgid "Update Frequency"
 msgstr "Fréquence de mise à jour"
 
-#: ckanext/ontario_theme/templates/snippets/search_form.html
-msgid "with the keyword(s)"
-msgstr "avec le(s) mot(s) clé(s)"
-
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:14
 msgid "Search"
 msgstr "Recherche"
@@ -2969,6 +2977,14 @@ msgstr "Servez-vous du visualiseur de données plus bas pour afficher ce jeu de 
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:27
 msgid "From the dataset abstract"
 msgstr "Issu du résumé du jeu de données"
+
+#: ckanext/ontario_theme/templates/internal/organization/read.html:24
+msgid "Search %(ministry)s datasets"
+msgstr "Rechercher les jeux de données"
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:58
+msgid "Ministry"
+msgstr "ministère"
 
 #: Report error callout
 msgid "Report an error with this data"
