@@ -670,7 +670,7 @@ a:focus {
 .ontario-navigation .ontario-header-button {
   visibility: hidden;
   position: absolute;
-  right: 1rem;
+  right: 0.5rem;
   z-index: 6;
 }
 .ontario-header__menu-toggler {
@@ -794,6 +794,11 @@ the menu dropdowm. Datasets and ministries are displayed in the medium screen na
   }
   .account-text{
     display:none;
+  }
+}
+@media screen and (max-width: 40em) {
+  .ontario-navigation .ontario-header-button {
+    right: 1rem;
   }
 }
 /* ========================================================================
@@ -1202,3 +1207,23 @@ via submission form. Copied from DS.*/
       display: block !important;
     }
   }
+/* ========================================================================
+   Callouts - Design System
+   ======================================================================== */
+.ontario-callout,.ontario-aside{
+    border-left:.25rem solid #367a76;
+    padding:1.5rem
+}
+.ontario-callout *:last-child,.ontario-aside *:last-child{
+    margin-bottom:.5rem
+}
+.ontario-callout{
+    margin:2rem 0 2.5rem 0;
+    background-color:#f2f2f2
+}
+.ontario-callout__title,.ontario-aside__title{
+    margin-bottom:1rem
+}
+.ontario-border-highlight--purple{
+    border-color:#92278f !important
+}
