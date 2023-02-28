@@ -1259,3 +1259,90 @@ via submission form. Copied from DS.*/
 .ontario-border-highlight--purple{
     border-color:#92278f !important
 }
+/* ========================================================================
+   File type labels
+   ======================================================================== */
+.dataset-resources li a {
+  background-color: #aaaaaa;
+  color: #FFFFFF;
+}
+.label.label-default {
+  color:#000;
+  font-weight: 600;
+}
+.label[data-format=html],
+.label[data-format*=html] {
+  background-color: #FEDFF0;
+}
+.label[data-format=json],
+.label[data-format*=json] {
+  background-color: #FEE1D9;
+}
+.label[data-format=xml],
+.label[data-format*=xml] {
+  background-color: #F8E5C3;
+}
+.label[data-format=text],
+.label[data-format*=text],
+.label[data-format=txt],
+.label[data-format*=txt] {
+  background-color: #C5EEFA;
+}
+.label[data-format=doc],
+.label[data-format*=doc] {
+  background-color: #DBE9F5;
+}
+.label[data-format=csv],
+.label[data-format*=csv] {
+  background-color: #F0E7CC;
+}
+.label[data-format=xls],
+.label[data-format*=xls] {
+  background-color: #D1EFD4;
+}
+.label[data-format=zip],
+.label[data-format*=zip] {
+  background-color: #CCCCCC;
+}
+.label[data-format=api],
+.label[data-format*=api] {
+  background-color: #ec96be;
+}
+.label[data-format=pdf],
+.label[data-format*=pdf] {
+  background-color: #FFE0E2;
+}
+.label[data-format=other],
+.label[data-format*=other] {
+  background-color: #F2F2F2;
+}
+.label[data-format=mdb],
+.label[data-format*=mdb] {
+  background-color: #F1E3F2;
+}
+.label[data-format=rdf],
+.label[data-format*=rdf],
+.label[data-format*=nquad],
+.label[data-format*=ntriples],
+.label[data-format*=turtle] {
+  background-color: #0b4498;
+}
+.format-label[data-format=kml],
+.format-label[data-format*=kml] {
+  width: 31px;
+  height: 35px;
+  background-position: -383px -62px;
+  background-color: #CFEDED;
+}
+.format-label[data-format=shp],
+.format-label[data-format*=shp] {
+  width: 31px;
+  height: 35px;
+  background-position: -414px -62px;
+  background-color: #DDEDC7;
+}
+/* default button background colour */
+.label-default {
+  background-color: #FCAF17;
+  color: #000;
+}
