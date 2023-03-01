@@ -100,6 +100,10 @@ msgstr[1] "<strong>{number} jeux de données</strong> trouvés avec le(s) mot(s)
 msgid "No datasets found with the keyword(s) <strong>\"{query}\"</strong>"
 msgstr "Aucun jeu de données trouvé avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
 
+#: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:55
+msgid "Show More"
+msgstr "Afficher plus d’options"
+
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:17
 msgid "<strong>{number} dataset</strong> found"
 msgid_plural "<strong>{number} datasets</strong> found"
