@@ -1167,6 +1167,14 @@ via submission form. Copied from DS.*/
     font-size: 20px;
     line-height: 27.24px;
   }
+  /* Make API help panel wide enough to fit all elements */
+  #collapse-endpoints .panel-body table {
+    width: fit-content;
+  }
+  /* Break the URLs so the fit the panel width */
+  #collapse-querying .panel-body {
+    overflow-wrap: break-word;
+  }
 /* ========================================================================
    Visibility - Design System
    ======================================================================== */
