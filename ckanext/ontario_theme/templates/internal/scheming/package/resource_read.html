@@ -101,22 +101,21 @@
       </div>
   {% endif %}
   {% if res.datastore_active %}
-  {# Data api aside box. Uncomment when Data API button is available on stage 
-  {% block data_api_button %}
-  <div class="action-group">
-    <h3>Use the data API</h3>
-    {% set loading_text = _('Loading...') %}
-    {% set api_info_url = h.url_for(controller='api', action='snippet', ver=1, snippet_path='api_info.html', resource_id=res.id) %}
-    <ul>
-    <li><a class="" href="{{ api_info_url }}" data-module="api-info" data-module-template="{{ api_info_url }}" data-loading-text="{{ loading_text }}">{{ _('CKAN Data API calls') }}</a></li>
-    </ul>
-  </div>
-  {% endblock %} #}
-  <div class="action-group">
-    <h3>{{ _('Visualize data') }}</h3>
-    <p>{{ _('Use the Data Visualizer below to display this dataset as a table, graph or map.') }}</p>
-    <img src="/images/visualize_data.PNG" alt="" width="284" height="133"/>
-  </div>
+    {% block data_api_button %}
+    <div class="action-group">
+      <h3>Use the data API</h3>
+      {% set loading_text = _('Loading...') %}
+      {% set api_info_url = h.url_for(controller='api', action='snippet', ver=1, snippet_path='api_info.html', resource_id=res.id) %}
+      <ul>
+      <li><a class="" href="{{ api_info_url }}" data-module="api-info" data-module-template="{{ api_info_url }}" data-loading-text="{{ loading_text }}">{{ _('CKAN Data API calls') }}</a></li>
+      </ul>
+    </div>
+    {% endblock %}
+    <div class="action-group">
+      <h3>{{ _('Visualize data') }}</h3>
+      <p>{{ _('Use the Data Visualizer below to display this dataset as a table, graph or map.') }}</p>
+      <img src="/images/visualize_data.PNG" alt="" width="284" height="133"/>
+    </div>
   {% endif %}
 {% endblock %}
 </div>
