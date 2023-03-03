@@ -81,13 +81,19 @@ in the core template for search.html.
       {{ h.snippet('snippets/ontario_theme_keywords_facet.html') }}
     </div>
 
-    <div>
-      {{ h.snippet('snippets/ontario_theme_jurisdiction_facet.html') }}
-    </div>
+    {% set this_name = 'organization_jurisdiction' %}
+    {% if h.get_facet_items_dict(this_name)|length > 1 %}
+      <div>
+        {{ h.snippet('snippets/ontario_theme_jurisdiction_facet.html') }}
+      </div>
+    {% endif %}  
 
-    <div>
-      {{ h.snippet('snippets/ontario_theme_category_facet.html') }}
-    </div>
+    {% set this_name = 'organization_category' %}
+    {% if h.get_facet_items_dict(this_name)|length > 1 %}
+      <div>
+        {{ h.snippet('snippets/ontario_theme_category_facet.html') }}
+      </div>
+    {% endif %}
 
     <div>
       {# 
