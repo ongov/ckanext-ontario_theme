@@ -107,7 +107,8 @@ in the core template for search.html.
         ]
       %}
 
-      {% for facet in c.facet_titles %}
+      {% set reordered_facet_titles = h.ontario_theme_order_package_facets(c.facet_titles) %}
+      {% for facet in reordered_facet_titles %}
         {% if facet not in excluded_facets %}
           {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet) }}
         {% endif %}
