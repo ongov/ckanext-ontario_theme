@@ -54,7 +54,22 @@ in the core template for search.html.
            set to user menu selection stored in request.params['sort']
        -->
       {% set sort_order = default_order if not request.params else request.params['sort'] %}
-      {% snippet 'snippets/search_form.html', searchbar_title=searchbar_title, hidden_searchbar_title=hidden_searchbar_title, form_id=form_id, type=type, query=query, sorting=sorting, sorting_selected=sort_order, count=c.page.item_count, placeholder=placeholder, sr_input_text=sr_input_text, sr_submit_text=sr_submit_text, facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields %}
+      {% snippet 'snippets/search_form.html', 
+                  searchbar_title=searchbar_title, 
+                  hidden_searchbar_title=hidden_searchbar_title, 
+                  form_id=form_id, 
+                  type=type, 
+                  query=query, 
+                  sorting=sorting, 
+                  sorting_selected=sort_order, 
+                  count=c.page.item_count, 
+                  placeholder=placeholder, 
+                  sr_input_text=sr_input_text, 
+                  sr_submit_text=sr_submit_text, 
+                  facets=facets, 
+                  show_empty=request.params, 
+                  error=c.query_error, 
+                  fields=c.fields %}
     {% endblock %}
   </div>
 {% endblock %}

@@ -20,8 +20,7 @@
             {% if 'name' in request.params['sort'] %}
                 {% set current_lang = request.environ.CKAN_LANG %}
                 {% set reverse = True if 'desc' in request.params['sort'] else False %}
-                {% set fields_dict = {'field': 'title_translated','lang': current_lang, 'reverse': reverse} %}
-                {% set packages = h.ontario_theme_sort_page_items(packages, fields_dict) %}
+                {% set packages = h.ontario_theme_sort_by_title_translated(packages, lang=current_lang, reverse=reverse) %}
             {% endif %}
             {% for package in packages %}
                 {% snippet 'snippets/package_item.html', package=package, item_class=item_class, hide_resources=hide_resources, banner=banner, truncate=truncate, truncate_title=truncate_title %}
