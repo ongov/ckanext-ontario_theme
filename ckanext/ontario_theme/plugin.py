@@ -406,6 +406,95 @@ def sort_by_title_translated(obj, **kwargs):
                   key=lambda x: x[field][lang] if (field in x and lang in x[field]) else x['title'], 
                   reverse=reverse)
 
+def sort_collection_by_title_translated(**kwargs):
+    '''Sorts a collection of organizations output from a 
+    keyword search (or all organizations in the case of no 
+    search) by the organization title in the current language. 
+    Returns the portion of the sorted collection that corresponds 
+    to the current page, limited to the maximum number of items 
+    per page.
+
+    collection_names
+        Passed from c.page.collection. An array of hyphenated 
+        collection names (e.g. 'attorney-general') for all
+        items returned from the search. If no search
+        performed, includes all items.
+
+    current_page
+        Passed from c.page.page. The page number currently being
+        displayed.
+
+    item_count
+        Passed from c.page.item_count. Total number of items
+        in the collection.
+
+    items_per_page
+        Passed from c.page.items_per_page. Maximum number of 
+        items to display per page. Defined somewhere as 20.
+
+    lang
+        Current language passed through request.environ.CKAN_LANG.
+    
+    reverse
+        Sort direction passed through request.params.
+
+    '''
+    
+    field = 'title_translated'
+    collection_names=kwargs['collection_names']
+    current_page=kwargs['page']
+    item_count=kwargs['item_count']
+    items_per_page=kwargs['items_per_page']
+    lang = kwargs['lang']
+    reverse = kwargs['reverse']
+
+    # Get all organizations in the catalogue
+    all_organizations = h.organizations_available(permission='manage_group',
+                                              include_dataset_count=True)
+    
+    # Filter only those organizations matching the collection out of
+    # all_organizations. Match using 'name'. Then use helper function
+    # h.get_organization() to extract the organization info for
+    # each organization in the collection.
+    org_obj = []
+    for name in collection_names:
+        for idx in range(len(all_organizations)):
+            if name == all_organizations[idx]['name']:
+                org_obj.append(h.get_organization(all_organizations[idx]['id']))
+
+    # Sort org_obj by title_translated in the current language
+    sorted_org = sorted(org_obj, 
+                  key=lambda x: x[field][lang] if (field in x and lang in x[field]) else x['title'], 
+                  reverse=reverse)
+
+    # Calculate number of pages in the pagination needed to display
+    # all items in sorted_org
+    if item_count > 0:
+        first_page = 1
+        page_count = int(((item_count - 1) / items_per_page) + 1)
+        last_page = first_page + page_count - 1
+
+    # Set index ranges for slicing the sorted_org object
+    slice0 = [] 
+    slice1 = []
+    for idx in range(last_page):
+        slice0.append(idx * items_per_page)
+        next_max = slice0[idx] + items_per_page
+        if item_count < next_max:
+            slice1.append(item_count)
+        else:
+            slice1.append(next_max)
+
+    # Slice the sorted_org object according to the current
+    # pagination page and return it for display
+    page = 0
+    for idx in range(len(slice0)):
+        page+=1
+        if page == current_page:
+            sorted_org_slice = sorted_org[slice0[idx]:slice1[idx]]
+    
+    return sorted_org_slice
+    
 
 def get_popular_datasets():
     '''Helper to return most popular datasets, based on ckan core tracking feature
@@ -734,7 +823,8 @@ type data_last_updated
                 'ontario_theme_home_block_link': home_block_link,
                 'ontario_theme_get_group_datasets': get_group_datasets,
                 'ontario_theme_get_keyword_count': get_keyword_count,
-                'ontario_theme_sort_by_title_translated': sort_by_title_translated
+                'ontario_theme_sort_by_title_translated': sort_by_title_translated,
+                'ontario_theme_sort_collection_by_title_translated': sort_collection_by_title_translated
                 }
 
     # IBlueprint

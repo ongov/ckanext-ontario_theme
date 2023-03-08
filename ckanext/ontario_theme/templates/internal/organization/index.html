@@ -1,4 +1,4 @@
-{% ckan_extends %}
+{% extends "page.html" %}
 
 {% block subtitle %}{{ _('Ministries') }}{% endblock %}
 
@@ -40,7 +40,23 @@
         (_('Name Ascending'), 'name asc'),
         (_('Name Descending'), 'name desc') ]
       %}
-      {% snippet 'snippets/search_form.html', searchbar_title=searchbar_title, hidden_searchbar_title=hidden_searchbar_title, form_id=form_id, type=type, query=query, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=placeholder, sr_input_text=sr_input_text, sr_submit_text=sr_submit_text, facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields %}
+      {% snippet 'snippets/search_form.html', 
+                  searchbar_title=searchbar_title, 
+                  hidden_searchbar_title=hidden_searchbar_title, 
+                  form_id=form_id, 
+                  type=type, 
+                  query=query, 
+                  sorting=sorting, 
+                  sorting_selected=c.sort_by_selected, 
+                  count=c.page.item_count, 
+                  placeholder=placeholder, 
+                  sr_input_text=sr_input_text, 
+                  sr_submit_text=sr_submit_text, 
+                  facets=facets, 
+                  show_empty=request.params, 
+                  error=c.query_error, 
+                  fields=c.fields 
+      %}
     {% endblock %}
   </div>
 {% endblock %}
@@ -57,7 +73,15 @@
         {# Custom sort by language for name ascending and descending #}
         {% set current_lang = request.environ.CKAN_LANG %}
         {% set reverse = True if 'desc' in request.params['sort'] else False %}
-        {% set sorted_org = h.ontario_theme_sort_by_title_translated(c.page.items, lang=current_lang, reverse=reverse) %}
+        <!-- {% set sorted_org = h.ontario_theme_sort_by_title_translated(c.page.items, lang=current_lang, reverse=reverse) %} -->
+        {% set sorted_org = h.ontario_theme_sort_collection_by_title_translated(
+                                                                    collection_names=c.page.collection,                                                  
+                                                                    page=c.page.page,
+                                                                    item_count=c.page.item_count, 
+                                                                    items_per_page=c.page.items_per_page,
+                                                                    lang=current_lang, 
+                                                                    reverse=reverse
+                                                                    ) %}
         {% snippet "organization/snippets/organization_list.html", organizations=sorted_org %}
       {% endif %}
     {% else %}
