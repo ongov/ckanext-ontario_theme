@@ -394,120 +394,6 @@ def get_keyword_count(keyword_lang, language):
 
     return keyword_count_by_lang
 
-def get_all_packages(**kwargs):
-    '''Helper to return the full number of packages matching a 
-    search query. In the search page, only the paginated number
-    of packages for the current page is available, which prohibits 
-    any custom sorting.
-
-    q
-        Search query. Passed through c.q. 
-    
-    item_count
-        Number of packages matching search. Passed through c.page.item_count.
-
-    '''
-    q=kwargs['q']
-    item_count=kwargs['item_count']
-
-    # Get the full set of packages returned by search query q.
-    # Note that number of packages matched will be limited to 10
-    # unless otherwise specified in 'rows'. Since we already know
-    # there are 'item_count' number of matches, we can set rows 
-    # to 'item_count'.
-    package_search=toolkit.get_action('package_search')(
-                data_dict={
-                        'q': q,
-                        'sort': 'title desc',
-                        'rows': item_count,
-                        'include_private': True
-                        })
-
-    return package_search['results']
-
-def sort_by_title_translated(all_items, **kwargs):
-    '''Helper to sort an array of items object by the 'title_translated'
-    dict. If this dict does not exist, 'title' is used to sort since
-    'title' always exists.
-
-    current_page
-        Current page in the pagination. Passed through c.page.page. 
-    
-    items_per_page
-        Max number of items per page. Defined somewhere as 20. Passed 
-        through c.page.items_per_page.
-
-    lang
-        Current language. Pass through request.environ.CKAN_LANG.
-
-    reverse
-        Sort direction. Determined through `asc` or `desc` in request.params['sort']. 
-
-    '''
-    field = 'title_translated'
-    current_page=kwargs['current_page']
-    items_per_page=kwargs['items_per_page']
-    lang = kwargs['lang']
-    reverse = kwargs['reverse']
-
-    sorted_items = sorted(all_items, 
-                             key=lambda x: x[field][lang] if (field in x and lang in x[field]) else x['title'], 
-                             reverse=reverse)
-
-    return paginate_items(sorted_items, current_page, items_per_page)
-
-def sort_by_title_translated_packages_only(**kwargs):
-    '''Helper to return the page items object sorted by "title_translated"
-    dict. If this dict does not exist, "title" is used to sort since
-    "title" always exists.
-
-    current_page
-        Current page in the pagination. Passed through c.page.page. 
-    
-    item_count
-        Number of packages matchin search. Passed through c.page.item_count.
-    
-    items_per_page
-        Max number of items per page. Defined somewhere as 20. Passed 
-        through c.page.items_per_page.
-
-    lang
-        Current language. Pass through request.environ.CKAN_LANG.
-
-    reverse
-        Sort direction. Determined through `asc` or `desc` in request.params['sort']. 
-
-    '''
-    field = 'title_translated'
-    q=kwargs['q']
-    current_page=kwargs['page']
-    item_count=kwargs['item_count']
-    items_per_page=kwargs['items_per_page']
-    lang = kwargs['lang']
-    reverse = kwargs['reverse']
-
-    # Get the full set of packages returned by search query q.
-    # Note that number of packages matched will be limited to 10
-    # unless otherwise specified in 'rows'. Since we already know
-    # how many matches there are, we can set it to 'item_count'.
-    package_search=toolkit.get_action('package_search')(
-                data_dict={
-                        'q': q,
-                        'sort': 'title desc',
-                        'rows': item_count,
-                        'include_private': True
-                        })
-
-    packages = package_search['results']
-    sorted_packages = sorted(packages, 
-                             key=lambda x: x[field][lang] if (field in x and lang in x[field]) else x['title'], 
-                             reverse=reverse)
-
-    sorted_obj_slice = paginate_items(sorted_packages, current_page, items_per_page)
-    
-
-    return sorted_obj_slice
-
 def paginate_items(all_items, current_page, items_per_page):
     '''Returns a slice of an array of items for pagination
     based on the current page and the max number of items
@@ -520,9 +406,8 @@ def paginate_items(all_items, current_page, items_per_page):
         Maximum number of items to display per page. 
         Defined somewhere as 20.
     '''
-
     item_count =  len(all_items)
-    print('item_count: ', item_count)
+
     # Calculate number of pages in the pagination needed to display
     # all items in input_items
     if item_count > 0:
@@ -549,77 +434,110 @@ def paginate_items(all_items, current_page, items_per_page):
         if page == current_page:
             this_slice = all_items[slice0[idx]:slice1[idx]]
     
-    return this_slice
+    return this_slice 
 
-def sort_collection_by_title_translated(**kwargs):
-    '''Sorts a collection of organizations output from a 
-    keyword search (or all organizations in the case of no 
-    search) by the organization title in the current language. 
-    Returns the portion of the sorted collection that corresponds 
-    to the current page, limited to the maximum number of items 
-    per page.
+def get_all_packages(**kwargs):
+    '''Helper to return the full number of packages matching a 
+    search query (or all packages in the case of no 
+    search). In the search page, only the paginated number
+    of packages for the current page is available, which 
+    prohibits application of any custom sorting since that 
+    needs the full list.
 
-    collection_names
-        Passed from c.page.collection. An array of hyphenated 
-        collection names (e.g. 'attorney-general') for all
-        items returned from the search. If no search
-        performed, includes all items.
-
-    current_page
-        Passed from c.page.page. The page number currently being
-        displayed.
-
-    item_count
-        Passed from c.page.item_count. Total number of items
-        in the collection.
-
-    items_per_page
-        Passed from c.page.items_per_page. Maximum number of 
-        items to display per page. Defined somewhere as 20.
-
-    lang
-        Current language passed through request.environ.CKAN_LANG.
+    q
+        Search query. Passed through c.q. 
     
-    reverse
-        Sort direction passed through request.params.
+    item_count
+        Number of packages matching search. Passed through c.page.item_count.
 
     '''
-    
-    field = 'title_translated'
-    collection_names=kwargs['collection_names']
-    current_page=kwargs['page']
+    q=kwargs['q']
     item_count=kwargs['item_count']
+
+    # Get the full set of packages returned by search query q.
+    # Note that number of packages matched will be limited to 10
+    # unless otherwise specified in 'rows'. Since we already know
+    # there are 'item_count' number of matches, we can set rows 
+    # to 'item_count'.
+    package_search=toolkit.get_action('package_search')(
+                data_dict={
+                        'q': q,
+                        'sort': 'title desc',
+                        'rows': item_count,
+                        'include_private': True
+                        })
+
+    return package_search['results']
+
+def get_all_organizations(**kwargs):
+    '''Helper function to returns the full list of organizations 
+    output from a keyword search (or all organizations in the 
+    case of no search). In the search page, only the paginated 
+    number of organizations for the current page is available, 
+    which prohibits application of any custom sorting since that 
+    needs the full list.
+
+    collection_names
+        An array of short-hand (hyphenated) organization names 
+        (e.g. 'attorney-general') for all items returned from the 
+        search. If no search performed, includes all items.
+        Passed from c.page.collection.
+
+    '''
+    collection_names=kwargs['collection_names']
+
+    # Get the organization details of all organizations in the catalogue
+    # (includes 'name' and 'id' but not the full details of the organization).
+    all_organizations = h.organizations_available(permission='manage_group',
+                                              include_dataset_count=True)
+    
+    # Filter only those organizations whose names matching those in 
+    # the search results. Then use helper function h.get_organization() 
+    # to extract the full details for each organization using the 'id'.
+    org_array = []
+    for name in collection_names:
+        for idx in range(len(all_organizations)):
+            if name == all_organizations[idx]['name']:
+                org_array.append(h.get_organization(all_organizations[idx]['id']))
+    
+    return org_array
+
+def sort_by_title_translated(item_list, **kwargs):
+    '''Helper function to sort an array of items by the 
+    'title_translated' dict according to the current language. 
+    If this dict does not exist, 'title' is used to sort since 
+    'title' always exists.
+
+    item_list
+        List of items to be sorted.
+
+    current_page
+        Current page in the pagination. Passed through c.page.page. 
+    
+    items_per_page
+        Max number of items per page. Defined somewhere as 20. Passed 
+        through c.page.items_per_page.
+
+    lang
+        Current language. Pass through request.environ.CKAN_LANG.
+
+    reverse
+        Sort direction. Determined through `asc` or `desc` in request.params['sort']. 
+
+    '''
+    field = 'title_translated'
+    current_page=kwargs['current_page']
     items_per_page=kwargs['items_per_page']
     lang = kwargs['lang']
     reverse = kwargs['reverse']
 
-    # Get all organizations in the catalogue
-    all_organizations = h.organizations_available(permission='manage_group',
-                                              include_dataset_count=True)
-    
-    # Filter only those organizations matching the collection out of
-    # all_organizations. Match using 'name'. Then use helper function
-    # h.get_organization() to extract the organization info for
-    # each organization in the collection.
-    org_obj = []
-    for name in collection_names:
-        for idx in range(len(all_organizations)):
-            if name == all_organizations[idx]['name']:
-                org_obj.append(h.get_organization(all_organizations[idx]['id']))
+    # Sort item_list by translated title
+    sorted_items = sorted(item_list, 
+                             key=lambda x: x[field][lang] if (field in x and lang in x[field]) else x['title'], 
+                             reverse=reverse)
 
-    # Sort org_obj by title_translated in the current language
-    sorted_org = sorted(org_obj, 
-                  key=lambda x: x[field][lang] if (field in x and lang in x[field]) else x['title'], 
-                  reverse=reverse)
-
-    # Slice the sorted organization list corresponding to
-    # the current pagingation page
-    sorted_org_slice = paginate_items(sorted_org, 
-                                     current_page,
-                                     items_per_page)
-    
-    return sorted_org_slice
-    
+    # Return subset of sorted_items as per the current pagination page
+    return paginate_items(sorted_items, current_page, items_per_page)
 
 def get_popular_datasets():
     '''Helper to return most popular datasets, based on ckan core tracking feature
@@ -949,8 +867,8 @@ type data_last_updated
                 'ontario_theme_get_group_datasets': get_group_datasets,
                 'ontario_theme_get_keyword_count': get_keyword_count,
                 'ontario_theme_get_all_packages': get_all_packages,
-                'ontario_theme_sort_by_title_translated': sort_by_title_translated,
-                'ontario_theme_sort_collection_by_title_translated': sort_collection_by_title_translated
+                'ontario_theme_get_all_organizations': get_all_organizations,
+                'ontario_theme_sort_by_title_translated': sort_by_title_translated
                 }
 
     # IBlueprint
