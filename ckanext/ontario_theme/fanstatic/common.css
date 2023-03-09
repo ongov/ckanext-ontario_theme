@@ -1155,6 +1155,9 @@ via submission form. Copied from DS.*/
     margin-bottom: 42px;
     width: 100%;
   }
+  .action-group:last-child {
+    margin-bottom: 0;
+  }
   .action-group p{
     font-size: 18px;
   }
