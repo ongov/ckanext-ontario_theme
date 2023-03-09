@@ -394,10 +394,27 @@ def get_keyword_count(keyword_lang, language):
 
     return keyword_count_by_lang
 
-def sort_by_title_translated(obj, **kwargs):
+def sort_by_title_translated(**kwargs):
     '''Helper to return the page items object sorted by "title_translated"
     dict. If this dict does not exist, "title" is used to sort since
     "title" always exists.
+
+    current_page
+        Current page in the pagination. Passed through c.page.page. 
+    
+    item_count
+        Number of packages matchin search. Passed through c.page.item_count.
+    
+    items_per_page
+        Max number of items per page. Defined somewhere as 20. Passed 
+        through c.page.items_per_page.
+
+    lang
+        Current language. Pass through request.environ.CKAN_LANG.
+
+    reverse
+        Sort direction. Determined through `asc` or `desc` in request.params['sort']. 
+
     '''
     field = 'title_translated'
     q=kwargs['q']
@@ -407,11 +424,15 @@ def sort_by_title_translated(obj, **kwargs):
     lang = kwargs['lang']
     reverse = kwargs['reverse']
 
+    # Get the full set of packages returned by search query q.
+    # Note that number of packages matched will be limited to 10
+    # unless otherwise specified in 'rows'. Since we already know
+    # how many matches there are, we can set it to 'item_count'.
     package_search=toolkit.get_action('package_search')(
                 data_dict={
                         'q': q,
                         'sort': 'title desc',
-                        'rows': 100,
+                        'rows': item_count,
                         'include_private': True
                         })
 
@@ -420,8 +441,28 @@ def sort_by_title_translated(obj, **kwargs):
                              key=lambda x: x[field][lang] if (field in x and lang in x[field]) else x['title'], 
                              reverse=reverse)
 
+    sorted_obj_slice = paginate_items(sorted_packages, current_page, items_per_page)
+    
+
+    return sorted_obj_slice
+
+def paginate_items(all_items, current_page, items_per_page):
+    '''Returns a slice of an array of items for pagination
+    based on the current page and the max number of items
+    allowed per page.
+
+    current_page
+        The page number currently being displayed.
+
+    items_per_page
+        Maximum number of items to display per page. 
+        Defined somewhere as 20.
+    '''
+
+    item_count =  len(all_items)
+    print('item_count: ', item_count)
     # Calculate number of pages in the pagination needed to display
-    # all items in sorted_packages
+    # all items in input_items
     if item_count > 0:
         first_page = 1
         page_count = int(((item_count - 1) / items_per_page) + 1)
@@ -444,10 +485,9 @@ def sort_by_title_translated(obj, **kwargs):
     for idx in range(len(slice0)):
         page+=1
         if page == current_page:
-            sorted_obj_slice = sorted_packages[slice0[idx]:slice1[idx]]
+            this_slice = all_items[slice0[idx]:slice1[idx]]
     
-
-    return sorted_obj_slice
+    return this_slice
 
 def sort_collection_by_title_translated(**kwargs):
     '''Sorts a collection of organizations output from a 
@@ -510,31 +550,11 @@ def sort_collection_by_title_translated(**kwargs):
                   key=lambda x: x[field][lang] if (field in x and lang in x[field]) else x['title'], 
                   reverse=reverse)
 
-    # Calculate number of pages in the pagination needed to display
-    # all items in sorted_org
-    if item_count > 0:
-        first_page = 1
-        page_count = int(((item_count - 1) / items_per_page) + 1)
-        last_page = first_page + page_count - 1
-
-    # Set index ranges for slicing the sorted_org object
-    slice0 = [] 
-    slice1 = []
-    for idx in range(last_page):
-        slice0.append(idx * items_per_page)
-        next_max = slice0[idx] + items_per_page
-        if item_count < next_max:
-            slice1.append(item_count)
-        else:
-            slice1.append(next_max)
-
-    # Slice the sorted_org object according to the current
-    # pagination page and return it for display
-    page = 0
-    for idx in range(len(slice0)):
-        page+=1
-        if page == current_page:
-            sorted_org_slice = sorted_org[slice0[idx]:slice1[idx]]
+    # Slice the sorted organization list corresponding to
+    # the current pagingation page
+    sorted_org_slice = paginate_items(sorted_org, 
+                                     current_page,
+                                     items_per_page)
     
     return sorted_org_slice
     
