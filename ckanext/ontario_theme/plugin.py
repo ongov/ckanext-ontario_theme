@@ -400,7 +400,7 @@ def sort_by_title_translated(obj, **kwargs):
     "title" always exists.
     '''
     field = 'title_translated'
-    # collection_names=kwargs['collection_names']
+    q=kwargs['q']
     current_page=kwargs['page']
     item_count=kwargs['item_count']
     items_per_page=kwargs['items_per_page']
@@ -409,15 +409,11 @@ def sort_by_title_translated(obj, **kwargs):
 
     package_search=toolkit.get_action('package_search')(
                 data_dict={
+                        'q': q,
                         'sort': 'title desc',
-                        'rows': item_count,
+                        'rows': 100,
                         'include_private': True
                         })
-    print('HUOM sort packages!!!!!')
-    print('item_count: ', item_count)
-    print('len(package_search): ', len(package_search))
-    print('len(package_search[results]): ', len(package_search['results']))
-    print('package_search: ', package_search)
 
     packages = package_search['results']
     sorted_packages = sorted(packages, 

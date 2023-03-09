@@ -73,7 +73,6 @@
         {# Custom sort by language for name ascending and descending #}
         {% set current_lang = request.environ.CKAN_LANG %}
         {% set reverse = True if 'desc' in request.params['sort'] else False %}
-        <!-- {% set sorted_org = h.ontario_theme_sort_by_title_translated(c.page.items, lang=current_lang, reverse=reverse) %} -->
         {% set sorted_org = h.ontario_theme_sort_collection_by_title_translated(
                                                                     collection_names=c.page.collection,                                                  
                                                                     page=c.page.page,
