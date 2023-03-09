@@ -770,8 +770,6 @@ type data_last_updated
         # Add url rules to Blueprint object.
         rules = [
             (u'/help', u'help', help),
-            (u'/ckan-admin/image-uploader', u'image_uploader', image_uploader),
-            (u'/ckan-admin/image-uploaded', u'image_uploaded', image_uploaded),
             (u'/dataset/inventory', u'inventory', csv_dump)
         ]
 
