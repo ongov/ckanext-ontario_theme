@@ -1266,9 +1266,17 @@ via submission form. Copied from DS.*/
   background-color: #aaaaaa;
   color: #FFFFFF;
 }
+.dataset-resources li {
+  margin-right: 14px;
+}
+.dataset-resources {
+  margin-top: 13px;
+}
 .label.label-default {
   color:#000;
   font-weight: 600;
+  font-size: 15px;
+  padding: 0.4em 1em;
 }
 .label[data-format=html],
 .label[data-format*=html] {
