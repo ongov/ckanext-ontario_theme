@@ -394,7 +394,69 @@ def get_keyword_count(keyword_lang, language):
 
     return keyword_count_by_lang
 
-def sort_by_title_translated(**kwargs):
+def get_all_packages(**kwargs):
+    '''Helper to return the full number of packages matching a 
+    search query. In the search page, only the paginated number
+    of packages for the current page is available, which prohibits 
+    any custom sorting.
+
+    q
+        Search query. Passed through c.q. 
+    
+    item_count
+        Number of packages matching search. Passed through c.page.item_count.
+
+    '''
+    q=kwargs['q']
+    item_count=kwargs['item_count']
+
+    # Get the full set of packages returned by search query q.
+    # Note that number of packages matched will be limited to 10
+    # unless otherwise specified in 'rows'. Since we already know
+    # there are 'item_count' number of matches, we can set rows 
+    # to 'item_count'.
+    package_search=toolkit.get_action('package_search')(
+                data_dict={
+                        'q': q,
+                        'sort': 'title desc',
+                        'rows': item_count,
+                        'include_private': True
+                        })
+
+    return package_search['results']
+
+def sort_by_title_translated(all_items, **kwargs):
+    '''Helper to sort an array of items object by the 'title_translated'
+    dict. If this dict does not exist, 'title' is used to sort since
+    'title' always exists.
+
+    current_page
+        Current page in the pagination. Passed through c.page.page. 
+    
+    items_per_page
+        Max number of items per page. Defined somewhere as 20. Passed 
+        through c.page.items_per_page.
+
+    lang
+        Current language. Pass through request.environ.CKAN_LANG.
+
+    reverse
+        Sort direction. Determined through `asc` or `desc` in request.params['sort']. 
+
+    '''
+    field = 'title_translated'
+    current_page=kwargs['current_page']
+    items_per_page=kwargs['items_per_page']
+    lang = kwargs['lang']
+    reverse = kwargs['reverse']
+
+    sorted_items = sorted(all_items, 
+                             key=lambda x: x[field][lang] if (field in x and lang in x[field]) else x['title'], 
+                             reverse=reverse)
+
+    return paginate_items(sorted_items, current_page, items_per_page)
+
+def sort_by_title_translated_packages_only(**kwargs):
     '''Helper to return the page items object sorted by "title_translated"
     dict. If this dict does not exist, "title" is used to sort since
     "title" always exists.
@@ -886,6 +948,7 @@ type data_last_updated
                 'ontario_theme_home_block_link': home_block_link,
                 'ontario_theme_get_group_datasets': get_group_datasets,
                 'ontario_theme_get_keyword_count': get_keyword_count,
+                'ontario_theme_get_all_packages': get_all_packages,
                 'ontario_theme_sort_by_title_translated': sort_by_title_translated,
                 'ontario_theme_sort_collection_by_title_translated': sort_collection_by_title_translated
                 }
