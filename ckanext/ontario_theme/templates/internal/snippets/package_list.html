@@ -20,10 +20,26 @@
             {% if 'name' in request.params['sort'] %}
                 {% set current_lang = request.environ.CKAN_LANG %}
                 {% set reverse = True if 'desc' in request.params['sort'] else False %}
-                {% set packages = h.ontario_theme_sort_by_title_translated(packages, lang=current_lang, reverse=reverse) %}
+                {% set packages = h.ontario_theme_sort_by_title_translated(packages, 
+                                                                           page=c.page.page,
+                                                                           item_count=c.page.item_count,
+                                                                           items_per_page=c.page.items_per_page,
+                                                                           lang=current_lang, 
+                                                                           reverse=reverse) %}
+                <script>
+                    console.log('num datasets: ', "{{ c.page.item_count }}")
+                    console.log('snippets/package_list.html sorted packages: ', "{{ packages }}")
+                </script>
             {% endif %}
             {% for package in packages %}
-                {% snippet 'snippets/package_item.html', package=package, item_class=item_class, hide_resources=hide_resources, banner=banner, truncate=truncate, truncate_title=truncate_title %}
+                {% snippet 'snippets/package_item.html', 
+                            package=package, 
+                            item_class=item_class, 
+                            hide_resources=hide_resources, 
+                            banner=banner, 
+                            truncate=truncate, 
+                            truncate_title=truncate_title 
+                %}
             {% endfor %}
         {% endblock %}
     </ul>

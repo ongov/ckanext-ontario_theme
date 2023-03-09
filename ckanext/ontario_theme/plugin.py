@@ -400,11 +400,58 @@ def sort_by_title_translated(obj, **kwargs):
     "title" always exists.
     '''
     field = 'title_translated'
+    # collection_names=kwargs['collection_names']
+    current_page=kwargs['page']
+    item_count=kwargs['item_count']
+    items_per_page=kwargs['items_per_page']
     lang = kwargs['lang']
     reverse = kwargs['reverse']
-    return sorted(obj, 
-                  key=lambda x: x[field][lang] if (field in x and lang in x[field]) else x['title'], 
-                  reverse=reverse)
+
+    package_search=toolkit.get_action('package_search')(
+                data_dict={
+                        'sort': 'title desc',
+                        'rows': item_count,
+                        'include_private': True
+                        })
+    print('HUOM sort packages!!!!!')
+    print('item_count: ', item_count)
+    print('len(package_search): ', len(package_search))
+    print('len(package_search[results]): ', len(package_search['results']))
+    print('package_search: ', package_search)
+
+    packages = package_search['results']
+    sorted_packages = sorted(packages, 
+                             key=lambda x: x[field][lang] if (field in x and lang in x[field]) else x['title'], 
+                             reverse=reverse)
+
+    # Calculate number of pages in the pagination needed to display
+    # all items in sorted_packages
+    if item_count > 0:
+        first_page = 1
+        page_count = int(((item_count - 1) / items_per_page) + 1)
+        last_page = first_page + page_count - 1
+
+    # Set index ranges for slicing the sorted_org object
+    slice0 = [] 
+    slice1 = []
+    for idx in range(last_page):
+        slice0.append(idx * items_per_page)
+        next_max = slice0[idx] + items_per_page
+        if item_count < next_max:
+            slice1.append(item_count)
+        else:
+            slice1.append(next_max)
+
+    # Slice the sorted_org object according to the current
+    # pagination page and return it for display
+    page = 0
+    for idx in range(len(slice0)):
+        page+=1
+        if page == current_page:
+            sorted_obj_slice = sorted_packages[slice0[idx]:slice1[idx]]
+    
+
+    return sorted_obj_slice
 
 def sort_collection_by_title_translated(**kwargs):
     '''Sorts a collection of organizations output from a 
