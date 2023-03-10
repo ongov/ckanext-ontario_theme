@@ -14,12 +14,21 @@
 #}
 {% block package_list %}
     {% if packages %}
+        
+        
+    <script>
+        console.log('organization/package_list.html packages: ', "{{ packages }}")
+   
+      </script>
         <ul class="{{ list_class or 'dataset-list list-unstyled' }}">
         {% block package_list_inner %}
             {# Custom sort by language for name ascending and descending #}
             {% if 'name' in request.params['sort'] %}
+                {% set current_org = '' if not this_org_name else this_org_name %}
                 {# Get all packages returned by query #}
-                {% set package_list = h.ontario_theme_get_all_packages(q=c.q, 
+                {% set package_list = h.ontario_theme_get_all_packages(q=c.q,
+                                                                       request_params_items=request.params,
+                                                                       current_org=current_org,
                                                                        item_count=c.page.item_count) %}
                 {# Sort package_list by title_translated as per current language #}
                 {% set current_lang = request.environ.CKAN_LANG %}

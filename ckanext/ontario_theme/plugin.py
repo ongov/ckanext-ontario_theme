@@ -451,8 +451,32 @@ def get_all_packages(**kwargs):
         Number of packages matching search. Passed through c.page.item_count.
 
     '''
-    q=kwargs['q']
-    item_count=kwargs['item_count']
+    q = kwargs['q']
+    request_params_items = kwargs['request_params_items']
+    current_org = kwargs['current_org']
+    item_count = kwargs['item_count']
+
+    fields = []
+    # c.fields_grouped will contain a dict of params containing
+    # a list of values eg {'tags':['tag1', 'tag2']}
+    fields_grouped = {}
+    search_extras = {}
+    fq = ''
+    for (param, value) in OrderedDict(request_params_items).items():
+        if param not in ['q', 'page', 'sort'] \
+            and len(value) and not param.startswith('_'):
+            if not param.startswith('ext_'):
+                fields.append((param, value))
+                fq += ' %s:"%s"' % (param, value)
+                if param not in fields_grouped:
+                    fields_grouped[param] = [value]
+                else:
+                    fields_grouped[param].append(value)
+            else:
+                search_extras[param] = value
+    
+    if current_org:
+        fq += ' %s:"%s"' % ('organization', current_org)
 
     # Get the full set of packages returned by search query q.
     # Note that number of packages matched will be limited to 10
@@ -462,6 +486,8 @@ def get_all_packages(**kwargs):
     package_search=toolkit.get_action('package_search')(
                 data_dict={
                         'q': q,
+                        'fq': fq.strip(),
+                        'start': 0,
                         'sort': 'title desc',
                         'rows': item_count,
                         'include_private': True
@@ -484,21 +510,22 @@ def get_all_organizations(**kwargs):
         Passed from c.page.collection.
 
     '''
-    collection_names=kwargs['collection_names']
+    collection_names=kwargs['collection_names']    
 
     # Get the organization details of all organizations in the catalogue
     # (includes 'name' and 'id' but not the full details of the organization).
-    all_organizations = h.organizations_available(permission='manage_group',
-                                              include_dataset_count=True)
+    all_organization_names = toolkit.get_action('organization_list')(data_dict={})
     
     # Filter only those organizations whose names matching those in 
     # the search results. Then use helper function h.get_organization() 
     # to extract the full details for each organization using the 'id'.
     org_array = []
     for name in collection_names:
-        for idx in range(len(all_organizations)):
-            if name == all_organizations[idx]['name']:
-                org_array.append(h.get_organization(all_organizations[idx]['id']))
+        for idx in range(len(all_organization_names)):
+            if name == all_organization_names[idx]:
+                organization_obj = toolkit.get_action('organization_show')(data_dict={'id':name})
+                organization_id = organization_obj['id']
+                org_array.append(h.get_organization(organization_id))
     
     return org_array
 
@@ -515,8 +542,9 @@ def sort_by_title_translated(item_list, **kwargs):
         Current page in the pagination. Passed through c.page.page. 
     
     items_per_page
-        Max number of items per page. Defined somewhere as 20. Passed 
-        through c.page.items_per_page.
+        Max number of items per page. Defined in ckan/controllers/package.py
+        as int(config.get('ckan.datasets_per_page', 20)). 
+        Passed through c.page.items_per_page.
 
     lang
         Current language. Pass through request.environ.CKAN_LANG.
@@ -535,8 +563,6 @@ def sort_by_title_translated(item_list, **kwargs):
     sorted_items = sorted(item_list, 
                              key=lambda x: x[field][lang].strip() if (field in x and lang in x[field]) else x['title'], 
                              reverse=reverse)
-
-    print('sorted_items: ', sorted_items)
 
     # Return subset of sorted_items as per the current pagination page
     return paginate_items(sorted_items, current_page, items_per_page)

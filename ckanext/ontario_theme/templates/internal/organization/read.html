@@ -22,8 +22,10 @@ Override CKAN's read.html to add some new facets.
     (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
   %}
   {% if not sort_by_selected %}
+    {% set this_org = c.page.items[0]['organization']['name'] %}
     {% set sort_by_selected = 'metadata_modified desc' %}
   {% endif %}
+
   {% snippet 'snippets/search_form.html', 
               form_id='organization-datasets-search-form', 
               type='dataset', 
@@ -36,6 +38,26 @@ Override CKAN's read.html to add some new facets.
               show_empty=request.params, 
               fields=fields %}
 {% endblock %}
+{% block packages_list %}
+    {% if page.items %}
+    {# % set my_facet = h.get_facet_items_dict('organization', c.search_facets, limit=3) % #}
+    {% set this_org_name = c.search_facets['organization']['items'][0]['name'] %}
+    <script>
+      console.log('')
+      console.log('organization/read.html c.facet_titles: ', "{{ c.facet_titles }}")
+      console.log('organization/read.html c.search_facets: ', "{{ c.search_facets }}")
+      console.log('organization/read.html c.search_facets[org]: ', "{{ c.search_facets['organization'] }}")
+      console.log('organization/read.html c.search_facets[org][items]: ', "{{ c.search_facets['organization']['items'] }}")
+      console.log('organization/read.html this_org_name: ', "{{ this_org_name }}")
+      console.log('organization/read.html request.params: ', "{{ request.params }}")
+      
+      console.log('organization/read.html page.items: ', "{{ page.items }}") // 20 in list
+      console.log('organization/read.html junk: ', "{{ junk }}")
+      console.log('')
+    </script>
+      {{ h.snippet('snippets/package_list.html', packages=page.items, this_org_name=this_org_name) }}
+    {% endif %}
+  {% endblock %}
 
 {% block organization_facets %}
   <div class="filters">
