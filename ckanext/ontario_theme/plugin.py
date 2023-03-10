@@ -533,8 +533,10 @@ def sort_by_title_translated(item_list, **kwargs):
 
     # Sort item_list by translated title
     sorted_items = sorted(item_list, 
-                             key=lambda x: x[field][lang] if (field in x and lang in x[field]) else x['title'], 
+                             key=lambda x: x[field][lang].strip() if (field in x and lang in x[field]) else x['title'], 
                              reverse=reverse)
+
+    print('sorted_items: ', sorted_items)
 
     # Return subset of sorted_items as per the current pagination page
     return paginate_items(sorted_items, current_page, items_per_page)
