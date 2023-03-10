@@ -456,22 +456,13 @@ def get_all_packages(**kwargs):
     current_org = kwargs['current_org']
     item_count = kwargs['item_count']
 
-    fields = []
-    # c.fields_grouped will contain a dict of params containing
-    # a list of values eg {'tags':['tag1', 'tag2']}
-    fields_grouped = {}
     search_extras = {}
     fq = ''
     for (param, value) in OrderedDict(request_params_items).items():
         if param not in ['q', 'page', 'sort'] \
             and len(value) and not param.startswith('_'):
             if not param.startswith('ext_'):
-                fields.append((param, value))
                 fq += ' %s:"%s"' % (param, value)
-                if param not in fields_grouped:
-                    fields_grouped[param] = [value]
-                else:
-                    fields_grouped[param].append(value)
             else:
                 search_extras[param] = value
     
@@ -490,6 +481,7 @@ def get_all_packages(**kwargs):
                         'start': 0,
                         'sort': 'title desc',
                         'rows': item_count,
+                        'extras': search_extras,
                         'include_private': True
                         })
 
