@@ -438,17 +438,31 @@ def paginate_items(all_items, current_page, items_per_page):
 
 def get_all_packages(**kwargs):
     '''Helper to return the full number of packages matching a 
-    search query (or all packages in the case of no 
-    search). In the search page, only the paginated number
-    of packages for the current page is available, which 
-    prohibits application of any custom sorting since that 
-    needs the full list.
+    search query, including any facet search requests (in the
+    case of no searches, all packages are returned). The full
+    number of packages is needed because in the search page, 
+    only the paginated number of packages for the current page 
+    is available, which prohibits application of any custom 
+    sorting since sorting must be done on the full list before
+    pagination.
 
     q
-        Search query. Passed through c.q. 
+        Search query. Passed through c.q.
+    
+    request_params_items
+        Contains the facet search parameters. Passed through
+        request.params.
+
+    current_org
+        When datasets are accessed by clicking on an Organization,
+        the package search must be limited to the current
+        organization, which is stored in this variable. This 
+        variable is not needed when accessing datasets through
+        the Datasets page.
     
     item_count
-        Number of packages matching search. Passed through c.page.item_count.
+        Number of packages matching search. Passed through 
+        c.page.item_count.
 
     '''
     q = kwargs['q']
@@ -456,6 +470,8 @@ def get_all_packages(**kwargs):
     current_org = kwargs['current_org']
     item_count = kwargs['item_count']
 
+    # Excerpt from search() fn in ckan/ckan/controllers/package.py
+    # Needed to collect search parameters from facets.
     search_extras = {}
     fq = ''
     for (param, value) in OrderedDict(request_params_items).items():
@@ -469,7 +485,8 @@ def get_all_packages(**kwargs):
     if current_org:
         fq += ' %s:"%s"' % ('organization', current_org)
 
-    # Get the full set of packages returned by search query q.
+    # Get the full set of packages returned by search query q
+    # and any facet queries fq.
     # Note that number of packages matched will be limited to 10
     # unless otherwise specified in 'rows'. Since we already know
     # there are 'item_count' number of matches, we can set rows 
@@ -504,13 +521,12 @@ def get_all_organizations(**kwargs):
     '''
     collection_names=kwargs['collection_names']    
 
-    # Get the organization details of all organizations in the catalogue
-    # (includes 'name' and 'id' but not the full details of the organization).
+    # Get the id of all organizations in the catalogue.
     all_organization_names = toolkit.get_action('organization_list')(data_dict={})
     
     # Filter only those organizations whose names matching those in 
-    # the search results. Then use helper function h.get_organization() 
-    # to extract the full details for each organization using the 'id'.
+    # collection_names. Then use helper function h.get_organization() 
+    # to extract the full details for each organization, matching on 'id'.
     org_array = []
     for name in collection_names:
         for idx in range(len(all_organization_names)):
