@@ -14,12 +14,6 @@
 #}
 {% block package_list %}
     {% if packages %}
-        
-        
-    <script>
-        console.log('organization/package_list.html packages: ', "{{ packages }}")
-   
-      </script>
         <ul class="{{ list_class or 'dataset-list list-unstyled' }}">
         {% block package_list_inner %}
             {# Custom sort by language for name ascending and descending #}
