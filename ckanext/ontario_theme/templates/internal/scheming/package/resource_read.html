@@ -63,13 +63,13 @@
             {% set this_group = '' %}
           {% endif %}
           <div class="action-group">
-            <h3>
+            <h2 class="ontario-h4">
               {% if res.datastore_active %}
                 {{ _('Download data') }}
               {% else %}
                 {{ _('Access data') }}
               {% endif %}
-            </h3>
+            </h2>
             {% if not res.datastore_active %}
             <a class="dataset-download-link resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ res.url }}" onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">
               {{ h.resource_display_name(res) }}
@@ -103,16 +103,16 @@
       {% if res.datastore_active %}
         {% block data_api_button %}
         <div class="action-group">
-          <h3>Use the data API</h3>
+          <h2 class="ontario-h4">{{ _('Use the data API') }}</h2>
           {% set loading_text = _('Loading...') %}
           {% set api_info_url = h.url_for(controller='api', action='snippet', ver=1, snippet_path='api_info.html', resource_id=res.id) %}
           <ul>
-          <li><a class="" href="{{ api_info_url }}" data-module="api-info" data-module-template="{{ api_info_url }}" data-loading-text="{{ loading_text }}">{{ _('CKAN Data API calls') }}</a></li>
+            <li><a class="" href="{{ api_info_url }}" data-module="api-info" data-module-template="{{ api_info_url }}" data-loading-text="{{ loading_text }}">{{ _('CKAN Data API calls') }}</a></li>
           </ul>
         </div>
         {% endblock %}
-        <div class="action-group">
-          <h3>{{ _('Visualize data') }}</h3>
+        <div class="action-group ontario-show-for-large">
+          <h2 class="ontario-h4">{{ _('Visualize data') }}</h2>
           <p>{{ _('Use the Data Visualizer below to display this dataset as a table, graph or map.') }}</p>
           <img src="/images/visualize_data.PNG" alt="" width="284" height="133"/>
         </div>
@@ -158,7 +158,7 @@
           <section class="module">
             {% block resource_additional_information_inner %}
               <div class="col-sm-9 col-xs-12">
-                <h3>{{ _('Additional Information') }}</h3>
+                <h2>{{ _('Additional Information') }}</h2>
                 <table class="ontario-margin-top-40 additional-info-table datafile-p table table-striped table-bordered table-condensed" data-module="table-toggle-more">
                   <thead>
                     <tr>

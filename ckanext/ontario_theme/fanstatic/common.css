@@ -1174,8 +1174,8 @@ via submission form. Copied from DS.*/
   #collapse-endpoints .panel-body table {
     width: fit-content;
   }
-  /* Break the URLs so they fit the panel width */
-  #collapse-querying .panel-body {
+  /* Break the URLs so they fit the panel width and the width of screen */
+  #collapse-querying .panel-body, .resource-url-analytics {
     overflow-wrap: break-word;
   }
 /* ========================================================================
