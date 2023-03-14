@@ -549,10 +549,7 @@ div.card p {
 .open,
 .under_review,
 .to_be_opened,
-.restricted,
-.label-french,
-.label-english,
-.label-english_and_french {
+.restricted{
   color: #4d4d4d;
 }
 .open {
@@ -567,15 +564,7 @@ div.card p {
 .restricted {
   background-color: #fad2d2;
 }
-.label-french {
-  background: #d2d1eb;
-}
-.label-english {
-  background-color: #dff3f3;
-}
-.label-english_and_french {
-  background-color: #e6fad2;
-}
+
 .label-info {
   color: #4d4d4d;
   border: solid 1px #1080A6;

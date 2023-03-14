@@ -3,11 +3,13 @@
 #}
 
 <section id="dataset-resources" class="resources">
-  <h2>{{ _('Data') }}</h2>
+	<h2>{{ _(h.dataset_display_name(pkg)) }}</h2>
+  <p class="dataset-font">
+    {{ _("Learn more about ")}} <a href="/{{ request.environ.CKAN_LANG }}/about#training-materials">{{ _("accessing data using different file types.")}}</a>
+  </p> 
   {% block resource_list %}
     {% snippet "package/snippets/ontario_theme_access_level.html",
       pkg=pkg, dataset_type=dataset_type, schema=schema, resources=resources %}
-
     {% if resources %}
         {% block resource_list_inner %}
           {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
@@ -17,9 +19,9 @@
           {% for group in resources|selectattr("type","equalto","data")|groupby("data_range")|sort(attribute="grouper", reverse=True) %}
 
             {% if group.list[0].data_range != "N/A - N/A" %}
-              <h3>{{group.list[0].data_range}}</h3>
-            {% else %}
-              <h3>{{ _("No date range") }}</h3>
+			  <p class="date-range">{{ _("Date range")+_(":")}} {{h.render_datetime(group.list[0].data_range_start)}} - {{h.render_datetime(group.list[0].data_range_end)}}</p>
+        {% else %}
+              <p class="date-range">{{ _("No date range") }}</p>
             {% endif %}
             <ul class="{% block resource_list_class %}resource-list{% endblock %}">
             {% for r in group.list|selectattr("format", "equalto", "CSV") %}
@@ -41,6 +43,7 @@
               {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=r, can_edit=can_edit, schema=schema %}
             {% endfor %}
             </ul>
+            <hr>
           {% endfor %}
         {% endblock %}
       <h2>{{ _("Supporting Files") }}</h2>

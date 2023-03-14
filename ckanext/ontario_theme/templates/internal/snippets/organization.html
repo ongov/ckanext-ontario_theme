@@ -2,9 +2,9 @@
 {% block info %}
   <div class="module module-narrow module-shallow context-info">
     {% if has_context_title %}
-      <h2 class="module-heading">{{ _('Ministry') }}</h2>
+      <h2 class="aside-heading">{{ _('Ministry') }}</h2>
     {% endif %}
-    <section class="module-content">
+    <section>
       {% block inner %}
       {% block heading %}
 	  <h3 class="ontario-module-h3">{{ h.get_translated(organization, "title") or organization.name }}
