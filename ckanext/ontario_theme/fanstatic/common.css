@@ -483,6 +483,10 @@ via submission form. Copied from DS.*/
     line-height: 1.5;
   }
 }
+.ministry-contact {
+	margin-top: 28px;
+	margin-bottom: 28px;
+}
 /* ========================================================================
    Custom overrides - links
    ======================================================================== */
