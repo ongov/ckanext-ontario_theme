@@ -1,8 +1,7 @@
-{% ckan_extends %}
-
+{% extends "package/read_base.html" %}
 
 {% block primary_content_inner %}
-	{% if pkg.get("asset_type") == "algorithm" %}
+  {% if pkg.get("asset_type") == "algorithm" %}
 	<div class="new-alert alert-info alert-algorithms alert-huge alert-clear">
 		<strong>{% trans %}Algorithm/AI Asset{% endtrans %}</strong>
 		<p>
@@ -11,6 +10,70 @@
 			{% endtrans %}
 	    </p>  
 	</div>
-	{% endif %}
-	{{ super() }}
+  {% endif %}
+  {{ super() }}
+  {% block package_description %}
+    {% if pkg.private %}
+      <span class="dataset-private label label-inverse pull-right">
+        <i class="fa fa-lock"></i>
+        {{ _('Private') }}
+      </span>
+    {% endif %}
+    {% block package_archive_notice %}
+      {% if is_activity_archive %}
+        <div class="alert alert-danger">
+          {% trans url=h.url_for(pkg.type ~ '.read', id=pkg.id) %}
+          You're currently viewing an old version of this dataset. To see the
+          current version, click <a href="{{ url }}">here</a>.
+          {% endtrans %}
+        </div>
+      {% endif %}
+    {% endblock %}
+    <h1>
+      {% block page_heading %}
+        {{ h.dataset_display_name(pkg) }}
+        {% if pkg.state.startswith('draft') %}
+          [{{ _('Draft') }}]
+        {% endif %}
+        {% if pkg.state == 'deleted' %}
+          [{{ _('Deleted') }}]
+        {% endif %}
+      {% endblock %}
+    </h1>
+    {% block package_notes %}
+      {% if pkg.notes %}
+        <div class="notes embedded-content">
+          {{ h.render_markdown(h.get_translated(pkg, 'notes')) }}
+        </div>
+      {% endif %}
+    {% endblock %}
+    {# FIXME why is this here? seems wrong #}
+    <span class="insert-comment-thread"></span>
+  {% endblock %}
+ 
+  {% block package_additional_info %}
+    {% snippet "package/snippets/additional_info.html", pkg_dict=pkg %}
+  {% endblock %}
+
+  {% block package_resources %}
+    {% snippet "package/snippets/resources_list.html", pkg=pkg, resources=pkg.resources, is_activity_archive=is_activity_archive %}
+  {% endblock %}
+
+  {% block package_tags %}
+    {% snippet "package/snippets/tags.html", tags=pkg.tags %}
+  {% endblock %}
+
+  <div class="ontario-callout ontario-border-highlight--purple">
+    <h2 class="ontario-callout__title ontario-h5">{{ _("Report an error with this data") }}</h2>
+    <p>{% trans %}Fill out a <a href="https://www.ontario.ca/form/report-data-error">Data Catalogue error report</a> to let us know if there are issues with the resources in this dataset.{% endtrans %}</p>
+  </div>
+
+  <div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      {% snippet 'home/snippets/ontario_theme_contact_us.html' %}
+    </div>
+  </div>
+  </div>
+
 {% endblock %}
