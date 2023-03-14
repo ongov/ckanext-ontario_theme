@@ -1004,20 +1004,7 @@ section.additional-info table.table tbody tr td.dataset-details {
   font-size: 16px;
   line-height: 26px;
 }
-::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #999999;
-  opacity: 1;
-  /* Firefox */
-}
-:-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
-  color: #999999;
-}
-::-ms-input-placeholder {
-  /* Microsoft Edge */
-  color: #999999;
-}
+
 .page_primary_action .add-dataset,
 .page_primary_action .add-organization,
 .page_primary_action .add-group {

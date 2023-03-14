@@ -39,15 +39,13 @@ in the core template for search.html.
         (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
       %}
       <!-- arguments for DS search bar -->
-      {% set sr_input_text = _('Search ' + dataset_type + 's') %}
+      {% set input_text = _('Search ' + dataset_type + 's') %}
       {% set sr_submit_text = _("Search") %}
-      {% set placeholder = _('Search ' + dataset_type + 's') %}
       {% set query = c.q %}
       <!-- arguments for search form -->
       {% set form_id = 'dataset-search-form' %}
       {% set type = dataset_type %}
-      {% set searchbar_title = _('Search ' + dataset_type + 's') + _(':') %}
-      {% set hidden_searchbar_title = _('Search ' + dataset_type + 's') %}
+      {% set searchbar_title = input_text + _(':') %}
       {# Set default sort order. If no sort order has been selected in 
          the Order By dropdown menu, use 'metadata_modified desc' (Last Modified).
       #}
@@ -60,22 +58,24 @@ in the core template for search.html.
       {% else %}
         {% set sort_order = 'metadata_modified desc' %}
       {% endif %}
-      {% snippet 'snippets/search_form.html', 
-                  searchbar_title=searchbar_title, 
-                  hidden_searchbar_title=hidden_searchbar_title, 
-                  form_id=form_id, 
-                  type=type, 
-                  query=query, 
-                  sorting=sorting, 
-                  sorting_selected=sort_order, 
-                  count=c.page.item_count, 
-                  placeholder=placeholder, 
-                  sr_input_text=sr_input_text, 
-                  sr_submit_text=sr_submit_text, 
-                  facets=facets, 
-                  show_empty=request.params, 
-                  error=c.query_error, 
-                  fields=c.fields %}
+      <form id="{{ form_id }}" class="search-form" method="get" data-module="select-switch" novalidate>
+        {% snippet 'snippets/search_form.html', 
+                    searchbar_title=searchbar_title, 
+                    hidden_searchbar_title=input_text, 
+                    form_id=form_id, 
+                    type=type, 
+                    query=query, 
+                    sorting=sorting, 
+                    sorting_selected=sort_order, 
+                    count=c.page.item_count, 
+                    placeholder=input_text, 
+                    sr_input_text=input_text, 
+                    sr_submit_text=sr_submit_text, 
+                    facets=facets, 
+                    show_empty=request.params, 
+                    error=c.query_error, 
+                    fields=c.fields %}
+      </form>
     {% endblock %}
   </div>
 {% endblock %}
