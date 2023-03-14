@@ -2958,6 +2958,14 @@ msgstr "Éditer les réglages"
 msgid "Settings"
 msgstr "Réglages"
 
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:106
+msgid "Use the data API"
+msgstr "Servez-vous de l’API de données"
+
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:110
+msgid "CKAN Data API calls"
+msgstr "appels de l’API de données CKAN"
+
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:112
 msgid "Visualize data"
 msgstr "Visualisez les données"
@@ -2973,6 +2981,10 @@ msgstr "Visualiseur de données"
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:190
 msgid "File size"
 msgstr "Taille du fichier"
+
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:65
+msgid "unknown size"
+msgstr "taille inconnue"
 
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:113
 msgid "Use the Data Visualizer below to display this dataset as a table, graph or map."

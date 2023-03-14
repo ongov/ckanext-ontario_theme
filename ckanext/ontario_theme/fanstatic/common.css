@@ -1155,6 +1155,9 @@ via submission form. Copied from DS.*/
     margin-bottom: 42px;
     width: 100%;
   }
+  .action-group:last-child {
+    margin-bottom: 0;
+  }
   .action-group p{
     font-size: 18px;
   }
@@ -1166,6 +1169,14 @@ via submission form. Copied from DS.*/
   .datafile-p {
     font-size: 20px;
     line-height: 27.24px;
+  }
+  /* Make API help panel wide enough to fit all elements */
+  #collapse-endpoints .panel-body table {
+    width: fit-content;
+  }
+  /* Break the URLs so they fit the panel width and the width of screen */
+  #collapse-querying .panel-body, .resource-url-analytics {
+    overflow-wrap: break-word;
   }
 /* ========================================================================
    Visibility - Design System
