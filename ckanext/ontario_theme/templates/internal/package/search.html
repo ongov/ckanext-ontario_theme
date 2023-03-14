@@ -75,7 +75,8 @@ in the core template for search.html.
   {% endblock %}
 {% endblock %}
 
-{% block secondary_content %}
+{% block secondary %}
+<aside class="secondary col-sm-3 filter-results">
   <div class="filters">
     <div>
       {{ h.snippet('snippets/ontario_theme_keywords_facet.html') }}
@@ -116,4 +117,7 @@ in the core template for search.html.
     </div>
     <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
   </div>
+  <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
+</div>
+</aside>
 {% endblock %}

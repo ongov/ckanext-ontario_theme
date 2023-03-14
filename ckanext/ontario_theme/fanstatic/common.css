@@ -306,6 +306,10 @@ input[type=reset].ontario-search-reset:focus{
     background: none; /* turn off background for homepage searchbar */
   }
 
+  .secondary.col-sm-3.filter-results {
+    z-index: 6;
+  }
+
 /* ================================
   Custom overrides - text inputs
   ================================= */
