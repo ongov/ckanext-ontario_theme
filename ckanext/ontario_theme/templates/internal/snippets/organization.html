@@ -1,41 +1,53 @@
 {% ckan_extends %}
-
-{% block heading %}
-  <h3 class="ontario-module-h3">{{ h.get_translated(organization, "title") or organization.name }}
-    {% if organization.state == 'deleted' %}
-      [{{ _('Deleted') }}]
+{% block info %}
+  <div class="module module-narrow module-shallow context-info">
+    {% if has_context_title %}
+      <h2 class="module-heading">{{ _('Ministry') }}</h2>
     {% endif %}
-  </h3>
-{% endblock %}
-
-{% block description %}
-  {% if h.get_translated(organization,"description") %}
-    <p>
-      {{ h.markdown_extract(h.get_translated(organization,"description"), 180) }}
-      {% link_for _('read more'), named_route='organization.about', id=organization.name %}
-    </p>
-  {% else %}
-    <p class="empty">{{ _('There is no description for this ministry.') }}</p>
-  {% endif %}
-{% endblock %}
-
-{% block nums %}
-  <div class="nums">
-    <dl>
-      <dt>{{ _('Datasets') }}</dt>
-      <dd>{{ h.SI_number_span(organization.package_count) }}</dd>
-    </dl>
+    <section class="module-content">
+      {% block inner %}
+      {% block heading %}
+	  <h3 class="ontario-module-h3">{{ h.get_translated(organization, "title") or organization.name }}
+		{% if organization.state == 'deleted' %}
+		  [{{ _('Deleted') }}]
+		{% endif %}
+	  </h3>
+	  {% endblock %}
+      {% block description %}
+	  {% if h.get_translated(organization,"description") %}
+		<p>
+		  {{ h.markdown_extract(h.get_translated(organization,"description"), 180) }}
+		  {% link_for _('read more'), named_route='organization.about', id=organization.name %}
+		</p>
+	  {% else %}
+		<p class="empty">{{ _('There is no description for this ministry.') }}</p>
+	  {% endif %}
+	  {% endblock %}
+      {% if show_nums %}
+        {% block nums %}
+	  <div class="nums">
+		<dl>
+		  <dt>{{ _('Datasets') }}</dt>
+		  <dd>{{ h.SI_number_span(organization.package_count) }}</dd>
+		</dl>
+	  </div>
+	  {% endblock %}
+        {% block follow %}
+	  <hr />
+	  <h2 class="module-heading">{{ _("Keep updated") }}</h2>
+	  <p>
+		{{ _("Subscribe to updates to this ministry using RSS.") }}
+	  </p>
+	  <p>
+		<a href="/feeds/organization/{{ organization.name }}.atom" class="btn btn-primary">
+		  <i class="fa fa-rss"></i> {{ _('Subscribe') }}
+		</a>
+	  </p>
+	  {% endblock %}
+      {% endif %}
+      {% endblock %}
+    </section>
   </div>
-{% endblock %}
-{% block follow %}
-  <hr />
-  <h2 class="module-heading">{{ _("Keep updated") }}</h2>
-  <p>
-    {{ _("Subscribe to updates to this ministry using RSS.") }}
-  </p>
-  <p>
-    <a href="/feeds/organization/{{ organization.name }}.atom" class="btn btn-primary">
-      <i class="fa fa-rss"></i> {{ _('Subscribe') }}
-    </a>
-  </p>
-{% endblock %}
+  {% endblock %}
+
+
