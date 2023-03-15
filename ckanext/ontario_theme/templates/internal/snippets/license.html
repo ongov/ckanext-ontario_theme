@@ -19,12 +19,9 @@
 
 <!-- This block is for the license section in the sidebar on
      the dataset page, not the table on the resource page -->
-{% block license_title %}
-  <h2 class="aside-heading"> <i class="fa fa-lock"></i> {{ _('License') }}</h2>
-{% endblock %}
 {% block license_content %}
   {% if license %}
-  <p>
+  <p class="module-content">
     {% block license_content_inner %}
       {{ license_string_from_license(license._data) }}
       {% if pkg_dict.isopen %}
@@ -34,7 +31,7 @@
       {% endif %}
     {% endblock %}
   </p>
-  <p>
+  <p class="module-content">
     {% if h.get_translated(license._data, 'description') %}
       {{ h.get_translated(license._data, 'description') }}
     {% endif %}

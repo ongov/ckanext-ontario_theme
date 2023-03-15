@@ -1,11 +1,22 @@
 {% ckan_extends %}
 
-{% block secondary %}
-<aside class="secondary col-sm-4 right-col dataset-font">
+{% block content_action %}
+  {% if h.check_access('package_update', {'id':pkg.id }) %}
+    {% link_for _('Edit'), named_route='dataset.edit', id=pkg.name, class_='btn btn-secondary', icon='wrench' %}
+  {% endif %}
+{% endblock %}
+
+{# Override CKAN: Do not pass any icons to nav bar menu items #}
+{% block content_primary_nav %}
+  {{ h.build_nav_icon(dataset_type ~ '.read', _('Dataset'), id=pkg.id if is_activity_archive else pkg.name) }}
+  {{ h.build_nav_icon(dataset_type ~ '.groups', _('Groups'), id=pkg.id if is_activity_archive else pkg.name) }}
+  {{ h.build_nav_icon(dataset_type ~ '.activity', _('Activity Stream'), id=pkg.id if is_activity_archive else pkg.name) }}
+{% endblock %}
+
 {% block package_info %}
   <div class="module module-narrow module-shallow context-info">
-    <h2 class="aside-heading">{{ _("Stay updated via RSS") }}</h2>
-    <section>
+    <h2 class="module-heading">{{ _("Keep updated") }}</h2>
+    <section class="module-content">
       <p>
         {{ _("Subscribe to updates to this dataset using RSS.") }}
       </p>
@@ -16,17 +27,4 @@
       </p>
     </section>
   </div>
-{% endblock %}
-
-  {% block package_organization %}
-    {% if pkg.organization %}
-      {% set org = h.get_organization(pkg.organization.id) %}
-      {% snippet "snippets/organization.html", organization=org, has_context_title=true %}
-    {% endif %}
-  {% endblock %}
-
-  {% block package_license %}
-    {% snippet "snippets/license.html", pkg_dict=pkg %}
-  {% endblock %}
-</aside>
 {% endblock %}

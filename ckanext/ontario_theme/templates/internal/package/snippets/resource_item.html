@@ -11,32 +11,36 @@
 <li class="resource-item row" data-id="{{ res.id }}">
   <div class="col-md-6 col-xs-12">
     {% block resource_item_title %}
-    {% if res.format in h.dict_list_reduce(pkg.resources, 'format') and res.format | length < 5 %}
-    <span class="label label-default" property="dc:format" data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span> 
-    {% else %}
-    <span class="label label-default" data-format="other">other</span>
-    {% endif %}
-      <a class="resource-item-title" href="{{ url }}" title="{{ res.name or res.description }}">
+      <a class="heading" href="{{ url }}" title="{{ res.name or res.description }}">
+        {% if res.format in h.dict_list_reduce(pkg.resources, 'format') and res.format | length < 5 %}
+            <span class="label label-default" property="dc:format" data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span> 
+        {% else %}
+          <span class="label label-default" data-format="other">other</span>
+        {% endif %}
         {{ h.resource_display_name(res) | truncate(50) }}
+        {% if res.size %}
+          <span class="text-muted small"> 
+            ({{ h.localised_filesize(res.size) }})
+          </span>
+        {% endif %}
         {{ h.popular('views', res.tracking_summary.total, min=10) }}
       </a>
-      {% if res.language %}
-            <span class="label label-{{res.language}}">
-              {{ h.scheming_choices_label(
-              h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}
-            </span>
-      {% endif %}
     {% endblock %}
     {% block resource_item_description %}
       {% if res.data_last_updated or res.language %}
-        <p class="description details resource-item-description"> 
+        <p class="description details"> 
           {% if res.data_last_updated %}
-            {{ _("Last Updated") }}: {{ h.render_datetime(res.data_last_updated) }} 
+            {{ _("Last Updated") }}: {{ h.render_datetime(res.data_last_updated) }} | 
           {% endif %}
-          
+          {% if res.language %}
+            <span class="label label-{{res.language}}">
+              {{ h.scheming_choices_label(
+  h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}
+            </span>
+          {% endif %}
         </p>
       {% endif %}    
-      <p class="description resource-item-description">
+      <p class="description">
         {% if res.description %}
           {{ h.markdown_extract(h.get_translated(res, 'description'), extract_length=80) }}
         {% endif %}
@@ -48,18 +52,13 @@
       {% if not url_is_edit %}
       <div>
         {% block resource_item_explore_links %}
-            <a href="{{ url }}" class="ontario-button ontario-button--secondary">
+            <a href="{{ url }}" class="btn btn-primary">
               {% if res.format == "CSV" %}
                 <i class="fa fa-bar-chart-o"></i>
                 {{ _('Preview') }}
               {% else %}
                 <i class="fa fa-info-circle"></i>
                 {{ _('About') }}
-              {% endif %}
-              <br>
-              {% if res.language and res.language != 'english_and_french'%}
-                  {{ h.scheming_choices_label(
-                    h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}
               {% endif %}
             </a>
           {% if res.url and h.is_url(res.url) %}
@@ -70,32 +69,19 @@
             {% else %}
               {% set this_group = '' %}
             {% endif %}
-            <a href="{{ res.url }}" class="resource-url-analytics ontario-button ontario-button--primary dataset-download-link" onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">
+            <a href="{{ res.url }}" class="resource-url-analytics btn btn-primary dataset-download-link" onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">
               {% if res.has_views or res.url_type == 'upload' %}
                 <i class="fa fa-arrow-circle-o-down"></i>
                 {{ _('Download') }}
-                <br>
-                {% if res.language and res.language != 'english_and_french'%}
-                {{ h.scheming_choices_label(
-                  h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}
-                {% endif %}
-                {% if res.size %}
-                ({{ h.localised_filesize(res.size) }})
-                {% endif %}
               {% else %}
                 <i class="fa fa-external-link"></i>
                 {{ _('Open') }}
-                <br>
-                {% if res.language and res.language != 'english_and_french'%}
-                {{ h.scheming_choices_label(
-                h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}
-                {% endif %}
               {% endif %}
             </a>
           {% endif %}
           {% set can_edit = h.check_access('package_update', {'id':pkg.id }) and h.check_access('resource_update', res) %}
           {% if can_edit %}
-            <a href="{{ h.url_for(pkg.type ~ '_resource.edit', id=pkg.name, resource_id=res.id) }}" class="ontario-button ontario-button--tertiary">
+            <a href="{{ h.url_for(pkg.type ~ '_resource.edit', id=pkg.name, resource_id=res.id) }}" class="btn btn-primary">
               <i class="fa fa-pencil-square-o"></i>
               {{ _('Edit') }}
             </a>
