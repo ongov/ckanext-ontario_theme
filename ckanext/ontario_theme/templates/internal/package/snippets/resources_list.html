@@ -2,10 +2,14 @@
   Complete override of template to change "Data and resources" to just data...
 #}
   <section id="dataset-resources" class="resources">
-    <h2>{{ _('Data') }}</h2>
-    {% block resource_list %}
+	<h2>{{ _(h.dataset_display_name(pkg)) }}</h2>
+  <p class="dataset-font">
+    {{ _("Learn more about ")}} <a href="/{{ request.environ.CKAN_LANG }}/about#training-materials">{{ _("accessing data using different file types.")}}</a>
+  </p> 
+  {% block resource_list %}
       {% snippet "package/snippets/ontario_theme_access_level.html",
-        pkg=pkg, dataset_type=dataset_type, schema=schema, resources=resources %}
+      pkg=pkg, dataset_type=dataset_type, schema=schema, resources=resources %}
+
 
       {# can_edit is True only for users with write access
         (i.e. sysadmins and org admins)
@@ -20,57 +24,56 @@
         {% if resources %}
           {% block resource_list_inner %}
             {% for resource in resources %}
-              {% do resource.update({"data_range": h.ontario_theme_get_date_range(resource.data_range_start|default("N/A"),resource.data_range_end|default("N/A"))}) %}          
+            {% do resource.update({"data_range": h.ontario_theme_get_date_range(resource.data_range_start|default("N/A"),resource.data_range_end|default("N/A"))}) %}                  
+          {% endfor %}
+          {% for group in resources|selectattr("type","equalto","data")|groupby("data_range")|sort(attribute="grouper", reverse=True) %}
+            {% if group.list[0].data_range != "N/A - N/A" %}
+			  <p class="date-range">{{ _("Date range")+_(":")}} {{h.render_datetime(group.list[0].data_range_start)}} - {{h.render_datetime(group.list[0].data_range_end)}}</p>
+        {% else %}
+             <p class="date-range">{{ _("No date range") }}</p>
+            {% endif %}
+            <ul class="{% block resource_list_class %}resource-list{% endblock %}">
+            {% for r in group.list|selectattr("format", "equalto", "CSV") %}
+              {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=r, can_edit=can_edit, schema=schema %}
+            {% endfor %} 
+            {% for r in group.list|selectattr("format", "equalto", "JSON") %}
+              {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=r, can_edit=can_edit, schema=schema %}
             {% endfor %}
-            {% for group in resources|selectattr("type","equalto","data")|groupby("data_range")|sort(attribute="grouper", reverse=True) %}
-              {% if group.list[0].data_range != "N/A - N/A" %}
-                <h3>{{group.list[0].data_range}}</h3>
-              {% else %}
-                <h3>{{ _("No date range") }}</h3>
-              {% endif %}
-              <ul class="{% block resource_list_class %}resource-list{% endblock %}">
-              {% for r in group.list|selectattr("format", "equalto", "CSV") %}
-                {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=r, can_edit=can_edit, schema=schema %}
-              {% endfor %} 
-              {% for r in group.list|selectattr("format", "equalto", "JSON") %}
-                {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=r, can_edit=can_edit, schema=schema %}
-              {% endfor %}
-              {% for r in group.list|selectattr("format", "equalto", "KML") %}
-                {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=r, can_edit=can_edit, schema=schema %}
-              {% endfor %}
-              {% for r in group.list|rejectattr("format", "equalto", "CSV")|rejectattr("format", "equalto", "JSON")|rejectattr("format", "equalto", "KML")|rejectattr("format", "equalto", "XLS")|rejectattr("format", "equalto", "XLSX") %}
-                {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=r, can_edit=can_edit, schema=schema %}
-              {% endfor %}
-              {% for r in group.list|selectattr("format", "equalto", "XLSX") %}
-                {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=r, can_edit=can_edit, schema=schema %}
-              {% endfor %}
-              {% for r in group.list|selectattr("format", "equalto", "XLS") %}
-                {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=r, can_edit=can_edit, schema=schema %}
-              {% endfor %}
-              </ul>
+            {% for r in group.list|selectattr("format", "equalto", "KML") %}
+              {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=r, can_edit=can_edit, schema=schema %}
             {% endfor %}
+            {% for r in group.list|rejectattr("format", "equalto", "CSV")|rejectattr("format", "equalto", "JSON")|rejectattr("format", "equalto", "KML")|rejectattr("format", "equalto", "XLS")|rejectattr("format", "equalto", "XLSX") %}
+              {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=r, can_edit=can_edit, schema=schema %}
+            {% endfor %}
+            {% for r in group.list|selectattr("format", "equalto", "XLSX") %}
+              {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=r, can_edit=can_edit, schema=schema %}
+            {% endfor %}
+            {% for r in group.list|selectattr("format", "equalto", "XLS") %}
+              {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=r, can_edit=can_edit, schema=schema %}
+            {% endfor %}
+            </ul>
+            <hr>
+          {% endfor %}
           {% endblock %}
           <h2>{{ _("Supporting Files") }}</h2>
           {% if resources | rejectattr("type","equalto","data") | list | length > 0 %}
-            <ul class="resource-list">
-                {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
-                {% for resource in resources|rejectattr("type","equalto","data") %}
-                  {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=resource, can_edit=can_edit, schema=schema %}
-                {% endfor %}
-            </ul>
+          <ul class="resource-list">
+            {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
+            {% for resource in resources|rejectattr("type","equalto","data") %}
+              {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=resource, can_edit=can_edit, schema=schema %}
+            {% endfor %}
+          </ul>
           {% else %}
-            <p class="empty">{{ _('This dataset has no supporting files') }}</p>
-          {% endif %}
-        {% else %}
-          {% if h.check_access('resource_create', {'package_id': pkg['id']}) %}
-            {% trans url=h.url_for(pkg.type ~ '_resource.new', id=pkg.name) %}
-              <p class="empty">This dataset has no data, <a href="{{ url }}">why not add some?</a></p>
-            {% endtrans %}
-          {% else %}
-            {% if not pkg['access_level'] %}
-              <p class="empty">{{ _('This dataset has no data') }}</p>
-            {% endif %}
-          {% endif %}
+        <p class="empty">{{ _('This dataset has no supporting files') }}</p>
+      {% endif %}
+    {% else %}
+      {% if h.check_access('resource_create', {'package_id': pkg['id']}) %}
+        {% trans url=h.url_for(pkg.type ~ '_resource.new', id=pkg.name) %}
+          <p class="empty">This dataset has no data, <a href="{{ url }}">why not add some?</a></p>
+        {% endtrans %}
+      {% else %}
+        {% if not pkg['access_level'] %}
+          <p class="empty">{{ _('This dataset has no data') }}</p>
         {% endif %}
       {% endif %}
     {% endblock %}

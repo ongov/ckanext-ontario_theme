@@ -17,7 +17,6 @@
       {{ h.render_markdown(h.scheming_language_text(pkg['notes_translated'])) }}
     </div>
   {% endif %}
-  <h2>{% trans %}For more information{% endtrans %} </h2>
   {% set contact_name = h.get_translated(pkg, 'maintainer') %}
   {% set contact_email = pkg.maintainer_email %}
   {% if (not contact_name) and (not contact_email) %}
@@ -29,30 +28,32 @@
     {% endif %}
   {% endif %}
 
-  <div>
-    {% if contact_name %}  
-      {{contact_name}}
-    {% endif %}
-    {% if contact_name and contact_email %}
-      &nbsp;|&nbsp;
-    {% endif %}
-    {% if contact_page %}
+  <div class="ministry-contact">
+	<b>{% trans %}Ministry contact: {% endtrans %} </b>
+	{% if contact_email %}
+	  {% if contact_name %}
+      <a href="mailto:{{contact_email}}?subject={{pkg.title}}">
+        {{contact_name}}
+      </a>
+	  {% endif %}
+	  {% if not contact_name %}
+    	<a href="mailto:{{contact_email}}?subject={{pkg.title}}">
+      	{{contact_email}}
+    	</a>
+	  {% endif %}
+	{% endif %}
+	{% if contact_page %}
     <a href="{{contact_page}}">
-      {% trans %}Contact{% endtrans %} {{ h.get_translated(organization, 'title') }}
-    </a>
+      {{ h.get_translated(organization, 'title') }}
+	  </a>
     {% endif %}
-    {% if contact_email %}  
-    <a href="mailto:{{contact_email}}?subject={{pkg.title}}">
-      {{contact_email}}
-    </a>
-    {% endif %}
-
   </div>
 {% endblock %}
 
 {% block package_tags %}
   {# Remove tags in favor of keywords. #}
 {% endblock %}
+
 
 {% block package_additional_info %}
   {% snippet "scheming/package/snippets/additional_info.html",
