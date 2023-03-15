@@ -345,13 +345,13 @@ input[type=reset].ontario-search-reset.home{
     padding-right: 8rem;
   }
 }
-::placeholder{
+input[placeholder] {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: #999999;
   opacity: 1;
 }
+
 :-ms-input-placeholder {
   /* Internet Explorer 10-11 */
   color: #999999;
