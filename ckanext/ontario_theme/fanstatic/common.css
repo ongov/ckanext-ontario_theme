@@ -1240,7 +1240,12 @@ via submission form. Copied from DS.*/
 }
 .right-col{
   float: right;
-  max-width: 350px;
+}
+
+@media screen and (min-width: 73em) {
+  .right-col {
+    max-width: 350px;
+  }
 }
 .aside-heading {
   color: #4d4d4d;
