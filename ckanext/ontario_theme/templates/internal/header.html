@@ -2,133 +2,173 @@
   Customizes 4 blocks (header_account, header_logo, header_site_navigation,
   header_site_search) but had to copy the whole thing to add accessible text
   for mobile nav.
+
+  Variables used in the code: current_Lang, toggle_to, placeholder, sr_input_text, sr_submit_text
 #}
+{# Setting variables #}
+  {% set current_lang = request.environ.CKAN_LANG %}
+  {% set toggle_to = "fr" %}
+  {% if current_lang == "fr" %}
+    {% set toggle_to = "en" %}
+  {% endif %}
+  {% set placeholder = _("Search Ontario's Data") %}
+  {% set sr_input_text = _("Search") %}
+  {% set sr_submit_text = _("Search") %}
+{# End setting variables #}
 
 {% block header_wrapper %}
-  {% block header_account %}
-    <header class="account-masthead">
-      <div class="container">
-        {# Inserting additional header logo for parent site. #}
-        <hgroup class="{{ g.header_class }} navbar-left">
-          <a class="logo" href="https://ontario.ca/"><img src="/logo-ontario@2x.png" alt="Government of Ontario" /></a>
-        </hgroup>
-        {# End of header logo customization. #}
-        {% block header_account_container_content %} {% if c.userobj %}
-          <div class="account avatar authed" data-module="me" data-me="{{ c.userobj.id }}">
+  <div class="ontario-header__container">
+    {% block header_account %}
+      {% block header_account_container_content %} {% if c.userobj %}
+        <div class="account">
+          <div class="ontario-row avatar authed" data-module="me" data-me="{{ c.userobj.id }}">
             <ul class="list-unstyled">
-              {% block header_account_logged %} {% if c.userobj.sysadmin %}
-              <li>
-                <a href="{{ h.url_for('admin.index') }}" title="{{ _('Sysadmin settings') }}">
-                  <i class="fa fa-gavel" aria-hidden="true"></i>
-                  <span class="text">{{ _('Admin') }}</span>
-                </a>
-              </li>
-              {% endif %}
-              <li>
-                <a href="{{ h.url_for('user.read', id=c.userobj.name) }}" class="image" title="{{ _('View profile') }}">
-                        {{ h.gravatar((c.userobj.email_hash if c and c.userobj else ''), size=22) }}
-                        <span class="username">{{ c.userobj.display_name }}</span>
-                      </a>
-              </li>
-              {% set new_activities = h.new_activities() %}
-              <li class="notifications {% if new_activities > 0 %}notifications-important{% endif %}">
-                {% set notifications_tooltip = ngettext('Dashboard (%(num)d new item)', 'Dashboard (%(num)d new items)', new_activities)
-                %}
-                {# Changed dashboard.index to dashboard.datasets #}
-                <a href="{{ h.url_for('dashboard.datasets') }}" title="{{
-                notifications_tooltip }}">
-                  <i class="fa fa-tachometer" aria-hidden="true"></i>
-                  <span class="text">{{ _('Dashboard') }}</span>
-                  <span class="badge">{{ new_activities }}</span>
-                </a>
-              </li>
-              {% block header_account_settings_link %}
+              {% block header_account_logged %}
+                {% if c.userobj.sysadmin %}
+                  <li>
+                    <a href="{{ h.url_for('admin.index') }}" title="{{ _('Sysadmin settings') }}">
+                      <i class="fa fa-gavel" aria-hidden="true"></i>
+                      <span class="text account-text">{{ _('Admin') }}</span>
+                    </a>
+                  </li>
+                {% endif %}
                 <li>
-                  <a href="{{ h.url_for('user.edit', id=c.userobj.name) }}" title="{{ _('Edit settings') }}">
-                    <i class="fa fa-cog" aria-hidden="true"></i>
-                    <span class="text">{{ _('Settings') }}</span>
+                  <a href="{{ h.url_for('user.read', id=c.userobj.name) }}" class="image" title="{{ _('View profile') }}">
+                    {{ h.gravatar((c.userobj.email_hash if c and c.userobj else ''), size=22) }}
+                    <span class="username">{{ c.userobj.display_name }}</span>
                   </a>
                 </li>
-              {% endblock %} {% block header_account_log_out_link %}
-                <li>
-                  <a href="{{ h.url_for('/user/_logout') }}" title="{{ _('Log out') }}">
-                    <i class="fa fa-sign-out" aria-hidden="true"></i>
-                    <span class="text">{{ _('Log out') }}</span>
+                {% set new_activities = h.new_activities() %}
+                <li class="notifications {% if new_activities > 0 %}notifications-important{% endif %}">
+                  {% set notifications_tooltip = ngettext('Dashboard (%(num)d new item)', 'Dashboard (%(num)d new items)', new_activities) %}
+                  {# Changed dashboard.index to dashboard.datasets #}
+                  <a href="{{ h.url_for('dashboard.datasets') }}" title="{{
+                  notifications_tooltip }}">
+                    <i class="fa fa-tachometer" aria-hidden="true"></i>
+                    <span class="text account-text">{{ _('Dashboard') }}</span>
+                    <span class="badge">{{ new_activities }}</span>
                   </a>
                 </li>
-              {% endblock %} {% endblock %}
-              {# Adding custom language selector. #}
-              <li>
-                {% snippet 'snippets/ontario_theme_language_selector.html' %}
-              </li>
-            </ul>
-          </div>
-          {% else %}
-          <nav class="account not-authed">
-            <ul class="list-unstyled">
-              {% block header_account_notlogged %}
-                {# Adding custom language selector. #}
-                <li>
-                  {% snippet 'snippets/ontario_theme_language_selector.html' %}
-                </li>
+                {% block header_account_settings_link %}
+                  <li>
+                    <a href="{{ h.url_for('user.edit', id=c.userobj.name) }}" title="{{ _('Edit settings') }}">
+                      <i class="fa fa-cog" aria-hidden="true"></i>
+                      <span class="text account-text">{{ _('Settings') }}</span>
+                    </a>
+                  </li>
+                {% endblock %}
+                {% block header_account_log_out_link %}
+                  <li>
+                    <a href="{{ h.url_for('/user/_logout') }}" title="{{ _('Log out') }}">
+                      <i class="fa fa-sign-out" aria-hidden="true"></i>
+                      <span class="text account-text">{{ _('Log out') }}</span>
+                    </a>
+                  </li>
+                {% endblock %}
               {% endblock %}
             </ul>
-          </nav>
-        {% endif %} {% endblock %}
+          </div>
+        </div>
+      {% endif %}{% endblock %}
+    {% endblock %}
+    <header class="ontario-application-header ontario-header" id="ontario-header">
+      <div class="ontario-row">
+        {# Inserting additional header logo for parent site. #}
+        <div class="ontario-columns ontario-small-6 ontario-application-header__logo">
+          <a href="{{_('https://www.ontario.ca/page/government-ontario')}}">
+            <img src="/ontario-logo--desktop.svg" alt="{{_('Government of Ontario')}}" />
+          </a>
+        </div>
+        <div class="ontario-columns ontario-small-6 ontario-application-header__lang-toggle">
+          <a href="{{ h.url_for(h.current_url(), locale=toggle_to) }}" title="{{ toggle_to }}" class="ontario-header__language-toggler ontario-header-button ontario-header-button--without-outline">
+              <span>
+                {{'Français' if current_lang =='en' else 'English'}}
+              </span>
+          </a>
+        </div>
       </div>
     </header>
-  {% endblock %}
-
-<header class="navbar navbar-static-top masthead">
-  {% block header_debug %} {% if g.debug and not g.debug_supress_header %}
-  <div class="debug">Controller : {{ c.controller }}<br/>Action : {{ c.action }}</div>
-  {% endif %} {% endblock %}
-  <div class="container">
-    <div class="navbar-right">
-      <button data-target="#main-navigation-toggle" data-toggle="collapse" class="navbar-toggle collapsed" aria-expanded="false" type="button" aria-label="{{ _('Toggle navigation') }}">
-        <span class="sr-only">{{ _('Toggle navigation') }}</span>
-        <span class="fa fa-bars" aria-hidden="true"></span>
-      </button>
-    </div>
-    <hgroup class="{{ g.header_class }} navbar-left">
-      {% block header_logo %}
-        {% if g.site_logo %}
-          <a class="logo" href="{{ h.url_for('home.index') }}"><img src="{{ h.url_for_static_or_external(g.site_logo) }}" alt="{{ g.site_title }}" title="{{ g.site_title }}" /></a>
-        {% else %}
-          {# Add alpha styling. #}
-          <a href="{{ h.url_for('home.index') }}">{{ g.site_title }} <sup>alpha</sup></a>
-          {# End customization. #}
-          {% if g.site_description %}<h2>{{ g.site_description }}</h2>{% endif %}
-        {% endif %}
-      {% endblock %}
-    </hgroup>
-
-    <div class="collapse navbar-collapse" id="main-navigation-toggle">
-      {% block header_site_navigation %}
-        <nav class="section navigation">
-          <ul class="list-inline">
-            {% block header_site_navigation_tabs %}
-              {{ h.build_nav_main(
-                ('dataset.search', _('Datasets')),
-                ('organization.index', _('Ministries')),
-                ('group.index', _('Groups')),          
-                ('home.about', _('About')),
-                ('ontario_theme.help', _('Help'))
-              ) }}
-            {% endblock %}
-          </ul>
-        </nav> 
-      {% endblock %}
-      {% block header_site_search %}
-        <form class="section site-search simple-input" action="{% url_for 'dataset.search' %}" method="get">
-          <div class="field">
-            <label for="field-sitewide-search">{% block header_site_search_label %}{{ _('Search Datasets') }}{% endblock %}</label>
-            <input id="field-sitewide-search" type="text" class="form-control" name="q" placeholder="{{ _("Search Ontario's Data") | truncate(26) }}" />
-            <button class="btn-search" type="submit" aria-label="{{ _('Submit Search') }}"><i class="fa fa-search" aria-hidden="true"></i><span class="sr-only">{{ _('Submit Search') }}</span></button>
+    <div class="ontario-application-subheader-menu__container">
+      {% block header_debug %} {% if g.debug and not g.debug_supress_header %}
+        <div class="debug">Controller : {{ c.controller }}<br/>Action : {{ c.action }}</div>
+      {% endif %} {% endblock %}
+      <section class="ontario-application-subheader" id="ontario-application-subheader">
+        <div class="ontario-row">
+          <div class="ontario-columns ontario-small-12 ontario-application-subheader__container">
+            <p class="ontario-application-subheader__heading">
+              <a href="{{ h.url_for('home.index') }}">{{_("Data Catalogue")}}</a>
+            </p>
+            <div class="ontario-application-subheader__menu-container">
+              {% block header_site_navigation %}
+                <ul id="navigation" class="ontario-application-subheader__menu ontario-show-for-large">
+                  {% block header_site_navigation_tabs %}
+                    {{ h.build_nav_main(
+                      ('dataset.search', _('Datasets')),
+                      ('organization.index', _('Ministries')),
+                      ('home.about', _('About')),
+                      ('ontario_theme.help', _('Help')) ) }}
+                  {% endblock %}
+                </ul>
+                {% block header_site_search %}
+                  <form method="get" id="ontario-search-form-container" action="{% url_for 'dataset.search' %}" class="ontario-header__search-container ontario-columns" novalidate>
+                    <label class="ontario-label ontario-show-for-sr" for="ontario-search-input-field">{{ sr_input_text }}</label>
+                    <input class="ontario-search-input ontario-input header-search" type="text" id="ontario-search-input-field" name="q" placeholder="{% block search_placeholder %}{{ placeholder | truncate(26) }}{% endblock %}" value="" autocomplete="off" required>
+                    <input class="ontario-search-reset" id="ontario-search-reset" type="reset" value="" aria-label="Clear field" />
+                    <button class="ontario-search-submit header-search" id="ontario-search-submit" type="submit">
+                      <span class="ontario-show-for-sr">{{ sr_submit_text }}</span>
+                      <svg class="ontario-icon search header-search" focusable="false" sol:category="primary" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+                        <use xlink:href="#ontario-icon-search"></use>
+                      </svg>
+                    </button>
+                  </form>
+                  <button class="ontario-header__search-toggler ontario-header-button ontario-header-button--without-outline ontario-hide-for-large" id="ontario-header-search-toggler" aria-controls="ontario-search-form-container" type="button">
+                    <svg class="ontario-icon" focusable="false" sol:category="primary" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+                        <use xlink:href="#ontario-icon-search"></use>
+                    </svg>
+                  </button>
+                  <div class="ontario-header__search-close-container ontario-columns ontario-small-2 ontario-medium-3">
+                    <button class="ontario-header__search-close ontario-header-button ontario-header-button--without-outline" id="ontario-header-search-close" aria-label="close search bar" type="button">
+                      <span aria-hidden="true">close</span>
+                      <svg class="ontario-icon" focusable="false" sol:category="primary" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+                        <use xlink:href="#ontario-icon-close"></use>
+                      </svg>
+                    </button>
+                  </div>
+                {% endblock %}
+                <ul id="medium-navigation"class="ontario-application-subheader__menu ontario-hide-for-small ontario-show-for-medium ontario-hide-for-large">
+                  {{ h.build_nav_main(
+                    ('dataset.search', _('Datasets')),
+                    ('organization.index', _('Ministries')) ) }}
+                </ul>
+                <button class="ontario-hide-for-large ontario-header__menu-toggler ontario-header-button ontario-header-button--with-outline {{'fr' if current_lang =='fr'}}" id="ontario-header-menu-toggler" aria-controls="ontario-navigation" aria-label="open menu" type="button">
+                    <svg class="ontario-icon" focusable="false" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+                        <use xlink:href="#ontario-icon-menu"></use>
+                    </svg>
+                    <span class="menu-text">{{_("Menu")}}</span>
+                </button>
+              {% endblock %}
+            </div>
           </div>
-        </form>
-      {% endblock %}
+        </div>
+      </section>
+      <nav class="ontario-navigation" id="ontario-navigation">
+        <button class="ontario-hide-for-large ontario-header__menu-toggler ontario-header-button ontario-header-button--with-outline {{'fr' if current_lang =='fr'}}" id="ontario-header-nav-toggler" aria-controls="ontario-navigation" aria-label="close">
+          <svg class="ontario-icon" focusable="false" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+              <use xlink:href="#ontario-icon-close"></use>
+          </svg>
+          <span class="menu-text">{{_("Menu")}}</span>
+        </button>
+        <div class="ontario-navigation__container ontario-hide-for-large">
+          <ul>
+            {{ h.build_nav_main(
+              ('dataset.search', _('Datasets')),
+              ('organization.index', _('Ministries')),
+              ('home.about', _('About')),
+              ('ontario_theme.help', _('Help')) ) }}
+          </ul>
+        </div>
+      </nav>
     </div>
   </div>
-</header>
+  <div class="ontario-overlay"></div>
 {% endblock %}

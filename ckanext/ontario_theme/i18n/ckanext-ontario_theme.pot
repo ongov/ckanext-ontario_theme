@@ -903,7 +903,7 @@ msgid ""
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:15
-msgid "Take a <a href=\"https://www.ontario.ca/form/survey-open-data-catalogue?page=/\">2-minute survey</a> and tell us what you think about this page."
+msgid "Take a <a href=\"https://www.ontario.ca/form/survey-open-data-catalogue?%(params)s\">2-minute survey</a> and tell us what you think about this page."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:11
@@ -1052,15 +1052,15 @@ msgid "State"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/footer.html:9
-msgid "accessibility"
+msgid "Accessibility"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/footer.html:10
-msgid "privacy"
+msgid "Privacy"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/footer.html:11
-msgid "terms of use"
+msgid "Terms of use"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/footer.html:15
@@ -1076,6 +1076,10 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/header.html:16
 msgid "Sysadmin settings"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/header.html:39
+msgid "Settings"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/header.html:18
@@ -1133,6 +1137,14 @@ msgstr ""
 #: ckanext/ontario_theme/templates/internal/header.html:103
 #: ckanext/ontario_theme/templates/internal/home/snippets/search.html:15
 msgid "Search"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/header.html:78
+msgid "https://www.ontario.ca/page/government-ontario"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/header.html:79
+msgid "Government of Ontario"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/page.html:4
@@ -1229,6 +1241,10 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:34
 msgid "Topics"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/header.html:150
+msgid "Menu"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:44
@@ -1548,6 +1564,10 @@ msgstr ""
 msgid "License"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:190
+msgid "File size"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/snippets/add_dataset.html:6
 msgid "Add Dataset"
 msgstr ""
@@ -1597,35 +1617,39 @@ msgstr ""
 msgid "Filter Results"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html
-msgid "with the keyword(s)"
-msgstr ""
-
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:15
+msgid "<strong>{number} dataset</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
+msgid_plural "<strong>{number} datasets</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
+msgstr[0] ""
+msgstr[1] ""
+
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:17
-msgid "{number} dataset found"
-msgid_plural "{number} datasets found for \"{query}\""
+msgid "<strong>{number} dataset</strong> found"
+msgid_plural "<strong>{number} datasets</strong> found"
 msgstr[0] ""
 msgstr[1] ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:16
+msgid "No datasets found with the keyword(s) <strong>\"{query}\"</strong>"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:18
 msgid "No datasets found"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:21
-msgid "{number} group found for \"{query}\""
-msgid_plural "{number} groups found for \"{query}\""
+msgid "<strong>{number} group</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
+msgid_plural "<strong>{number} groups</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
 msgstr[0] ""
 msgstr[1] ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:22
-msgid "No groups found for \"{query}\""
+msgid "No groups found with the keyword(s) <strong>\"{query}\"</strong>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:23
-msgid "{number} group found"
-msgid_plural "{number} groups found"
+msgid "<strong>{number} group</strong> found"
+msgid_plural "<strong>{number} groups</strong> found"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -1634,18 +1658,18 @@ msgid "No groups found"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:27
-msgid "{number} ministry found for \"{query}\""
-msgid_plural "{number} ministries found for \"{query}\""
+msgid "<strong>{number} ministry</strong> found for <strong>\"{query}\"</strong>"
+msgid_plural "<strong>{number} ministries</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
 msgstr[0] ""
 msgstr[1] ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:28
-msgid "No ministries found for \"{query}\""
+msgid "No ministries found with the keyword(s) <strong>\"{query}\"</strong>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:29
-msgid "{number} ministry found"
-msgid_plural "{number} ministries found"
+msgid "<strong>{number} ministry</strong> found"
+msgid_plural "<strong>{number} ministries</strong> found"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -1673,6 +1697,30 @@ msgstr ""
 msgid "My Groups"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:112
+msgid "Visualize data"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:106
+msgid "Use the data API"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:110
+msgid "CKAN Data API calls"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:113
+msgid "Use the Data Visualizer below to display this dataset as a table, graph or map."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:68
+msgid "Access data"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:47
+msgid "Data Visualizer"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_covid_datasets.html:18
 msgid "<a href=\"/group/2019-novel-coronavirus\">Show more</a>"
 msgstr ""
@@ -1691,4 +1739,18 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/scheming/organization/group_form.html:23
 msgid "Are you sure you want to delete this Ministry?"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/organization/read.html:24
+msgid "Search %(ministry)s datasets"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:58
+msgid "Ministry"
+msgstr ""
+
+#: Report error callout
+msgid "Report an error with this data"
+msgstr ""
+msgid "Fill out a <a href=\"https://www.ontario.ca/form/report-data-error?%(params)s\">Data Catalogue error report</a> to let us know if there are issues with the resources in this dataset."
 msgstr ""

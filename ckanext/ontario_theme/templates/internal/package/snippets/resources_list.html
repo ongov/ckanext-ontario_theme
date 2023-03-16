@@ -1,7 +1,6 @@
 {#
   Complete override of template to change "Data and resources" to just data...
 #}
-
 <section id="dataset-resources" class="resources">
 	<h2>{{ _(h.dataset_display_name(pkg)) }}</h2>
   <p class="dataset-font">
@@ -10,17 +9,31 @@
   {% block resource_list %}
     {% snippet "package/snippets/ontario_theme_access_level.html",
       pkg=pkg, dataset_type=dataset_type, schema=schema, resources=resources %}
-    {% if resources %}
+    {# can_edit is True only for users with write access
+      (i.e. sysadmins and org admins)
+    #}
+    {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
+    
+    {# If package access level is not open (i.e. restricted or under review),
+      only allow users with write access (i.e. sysadmins and org admins) to
+      view the resource list.
+    #}
+    {% if pkg['access_level'] == 'open' or can_edit %}
+      {% if resources %}
         {% block resource_list_inner %}
           {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
           {% for resource in resources %}
             {% do resource.update({"data_range": h.ontario_theme_get_date_range(resource.data_range_start|default("N/A"),resource.data_range_end|default("N/A"))}) %}          
           {% endfor %}
           {% for group in resources|selectattr("type","equalto","data")|groupby("data_range")|sort(attribute="grouper", reverse=True) %}
-
             {% if group.list[0].data_range != "N/A - N/A" %}
-			  <p class="date-range">{{ _("Date range")+_(":")}} {{h.render_datetime(group.list[0].data_range_start)}} - {{h.render_datetime(group.list[0].data_range_end)}}</p>
-        {% else %}
+              {# Issue with h.render_datetime causes dates to shift to day before
+                <p class="date-range">{{ _("Date range")+_(":")}} {{h.render_datetime(group.list[0].data_range_start)}} - {{h.render_datetime(group.list[0].data_range_end)}}</p>
+              {% else %}
+              <p class="date-range">{{ _("No date range") }}</p>
+              {% endif %} #}
+              <p class="date-range">{{group.list[0].data_range}}</p>
+            {% else %}
               <p class="date-range">{{ _("No date range") }}</p>
             {% endif %}
             <ul class="{% block resource_list_class %}resource-list{% endblock %}">
@@ -43,28 +56,29 @@
               {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=r, can_edit=can_edit, schema=schema %}
             {% endfor %}
             </ul>
-            <hr>
           {% endfor %}
+          <hr>
         {% endblock %}
-      <h2>{{ _("Supporting Files") }}</h2>
-      {% if resources | rejectattr("type","equalto","data") | list | length > 0 %}
-        <ul class="resource-list">
+        <h2>{{ _("Supporting Files") }}</h2>
+        {% if resources | rejectattr("type","equalto","data") | list | length > 0 %}
+          <ul class="resource-list">
             {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
             {% for resource in resources|rejectattr("type","equalto","data") %}
               {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=resource, can_edit=can_edit, schema=schema %}
             {% endfor %}
-        </ul>
+          </ul>
+        {% else %}
+          <p class="empty">{{ _('This dataset has no supporting files') }}</p>
+        {% endif %}
       {% else %}
-        <p class="empty">{{ _('This dataset has no supporting files') }}</p>
-      {% endif %}
-    {% else %}
-      {% if h.check_access('resource_create', {'package_id': pkg['id']}) %}
-        {% trans url=h.url_for(pkg.type ~ '_resource.new', id=pkg.name) %}
-          <p class="empty">This dataset has no data, <a href="{{ url }}">why not add some?</a></p>
-        {% endtrans %}
-      {% else %}
-        {% if not pkg['access_level'] %}
-          <p class="empty">{{ _('This dataset has no data') }}</p>
+        {% if h.check_access('resource_create', {'package_id': pkg['id']}) %}
+          {% trans url=h.url_for(pkg.type ~ '_resource.new', id=pkg.name) %}
+            <p class="empty">This dataset has no data, <a href="{{ url }}">why not add some?</a></p>
+          {% endtrans %}
+        {% else %}
+          {% if not pkg['access_level'] %}
+            <p class="empty">{{ _('This dataset has no data') }}</p>
+          {% endif %}
         {% endif %}
       {% endif %}
     {% endif %}

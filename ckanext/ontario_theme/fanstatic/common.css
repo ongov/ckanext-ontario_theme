@@ -31,13 +31,6 @@
   font-weight: normal;
 }
 
-.search-form {
-  padding: 20px;
-  background: #fafafa;
-}
-.greet .search-form {
-  background: none; /* turn off background for homepage searchbar */
-}
 /* ========================================================================
    Text Inputs - Design System
    ======================================================================== */
@@ -226,7 +219,7 @@
   border:2px solid #CCCCCC;
   border-radius:0 3px 3px 0;
   /* Changed from Design System */
-  background-color: #f2f2f2;;
+  background-color: #f2f2f2;
   color:#1a1a1a;
   display:flex;
   justify-content:center;
@@ -265,7 +258,8 @@ input[type=reset].ontario-search-reset{
   display:flex;
   align-items:center;
   top:11px;
-  right:80px;
+  /* Changed from Design System */
+  right:65px;
   height: 28px;
   width:28px;
   color:#000;
@@ -317,20 +311,21 @@ input[type=reset].ontario-search-reset:focus{
    .search-form {
     display: flex;
     flex-direction: column;
+    padding: 20px;
+    background: #fafafa;
   }
   /* child div 1: shows search result count */
   .search-form .search-count {
     order: 2; /* Displays count text above Order By menu */
     text-align-last: right;   /* always end text at same point, no matter how long it is */
-    font-size: 20px; /* According to DS, body text should be 16px */
-    padding-bottom: 26px;
+    padding-bottom: 16px;
   }
   /* child div 2: shows Order By dropdown menu.
   Note: clearance for menu below the gray box controlled by
   bottom margin in external/ontario_theme.css LINE 759
   */
   .search-form .control-order-by {
-    order: 3; /* Displays Order By menu below count text */
+    order: 4; /* Displays Order By menu below count text */
     display: flex;
     justify-content: end;
     padding-top: 33px;
@@ -358,11 +353,72 @@ input[type=reset].ontario-search-reset:focus{
 
   /* child div 3: shows search keywords just below searchbar */
   .filter-list {
-    padding-bottom: 5px; /* needed to avoid being squished in mobile mode*/
+    order: 3;
+    display: flex;
+    justify-content: end;
+    padding-bottom: 10px; /* needed to avoid being squished in mobile mode*/
   }
-  
+  .search-form .filter-list, .search-form .search-count {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 25px;
+  }
+  .search-form .filter-list {
+    color:#000;
+    margin-right: -14px;
+    margin-top: 0px;
+    flex-wrap: wrap;
+  }
+  .pill a.remove {
+    font-size: 20px;
+  }
+  .pill a:visited{
+    color: unset;
+  }
+  .pill a {
+    margin: auto;
+    margin-left: 5px;
+  }
+  .pill-contents{
+    display: flex;
+    padding: 0 10px;
+  }
+  .search-form .filter-list .pill {
+    line-height: 25.6px;
+    background-color: #666666;
+    margin-right: 14px;
+    padding: 5px 10px;
+    text-align: left;
+    margin-bottom: 5px;
+    border-radius: 52px;
+  }
+
+  @media screen and (max-width: 39.9375em){
+    .facet-row {
+      display: block;
+      float: right;
+      text-align: right;
+    }
+    .facet {
+      padding-right: 5px;
+    }
+    .search-form .filter-list .pill {
+      margin-right: unset;
+    }
+  }
+  .show-filters.btn{
+    margin-bottom: 10px;
+  }
   .module-content {
     padding: 0px; /* brings top of file list closer to Order By menu */
+  }
+
+  .greet .search-form {
+    background: none; /* turn off background for homepage searchbar */
+  }
+
+  .secondary.col-sm-3.filter-results {
+    z-index: 6;
   }
 
 /* ================================
@@ -391,6 +447,29 @@ input[type=reset].ontario-search-reset.home{
   vertical-align:middle;
   overflow:hidden;
   margin-bottom:2px
+}
+#group-search-form .ontario-search-container{
+  z-index: 2;
+}
+@media screen and (max-width: 40em){
+  .ontario-search-input.ontario-input.snippet{
+    padding-right: 8rem;
+  }
+}
+::placeholder{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #999999;
+  opacity: 1;
+}
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #999999;
+}
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #999999;
 }
 
 /* ========================================================================
@@ -547,6 +626,525 @@ a:focus {
   word-break: break-word;
   hyphens: auto;
 }
+/* ========================================================================
+   Header - Design System
+   ======================================================================== */
+.ontario-header {
+    position: relative;
+    overflow: hidden;
+    z-index: 5;
+    background-color: #1a1a1a;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    height: 5.75rem;
+}
+.ontario-application-subheader__heading {
+  font-style: normal;
+  font-weight: 700;
+  text-rendering: optimizeLegibility;
+  margin-bottom: 1rem;
+  font-feature-settings: normal;
+  font-family: "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.03rem;
+  line-height: 1.5;
+  margin: 0 0 0.75rem 0;
+}
+.ontario-header.ontario-application-header {
+  height: 3.125rem;
+  z-index: 5;
+}
+.ontario-application-header__logo,
+.ontario-application-header__logo a,
+.ontario-application-header__lang-toggle,
+.ontario-application-subheader__container,
+.ontario-application-subheader__menu-container,
+.ontario-application-subheader__menu {
+  display: flex;
+}
+.ontario-application-header__logo img {
+  width: 100px;
+  height: 25px;
+}
+.ontario-application-header__lang-toggle {
+  justify-content: flex-end;
+}
+.ontario-application-header__lang-toggle a {
+  font-size: 1rem;
+  line-height: 1.375rem;
+  height: auto;
+  padding: 0.5rem 0.75rem;
+}
+.ontario-application-subheader {
+  padding: calc(0.5rem + 0.75rem) 0;
+  background-color: #404040;
+  overflow: hidden;
+  position: relative;
+  z-index: 5;
+}
+.ontario-application-subheader > .ontario-row {
+  position: relative;
+}
+.ontario-application-subheader .ontario-header-button {
+  visibility: visible;
+}
+.ontario-application-subheader .ontario-header-button {
+  background-color: #404040;
+}
+.ontario-header-button .ontario-icon {
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 0;
+}
+.ontario-application-subheader .ontario-header-button:hover {
+  background-color: #666666;
+}
+.ontario-application-subheader .ontario-header-button:active {
+  background-color: #1a1a1a;
+}
+.ontario-application-subheader__heading {
+  padding: 0.375rem 0;
+  margin-bottom: 0;
+  max-width: 65%;
+}
+.ontario-application-subheader__heading a {
+  color: #FFFFFF;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ontario-application-subheader__heading a:hover, .ontario-application-subheader__heading a:active, .ontario-application-subheader__heading a:visited {
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+.ontario-application-subheader__container {
+  align-items: center;
+  justify-content: space-between;
+}
+.ontario-application-subheader__menu {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+  align-items: center;
+}
+.ontario-application-subheader__menu li {
+  padding: 0;
+  margin-left: 1rem;
+}
+.ontario-application-subheader__menu a {
+  border-radius: 4px;
+  color: #FFFFFF;
+  display: block;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  height: 48px;
+  line-height: 1.4375rem;
+  padding: 0.75rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+#navigation li.active a, #medium-navigation li.active a{
+  border-bottom: 4px solid #fff;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.ontario-application-subheader-menu__container .ontario-header-button--with-outline{
+  top: calc(-4rem + -0.25rem);
+}
+.ontario-navigation__container li.active{
+  background-color: #f2f2f2;
+  border-left: 6px solid #404040;
+}
+.ontario-application-subheader__menu a.ontario-link--active {
+  border-radius: 4px 4px 0 0;
+  border-bottom: 4px solid #FFFFFF;
+}
+.ontario-application-subheader__menu a:hover,.ontario-application-subheader__menu a:focus {
+  background-color: #666666;
+}
+.ontario-application-subheader__menu a:active {
+  background-color: #1a1a1a;
+}
+.ontario-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+.ontario-navigation__container {
+  background: #fff;
+  position: absolute;
+  transform: translateY(-100%);
+  transition: transform .3s ease-in-out,visibility .1s ease;
+  width: 100%;
+  visibility: hidden;
+  z-index: 4;
+}
+.ontario-navigation.ontario-navigation--open .ontario-navigation__container {
+  visibility: visible;
+  transform: translateY(0);
+  transition: transform .4s ease-in-out;
+}
+.ontario-navigation--open .ontario-navigation .ontario-header-button {
+  visibility: visible;
+}
+.ontario-navigation--open .ontario-application-subheader .ontario-header-button--with-outline {
+  visibility: hidden;
+}
+.ontario-navigation a {
+  color: #1a1a1a;
+  display: block;
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: calc(0.75rem - (0.25rem / 3.25)) 1.5rem;
+}
+.ontario-navigation--open .ontario-overlay {
+  display: block;
+}
+.ontario-navigation ul {
+  list-style: none;
+  padding: 0.5rem 0;
+  margin: 0;
+  border-bottom: 1px solid #ccc;
+}
+.ontario-header-button--with-outline.ontario-header-button {
+  border: 2px solid #fff;
+  margin: 0 0 0 1rem;
+  padding: 0.375rem 1rem;
+}
+.ontario-header-button--with-outline, .ontario-header-button--without-outline {
+  /* background-color: #1a1a1a; */
+  color: #fff;
+}
+.ontario-header-button {
+  background-color: #1a1a1a;
+  border: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+  box-shadow: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 1.125rem;
+  font-weight: 600;
+  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  height: 48px;
+  line-height: 1.5555555556;
+  text-align: center;
+  text-decoration: none;
+}
+.ontario-header .ontario-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.ontario-header-button--with-outline:hover, .ontario-header-button--without-outline:hover {
+  background-color: #4d4d4d;
+}
+.ontario-header-button:hover, .ontario-header-button:focus, .ontario-header-button:visited {
+  color: #fff;
+  text-decoration: none;
+}
+.ontario-navigation .ontario-header-button {
+  background-color: #4d4d4d;
+}
+.ontario-navigation .ontario-header-button {
+  visibility: hidden;
+  position: absolute;
+  right: 0.5rem;
+  z-index: 6;
+}
+.ontario-header__menu-toggler {
+  padding: 0.375rem 1rem;
+}
+.ontario-header__language-toggler:hover {
+  text-decoration: underline;
+}
+header {
+  background-color: #1a1a1a;
+}
+.ontario-navigation a:focus, .ontario-navigation a:active {
+  box-shadow: 0 0 0 4px #009adb inset;
+  text-decoration: underline;
+  background-color: #CCCCCC;
+  outline: 4px solid transparent;
+  transition: box-shadow .1s ease-in-out;
+}
+.ontario-navigation li {
+  border-top: 1px solid #ccc;
+  padding: 0;
+}
+.ontario-navigation li:last-of-type{
+  border-bottom:1px solid #ccc
+}
+.ontario-navigation a:hover {
+  text-decoration: underline;
+  background-color: #e6e6e6;
+}
+.ontario-header-button:focus {
+  box-shadow: 0 0 0 4px #009adb;
+  outline: 4px solid transparent;
+  transition: box-shadow .1s ease-in-out;
+}
+.ontario-navigation{
+  position:absolute;
+  width:100%
+}
+/* ===============================
+   Header - media queries
+   =============================== */
+@media screen and (min-width: 40em) {
+  .ontario-application-subheader__heading {
+    font-size: 1.5rem;
+    letter-spacing: 0.0313rem;
+    line-height: 1.5;
+  }
+  #ontario-header .ontario-columns, #ontario-application-subheader .ontario-columns{
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+@media screen and (min-width: 73em) {
+  .ontario-application-subheader{
+    z-index:0
+  }
+  .ontario-navigation--open .ontario-overlay {
+    display: none;
+  }
+  .ontario-navigation {
+    position: relative;
+    max-width: 72rem;
+    width: auto;
+    margin: 0 auto;
+  }
+  .ontario-navigation__container {
+    box-shadow: 0 4px 12px rgb(0 0 0 / 30%);
+    border-radius: 4px;
+    display: none;
+    position: absolute;
+    right: 1rem;
+    top: calc(100% - 0.5rem);
+    transition: none;
+    min-width: 290px;
+    max-width: 30%;
+    z-index: 5;
+  }
+  .ontario-navigation.ontario-navigation--open .ontario-navigation__container {
+    transition: none;
+    display: block;
+  }
+  .ontario-navigation ul {
+    border-bottom: none;
+  }
+}
+/* uses same media query as ontario-only-show-for-small for the first 2 nav tabs in
+the menu dropdowm. Datasets and ministries are displayed in the medium screen nav bar */
+@media screen and (max-width: 0em), screen and (min-width: 40em) {
+  .ontario-navigation__container li:nth-child(-n + 2) {
+    display: none !important;
+  }
+}
+@media screen and (min-width: 40em) and (max-width: 42em){
+  .ontario-header__search-toggler {
+    margin-left: unset !important;
+  }
+}
+/* Moves the closing Menu button when the French title wraps */
+@media screen and (min-width: 40em) and (max-width: 51.5em) {
+  .ontario-header-button--with-outline.fr{
+    top: calc(-4rem + -1.4rem);
+  }
+}
+@media screen and (min-width: 20em) and (max-width: 25.75em){
+  .ontario-header-button--with-outline.fr{
+    top: calc(-4rem + -1rem);
+  }
+}
+@media screen and (min-width: 20em) and (max-width: 21.375em){
+  .ontario-application-subheader-menu__container .ontario-header-button--with-outline{
+    top: calc(-4rem + -1rem);
+  }
+}
+@media screen and (max-width: 73em) {
+  .ontario-navigation--open .ontario-application-subheader-menu__container {
+    position: relative;
+    z-index: 3;
+  }
+  .ontario-navigation a {
+    padding: calc(0.75rem - (0.25rem / 3.25)) 2rem;
+  }
+  .account-text{
+    display:none;
+  }
+}
+@media screen and (max-width: 40em) {
+  .ontario-navigation .ontario-header-button {
+    right: 1rem;
+  }
+}
+/* ========================================================================
+   Header search - Design System
+   ======================================================================== */
+.ontario-header__search-container{
+  position:relative;
+  display:none
+}
+.ontario-search-input.ontario-input.header-search{
+  height: 48px;
+  font-size:18px;
+  border: unset;
+  border-width:0;
+  margin-bottom:0;
+  padding-left:.75rem;
+  padding-right:5.625rem;
+}
+.header-search::placeholder{
+  font: 'Open Sans';
+  font-weight: 400;
+  size: 16px;
+  line-height: 25.6px;
+}
+.ontario-search-container.header-search{
+  margin-bottom: unset;
+}
+.ontario-icon.search.header-search{
+  width:32px;
+  height:32px;
+}
+.ontario-search-submit.header-search{
+  border:0;
+}
+.ontario-header__search-toggler{
+  padding:.5rem .75rem;
+  margin-left:1rem
+}
+.ontario-header__search-close{
+  flex-direction:column-reverse;
+  font-weight:400;
+  margin-right:1rem;
+  padding:.15rem .25rem;
+  position:relative;
+  height:60px;
+  display:none;
+}
+.ontario-header__search-close span{
+  position:relative;
+  top:-3px;
+  font-size:1rem;
+  margin-left:0
+}
+.ontario-header__search-close span:hover,.ontario-header__search-close span:focus{
+  outline:none;
+  text-decoration:none
+}
+.ontario-header__search-close svg{
+  top:0
+}
+.ontario-header__search-close-container{
+  display:none;
+  padding-right:0
+}
+.ontario-header__search-container{
+  padding-right: 0px !important;
+}
+/* ===============================
+   Header search - media queries
+   =============================== */
+@media screen and (min-width: 39.9375em){
+  .ontario-header__search-close span{
+      margin-right:4px;
+  }
+}
+@media screen and (min-width: 73em){
+  .ontario-header__search-container{
+    display:flex;
+  }
+  .ontario-header__search-container.ontario-columns{
+    width: 320px;
+  }
+  .ontario-header--search-open .ontario-header__search-close{
+    display:none
+  }
+}
+@media screen and (min-width: 40em){
+  .ontario-header__search-close{
+      flex-direction:row;
+      padding:.25rem .5rem .25rem 1rem;
+      height:48px
+  }
+  .ontario-header__search-close span{
+      top:0
+  }
+  .ontario-header__search-close svg{
+      position:relative;
+      width:2.5rem;
+      height:2.5rem
+  }
+}
+@media screen and (min-width: 40em) and (max-width: 46em) {
+  .ontario-header__search-close{
+    margin-left: 3rem;
+  }
+}
+@media screen and (max-width: 46em){
+  .ontario-header__search-close-container{
+    justify-content:flex-end;
+  }
+  .menu-text{
+    display: none;
+  }
+}
+@media screen and (max-width: 40em){
+  .ontario-header__search-close-container{
+      width:auto;
+      padding-left:0;
+      padding-right:0
+  }
+  .ontario-header--search-open .ontario-application-subheader__heading {
+    display:none
+  }
+  .ontario-header__search-close{
+    margin-right: 0;
+  }
+  .ontario-application-subheader__menu-container{
+    justify-content: flex-end;
+  }
+  .ontario-search-submit.header-search{
+    height: 48px;
+    top: 7px;
+  }
+  .ontario-header--search-open .ontario-application-subheader__menu-container{
+    width: 100%;
+  }
+  .ontario-header--search-open .ontario-header__search-container{
+    padding-top: 7px;
+  }
+  #ontario-search-form-container .ontario-search-reset{
+    top: 17px !important;
+  }
+}
+@media screen and (max-width: 73em){
+  .ontario-header--search-open .ontario-application-subheader__menu,.ontario-header--search-open .ontario-header__search-toggler, .ontario-header--search-open .ontario-header__menu-toggler {
+      display:none
+  }
+  .ontario-header--search-open .ontario-header__search-close-container,.ontario-header--search-open .ontario-header__search-container,.ontario-header--search-open .ontario-header__search-close{
+      display:flex
+  }
+  .ontario-header__search-close {
+    margin-right: 0;
+  }
+  .ontario-header__search-close-container.ontario-columns {
+    padding-right: 0px;
+  }
+}
+
 /* ========================================================================
    Custom overrides - individual pages
    ======================================================================== */
@@ -732,6 +1330,46 @@ section#dataset-resources > h2{
 .module.module-narrow.module-shallow.license{
   margin-bottom: 0;
 }
+/* =====================================================
+   Custom overrides - Account bar
+   ===================================================== */
+   .account {
+    position: relative;
+    z-index: 5;
+    background-color: #1a1a1a;
+    min-height: 32px;
+  }
+  .account .avatar{
+    padding-right: 16px;
+  }
+  /* The "bubble" containing the number of new notifications. */
+  .account .notifications a .badge {
+    background-color: transparent;
+  }
+  /* The text and icons in the user account info. */
+  .account ul li a {
+    color: #ededed;
+    font-weight: normal;
+    font-size: 14px;
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+  }
+  /* The user account info text and icons, when the user's pointer is hovering
+     over them. */
+  .account ul li a:hover {
+    background-color: #666666;
+  }
+  .account ul li a:hover {
+    text-decoration: underline;
+  }
+  .account ul{
+    float: right;
+  }
+  .account ul li {
+    display: inline-block;
+    border-right: none;
+    margin-bottom: 0 !important;
+  }
 /* ========================================================================
    Custom overrides - links
    ======================================================================== */
@@ -741,3 +1379,188 @@ section#dataset-resources > h2{
   a.btn, a.btn-primary, a.heading, a.tag, ul.nav-tabs li a, .table-of-contents a, .nav-item a{
     text-decoration: none;
   }
+
+/* ========================================================================
+   Custom overrides - datafile pages
+   ======================================================================== */
+  .ontario-margin-top-40 {
+    margin-top: 40px;
+  }
+  .additional-info-table.table-bordered > tbody > tr > th, .additional-info-table.table-bordered > thead > tr > th {
+    border-right: unset;
+  }
+  .additional-info-table.table-bordered > tbody > tr > td, .additional-info-table.table-bordered > thead > tr > th{
+    border-left: unset;
+  }
+  .module-resource {
+    border-bottom: unset;
+    z-index: 1;
+  }
+  .table-condensed > tbody > tr > th, .table-condensed > thead > tr > th, .table-condensed > tbody > tr > td {
+    padding: 12px;
+  }
+  .action-group {
+    display: block;
+    float: right;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 28px;
+    margin-bottom: 42px;
+    width: 100%;
+  }
+  .action-group:last-child {
+    margin-bottom: 0;
+  }
+  .action-group p{
+    font-size: 18px;
+  }
+  .action-group a{
+    font-weight: 600;
+    font-size: 19px;
+    line-height: 34.65px;
+  }
+  .datafile-p {
+    font-size: 20px;
+    line-height: 27.24px;
+  }
+  /* Make API help panel wide enough to fit all elements */
+  #collapse-endpoints .panel-body table {
+    width: fit-content;
+  }
+  /* Break the URLs so they fit the panel width and the width of screen */
+  #collapse-querying .panel-body, .resource-url-analytics {
+    overflow-wrap: break-word;
+  }
+/* ========================================================================
+   Visibility - Design System
+   ======================================================================== */
+  .ontario-hide {
+    display: none !important;
+  }
+  
+  .ontario-invisible {
+    visibility: hidden;
+  }
+  
+  @media screen and (max-width: 39.9375em) {
+    .ontario-hide-for-small-only {
+      display: none !important;
+    }
+  }
+  @media screen and (max-width: 0em), screen and (min-width: 40em) {
+    .ontario-show-for-small-only {
+      display: none !important;
+    }
+  }
+  @media print, screen and (min-width: 40em) {
+    .ontario-hide-for-medium {
+      display: none !important;
+    }
+  }
+  @media screen and (max-width: 39.9375em) {
+    .ontario-show-for-medium {
+      display: none !important;
+    }
+  }
+  @media screen and (min-width: 40em) and (max-width: 72.9375em) {
+    .ontario-hide-for-medium-only {
+      display: none !important;
+    }
+  }
+  @media screen and (max-width: 39.9375em), screen and (min-width: 73em) {
+    .ontario-show-for-medium-only {
+      display: none !important;
+    }
+  }
+  @media print, screen and (min-width: 73em) {
+    .ontario-hide-for-large {
+      display: none !important;
+    }
+  }
+  @media screen and (max-width: 72.9375em) {
+    .ontario-show-for-large {
+      display: none !important;
+    }
+  }
+  @media screen and (min-width: 73em) and (max-width: 95.9375em) {
+    .ontario-hide-for-large-only {
+      display: none !important;
+    }
+  }
+  @media screen and (max-width: 72.9375em), screen and (min-width: 96em) {
+    .ontario-show-for-large-only {
+      display: none !important;
+    }
+  }
+  .ontario-show-for-sr,
+  .ontario-show-on-focus {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+  
+  .ontario-show-on-focus:active,
+  .ontario-show-on-focus:focus {
+    position: static !important;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+  }
+  
+  .ontario-show-for-landscape,
+  .ontario-hide-for-portrait {
+    display: block !important;
+  }
+  
+  @media screen and (orientation: landscape) {
+    .ontario-show-for-landscape,
+  .ontario-hide-for-portrait {
+      display: block !important;
+    }
+  }
+  @media screen and (orientation: portrait) {
+    .ontario-show-for-landscape,
+  .ontario-hide-for-portrait {
+      display: none !important;
+    }
+  }
+  .ontario-hide-for-landscape,
+  .ontario-show-for-portrait {
+    display: none !important;
+  }
+  
+  @media screen and (orientation: landscape) {
+    .ontario-hide-for-landscape,
+  .ontario-show-for-portrait {
+      display: none !important;
+    }
+  }
+  @media screen and (orientation: portrait) {
+    .ontario-hide-for-landscape,
+  .ontario-show-for-portrait {
+      display: block !important;
+    }
+  }
+/* ========================================================================
+   Callouts - Design System
+   ======================================================================== */
+.ontario-callout,.ontario-aside{
+    border-left:.25rem solid #367a76;
+    padding:1.5rem
+}
+.ontario-callout *:last-child,.ontario-aside *:last-child{
+    margin-bottom:.5rem
+}
+.ontario-callout{
+    margin:2rem 0 2.5rem 0;
+    background-color:#f2f2f2
+}
+.ontario-callout__title,.ontario-aside__title{
+    margin-bottom:1rem
+}
+.ontario-border-highlight--purple{
+    border-color:#92278f !important
+}

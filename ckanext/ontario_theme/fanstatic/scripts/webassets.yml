@@ -1,0 +1,5 @@
+ontario_theme_js:
+  contents:
+    - ontario-a11y.js
+    - ontario-header.js
+    - odc-search.js

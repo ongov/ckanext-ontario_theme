@@ -1,6 +1,10 @@
 .alert-banner {
   margin-bottom: 0px;
 }
+.alert{
+  border-radius: 0px;
+}
+
 .new-alert {
   border-color: rgba(0, 0, 0, 0.1);
   border-width: 0 0 0 0.9375rem;
@@ -989,20 +993,7 @@ section.additional-info table.table tbody tr td.dataset-details {
   font-size: 16px;
   line-height: 26px;
 }
-::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #999999;
-  opacity: 1;
-  /* Firefox */
-}
-:-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
-  color: #999999;
-}
-::-ms-input-placeholder {
-  /* Microsoft Edge */
-  color: #999999;
-}
+
 .page_primary_action .add-dataset,
 .page_primary_action .add-organization,
 .page_primary_action .add-group {
@@ -1068,37 +1059,6 @@ textarea[readonly]::placeholder {
 .badge-harvest[data-harvest*=ontario-geohub] {
   background-color: #774503;
   border-color: #774503dc;
-}
-/* =====================================================
-   The "account masthead" bar across the top of the site
-   ===================================================== */
-.account-masthead {
-  background-color: #333;
-  padding: 1.5rem 0;
-  min-height: 64px;
-}
-/* The "bubble" containing the number of new notifications. */
-.account-masthead .account .notifications a span {
-  background-color: #000;
-}
-/* The text and icons in the user account info. */
-.account-masthead .account ul li a {
-  color: #ededed;
-  font-weight: normal;
-  font-size: 14px;
-}
-/* The user account info text and icons, when the user's pointer is hovering
-   over them. */
-.account-masthead .account ul li a:hover {
-  color: #eee;
-  background-color: #333;
-}
-.account-masthead .account ul li {
-  display: block;
-  float: left;
-  border-left: none;
-  padding: 0;
-  margin-bottom: 0 !important;
 }
 /* ========================================================================
    The main masthead bar that contains the site logo, nav links, and search

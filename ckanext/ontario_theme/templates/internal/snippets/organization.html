@@ -6,6 +6,9 @@
     {% endif %}
     <section>
       {% block inner %}
+	  {% block image %}
+  		{# Leave block blank to override image div #}
+		{% endblock %}
       {% block heading %}
 	  <h3 class="ontario-module-h3">{{ h.get_translated(organization, "title") or organization.name }}
 		{% if organization.state == 'deleted' %}
