@@ -17,7 +17,11 @@
       {% else %}
         {% set this_group = '' %}
       {% endif %}
-      {% set this_pkg = pkg %}
+      {# can_access_not_open is True for users with write access (admins and sysadmin) #}
+      {% set can_access_not_open = h.check_access('package_update', {'id':pkg.id }) %}
+      {% if pkg['access_level'] == 'open' or can_access_not_open %}
+        {% set this_pkg = pkg %}
+      {% endif %}
       {% if res %}
         {% set this_res = res %}
       {% endif %}
