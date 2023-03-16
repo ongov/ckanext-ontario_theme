@@ -35,8 +35,7 @@
       <a href="mailto:{{contact_email}}?subject={{pkg.title}}">
         {{contact_name}}
       </a>
-	  {% endif %}
-	  {% if not contact_name %}
+	  {% else %}
     	<a href="mailto:{{contact_email}}?subject={{pkg.title}}">
       	{{contact_email}}
     	</a>
@@ -46,7 +45,7 @@
     <a href="{{contact_page}}">
       {{ h.get_translated(organization, 'title') }}
 	  </a>
-    {% endif %}
+  {% endif %}
   </div>
 {% endblock %}
 
