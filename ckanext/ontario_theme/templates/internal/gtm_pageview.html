@@ -2,7 +2,7 @@
     window.dataLayer = window.dataLayer || [];
 
     // Only resource views have a resourceName
-    if ('{{this_res}}'.length > 0) {
+    if (is_resource_page) {
         // Even if a resource exists, it might not have a name.
         // In this case, default to name "Data".
         resourceName = '{{this_res.name}}' ? '{{this_res.name}}' : 'Data';
@@ -13,13 +13,13 @@
     }
 
     // Pushed when a dataset page or a resource page is viewed
-    if ('{{this_pkg_title}}'.length > 0) {
+    if (is_dataset_page || is_resource_page) {
         window.dataLayer.push({
             'event': 'Pageview',
             'ministryTag': '{{this_org}}',
             'group': '{{this_group}}',
-            'dataAvailability': '{{this_pkg_access_level}}',
-            'datasetName': '{{this_pkg_title}}',
+            'dataAvailability': '{{this_access}}',
+            'datasetName': '{{this_title}}',
             'resourceName': resourceName
         });
     } 
