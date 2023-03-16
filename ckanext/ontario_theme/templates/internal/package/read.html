@@ -85,10 +85,7 @@
       {% snippet "package/snippets/tags.html", tags=pkg.tags %}
     {% endblock %}
   
-    <div class="ontario-callout ontario-border-highlight--purple">
-      <h2 class="ontario-callout__title ontario-h5">{{ _("Report an error with this data") }}</h2>
-      <p>{% trans %}Fill out a <a href="https://www.ontario.ca/form/report-data-error">Data Catalogue error report</a> to let us know if there are issues with the resources in this dataset.{% endtrans %}</p>
-    </div>
+    {% snippet 'package/snippets/report_an_error.html' %}
   
     <div class="row">
       <div class="col-md-12">
