@@ -56,8 +56,8 @@
               {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=r, can_edit=can_edit, schema=schema %}
             {% endfor %}
             </ul>
+            <hr>
           {% endfor %}
-          <hr>
         {% endblock %}
         <h2>{{ _("Supporting Files") }}</h2>
         {% if resources | rejectattr("type","equalto","data") | list | length > 0 %}
