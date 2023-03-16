@@ -1330,6 +1330,10 @@ section#dataset-resources > h2{
 .module.module-narrow.module-shallow.license{
   margin-bottom: 0;
 }
+
+.tag-list{
+  padding: 10px 10px 5px 0;
+}
 /* =====================================================
    Custom overrides - Account bar
    ===================================================== */
