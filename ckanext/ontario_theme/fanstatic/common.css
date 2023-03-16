@@ -1387,15 +1387,15 @@ via submission form. Copied from DS.*/
 .label[data-format*=turtle] {
   background-color: #0b4498;
 }
-.format-label[data-format=kml],
-.format-label[data-format*=kml] {
+.label[data-format=kml],
+.label[data-format*=kml] {
   width: 31px;
   height: 35px;
   background-position: -383px -62px;
   background-color: #CFEDED;
 }
-.format-label[data-format=shp],
-.format-label[data-format*=shp] {
+.label[data-format=shp],
+.label[data-format*=shp] {
   width: 31px;
   height: 35px;
   background-position: -414px -62px;
@@ -1403,6 +1403,6 @@ via submission form. Copied from DS.*/
 }
 /* default button background colour */
 .label-default {
-  background-color: #FCAF17;
+  background-color: #F8E5C3;
   color: #000;
 }
