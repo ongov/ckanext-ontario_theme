@@ -2831,6 +2831,10 @@ msgstr "Ce jeu de données n'a pas de autres fichiers"
 msgid "For more information"
 msgstr "Pour en savoir plus"
 
+#: ckanext/ontario_theme/templates/scheming/package/read.html:32
+msgid "Ministry contact:"
+msgstr "Coordonnées du ministère :"
+
 #: ckanext/ontario_theme/templates/scheming/package/read.html:37
 #: ckanext/ontario_theme/templates/scheming/organization/about.html:30
 msgid "Contact"
