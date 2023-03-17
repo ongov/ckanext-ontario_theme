@@ -21,16 +21,9 @@
                                                                      lang=current_lang, 
                                                                      reverse=reverse) 
             %}
-        <script>
-            console.log('groups: ', "{{ groups }}")
-        </script>
             {# Loop through the sorted groups #}
             {% for group in groups %}
               {% set this_group_title_translated = group['title_translated'][current_lang] %}
-            <script>
-                console.log('group: ', "{{ group }}")
-                console.log('group title translated: ', "{{ this_group_title_translated }}")
-            </script>
              {% snippet "group/snippets/group_item.html", group=group, position=loop.index %}
             {% endfor %}
         {% endblock %}

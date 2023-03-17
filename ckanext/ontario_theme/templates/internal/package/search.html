@@ -49,12 +49,8 @@ in the core template for search.html.
       {# Set default sort order. If no sort order has been selected in 
          the Order By dropdown menu, use 'metadata_modified desc' (Last Modified).
       #}
-      {% if request['params'] %}
-        {% if 'sort' in request['params'] %}
-          {% set sort_order = request.params['sort'] %}
-        {% else %}
-          {% set sort_order = 'metadata_modified desc' %}
-        {% endif %}
+      {% if request['params'] and 'sort' in request['params'] %}
+        {% set sort_order = request.params['sort'] %}
       {% else %}
         {% set sort_order = 'metadata_modified desc' %}
       {% endif %}
