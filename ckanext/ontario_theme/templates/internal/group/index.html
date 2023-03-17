@@ -49,10 +49,6 @@
   {% block groups_list %}
     {% if c.page.items or request.params %}
       {% if c.page.items %}
-      <script>
-        console.log('group/index.html c.page.items: ', "{{ c.page.items }}")
-        console.log('group/index.html request.params: ', "{{ request.params }}")
-      </script>
         {% snippet "group/snippets/group_list.html", groups=c.page.items %}
       {% endif %}
     {% else %}

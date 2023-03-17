@@ -25,9 +25,34 @@ block. super() will end up calling the facets twice.
   %}
   {% set form_id = 'group-datasets-search-form' %}
   <form id="{{ form_id }}" class="search-form" method="get" data-module="select-switch" novalidate>
-  {% snippet 'snippets/search_form.html', form_id=form_id, type='dataset', query=q, sorting=sorting, sorting_selected=sort_by_selected, count=page.item_count, facets=facets, placeholder=_('Search datasets'), show_empty=request.params, fields=fields %}
+    {% snippet 'snippets/search_form.html', 
+                form_id=form_id, 
+                type='dataset', 
+                query=q, 
+                sorting=sorting, 
+                sorting_selected=sort_by_selected, 
+                count=page.item_count, 
+                facets=facets, 
+                placeholder=_('Search datasets'), 
+                show_empty=request.params, 
+                fields=fields 
+    %}
   </form>
 {% endblock %}
+
+{% block packages_list %}
+    {% if page.items %}
+      {# Store current group name to pass to package_list.html.
+        To be used as a facet query param in get_all_packages()
+        helper function.
+      #}
+      {% set this_group_name = c.group_dict['name'] %}
+      {{ h.snippet('snippets/package_list.html', 
+                  packages=page.items, 
+                  this_group_name=this_group_name) 
+      }}
+    {% endif %}
+  {% endblock %}
 
 {% block secondary_content %}
   {% snippet "group/snippets/info.html", group=c.group_dict, show_nums=true %}

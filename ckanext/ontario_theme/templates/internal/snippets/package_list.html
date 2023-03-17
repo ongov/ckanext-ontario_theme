@@ -19,10 +19,12 @@
             {# Custom sort by language for name ascending and descending #}
             {% if 'name' in request.params['sort'] %}
                 {% set current_org = '' if not this_org_name else this_org_name %}
+                {% set current_group = '' if not this_group_name else this_group_name %}
                 {# Get all packages returned by query #}
                 {% set package_list = h.ontario_theme_get_all_packages(q=c.q,
                                                                        request_params_items=request.params,
                                                                        current_org=current_org,
+                                                                       current_group=current_group,
                                                                        item_count=c.page.item_count) %}
                 {# Sort package_list by title_translated as per current language #}
                 {% set current_lang = request.environ.CKAN_LANG %}

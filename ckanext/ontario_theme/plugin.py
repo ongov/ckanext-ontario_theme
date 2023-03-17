@@ -459,6 +459,13 @@ def get_all_packages(**kwargs):
         organization, which is stored in this variable. This 
         variable is not needed when accessing datasets through
         the Datasets page.
+
+    current_group
+        When datasets are accessed by clicking on a Group,
+        the package search must be limited to the current
+        group, which is stored in this variable. This 
+        variable is not needed when accessing datasets through
+        the Datasets page.
     
     item_count
         Number of packages matching search. Passed through 
@@ -468,6 +475,7 @@ def get_all_packages(**kwargs):
     q = kwargs['q']
     request_params_items = kwargs['request_params_items']
     current_org = kwargs['current_org']
+    current_group = kwargs['current_group']
     item_count = kwargs['item_count']
 
     # Excerpt from search() fn in ckan/ckan/controllers/package.py
@@ -482,8 +490,15 @@ def get_all_packages(**kwargs):
             else:
                 search_extras[param] = value
     
+    # Add organization to facet query
+    # see e.g. https://localhost/api/action/package_search?fq=organization:helloworld&include_private=true
     if current_org:
         fq += ' %s:"%s"' % ('organization', current_org)
+    
+    # Add groups to facet query
+    # see e.g. https://localhost/api/action/package_search?fq=groups:2019-novel-coronavirus
+    if current_group:
+        fq += ' %s:"%s"' % ('groups', current_group)
 
     # Get the full set of packages returned by search query q
     # and any facet queries fq.
