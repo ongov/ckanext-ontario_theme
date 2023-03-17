@@ -1314,12 +1314,16 @@ via submission form. Copied from DS.*/
 /* ========================================================================
    File type labels
    ======================================================================== */
+.dataset-resources li {
+    display: inline-block;
+}
 .dataset-resources li a {
   background-color: #aaaaaa;
   color: #FFFFFF;
 }
 .dataset-resources li {
   margin-right: 16px;
+  margin-bottom: 20px;
 }
 .dataset-resources {
   margin-top: 13px;
