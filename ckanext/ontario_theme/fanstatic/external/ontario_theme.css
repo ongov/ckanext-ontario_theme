@@ -964,9 +964,7 @@ section.additional-info table.table tbody tr th,
 section.additional-info table.table tbody tr td {
   border: none;
 }
-section.additional-info table.table tbody tr td.dataset-details {
-  width: 75%;
-}
+
 .media-grid {
   border: none;
 }

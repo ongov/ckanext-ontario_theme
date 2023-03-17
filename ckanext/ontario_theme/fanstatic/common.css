@@ -1256,11 +1256,22 @@ via submission form. Copied from DS.*/
   float: right;
 }
 
+@media screen and (max-width: 39.9375em) {
+  section.additional-info table.table tbody tr td.dataset-details {
+    width: 40%;
+  }
+}
+
 @media screen and (min-width: 73em) {
   .right-col {
     max-width: 350px;
   }
+
+  section.additional-info table.table tbody tr td.dataset-details {
+    width: 75%;
+  }
 }
+
 .aside-heading {
   color: #4d4d4d;
   font-size: 19px;
@@ -1325,8 +1336,9 @@ section.additional-info table.table tbody tr th,
 section.additional-info table.table tbody tr td {
   border: none;
 }
-section.additional-info table.table tbody tr td.dataset-details {
-  width: 75%;
+
+@media screen and (min-width: 73em) {
+
 }
 
 section#dataset-resources .dataset-font{
