@@ -596,6 +596,27 @@ def get_license(license_id):
     '''
     return Package.get_license_register().get(license_id)
 
+def order_package_facets(orig_ordered_dict):
+    ''' Returns an OrderedDict of package facets in the order
+    that they should appear in the left panel of the Datasets
+    page.
+
+    '''
+    # Order that facets should appear in left panel
+    facet_order = ['organization', 'groups', 'res_format', 'license_id', 
+                   'asset_type', 'update_frequency', 'access_level',
+                   'keywords_en', 'keywords_fr',
+                   'organization_jurisdiction', 'organization_category'
+                  ]
+
+    facet_titles_reorg = list()
+    for facet in facet_order:
+        for idx in range(len(orig_ordered_dict)):
+            if list(orig_ordered_dict)[idx]==facet:
+                facet_titles_reorg.append((facet, orig_ordered_dict[facet]))
+
+    return OrderedDict(facet_titles_reorg)
+
 def extract_package_name(url):
     ''' Returns the package name or gets resource name if url is for
         a dataset or resource page
@@ -912,6 +933,7 @@ type data_last_updated
     def get_helpers(self):
         return {'ontario_theme_get_license': get_license,
                 'ontario_theme_extract_package_name': extract_package_name,
+                'ontario_theme_order_package_facets': order_package_facets,
                 'ontario_theme_get_translated_lang': get_translated_lang,
                 'ontario_theme_get_popular_datasets': get_popular_datasets,
                 'ontario_theme_get_group': get_group,

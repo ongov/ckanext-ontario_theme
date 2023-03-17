@@ -307,6 +307,10 @@ input[type=reset].ontario-search-reset:focus{
     background: none; /* turn off background for homepage searchbar */
   }
 
+  .secondary.col-sm-3.filter-results {
+    z-index: 6;
+  }
+
 /* ================================
   Custom overrides - text inputs
   ================================= */
@@ -342,13 +346,13 @@ input[type=reset].ontario-search-reset.home{
     padding-right: 8rem;
   }
 }
-::placeholder{
+input[placeholder] {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: #999999;
   opacity: 1;
 }
+
 :-ms-input-placeholder {
   /* Internet Explorer 10-11 */
   color: #999999;
@@ -1156,6 +1160,9 @@ via submission form. Copied from DS.*/
     margin-bottom: 42px;
     width: 100%;
   }
+  .action-group:last-child {
+    margin-bottom: 0;
+  }
   .action-group p{
     font-size: 18px;
   }
@@ -1172,8 +1179,8 @@ via submission form. Copied from DS.*/
   #collapse-endpoints .panel-body table {
     width: fit-content;
   }
-  /* Break the URLs so they fit the panel width */
-  #collapse-querying .panel-body {
+  /* Break the URLs so they fit the panel width and the width of screen */
+  #collapse-querying .panel-body, .resource-url-analytics {
     overflow-wrap: break-word;
   }
 /* ========================================================================
