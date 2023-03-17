@@ -785,15 +785,7 @@ div.add-dataset {
   top: 0px;
   left: -35px;
 }
-.resource-item .label[data-format] {
-  top: 0px;
-  left: -35px;
-  height: 40px;
-  width: 40px;
-  position: absolute;
-  padding: 1em 0.2em;
-  font-size: 90%;
-}
+
 li.resource-item .btn-group.download {
   position: unset;
   top: unset;

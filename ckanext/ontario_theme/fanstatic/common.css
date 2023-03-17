@@ -1198,9 +1198,23 @@ via submission form. Copied from DS.*/
 	margin-bottom: 28px;
 }
 
+.resource-list {
+  overflow: hidden;
+}
+
 .resource-item {
   padding-top: 15px;
 	padding-bottom: 15px;
+}
+
+.resource-item .label[data-format] {
+  top: 0px;
+  left: -35px;
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  padding: 1em 0.2em;
+  font-size: 90%;
 }
 
 .resource-item-description{
@@ -1285,12 +1299,12 @@ section.additional-info table.table tbody tr:nth-child(even) th,
 section.additional-info table.table tbody tr:nth-child(even) td {
   background-color: #f9f9f9;
 }
-section.additional-info table.table tbody tr th:first-child,
-section.additional-info table.table tbody tr td:first-child{
+section.additional-info table.table tbody tr:first-child th,
+section.additional-info table.table tbody tr:first-child td{
   padding-top: 10px;
 }
-section.additional-info table.table tbody tr th:last-child,
-section.additional-info table.table tbody tr td:last-child{
+section.additional-info table.table tbody tr:last-child th,
+section.additional-info table.table tbody tr:last-child td{
   padding-bottom: 10px;
 }
 section.additional-info table.table tbody tr th{

@@ -13,7 +13,7 @@
   {%- endif -%}
   {% if h.scheming_field_by_name(schema.dataset_fields, 'notes_translated') and
     pkg.notes %}
-    <div class="notes embedded-content">
+    <div class="notes embedded-content dataset-font">
       {{ h.render_markdown(h.scheming_language_text(pkg['notes_translated'])) }}
     </div>
   {% endif %}
@@ -28,8 +28,8 @@
     {% endif %}
   {% endif %}
 
-  <div class="ministry-contact">
-	<b>{% trans %}Ministry contact: {% endtrans %} </b>
+  <div class="ministry-contact dataset-font">
+	<strong>{% trans %}Ministry contact: {% endtrans %} </strong>
 	{% if contact_email %}
 	  {% if contact_name %}
       <a href="mailto:{{contact_email}}?subject={{pkg.title}}">
