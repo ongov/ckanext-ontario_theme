@@ -1,5 +1,9 @@
 {% ckan_extends %}
 
+{# Make block image empty to prevent code for image from loading #}
+{% block image %}
+{% endblock %}
+
 {% block heading %}
 <h1 class="heading">
   {{ h.get_translated(group, "title") }}

@@ -15,7 +15,7 @@
         {% if res.format in h.dict_list_reduce(pkg.resources, 'format') and res.format | length < 5 %}
             <span class="label label-default" property="dc:format" data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span> 
         {% else %}
-          <span class="label label-default" data-format="other">other</span>
+          <span class="label label-default" data-format="other">Other</span>
         {% endif %}
         {{ h.resource_display_name(res) | truncate(50) }}
         {% if res.size %}
