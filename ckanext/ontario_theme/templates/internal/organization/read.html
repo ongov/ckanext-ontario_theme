@@ -23,10 +23,8 @@ Override CKAN's read.html to add some new facets.
   %}
 
   {% if not sort_by_selected %}
-    {% set this_org = c.page.items[0]['organization']['name'] %}
     {% set sort_by_selected = 'metadata_modified desc' %}
   {% endif %}
-
   {% set searchbar_text = gettext('Search %(ministry)s datasets', ministry=ministry) %}
   {% set searchbar_title = searchbar_text + _(':') %}
   {% set form_id = 'organization-datasets-search-form' %}
