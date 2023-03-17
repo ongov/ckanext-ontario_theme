@@ -1203,26 +1203,41 @@ via submission form. Copied from DS.*/
 }
 
 .resource-item {
-  padding-top: 15px;
-	padding-bottom: 15px;
+  padding: 15px 30px 15px 30px;
+}
+.label-div {
+  width: 13%;
+  float: left;
+  position: relative;
+  margin-right: 5px;
 }
 
 .resource-item .label[data-format] {
-  top: 0px;
-  left: -35px;
-  height: 40px;
-  width: 40px;
-  position: absolute;
-  padding: 1em 0.2em;
-  font-size: 90%;
+	height: 57px;
+	width: 61px;
+	position: relative;
+	padding: 1em 0.5em;
+	font-size: 18px;
+	display: inline-block;
+	font-weight: 700;
+	line-height: 25px;
 }
 
-.resource-item-description{
+.resource-item .description{
   font-weight: 400;
   font-size: 18px;
   line-height: 24.51px;
   color: #1a1a1a;
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
+.resource-item.row, .resource-list {
+  margin: 0 -15px;
+}
+.resource-item div {
+  padding: unset;
+}
+
 .label.label-english,
 .label.label-french,
 .label.label-english_and_french {
@@ -1233,6 +1248,10 @@ via submission form. Copied from DS.*/
   border-radius: 2px;
   margin-left: 10px;
   margin-bottom: 5px;
+  vertical-align: -30%;
+}
+.description.details {
+  margin-top: 5px;
 }
 
 .resource-item-title{
@@ -1241,6 +1260,7 @@ via submission form. Copied from DS.*/
   line-height: 27px;
   color: #000000;
   text-decoration: none;
+  vertical-align: -30%;
 }
 
 .resource-item-title:hover{
@@ -1260,6 +1280,9 @@ via submission form. Copied from DS.*/
   section.additional-info table.table tbody tr td.dataset-details {
     width: 40%;
   }
+  .label-div {
+    width: 17.5%;
+  }
 }
 
 @media screen and (min-width: 73em) {
@@ -1272,6 +1295,11 @@ via submission form. Copied from DS.*/
   }
 }
 
+@media screen and (min-width: 40em) {
+  .resource-item .description{
+    margin-left: 15%;
+  }
+}
 .aside-heading {
   color: #4d4d4d;
   font-size: 19px;
@@ -1335,10 +1363,6 @@ section.additional-info table.table tbody tr td{
 section.additional-info table.table tbody tr th,
 section.additional-info table.table tbody tr td {
   border: none;
-}
-
-@media screen and (min-width: 73em) {
-
 }
 
 section#dataset-resources .dataset-font{
