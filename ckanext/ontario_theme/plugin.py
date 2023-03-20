@@ -381,14 +381,32 @@ def get_group_datasets(group_id):
 
 def get_keyword_count(keyword_lang, language):
     '''Helper to return the dataset count of the indicated group by language
+
+    keyword_lang
+        The topic category string on the Home page.
+        e.g. "Housing, Communities and Social Support"
+
+    language
+        Current language of the site.
     '''
-    facet = "keywords_{}".format(language)
+    facet = "keywords_{}".format(language) # either keywords_en or keywords_fr
+
+    # Keywords of all packages as defined manually in the 
+    # dataset page upon creation
     package_keywords = toolkit.get_action('package_search')(
     data_dict={'facet.field': [facet],
         'rows': 0})
+    
+    # Keywords that are currently selected
     active_keywords = package_keywords['facets'][facet]
-    if keyword_lang in active_keywords:
-        keyword_count_by_lang = active_keywords[keyword_lang]
+
+    # Determine if any Homepage topics match any currently-selected keywords
+    # NB: Commas are not allowed in package keywords, so to match packages
+    # containing the keyword string "Housing, Communities and Social Support",
+    # with the Homepage topic "Housing, Communities and Social Support", 
+    # the comma must be disregarded in the Homepage topic.
+    if keyword_lang.replace(',', '') in active_keywords:
+        keyword_count_by_lang = active_keywords[keyword_lang.replace(',', '')]
     else:
         keyword_count_by_lang = 0
 
