@@ -1284,6 +1284,9 @@ via submission form. Copied from DS.*/
   .label-div {
     width: 17.5%;
   }
+  .label.label-english_and_french {
+    display: inline-flex;
+  }
 }
 
 @media screen and (min-width: 73em) {
@@ -1298,8 +1301,16 @@ via submission form. Copied from DS.*/
 
 @media screen and (min-width: 40em) {
   .resource-item .description{
-    margin-left: 15%;
+    margin-left: 10%;
   }
+}
+.resource-button{
+  min-height:78px;
+  vertical-align: top;
+}
+.resource-button-text{
+  text-align: left;
+  display: inline-block;
 }
 .aside-heading {
   color: #4d4d4d;
@@ -1436,7 +1447,7 @@ section#dataset-resources > h2{
    a.heading:hover, ul.nav-tabs li a:hover, .table-of-contents a:hover{
     text-decoration: underline;
   }
-  a.btn, a.btn-primary, a.heading, a.tag, ul.nav-tabs li a, .table-of-contents a, .nav-item a{
+  a.ontario-button, a.btn, a.btn-primary, a.heading, a.tag, ul.nav-tabs li a, .table-of-contents a, .nav-item a{
     text-decoration: none;
   }
 

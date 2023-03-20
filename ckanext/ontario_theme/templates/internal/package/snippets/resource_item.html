@@ -52,19 +52,21 @@
       {% if not url_is_edit %}
       <div>
         {% block resource_item_explore_links %}
-            <a href="{{ url }}" class="ontario-button ontario-button--secondary">
-              {% if res.format == "CSV" %}
-                <i class="fa fa-bar-chart-o"></i>
-                {{ _('Preview') }}
-              {% else %}
-                <i class="fa fa-info-circle"></i>
-                {{ _('About') }}
-              {% endif %}
-              <br>
-              {% if res.language and res.language != 'english_and_french'%}
-                  {{ h.scheming_choices_label(
-                    h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}
-              {% endif %}
+            <a href="{{ url }}" class="resource-button ontario-button ontario-button--primary">
+              <span class="resource-button-text">
+                {% if res.format == "CSV" %}
+                  <i class="fa fa-bar-chart-o"></i>
+                  {{ _('Preview') }}
+                {% else %}
+                  <i class="fa fa-info-circle"></i>
+                  {{ _('About') }}
+                {% endif %}
+                <br>
+                {% if res.language and res.language != 'english_and_french'%}
+                    {{ h.scheming_choices_label(
+                      h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}
+                {% endif %}
+              </span>
             </a>
           {% if res.url and h.is_url(res.url) %}
             {% asset 'ontario_theme/ontario_theme_download_tracker_js' %}
@@ -74,27 +76,29 @@
             {% else %}
               {% set this_group = '' %}
             {% endif %}
-            <a href="{{ res.url }}" class="resource-url-analytics ontario-button ontario-button--primary dataset-download-link" onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">
-              {% if res.has_views or res.url_type == 'upload' %}
-                <i class="fa fa-arrow-circle-o-down"></i>
-                {{ _('Download') }}
-                <br>
-                {% if res.language and res.language != 'english_and_french'%}
-                {{ h.scheming_choices_label(
+            <a href="{{ res.url }}" class="resource-button resource-url-analytics ontario-button ontario-button--secondary dataset-download-link" onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">
+              <span class="resource-button-text">
+                {% if res.has_views or res.url_type == 'upload' %}
+                  <i class="fa fa-arrow-circle-o-down"></i>
+                  {{ _('Download') }}
+                  <br>
+                  {% if res.language and res.language != 'english_and_french'%}
+                  {{ h.scheming_choices_label(
+                    h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}
+                  {% endif %}
+                  {% if res.size %}
+                  ({{ h.localised_filesize(res.size) }})
+                  {% endif %}
+                {% else %}
+                  <i class="fa fa-external-link"></i>
+                  {{ _('Open') }}
+                  <br>
+                  {% if res.language and res.language != 'english_and_french'%}
+                  {{ h.scheming_choices_label(
                   h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}
+                  {% endif %}
                 {% endif %}
-                {% if res.size %}
-                ({{ h.localised_filesize(res.size) }})
-                {% endif %}
-              {% else %}
-                <i class="fa fa-external-link"></i>
-                {{ _('Open') }}
-                <br>
-                {% if res.language and res.language != 'english_and_french'%}
-                {{ h.scheming_choices_label(
-                h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}
-                {% endif %}
-              {% endif %}
+              </span>
             </a>
           {% endif %}
           {% set can_edit = h.check_access('package_update', {'id':pkg.id }) and h.check_access('resource_update', res) %}
