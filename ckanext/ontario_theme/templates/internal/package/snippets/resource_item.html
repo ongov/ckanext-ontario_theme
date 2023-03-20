@@ -11,24 +11,24 @@
 <li class="resource-item row" data-id="{{ res.id }}">
   <div class="col-md-6 col-xs-12">
     {% block resource_item_title %}
-    {% if res.format in h.dict_list_reduce(pkg.resources, 'format') and res.format | length < 5 %}
-    <div class="label-div">
-      <span class="label label-default" property="dc:format" data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span>
-    </div> 
-    {% else %}
-    <div class="label-div">
-      <span class="label label-default" data-format="other">other</span>
-    </div>
-    {% endif %}
+      {% if res.format in h.dict_list_reduce(pkg.resources, 'format') and res.format | length < 5 %}
+      <div class="label-div">
+        <span class="label label-default" property="dc:format" data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span>
+      </div> 
+      {% else %}
+      <div class="label-div">
+        <span class="label label-default" data-format="other">other</span>
+      </div>
+      {% endif %}
       <a class="resource-item-title" href="{{ url }}" title="{{ res.name or res.description }}">
         {{ h.resource_display_name(res) | truncate(50) }}
         {{ h.popular('views', res.tracking_summary.total, min=10) }}
       </a>
       {% if res.language %}
-            <span class="label label-{{res.language}}">
-              {{ h.scheming_choices_label(
-              h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}
-            </span>
+          <span class="label label-{{res.language}}">
+            {{ h.scheming_choices_label(
+            h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}
+          </span>
       {% endif %}
     {% endblock %}
     {% block resource_item_description %}
