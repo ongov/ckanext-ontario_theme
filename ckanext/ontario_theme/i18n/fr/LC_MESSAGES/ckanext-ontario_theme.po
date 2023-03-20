@@ -96,6 +96,12 @@ msgid_plural "<strong>{number} datasets</strong> found with the keyword(s) <stro
 msgstr[0] "<strong>{number} jeu  de données</strong> trouvé avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
 msgstr[1] "<strong>{number} jeux de données</strong> trouvés avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
 
+#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html
+msgid "Learn more about "
+msgstr "Renseignez-vous sur "
+msgid "accessing data using different file types."
+msgstr "l’accès aux données à l’aide de différents types de fichiers."
+
 #: ckan/templates/snippets/search_result_text.html:16
 msgid "No datasets found with the keyword(s) <strong>\"{query}\"</strong>"
 msgstr "Aucun jeu de données trouvé avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
@@ -2834,6 +2840,10 @@ msgstr "Ce jeu de données n'a pas de autres fichiers"
 #: ckanext/ontario_theme/templates/scheming/organization/about.html:28
 msgid "For more information"
 msgstr "Pour en savoir plus"
+
+#: ckanext/ontario_theme/templates/scheming/package/read.html:32
+msgid "Ministry contact:"
+msgstr "Coordonnées du ministère :"
 
 #: ckanext/ontario_theme/templates/scheming/package/read.html:37
 #: ckanext/ontario_theme/templates/scheming/organization/about.html:30

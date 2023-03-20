@@ -489,10 +489,7 @@ div.card p {
 .open,
 .under_review,
 .to_be_opened,
-.restricted,
-.label-french,
-.label-english,
-.label-english_and_french {
+.restricted{
   color: #4d4d4d;
 }
 .open {
@@ -507,15 +504,7 @@ div.card p {
 .restricted {
   background-color: #fad2d2;
 }
-.label-french {
-  background: #d2d1eb;
-}
-.label-english {
-  background-color: #dff3f3;
-}
-.label-english_and_french {
-  background-color: #e6fad2;
-}
+
 .label-info {
   color: #4d4d4d;
   border: solid 1px #1080A6;
@@ -732,15 +721,7 @@ div.add-dataset {
   top: 0px;
   left: -35px;
 }
-.resource-item .label[data-format] {
-  top: 0px;
-  left: -35px;
-  height: 40px;
-  width: 40px;
-  position: absolute;
-  padding: 1em 0.2em;
-  font-size: 90%;
-}
+
 li.resource-item .btn-group.download {
   position: unset;
   top: unset;
@@ -919,9 +900,7 @@ section.additional-info table.table tbody tr th,
 section.additional-info table.table tbody tr td {
   border: none;
 }
-section.additional-info table.table tbody tr td.dataset-details {
-  width: 75%;
-}
+
 .media-grid {
   border: none;
 }
