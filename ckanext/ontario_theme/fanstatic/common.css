@@ -1723,3 +1723,8 @@ section#dataset-resources > h2{
   background-color: #F8E5C3;
   color: #000;
 }
+
+/* About and Help page header */
+.module h1 {
+  margin: 2.5rem 0 1.5rem 0;
+}
