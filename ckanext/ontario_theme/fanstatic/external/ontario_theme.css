@@ -511,10 +511,6 @@ div.card p {
   border-left: solid 5px #1080A6;
   background-color: #E2F0F4;
 }
-.label-default {
-  background-color: #FCAF17;
-  color: #fff;
-}
 .stats .number {
   display: block;
   font-size: 60px;
