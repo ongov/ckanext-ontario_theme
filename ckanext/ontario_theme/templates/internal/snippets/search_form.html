@@ -56,7 +56,7 @@
             {% if field == "organization" %}
             {{ _('Ministry') + _(':') }}
             {% else %}
-            {{ facets.titles.get(field, "Has Resources (data)") + _(':')}}
+            {{ facets.titles.get(field) + _(':')}}
             {% endif %}
           </span>
           {% for item in h.get_facet_items_dict(field) %}
@@ -69,13 +69,13 @@
               {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'jurisdiction'))%}
             {% endif %}
 
-            {{ h.snippet('snippets/translate_facets.html', fields=schema_dict, name=item_id, item=item, scheming_choices=choices, extras=extras) }}
+            {{ h.snippet('snippets/translate_facets.html', fields=schema_dict, name=item_id, item=item, scheming_choices=choices) }}
 
               {% if item.active %}
                 <span class="filtered pill">
                   <span class="pill-contents">
                     {{item.display_name}}
-                    <a href="{{ h.remove_url_param(item_id, item.name, extras=extras, alternative_url=alternative_url) }}" class="remove" title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
+                    <a href="{{ facets.remove_field(field, item.name) }}" class="remove" title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
                   </span>
                 </span>
               {% endif %}

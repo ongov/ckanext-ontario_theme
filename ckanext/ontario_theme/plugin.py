@@ -394,6 +394,202 @@ def get_keyword_count(keyword_lang, language):
 
     return keyword_count_by_lang
 
+def paginate_items(all_items, current_page, items_per_page):
+    '''Returns a slice of an array of items for pagination
+    based on the current page and the max number of items
+    allowed per page.
+
+    current_page
+        The page number currently being displayed.
+
+    items_per_page
+        Maximum number of items to display per page. 
+        Defined somewhere as 20.
+    '''
+    item_count =  len(all_items)
+
+    # Calculate number of pages in the pagination needed to display
+    # all items in input_items
+    if item_count > 0:
+        first_page = 1
+        page_count = int(((item_count - 1) / items_per_page) + 1)
+        last_page = first_page + page_count - 1
+
+    # Set index ranges for slicing the sorted_org object
+    slice0 = [] 
+    slice1 = []
+    for idx in range(last_page):
+        slice0.append(idx * items_per_page)
+        next_max = slice0[idx] + items_per_page
+        if item_count < next_max:
+            slice1.append(item_count)
+        else:
+            slice1.append(next_max)
+
+    # Slice the sorted_org object according to the current
+    # pagination page and return it for display
+    page = 0
+    for idx in range(len(slice0)):
+        page+=1
+        if page == current_page:
+            this_slice = all_items[slice0[idx]:slice1[idx]]
+    
+    return this_slice 
+
+def get_all_packages(**kwargs):
+    '''Helper to return the full number of packages matching a 
+    search query, including any facet search requests (in the
+    case of no searches, all packages are returned). The full
+    number of packages is needed because in the search page, 
+    only the paginated number of packages for the current page 
+    is available, which prohibits application of any custom 
+    sorting since sorting must be done on the full list before
+    pagination.
+
+    q
+        Search query. Passed through c.q.
+    
+    request_params_items
+        Contains the facet search parameters. Passed through
+        request.params.
+
+    current_org
+        When datasets are accessed by clicking on an Organization,
+        the package search must be limited to the current
+        organization, which is stored in this variable. This 
+        variable is not needed when accessing datasets through
+        the Datasets page.
+
+    current_group
+        When datasets are accessed by clicking on a Group,
+        the package search must be limited to the current
+        group, which is stored in this variable. This 
+        variable is not needed when accessing datasets through
+        the Datasets page.
+    
+    item_count
+        Number of packages matching search. Passed through 
+        c.page.item_count.
+
+    '''
+    q = kwargs['q']
+    request_params_items = kwargs['request_params_items']
+    current_org = kwargs['current_org']
+    current_group = kwargs['current_group']
+    item_count = kwargs['item_count']
+
+    # Excerpt from search() fn in ckan/ckan/controllers/package.py
+    # Needed to collect search parameters from facets.
+    search_extras = {}
+    fq = ''
+    for (param, value) in OrderedDict(request_params_items).items():
+        if param not in ['q', 'page', 'sort'] \
+            and len(value) and not param.startswith('_'):
+            if not param.startswith('ext_'):
+                fq += ' %s:"%s"' % (param, value)
+            else:
+                search_extras[param] = value
+    
+    # Add organization to facet query
+    # see e.g. https://localhost/api/action/package_search?fq=organization:helloworld&include_private=true
+    if current_org:
+        fq += ' %s:"%s"' % ('organization', current_org)
+    
+    # Add groups to facet query
+    # see e.g. https://localhost/api/action/package_search?fq=groups:2019-novel-coronavirus
+    if current_group:
+        fq += ' %s:"%s"' % ('groups', current_group)
+
+    # Get the full set of packages returned by search query q
+    # and any facet queries fq.
+    # Note that number of packages matched will be limited to 10
+    # unless otherwise specified in 'rows'. Since we already know
+    # there are 'item_count' number of matches, we can set rows 
+    # to 'item_count'.
+    package_search=toolkit.get_action('package_search')(
+                data_dict={
+                        'q': q,
+                        'fq': fq.strip(),
+                        'start': 0,
+                        'sort': 'title desc',
+                        'rows': item_count,
+                        'extras': search_extras,
+                        'include_private': True
+                        })
+
+    return package_search['results']
+
+def get_all_organizations(**kwargs):
+    '''Helper function to returns the full list of organizations 
+    output from a keyword search (or all organizations in the 
+    case of no search). In the search page, only the paginated 
+    number of organizations for the current page is available, 
+    which prohibits application of any custom sorting since that 
+    needs the full list.
+
+    collection_names
+        An array of short-hand (hyphenated) organization names 
+        (e.g. 'attorney-general') for all items returned from the 
+        search. If no search performed, includes all items.
+        Passed from c.page.collection.
+
+    '''
+    collection_names=kwargs['collection_names']    
+
+    # Get the id of all organizations in the catalogue.
+    all_organization_names = toolkit.get_action('organization_list')(data_dict={})
+    
+    # Filter only those organizations whose names matching those in 
+    # collection_names. Then use helper function h.get_organization() 
+    # to extract the full details for each organization, matching on 'id'.
+    org_array = []
+    for name in collection_names:
+        for idx in range(len(all_organization_names)):
+            if name == all_organization_names[idx]:
+                organization_obj = toolkit.get_action('organization_show')(data_dict={'id':name})
+                organization_id = organization_obj['id']
+                org_array.append(h.get_organization(organization_id))
+    
+    return org_array
+
+def sort_by_title_translated(item_list, **kwargs):
+    '''Helper function to sort an array of items by the 
+    'title_translated' dict according to the current language. 
+    If this dict does not exist, 'title' is used to sort since 
+    'title' always exists.
+
+    item_list
+        List of items to be sorted.
+
+    current_page
+        Current page in the pagination. Passed through c.page.page. 
+    
+    items_per_page
+        Max number of items per page. Defined in ckan/controllers/package.py
+        as int(config.get('ckan.datasets_per_page', 20)). 
+        Passed through c.page.items_per_page.
+
+    lang
+        Current language. Pass through request.environ.CKAN_LANG.
+
+    reverse
+        Sort direction. Determined through `asc` or `desc` in request.params['sort']. 
+
+    '''
+    field = 'title_translated'
+    current_page=kwargs['current_page']
+    items_per_page=kwargs['items_per_page']
+    lang = kwargs['lang']
+    reverse = kwargs['reverse']
+
+    # Sort item_list by translated title
+    sorted_items = sorted(item_list, 
+                             key=lambda x: x[field][lang].strip() if (field in x and lang in x[field]) else x['title'], 
+                             reverse=reverse)
+
+    # Return subset of sorted_items as per the current pagination page
+    return paginate_items(sorted_items, current_page, items_per_page)
+
 def get_popular_datasets():
     '''Helper to return most popular datasets, based on ckan core tracking feature
     '''
@@ -763,7 +959,10 @@ type data_last_updated
                 'ontario_theme_home_block_image': home_block_image,
                 'ontario_theme_home_block_link': home_block_link,
                 'ontario_theme_get_group_datasets': get_group_datasets,
-                'ontario_theme_get_keyword_count': get_keyword_count
+                'ontario_theme_get_keyword_count': get_keyword_count,
+                'ontario_theme_get_all_packages': get_all_packages,
+                'ontario_theme_get_all_organizations': get_all_organizations,
+                'ontario_theme_sort_by_title_translated': sort_by_title_translated
                 }
 
     # IBlueprint

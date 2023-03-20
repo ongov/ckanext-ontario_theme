@@ -1,0 +1,37 @@
+{#
+    Display a grid of group items.
+    
+    groups - A list of groups.
+    
+    Example:
+    
+        {% snippet "group/snippets/group_list.html" %}
+    
+#}
+
+{% block group_list %}
+    <ul class="media-grid" data-module="media-grid">
+        {% block group_list_inner %}
+            {# Sort array of Group objects according to title_translated.
+                Not necessary when accessing Groups from the groups tab on 
+                a dataset page (there is no Order By dropdown menu there).
+            #}
+            {% set current_lang = request.environ.CKAN_LANG %}
+            {% set reverse = True if 'desc' in request.params['sort'] else False %}
+            {% if c.page %}
+                {% set groups = h.ontario_theme_sort_by_title_translated(groups,
+                    current_page=c.page.page,
+                    items_per_page=c.page.items_per_page,
+                    lang=current_lang, 
+                    reverse=reverse) 
+                %}
+            {% endif %}
+
+            {% for group in groups %}
+              {% set this_group_title_translated = group['title_translated'][current_lang] %}
+             {% snippet "group/snippets/group_item.html", group=group, position=loop.index %}
+            {% endfor %}
+        {% endblock %}
+    </ul>
+{% endblock %}
+    
