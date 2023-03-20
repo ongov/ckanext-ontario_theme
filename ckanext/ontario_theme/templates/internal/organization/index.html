@@ -1,4 +1,4 @@
-{% ckan_extends %}
+{% extends "page.html" %}
 
 {% block subtitle %}{{ _('Ministries') }}{% endblock %}
 
@@ -30,12 +30,32 @@
       {% set input_text = _('Search ministries') %}
       {% set query = c.q %}
       {% set sr_submit_text = _('Search') %}
+      {% set searchbar_title = input_text + _(':') %}
       <!-- arguments for seach form -->
       {% set form_id = 'organization-search-form' %}
       {% set type = 'ministry' %}
-      {% set searchbar_title = input_text + _(':') %}
+      {% set sorting = [
+        (_('Name Ascending'), 'name asc'),
+        (_('Name Descending'), 'name desc') ]
+      %}
       <form id="{{ form_id }}" class="search-form" method="get" data-module="select-switch" novalidate>
-      {% snippet 'snippets/search_form.html', searchbar_title=searchbar_title, hidden_searchbar_title=input_text, form_id=form_id, type=type, query=query, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=input_text, sr_input_text=input_text, sr_submit_text=sr_submit_text, facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields %}
+        {% snippet 'snippets/search_form.html', 
+                    searchbar_title=searchbar_title, 
+                    hidden_searchbar_title=input_text,
+                    form_id=form_id, 
+                    type=type, 
+                    query=query, 
+                    sorting=sorting, 
+                    sorting_selected=c.sort_by_selected, 
+                    count=c.page.item_count, 
+                    placeholder=input_text, 
+                    sr_input_text=input_text, 
+                    sr_submit_text=sr_submit_text, 
+                    facets=facets, 
+                    show_empty=request.params, 
+                    error=c.query_error, 
+                    fields=c.fields 
+        %}
       </form>
     {% endblock %}
   </div>
@@ -50,7 +70,20 @@
   {% block organizations_list %}
     {% if c.page.items or request.params %}
       {% if c.page.items %}
-        {% snippet "organization/snippets/organization_list.html", organizations=c.page.items %}
+        {# Custom sort by language for name ascending and descending #}
+
+        {# Get all organization returned by query #}
+        {% set org_list = h.ontario_theme_get_all_organizations(collection_names=c.page.collection) %}
+        
+        {# Sort org_list by title_translated as per current language #}
+        {% set current_lang = request.environ.CKAN_LANG %}
+        {% set reverse = True if 'desc' in request.params['sort'] else False %}
+        {% set sorted_org = h.ontario_theme_sort_by_title_translated(org_list,                                                                                                              
+                                                                     current_page=c.page.page,
+                                                                     items_per_page=c.page.items_per_page,
+                                                                     lang=current_lang, 
+                                                                     reverse=reverse) %}
+        {% snippet "organization/snippets/organization_list.html", organizations=sorted_org %}
       {% endif %}
     {% else %}
       <p class="empty">

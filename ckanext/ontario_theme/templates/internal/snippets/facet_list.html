@@ -31,7 +31,7 @@
     <nav>
       <ul class="{{ nav_class or 'list-unstyled nav nav-simple nav-facet' }}">
         {% for item in items %}
-          {{ h.snippet('snippets/translate_facets.html', fields=fields, name=name, item=item, scheming_choices=scheming_choices, extras=extras) }}
+          {{ h.snippet('snippets/translate_facets.html', fields=fields, name=name, item=item, scheming_choices=scheming_choices) }}
           {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
           {% set label = label_function(item) if label_function else item.display_name %}
           {% set label_truncated = h.truncate(label, 22) if not label_function else label %}

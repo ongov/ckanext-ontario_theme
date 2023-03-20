@@ -13,13 +13,13 @@
     }
 
     // Pushed when a dataset page or a resource page is viewed
-    if ('{{this_pkg}}'.length > 0) {
+    if ('{{this_pkg_title}}'.length > 0) {
         window.dataLayer.push({
             'event': 'Pageview',
             'ministryTag': '{{this_org}}',
             'group': '{{this_group}}',
-            'dataAvailability': '{{this_pkg.access_level}}',
-            'datasetName': '{{this_pkg.title}}',
+            'dataAvailability': '{{this_pkg_access_level}}',
+            'datasetName': '{{this_pkg_title}}',
             'resourceName': resourceName
         });
     } 

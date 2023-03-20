@@ -392,12 +392,13 @@ input[type=reset].ontario-search-reset:focus{
     margin-bottom: 5px;
     border-radius: 52px;
   }
-
+  .facet-row {
+    text-align: right;
+  }
   @media screen and (max-width: 39.9375em){
     .facet-row {
       display: block;
       float: right;
-      text-align: right;
     }
     .facet {
       padding-right: 5px;
