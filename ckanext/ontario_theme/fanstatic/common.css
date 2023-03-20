@@ -1447,7 +1447,7 @@ section#dataset-resources > h2{
    a.heading:hover, ul.nav-tabs li a:hover, .table-of-contents a:hover{
     text-decoration: underline;
   }
-  a.ontario-button, a.btn, a.btn-primary, a.heading, a.tag, ul.nav-tabs li a, .table-of-contents a, .nav-item a{
+  a.ontario-button, a.ontario-button:hover, a.btn, a.btn-primary, a.heading, a.tag, ul.nav-tabs li a, .table-of-contents a, .nav-item a{
     text-decoration: none;
   }
 
