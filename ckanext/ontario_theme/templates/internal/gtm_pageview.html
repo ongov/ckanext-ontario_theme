@@ -13,8 +13,7 @@
     }
 
     // Pushed when a dataset page or a resource page is viewed
-    if ('{{this_pkg_access_level}}'.length > 0 ||
-        '{{this_pkg_title}}'.length > 0) {
+    if ('{{this_pkg_title}}'.length > 0) {
         window.dataLayer.push({
             'event': 'Pageview',
             'ministryTag': '{{this_org}}',
