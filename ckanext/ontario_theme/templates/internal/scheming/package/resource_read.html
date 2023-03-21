@@ -20,7 +20,7 @@
   {% set is_open = (pkg.access_level == 'open') %}
   {% if is_open or is_admin%}
     <section class="module module-resource" role="complementary">
-      {% if h.check_access('package_update', {'id':pkg.id }) %}
+      {% if is_admin %}
         <header class="col-xs-12 page-header">
         <div class="content_action">
           {% link_for _('Edit'), named_route=pkg.type + '_resource.edit', id=pkg.name, resource_id=res.id, class_='btn btn-default content_action', icon='wrench' %}
@@ -147,8 +147,9 @@
         {% endblock %}
       </div>
     </section>
+  {# if dataset is not open and user is not admin, show msg #}
   {% else %}
-    <h2>{{ _('Resource not available') }}</h2>
+    <h1 class="col-xs-12">{{ _('Data Not Available') }}</h1>
   {% endif %}
 {% endblock %}
 
