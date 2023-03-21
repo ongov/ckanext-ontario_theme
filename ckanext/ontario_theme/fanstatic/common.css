@@ -1306,6 +1306,7 @@ via submission form. Copied from DS.*/
 }
 .resource-button{
   min-height:78px;
+  min-width: 193px;
   vertical-align: top;
 }
 .resource-button-text{
