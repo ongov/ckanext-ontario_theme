@@ -1304,7 +1304,12 @@ via submission form. Copied from DS.*/
     margin-left: 10%;
   }
 }
-.resource-button{
+.resource-button-primary{
+  min-height:78px;
+  min-width: 142px;
+  vertical-align: top;
+}
+.resource-button-secondary{
   min-height:78px;
   min-width: 193px;
   vertical-align: top;

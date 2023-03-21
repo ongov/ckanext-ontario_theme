@@ -52,7 +52,7 @@
       {% if not url_is_edit %}
       <div>
         {% block resource_item_explore_links %}
-            <a href="{{ url }}" class="resource-button ontario-button ontario-button--primary">
+            <a href="{{ url }}" class="resource-button-primary ontario-button ontario-button--primary">
               <span class="resource-button-text">
                 {% if res.format == "CSV" %}
                   <i class="fa fa-bar-chart-o"></i>
@@ -76,7 +76,7 @@
             {% else %}
               {% set this_group = '' %}
             {% endif %}
-            <a href="{{ res.url }}" class="resource-button resource-url-analytics ontario-button ontario-button--secondary dataset-download-link" onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">
+            <a href="{{ res.url }}" class="resource-button-secondary resource-url-analytics ontario-button ontario-button--secondary dataset-download-link" onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">
               <span class="resource-button-text">
                 {% if res.has_views or res.url_type == 'upload' %}
                   <i class="fa fa-arrow-circle-o-down"></i>
