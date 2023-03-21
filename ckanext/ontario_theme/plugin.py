@@ -1030,8 +1030,8 @@ type data_last_updated
         facets_dict['access_level'] = toolkit._('Access Level')
         facets_dict['asset_type'] = toolkit._('Asset Type')
         facets_dict['update_frequency'] = toolkit._('Update Frequency')
-        facets_dict['keywords_en'] = toolkit._('Keywords')
-        facets_dict['keywords_fr'] = toolkit._('Keywords')
+        facets_dict['keywords_en'] = toolkit._('Topics')
+        facets_dict['keywords_fr'] = toolkit._('Topics')
         facets_dict.pop('tags', None) # Remove tags in favor of keywords
         facets_dict['organization_jurisdiction'] = toolkit._('Jurisdiction')
         facets_dict['organization_category'] = toolkit._('Category')
