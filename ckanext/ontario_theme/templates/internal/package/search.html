@@ -94,8 +94,8 @@ in the core template for search.html.
     {% endblock %}
   </section>
 
+  {# Override CKAN block to remove API link #}
   {% block package_search_results_api %}
-    {{ super() }}
   {% endblock %}
 {% endblock %}
 
