@@ -22,6 +22,10 @@ msgstr ""
 msgid ":"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html:20
+msgid "Other"
+msgstr ""
+
 #: ckanext/ontario_theme/plugin.py:396
 msgid "Access Level"
 msgstr ""
