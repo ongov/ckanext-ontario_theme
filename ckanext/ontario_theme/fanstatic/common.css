@@ -1215,10 +1215,10 @@ via submission form. Copied from DS.*/
 
 .resource-item .label[data-format] {
 	height: 57px;
-	width: 61px;
+	min-width: 61px;
 	position: relative;
 	padding: 1em 0.5em;
-	font-size: 18px;
+	font-size: 16.5px;
 	display: inline-block;
 	font-weight: 700;
 	line-height: 25px;
@@ -1714,6 +1714,10 @@ section#dataset-resources > h2{
 .label[data-format*=mdb] {
   background-color: #F1E3F2;
 }
+.label[data-format=png],
+.label[data-format*=png] {
+  background-color: #FEF6DC;
+}
 .label[data-format=rdf],
 .label[data-format*=rdf],
 .label[data-format*=nquad],
@@ -1737,7 +1741,7 @@ section#dataset-resources > h2{
 }
 /* default button background colour */
 .label-default {
-  background-color: #F8E5C3;
+  background-color: #F2F2F2;
   color: #000;
 }
 

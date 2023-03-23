@@ -24,6 +24,10 @@ msgstr ""
 msgid ":"
 msgstr "<span>&nbsp;:</span>"
 
+#: ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html:20
+msgid "Other"
+msgstr "Autre"
+
 #: ckanext/ontario_theme/templates/internal/footer.html:9
 msgid "https://www.ontario.ca/page/accessibility"
 msgstr "https://www.ontario.ca/fr/page/accessibilite"
