@@ -5,7 +5,7 @@
     if (is_resource_page) {
         // Even if a resource exists, it might not have a name.
         // In this case, default to name "Data".
-        resourceName = '{{this_res.name}}' ? '{{this_res.name}}' : 'Data';
+        resourceName = '{{this_resname}}' ? '{{this_resname}}' : 'Data';
     }
     // No resourceName for dataset page views
     else {
