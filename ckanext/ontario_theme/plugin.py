@@ -557,17 +557,26 @@ def get_all_organizations(**kwargs):
     # Get the id of all organizations in the catalogue.
     all_organization_names = toolkit.get_action('organization_list')(data_dict={})
     
-    # Filter only those organizations whose names matching those in 
-    # collection_names. Then use helper function h.get_organization() 
-    # to extract the full details for each organization, matching on 'id'.
-    org_array = []
-    for name in collection_names:
-        for idx in range(len(all_organization_names)):
-            if name == all_organization_names[idx]:
-                organization_obj = toolkit.get_action('organization_show')(data_dict={'id':name})
-                organization_id = organization_obj['id']
-                org_array.append(h.get_organization(organization_id))
-    
+    # When there are no organizations in the catalogue (e.g. when application is 
+    # first installed and database not yet indexed), the below try will fail and
+    # and empty array will be returned, preventing the template from calling 
+    # the sort method on organizations.
+    try:
+        this_name = all_organization_names[0]
+        if toolkit.get_action('organization_show')(data_dict={'id':this_name}):
+            # Filter only those organizations whose names matching those in 
+            # collection_names. Then use helper function h.get_organization() 
+            # to extract the full details for each organization, matching on 'id'.
+            org_array = []
+            for name in collection_names:
+                for idx in range(len(all_organization_names)):
+                    if name == all_organization_names[idx]:
+                        organization_obj = toolkit.get_action('organization_show')(data_dict={'id':name})
+                        organization_id = organization_obj['id']
+                        org_array.append(h.get_organization(organization_id))
+    except:
+        org_array = []
+
     return org_array
 
 def sort_by_title_translated(item_list, **kwargs):
