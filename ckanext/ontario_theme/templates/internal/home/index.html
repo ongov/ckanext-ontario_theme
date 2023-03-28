@@ -4,14 +4,11 @@
   Add id="content" until we upgrade to newer version that has this for the
   home page skip nav link.
 #}
-
 {% block content %}
   <div class="homepage layout-{{ homepage_style }}">
-    <div id="content" class="container">
-      {{ self.flash() }}
-    </div>
+    <div id="content" class="container">{{ self.flash() }}</div>
     {% block primary_content %}
       {{ super() }}
-    {% endblock %}
+    {% endblock primary_content %}
   </div>
-{% endblock %}
+{% endblock content %}

@@ -8,19 +8,17 @@ can be used.
 <div class="row">
   <div class="col-md-12">
     <div>
-	<span class="greeting">{{ _("Welcome") }}!</span>
-	</div>
+      <span class="greeting">{{ _("Welcome") }}!</span>
+    </div>
     <p>
-    {% trans %}
+      {% trans %}
       Here you'll find thousands of datasets that are maintained by the Ontario Government for OPS use.
     {% endtrans %}
     <a href="/{{ request.environ.CKAN_LANG }}/about#colby">
-    {% trans %}
+      {% trans %}
       Learn more about Colby
     {% endtrans %}
-    </a>
-    </p>
-  </div>
+  </a>
+</p>
 </div>
-
-
+</div>

@@ -1,58 +1,58 @@
 {% set topics = [
-  {
-    "label" : "Justice and Public Safety",
-    "fa-icon" : "balance-scale"
-  },
-  {
-    "label" : "Agriculture and Food",
-    "fa-icon" : "leaf"
-  },
-  {
-    "label" : "Housing, Communities and Social Support",
-    "fa-icon" : "group"
-  },
-  {
-    "label" : "Education and Training",
-    "fa-icon" : "mortar-board"
-  },
-  {
-    "label" : "Economy and Business",
-    "fa-icon" : "industry"
-  },
-  {
-    "label" : "Culture and Recreation",
-    "fa-icon" : "soccer-ball-o"
-  },
-  {
-    "label" : "Environment and Natural Resources",
-    "fa-icon" : "tree"
-  },
-  {
-    "label" : "Government and Finance",
-    "fa-icon" : "money"
-  },
-  {
-    "label" : "Health",
-    "fa-icon" : "heartbeat"
-  },
-  {
-    "label" : "Infrastructure and Transportation",
-    "fa-icon" : "bus"
-  }
+{
+"label" : "Justice and Public Safety",
+"fa-icon" : "balance-scale"
+},
+{
+"label" : "Agriculture and Food",
+"fa-icon" : "leaf"
+},
+{
+"label" : "Housing, Communities and Social Support",
+"fa-icon" : "group"
+},
+{
+"label" : "Education and Training",
+"fa-icon" : "mortar-board"
+},
+{
+"label" : "Economy and Business",
+"fa-icon" : "industry"
+},
+{
+"label" : "Culture and Recreation",
+"fa-icon" : "soccer-ball-o"
+},
+{
+"label" : "Environment and Natural Resources",
+"fa-icon" : "tree"
+},
+{
+"label" : "Government and Finance",
+"fa-icon" : "money"
+},
+{
+"label" : "Health",
+"fa-icon" : "heartbeat"
+},
+{
+"label" : "Infrastructure and Transportation",
+"fa-icon" : "bus"
+}
 ]
 %}
-
 {% set language = h.lang() %}
 {% for iter1 in [0,5] %}
-<div class="row">
-  {% for iter2 in [0,1,2,3,4] %}
-  {% set i = (iter1+iter2) %}
-    <div class="col-md-2-10">
-      <a href="/{{ request.environ.CKAN_LANG }}/dataset?keywords_{{ request.environ.CKAN_LANG }}={{ _(topics[i]['label'])|replace(' ','+')|replace(',','') }}"class="hp_category">
-        <i class="fa fa-{{topics[i]['fa-icon']}}"></i>
-        <p>{{ _(topics[i]['label']) }}&nbsp;({{ h.ontario_theme_get_keyword_count(_(topics[i]['label']), language) }})</p>
+  <div class="row">
+    {% for iter2 in [0,1,2,3,4] %}
+      {% set i = (iter1+iter2) %}
+      <div class="col-md-2-10">
+        <a href="/{{ request.environ.CKAN_LANG }}/dataset?keywords_{{ request.environ.CKAN_LANG }}={{ _(topics[i]['label'])|replace(' ','+')|replace(',','') }}"
+           class="hp_category">
+          <i class="fa fa-{{ topics[i]['fa-icon'] }}"></i>
+          <p>{{ _(topics[i]['label']) }}&nbsp;({{ h.ontario_theme_get_keyword_count(_(topics[i]['label']), language) }})</p>
         </a>
-    </div>
-  {% endfor %}
+      </div>
+    {% endfor %}
   </div>
 {% endfor %}

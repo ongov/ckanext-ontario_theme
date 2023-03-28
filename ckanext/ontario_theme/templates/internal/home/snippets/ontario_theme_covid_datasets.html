@@ -3,16 +3,18 @@
 Renders a list of the 10 most popular COVID datasets
 
 #}
-
 {% set covid_datasets = h.ontario_theme_get_group_datasets('2019-novel-coronavirus') %}
 {% for dataset in covid_datasets %}
-<div class="row">
-  <div class="col-md-10 col-sm-10 col-xs-10 c-small-text">
-    <ul class="banner-datasets">
-      <li><a href="{% url_for 'dataset.read', id=dataset.name %}" class="hp_covid">{{ h.get_translated(dataset, "title") }}</a></li>
-    </ul>
+  <div class="row">
+    <div class="col-md-10 col-sm-10 col-xs-10 c-small-text">
+      <ul class="banner-datasets">
+        <li>
+          <a href="{%- url_for 'dataset.read', id=dataset.name -%}"
+             class="hp_covid">{{ h.get_translated(dataset, "title") }}</a>
+        </li>
+      </ul>
+    </div>
   </div>
-</div>
 {% endfor %}
 <div class="show-more">
   {% trans %}<a href="/group/2019-novel-coronavirus">Show more</a>{% endtrans %}
