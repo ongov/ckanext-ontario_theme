@@ -1,39 +1,37 @@
 {% extends "package/snippets/additional_info.html" %}
 
 {%- set exclude_fields = [
-    'id',
-    'title',
-    'name',
-    'notes',
-    'tag_string',
-    'license_id',
-    'owner_org',
-    'notes_translated',
-    'short_description',
-    'maintainer',
-    'maintainer_email',
-    'access_level',
-    'opened_date',
-    'exemption',
-    'exemption_rationale',
-    'title_translated',
-    'asset_type'
-    ] -%}
-
+'id',
+'title',
+'name',
+'notes',
+'tag_string',
+'license_id',
+'owner_org',
+'notes_translated',
+'short_description',
+'maintainer',
+'maintainer_email',
+'access_level',
+'opened_date',
+'exemption',
+'exemption_rationale',
+'title_translated',
+'asset_type'
+] -%}
 {% block package_additional_info %}
   {%- for field in schema.dataset_fields -%}
-  {%- if field.field_name not in exclude_fields
-    and field.display_snippet is not none
-    and pkg_dict[field.field_name] 
-    and (pkg_dict[field.field_name] != {'fr': '', 'en': ''})-%}
+    {%- if field.field_name not in exclude_fields
+      and field.display_snippet is not none
+      and pkg_dict[field.field_name]
+      and (pkg_dict[field.field_name] != {'fr': '', 'en': ''})-%}
       <tr>
-        <th scope="row" class="dataset-label">{{
-          h.scheming_language_text(field.label) }}</th>
-        <td class="dataset-details"{%
-          if field.display_property %} property="{{ field.display_property
-          }}"{% endif %}>
-          {%- snippet 'scheming/snippets/display_field.html',
-          field=field, data=pkg_dict, schema=schema -%}
+        <th scope="row" class="dataset-label">{{ h.scheming_language_text(field.label) }}</th>
+        <td class="dataset-details"
+            {% if field.display_property -%}
+            property="{{ field.display_property }}"
+            {%- endif %}>
+          {%- snippet 'scheming/snippets/display_field.html', field=field, data=pkg_dict, schema=schema -%}
         </td>
       </tr>
     {%- endif -%}
@@ -44,4 +42,4 @@
       <td class="dataset-details">{{ _(pkg_dict.state) }}</td>
     </tr>
   {% endif %}
-{% endblock %}
+{% endblock package_additional_info %}

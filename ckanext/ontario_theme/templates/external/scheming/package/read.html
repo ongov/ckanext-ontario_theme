@@ -1,14 +1,12 @@
 {% extends "package/read.html" %}
 
 {%- set schema = h.scheming_get_dataset_schema(dataset_type) -%}
-
 {# block package_notes customization compared to base. #}
-
 {% block package_notes %}
   {%- if not dataset_type -%}
     <p>
-    dataset_type not passed to template. your version of CKAN
-    might not be compatible with ckanext-scheming
+      dataset_type not passed to template. your version of CKAN
+      might not be compatible with ckanext-scheming
     </p>
   {%- endif -%}
   {% if h.scheming_field_by_name(schema.dataset_fields, 'notes_translated') and
@@ -24,41 +22,31 @@
     {% set contact_page = h.scheming_language_text(organization['org_contact']) %}
     {% if (not contact_page) %}
       {% set contact_name = _("Ontario's Open Data Team") %}
-      {% set contact_email = "opendata@ontario.ca" %} 
+      {% set contact_email = "opendata@ontario.ca" %}
     {% endif %}
   {% endif %}
-
   <div class="ministry-contact dataset-font">
-	<strong>{% trans %}Ministry contact: {% endtrans %} </strong>
-	{% if contact_email %}
-	  {% if contact_name %}
-      <a href="mailto:{{contact_email}}?subject={{pkg.title}}">
-        {{contact_name}}
-      </a>
-	  {% else %}
-    	<a href="mailto:{{contact_email}}?subject={{pkg.title}}">
-      	{{contact_email}}
-    	</a>
-	  {% endif %}
-	{% endif %}
-	{% if contact_page %}
-    <a href="{{contact_page}}">
-      {{ h.get_translated(organization, 'title') }}
-	  </a>
-  {% endif %}
+    <strong>{% trans %}Ministry contact: {% endtrans %}</strong>
+    {% if contact_email %}
+      {% if contact_name %}
+        <a href="mailto:{{ contact_email }}?subject={{ pkg.title }}">{{ contact_name }}</a>
+      {% else %}
+        <a href="mailto:{{ contact_email }}?subject={{ pkg.title }}">{{ contact_email }}</a>
+      {% endif %}
+    {% endif %}
+    {% if contact_page %}<a href="{{ contact_page }}">{{ h.get_translated(organization, 'title') }}</a>{% endif %}
   </div>
-{% endblock %}
+{% endblock package_notes %}
 
 {% block package_tags %}
   {# Remove tags in favor of keywords. #}
-{% endblock %}
-
+{% endblock package_tags %}
 
 {% block package_additional_info %}
   {% snippet "scheming/package/snippets/additional_info.html",
-    pkg_dict=pkg, dataset_type=dataset_type, schema=schema %}
-{% endblock %}
+  pkg_dict=pkg, dataset_type=dataset_type, schema=schema %}
+{% endblock package_additional_info %}
 
 {% block package_resources %}
   {% snippet "package/snippets/resources_list.html", pkg=pkg, resources=pkg.resources, schema=schema %}
-{% endblock %}
+{% endblock package_resources %}
