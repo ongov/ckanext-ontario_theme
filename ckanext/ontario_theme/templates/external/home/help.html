@@ -1,6 +1,8 @@
 {% extends "page.html" %}
 
-{% block subtitle %}{{ _('Help') }}{% endblock subtitle %}
+{% block subtitle %}
+  {{ _('Help') }}
+{% endblock subtitle %}
 
 {% block breadcrumb_content %}
   <li class="active">{% link_for _('Help'), 'home.help' %}</li>
