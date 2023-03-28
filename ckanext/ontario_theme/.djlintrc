@@ -1,0 +1,7 @@
+{
+    "use_gitignore": "True",
+    "profile": "jinja",
+    "format_attribute_template_tags": "true",
+    "blank_line_after_tag": "ckan_extends,extends,endblock",
+    "indent": "2"
+}

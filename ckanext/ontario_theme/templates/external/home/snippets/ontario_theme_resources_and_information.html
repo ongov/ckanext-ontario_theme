@@ -1,49 +1,33 @@
 <div class="row">
   <div class="col-md-12">
-    <h2>
-      {% trans %}Resources and information{% endtrans %}
-    </h2>
+    <h2>{% trans %}Resources and information{% endtrans %}</h2>
   </div>
 </div>
 <div class="row">
   <div class="col-md-3">
     <h3 class="data-h4">
-      <a href="{% trans %}https://www.ontario.ca/page/sharing-government-data{% endtrans %}">
+      <a href="{%- trans -%}https://www.ontario.ca/page/sharing-government-data{%- endtrans -%}">
         {% trans %}What is Open Data?{% endtrans %}
       </a>
     </h3>
-    <p>
-      {% trans %}Learn about Open Data and the Ontario Data Catalogue.{% endtrans %}
-    </p>
+    <p>{% trans %}Learn about Open Data and the Ontario Data Catalogue.{% endtrans %}</p>
   </div>
   <div class="col-md-3">
     <h3 class="data-h4">
-      <a href="/{{ request.environ.CKAN_LANG }}/about#licensing">
-        {% trans %}Data licenses and use{% endtrans %}
-      </a>
+      <a href="/{{ request.environ.CKAN_LANG }}/about#licensing">{% trans %}Data licenses and use{% endtrans %}</a>
     </h3>
-    <p>
-      {% trans %}Learn about the conditions and terms of use for using data.{% endtrans %}
-    </p>
+    <p>{% trans %}Learn about the conditions and terms of use for using data.{% endtrans %}</p>
   </div>
   <div class="col-md-3">
     <h3 class="data-h4">
-      <a href="/{{ request.environ.CKAN_LANG }}/about#developers">
-        {% trans %}Developers{% endtrans %}
-      </a>
+      <a href="/{{ request.environ.CKAN_LANG }}/about#developers">{% trans %}Developers{% endtrans %}</a>
     </h3>
-    <p>
-      {% trans %}Guidance for using our data in a software application.{% endtrans %}
-    </p>
+    <p>{% trans %}Guidance for using our data in a software application.{% endtrans %}</p>
   </div>
   <div class="col-md-3">
     <h3 class="data-h4">
-      <a href="/{{ request.environ.CKAN_LANG }}/about#training-materials">
-        {% trans %}Training materials{% endtrans %}
-      </a>
+      <a href="/{{ request.environ.CKAN_LANG }}/about#training-materials">{% trans %}Training materials{% endtrans %}</a>
     </h3>
-    <p>
-      {% trans %}Learn to work with government data.{% endtrans %}
-    </p>
+    <p>{% trans %}Learn to work with government data.{% endtrans %}</p>
   </div>
 </div>

@@ -92,7 +92,7 @@
       <p class="empty">
         {{ _('There are currently no ministries for this site') }}.
         {% if h.check_access('organization_create') %}
-          {% link_for _('How about creating one?'), named_route='organization.new' %}</a>.
+          {% link_for _('How about creating one?'), named_route='organization.new' %}.
         {% endif %}
       </p>
     {% endif %}
