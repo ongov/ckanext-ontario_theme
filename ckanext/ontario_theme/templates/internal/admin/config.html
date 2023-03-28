@@ -48,7 +48,7 @@
                      placeholder='### Heading Text \n \n Paragraph text.') }}
   </div>
 
-  <hr>
+  <hr/>
 
   {{ form.input('ckanext.ontario_theme.home_block_two_image',
                 id='field-ckanext.ontario_theme.home_block_two_image',
@@ -90,7 +90,7 @@
                      placeholder='### Heading Text \n \n Paragraph text.') }}
   </div>
 
-  <hr>
+  <hr/>
 
   {{ form.input('ckanext.ontario_theme.home_block_three_image',
                 id='field-ckanext.ontario_theme.home_block_three_image',
@@ -132,8 +132,7 @@
                      placeholder='### Heading Text \n \n Paragraph text.') }}
   </div>
 
-{% endblock %}
-
+{% endblock admin_form %}
 
 {% block admin_form_help %}
   {{ super() }}
@@ -144,9 +143,8 @@
   <p><strong>Home Block [One, Two, Three] FR:</strong> French heading and paragraph for applicable home page feature content block.</p>
   <p>Format should be:</p>
   <pre>
-### Heading Text Here
+    ### Heading Text Here
 
-Paragraph text here.
+    Paragraph text here.
   </pre>
-
-{% endblock %}
+{% endblock admin_form_help %}
