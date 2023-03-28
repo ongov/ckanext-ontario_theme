@@ -3,25 +3,24 @@
 Override CKAN's read.html to add some new facets.
 
 #}
-
 {% ckan_extends %}
+
 {% set ministry = h.get_translated(c.group_dict, "title") or c.group_dict.name %}
 {% block groups_search_form %}
   {% set facets = {
-    'fields': fields_grouped,
-    'search': search_facets,
-    'titles': facet_titles,
-    'translated_fields': translated_fields,
-    'remove_field': remove_field }
+  'fields': fields_grouped,
+  'search': search_facets,
+  'titles': facet_titles,
+  'translated_fields': translated_fields,
+  'remove_field': remove_field }
   %}
   {% set sorting = [
-    (_('Relevance'), 'score desc, metadata_modified desc'),
-    (_('Name Ascending'), 'name asc'),
-    (_('Name Descending'), 'tname desc'),
-    (_('Last Modified'), 'metadata_modified desc'),
-    (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
+  (_('Relevance'), 'score desc, metadata_modified desc'),
+  (_('Name Ascending'), 'name asc'),
+  (_('Name Descending'), 'tname desc'),
+  (_('Last Modified'), 'metadata_modified desc'),
+  (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
   %}
-
   {# Make 'Last modified' the default selection when first landing on page #}
   {% if not sort_by_selected %}
     {% set sort_by_selected = 'metadata_modified desc' %}
@@ -29,58 +28,59 @@ Override CKAN's read.html to add some new facets.
   {% set searchbar_text = gettext('Search %(ministry)s datasets', ministry=ministry) %}
   {% set searchbar_title = searchbar_text + _(':') %}
   {% set form_id = 'organization-datasets-search-form' %}
-  <form id="{{ form_id }}" class="search-form" method="get" data-module="select-switch" novalidate>
+  <form id="{{ form_id }}"
+        class="search-form"
+        method="get"
+        data-module="select-switch"
+        novalidate>
     {% snippet 'snippets/search_form.html',
-                searchbar_title=searchbar_title,
-                hidden_searchbar_title=searchbar_text,
-                form_id=form_id,
-                type='dataset', 
-                query=q, 
-                sorting=sorting, 
-                sorting_selected=sort_by_selected, 
-                count=page.item_count, 
-                facets=facets, 
-                placeholder=searchbar_text, 
-                show_empty=request.params, 
-                fields=fields %}
+    searchbar_title=searchbar_title,
+    hidden_searchbar_title=searchbar_text,
+    form_id=form_id,
+    type='dataset',
+    query=q,
+    sorting=sorting,
+    sorting_selected=sort_by_selected,
+    count=page.item_count,
+    facets=facets,
+    placeholder=searchbar_text,
+    show_empty=request.params,
+    fields=fields %}
   </form>
-{% endblock %}
+{% endblock groups_search_form %}
+
 {% block packages_list %}
-    {% if page.items %}
-      {% set this_org_name = c.search_facets['organization']['items'][0]['name'] %}
-      {{ h.snippet('snippets/package_list.html', packages=page.items, this_org_name=this_org_name) }}
-    {% endif %}
-  {% endblock %}
+  {% if page.items %}
+    {% set this_org_name = c.search_facets['organization']['items'][0]['name'] %}
+    {{ h.snippet('snippets/package_list.html', packages=page.items, this_org_name=this_org_name) }}
+  {% endif %}
+{% endblock packages_list %}
 
 {% block organization_facets %}
   <div class="filters">
     <div>
       {{ h.snippet('snippets/ontario_theme_keywords_facet.html',
-                   extras={'id':c.group_dict.id}) }}
+      extras={'id':c.group_dict.id}) }}
     </div>
-
     <div>
       {{ h.snippet('snippets/ontario_theme_jurisdiction_facet.html',
-                   extras={'id':c.group_dict.id}) }}
+      extras={'id':c.group_dict.id}) }}
     </div>
-
     <div>
       {{ h.snippet('snippets/ontario_theme_category_facet.html',
-                   extras={'id':c.group_dict.id}) }}
+      extras={'id':c.group_dict.id}) }}
     </div>
-
     <div>
-      {# 
+      {#
         Flag facets to be ignored from standard loop that calls facets.
       #}
       {% set excluded_facets = [
-        'organization_jurisdiction',
-        'organization_category',
-        'keywords_en',
-        'keywords_fr'
-        ]
+      'organization_jurisdiction',
+      'organization_category',
+      'keywords_en',
+      'keywords_fr'
+      ]
       %}
-
       {% for facet in c.facet_titles %}
         {% if facet not in excluded_facets %}
           {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet, extras={'id':c.group_dict.id}) }}
@@ -89,4 +89,4 @@ Override CKAN's read.html to add some new facets.
     </div>
     <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
   </div>
-{% endblock %}
+{% endblock organization_facets %}

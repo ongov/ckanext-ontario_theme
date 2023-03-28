@@ -1,29 +1,33 @@
 {% extends "page.html" %}
 
-{% block subtitle %}{{ _('Ministries') }}{% endblock %}
+{% block subtitle %}
+  {{ _('Ministries') }}
+{% endblock subtitle %}
 
 {% block breadcrumb_content %}
   <li class="active">{% link_for _('Ministries'), named_route=group_type+'.index' %}</li>
-{% endblock %}
+{% endblock breadcrumb_content %}
 
 {% block page_primary_action %}
-{% endblock %}
+{% endblock page_primary_action %}
 
 {% block ontario_theme_search_form %}
-  {# Custom block for search form. 
-  #}
-    
+  {# Custom block for search form. #}
   <div class="row no-padding">
     <div class="page_primary_action">
       <div class="add-organization">
-      {% if h.check_access('organization_create') %}
-        {% link_for _('Add Ministry'), named_route='organization.new', class_='btn btn-primary', icon='plus-square', named_route=group_type + '_new' %}
-      {% endif %}
+        {% if h.check_access('organization_create') %}
+          {% link_for _('Add Ministry'), named_route='organization.new', class_='btn btn-primary', icon='plus-square', named_route=group_type + '_new' %}
+        {% endif %}
       </div>
     </div>
     <div class="search-page-heading">
-    <h1>{% block page_heading %}{{ _('Ministries') }}{% endblock %}</h1>
-    <p class="ontario-lead-statement">{% trans %}Find data published by each of Ontario's Ministries.{% endtrans %}</p>
+      <h1>
+        {% block page_heading %}
+          {{ _('Ministries') }}
+        {% endblock page_heading %}
+      </h1>
+      <p class="ontario-lead-statement">{% trans %}Find data published by each of Ontario's Ministries.{% endtrans %}</p>
     </div>
     {% block organizations_search_form %}
       <!-- arguments for DS search bar -->
@@ -35,81 +39,83 @@
       {% set form_id = 'organization-search-form' %}
       {% set type = 'ministry' %}
       {% set sorting = [
-        (_('Name Ascending'), 'name asc'),
-        (_('Name Descending'), 'name desc') ]
+      (_('Name Ascending'), 'name asc'),
+      (_('Name Descending'), 'name desc') ]
       %}
-      <form id="{{ form_id }}" class="search-form" method="get" data-module="select-switch" novalidate>
-        {% snippet 'snippets/search_form.html', 
-                    searchbar_title=searchbar_title, 
-                    hidden_searchbar_title=input_text,
-                    form_id=form_id, 
-                    type=type, 
-                    query=query, 
-                    sorting=sorting, 
-                    sorting_selected=c.sort_by_selected, 
-                    count=c.page.item_count, 
-                    placeholder=input_text, 
-                    sr_input_text=input_text, 
-                    sr_submit_text=sr_submit_text, 
-                    facets=facets, 
-                    show_empty=request.params, 
-                    error=c.query_error, 
-                    fields=c.fields 
+      <form id="{{ form_id }}"
+            class="search-form"
+            method="get"
+            data-module="select-switch"
+            novalidate>
+        {% snippet 'snippets/search_form.html',
+        searchbar_title=searchbar_title,
+        hidden_searchbar_title=input_text,
+        form_id=form_id,
+        type=type,
+        query=query,
+        sorting=sorting,
+        sorting_selected=c.sort_by_selected,
+        count=c.page.item_count,
+        placeholder=input_text,
+        sr_input_text=input_text,
+        sr_submit_text=sr_submit_text,
+        facets=facets,
+        show_empty=request.params,
+        error=c.query_error,
+        fields=c.fields
         %}
       </form>
-    {% endblock %}
+    {% endblock organizations_search_form %}
   </div>
-{% endblock %}
+{% endblock ontario_theme_search_form %}
 
 {% block pre_primary %}
-{% endblock %}
+{% endblock pre_primary %}
 
 {% block primary %}
-<div class="col-sm-9 col-xs-12" role="main">
-{% block primary_content_inner %}
-  {% block organizations_list %}
-    {% if c.page.items or request.params %}
-      {% if c.page.items %}
-        {# Custom sort by language for name ascending and descending #}
+  <div class="col-sm-9 col-xs-12"
+       role="main">
+    {% block primary_content_inner %}
+      {% block organizations_list %}
+        {% if c.page.items or request.params %}
+          {% if c.page.items %}
+            {# Custom sort by language for name ascending and descending #}
+            {# Get all organization returned by query #}
+            {% set org_list = h.ontario_theme_get_all_organizations(collection_names=c.page.collection) %}
+            {# Prevent any organization sorting when there are no organizations #}
+            {% if org_list | length > 0 %}
+              {# Sort org_list by title_translated as per current language #}
+              {% set current_lang = request.environ.CKAN_LANG %}
+              {% set reverse = True if 'desc' in request.params['sort'] else False %}
+              {% set sorted_org = h.ontario_theme_sort_by_title_translated(org_list,
+              current_page=c.page.page,
+              items_per_page=c.page.items_per_page,
+              lang=current_lang,
+              reverse=reverse) %}
+              {% snippet "organization/snippets/organization_list.html", organizations=sorted_org %}
+            {% endif %}
+          {% endif %}
+        {% else %}
+          <p class="empty">
+            {{ _('There are currently no ministries for this site') }}.
+            {% if h.check_access('organization_create') %}
+              {% link_for _('How about creating one?'), named_route='organization.new' %}.
+            {% endif %}
+          </p>
+        {% endif %}
+      {% endblock organizations_list %}
 
-        {# Get all organization returned by query #}
-        {% set org_list = h.ontario_theme_get_all_organizations(collection_names=c.page.collection) %}
-        
-        {# Prevent any organization sorting when there are no organizations #}
-        {% if org_list | length > 0  %}
-          {# Sort org_list by title_translated as per current language #}
-          {% set current_lang = request.environ.CKAN_LANG %}
-          {% set reverse = True if 'desc' in request.params['sort'] else False %}
-          {% set sorted_org = h.ontario_theme_sort_by_title_translated(org_list,                                                                                                              
-                                                                      current_page=c.page.page,
-                                                                      items_per_page=c.page.items_per_page,
-                                                                      lang=current_lang, 
-                                                                      reverse=reverse) %}
-          {% snippet "organization/snippets/organization_list.html", organizations=sorted_org %}
-        {% endif %}
-      {% endif %}
-    {% else %}
-      <p class="empty">
-        {{ _('There are currently no ministries for this site') }}.
-        {% if h.check_access('organization_create') %}
-          {% link_for _('How about creating one?'), named_route='organization.new' %}.
-        {% endif %}
-      </p>
-    {% endif %}
-  {% endblock %}
-  {% block page_pagination %}
-    {{ c.page.pager(q=c.q or '', sort=c.sort_by_selected or '') }}
-  {% endblock %}
-{% endblock %}
-</div>
-<div class="container">
-<div class="row">
-  <div class="col-xs-12">
-      {% snippet 'home/snippets/ontario_theme_contact_us.html' %}
+      {% block page_pagination %}
+        {{ c.page.pager(q=c.q or '', sort=c.sort_by_selected or '') }}
+      {% endblock page_pagination %}
+    {% endblock primary_content_inner %}
   </div>
-</div>
-</div>
-{% endblock %}
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">{% snippet 'home/snippets/ontario_theme_contact_us.html' %}</div>
+    </div>
+  </div>
+{% endblock primary %}
 
 {% block secondary %}
-{% endblock %}
+{% endblock secondary %}
