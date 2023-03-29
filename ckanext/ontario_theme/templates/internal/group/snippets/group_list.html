@@ -28,8 +28,12 @@
             {% endif %}
 
             {% for group in groups %}
-                {% if group['title_translated'][current_lang] %}
-                    {% set this_group_title_translated = group['title_translated'][current_lang] %}
+                {% if group['title_translated'] %}
+                    {% if group['title_translated'][current_lang] %}
+                        {% set this_group_title_translated = group['title_translated'][current_lang] %}
+                    {% else %}
+                        {% set this_group_title_translated = group['title'] %}
+                    {% endif %}
                 {% else %}
                     {% set this_group_title_translated = group['title'] %}
                 {% endif %}
