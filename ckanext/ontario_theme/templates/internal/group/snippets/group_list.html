@@ -28,7 +28,11 @@
             {% endif %}
 
             {% for group in groups %}
-              {% set this_group_title_translated = group['title_translated'][current_lang] %}
+                {% if group['title_translated'][current_lang] %}
+                    {% set this_group_title_translated = group['title_translated'][current_lang] %}
+                {% else %}
+                    {% set this_group_title_translated = group['title'] %}
+                {% endif %}
              {% snippet "group/snippets/group_item.html", group=group, position=loop.index %}
             {% endfor %}
         {% endblock %}
