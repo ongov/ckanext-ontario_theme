@@ -47,12 +47,12 @@ in the core template for search.html.
       {% set type = dataset_type %}
       {% set searchbar_title = input_text + _(':') %}
       {# Set default sort order. If no sort order has been selected in 
-         the Order By dropdown menu, use 'metadata_modified desc' (Last Modified).
+         the Order By dropdown menu, use 'score desc, metadata_modified desc' (Relevance).
       #}
       {% if request['params'] and 'sort' in request['params'] %}
         {% set sort_order = request.params['sort'] %}
       {% else %}
-        {% set sort_order = 'metadata_modified desc' %}
+        {% set sort_order = 'score desc, metadata_modified desc' %}
       {% endif %}
       <form id="{{ form_id }}" class="search-form" method="get" data-module="select-switch" novalidate>
         {% snippet 'snippets/search_form.html', 
