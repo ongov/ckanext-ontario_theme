@@ -1,7 +1,8 @@
 {% ckan_extends %}
+
 {% set schema_dict = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
 {% block search_input %}
-  {# 
+  {#
     Design System search bar. Arguments:
     - sr_input_text
     - placeholder
@@ -9,81 +10,98 @@
     - sr_submit_text
   #}
   <div class="module search">
-    <h2 aria-label='{{ hidden_searchbar_title }}'><p class="theme_p" aria-hidden="true">{{ searchbar_title }}</p></h2>
-      <div class="ontario-search-container">
-        <label class="ontario-label ontario-show-for-sr" for="{{ form_id }}-input">{{ sr_input_text }}</label>
-        <input class="ontario-search-input ontario-input snippet" type="text" id="{{ form_id }}-input" name="q" placeholder="{% block search_placeholder %}{{ placeholder }}{% endblock %}" value="{{ query }}" autocomplete="off" required>
-        <input class="ontario-search-reset home" id="{{ form_id }}-reset" type="reset" value="" aria-label="Clear field" />
-        <button class="ontario-search-submit" id="ontario-search-submit" type="submit">
-          <span class="ontario-show-for-sr">{{ sr_submit_text }}</span>
-          <svg class="ontario-icon search" focusable="false" sol:category="primary" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
-              <use xlink:href="#ontario-icon-search"></use>
-          </svg>
+    <h2 aria-label='{{ hidden_searchbar_title }}'>
+      <p class="theme_p" aria-hidden="true">{{ searchbar_title }}</p>
+    </h2>
+    <div class="ontario-search-container">
+      <label class="ontario-label ontario-show-for-sr" for="{{ form_id }}-input">{{ sr_input_text }}</label>
+      <input class="ontario-search-input ontario-input snippet"
+             type="text"
+             id="{{ form_id }}-input"
+             name="q"
+             placeholder="{%- block search_placeholder -%}{{ placeholder }}{%- endblock search_placeholder -%}"
+             value="{{ query }}"
+             autocomplete="off"
+             required/>
+      <input class="ontario-search-reset home"
+             id="{{ form_id }}-reset"
+             type="reset"
+             value=""
+             aria-label="Clear field"/>
+      <button class="ontario-search-submit"
+              id="ontario-search-submit"
+              type="submit">
+        <span class="ontario-show-for-sr">{{ sr_submit_text }}</span>
+        <svg class="ontario-icon search"
+             focusable="false"
+             sol:category="primary"
+             viewBox="0 0 24 24"
+             preserveAspectRatio="xMidYMid meet">
+          <use xlink:href="#ontario-icon-search"></use>
+        </svg>
       </button>
     </div>
   </div>
-{% endblock %}
+{% endblock search_input %}
+
 {% block search_title %}
-    {% if not error %}
-      <div class="search-count">
-        {% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}
-      </div>
-    {% else %}
-      <div>Error</div>
-    {% endif %}
-{% endblock %}
+  {% if not error %}
+    <div class="search-count">{% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}</div>
+  {% else %}
+    <div>Error</div>
+  {% endif %}
+{% endblock search_title %}
 
 <!-- block for package searches -->
 {% block search_facets %}
   {% if facets %}
     <p class="filter-list">
-    {% if query %}
-      {#
+      {% if query %}
+        {#
         Groups/Organizations don't have facets set or the
         remove_field() function in their index() action. 
         Only show when facets and a query are available to avoid
         missing attribute error.
-      #}
-    {% endif %}  
-    {% if facets %}
+        #}
+      {% endif %}
+      {% if facets %}
         {% for field in facets.fields %}
           <span class="facet-row">
-          {% set search_facets_items = facets.search.get(field)['items'] %}
-          <span class="facet">
-            {% if (not query and not loop.index0==0) or query %}
-              <span class="sr-only"> and </span>
-            {% endif %}
-            {% if field == "organization" %}
-            {{ _('Ministry') + _(':') }}
-            {% else %}
-            {{ facets.titles.get(field) + _(':')}}
-            {% endif %}
-          </span>
-          {% for item in h.get_facet_items_dict(field) %}
-            {% set item_id = facets.search.get(field)['title'] %}
-
-            {% if item_id == "organization_category" %}
-              {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'category'))%}
-            {% endif %}
-            {% if item_id == "organization_jurisdiction" %}
-              {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'jurisdiction'))%}
-            {% endif %}
-
-            {{ h.snippet('snippets/translate_facets.html', fields=schema_dict, name=item_id, item=item, scheming_choices=choices) }}
-
+            {% set search_facets_items = facets.search.get(field)['items'] %}
+            <span class="facet">
+              {% if (not query and not loop.index0==0) or query %}
+                <span class="sr-only"> and </span>
+              {% endif %}
+              {% if field == "organization" %}
+                {{ _('Ministry') + _(':') }}
+              {% else %}
+                {{ facets.titles.get(field) + _(':') }}
+              {% endif %}
+            </span>
+            {% for item in h.get_facet_items_dict(field) %}
+              {% set item_id = facets.search.get(field)['title'] %}
+              {% if item_id == "organization_category" %}
+                {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'category')) %}
+              {% endif %}
+              {% if item_id == "organization_jurisdiction" %}
+                {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'jurisdiction')) %}
+              {% endif %}
+              {{ h.snippet('snippets/translate_facets.html', fields=schema_dict, name=item_id, item=item, scheming_choices=choices) }}
               {% if item.active %}
                 <span class="filtered pill">
                   <span class="pill-contents">
-                    {{item.display_name}}
-                    <a href="{{ facets.remove_field(field, item.name) }}" class="remove" title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
+                    {{ item.display_name }}
+                    <a href="{{ facets.remove_field(field, item.name) }}"
+                       class="remove"
+                       title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
                   </span>
                 </span>
               {% endif %}
-          {% endfor %}
+            {% endfor %}
           </span>
         {% endfor %}
-    {% endif %}
+      {% endif %}
     </p>
     <a class="show-filters btn btn-default">{{ _('Filter Results') }}</a>
   {% endif %}
-{% endblock %}
+{% endblock search_facets %}
