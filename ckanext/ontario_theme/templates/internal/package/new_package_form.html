@@ -1,8 +1,11 @@
 {% ckan_extends %}
 
 {% block save_button %}
-	{% if form_style != 'edit' %}
-  		<button class="btn btn-primary" type="submit" name="save" value="save-and-finish">{{ _('Save and finish') }}</button>
-  	{% endif %}
+  {% if form_style != 'edit' %}
+    <button class="btn btn-primary"
+            type="submit"
+            name="save"
+            value="save-and-finish">{{ _('Save and finish') }}</button>
+  {% endif %}
   {{ super() }}
-{% endblock %}
+{% endblock save_button %}

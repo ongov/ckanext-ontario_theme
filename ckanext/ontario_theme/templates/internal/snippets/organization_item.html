@@ -3,7 +3,7 @@
 {% block organization_item_header_title %}
   {{ h.get_translated(organization, "title") }}
   <h3 class="media-heading">
-    <a href={{ url }}>{{ h.get_translated(organization, "title") or organization.name }}</a>
+    <a href="{{ url }}">{{ h.get_translated(organization, "title") or organization.name }}</a>
   </h3>
 {% endblock organization_item_header_title %}
 

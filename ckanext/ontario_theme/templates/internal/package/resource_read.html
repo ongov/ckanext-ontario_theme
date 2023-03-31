@@ -1,7 +1,7 @@
 {% ckan_extends %}
 
 {% block resource_read_url %}
-  {% asset 'ontario_theme/ontario_theme_download_tracker_js' %}
+  {% asset "ontario_theme/ontario_theme_download_tracker_js" %}
   {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
   {% if pkg.groups %}
     {% set this_group = pkg.groups[0]['name'] %}
@@ -15,15 +15,11 @@
     <p class="text-muted break-word">{{ _('URL:') }} {{ res.url }}</p>
   {% endif %}
   {% snippet 'package/snippets/ontario_theme_language_disclaimer.html', pkg=pkg, res=res %}
-{% endblock %}
-
+{% endblock resource_read_url %}
 
 {% block data_preview %}
-
-  {% if res.format == "CSV" %}
-    {{ super() }}
-  {% endif %}  
-{% endblock %}
+  {% if res.format == "CSV" %}{{ super() }}{% endif %}
+{% endblock data_preview %}
 
 {% block secondary %}
-{% endblock %}
+{% endblock secondary %}

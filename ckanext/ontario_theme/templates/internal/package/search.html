@@ -15,10 +15,10 @@ in the core template for search.html.
 
     {% block page_primary_action %}
       {{ super() }}
-    {% endblock %}
+    {% endblock page_primary_action %}
 
     <div class="search-page-heading">
-      <h1 class="ontario-h1">{% block page_heading %}{{ _(dataset_type + 's') |capitalize }}{% endblock %}</h1>
+      <h1 class="ontario-h1">{% block page_heading %}{{ _(dataset_type + 's') |capitalize }}{% endblock page_heading %}</h1>
     </div>
 
     {% block form %}
@@ -72,12 +72,12 @@ in the core template for search.html.
                     error=c.query_error, 
                     fields=c.fields %}
       </form>
-    {% endblock %}
+    {% endblock form %}
   </div>
-{% endblock %}
+{% endblock ontario_theme_search_form %}
 
 {% block pre_primary %}
-{% endblock %}
+{% endblock pre_primary %}
 
 {% block primary_content %}
   {# Overriding block to remove page_primary_action and form. #}
@@ -86,60 +86,60 @@ in the core template for search.html.
       {% block package_search_results_list %}
         {{ super() }}
         {{ h.snippet('snippets/package_list.html', packages=packages) }}
-      {% endblock %}
+      {% endblock package_search_results_list %}
     </div>
 
     {% block page_pagination %}
       {{ super() }}
-    {% endblock %}
+    {% endblock page_pagination %}
   </section>
 
   {# Override CKAN block to remove API link #}
   {% block package_search_results_api %}
-  {% endblock %}
-{% endblock %}
+  {% endblock package_search_results_api %}
+{% endblock primary_content %}
 
 {% block secondary %}
-<aside class="secondary col-sm-3 filter-results">
-  <div class="filters">
-    <div>
-      {{ h.snippet('snippets/ontario_theme_keywords_facet.html') }}
-    </div>
-
-    {% set this_name = 'organization_jurisdiction' %}
-    {% if h.get_facet_items_dict(this_name)|length > 1 %}
+  <aside class="secondary col-sm-3 filter-results">
+    <div class="filters">
       <div>
-        {{ h.snippet('snippets/ontario_theme_jurisdiction_facet.html') }}
+        {{ h.snippet('snippets/ontario_theme_keywords_facet.html') }}
       </div>
-    {% endif %}  
 
-    {% set this_name = 'organization_category' %}
-    {% if h.get_facet_items_dict(this_name)|length > 1 %}
+      {% set this_name = 'organization_jurisdiction' %}
+      {% if h.get_facet_items_dict(this_name)|length > 1 %}
+        <div>
+          {{ h.snippet('snippets/ontario_theme_jurisdiction_facet.html') }}
+        </div>
+      {% endif %}  
+
+      {% set this_name = 'organization_category' %}
+      {% if h.get_facet_items_dict(this_name)|length > 1 %}
+        <div>
+          {{ h.snippet('snippets/ontario_theme_category_facet.html') }}
+        </div>
+      {% endif %}
+
       <div>
-        {{ h.snippet('snippets/ontario_theme_category_facet.html') }}
+        {# 
+          Flag facets to be ignored from standard loop that calls facets.
+        #}
+        {% set excluded_facets = [
+          'organization_jurisdiction',
+          'organization_category',
+          'keywords_en',
+          'keywords_fr'
+          ]
+        %}
+
+        {% set reordered_facet_titles = h.ontario_theme_order_package_facets(c.facet_titles) %}
+        {% for facet in reordered_facet_titles %}
+          {% if facet not in excluded_facets %}
+            {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet) }}
+          {% endif %}
+        {% endfor %}
       </div>
-    {% endif %}
-
-    <div>
-      {# 
-        Flag facets to be ignored from standard loop that calls facets.
-      #}
-      {% set excluded_facets = [
-        'organization_jurisdiction',
-        'organization_category',
-        'keywords_en',
-        'keywords_fr'
-        ]
-      %}
-
-      {% set reordered_facet_titles = h.ontario_theme_order_package_facets(c.facet_titles) %}
-      {% for facet in reordered_facet_titles %}
-        {% if facet not in excluded_facets %}
-          {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet) }}
-        {% endif %}
-      {% endfor %}
+      <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
     </div>
-    <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
-  </div>
-</aside>
-{% endblock %}
+  </aside>
+{% endblock secondary %}

@@ -6,7 +6,7 @@ the form-horizontal class from the form element.
 My other templates should override this instead of CKAN's.
 
 #}
-{% import 'macros/form.html' as form %}
+{% import "macros/form.html" as form %}
 {% set action = c.form_action or '' %}
 {# This provides a full page that renders a form for adding a dataset. It can
 then itself be extended to add/remove blocks of functionality. #}
@@ -28,11 +28,11 @@ then itself be extended to add/remove blocks of functionality. #}
   {% endblock errors %}
 
   {% block basic_fields %}
-    {% snippet 'package/snippets/package_basic_fields.html', data=data, errors=errors, licenses=c.licenses, groups_available=c.groups_available %}
+    {% snippet "package/snippets/package_basic_fields.html", data=data, errors=errors, licenses=c.licenses, groups_available=c.groups_available %}
   {% endblock basic_fields %}
 
   {% block metadata_fields %}
-    {% snippet 'package/snippets/package_metadata_fields.html', data=data, errors=errors %}
+    {% snippet "package/snippets/package_metadata_fields.html", data=data, errors=errors %}
   {% endblock metadata_fields %}
 
   {% block form_actions %}
