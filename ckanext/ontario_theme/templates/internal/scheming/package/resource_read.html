@@ -32,7 +32,7 @@
           <div class="col-lg-8 col-md-7 col-xs-12">
             {% block resource_read_title %}
               <h1 class="page-heading">{{ h.resource_display_name(res) }}</h1>
-            {% endblock %}
+            {% endblock resource_read_title %}
             <div class="datafile-p" property="rdfs:label">
               {% block resource_read_url %}
                 {% if res.url and h.is_url(res.url) %}
@@ -40,7 +40,7 @@
                 {% elif res.url %}
                   <p>{{ _('URL:') }} {{ res.url }}</p>
                 {% endif %}
-              {% endblock %}
+              {% endblock resource_read_url %}
               {% if res.description %}
                 {{ h.render_markdown(h.get_translated(res, "description")) }}
               {% endif %}
@@ -57,7 +57,7 @@
           </div>
         {% block resource_actions %}
         {% block resource_actions_inner %}
-        {% asset 'ontario_theme/ontario_theme_download_tracker_js' %}
+        {% asset "ontario_theme/ontario_theme_download_tracker_js" %}
         <div class="col-md-5 col-lg-4 col-xs-12">
           {% if res.url and h.is_url(res.url) %}
             {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
@@ -101,7 +101,7 @@
                     </li>
                   </ul>
                 {%endif%}
-              {% endblock %}
+              {% endblock download_resource_button %}
             </div>
         {% endif %}
         {% if res.datastore_active %}
@@ -111,21 +111,21 @@
             {% set loading_text = _('Loading...') %}
             {% set api_info_url = h.url_for(controller='api', action='snippet', ver=1, snippet_path='api_info.html', resource_id=res.id) %}
             <ul>
-              <li><a class="" href="{{ api_info_url }}" data-module="api-info" data-module-template="{{ api_info_url }}" data-loading-text="{{ loading_text }}">{{ _('CKAN Data API calls') }}</a></li>
+              <li><a href="{{ api_info_url }}" data-module="api-info" data-module-template="{{ api_info_url }}" data-loading-text="{{ loading_text }}">{{ _('CKAN Data API calls') }}</a></li>
             </ul>
           </div>
-          {% endblock %}
+          {% endblock data_api_button %}
           <div class="action-group ontario-show-for-large">
             <h2 class="ontario-h4">{{ _('Visualize data') }}</h2>
             <p>{{ _('Use the Data Visualizer below to display this dataset as a table, graph or map.') }}</p>
             <img src="/images/visualize_data.PNG" alt="" width="284" height="133"/>
           </div>
         {% endif %}
-      {% endblock %}
+      {% endblock resource_actions_inner %}
       </div>
-        {% endblock %}
+        {% endblock resource_actions %}
         </div>
-      {% endblock %}
+      {% endblock resource_content %}
       <div class="col-xs-12">
         {% block data_preview %}
           {% if res.format == "CSV" %}
@@ -139,19 +139,19 @@
                           resource_preview=resource_preview,
                           resource=resource
               %}
-            {% endblock %}
+            {% endblock resource_view_nav %}
             {% block resource_view_content %}
               {{ super() }}
-            {% endblock %}
+            {% endblock resource_view_content %}
           {% endif %}
-        {% endblock %}
+        {% endblock data_preview %}
       </div>
     </section>
   {# if dataset is not open and user is not admin, show msg #}
   {% else %}
     <h1 class="col-xs-12">{{ _('Data Not Available') }}</h1>
   {% endif %}
-{% endblock %}
+{% endblock pre_primary %}
 
 {% block primary %}
   {# only display resource page content if open dataset or admin user #}
@@ -184,13 +184,13 @@
                           <th scope="row">{{ _('Last updated') }}</th>
                           <td>{{ h.render_datetime(res.data_last_updated) or h.render_datetime(res.last_modified) or h.render_datetime(res.revision_timestamp) or h.render_datetime(res.created) or _('unknown') }}</td>
                         </tr>
-                      {%- endblock -%}
+                      {%- endblock resource_last_updated -%}
                       {%- block resource_created -%}
                         <tr>
                           <th scope="row">{{ _('Created') }}</th>
                           <td>{{ h.render_datetime(res.created) or _('unknown') }}</td>
                         </tr>
-                      {%- endblock -%}
+                      {%- endblock resource_created -%}
                       {%- block resource_format -%}
                         <tr>
                           <th scope="row">{{ _('Format') }}</th>
@@ -201,14 +201,14 @@
                           <th scope="row">{{ _('File size') }}</th>
                           <td>{{ h.localised_filesize(res.size) if res.size else _('unknown size') }}</td>
                         </tr>
-                      {%- endblock -%}
+                      {%- endblock resource_format -%}
                       {%- block resource_license -%}
                         {% set license = h.ontario_theme_get_license(pkg.license_id) %}
                         <tr>
                           <th scope="row">{{ _('License') }}</th>
                           <td>{{ h.get_translated(license, 'title') }}</td>
                         </tr>
-                      {%- endblock -%}
+                      {%- endblock resource_license -%}
                       {%- block resource_fields -%}
                         {%- for field in schema.resource_fields -%}
                           {%- if field.field_name not in exclude_fields
@@ -221,7 +221,7 @@
                                 {%- if field.preset == "date" -%}
                                   {{- h.render_datetime(res[field.field_name]) -}}
                                 {%- else -%}
-                                  {%- snippet 'scheming/snippets/display_field.html',
+                                  {%- snippet "scheming/snippets/display_field.html",
                                       field=field, data=res, entity_type='dataset',
                                       object_type=dataset_type -%}
                                 {%- endif -%}
@@ -229,20 +229,20 @@
                             </tr>
                           {%- endif -%}
                         {%- endfor -%}
-                      {%- endblock -%}
+                      {%- endblock resource_fields -%}
                     </tbody>
                   </table>
                 </div>
-              {% endblock %}
+              {% endblock resource_additional_information_inner %}
             </section>
           {% endif %}
-        {% endblock %}
-      {% endblock %}
+        {% endblock resource_additional_information %}
+      {% endblock primary_content %}
     </div>
     <div class="module-content row">
       <div class="col-xs-12">
-          {% snippet 'home/snippets/ontario_theme_contact_us.html' %}
+          {% snippet "home/snippets/ontario_theme_contact_us.html" %}
       </div>
     </div>
   {% endif %}
-{% endblock %}
+{% endblock primary %}

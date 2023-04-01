@@ -14,8 +14,7 @@ not used as a form_snippet directly #}
     ) %}
     <div {{
       form.attributes(field.form_attrs) if 'form_attrs' in field else '' }}>
-    <select id="field-organizations" name="owner_org" {{ form.attributes(
-        field.get('form_select_attrs', {'data-module':'autocomplete'})) }}>
+    <select id="field-organizations" name="owner_org" {{ form.attributes(field.get('form_select_attrs', {'data-module':'autocomplete'})) }}>
       {% if not org_required or field.get('form_include_blank_choice', false) %}
         <option value="">{% if not org_required
           %}{{ _('No organization') }}{% endif %}</option>
@@ -30,5 +29,5 @@ not used as a form_snippet directly #}
 {% endmacro %}
 
 {% call _organization() %}
-  {%- snippet 'scheming/form_snippets/help_text.html', field=field %}
+  {%- snippet "scheming/form_snippets/help_text.html", field=field %}
 {% endcall %}
