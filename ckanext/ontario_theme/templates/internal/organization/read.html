@@ -29,7 +29,7 @@ Override CKAN's read.html to add some new facets.
   {% set searchbar_text = gettext('Search %(ministry)s datasets', ministry=ministry) %}
   {% set searchbar_title = searchbar_text + _(':') %}
   {% set form_id = 'organization-datasets-search-form' %}
-  <form id="{{ form_id }}" class="search-form" method="get" data-module="select-switch" novalidate>
+  <form id="{{ form_id }}" class="search-form col-xs-12" method="get" data-module="select-switch" novalidate>
     {% snippet 'snippets/search_form.html',
                 searchbar_title=searchbar_title,
                 hidden_searchbar_title=searchbar_text,
@@ -46,13 +46,15 @@ Override CKAN's read.html to add some new facets.
   </form>
 {% endblock %}
 {% block packages_list %}
+  <div class="ministry-packages col-sm-9 col-xs-12">
     {% if page.items %}
       {% set this_org_name = c.search_facets['organization']['items'][0]['name'] %}
       {{ h.snippet('snippets/package_list.html', packages=page.items, this_org_name=this_org_name) }}
     {% endif %}
+  </div>
   {% endblock %}
-
 {% block organization_facets %}
+<div class="ministry-package-div secondary col-sm-3">
   <div class="filters">
     <div>
       {{ h.snippet('snippets/ontario_theme_keywords_facet.html',
@@ -88,5 +90,6 @@ Override CKAN's read.html to add some new facets.
       {% endfor %}
     </div>
     <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
+  </div>
   </div>
 {% endblock %}
