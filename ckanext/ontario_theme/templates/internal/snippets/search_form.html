@@ -70,7 +70,7 @@
             {% set search_facets_items = facets.search.get(field)['items'] %}
             <span class="facet">
               {% if (not query and not loop.index0==0) or query %}
-                <span class="sr-only"> and </span>
+                <span class="sr-only">and</span>
               {% endif %}
               {% if field == "organization" %}
                 {{ _('Ministry') + _(':') }}

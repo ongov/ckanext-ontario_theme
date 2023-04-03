@@ -21,7 +21,6 @@
           </ol>
         {% endif %}
       {% endblock breadcrumb %}
-
     </div>
   {% endblock toolbar %}
 
@@ -30,7 +29,7 @@
   {% endblock ontario_theme_search_form %}
 
   <div class="row wrapper{% block wrapper_class %}{% endblock wrapper_class %}
-    {% if self.secondary()|trim == '' or c.action=='resource_read' %} no-nav{% endif %}">
+     {% if self.secondary()|trim == '' or c.action=='resource_read' %} no-nav{% endif %}">
     {#
     The pre_primary block can be used to add content to before the
     rendering of the main content columns of the page.
@@ -45,6 +44,5 @@
     {% block primary %}
       {{ super() }}
     {% endblock primary %}
-
   </div>
 {% endblock main_content %}

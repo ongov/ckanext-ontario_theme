@@ -85,7 +85,8 @@
         {# Inserting additional header logo for parent site. #}
         <div class="ontario-columns ontario-small-6 ontario-application-header__logo">
           <a href="{{ _('https://www.ontario.ca/page/government-ontario') }}">
-            <img src="/ontario-logo--desktop.svg" alt="{{ _('Government of Ontario') }}" />
+            <img src="/ontario-logo--desktop.svg"
+                 alt="{{ _('Government of Ontario') }}"/>
           </a>
         </div>
         <div class="ontario-columns ontario-small-6 ontario-application-header__lang-toggle">
@@ -135,30 +136,24 @@
                         novalidate>
                     <label class="ontario-label ontario-show-for-sr"
                            for="ontario-search-input-field">{{ sr_input_text }}</label>
-                    <input class="ontario-search-input ontario-input header-search" type="text" id="ontario-search-input-field" name="q" placeholder="{%- block search_placeholder -%}{{ placeholder | truncate(26) }}{%- endblock search_placeholder -%}" value="" autocomplete="off" required/>
-                      <input class="ontario-search-reset"
-                             id="ontario-search-reset"
-                             type="reset"
-                             value=""
-                             aria-label="Clear field"/>
-                      <button class="ontario-search-submit header-search"
-                              id="ontario-search-submit"
-                              type="submit">
-                        <span class="ontario-show-for-sr">{{ sr_submit_text }}</span>
-                        <svg class="ontario-icon search header-search"
-                             focusable="false"
-                             sol:category="primary"
-                             viewBox="0 0 24 24"
-                             preserveAspectRatio="xMidYMid meet">
-                          <use xlink:href="#ontario-icon-search"></use>
-                        </svg>
-                      </button>
-                    </form>
-                    <button class="ontario-header__search-toggler ontario-header-button ontario-header-button--without-outline ontario-hide-for-large"
-                            id="ontario-header-search-toggler"
-                            aria-controls="ontario-search-form-container"
-                            type="button">
-                      <svg class="ontario-icon"
+                    <input class="ontario-search-input ontario-input header-search"
+                           type="text"
+                           id="ontario-search-input-field"
+                           name="q"
+                           placeholder="{%- block search_placeholder -%}{{ placeholder | truncate(26) }}{%- endblock search_placeholder -%}"
+                           value=""
+                           autocomplete="off"
+                           required/>
+                    <input class="ontario-search-reset"
+                           id="ontario-search-reset"
+                           type="reset"
+                           value=""
+                           aria-label="Clear field"/>
+                    <button class="ontario-search-submit header-search"
+                            id="ontario-search-submit"
+                            type="submit">
+                      <span class="ontario-show-for-sr">{{ sr_submit_text }}</span>
+                      <svg class="ontario-icon search header-search"
                            focusable="false"
                            sol:category="primary"
                            viewBox="0 0 24 24"
@@ -166,71 +161,84 @@
                         <use xlink:href="#ontario-icon-search"></use>
                       </svg>
                     </button>
-                    <div class="ontario-header__search-close-container ontario-columns ontario-small-2 ontario-medium-3">
-                      <button class="ontario-header__search-close ontario-header-button ontario-header-button--without-outline"
-                              id="ontario-header-search-close"
-                              aria-label="close search bar"
-                              type="button">
-                        <span aria-hidden="true">close</span>
-                        <svg class="ontario-icon"
-                             focusable="false"
-                             sol:category="primary"
-                             viewBox="0 0 24 24"
-                             preserveAspectRatio="xMidYMid meet">
-                          <use xlink:href="#ontario-icon-close"></use>
-                        </svg>
-                      </button>
-                    </div>
-                  {% endblock header_site_search %}
-
-                  <ul id="medium-navigation"
-                      class="ontario-application-subheader__menu ontario-hide-for-small ontario-show-for-medium ontario-hide-for-large">
-                    {{ h.build_nav_main(
-                    ('dataset.search', _('Datasets')),
-                    ('organization.index', _('Ministries')) ) }}
-                  </ul>
-                  <button class="ontario-hide-for-large ontario-header__menu-toggler ontario-header-button ontario-header-button--with-outline {{ 'fr' if current_lang == 'fr' }}"
-                          id="ontario-header-menu-toggler"
-                          aria-controls="ontario-navigation"
-                          aria-label="open menu"
+                  </form>
+                  <button class="ontario-header__search-toggler ontario-header-button ontario-header-button--without-outline ontario-hide-for-large"
+                          id="ontario-header-search-toggler"
+                          aria-controls="ontario-search-form-container"
                           type="button">
                     <svg class="ontario-icon"
                          focusable="false"
+                         sol:category="primary"
                          viewBox="0 0 24 24"
                          preserveAspectRatio="xMidYMid meet">
-                      <use xlink:href="#ontario-icon-menu"></use>
+                      <use xlink:href="#ontario-icon-search"></use>
                     </svg>
-                    <span class="menu-text">{{ _("Menu") }}</span>
                   </button>
-                {% endblock header_site_navigation %}
-              </div>
+                  <div class="ontario-header__search-close-container ontario-columns ontario-small-2 ontario-medium-3">
+                    <button class="ontario-header__search-close ontario-header-button ontario-header-button--without-outline"
+                            id="ontario-header-search-close"
+                            aria-label="close search bar"
+                            type="button">
+                      <span aria-hidden="true">close</span>
+                      <svg class="ontario-icon"
+                           focusable="false"
+                           sol:category="primary"
+                           viewBox="0 0 24 24"
+                           preserveAspectRatio="xMidYMid meet">
+                        <use xlink:href="#ontario-icon-close"></use>
+                      </svg>
+                    </button>
+                  </div>
+                {% endblock header_site_search %}
+
+                <ul id="medium-navigation"
+                    class="ontario-application-subheader__menu ontario-hide-for-small ontario-show-for-medium ontario-hide-for-large">
+                  {{ h.build_nav_main(
+                  ('dataset.search', _('Datasets')),
+                  ('organization.index', _('Ministries')) ) }}
+                </ul>
+                <button class="ontario-hide-for-large ontario-header__menu-toggler ontario-header-button ontario-header-button--with-outline {{ 'fr' if current_lang == 'fr' }}"
+                        id="ontario-header-menu-toggler"
+                        aria-controls="ontario-navigation"
+                        aria-label="open menu"
+                        type="button">
+                  <svg class="ontario-icon"
+                       focusable="false"
+                       viewBox="0 0 24 24"
+                       preserveAspectRatio="xMidYMid meet">
+                    <use xlink:href="#ontario-icon-menu"></use>
+                  </svg>
+                  <span class="menu-text">{{ _("Menu") }}</span>
+                </button>
+              {% endblock header_site_navigation %}
             </div>
           </div>
-        </section>
-        <nav class="ontario-navigation" id="ontario-navigation">
-          <button class="ontario-hide-for-large ontario-header__menu-toggler ontario-header-button ontario-header-button--with-outline {{ 'fr' if current_lang =='fr' }}"
-                  id="ontario-header-nav-toggler"
-                  aria-controls="ontario-navigation"
-                  aria-label="close">
-            <svg class="ontario-icon"
-                 focusable="false"
-                 viewBox="0 0 24 24"
-                 preserveAspectRatio="xMidYMid meet">
-              <use xlink:href="#ontario-icon-close"></use>
-            </svg>
-            <span class="menu-text">{{ _("Menu") }}</span>
-          </button>
-          <div class="ontario-navigation__container ontario-hide-for-large">
-            <ul>
-              {{ h.build_nav_main(
-              ('dataset.search', _('Datasets')),
-              ('organization.index', _('Ministries')),
-              ('home.about', _('About')),
-              ('ontario_theme.help', _('Help')) ) }}
-            </ul>
-          </div>
-        </nav>
-      </div>
+        </div>
+      </section>
+      <nav class="ontario-navigation" id="ontario-navigation">
+        <button class="ontario-hide-for-large ontario-header__menu-toggler ontario-header-button ontario-header-button--with-outline {{ 'fr' if current_lang =='fr' }}"
+                id="ontario-header-nav-toggler"
+                aria-controls="ontario-navigation"
+                aria-label="close">
+          <svg class="ontario-icon"
+               focusable="false"
+               viewBox="0 0 24 24"
+               preserveAspectRatio="xMidYMid meet">
+            <use xlink:href="#ontario-icon-close"></use>
+          </svg>
+          <span class="menu-text">{{ _("Menu") }}</span>
+        </button>
+        <div class="ontario-navigation__container ontario-hide-for-large">
+          <ul>
+            {{ h.build_nav_main(
+            ('dataset.search', _('Datasets')),
+            ('organization.index', _('Ministries')),
+            ('home.about', _('About')),
+            ('ontario_theme.help', _('Help')) ) }}
+          </ul>
+        </div>
+      </nav>
     </div>
-    <div class="ontario-overlay"></div>
-  {% endblock header_wrapper %}
+  </div>
+  <div class="ontario-overlay"></div>
+{% endblock header_wrapper %}

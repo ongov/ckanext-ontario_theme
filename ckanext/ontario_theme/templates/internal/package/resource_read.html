@@ -10,11 +10,17 @@
   {% endif %}
   {% if res.url and h.is_url(res.url) %}
     {# Download link URL on resource page #}
-    <p class="text-muted ellipsis">{{ _('URL:') }} <a class="resource-url-analytics dataset-download-link" href="{{ res.url }}" title="{{ res.url }}" onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">{{ res.url }}</a></p>
+    <p class="text-muted ellipsis">
+      {{ _('URL:') }}
+      <a class="resource-url-analytics dataset-download-link"
+         href="{{ res.url }}"
+         title="{{ res.url }}"
+         onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">{{ res.url }}</a>
+    </p>
   {% elif res.url %}
     <p class="text-muted break-word">{{ _('URL:') }} {{ res.url }}</p>
   {% endif %}
-  {% snippet 'package/snippets/ontario_theme_language_disclaimer.html', pkg=pkg, res=res %}
+  {% snippet "package/snippets/ontario_theme_language_disclaimer.html", pkg=pkg, res=res %}
 {% endblock resource_read_url %}
 
 {% block data_preview %}
