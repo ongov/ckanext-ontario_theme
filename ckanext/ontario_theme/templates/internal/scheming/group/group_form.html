@@ -19,10 +19,10 @@
   <div class="form-actions">
     {% block delete_button %}
       {% if action == 'edit' %}
-        {% if h.check_access('group_delete', {'id': data.id}) and action=='edit'  %}
+        {% if h.check_access('group_delete', {'id': data.id}) and action=='edit' %}
           {% set locale = h.dump_json({'content': _('Are you sure you want to delete this Collection?')}) %}
           <a class="btn btn-danger pull-left"
-             href="{% url_for 'group.delete', id=data.id %}"
+             href="{%- url_for 'group.delete', id=data.id -%}"
              data-module="confirm-action"
              data-module-i18n="{{ locale }}">
             {% block delete_button_text %}

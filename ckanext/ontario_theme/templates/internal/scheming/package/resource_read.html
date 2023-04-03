@@ -36,7 +36,12 @@
             <div class="datafile-p" property="rdfs:label">
               {% block resource_read_url %}
                 {% if res.url and h.is_url(res.url) %}
-                  <p>{{ _('URL:') }} <a class="resource-url-analytics" href="{{ res.url }}" title="{{ res.url }}">{{ res.url }}</a></p>
+                  <p>
+                    {{ _('URL:') }}
+                    <a class="resource-url-analytics"
+                       href="{{ res.url }}"
+                       title="{{ res.url }}"> {{ res.url }}</a>
+                  </p>
                 {% elif res.url %}
                   <p>{{ _('URL:') }} {{ res.url }}</p>
                 {% endif %}
@@ -51,223 +56,225 @@
                   <blockquote>
                     {{ h.markdown_extract(h.get_translated(c.package, 'notes')) }}
                   </blockquote>
-                  <p>{% trans dataset=h.get_translated(c.package, "title"), url=h.url_for('dataset.read', id=c.package['name']) %}Source: <a href="{{ url }}">{{ dataset }}</a>{% endtrans %}
+                  <p>
+                    {% trans dataset=h.get_translated(c.package, "title"), url=h.url_for('dataset.read', id=c.package['name']) %}Source: <a href="{{ url }}">{{ dataset }}</a>{% endtrans %}
+                  </p>
                 {% endif %}
               {% endif %}
-              </div>
             </div>
-            {% block resource_actions %}
-              {% block resource_actions_inner %}
-                {% asset "ontario_theme/ontario_theme_download_tracker_js" %}
-                <div class="col-md-5 col-lg-4 col-xs-12">
-                  {% if res.url and h.is_url(res.url) %}
-                    {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
-                    {% if pkg.groups %}
-                      {% set this_group = pkg.groups[0]['name'] %}
-                    {% else %}
-                      {% set this_group = '' %}
-                    {% endif %}
-                    <div class="action-group">
-                      <h2 class="ontario-h4">
-                        {% if res.datastore_active %}
-                          {{ _('Download data') }}
-                        {% else %}
-                          {{ _('Access data') }}
-                        {% endif %}
-                      </h2>
-                      {% if not res.datastore_active %}
-                        <a class="dataset-download-link resource-url-analytics resource-type-{{ res.resource_type }}"
-                           href="{{ res.url }}"
-                           onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">
-                          {{ h.resource_display_name(res) }}
-                        </a>
-                      {% endif %}
-                      {% block download_resource_button %}
-                        {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
-                        {% if res.datastore_active %}
-                          <ul>
-                            <li>
-                              <a class="dataset-download-link"
-                                 href="{{ h.url_for('datastore.dump', resource_id=res.id, bom=True) }}"
-                                 onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"> <span>CSV</span></a>
-                            </li>
-                            <li>
-                              <a class="dataset-download-link"
-                                 href="{{ h.url_for('datastore.dump', resource_id=res.id, format='tsv', bom=True) }}"
-                                 onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"><span>TSV</span></a>
-                            </li>
-                            <li>
-                              <a class="dataset-download-link"
-                                 href="{{ h.url_for('datastore.dump', resource_id=res.id, format='json') }}"
-                                 onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"><span>JSON</span></a>
-                            </li>
-                            <li>
-                              <a class="dataset-download-link"
-                                 href="{{ h.url_for('datastore.dump', resource_id=res.id, format='xml') }}"
-                                 onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"><span>XML</span></a>
-                            </li>
-                          </ul>
-                        {% endif %}
-                      {% endblock download_resource_button %}
-                    </div>
+          </div>
+          {% block resource_actions %}
+            {% block resource_actions_inner %}
+              {% asset "ontario_theme/ontario_theme_download_tracker_js" %}
+              <div class="col-md-5 col-lg-4 col-xs-12">
+                {% if res.url and h.is_url(res.url) %}
+                  {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
+                  {% if pkg.groups %}
+                    {% set this_group = pkg.groups[0]['name'] %}
+                  {% else %}
+                    {% set this_group = '' %}
                   {% endif %}
-                  {% if res.datastore_active %}
-                    {% block data_api_button %}
-                      <div class="action-group">
-                        <h2 class="ontario-h4">{{ _('Use the data API') }}</h2>
-                        {% set loading_text = _('Loading...') %}
-                        {% set api_info_url = h.url_for(controller='api', action='snippet', ver=1, snippet_path='api_info.html', resource_id=res.id) %}
+                  <div class="action-group">
+                    <h2 class="ontario-h4">
+                      {% if res.datastore_active %}
+                        {{ _('Download data') }}
+                      {% else %}
+                        {{ _('Access data') }}
+                      {% endif %}
+                    </h2>
+                    {% if not res.datastore_active %}
+                      <a class="dataset-download-link resource-url-analytics resource-type-{{ res.resource_type }}"
+                         href="{{ res.url }}"
+                         onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">
+                        {{ h.resource_display_name(res) }}
+                      </a>
+                    {% endif %}
+                    {% block download_resource_button %}
+                      {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
+                      {% if res.datastore_active %}
                         <ul>
                           <li>
-                            <a href="{{ api_info_url }}"
-                               data-module="api-info"
-                               data-module-template="{{ api_info_url }}"
-                               data-loading-text="{{ loading_text }}">{{ _('CKAN Data API calls') }}</a>
+                            <a class="dataset-download-link"
+                               href="{{ h.url_for('datastore.dump', resource_id=res.id, bom=True) }}"
+                               onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"> <span>CSV</span></a>
+                          </li>
+                          <li>
+                            <a class="dataset-download-link"
+                               href="{{ h.url_for('datastore.dump', resource_id=res.id, format='tsv', bom=True) }}"
+                               onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"><span>TSV</span></a>
+                          </li>
+                          <li>
+                            <a class="dataset-download-link"
+                               href="{{ h.url_for('datastore.dump', resource_id=res.id, format='json') }}"
+                               onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"><span>JSON</span></a>
+                          </li>
+                          <li>
+                            <a class="dataset-download-link"
+                               href="{{ h.url_for('datastore.dump', resource_id=res.id, format='xml') }}"
+                               onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;"><span>XML</span></a>
                           </li>
                         </ul>
-                      </div>
-                    {% endblock data_api_button %}
-
-                    <div class="action-group ontario-show-for-large">
-                      <h2 class="ontario-h4">{{ _('Visualize data') }}</h2>
-                      <p>{{ _('Use the Data Visualizer below to display this dataset as a table, graph or map.') }}</p>
-                      <img src="/images/visualize_data.PNG" alt="" width="284" height="133"/>
-                    </div>
-                  {% endif %}
-                {% endblock resource_actions_inner %}
-              </div>
-            {% endblock resource_actions %}
-          </div>
-        {% endblock resource_content %}
-
-        <div class="col-xs-12">
-          {% block data_preview %}
-            {% if res.format == "CSV" %}
-              {% block resource_view_nav %}
-                {% set resource_preview = h.resource_preview(resource, package) %}
-                {% snippet "package/snippets/resource_views_list.html",
-                views=resource_views,
-                pkg=pkg,
-                is_edit=false,
-                view_id=current_resource_view['id'],
-                resource_preview=resource_preview,
-                resource=resource
-                %}
-              {% endblock resource_view_nav %}
-
-              {% block resource_view_content %}
-                {{ super() }}
-              {% endblock resource_view_content %}
-
-            {% endif %}
-          {% endblock data_preview %}
-        </div>
-      </section>
-      {# if dataset is not open and user is not admin, show msg #}
-    {% else %}
-      <h1 class="col-xs-12">{{ _('Data Not Available') }}</h1>
-    {% endif %}
-  {% endblock pre_primary %}
-
-  {% block primary %}
-    {# only display resource page content if open dataset or admin user #}
-    {% set is_admin = h.check_access('package_update', {'id':pkg.id }) %}
-    {% set is_open = (pkg.access_level == 'open') %}
-    {% if is_open or is_admin %}
-      <div class="module-content row">
-        <div class="col-xs-12">{% snippet "package/snippets/report_an_error.html" %}</div>
-      </div>
-      <div class="module-content" role="main">
-        {% block primary_content %}
-          {% block resource_additional_information %}
-            {% if res %}
-              <section class="module">
-                {% block resource_additional_information_inner %}
-                  <div class="col-sm-9 col-xs-12">
-                    <h2>{{ _('Additional Information') }}</h2>
-                    <table class="ontario-margin-top-40 additional-info-table datafile-p table table-striped table-bordered table-condensed"
-                           data-module="table-toggle-more">
-                      <thead>
-                        <tr>
-                          <th scope="col">{{ _('Field') }}</th>
-                          <th scope="col">{{ _('Value') }}</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {%- block resource_last_updated -%}
-                          <tr>
-                            <th scope="row">{{ _('Last updated') }}</th>
-                            <td>
-                              {{ h.render_datetime(res.data_last_updated) or h.render_datetime(res.last_modified) or h.render_datetime(res.revision_timestamp) or h.render_datetime(res.created) or _('unknown') }}
-                            </td>
-                          </tr>
-                        {%- endblock resource_last_updated -%}
-                        {%- block resource_created -%}
-                          <tr>
-                            <th scope="row">{{ _('Created') }}</th>
-                            <td>{{ h.render_datetime(res.created) or _('unknown') }}</td>
-                          </tr>
-                        {%- endblock resource_created -%}
-                        {%- block resource_format -%}
-                          <tr>
-                            <th scope="row">{{ _('Format') }}</th>
-                            <td>{{ res.mimetype_inner or res.mimetype or res.format or _('unknown') }}</td>
-                          </tr>
-                          {# Add resource size if known. This extends scheming's template. #}
-                          <tr>
-                            <th scope="row">
-                              {{ _('File size') }}
-                            </th>
-                            <td>
-                              {{ h.localised_filesize(res.size) if res.size else _('unknown size') }}
-                            </td>
-                          </tr>
-                        {%- endblock resource_format -%}
-                        {%- block resource_license -%}
-                          {% set license = h.ontario_theme_get_license(pkg.license_id) %}
-                          <tr>
-                            <th scope="row">
-                              {{ _('License') }}
-                            </th>
-                            <td>
-                              {{ h.get_translated(license, 'title') }}
-                            </td>
-                          </tr>
-                        {%- endblock resource_license -%}
-                        {%- block resource_fields -%}
-                          {%- for field in schema.resource_fields -%}
-                            {%- if field.field_name not in exclude_fields
-                              and res[field.field_name] and (res[field.field_name] != {'fr': '', 'en': ''}) -%}
-                              <tr>
-                                <th scope="row">
-                                  {{- h.scheming_language_text(field.label) -}}
-                                </th>
-                                <td>
-                                  {%- if field.preset == "date" -%}
-                                    {{- h.render_datetime(res[field.field_name]) -}}
-                                  {%- else -%}
-                                    {%- snippet "scheming/snippets/display_field.html",
-                                    field=field, data=res, entity_type='dataset',
-                                    object_type=dataset_type -%}
-                                  {%- endif -%}
-                                </td>
-                              </tr>
-                            {%- endif -%}
-                          {%- endfor -%}
-                        {%- endblock resource_fields -%}
-                      </tbody>
-                    </table>
+                      {% endif %}
+                    {% endblock download_resource_button %}
                   </div>
-                {% endblock resource_additional_information_inner %}
-              </section>
-            {% endif %}
-          {% endblock resource_additional_information %}
-        {% endblock primary_content %}
-      </div>
-      <div class="module-content row">
-        <div class="col-xs-12">
-          {% snippet "home/snippets/ontario_theme_contact_us.html" %}
+                {% endif %}
+                {% if res.datastore_active %}
+                  {% block data_api_button %}
+                    <div class="action-group">
+                      <h2 class="ontario-h4">{{ _('Use the data API') }}</h2>
+                      {% set loading_text = _('Loading...') %}
+                      {% set api_info_url = h.url_for(controller='api', action='snippet', ver=1, snippet_path='api_info.html', resource_id=res.id) %}
+                      <ul>
+                        <li>
+                          <a href="{{ api_info_url }}"
+                             data-module="api-info"
+                             data-module-template="{{ api_info_url }}"
+                             data-loading-text="{{ loading_text }}">{{ _('CKAN Data API calls') }}</a>
+                        </li>
+                      </ul>
+                    </div>
+                  {% endblock data_api_button %}
+
+                  <div class="action-group ontario-show-for-large">
+                    <h2 class="ontario-h4">{{ _('Visualize data') }}</h2>
+                    <p>{{ _('Use the Data Visualizer below to display this dataset as a table, graph or map.') }}</p>
+                    <img src="/images/visualize_data.PNG" alt="" width="284" height="133"/>
+                  </div>
+                {% endif %}
+              {% endblock resource_actions_inner %}
+            </div>
+          {% endblock resource_actions %}
         </div>
+      {% endblock resource_content %}
+
+      <div class="col-xs-12">
+        {% block data_preview %}
+          {% if res.format == "CSV" %}
+            {% block resource_view_nav %}
+              {% set resource_preview = h.resource_preview(resource, package) %}
+              {% snippet "package/snippets/resource_views_list.html",
+              views=resource_views,
+              pkg=pkg,
+              is_edit=false,
+              view_id=current_resource_view['id'],
+              resource_preview=resource_preview,
+              resource=resource
+              %}
+            {% endblock resource_view_nav %}
+
+            {% block resource_view_content %}
+              {{ super() }}
+            {% endblock resource_view_content %}
+
+          {% endif %}
+        {% endblock data_preview %}
       </div>
-    {% endif %}
-  {% endblock primary %}
+    </section>
+    {# if dataset is not open and user is not admin, show msg #}
+  {% else %}
+    <h1 class="col-xs-12">{{ _('Data Not Available') }}</h1>
+  {% endif %}
+{% endblock pre_primary %}
+
+{% block primary %}
+  {# only display resource page content if open dataset or admin user #}
+  {% set is_admin = h.check_access('package_update', {'id':pkg.id }) %}
+  {% set is_open = (pkg.access_level == 'open') %}
+  {% if is_open or is_admin %}
+    <div class="module-content row">
+      <div class="col-xs-12">{% snippet "package/snippets/report_an_error.html" %}</div>
+    </div>
+    <div class="module-content" role="main">
+      {% block primary_content %}
+        {% block resource_additional_information %}
+          {% if res %}
+            <section class="module">
+              {% block resource_additional_information_inner %}
+                <div class="col-sm-9 col-xs-12">
+                  <h2>{{ _('Additional Information') }}</h2>
+                  <table class="ontario-margin-top-40 additional-info-table datafile-p table table-striped table-bordered table-condensed"
+                         data-module="table-toggle-more">
+                    <thead>
+                      <tr>
+                        <th scope="col">{{ _('Field') }}</th>
+                        <th scope="col">{{ _('Value') }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {%- block resource_last_updated -%}
+                        <tr>
+                          <th scope="row">{{ _('Last updated') }}</th>
+                          <td>
+                            {{ h.render_datetime(res.data_last_updated) or h.render_datetime(res.last_modified) or h.render_datetime(res.revision_timestamp) or h.render_datetime(res.created) or _('unknown') }}
+                          </td>
+                        </tr>
+                      {%- endblock resource_last_updated -%}
+                      {%- block resource_created -%}
+                        <tr>
+                          <th scope="row">{{ _('Created') }}</th>
+                          <td>{{ h.render_datetime(res.created) or _('unknown') }}</td>
+                        </tr>
+                      {%- endblock resource_created -%}
+                      {%- block resource_format -%}
+                        <tr>
+                          <th scope="row">{{ _('Format') }}</th>
+                          <td>{{ res.mimetype_inner or res.mimetype or res.format or _('unknown') }}</td>
+                        </tr>
+                        {# Add resource size if known. This extends scheming's template. #}
+                        <tr>
+                          <th scope="row">
+                            {{ _('File size') }}
+                          </th>
+                          <td>
+                            {{ h.localised_filesize(res.size) if res.size else _('unknown size') }}
+                          </td>
+                        </tr>
+                      {%- endblock resource_format -%}
+                      {%- block resource_license -%}
+                        {% set license = h.ontario_theme_get_license(pkg.license_id) %}
+                        <tr>
+                          <th scope="row">
+                            {{ _('License') }}
+                          </th>
+                          <td>
+                            {{ h.get_translated(license, 'title') }}
+                          </td>
+                        </tr>
+                      {%- endblock resource_license -%}
+                      {%- block resource_fields -%}
+                        {%- for field in schema.resource_fields -%}
+                          {%- if field.field_name not in exclude_fields
+                            and res[field.field_name] and (res[field.field_name] != {'fr': '', 'en': ''}) -%}
+                            <tr>
+                              <th scope="row">
+                                {{- h.scheming_language_text(field.label) -}}
+                              </th>
+                              <td>
+                                {%- if field.preset == "date" -%}
+                                  {{- h.render_datetime(res[field.field_name]) -}}
+                                {%- else -%}
+                                  {%- snippet "scheming/snippets/display_field.html",
+                                  field=field, data=res, entity_type='dataset',
+                                  object_type=dataset_type -%}
+                                {%- endif -%}
+                              </td>
+                            </tr>
+                          {%- endif -%}
+                        {%- endfor -%}
+                      {%- endblock resource_fields -%}
+                    </tbody>
+                  </table>
+                </div>
+              {% endblock resource_additional_information_inner %}
+            </section>
+          {% endif %}
+        {% endblock resource_additional_information %}
+      {% endblock primary_content %}
+    </div>
+    <div class="module-content row">
+      <div class="col-xs-12">
+        {% snippet "home/snippets/ontario_theme_contact_us.html" %}
+      </div>
+    </div>
+  {% endif %}
+{% endblock primary %}

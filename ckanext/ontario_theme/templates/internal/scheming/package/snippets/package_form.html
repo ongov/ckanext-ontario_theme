@@ -31,13 +31,13 @@ control-rows to align french and english fields side by side.
           <legend>
             {{ field.fieldset_name }}
           </legend>
-      {%- endif -%}
-      <div class="controls row">
-        {%- snippet 'scheming/snippets/form_field.html',
-        field=field, data=data, errors=errors, licenses=c.licenses,
-        entity_type='dataset', object_type=dataset_type -%}
-      </div>
-      {%- if (field.fieldset and field.fieldset != 1) or loop.index == loop.length -%}
+        {%- endif -%}
+        <div class="controls row">
+          {%- snippet "scheming/snippets/form_field.html",
+          field=field, data=data, errors=errors, licenses=c.licenses,
+          entity_type='dataset', object_type=dataset_type -%}
+        </div>
+        {%- if (field.fieldset and field.fieldset != 1) or loop.index == loop.length -%}
         </fieldset>
       {%- endif -%}
     {%- endif -%}

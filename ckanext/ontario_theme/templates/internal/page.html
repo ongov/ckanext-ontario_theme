@@ -1,47 +1,50 @@
 {% ckan_extends %}
 
 {% block skip %}
-  {% snippet "gtm_ns.html" %}  
-  <a href="#content" class="skip-main sr-only sr-only-focusable">{{ _('Skip to content') }}</a> 
-{% endblock %}
+  {% snippet "gtm_ns.html" %}
+  <a href="#content" class="skip-main sr-only sr-only-focusable">{{ _('Skip to content') }}</a>
+{% endblock skip %}
 
 {% block main_content %}
   {% block flash %}
     {{ super() }}
-  {% endblock %}
+  {% endblock flash %}
 
   {% block toolbar %}
     <div class="toolbar" role="navigation" aria-label="{{ _('Breadcrumb') }}">
       {% block breadcrumb %}
         {% if self.breadcrumb_content() | trim %}
           <ol class="breadcrumb">
-            {% snippet 'snippets/home_breadcrumb_item.html' %}
+            {% snippet "snippets/home_breadcrumb_item.html" %}
             {% block breadcrumb_content %}
-            {% endblock %}
+            {% endblock breadcrumb_content %}
           </ol>
         {% endif %}
-      {% endblock %}
+      {% endblock breadcrumb %}
+
     </div>
-  {% endblock %}
+  {% endblock toolbar %}
 
   {% block ontario_theme_search_form %}
     {# Custom block for search form. #}
-  {% endblock %}
-  
-  <div class="row wrapper{% block wrapper_class %}{% endblock %}{% if self.secondary()|trim == '' or c.action=='resource_read' %} no-nav{% endif %}">
+  {% endblock ontario_theme_search_form %}
+
+  <div class="row wrapper{% block wrapper_class %}{% endblock wrapper_class %}
+    {% if self.secondary()|trim == '' or c.action=='resource_read' %} no-nav{% endif %}">
     {#
     The pre_primary block can be used to add content to before the
     rendering of the main content columns of the page.
     #}
     {% block pre_primary %}
-    {% endblock %}
+    {% endblock pre_primary %}
 
     {% block secondary %}
       {{ super() }}
-    {% endblock %}
+    {% endblock secondary %}
 
     {% block primary %}
       {{ super() }}
-    {% endblock %}
+    {% endblock primary %}
+
   </div>
-{% endblock %}
+{% endblock main_content %}
