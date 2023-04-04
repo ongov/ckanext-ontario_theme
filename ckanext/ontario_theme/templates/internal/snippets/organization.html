@@ -1,45 +1,50 @@
 {% ckan_extends %}
+
 {% block info %}
   <div class="">
     <section>
       {% block inner %}
-	  {% block image %}
-  		{# Leave block blank to override image div #}
-		{% endblock %}
-      {% block heading %}
-	  <h1>{{ _('Ministry:') }} {{ h.get_translated(organization, "title") or organization.name }}
-		{% if organization.state == 'deleted' %}
-		  [{{ _('Deleted') }}]
-		{% endif %}
-	  </h1>
-	  {% endblock %}
-	  {% if show_nums %}
-        {% block nums %}
-	  <div class="ministry nums">
-			{% set ministry_dataset_count = ungettext('{number} dataset', '{number} datasets', organization.package_count) %}
-			{%- if organization.package_count -%}
-				<p>{{ ministry_dataset_count.format(number=h.localised_number(organization.package_count)) }}</p>
-			{%- else -%}
-				<p>0 {{ _('datasets') }}</p>
-			{%- endif -%}
-	  </div>
-	  {% endblock %}
+				{% block image %}
+					{# Leave block blank to override image div #}
+				{% endblock image %}
+
+      	{% block heading %}
+	  			<h1>{{ _('Ministry:') }} {{ h.get_translated(organization, "title") or organization.name }}
+						{% if organization.state == 'deleted' %}
+							[{{ _('Deleted') }}]
+						{% endif %}
+	  			</h1>
+	  		{% endblock heading %}
+
+				{%- if show_nums -%}
+					{% block nums %}
+						<div class="ministry nums">
+							{% set ministry_dataset_count = ungettext('{number} dataset', '{number} datasets', organization.package_count) %}
+							{%- if organization.package_count -%}
+								<p>{{ ministry_dataset_count.format(number=h.localised_number(organization.package_count)) }}</p>
+							{%- else -%}
+								<p>0 {{ _('datasets') }}</p>
+							{%- endif -%}
+						</div>
+					{% endblock nums %}
+				{%- endif -%}
+	  	{% endblock inner %}
+
       {% block description %}
-	  {% if h.get_translated(organization,"description") %}
-		<p class="ontario-lead-statement">
-		  {{ h.markdown_extract(h.get_translated(organization,"description"), 180) }}
-		  {% link_for _('read more'), named_route='organization.about', id=organization.name %}
-		</p>
-	  {% else %}
-		<p class="empty">{{ _('There is no description for this ministry.') }}</p>
-	  {% endif %}
-	  {% endblock %}
-	  {% block follow %}
-	  {% endblock %}
-      {% endif %}
-      {% endblock %}
-    </section>
-  </div>
-  {% endblock %}
+				{% if h.get_translated(organization,"description") %}
+					<p class="ontario-lead-statement">
+						{{ h.markdown_extract(h.get_translated(organization,"description"), 180) }}
+						{% link_for _('Read more'), named_route='organization.about', id=organization.name %}
+					</p>
+				{% else %}
+					<p class="empty">{{ _('There is no description for this ministry.') }}</p>
+				{% endif %}
+			{% endblock description %}
+
+			{% block follow %}
+			{% endblock follow %}
+		</section>
+	</div>
+{% endblock info %}
 
 

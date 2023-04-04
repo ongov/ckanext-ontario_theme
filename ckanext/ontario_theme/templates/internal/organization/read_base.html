@@ -1,17 +1,7 @@
 {% ckan_extends %}
+
 {% block primary %}
   <div class="primary ministry-page col-xs-12" role="main">
-    {#
-    The primary_content block can be used to add content to the page.
-    This is the main block that is likely to be used within a template.
-
-    Example:
-
-      {% block primary_content %}
-        <h1>My page content</h1>
-        <p>Some content for the page</p>
-      {% endblock %}
-    #}
     {% block primary_content %}
       <article class="module">
         {% block page_header %}
@@ -19,9 +9,9 @@
             <div class="content_action">
               {% block content_action %}
                 {% if h.check_access('organization_update', {'id': c.group_dict.id}) %}
-                  {% link_for _('Edit'), named_route='organization.edit', id=c.group_dict.name, class_='btn btn-default btn-secondary', icon='wrench'  %}
+                  {% link_for _('Edit'), named_route='organization.edit', id=c.group_dict.name, class_='btn btn-default btn-secondary', icon='wrench' %}
                 {% endif %}
-              {% endblock %}
+              {% endblock content_action %}
             </div>
             {% snippet 'snippets/organization.html', organization=group_dict, show_nums=true, group_type=group_type %}
             <ul class="nav nav-tabs">
@@ -30,32 +20,39 @@
                 {{ h.build_nav_icon(group_type + '.read', _('Datasets'), id=group_dict.name) }}
                 {{ h.build_nav_icon(group_type + '.activity', _('Activity Stream'), id=group_dict.name, offset=0) }}
                 {{ h.build_nav_icon(group_type + '.about', _('About'), id=group_dict.name) }}
-              {% endblock %}
+              {% endblock content_primary_nav %}
             </ul>
           </header>
-        {% endblock %}
+        {% endblock page_header %}
+
         <div>
           {% if self.page_primary_action() | trim %}
             <div class="page_primary_action">
-              {% block page_primary_action %}{% endblock %}
+              {% block page_primary_action %}
+              {% endblock page_primary_action%}
             </div>
           {% endif %}
+
           {% block primary_content_inner %}
-          {% endblock %}
+          {% endblock primary_content_inner %}
+
           {% block organization_facets %}
-          {% endblock %}
+          {% endblock organization_facets %}
         </div>
       </article>
-    {% endblock %}
+    {% endblock primary_content %}
   </div>
-{% endblock %}
+{% endblock primary %}
 
-{% block subtitle %}{{ h.get_translated(c.group_dict,"title") }} - {{ _('Ministries') }}{% endblock %}
+{% block subtitle %}
+  {{ h.get_translated(c.group_dict,"title") }} - {{ _('Ministries') }}
+{% endblock subtitle %}
 
 {% block breadcrumb_content %}
   <li>{% link_for _('Ministries'), named_route='organization.index', named_route=group_type + '_index' %}</li>
   <li id="ministry-name" ministry-name="{{c.group_dict.title}}" ministry-name-fr="{{ h.ontario_theme_get_translated_lang(c.group_dict, 'title', 'fr') }}" class="active">{% link_for h.get_translated(c.group_dict,"title")|truncate(35), named_route='organization.read', id=c.group_dict.name %}</li>
-{% endblock %}
+{% endblock breadcrumb_content %}
 
-{% block secondary_content %}{% endblock %}
+{% block secondary_content %}
+{% endblock secondary_content %}
 

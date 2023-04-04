@@ -1608,6 +1608,10 @@ msgid "Deleted"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/organization.html:15
+msgid "Read more"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/organization.html:15
 msgid "read more"
 msgstr ""
 

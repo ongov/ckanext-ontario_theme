@@ -5,6 +5,7 @@ Override CKAN's read.html to add some new facets.
 #}
 
 {% ckan_extends %}
+
 {% set ministry = h.get_translated(c.group_dict, "title") or c.group_dict.name %}
 {% block groups_search_form %}
   {% set facets = {
@@ -44,7 +45,8 @@ Override CKAN's read.html to add some new facets.
                 show_empty=request.params, 
                 fields=fields %}
   </form>
-{% endblock %}
+{% endblock groups_search_form %}
+
 {% block packages_list %}
   <div class="ministry-packages col-sm-9 col-xs-12">
     {% if page.items %}
@@ -52,44 +54,36 @@ Override CKAN's read.html to add some new facets.
       {{ h.snippet('snippets/package_list.html', packages=page.items, this_org_name=this_org_name) }}
     {% endif %}
   </div>
-  {% endblock %}
+{% endblock packages_list %}
+
 {% block organization_facets %}
-<div class="ministry-package-div secondary col-sm-3">
-  <div class="filters">
-    <div>
-      {{ h.snippet('snippets/ontario_theme_keywords_facet.html',
-                   extras={'id':c.group_dict.id}) }}
+  <div class="ministry-package-div secondary col-sm-3">
+    <div class="filters">
+      <div>
+        {{ h.snippet('snippets/ontario_theme_keywords_facet.html', extras={'id':c.group_dict.id}) }}
+      </div>
+      <div>
+        {{ h.snippet('snippets/ontario_theme_jurisdiction_facet.html', extras={'id':c.group_dict.id}) }}
+      </div>
+      <div>
+        {{ h.snippet('snippets/ontario_theme_category_facet.html', extras={'id':c.group_dict.id}) }}
+      </div>
+      <div>
+        {# Flag facets to be ignored from standard loop that calls facets. #}
+        {% set excluded_facets = [
+          'organization_jurisdiction',
+          'organization_category',
+          'keywords_en',
+          'keywords_fr'
+          ]
+        %}
+        {% for facet in c.facet_titles %}
+          {% if facet not in excluded_facets %}
+            {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet, extras={'id':c.group_dict.id}) }}
+          {% endif %}
+        {% endfor %}
+      </div>
+      <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
     </div>
-
-    <div>
-      {{ h.snippet('snippets/ontario_theme_jurisdiction_facet.html',
-                   extras={'id':c.group_dict.id}) }}
-    </div>
-
-    <div>
-      {{ h.snippet('snippets/ontario_theme_category_facet.html',
-                   extras={'id':c.group_dict.id}) }}
-    </div>
-
-    <div>
-      {# 
-        Flag facets to be ignored from standard loop that calls facets.
-      #}
-      {% set excluded_facets = [
-        'organization_jurisdiction',
-        'organization_category',
-        'keywords_en',
-        'keywords_fr'
-        ]
-      %}
-
-      {% for facet in c.facet_titles %}
-        {% if facet not in excluded_facets %}
-          {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet, extras={'id':c.group_dict.id}) }}
-        {% endif %}
-      {% endfor %}
-    </div>
-    <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
   </div>
-  </div>
-{% endblock %}
+{% endblock organization_facets %}
