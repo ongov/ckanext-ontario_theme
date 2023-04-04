@@ -35,8 +35,7 @@
             {% else %}
               <p class="date-range">{{ _("No date range") }}</p>
             {% endif %}
-            <ul class="{% block resource_list_class %}resource-list{% endblock resource_list_class %}
-               ">
+            <ul class="{% block resource_list_class -%}resource-list{%- endblock resource_list_class %}">
               {% for r in group.list|selectattr("format", "equalto", "CSV") %}
                 {% snippet "package/snippets/resource_item.html", pkg=pkg, res=r, can_edit=can_edit, schema=schema %}
               {% endfor %}
@@ -56,9 +55,10 @@
                 {% snippet "package/snippets/resource_item.html", pkg=pkg, res=r, can_edit=can_edit, schema=schema %}
               {% endfor %}
             </ul>
-            <hr/>
+            <hr />
           {% endfor %}
         {% endblock resource_list_inner %}
+
         <h2>{{ _("Supporting Files") }}</h2>
         {% if resources | rejectattr("type","equalto","data") | list | length > 0 %}
           <ul class="resource-list">
@@ -72,7 +72,11 @@
         {% endif %}
       {% else %}
         {% if h.check_access('resource_create', {'package_id': pkg['id']}) %}
-          {% trans url=h.url_for(pkg.type ~ '_resource.new', id=pkg.name) %}<p class="empty">This dataset has no data, <a href="{{ url }}">why not add some?</a></p>{% endtrans %}
+          {% trans url=h.url_for(pkg.type ~ '_resource.new', id=pkg.name) %}
+            <p class="empty">
+              This dataset has no data, <a href="{{ url }}">why not add some?</a>
+            </p>
+          {% endtrans %}
         {% else %}
           {% if not pkg['access_level'] %}<p class="empty">{{ _('This dataset has no data') }}</p>{% endif %}
         {% endif %}

@@ -1984,6 +1984,13 @@ msgid ""
 "steps."
 msgstr "Le gouvernement de l'Ontario prend des mesures afin de concevoir des logiciels ouverts, et le fait de partager sur GitHub le travail réalisé sur notre catalogue constitue l’une de ces mesures."
 
+#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:75
+#, python-format
+msgid ""
+"<p class=\"empty\"> This dataset has no data, <a href=\"%(url)s\">why not add"
+" some?</a> </p>"
+msgstr "<p class=\"empty\">Ce jeu de données n'a pas de données, <a href=\"%(url)s\">pourquoi ne pas en ajouter?</a></p>"
+
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:34
 msgid "Topics"
 msgstr "Sujets"
@@ -2147,11 +2154,11 @@ msgstr "Algorithme/actif d’IA"
 
 #: ckanext/ontario_theme/templates/internal/package/read.html:9
 msgid ""
-" This record describes an algorithm or artificial intelligence asset. It does"
-" not describe a dataset. <a href=\"/group/about/artificial-intelligence-"
-"and-algorithms\">Learn more here about how the Government of Ontario is "
-"working to grow our catalogue beyond data for greater transparency and "
-"accountability.</a> "
+"This record describes an algorithm or artificial intelligence asset. It does "
+"not describe a dataset. <a href=\"/group/about/artificial-intelligence-and-"
+"algorithms\"> Learn more here about how the Government of Ontario is working "
+"to grow our catalogue beyond data for greater transparency and "
+"accountability. </a>"
 msgstr "Cet enregistrement décrit un algorithme ou actif d’intelligence artificielle. Il ne s’agit pas d’un jeu de données. <a href=\"/fr/group/about/artificial-intelligence-"
 "and-algorithms\">Apprenez-en plus ici sur les mesures prises par le gouvernement de l’Ontario pour ajouter à notre catalogue des éléments autres que des données à des fins de transparence et de responsabilité accrues.</a>"
 

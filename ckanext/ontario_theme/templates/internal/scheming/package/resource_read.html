@@ -141,7 +141,7 @@
                     <img src="/images/visualize_data.PNG" alt="" width="284" height="133"/>
                   </div>
                 {% endif %}
-              {% endblock resource_actions_inner %}
+            {% endblock resource_actions_inner %}
             </div>
           {% endblock resource_actions %}
         </div>
@@ -165,7 +165,6 @@
             {% block resource_view_content %}
               {{ super() }}
             {% endblock resource_view_content %}
-
           {% endif %}
         {% endblock data_preview %}
       </div>
@@ -243,8 +242,7 @@
                       {%- endblock resource_license -%}
                       {%- block resource_fields -%}
                         {%- for field in schema.resource_fields -%}
-                          {%- if field.field_name not in exclude_fields
-                            and res[field.field_name] and (res[field.field_name] != {'fr': '', 'en': ''}) -%}
+                          {%- if field.field_name not in exclude_fields and res[field.field_name] and (res[field.field_name] != {'fr': '', 'en': ''}) -%}
                             <tr>
                               <th scope="row">
                                 {{- h.scheming_language_text(field.label) -}}
@@ -253,9 +251,7 @@
                                 {%- if field.preset == "date" -%}
                                   {{- h.render_datetime(res[field.field_name]) -}}
                                 {%- else -%}
-                                  {%- snippet "scheming/snippets/display_field.html",
-                                  field=field, data=res, entity_type='dataset',
-                                  object_type=dataset_type -%}
+                                  {%- snippet "scheming/snippets/display_field.html", field=field, data=res, entity_type='dataset', object_type=dataset_type -%}
                                 {%- endif -%}
                               </td>
                             </tr>

@@ -12,8 +12,6 @@
     attrs=field.form_attrs if 'form_attrs' in field else {'class': 'form-control'},
     is_required=h.scheming_field_required(field)
     ) %}
-    {%- snippet 'scheming/form_snippets/fluent_help_text.html',
-    field=field,
-    lang=lang -%}
+    {%- snippet 'scheming/form_snippets/fluent_help_text.html', field=field, lang=lang -%}
   {% endcall %}
 {%- endfor -%}

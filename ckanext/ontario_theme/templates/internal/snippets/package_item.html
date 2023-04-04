@@ -30,7 +30,6 @@
     {% block heading_meta %}
       {{ super() }}
     {% endblock heading_meta %}
-
   </h3>
   {# Get the org to get all extras then get the schema for choices/labels of values #}
   {% set organization = h.get_organization(package['owner_org']) %}
@@ -41,7 +40,7 @@
       <em>(
         {%- snippet 'scheming/snippets/display_field.html', field=h.scheming_field_by_name(schema.fields, 'jurisdiction'), data=organization, schema=schema -%} &nbsp;
         {%- snippet 'scheming/snippets/display_field.html', field=h.scheming_field_by_name(schema.fields, 'category'), data=organization, schema=schema -%}
-      )</em>
+        )</em>
     </small>
   </p>
 {% endblock heading %}

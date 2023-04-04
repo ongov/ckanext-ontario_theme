@@ -1382,8 +1382,8 @@ msgstr ""
 #: ckanext/ontario_theme/templates/internal/snippets/package_item.html:31
 #, python-format
 msgid ""
-" <p class=\"empty\">This dataset has no data, <a href=\"%(url)s\">why not add"
-" some?</a></p> "
+"<p class=\"empty\"> This dataset has no data, <a href=\"%(url)s\">why not add"
+" some?</a> </p>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/package/search.html:29

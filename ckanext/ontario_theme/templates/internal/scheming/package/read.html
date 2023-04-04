@@ -8,8 +8,7 @@
       might not be compatible with ckanext-scheming
     </p>
   {%- endif -%}
-  {% if h.scheming_field_by_name(schema.dataset_fields, 'notes_translated') and
-    pkg.notes %}
+  {% if h.scheming_field_by_name(schema.dataset_fields, 'notes_translated') and pkg.notes %}
     <div class="notes embedded-content">{{ h.render_markdown(h.scheming_language_text(pkg['notes_translated'])) }}</div>
   {% endif %}
   {% if h.scheming_field_by_name(schema.dataset_fields, 'colby_notes') %}
@@ -23,8 +22,7 @@
 {% endblock package_tags %}
 
 {% block package_additional_info %}
-  {% snippet "scheming/package/snippets/additional_info.html",
-  pkg_dict=pkg, dataset_type=dataset_type, schema=schema %}
+  {% snippet "scheming/package/snippets/additional_info.html", pkg_dict=pkg, dataset_type=dataset_type, schema=schema %}
 {% endblock package_additional_info %}
 
 {% block package_resources %}

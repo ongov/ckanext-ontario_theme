@@ -15,7 +15,8 @@
         {% block content_primary_nav %}
           {{ h.build_nav_icon(dataset_type ~ '.read', _('Dataset'), id=pkg.id if is_activity_archive else pkg.name) }}
           {{ h.build_nav_icon(dataset_type ~ '.groups', _('Groups'), id=pkg.id if is_activity_archive else pkg.name) }}
-          {{ h.build_nav_icon(dataset_type ~ '.activity', _('Activity Stream'), id=pkg.id if is_activity_archive else pkg.name) }}
+          {{ h.build_nav_icon(dataset_type ~ '.activity', _('Activity Stream'), id=pkg.id if is_activity_archive else
+          pkg.name) }}
         {% endblock content_primary_nav %}
       </ul>
     </header>
@@ -26,8 +27,12 @@
             <strong>{% trans %}Algorithm/AI Asset{% endtrans %}</strong>
             <p>
               {% trans %}
-   			        This record describes an algorithm or artificial intelligence asset. It does not describe a dataset. <a href="/group/about/artificial-intelligence-and-algorithms">Learn more here about how the Government of Ontario is working to grow our catalogue beyond data for greater transparency and accountability.</a>
-			        {% endtrans %}
+                This record describes an algorithm or artificial intelligence asset. It does not describe a dataset.
+                <a href="/group/about/artificial-intelligence-and-algorithms">
+                  Learn more here about how the Government of Ontario is working to grow our catalogue beyond data for greater
+                  transparency and accountability.
+                </a>
+              {% endtrans %}
             </p>
           </div>
         {% endif %}
@@ -49,6 +54,7 @@
               </div>
             {% endif %}
           {% endblock package_archive_notice %}
+
           <h1>
             {% block page_heading %}
               {{ h.dataset_display_name(pkg) }}
@@ -63,6 +69,7 @@
               <div class="notes embedded-content dataset-font">{{ h.render_markdown(h.get_translated(pkg, 'notes')) }}</div>
             {% endif %}
           {% endblock package_notes %}
+
           <span class="insert-comment-thread"></span>
         {% endblock package_description %}
 
@@ -72,7 +79,8 @@
       </div>
       <div class="col-xs-12">
         {% block package_resources %}
-          {% snippet "package/snippets/resources_list.html", pkg=pkg, resources=pkg.resources, is_activity_archive=is_activity_archive %}
+          {% snippet "package/snippets/resources_list.html", pkg=pkg, resources=pkg.resources,
+          is_activity_archive=is_activity_archive %}
         {% endblock package_resources %}
 
         {% block package_tags %}

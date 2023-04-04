@@ -28,8 +28,6 @@ Future solutions may include:
     attrs={'data-module': 'slug-preview-target', 'class': 'form-control'} if lang == h.extrafields_default_locale() else {'class': 'form-control'},
     is_required=h.scheming_field_required(field)
     ) %}
-    {%- snippet "scheming/form_snippets/fluent_help_text.html",
-    field=field,
-    lang=lang -%}
+    {%- snippet "scheming/form_snippets/fluent_help_text.html", field=field, lang=lang -%}
   {% endcall %}
 {%- endfor -%}
