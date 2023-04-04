@@ -23,9 +23,9 @@ block. super() will end up calling the facets twice.
   (_('Last Modified'), 'metadata_modified desc'),
   (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
   %}
-  {# Make 'Last modified' the default selection when first landing on page #}
+  {# Make 'Relevance' the default selection when first landing on page #}
   {% if not sort_by_selected %}
-    {% set sort_by_selected = 'metadata_modified desc' %}
+    {% set sort_by_selected = 'score desc, metadata_modified desc' %}
   {% endif %}
   {% set form_id = 'group-datasets-search-form' %}
   <form id="{{ form_id }}"

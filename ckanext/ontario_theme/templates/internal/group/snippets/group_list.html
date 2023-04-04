@@ -19,14 +19,22 @@
       {% set reverse = True if 'desc' in request.params['sort'] else False %}
       {% if c.page %}
         {% set groups = h.ontario_theme_sort_by_title_translated(groups,
-        current_page=c.page.page,
-        items_per_page=c.page.items_per_page,
-        lang=current_lang,
-        reverse=reverse)
+          current_page=c.page.page,
+          items_per_page=c.page.items_per_page,
+          lang=current_lang,
+          reverse=reverse)
         %}
       {% endif %}
       {% for group in groups %}
-        {% set this_group_title_translated = group['title_translated'][current_lang] %}
+        {% if group['title_translated'] %}
+          {% if group['title_translated'][current_lang] %}
+            {% set this_group_title_translated = group['title_translated'][current_lang] %}
+          {% else %}
+            {% set this_group_title_translated = group['title'] %}
+          {% endif %}
+        {% else %}
+          {% set this_group_title_translated = group['title'] %}
+        {% endif %}
         {% snippet "group/snippets/group_item.html", group=group, position=loop.index %}
       {% endfor %}
     {% endblock group_list_inner %}
