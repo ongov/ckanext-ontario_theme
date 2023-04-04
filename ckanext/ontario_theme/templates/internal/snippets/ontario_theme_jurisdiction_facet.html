@@ -5,11 +5,11 @@ calling the facet_list snippet to display it.
 
 #}
 {% set choices = h.scheming_field_choices(
-h.scheming_field_by_name(
-h.scheming_get_organization_schema('organization')['fields'], 'jurisdiction')
-) %}
+  h.scheming_field_by_name(
+  h.scheming_get_organization_schema('organization')['fields'], 'jurisdiction')
+  ) %}
 {{ h.snippet('snippets/facet_list.html',
-title=c.facet_titles['organization_jurisdiction'],
-name='organization_jurisdiction',
-scheming_choices=choices,
-extras=extras) }}
+  title=c.facet_titles['organization_jurisdiction'],
+  name='organization_jurisdiction',
+  scheming_choices=choices,
+  extras=extras) }}

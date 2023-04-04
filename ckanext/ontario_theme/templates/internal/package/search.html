@@ -25,20 +25,20 @@ in the core template for search.html.
     </div>
     {% block form %}
       {% set facets = {
-      'fields': c.fields_grouped,
-      'search': c.search_facets,
-      'titles': c.facet_titles,
-      'translated_fields': c.translated_fields,
-      'remove_field': c.remove_field }
+        'fields': c.fields_grouped,
+        'search': c.search_facets,
+        'titles': c.facet_titles,
+        'translated_fields': c.translated_fields,
+        'remove_field': c.remove_field }
       %}
       {% set sorting = [
-      (_('Relevance'), 'score desc, metadata_modified desc'),
-      (_('Name Ascending'), 'name asc'),
-      (_('Name Descending'), 'name desc'),
-      (_('Last Modified'), 'metadata_modified desc'),
-      (_('Recently Created'), 'dataset_published_date desc'),
-      (_('Datasets With Data'), 'num_resources desc, metadata_modified desc'),
-      (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
+        (_('Relevance'), 'score desc, metadata_modified desc'),
+        (_('Name Ascending'), 'name asc'),
+        (_('Name Descending'), 'name desc'),
+        (_('Last Modified'), 'metadata_modified desc'),
+        (_('Recently Created'), 'dataset_published_date desc'),
+        (_('Datasets With Data'), 'num_resources desc, metadata_modified desc'),
+        (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
       %}
       <!-- arguments for DS search bar -->
       {% set input_text = _('Search ' + dataset_type + 's') %}
@@ -62,21 +62,21 @@ in the core template for search.html.
             data-module="select-switch"
             novalidate>
         {% snippet "snippets/search_form.html",
-        searchbar_title=searchbar_title,
-        hidden_searchbar_title=input_text,
-        form_id=form_id,
-        type=type,
-        query=query,
-        sorting=sorting,
-        sorting_selected=sort_order,
-        count=c.page.item_count,
-        placeholder=input_text,
-        sr_input_text=input_text,
-        sr_submit_text=sr_submit_text,
-        facets=facets,
-        show_empty=request.params,
-        error=c.query_error,
-        fields=c.fields %}
+          searchbar_title=searchbar_title,
+          hidden_searchbar_title=input_text,
+          form_id=form_id,
+          type=type,
+          query=query,
+          sorting=sorting,
+          sorting_selected=sort_order,
+          count=c.page.item_count,
+          placeholder=input_text,
+          sr_input_text=input_text,
+          sr_submit_text=sr_submit_text,
+          facets=facets,
+          show_empty=request.params,
+          error=c.query_error,
+          fields=c.fields %}
       </form>
     {% endblock form %}
   </div>
@@ -120,11 +120,11 @@ in the core template for search.html.
           Flag facets to be ignored from standard loop that calls facets.
         #}
         {% set excluded_facets = [
-        'organization_jurisdiction',
-        'organization_category',
-        'keywords_en',
-        'keywords_fr'
-        ]
+          'organization_jurisdiction',
+          'organization_category',
+          'keywords_en',
+          'keywords_fr'
+          ]
         %}
         {% set reordered_facet_titles = h.ontario_theme_order_package_facets(c.facet_titles) %}
         {% for facet in reordered_facet_titles %}

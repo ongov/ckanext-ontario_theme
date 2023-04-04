@@ -153,12 +153,12 @@
             {% block resource_view_nav %}
               {% set resource_preview = h.resource_preview(resource, package) %}
               {% snippet "package/snippets/resource_views_list.html",
-              views=resource_views,
-              pkg=pkg,
-              is_edit=false,
-              view_id=current_resource_view['id'],
-              resource_preview=resource_preview,
-              resource=resource
+                views=resource_views,
+                pkg=pkg,
+                is_edit=false,
+                view_id=current_resource_view['id'],
+                resource_preview=resource_preview,
+                resource=resource
               %}
             {% endblock resource_view_nav %}
 

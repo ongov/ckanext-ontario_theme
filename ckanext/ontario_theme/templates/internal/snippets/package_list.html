@@ -22,28 +22,28 @@
           {% set current_group = '' if not this_group_name else this_group_name %}
           {# Get all packages returned by query #}
           {% set package_list = h.ontario_theme_get_all_packages(q=c.q,
-          request_params_items=request.params,
-          current_org=current_org,
-          current_group=current_group,
-          item_count=c.page.item_count) %}
+            request_params_items=request.params,
+            current_org=current_org,
+            current_group=current_group,
+            item_count=c.page.item_count) %}
           {# Sort package_list by title_translated as per current language #}
           {% set current_lang = request.environ.CKAN_LANG %}
           {% set reverse = True if 'desc' in request.params['sort'] else False %}
           {% set packages = h.ontario_theme_sort_by_title_translated(package_list,
-          current_page=c.page.page,
-          items_per_page=c.page.items_per_page,
-          lang=current_lang,
-          reverse=reverse) %}
+            current_page=c.page.page,
+            items_per_page=c.page.items_per_page,
+            lang=current_lang,
+            reverse=reverse) %}
         {% endif %}
         {% for package in packages %}
           {% snippet 'snippets/package_item.html',
-          package=package,
-          item_class=item_class,
-          hide_resources=hide_resources,
-          banner=banner,
-          truncate=truncate,
-          truncate_title=truncate_title
-          %}
+            package=package,
+            item_class=item_class,
+            hide_resources=hide_resources,
+            banner=banner,
+            truncate=truncate,
+            truncate_title=truncate_title
+            %}
         {% endfor %}
       {% endblock package_list_inner %}
 
