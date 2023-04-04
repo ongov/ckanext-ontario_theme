@@ -14,19 +14,19 @@
   </div>
   <div class="col-md-3">
     <h3 class="data-h4">
-      <a href="/{{ request.environ.CKAN_LANG }}/about#licensing">{% trans %}Data licenses and use{% endtrans %}</a>
+      <a href="{{ h.url_for('home.about', _anchor='licensing') }}">{% trans %}Data licenses and use{% endtrans %}</a>
     </h3>
     <p>{% trans %}Learn about the conditions and terms of use for using data.{% endtrans %}</p>
   </div>
   <div class="col-md-3">
     <h3 class="data-h4">
-      <a href="/{{ request.environ.CKAN_LANG }}/about#developers">{% trans %}Developers{% endtrans %}</a>
+      <a href="{{ h.url_for('home.about', _anchor='developers') }}">{% trans %}Developers{% endtrans %}</a>
     </h3>
     <p>{% trans %}Guidance for using our data in a software application.{% endtrans %}</p>
   </div>
   <div class="col-md-3">
     <h3 class="data-h4">
-      <a href="/{{ request.environ.CKAN_LANG }}/about#training-materials">{% trans %}Training materials{% endtrans %}</a>
+      <a href="{{ h.url_for('home.about', _anchor='training-materials') }}">{% trans %}Training materials{% endtrans %}</a>
     </h3>
     <p>{% trans %}Learn to work with government data.{% endtrans %}</p>
   </div>

@@ -4,5 +4,6 @@
     "blank_line_after_tag": "ckan_extends,extends",
     "indent": "2",
     "max_line_length": "120",
-    "preserve_blank_lines": true
+    "preserve_blank_lines": true,
+    "ignore": "H006,H023"
 }

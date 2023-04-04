@@ -1,5 +1,6 @@
 <div id="about">
-  {% trans %}
+  {% trans image_path=h.url_for_static('/images/external/about/'), url=h.url_for('home.index'),
+    dataset_url=h.url_for('dataset.search'), help_url=h.url_for('ontario_theme.help', _anchor='what-does-the-preview-button-do') %}
     <h2>On this page</h2>
     <ol class="table-of-contents">
       <li>
@@ -33,10 +34,12 @@
       Open Data
     </h2>
     <p>
-      Open data is data that is shared with the public. <a href="https://www.ontario.ca/page/sharing-government-data">Click here to learn more about open data and why Ontario releases it</a>.
+      Open data is data that is shared with the public. <a href="https://www.ontario.ca/page/sharing-government-data">
+        Click here to learn more about open data and why Ontario releases it</a>.
     </p>
     <p>
-      <a href="https://www.ontario.ca/page/ontarios-open-data-directive">Ontario’s Open Data Directive</a> states that all data must be open, unless there is good reason for it to remain confidential.
+      <a href="https://www.ontario.ca/page/ontarios-open-data-directive">Ontario’s Open Data Directive</a>
+      states that all data must be open, unless there is good reason for it to remain confidential.
     </p>
     <p>Ontario’s Chief Digital and Data Officer also has the authority to make certain datasets available publicly.</p>
     <h2>
@@ -46,10 +49,12 @@
     <p>Datasets listed in the catalogue that are not open will have one of the following labels:</p>
     <ul>
       <li>
-        <strong>Under review</strong> – The dataset is still being screened. It may become open or it may be restricted and not released.
+        <strong>Under review</strong> – The dataset is still being screened.
+        It may become open or it may be restricted and not released.
       </li>
       <li>
-        <strong>Restricted</strong> – The dataset has been screened and will not be released to the public. The record will be listed in the catalogue, but the data will not be shared.
+        <strong>Restricted</strong> – The dataset has been screened and will not be released to the public.
+        The record will be listed in the catalogue, but the data will not be shared.
       </li>
     </ul>
     <h2>
@@ -65,11 +70,14 @@
       <li>tells you what terms and conditions apply</li>
     </ul>
     <p>
-      Most of the data available in the catalogue is released under <a href="https://www.ontario.ca/page/open-government-licence-ontario">Ontario’s Open Government Licence</a>. However, each dataset may be shared with the public under other kinds of licences or no licence at all.
+      Most of the data available in the catalogue is released under
+      <a href="https://www.ontario.ca/page/open-government-licence-ontario">Ontario’s Open Government Licence</a>.
+      However, each dataset may be shared with the public under other kinds of licences or no licence at all.
     </p>
     <p>If a dataset doesn’t have a licence, you don’t have the right to use the data.</p>
     <p>
-      If you have questions about how you can use a specific dataset, please <a href="https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269">contact us</a>.
+      If you have questions about how you can use a specific dataset, please
+      <a href="https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269">contact us</a>.
     </p>
     <h2>
       <a name="developers"></a>
@@ -79,13 +87,16 @@
       Data
     </h3>
     <p>
-      The Ontario Data Catalogue endeavors to publish open data in a machine readable format. For machine readable datasets, you can simply retrieve the file you need using the file URL.
+      The Ontario Data Catalogue endeavors to publish open data in a machine readable format.
+      For machine readable datasets, you can simply retrieve the file you need using the file URL.
     </p>
     <p>
-      The Ontario Data Catalogue is built on CKAN, which means the catalogue has the following features you can use when building applications.
+      The Ontario Data Catalogue is built on CKAN, which means the catalogue has the following features you can
+      use when building applications.
     </p>
     <p>
-      APIs (Application programming interfaces) let software applications communicate directly with each other. If you are using the catalogue in a software application, you might want to extract data from the catalogue through the catalogue API.
+      APIs (Application programming interfaces) let software applications communicate directly with each other.
+      If you are using the catalogue in a software application, you might want to extract data from the catalogue through the catalogue API.
     </p>
     <p class="note">
       Note: All Datastore API requests to the Ontario Data Catalogue must be made server-side.
@@ -94,8 +105,11 @@
       Catalogue API
     </h3>
     <p>
-      The catalogue's collection of dataset metadata (and dataset files) is searchable through the <a href="https://docs.ckan.org/en/2.8/api/">CKAN API</a>.
-      The Ontario Data Catalogue has more than just CKAN's documented search fields. You can also <a href="#metadata">search these custom fields</a>. You can also use the CKAN API to retrieve metadata about a particular dataset and check for updated files.
+      The catalogue's collection of dataset metadata (and dataset files) is searchable through the
+      <a href="https://docs.ckan.org/en/2.8/api/">CKAN API</a>.
+      The Ontario Data Catalogue has more than just CKAN's documented search fields.
+      You can also <a href="#metadata">search these custom fields</a>.
+      You can also use the CKAN API to retrieve metadata about a particular dataset and check for updated files.
     </p>
     <p>
       <a href="https://docs.ckan.org/en/2.8/api/">Read the complete documentation for CKAN's API.</a>
@@ -104,7 +118,8 @@
       Datastore API
     </h3>
     <p>
-      Some of the open data in the Ontario Data Catalogue is available through the Datastore API. You can also search and access the machine-readable open data that is available in the catalogue.
+      Some of the open data in the Ontario Data Catalogue is available through the Datastore API.
+      You can also search and access the machine-readable open data that is available in the catalogue.
     </p>
     <p>
       How to use the API feature:
@@ -113,7 +128,7 @@
       <li>
         Find your dataset.
         <figure>
-          <img src="/images/external/about/Features - API - Searching for pepper.jpg"
+          <img src="{{ image_path }}Features - API - Searching for pepper.jpg"
                alt="A screenshot of the dataset search results page. The user has searched for the word pepper and 3 results are displayed."/>
           <figcaption>
             Figure 3 –  Dataset search results for “pepper”.
@@ -123,8 +138,10 @@
       <li>
         Click Preview to go to the file you want to access through the API.
         <figure>
-          <img src="/images/external/about/Features - API - Preview Button.jpg"
-               alt="A screenshot of the data and resources section of the dataset description page. Each file in the dataset is listed. To the right of each file name is a preview button and a download button. An arrow is overlaid onto the screeshot that points to the preview button."/>
+          <img src="{{ image_path }}Features - API - Preview Button.jpg"
+               alt="A screenshot of the data and resources section of the dataset description page.
+               Each file in the dataset is listed. To the right of each file name is a preview button and a download button.
+               An arrow is overlaid onto the screeshot that points to the preview button."/>
           <figcaption>
             Figure 4 – Click the Preview button.
           </figcaption>
@@ -133,7 +150,7 @@
       <li>
         Click the Data API button.
         <figure>
-          <img src="/images/external/about/Features - API - Data API Button.jpg"
+          <img src="{{ image_path }}Features - API - Data API Button.jpg"
                alt="A screenshot of the file description page. The data api button is found in the top right corner of the page."/>
           <figcaption>
             Figure 5 – Click the Data API button and follow the instructions.
@@ -152,22 +169,25 @@
       How to use the catalogue
     </h3>
     <p>
-      The Ontario Data Catalogue contains a record for each dataset that the Government of Ontario possesses. Some of these datasets will be available to you as open data. Others will not be available to you. This is because the Government of Ontario is unable to share data that would break the law or put someone's safety at risk.
+      The Ontario Data Catalogue contains a record for each dataset that the Government of Ontario possesses.
+      Some of these datasets will be available to you as open data. Others will not be available to you.
+      This is because the Government of Ontario is unable to share data that would break the law or put someone's safety at risk.
     </p>
     <h4>
       Search
     </h4>
     <p>
-      You can search for a dataset with a word that might describe a dataset or topic. Use words like “taxes” or “hospital locations” to discover what datasets the catalogue contains.
+      You can search for a dataset with a word that might describe a dataset or topic. Use words like “taxes” or
+      “hospital locations” to discover what datasets the catalogue contains.
     </p>
     <p>
       You can search for a dataset from 3 spots on the catalogue:
       <ol>
         <li>
-          <a href="/">the homepage</a>,
+          <a href="{{ url }}">the homepage</a>,
         </li>
         <li>
-          <a href="/dataset">the dataset search page</a>, or
+          <a href="{{ dataset_url }}">the dataset search page</a>, or
         </li>
         <li>
           the menu bar available across the catalogue.
@@ -175,10 +195,14 @@
       </ol>
     </p>
     <p>
-      On the <a href="/dataset">dataset search page</a>, you can also filter your search results. You can select filters on the left hand side of the page to limit your search for datasets with your favourite file format, datasets that are updated weekly, datasets released by a particular ministry, or datasets that are released under a specific licence. <a href="/dataset">Go to the dataset search page</a> to see the filters that are available to make your search easier.
+      On the <a href="{{ dataset_url }}">dataset search page</a>, you can also filter your search results.
+      You can select filters on the left hand side of the page to limit your search for datasets with your favourite file format,
+      datasets that are updated weekly, datasets released by a particular ministry, or datasets that are released under a specific licence.
+      <a href="{{ dataset_url }}">Go to the dataset search page</a> to see the filters that are available to make your search easier.
     </p>
     <p>
-      You can also do a quick search by selecting one of the catalogue’s categories on the <a href="/">homepage</a>. These categories can help you see the types of data we have on key topic areas.
+      You can also do a quick search by selecting one of the catalogue’s categories on the <a href="{{ url }}">homepage</a>.
+      These categories can help you see the types of data we have on key topic areas.
     </p>
     <p>
       When you find the dataset you are looking for, click on it to go to the dataset record.
@@ -193,10 +217,13 @@
       Open Data
     </h5>
     <p>
-      An open dataset might contain several data files. These files might represent different periods of time, different sub-sets of the dataset, different regions, language translations, or other breakdowns. You can select a file and either download it or preview it. Make sure to read the licence agreement to make sure you have permission to use it the way you want.
+      An open dataset might contain several data files. These files might represent different periods of time,
+      different sub-sets of the dataset, different regions, language translations, or other breakdowns.
+      You can select a file and either download it or preview it.
+      Make sure to read the licence agreement to make sure you have permission to use it the way you want.
     </p>
     <p>
-      <a href="/help#what-does-the-preview-button-do">Read more about previewing data.</a>
+      <a href="{{ help_url }}">Read more about previewing data.</a>
     </p>
     <h5>
       Non-open data
@@ -219,21 +246,25 @@
       Visualizing data
     </h4>
     <p>
-      The catalogue has tools that enable all users to visualize the data in the catalogue without leaving the catalogue – no additional software needed.  <a href="/help#what-does-the-preview-button-do">Have a look at our walk-through of how to make a chart in the catalogue</a>.
+      The catalogue has tools that enable all users to visualize the data in the catalogue without leaving the catalogue – no additional software needed.
+      <a href="{{ help_url }}">Have a look at our walk-through of how to make a chart in the catalogue</a>.
     </p>
     <h4>
       <a name="features-notifications"></a>
       Keeping updated
     </h4>
     <p>
-      Get automatic notifications when datasets are updated. You can choose to get notifications for individual datasets, an organization’s datasets or the full catalogue.
+      Get automatic notifications when datasets are updated. You can choose to get notifications for individual datasets,
+      an organization’s datasets or the full catalogue.
     </p>
     <p>
-      You don’t have to provide and personal information – just subscribe to our feeds using any feed reader you like using the corresponding notification web addresses. Copy those addresses and paste them into your reader.
+      You don’t have to provide and personal information – just subscribe to our feeds using any feed reader you like
+      using the corresponding notification web addresses. Copy those addresses and paste them into your reader.
     </p>
     <figure>
-      <img src="/images/external/about/Features - Notifications -Adding a feed.jpg"
-           alt="A screenshot of the configuration screen of a RSS reader. The feed url for the data catalogue has been entered into the form field for the feed url."/>
+      <img src="{{ image_path }}Features - Notifications -Adding a feed.jpg"
+           alt="A screenshot of the configuration screen of a RSS reader. The feed url for the data catalogue has been
+           entered into the form field for the feed url."/>
       <figcaption>
         Figure 1 - Pasting the notification address for the full catalogue into the feed reader.
       </figcaption>
@@ -242,8 +273,9 @@
       Your feed reader will let you know when the catalogue has been updated.
     </p>
     <figure>
-      <img src="/images/external/about/Features - Notifications - Data catalogue feeds.jpg"
-           alt="A screenshot of an RSS reader displaying recently updated datasets from the data catalogue. The latest four datasets are listed."/>
+      <img src="{{ image_path }}Features - Notifications - Data catalogue feeds.jpg"
+           alt="A screenshot of an RSS reader displaying recently updated datasets from the data catalogue.
+           The latest four datasets are listed."/>
       <figcaption>
         Figure 2 – Receiving notifications on the latest updates to the catalogue.
       </figcaption>
@@ -252,20 +284,26 @@
       File Types
     </h3>
     <p>
-      The catalogue provides open data in several file formats (e.g., spreadsheets, geospatial data, etc). Learn about each format and how you can access and use the data each file contains.
+      The catalogue provides open data in several file formats (e.g., spreadsheets, geospatial data, etc). Learn about
+      each format and how you can access and use the data each file contains.
     </p>
     <div class="format-item">
       <h4>
         CSV - Comma Separated Values
       </h4>
       <p>
-        A file that has a list of items and values separated by commas without formatting (e.g. colours, italics, etc.) or extra visual features. This format provides just the data that you would display in a table. XLSX (Excel) files may be converted to CSV so they can be opened in a text editor.
+        A file that has a list of items and values separated by commas without formatting (e.g. colours, italics, etc.)
+        or extra visual features. This format provides just the data that you would display in a table. XLSX (Excel)
+        files may be converted to CSV so they can be opened in a text editor.
       </p>
       <p>
-        <span class="p-intro"><span class="p-intro">How to access the data:</span></span> Open with any spreadsheet software application (e.g., Open Office Calc, Microsoft Excel) or text editor.
+        <span class="p-intro"><span class="p-intro">How to access the data:</span></span> Open with any spreadsheet
+        software application (e.g., Open Office Calc, Microsoft Excel) or text editor.
       </p>
       <p class="note">
-        Note: This format is considered machine-readable, it can be easily processed and used by a computer. Files that have visual formatting (e.g. bolded headers and colour-coded rows) can be hard for machines to understand, these elements make a file more human-readable and less machine-readable.
+        Note: This format is considered machine-readable, it can be easily processed and used by a computer.
+        Files that have visual formatting (e.g. bolded headers and colour-coded rows) can be hard for machines to
+        understand, these elements make a file more human-readable and less machine-readable.
       </p>
     </div>
     <div class="format-item">
@@ -273,10 +311,12 @@
         Txt – Text file
       </h4>
       <p>
-        A file that provides information without formatted text or extra visual features that may not follow a pattern of separated values like a CSV.
+        A file that provides information without formatted text or extra visual features that may not follow a pattern
+        of separated values like a CSV.
       </p>
       <p>
-        <span class="p-intro">How to access the data:</span> Open with any word processor or text editor available on your device (e.g., Microsoft Word, Notepad).
+        <span class="p-intro">How to access the data:</span> Open with any word processor or text editor available on
+        your device (e.g., Microsoft Word, Notepad).
       </p>
     </div>
     <div class="format-item">
@@ -287,7 +327,9 @@
         A spreadsheet file that may also include charts, graphs, and formatting.
       </p>
       <p>
-        <span class="p-intro">How to access the data:</span> Open with a spreadsheet software application that supports this format (e.g., Open Office Calc, Microsoft Excel). Data can be converted to a CSV for a non-proprietary format of the same data without formatted text or extra visual features.
+        <span class="p-intro">How to access the data:</span> Open with a spreadsheet software application that supports
+        this format (e.g., Open Office Calc, Microsoft Excel). Data can be converted to a CSV for a non-proprietary
+        format of the same data without formatted text or extra visual features.
       </p>
     </div>
     <div class="format-item">
@@ -295,10 +337,13 @@
         SHP – Shapefile
       </h4>
       <p>
-        A shapefile provides geographic information that can be used to create a map or perform geospatial analysis based on location, points/lines and other data about the shape and features of the area. It includes required files (.shp, .shx, .dbt) and might include corresponding files (e.g., .prj).
+        A shapefile provides geographic information that can be used to create a map or perform geospatial analysis
+        based on location, points/lines and other data about the shape and features of the area. It includes required
+        files (.shp, .shx, .dbt) and might include corresponding files (e.g., .prj).
       </p>
       <p>
-        <span class="p-intro">How to access the data:</span> Open with a geographic information system (GIS) software program (e.g., QGIS).
+        <span class="p-intro">How to access the data:</span> Open with a geographic information system (GIS) software
+        program (e.g., QGIS).
       </p>
     </div>
     <div class="format-item">
@@ -312,7 +357,9 @@
         <span class="p-intro">How to access the data:</span> Open with an unzipping software application (e.g., WinZIP, 7Zip).
       </p>
       <p class="note">
-        Note: If a ZIP file contains .shp, .shx, and .dbt file types, it is an ArcGIS  ZIP: a package of shapefiles which provide information to create maps or perform geospatial analysis that can be opened with ArcGIS (a geographic information system software program).
+        Note: If a ZIP file contains .shp, .shx, and .dbt file types, it is an ArcGIS  ZIP: a package of shapefiles
+        which provide information to create maps or perform geospatial analysis that can be opened with ArcGIS
+        (a geographic information system software program).
       </p>
     </div>
     <div class="format-item">
@@ -320,13 +367,16 @@
         GeoJSON – Geographic JavaScript Object Notation
       </h4>
       <p>
-        A file that provides information related to a geographic area (e.g., phone number, address, average rainfall, number of owl sightings in 2011 etc.) and its geospatial location (i.e., points/lines).
+        A file that provides information related to a geographic area (e.g., phone number, address, average rainfall,
+        number of owl sightings in 2011 etc.) and its geospatial location (i.e., points/lines).
       </p>
       <p>
-        <span class="p-intro">How to access the data:</span> Open using a GIS software application to create a map or do geospatial analysis. It can also be opened with a text editor to view raw information.
+        <span class="p-intro">How to access the data:</span> Open using a GIS software application to create a map or do
+        geospatial analysis. It can also be opened with a text editor to view raw information.
       </p>
       <p class="note">
-        Note: This format is machine-readable, and it can be easily processed and used by a computer. Human-readable data (including visual formatting) is easy for users to read and understand.
+        Note: This format is machine-readable, and it can be easily processed and used by a computer. Human-readable
+        data (including visual formatting) is easy for users to read and understand.
       </p>
     </div>
     <div class="format-item">
@@ -334,13 +384,16 @@
         JSON - JavaScript Object Notation
       </h4>
       <p>
-        A text-based format for sharing data in a machine-readable way that can store data with more unconventional structures such as complex lists.
+        A text-based format for sharing data in a machine-readable way that can store data with more unconventional
+        structures such as complex lists.
       </p>
       <p>
-        <span class="p-intro">How to access the data:</span> Open with any text editor (e.g., Notepad) or access through a browser.
+        <span class="p-intro">How to access the data:</span> Open with any text editor (e.g., Notepad) or access
+        through a browser.
       </p>
       <p class="note">
-        Note: This format is machine-readable, and it can be easily processed and used by a computer. Human-readable data (including visual formatting) is easy for users to read and understand.
+        Note: This format is machine-readable, and it can be easily processed and used by a computer.
+        Human-readable data (including visual formatting) is easy for users to read and understand.
       </p>
     </div>
     <div class="format-item">
@@ -348,13 +401,15 @@
         XML - Extensible Markup Language
       </h4>
       <p>
-        A text-based format to store and organize data in a machine-readable way that can store data with more unconventional structures (not just data organized in tables).
+        A text-based format to store and organize data in a machine-readable way that can store data with more
+        unconventional structures (not just data organized in tables).
       </p>
       <p>
         <span class="p-intro">How to access the data:</span> Open with any text editor (e.g., Notepad).
       </p>
       <p class="note">
-        Note: This format is machine-readable, and it can be easily processed and used by a computer. Human-readable data (including visual formatting) is easy for users to read and understand.
+        Note: This format is machine-readable, and it can be easily processed and used by a computer.
+        Human-readable data (including visual formatting) is easy for users to read and understand.
       </p>
     </div>
     <div class="format-item">
@@ -362,13 +417,16 @@
         KML- Keyhole Markup Language
       </h4>
       <p>
-        A file that provides information related to an area (e.g., phone number, address, average rainfall, number of owl sightings in 2011 etc.) and its geospatial location (i.e., points/lines).
+        A file that provides information related to an area (e.g., phone number, address, average rainfall, number of
+        owl sightings in 2011 etc.) and its geospatial location (i.e., points/lines).
       </p>
       <p>
-        <span class="p-intro">How to access the data:</span> Open with a geospatial software application that supports the KML format (e.g., Google Earth).
+        <span class="p-intro">How to access the data:</span> Open with a geospatial software application that supports
+        the KML format (e.g., Google Earth).
       </p>
       <p class="note">
-        Note: This format is machine-readable, and it can be easily processed and used by a computer. Human-readable data (including visual formatting) is easy for users to read and understand.
+        Note: This format is machine-readable, and it can be easily processed and used by a computer. Human-readable data
+        (including visual formatting) is easy for users to read and understand.
       </p>
     </div>
     <div class="format-item">
@@ -376,7 +434,8 @@
         IVT – Table files
       </h4>
       <p>
-        This format contains files with data from tables used for statistical analysis and data visualization of Statistics Canada census data.
+        This format contains files with data from tables used for statistical analysis and data visualization of
+        Statistics Canada census data.
       </p>
       <p>
         <span class="p-intro">How to access the data:</span> Open with the Beyond 20/20 application.
@@ -390,10 +449,12 @@
         A database which links and combines data from different files or applications (including HTML, XML, Excel, etc.).
       </p>
       <p>
-        The database file can be converted to a CSV/TXT to make the data machine-readable, but human-readable formatting will be lost.
+        The database file can be converted to a CSV/TXT to make the data machine-readable, but human-readable formatting
+        will be lost.
       </p>
       <p>
-        <span class="p-intro">How to access the data:</span> Open with Microsoft Office Access (a database management system used to develop application software).
+        <span class="p-intro">How to access the data:</span> Open with Microsoft Office Access (a database management
+        system used to develop application software).
       </p>
     </div>
     <div class="format-item">
@@ -433,10 +494,12 @@
       Interpreting data
     </h3>
     <p>
-      Open data on the Ontario Data Catalogue will vary in how it is organized and formatted. Depending on the licence agreement for a dataset, you can choose to organize and format the file to suit your intended use.
+      Open data on the Ontario Data Catalogue will vary in how it is organized and formatted. Depending on the licence
+      agreement for a dataset, you can choose to organize and format the file to suit your intended use.
     </p>
     <p>
-      Some of the open data on the Ontario Data Catalogue will have a data dictionary. A data dictionary can help you understand what the dataset means.
+      Some of the open data on the Ontario Data Catalogue will have a data dictionary. A data dictionary can help you
+      understand what the dataset means.
     </p>
     <p>
       If you need further understanding the data, reach out to the dataset point of contact.
@@ -505,7 +568,8 @@
         A brief introduction that helps users understand the data.
       </p>
       <p>
-        <em>Example value: *Abandoned airports and airports that are not recognized at the national level with an airport identifier.</em>
+        <em>Example value: *Abandoned airports and airports that are not recognized at the national level with an airport
+          identifier.</em>
       </p>
       <p>
         <em>This layer is derived from data provided by Nav Canada. This layer should not be used for navigation purposes.</em>
@@ -520,7 +584,8 @@
         Last Validated Date (database name: current_as_of)
       </h3>
       <p>
-        The last date someone responsible for the data reviewed the data files and their information to confirm it was still current.
+        The last date someone responsible for the data reviewed the data files and their information to confirm it was
+        still current.
       </p>
       <p>
         <em>Example value: 20190516T16:06:15+00:00</em>
@@ -592,7 +657,8 @@
         Access Level (database name: access_level)
       </h3>
       <p>
-        The status of data that has been reviewed or is being reviewed to see if it is safe to share with the public on the Open Data Catalogue.
+        The status of data that has been reviewed or is being reviewed to see if it is safe to share with the public on
+        the Open Data Catalogue.
       </p>
       <p class="note">
         <em>Example value: open</em>
@@ -607,7 +673,9 @@
         Instructions on accessing the data if it isn’t directly accessible (i.e. accessible through one click).
       </p>
       <p class="note">
-        <em>Example value: Navigate to https://www.javacoeapp.lrc.gov.on.ca/geonetwork/srv/en/main.home?uuid=1d9372b7-3786-448f-b72a-1da2aa1ab6ce and select the “Airport Other - shape file download package” link. Then provide your email, name, and organization and the shapefile will be emailed to the address you provided.</em>
+        <em>Example value: Navigate to https://www.javacoeapp.lrc.gov.on.ca/geonetwork/srv/en/main.home?uuid=1d9372b7-3786-448f-b72a-1da2aa1ab6ce
+          and select the “Airport Other - shape file download package” link. Then provide your email, name, and
+          organization and the shapefile will be emailed to the address you provided.</em>
       </p>
     </div>
     <div class="metadata-item">
@@ -734,7 +802,8 @@
       Files
     </h3>
     <p>
-      Each dataset listed in the catalogue might include multiple related files. Each file might have the following details in its description:
+      Each dataset listed in the catalogue might include multiple related files. Each file might have the following
+      details in its description:
     </p>
     <div class="metadata-item">
       <h3>
@@ -781,7 +850,9 @@
         A text introduction to the data that helps you understand the file in detail.
       </p>
       <p>
-        <em>Example value: Airports that have been classified as abandoned or are not recognized at the national level with an airport identifier. This layer is derived from data provided from Nav Canada as well as from the existing airports NRVIS data class.</em>
+        <em>Example value: Airports that have been classified as abandoned or are not recognized at the national level
+          with an airport identifier. This layer is derived from data provided from Nav Canada as well as from the
+          existing airports NRVIS data class.</em>
       </p>
     </div>
     <div class="metadata-item">
@@ -942,20 +1013,24 @@
       <li>
         <strong><a href="https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269">Contact us</a>.</strong>
         <p>
-          As we improve the catalogue, we want you to tell us what you think of it. This catalogue is for you, so the more feedback we get, the better our final product.
+          As we improve the catalogue, we want you to tell us what you think of it. This catalogue is for you, so the
+          more feedback we get, the better our final product.
         </p>
       </li>
       <li>
         <strong>Participate in user testing.</strong>
         <p>
-          Work with us directly by testing the catalogue in our offices. If you are interested in doing this, <a href="https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269">contact us</a>.
+          Work with us directly by testing the catalogue in our offices. If you are interested in doing this,
+          <a href="https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269">contact us</a>.
         </p>
       </li>
       <li>
         <strong>Stay in the loop.</strong>
         <p>
-          We’ll be highlighting new features and project milestones, so subscribe to either the <a href="https://medium.com/ontariodigital">Ontario Digital Service Medium blog</a> or our <a href="https://mailchi.mp/43387219d995/openonnewsletter"
-                                                                                                                                                                                              target="_blank">Open Government Newsletter</a>.
+          We’ll be highlighting new features and project milestones, so subscribe to either the
+          <a href="https://medium.com/ontariodigital">Ontario Digital Service Medium blog</a> or our
+          <a href="https://mailchi.mp/43387219d995/openonnewsletter" target="_blank" rel="noopener noreferrer">
+            Open Government Newsletter</a>.
         </p>
       </li>
       <li>
