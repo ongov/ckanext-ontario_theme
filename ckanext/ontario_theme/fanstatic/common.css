@@ -1778,3 +1778,6 @@ section#dataset-resources > h2{
 .wrapper::before {
   z-index: 0;
 }
+.module.module-narrow.module-shallow.context-info {
+  padding: 30px;
+}

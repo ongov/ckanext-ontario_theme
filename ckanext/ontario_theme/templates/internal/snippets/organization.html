@@ -1,7 +1,12 @@
 {% ckan_extends %}
 
 {% block info %}
-  <div class="">
+	{% if has_context_title %}
+		<div class="module module-narrow module-shallow context-info">
+			<h2 class="aside-heading">{{ _('Ministry') }}</h2>
+	{% else %}
+		<div class="no-context-title">
+	{% endif %}
     <section>
       {% block inner %}
 				{% block image %}
@@ -9,11 +14,19 @@
 				{% endblock image %}
 
       	{% block heading %}
-	  			<h1>{{ _('Ministry:') }} {{ h.get_translated(organization, "title") or organization.name }}
-						{% if organization.state == 'deleted' %}
-							[{{ _('Deleted') }}]
-						{% endif %}
-	  			</h1>
+					{% if has_context_title %}
+						<h3 class="ontario-module-h3">{{ h.get_translated(organization, "title") or organization.name }}
+							{% if organization.state == 'deleted' %}
+								[{{ _('Deleted') }}]
+							{% endif %}
+						</h3>
+					{% else %}
+						<h1>{{ _('Ministry:') }} {{ h.get_translated(organization, "title") or organization.name }}
+							{% if organization.state == 'deleted' %}
+								[{{ _('Deleted') }}]
+							{% endif %}
+						</h1>
+					{% endif %}
 	  		{% endblock heading %}
 
 				{%- if show_nums -%}
@@ -32,7 +45,7 @@
 
       {% block description %}
 				{% if h.get_translated(organization,"description") %}
-					<p class="ontario-lead-statement">
+					<p class="{%- if not has_context_title -%}ontario-lead-statement{%- endif -%}">
 						{{ h.markdown_extract(h.get_translated(organization,"description"), 180) }}
 						{% link_for _('Read more'), named_route='organization.about', id=organization.name %}
 					</p>
