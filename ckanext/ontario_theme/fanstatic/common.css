@@ -457,6 +457,9 @@ input[type=reset].ontario-search-reset.home{
     padding-right: 8rem;
   }
 }
+.ontario-search-input.ontario-input.snippet{
+  padding-right: 8rem;
+}
 input[placeholder] {
   overflow: hidden;
   text-overflow: ellipsis;
