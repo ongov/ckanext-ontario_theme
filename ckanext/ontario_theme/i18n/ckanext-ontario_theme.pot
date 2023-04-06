@@ -1464,7 +1464,7 @@ msgid ""
 "The <i>data license</i> you select above only applies to the contents of any "
 "resource files that you add to this dataset. By submitting this form, you "
 "agree to release the <i>metadata</i> values that you enter into the form "
-"under the <a href=\"http://opendatacommons.org/licenses/odbl/1-0/\">Open "
+"under the <a href=\"https://opendatacommons.org/licenses/odbl/1-0/\">Open "
 "Database License</a>."
 msgstr ""
 
