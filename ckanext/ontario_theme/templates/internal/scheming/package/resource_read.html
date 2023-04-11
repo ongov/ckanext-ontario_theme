@@ -158,10 +158,8 @@
   {% set is_admin = h.check_access('package_update', {'id':pkg.id }) %}
   {% set is_open = (pkg.access_level == 'open') %}
   {% if is_open or is_admin%}
-    <div class="module-content row">
-      <div class="col-xs-12">
-        {% snippet 'package/snippets/report_an_error.html' %}
-      </div>
+    <div class="col-xs-12">
+      {% snippet 'package/snippets/report_an_error.html' %}
     </div>
     <div class="module-content" role="main">
       {% block primary_content %}
@@ -239,10 +237,8 @@
         {% endblock %}
       {% endblock %}
     </div>
-    <div class="module-content row">
-      <div class="col-xs-12">
-          {% snippet 'home/snippets/ontario_theme_contact_us.html' %}
-      </div>
+    <div class="col-xs-12">
+      {% snippet 'home/snippets/ontario_theme_contact_us.html' %}
     </div>
   {% endif %}
 {% endblock %}
