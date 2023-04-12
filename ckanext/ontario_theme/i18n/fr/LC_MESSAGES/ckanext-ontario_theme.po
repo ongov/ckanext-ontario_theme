@@ -2471,7 +2471,7 @@ msgstr "Rechercher les jeux de données"
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:58
 msgid "Ministry"
-msgstr "ministère"
+msgstr "Ministère"
 
 #: Report error callout
 msgid "Report an error with this data"
