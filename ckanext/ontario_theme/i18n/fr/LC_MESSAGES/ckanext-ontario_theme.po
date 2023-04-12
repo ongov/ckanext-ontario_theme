@@ -110,9 +110,13 @@ msgstr "l’accès aux données à l’aide de différents types de fichiers."
 msgid "No datasets found with the keyword(s) <strong>\"{query}\"</strong>"
 msgstr "Aucun jeu de données trouvé avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
 
-#: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:55
-msgid "Show More"
-msgstr "Afficher plus d’options"
+#: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:54
+msgid "Show more"
+msgstr "Afficher plus"
+
+#: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:57
+msgid "Show less"
+msgstr "Afficher moins"
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:17
 msgid "<strong>{number} dataset</strong> found"
