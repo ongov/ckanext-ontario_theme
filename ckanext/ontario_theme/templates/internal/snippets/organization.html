@@ -21,7 +21,7 @@
 							{% endif %}
 						</h3>
 					{% else %}
-						<h1>{{ _('Ministry:') }} {{ h.get_translated(organization, "title") or organization.name }}
+						<h1>{{ _('Ministry') + _(':') }} {{ h.get_translated(organization, "title") or organization.name }}
 							{% if organization.state == 'deleted' %}
 								[{{ _('Deleted') }}]
 							{% endif %}

@@ -1119,10 +1119,6 @@ msgstr ""
 msgid "Datasets"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/snippets/organization.html:13
-msgid "Ministry:"
-msgstr ""
-
 #: ckanext/ontario_theme/templates/internal/snippets/organization.html:19
 msgid "{number} dataset"
 msgid_plural "{number} datasets"
