@@ -35,8 +35,7 @@
   {%- set schema = h.scheming_get_organization_schema('organization') -%}
   <p class="package-item-category">
       {%- snippet 'scheming/snippets/display_field.html', field=h.scheming_field_by_name(schema.fields, 'category'), data=organization, schema=schema -%}
-      {{ _(':' )}}
-      {{ h.get_translated(organization, 'title') }} 
+      {{ _(':') }} {{ h.get_translated(organization, 'title') }}
   </p>
 {% endblock %}
 
