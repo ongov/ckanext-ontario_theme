@@ -10,8 +10,8 @@ control-rows to align french and english fields side by side.
   {%- if errors -%}
     {%- set schema = h.scheming_get_dataset_schema(dataset_type) -%}
     {%- snippet 'scheming/snippets/errors.html',
-    errors=errors, fields=schema.dataset_fields,
-    entity_type='dataset', object_type=dataset_type -%}
+      errors=errors, fields=schema.dataset_fields,
+      entity_type='dataset', object_type=dataset_type -%}
   {%- endif -%}
 {% endblock errors %}
 
@@ -28,13 +28,11 @@ control-rows to align french and english fields side by side.
     {%- if field.form_snippet is not none -%}
       {%- if field.fieldset -%}
         <fieldset>
-          <legend>
-            {{ field.fieldset_name }}
-          </legend>
+          <legend>{{ field.fieldset_name }}</legend>
       {%- endif -%}
-      <div class="controls row">
-        {%- snippet "scheming/snippets/form_field.html", field=field, data=data, errors=errors, licenses=c.licenses, entity_type='dataset', object_type=dataset_type -%}
-      </div>
+          <div class="controls row">
+            {%- snippet "scheming/snippets/form_field.html", field=field, data=data, errors=errors, licenses=c.licenses, entity_type='dataset', object_type=dataset_type -%}
+          </div>
       {%- if (field.fieldset and field.fieldset != 1) or loop.index == loop.length -%}
         </fieldset>
       {%- endif -%}

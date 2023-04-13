@@ -138,11 +138,11 @@
                   <div class="action-group ontario-show-for-large">
                     <h2 class="ontario-h4">{{ _('Visualize data') }}</h2>
                     <p>{{ _('Use the Data Visualizer below to display this dataset as a table, graph or map.') }}</p>
-                    <img src="/images/visualize_data.PNG" alt="" width="284" height="133"/>
+                    <img src="/images/visualize_data.PNG" alt="" width="284" height="133" />
                   </div>
                 {% endif %}
+              </div>
             {% endblock resource_actions_inner %}
-            </div>
           {% endblock resource_actions %}
         </div>
       {% endblock resource_content %}
@@ -165,6 +165,7 @@
             {% block resource_view_content %}
               {{ super() }}
             {% endblock resource_view_content %}
+
           {% endif %}
         {% endblock data_preview %}
       </div>
