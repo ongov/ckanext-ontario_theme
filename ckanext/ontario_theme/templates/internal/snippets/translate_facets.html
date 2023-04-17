@@ -2,8 +2,7 @@
 
     Custom snippet to translate the filters displayed on search page, according to set language.
     
-#}    
-
+#}
 {% set scheming_choices = scheming_choices or h.scheming_field_by_name(fields, name).choices or None %}
 {% do item.update({'display_name': h.scheming_choices_label(scheming_choices, item.display_name)}) if scheming_choices %}
 {% do item.update({'display_name': h.get_translated( h.ontario_theme_get_license(item.name), "title" )}) if name == "license_id" %}

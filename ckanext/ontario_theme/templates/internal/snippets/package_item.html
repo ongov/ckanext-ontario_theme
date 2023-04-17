@@ -5,14 +5,13 @@
     - adding organization info below heading
 
 #}
-
 {% ckan_extends %}
 
 {% block heading %}
   <h3 class="dataset-heading">
     {% block heading_private %}
       {{ super() }}
-    {% endblock %}
+    {% endblock heading_private %}
 
     {% block heading_title %}
       {% link_for h.truncate(h.get_translated(package, 'title'), truncate_title),named_route=('%s.read' % package.type), id=package.name %}
@@ -20,37 +19,39 @@
         <div class="label label-info">{% trans %}Algorithm/AI{% endtrans %}</div>
       {% endif %}
       {% if package.get("harvester", False) == 'ontario-data-catalogue' %}
-        <div class="badge badge-harvest pull-right" data-harvest={{package['harvester']}}>{% trans %}ON External{% endtrans %}</div>
+        <div class="badge badge-harvest pull-right" data-harvest={{ package['harvester'] }}>{% trans %}ON External{% endtrans %}
+        </div>
       {% elif package.get("harvester", False) == 'ontario-geohub' %}
-        <div class="badge badge-harvest pull-right" data-harvest={{package['harvester']}}>{% trans %}ON Geohub{% endtrans %}</div>
+        <div class="badge badge-harvest pull-right" data-harvest={{ package['harvester'] }}>{% trans %}ON Geohub{% endtrans %}
+        </div>
       {% endif %}
-    {% endblock %}
+    {% endblock heading_title %}
 
     {% block heading_meta %}
       {{ super() }}
-    {% endblock %}
+    {% endblock heading_meta %}
   </h3>
   {# Get the org to get all extras then get the schema for choices/labels of values #}
   {% set organization = h.get_organization(package['owner_org']) %}
   {%- set schema = h.scheming_get_organization_schema('organization') -%}
   <p class="text-muted">
     <small>
-      {{ h.get_translated(organization, 'title') }} 
-        <em>(
-          {%- snippet 'scheming/snippets/display_field.html', field=h.scheming_field_by_name(schema.fields, 'jurisdiction'), data=organization, schema=schema -%} &nbsp; 
-          {%- snippet 'scheming/snippets/display_field.html', field=h.scheming_field_by_name(schema.fields, 'category'), data=organization, schema=schema -%}
+      {{ h.get_translated(organization, 'title') }}
+      <em>(
+        {%- snippet 'scheming/snippets/display_field.html', field=h.scheming_field_by_name(schema.fields, 'jurisdiction'), data=organization, schema=schema -%} &nbsp;
+        {%- snippet 'scheming/snippets/display_field.html', field=h.scheming_field_by_name(schema.fields, 'category'), data=organization, schema=schema -%}
         )</em>
     </small>
   </p>
-{% endblock %}
+{% endblock heading %}
 
 {% block resources_inner %}
   {% for resource in h.dict_list_reduce(package.resources, 'format') %}
-  <li>
-    <span class="label label-default" data-format="{{ resource.lower() }}">{{ resource }}</span>
-  </li>
+    <li>
+      <span class="label label-default" data-format="{{ resource.lower() }}">{{ resource }}</span>
+    </li>
   {% endfor %}
-{% endblock %}
+{% endblock resources_inner %}
 
 {% block notes %}
   {% if notes %}
@@ -58,4 +59,4 @@
   {% else %}
     <p class="empty">{{ _("This dataset has no description") }}</p>
   {% endif %}
-{% endblock %}
+{% endblock notes %}

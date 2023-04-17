@@ -2,9 +2,11 @@
 
 {% block organization_item_header_title %}
   {{ h.get_translated(organization, "title") }}
-  <h3 class="media-heading"><a href={{ url }}>{{ h.get_translated(organization, "title") or organization.name }}</a></h3>
-  }
-{% endblock %}
+  <h3 class="media-heading">
+    <a href="{{ url }}">{{ h.get_translated(organization, "title") or organization.name }}</a>
+  </h3>
+{% endblock organization_item_header_title %}
+
 {% block organization_item_header_description %}
   {% if h.get_translated(organization,"description") %}
     {% if truncate == 0 %}
@@ -13,5 +15,4 @@
       <p>{{ h.markdown_extract(h.get_translated(organization,"description"), truncate)|urlize }}</p>
     {% endif %}
   {% endif %}
-{% endblock %}
-
+{% endblock organization_item_header_description %}
