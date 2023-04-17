@@ -4,25 +4,23 @@
       <div class="span6 col1">
         {% block promoted %}
           {% snippet 'home/snippets/promoted.html' %}
-        {% endblock %}
+        {% endblock promoted %}
       </div>
       <div class="span6 col2">
         {% block search %}
           {% snippet 'home/snippets/search.html' %}
-        {% endblock %}
+        {% endblock search %}
       </div>
     </div>
   </div>
-
   <div class="container">
     <div class="row">
       <div class="span12 col1">
         {% block topics %}
-        {% endblock %}
+        {% endblock topics %}
       </div>
     </div>
   </div>
-
   <div class="container">
     <div class="row row2">
       <div class="span6 col1">
@@ -31,14 +29,14 @@
            whether you need to update the docs. #}
         {# Start template block example. #}
         {% block featured_group %}
-          {% snippet 'home/snippets/featured_group.html' %}
-        {% endblock %}
+          {% snippet "home/snippets/featured_group.html" %}
+        {% endblock featured_group %}
         {# End template block example. #}
       </div>
       <div class="span6 col2">
         {% block featured_organization %}
-          {% snippet 'home/snippets/featured_organization.html' %}
-        {% endblock %}
+          {% snippet "home/snippets/featured_organization.html" %}
+        {% endblock featured_organization %}
       </div>
     </div>
   </div>

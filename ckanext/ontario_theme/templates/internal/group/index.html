@@ -1,22 +1,24 @@
 {% ckan_extends %}
 
 {% block page_primary_action %}
-{% endblock %}
+{% endblock page_primary_action %}
 
 {% block pre_primary %}
   <h1 class="hide-heading">{{ _('Groups') }}</h1>
   <div class="page_primary_action">
     <div class="add-group">
-    {% if h.check_access('group_create') %}
-      {% link_for _('Add Group'), named_route='group.new', class_='btn btn-primary', icon='plus-square' %}
-    {% endif %}
+      {% if h.check_access('group_create') %}
+        {% link_for _('Add Group'), named_route='group.new', class_='btn btn-primary', icon='plus-square' %}
+      {% endif %}
     </div>
   </div>
-
   <div class="search-page-heading">
-    <h1 class="ontario-h1">{% block page_heading %}{{ _('Groups') }}{% endblock %}</h1>
+    <h1 class="ontario-h1">
+      {% block page_heading %}
+        {{ _('Groups') }}
+      {% endblock page_heading %}
+    </h1>
   </div>
-
   {% block groups_search_form %}
     <!-- arguments for DS search bar -->
     {% set input_text = _("Search groups") %}
@@ -26,24 +28,28 @@
     {% set form_id = 'group-search-form' %}
     {% set type = 'group' %}
     {% set searchbar_title = input_text + _(':') %}
-    <form id="{{ form_id }}" class="search-form" method="get" data-module="select-switch" novalidate>
-    {% snippet 'snippets/search_form.html', 
-                searchbar_title=searchbar_title, 
-                hidden_searchbar_title=input_text, 
-                form_id=form_id, 
-                type=type, 
-                query=query, 
-                sorting_selected=c.sort_by_selected, 
-                count=c.page.item_count, 
-                placeholder=input_text, 
-                sr_input_text=input_text, 
-                sr_submit_text=sr_submit_text, 
-                show_empty=request.params, 
-                no_bottom_border=true if c.page.items, sorting = [(_('Name Ascending'), 'name asc'), (_('Name Descending'), 'name desc')] 
-    %}
+    <form id="{{ form_id }}"
+          class="search-form"
+          method="get"
+          data-module="select-switch"
+          novalidate>
+      {% snippet 'snippets/search_form.html',
+        searchbar_title=searchbar_title,
+        hidden_searchbar_title=input_text,
+        form_id=form_id,
+        type=type,
+        query=query,
+        sorting_selected=c.sort_by_selected,
+        count=c.page.item_count,
+        placeholder=input_text,
+        sr_input_text=input_text,
+        sr_submit_text=sr_submit_text,
+        show_empty=request.params,
+        no_bottom_border=true if c.page.items, sorting = [(_('Name Ascending'), 'name asc'), (_('Name Descending'), 'name desc')]
+        %}
     </form>
-  {% endblock %}
-{% endblock %}
+  {% endblock groups_search_form %}
+{% endblock pre_primary %}
 
 {% block primary_content_inner %}
   {% block groups_list %}
@@ -55,13 +61,13 @@
       <p class="empty">
         {{ _('There are currently no groups for this site') }}.
         {% if h.check_access('group_create') %}
-          {% link_for _('How about creating one?'), named_route='group.new' %}</a>.
+          {% link_for _('How about creating one?'), named_route='group.new' %}.
         {% endif %}
       </p>
     {% endif %}
-  {% endblock %}
+  {% endblock groups_list %}
+
   {% block page_pagination %}
     {{ c.page.pager(q=c.q or '', sort=c.sort_by_selected or '') }}
-  {% endblock %}
-{% endblock %}
-
+  {% endblock page_pagination %}
+{% endblock primary_content_inner %}

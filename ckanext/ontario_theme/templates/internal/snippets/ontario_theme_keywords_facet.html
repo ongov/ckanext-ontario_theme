@@ -4,7 +4,6 @@ Custom snippet to handle calling the the right keyword facet based on
 language.
 
 #}
-
 {% if h.lang() == 'en' %}
   {{ h.snippet('snippets/facet_list.html',
   title=c.facet_titles['keywords_en'], name='keywords_en', extras=extras) }}

@@ -1,16 +1,22 @@
 {% ckan_extends %}
+
 {% block item %}
-<li class="media-item ministry-item">
-  {% block item_inner %}
-    {% block title %}
-      {% set organization_name = (h.get_translated(organization, "title") or organization.name) %}
-      <a href="{{ url }}" title="{{ _('View {organization_name}').format(organization_name=organization_name) }}" class="ministry-heading">
-        {{ h.get_translated(organization, "title") or organization.name }}
-      </a>
-    {% endblock %}
-    {% block datasets %}
-      <p>{{ ungettext( _('Datasets: {num}'), _('Datasets: {num}'), organization.package_count).format(num=organization.package_count) }}</p>
-    {% endblock %}
-  {% endblock %}
-</li>
-{% endblock %}
+  <li class="media-item ministry-item">
+    {% block item_inner %}
+      {% block title %}
+        {% set organization_name = (h.get_translated(organization, "title") or organization.name) %}
+        <a href="{{ url }}"
+           title="{{ _('View {organization_name}').format(organization_name=organization_name) }}"
+           class="ministry-heading">
+          {{ h.get_translated(organization, "title") or organization.name }}
+        </a>
+      {% endblock title %}
+
+      {% block datasets %}
+        <p>
+          {{ ungettext( _('Datasets: {num}'), _('Datasets: {num}'), organization.package_count).format(num=organization.package_count) }}
+        </p>
+      {% endblock datasets %}
+    {% endblock item_inner %}
+  </li>
+{% endblock item %}

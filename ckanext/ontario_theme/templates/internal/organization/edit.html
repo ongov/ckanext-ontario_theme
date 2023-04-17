@@ -2,8 +2,10 @@
 
 {% block breadcrumb_content %}
   <li>{% link_for _('Ministries'), named_route='organization.index', named_route=group_type + '_index' %}</li>
-  {% block breadcrumb_content_inner %} 
-    <li>{% link_for h.get_translated(organization,"title")|truncate(35), named_route=group_type+'.read', id=organization.name %}</li>
+  {% block breadcrumb_content_inner %}
+    <li>
+      {% link_for h.get_translated(organization,"title")|truncate(35), named_route=group_type+'.read', id=organization.name %}
+    </li>
     <li class="active">{% link_for _('Edit'), named_route=group_type+'.edit', id=organization.name %}</li>
-  {% endblock %}
-{% endblock %}
+  {% endblock breadcrumb_content_inner %}
+{% endblock breadcrumb_content %}
