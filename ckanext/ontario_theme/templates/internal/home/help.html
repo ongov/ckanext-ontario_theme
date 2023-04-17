@@ -1,75 +1,147 @@
 {% extends "page.html" %}
 
-{% block subtitle %}{{ _('Help') }}{% endblock %}
+{% block subtitle %}
+  {{ _('Help') }}
+{% endblock subtitle %}
 
 {% block breadcrumb_content %}
   <li class="active">{% link_for _('Help'), 'home.help' %}</li>
-{% endblock %}
+{% endblock breadcrumb_content %}
 
 {% block primary %}
   <article class="module">
     <div class="module-content">
       <h1 class="page-heading">{{ _('Help') }}</h1>
-      <p>Need more help or want to learn more about Colby? <a href="mailto:opendata@ontario.ca">Contact us</a> — we’ll gladly meet with you to give a demo of Colby and answer any questions you might have!</p>
+      <p>
+        Need more help or want to learn more about Colby? <a href="mailto:opendata@ontario.ca">Contact us</a> — we’ll gladly meet with you to give a demo of Colby and answer any questions you might have!
+      </p>
       <ul>
-        <li><a href="#how-to-archive-data">How to archive data</a></li>
-        <li><a href="#open-data-guidebook">Open Data Guidebook and Directive</a></li>
-        <li><a href="#government-wide-data-inventory">Government-Wide Data Inventory</a></li>
-        <li><a href="#working-with-data-and-application-programming-interfaces">Working with data and application programming interfaces</a></li>
-        <li><a href="#how-to-format-basic-numeric-data-in-spreadsheets">How to format basic numeric data in spreadsheets</a></li>
-        <li><a href="#how-to-convert-spreadsheets-to-csv">How to convert spreadsheets to CSV</a></li>
-        <li><a href="#how-to-get-updates-from-colby-using-rss">How to get updates from Colby using RSS</a></li>
+        <li>
+          <a href="#how-to-archive-data">How to archive data</a>
+        </li>
+        <li>
+          <a href="#open-data-guidebook">Open Data Guidebook and Directive</a>
+        </li>
+        <li>
+          <a href="#government-wide-data-inventory">Government-Wide Data Inventory</a>
+        </li>
+        <li>
+          <a href="#working-with-data-and-application-programming-interfaces">Working with data and application programming interfaces</a>
+        </li>
+        <li>
+          <a href="#how-to-format-basic-numeric-data-in-spreadsheets">How to format basic numeric data in spreadsheets</a>
+        </li>
+        <li>
+          <a href="#how-to-convert-spreadsheets-to-csv">How to convert spreadsheets to CSV</a>
+        </li>
+        <li>
+          <a href="#how-to-get-updates-from-colby-using-rss">How to get updates from Colby using RSS</a>
+        </li>
       </ul>
-      <p>Colby is in <a href="https://www.ontario.ca/page/service-design-playbook#section-2">alpha release</a>, which means it is a prototype that we are using to run experiments on how to increase data sharing and collaboration. There is no draft mode yet for data—everything is be visible to the entire OPS immediately upon saving. Don’t share data files until they have been approved, but you can still add metadata while you’re waiting.</p>
-      
+      <p>
+        Colby is in <a href="https://www.ontario.ca/page/service-design-playbook#section-2">alpha release</a>, which means it is a prototype that we are using to run experiments on how to increase data sharing and collaboration. There is no draft mode yet for data—everything is be visible to the entire OPS immediately upon saving. Don’t share data files until they have been approved, but you can still add metadata while you’re waiting.
+      </p>
       <h2 id="how-to-archive-data">How to archive data</h2>
-      <p>There is no need to archive data. Instead, continually add new data when it is collected and making it clear to others what time series they are viewing.</p>
-      <p>When you have data that is in a time series (for example, collected annually or reflecting an annual cycle of work), ensure that your file names include the time series if the data will be collected in separate files. You can also collect all time series in the same file and update the file, as needed.</p>
-      
-      <h2 id="open-data-guidebook"><a href="https://www.ontario.ca/document/open-data-guidebook-guide-open-data-directive-2015">Open Data Guidebook and Directive</a></h2>
-      <p>The guidebook provides direction on how to identify data, assess risks, prepare Open Data for approval and publish datasets. It includes several resources, ideas for open data engagement, links to useful templates and answers to frequently asked questions.</p>
-
-      <p>Ontario's Open Data Directive maximizes access to government data by requiring all data to be made public, unless it is exempt for legal, privacy, security, confidentiality or commercially-sensitive reasons. It sets out key principles and requirements for publishing open data, and applies to data created and managed by Ontario ministries and provincial agencies.</p>
-
-      <h2 id="government-wide-data-inventory"><a href="https://www.ontario.ca/data/government-wide-data-inventory">Government-Wide Data Inventory</a></h2>
-      <p>The government-wide data inventory was established in 2016 and keeping it current is an ongoing responsibility of Ontario's ministries and provincial agencies.</p>
-
-      <p>A data inventory is a list of datasets under the custody and control of the organization. Each ministry and provincial agency must create and maintain an inventory of their datasets according to standards set out by TBS.</p>
-
-      <h2 id="working-with-data-and-application-programming-interfaces"><a href="https://open.canada.ca/en/working-data">Working with data and application programming interfaces</a></h2>
-      <p>This document from the Government of Canada has information on how to use different data formats as well as how to work with application programming interfaces (APIs).</p>
-
+      <p>
+        There is no need to archive data. Instead, continually add new data when it is collected and making it clear to others what time series they are viewing.
+      </p>
+      <p>
+        When you have data that is in a time series (for example, collected annually or reflecting an annual cycle of work), ensure that your file names include the time series if the data will be collected in separate files. You can also collect all time series in the same file and update the file, as needed.
+      </p>
+      <h2 id="open-data-guidebook">
+        <a href="https://www.ontario.ca/document/open-data-guidebook-guide-open-data-directive-2015">Open Data Guidebook and Directive</a>
+      </h2>
+      <p>
+        The guidebook provides direction on how to identify data, assess risks, prepare Open Data for approval and publish datasets. It includes several resources, ideas for open data engagement, links to useful templates and answers to frequently asked questions.
+      </p>
+      <p>
+        Ontario's Open Data Directive maximizes access to government data by requiring all data to be made public, unless it is exempt for legal, privacy, security, confidentiality or commercially-sensitive reasons. It sets out key principles and requirements for publishing open data, and applies to data created and managed by Ontario ministries and provincial agencies.
+      </p>
+      <h2 id="government-wide-data-inventory">
+        <a href="https://www.ontario.ca/data/government-wide-data-inventory">Government-Wide Data Inventory</a>
+      </h2>
+      <p>
+        The government-wide data inventory was established in 2016 and keeping it current is an ongoing responsibility of Ontario's ministries and provincial agencies.
+      </p>
+      <p>
+        A data inventory is a list of datasets under the custody and control of the organization. Each ministry and provincial agency must create and maintain an inventory of their datasets according to standards set out by TBS.
+      </p>
+      <h2 id="working-with-data-and-application-programming-interfaces">
+        <a href="https://open.canada.ca/en/working-data">Working with data and application programming interfaces</a>
+      </h2>
+      <p>
+        This document from the Government of Canada has information on how to use different data formats as well as how to work with application programming interfaces (APIs).
+      </p>
       <h2 id="how-to-format-basic-numeric-data-in-spreadsheets">How to format basic numeric data in spreadsheets</h2>
-      <p>Data is most useful when it can be read by computers. It’s easier to re-use, mash up with other data and analyze. It can also be quickly turned into charts or graphs. Follow these guidelines to maximize the usefulness of your data!</p>
+      <p>
+        Data is most useful when it can be read by computers. It’s easier to re-use, mash up with other data and analyze. It can also be quickly turned into charts or graphs. Follow these guidelines to maximize the usefulness of your data!
+      </p>
       <ol>
-        <li>Don’t merge cells. Sorting and other manipulations people may want to apply to your data assume that each cell belongs to one row and column. Merging cells also makes the sheet inaccessible to people using screen readers.</li>
-        <li>Don’t mix data and metadata (e.g. date of release, name of author) in the same sheet. Colby has a form specifically for entering metadata when you add new data.</li>
-        <li>Put only column headers in the first row of a data sheet. Don’t include duplicate or blank headers. Do include units of measure where applicable (for example, kilometers, millions of dollars, etc.).</li>
-        <li>The remaining rows must be data with only one set of information per row. Don’t include totals or averages in the main sheet. Do include totals and averages in a separate sheet, if they are important. Alternately, use a smartie or a graph to display totals and averages in the data description on Colby.</li>
-        <li>Format numeric values as plain numbers. Don’t put commas in them, dollar signs, asterisks or anything else. If you need to add an annotation, do it in a separate column.</li>
-        <li>Use standard identifiers (for example, identify countries using <a href="https://en.wikipedia.org/wiki/ISO_3166">ISO 3166</a> codes rather than names, use <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> / <a href="https://www.ontario.ca/document/go-its-7400-date-format">GO-ITS 74.00</a> format for dates, etc.).</li>
-        <li>If you also want to create a human-friendly version of the data, create another sheet in the same workbook or contact <a href="mailto:opendata@ontario.ca">us</a> to discuss how best to tell your data story!</li>
+        <li>
+          Don’t merge cells. Sorting and other manipulations people may want to apply to your data assume that each cell belongs to one row and column. Merging cells also makes the sheet inaccessible to people using screen readers.
+        </li>
+        <li>
+          Don’t mix data and metadata (e.g. date of release, name of author) in the same sheet. Colby has a form specifically for entering metadata when you add new data.
+        </li>
+        <li>
+          Put only column headers in the first row of a data sheet. Don’t include duplicate or blank headers. Do include units of measure where applicable (for example, kilometers, millions of dollars, etc.).
+        </li>
+        <li>
+          The remaining rows must be data with only one set of information per row. Don’t include totals or averages in the main sheet. Do include totals and averages in a separate sheet, if they are important. Alternately, use a smartie or a graph to display totals and averages in the data description on Colby.
+        </li>
+        <li>
+          Format numeric values as plain numbers. Don’t put commas in them, dollar signs, asterisks or anything else. If you need to add an annotation, do it in a separate column.
+        </li>
+        <li>
+          Use standard identifiers (for example, identify countries using <a href="https://en.wikipedia.org/wiki/ISO_3166">ISO 3166</a> codes rather than names, use <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> / <a href="https://www.ontario.ca/document/go-its-7400-date-format">GO-ITS 74.00</a> format for dates, etc.).
+        </li>
+        <li>
+          If you also want to create a human-friendly version of the data, create another sheet in the same workbook or contact <a href="mailto:opendata@ontario.ca">us</a> to discuss how best to tell your data story!
+        </li>
       </ol>
-      <p>Based on the clean-sheet.org advice created by @robinhouston and @SeanClarke. This work is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
-
-      <h2 id="how-to-convert-spreadsheets-to-csv">How to convert spreadsheets to <abbr title="Comma Separated Values">CSV</abbr></h2>
-      <p>In Colby, you can display data in a graph or a map if you make it into a machine-readable CSV file in UTF-8 format. Here’s how to do that:</p>
+      <p>
+        Based on the clean-sheet.org advice created by @robinhouston and @SeanClarke. This work is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+      <h2 id="how-to-convert-spreadsheets-to-csv">
+        How to convert spreadsheets to <abbr title="Comma Separated Values">CSV</abbr>
+      </h2>
+      <p>
+        In Colby, you can display data in a graph or a map if you make it into a machine-readable CSV file in UTF-8 format. Here’s how to do that:
+      </p>
       <ol>
-        <li>Click File > Save As and change the encoding to UTF-8. Then click the Save button.</li>
-        <li>Use an online file conversion tool (for example <a href="https://www.docspal.com/convert/xlsx-to-csv">docspal</a> or <a href="https://convertio.co/xlsx-csv/">convertio</a>) to change the XSLX to CSV. Don’t use online converters for data that is not open (they aren’t secure).</li>
+        <li>
+          Click File > Save As and change the encoding to UTF-8. Then click the Save button.
+        </li>
+        <li>
+          Use an online file conversion tool (for example <a href="https://www.docspal.com/convert/xlsx-to-csv">docspal</a> or <a href="https://convertio.co/xlsx-csv/">convertio</a>) to change the XSLX to CSV. Don’t use online converters for data that is not open (they aren’t secure).
+        </li>
       </ol>
-
-      <h2 id="how-to-get-updates-from-colby-using-rss">How to get updates from Colby using <abbr title="Rich Site Summary">RSS</abbr></h2>
-      <p>There are five main feeds in Colby that show recently updated or created data. Add one of these URLs to a <a href="https://www.google.ca/search?q=rss+feed+readers">RSS feed reader</a> and you'll get updates when they happen.</p>
+      <h2 id="how-to-get-updates-from-colby-using-rss">
+        How to get updates from Colby using <abbr title="Rich Site Summary">RSS</abbr>
+      </h2>
+      <p>
+        There are five main feeds in Colby that show recently updated or created data. Add one of these URLs to a <a href="https://www.google.ca/search?q=rss+feed+readers">RSS feed reader</a> and you'll get updates when they happen.
+      </p>
       <ol>
-        <li>All data updates on Colby: <a href="https://intra.catalogue.ogo.tbs.gov.on.ca/feeds/dataset.atom">https://intra.catalogue.ogo.tbs.gov.on.ca/feeds/dataset.atom</a></li>
-        <li>Updates to specific data (change the text after <strong>id=</strong> in the URL to match the data you want to monitor): <a href="https://intra.catalogue.ogo.tbs.gov.on.ca/feeds/dataset.atom?id=zooplankton-monitoring">https://intra.catalogue.ogo.tbs.gov.on.ca/feeds/dataset.atom?id=zooplankton-monitoring</a></li>
-        <li>Updates and new data for a specific ministry (change the name in the URL to match the ministry you want to monitor): <a href="https://intra.catalogue.ogo.tbs.gov.on.ca/feeds/organization/">https://intra.catalogue.ogo.tbs.gov.on.ca/feeds/organization/agriculture-food-and-rural-affairs.atom</a></li>
-        <li>Updates and new data for a specific tag (change the tag in the URL to match the tag you want to monitor): <a href="https://intra.catalogue.ogo.tbs.gov.on.ca/feeds/tag/tag-here.atom">https://intra.catalogue.ogo.tbs.gov.on.ca/feeds/tag/tag-here.atom</a></li>
-        <li>Updates and new data for a specific search query (change the text after <strong>q=</strong> in the URL to match the search query you want to monitor): <a href="https://intra.catalogue.ogo.tbs.gov.on.ca/feeds/custom.atom?q=apple">https://intra.catalogue.ogo.tbs.gov.on.ca/feeds/custom.atom?q=apple</a></li>
+        <li>
+          All data updates on Colby: <a href="https://intra.catalogue.ogo.tbs.gov.on.ca/feeds/dataset.atom">https://intra.catalogue.ogo.tbs.gov.on.ca/feeds/dataset.atom</a>
+        </li>
+        <li>
+          Updates to specific data (change the text after <strong>id=</strong> in the URL to match the data you want to monitor): <a href="https://intra.catalogue.ogo.tbs.gov.on.ca/feeds/dataset.atom?id=zooplankton-monitoring">https://intra.catalogue.ogo.tbs.gov.on.ca/feeds/dataset.atom?id=zooplankton-monitoring</a>
+        </li>
+        <li>
+          Updates and new data for a specific ministry (change the name in the URL to match the ministry you want to monitor): <a href="https://intra.catalogue.ogo.tbs.gov.on.ca/feeds/organization/">https://intra.catalogue.ogo.tbs.gov.on.ca/feeds/organization/agriculture-food-and-rural-affairs.atom</a>
+        </li>
+        <li>
+          Updates and new data for a specific tag (change the tag in the URL to match the tag you want to monitor): <a href="https://intra.catalogue.ogo.tbs.gov.on.ca/feeds/tag/tag-here.atom">https://intra.catalogue.ogo.tbs.gov.on.ca/feeds/tag/tag-here.atom</a>
+        </li>
+        <li>
+          Updates and new data for a specific search query (change the text after <strong>q=</strong> in the URL to match the search query you want to monitor): <a href="https://intra.catalogue.ogo.tbs.gov.on.ca/feeds/custom.atom?q=apple">https://intra.catalogue.ogo.tbs.gov.on.ca/feeds/custom.atom?q=apple</a>
+        </li>
       </ol>
     </div>
   </article>
-{% endblock %}
+{% endblock primary %}
 
-{% block secondary %}{% endblock %}
+{% block secondary %}
+{% endblock secondary %}

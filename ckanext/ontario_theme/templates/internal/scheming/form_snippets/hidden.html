@@ -1,11 +1,9 @@
-{% import 'macros/form.html' as form %}
-
+{% import "macros/form.html" as form %}
 {% set id = 'field-' + field.field_name %}
 {% set name = field.field_name %}
-
 {% set attrs = field.form_attrs if 'form_attrs' in field else {"class": "form-control"} %}
 {% set value = data.get(field.field_name, '') %}
 {% set classes = field.classes if 'classes' in field else ['control-medium'] %}
 <div classes="{{ classes|join(' ') }}">
-	<input id="{{ id or name }}" type="hidden" name="{{ name }}" value="{{ value | empty_and_escape }}" {{ form.attributes(attrs) }} />
+  <input id="{{ id or name }}" type="hidden" name="{{ name }}" value="{{ value | empty_and_escape }}" {{ form.attributes(attrs) }} />
 </div>

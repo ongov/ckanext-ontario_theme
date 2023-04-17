@@ -4,24 +4,23 @@ Override Scheming's package_form.html to include fieldsets and
 control-rows to align french and english fields side by side.
 
 #}
-
-{% extends 'package/new_package_form.html' %}
+{% extends "package/new_package_form.html" %}
 
 {% block errors %}
   {%- if errors -%}
     {%- set schema = h.scheming_get_dataset_schema(dataset_type) -%}
     {%- snippet 'scheming/snippets/errors.html',
-      errors=errors, fields=schema.dataset_fields,
-      entity_type='dataset', object_type=dataset_type -%}
+    errors=errors, fields=schema.dataset_fields,
+    entity_type='dataset', object_type=dataset_type -%}
   {%- endif -%}
-{% endblock %}
+{% endblock errors %}
 
 {% block basic_fields %}
-  {% asset 'ontario_theme/ontario_theme_lock_if_odc_js' %}
+  {% asset "ontario_theme/ontario_theme_lock_if_odc_js" %}
   {%- if not dataset_type -%}
     <p>
-    dataset_type not passed to template. your version of CKAN
-    might not be compatible with ckanext-scheming
+      dataset_type not passed to template. your version of CKAN
+      might not be compatible with ckanext-scheming
     </p>
   {%- endif -%}
   {%- set schema = h.scheming_get_dataset_schema(dataset_type) -%}
@@ -29,15 +28,13 @@ control-rows to align french and english fields side by side.
     {%- if field.form_snippet is not none -%}
       {%- if field.fieldset -%}
         <fieldset>
-          <legend>{{ field.fieldset_name }}</legend>
+          <legend>
+            {{ field.fieldset_name }}
+          </legend>
       {%- endif -%}
-
       <div class="controls row">
-      {%- snippet 'scheming/snippets/form_field.html',
-          field=field, data=data, errors=errors, licenses=c.licenses,
-          entity_type='dataset', object_type=dataset_type -%}
+        {%- snippet "scheming/snippets/form_field.html", field=field, data=data, errors=errors, licenses=c.licenses, entity_type='dataset', object_type=dataset_type -%}
       </div>
-
       {%- if (field.fieldset and field.fieldset != 1) or loop.index == loop.length -%}
         </fieldset>
       {%- endif -%}
@@ -47,7 +44,7 @@ control-rows to align french and english fields side by side.
     <!-- force controller to skip resource-editing step for this type -->
     <input type="hidden" name="_ckan_phase" value="" />
   {%- endif -%}
-{% endblock %}
+{% endblock basic_fields %}
 
 {% block metadata_fields %}
-{% endblock %}
+{% endblock metadata_fields %}
