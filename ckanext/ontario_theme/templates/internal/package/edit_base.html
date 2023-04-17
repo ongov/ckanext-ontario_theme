@@ -1,24 +1,25 @@
-{% extends 'package/base.html' %}
+{% extends "package/base.html" %}
 
-{% block breadcrumb_content_selected %}{% endblock %}
+{% block breadcrumb_content_selected %}
+{% endblock breadcrumb_content_selected %}
 
 {% block breadcrumb_content %}
   {{ super() }}
   {% if pkg %}
     <li class="active">{% link_for _('Edit'), named_route='dataset.edit', id=pkg.name %}</li>
   {% endif %}
-{% endblock %}
+{% endblock breadcrumb_content %}
 
 {% block content_action %}
   {% link_for _('View dataset'), named_route='dataset.read', id=pkg.name, class_='btn btn-default', icon='eye' %}
-{% endblock %}
+{% endblock content_action %}
 
 {% block content_primary_nav %}
   {{ h.build_nav_icon('dataset.edit', _('Edit metadata'), id=pkg.name) }}
   {{ h.build_nav_icon('dataset.resources', _('Resources'), id=pkg.name) }}
-{% endblock %}
+{% endblock content_primary_nav %}
 
 {% block secondary_content %}
-  {% snippet 'package/snippets/disclaimer.html' %}
+  {% snippet "package/snippets/disclaimer.html" %}
   {{ super() }}
-{% endblock %}
+{% endblock secondary_content %}

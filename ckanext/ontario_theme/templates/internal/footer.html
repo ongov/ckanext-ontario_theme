@@ -1,40 +1,45 @@
 <footer class="site-footer">
   <div class="container">
     {% block footer_content %}
-    <div class="row">
-      <div class="col-md-7 footer-links">
-        {% block footer_nav %}
-          <ul class="list-inline">
-            {% block footer_links %}
-                <li><a href="{% trans %}https://www.ontario.ca/page/accessibility{% endtrans %}">{% trans %}Accessibility{% endtrans %}</a></li>
-                <li><a href="{% trans %}https://www.ontario.ca/page/privacy-statement{% endtrans %}">{% trans %}Privacy{% endtrans %}</a></li>
-                <li><a href="{% trans %}https://www.ontario.ca/page/terms-use{% endtrans %}">{% trans %}Terms of use{% endtrans %}</a></li>
-            {% endblock %}
-          </ul>
-          <p class="small">
-            <a href="{% trans %}https://www.ontario.ca/page/copyright-information{% endtrans %}">{% trans %}&copy; King&#8217;s Printer for Ontario{% endtrans %}, 2023</a>
-          </p> 
-        {% endblock %}
-      </div>
-      <div class="col-md-2 footer-contactus">
+      <div class="row">
+        <div class="col-md-7 footer-links">
+          {% block footer_nav %}
+            <ul class="list-inline">
+              {% block footer_links %}
+                <li>
+                  <a href="{%- trans -%}https://www.ontario.ca/page/accessibility{%- endtrans -%}">{% trans %}Accessibility{% endtrans %}</a>
+                </li>
+                <li>
+                  <a href="{%- trans -%}https://www.ontario.ca/page/privacy-statement{%- endtrans -%}">{% trans %}Privacy{% endtrans %}</a>
+                </li>
+                <li>
+                  <a href="{%- trans -%}https://www.ontario.ca/page/terms-use{%- endtrans -%}">{% trans %}Terms of use{% endtrans %}</a>
+                </li>
+              {% endblock footer_links %}
+            </ul>
+            <p class="small">
+              <a href="{%- trans -%}https://www.ontario.ca/page/copyright-information{%- endtrans -%}">{% trans %}&copy; King&#8217;s Printer for Ontario{% endtrans %}, 2023</a>
+            </p>
+          {% endblock footer_nav %}
+        </div>
+        <div class="col-md-2 footer-contactus"></div>
+        <div class="col-md-3 attribution">
+          {% block footer_attribution %}
+            <p>
+              {% trans %}<strong>Powered by</strong> <a class="hide-text ckan-footer-logo" href="https://ckan.org"><abbr title="Comprehensive Knowledge Archive Network">CKAN</abbr></a>{% endtrans %}
+            </p>
+          {% endblock footer_attribution %}
 
+          {% block footer_lang %}
+            <!-- snippet "snippets/language_selector.html" -->
+          {% endblock footer_lang %}
+        </div>
       </div>
-      <div class="col-md-3 attribution">
-        {% block footer_attribution %}
-          <p>{% trans %}<strong>Powered by</strong> <a class="hide-text ckan-footer-logo" href="http://ckan.org"><abbr title="Comprehensive Knowledge Archive Network">CKAN</abbr></a>{% endtrans %}</p>
-        {% endblock %}
-        {% block footer_lang %}
-          <!-- snippet "snippets/language_selector.html" -->
-        {% endblock %}
-      </div>
-    </div>
-    {% endblock %}
+    {% endblock footer_content %}
   </div>
-  
-
   {% block footer_debug %}
     {% if g.debug %}
-      {% include 'snippets/debug.html' %}
+      {% include "snippets/debug.html" %}
     {% endif %}
-  {% endblock %}
+  {% endblock footer_debug %}
 </footer>

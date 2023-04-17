@@ -2,7 +2,6 @@
   Customizes the display of license information on
   datasets, adding description if available.
 #}
-
 {% ckan_extends %}
 
 {% macro license_string_from_license(license) %}
@@ -14,30 +13,34 @@
     {% endif %}
   </span>
 {% endmacro %}
-
 {% set license = h.ontario_theme_get_license(pkg_dict.license_id) %}
-
 <!-- This block is for the license section in the sidebar on
      the dataset page, not the table on the resource page -->
 {% block license_title %}
-  <h2 class="aside-heading"> <i class="fa fa-lock"></i> {{ _('License') }}</h2>
-{% endblock %}
+  <h2 class="aside-heading">
+    <i class="fa fa-lock"></i> {{ _('License') }}
+  </h2>
+{% endblock license_title %}
+
 {% block license_content %}
   {% if license %}
-  <p>
-    {% block license_content_inner %}
-      {{ license_string_from_license(license._data) }}
-      {% if pkg_dict.isopen %}
-        <a href="http://opendefinition.org/okd/" title="{{ _('This dataset satisfies the Open Definition.') }}">
-            <img class="open-data" src="{{ h.url_for_static('/base/images/od_80x15_blue.png') }}" alt="[Open Data]" />
-        </a>
+    <p>
+      {% block license_content_inner %}
+        {{ license_string_from_license(license._data) }}
+        {% if pkg_dict.isopen %}
+          <a href="https://opendefinition.org/okd/"
+             title="{{ _('This dataset satisfies the Open Definition.') }}">
+            <img class="open-data"
+                 src="{{ h.url_for_static('/base/images/od_80x15_blue.png') }}"
+                 alt="[Open Data]"/>
+          </a>
+        {% endif %}
+      {% endblock license_content_inner %}
+    </p>
+    <p>
+      {% if h.get_translated(license._data, 'description') %}
+        {{ h.get_translated(license._data, 'description') }}
       {% endif %}
-    {% endblock %}
-  </p>
-  <p>
-    {% if h.get_translated(license._data, 'description') %}
-      {{ h.get_translated(license._data, 'description') }}
-    {% endif %}
-  </p>
+    </p>
   {% endif %}
-{% endblock %}
+{% endblock license_content %}
