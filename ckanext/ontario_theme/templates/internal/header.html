@@ -44,7 +44,9 @@
                     </a>
                   </li>
                   {% set new_activities = h.new_activities() %}
-                  <li class="notifications {% if new_activities > 0 -%}notifications-important{%- endif -%}">
+                  <li class="notifications
+                             {% if new_activities > 0 -%}
+                               notifications-important{%- endif -%}">
                     {% set notifications_tooltip = ngettext('Dashboard (%(num)d new item)', 'Dashboard (%(num)d new items)', new_activities) %}
                     {# Changed dashboard.index to dashboard.datasets #}
                     <a href="{{ h.url_for('dashboard.datasets') }}"
@@ -86,7 +88,7 @@
         <div class="ontario-columns ontario-small-6 ontario-application-header__logo">
           <a href="{{ _('https://www.ontario.ca/page/government-ontario') }}">
             <img src="/ontario-logo--desktop.svg"
-                 alt="{{ _('Government of Ontario') }}"/>
+                 alt="{{ _('Government of Ontario') }}" />
           </a>
         </div>
         <div class="ontario-columns ontario-small-6 ontario-application-header__lang-toggle">
@@ -103,7 +105,7 @@
         {% if g.debug and not g.debug_supress_header %}
           <div class="debug">
             Controller : {{ c.controller }}
-            <br/>
+            <br />
             Action : {{ c.action }}
           </div>
         {% endif %}
@@ -143,12 +145,12 @@
                            placeholder="{%- block search_placeholder -%}{{ placeholder | truncate(26) }}{%- endblock search_placeholder -%}"
                            value=""
                            autocomplete="off"
-                           required/>
+                           required />
                     <input class="ontario-search-reset"
                            id="ontario-search-reset"
                            type="reset"
                            value=""
-                           aria-label="Clear field"/>
+                           aria-label="Clear field" />
                     <button class="ontario-search-submit header-search"
                             id="ontario-search-submit"
                             type="submit">

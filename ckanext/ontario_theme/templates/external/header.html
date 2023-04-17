@@ -5,7 +5,7 @@
     <a class="logo" href="{{ h.url_for('home.index') }}">
       <img src="{{ h.url_for_static_or_external(g.site_logo) }}"
            alt="{{ g.site_title }}"
-           title="{{ g.site_title }}"/>
+           title="{{ g.site_title }}" />
     </a>
   {% else %}
     {# Add alpha styling. #}
@@ -23,10 +23,17 @@
         {% set survey_params = { "page": h.current_url() } %}
         {% set package_name = h.ontario_theme_extract_package_name(h.current_url()) %}
         {% do survey_params.update({'id': package_name}) if package_name %}
-        <strong>{% trans %}Tell us what you think about our data and how you’re using it.{% endtrans %}
+        <strong>
+          {% trans %}
+            Tell us what you think about our data and how you’re using it.
+          {% endtrans %}
           <a href="{{ _('https://www.ontario.ca/form/survey-open-data-catalogue') }}?{{ survey_params|urlencode }}"
              target="_blank"
-             rel="noopener noreferrer"> {% trans %}Take our survey{% endtrans %}</a>
+             rel="noopener noreferrer">
+            {% trans %}
+              Take our survey
+            {% endtrans %}
+          </a>
         </strong>
       </div>
     </div>

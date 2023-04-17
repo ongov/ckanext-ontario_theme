@@ -8,6 +8,4 @@
   {% set toggle_to = "en" %}
 {% endif %}
 <a href="{{ h.url_for(h.current_url(), locale=toggle_to) }}"
-   title="{{ toggle_to }}">
-  {{ 'français' if current_lang =='en' else 'english' }}
-</a>
+   title="{{ toggle_to }}">{{ 'français' if current_lang =='en' else 'english' }}</a>

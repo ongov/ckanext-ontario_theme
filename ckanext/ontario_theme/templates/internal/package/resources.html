@@ -3,7 +3,7 @@
 {% block primary_content_inner %}
   {% if pkg.resources %}
     <ul class="resource-list"
-        {% if has_reorder %} data-module="resource-reorder" data-module-id="{{ pkg.id }}"{% endif %}>
+        {% if has_reorder %}data-module="resource-reorder" data-module-id="{{ pkg.id }}"{% endif %}>
       {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
       {% set schema = h.scheming_get_dataset_schema(pkg.type) %}
       {% for resource in pkg.resources %}
@@ -12,7 +12,9 @@
     </ul>
   {% else %}
     {% trans url=h.url_for(pkg.type ~ '_resource.new', id=pkg.name) %}
-      <p class="empty">This dataset has no data, <a href="{{ url }}">why not add some?</a></p>
+      <p class="empty">
+        This dataset has no data, <a href="{{ url }}">why not add some?</a>
+      </p>
     {% endtrans %}
   {% endif %}
 {% endblock primary_content_inner %}
