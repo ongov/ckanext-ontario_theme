@@ -1,152 +1,150 @@
 {% ckan_extends %}
 
-{% import 'macros/form.html' as form %}
-
+{% import "macros/form.html" as form %}
 {% block admin_form %}
-
   {{ super() }}
-
   <h3>Home Page Content Blocks</h3>
-
   {{ form.input('ckanext.ontario_theme.home_block_one_image',
-                id='field-ckanext.ontario_theme.home_block_one_image',
-                label=_('Home Block One Image Path'),
-                value=data['ckanext.ontario_theme.home_block_one_image'],
-                error=error,
-                classes=['control-medium']) }}
-
+    id='field-ckanext.ontario_theme.home_block_one_image',
+    label=_('Home Block One Image Path'),
+    value=data['ckanext.ontario_theme.home_block_one_image'],
+    error=error,
+    classes=['control-medium']) }}
   <div class="row">
     {{ form.input('ckanext.ontario_theme.home_block_one_link-en',
-                  id='field-ckanext.ontario_theme.home_block_one_link-en',
-                  label=_('Home Block One Link EN'),
-                  value=data['ckanext.ontario_theme.home_block_one_link-en'],
-                  error=error,
-                  classes=['control-medium', 'col-md-6']) }}
-    {{ form.input('ckanext.ontario_theme.home_block_one_link-fr',
-                  id='field-ckanext.ontario_theme.home_block_one_link-fr',
-                  label=_('Home Block One Link FR'),
-                  value=data['ckanext.ontario_theme.home_block_one_link-fr'],
-                  error=error,
-                  classes=['control-medium', 'col-md-6']) }}
-  </div>
+      id='field-ckanext.ontario_theme.home_block_one_link-en',
+      label=_('Home Block One Link EN'),
+      value=data['ckanext.ontario_theme.home_block_one_link-en'],
+      error=error,
+      classes=['control-medium', 'col-md-6']) }}
 
+    {{ form.input('ckanext.ontario_theme.home_block_one_link-fr',
+      id='field-ckanext.ontario_theme.home_block_one_link-fr',
+      label=_('Home Block One Link FR'),
+      value=data['ckanext.ontario_theme.home_block_one_link-fr'],
+      error=error,
+      classes=['control-medium', 'col-md-6']) }}
+  </div>
   <div class="row">
     {{ form.markdown('ckanext.ontario_theme.home_block_one-en',
-                     id='field-ckanext.ontario_theme.home_block_one-en',
-                     label=_('Home Block One EN'),
-                     value=data['ckanext.ontario_theme.home_block_one-en'],
-                     error=errors['ckanext.ontario_theme.home_block_one-en'],
-                     classes=['col-md-6'],
-                     placeholder='### Heading Text \n \n Paragraph text.') }}
+      id='field-ckanext.ontario_theme.home_block_one-en',
+      label=_('Home Block One EN'),
+      value=data['ckanext.ontario_theme.home_block_one-en'],
+      error=errors['ckanext.ontario_theme.home_block_one-en'],
+      classes=['col-md-6'],
+      placeholder='### Heading Text \n \n Paragraph text.') }}
 
     {{ form.markdown('ckanext.ontario_theme.home_block_one-fr',
-                     id='field-ckanext.ontario_theme.home_block_one-fr',
-                     label=_('Home Block One FR'),
-                     value=data['ckanext.ontario_theme.home_block_one-fr'],
-                     error=errors['ckanext.ontario_theme.home_block_one-fr'],
-                     classes=['col-md-6'],
-                     placeholder='### Heading Text \n \n Paragraph text.') }}
+      id='field-ckanext.ontario_theme.home_block_one-fr',
+      label=_('Home Block One FR'),
+      value=data['ckanext.ontario_theme.home_block_one-fr'],
+      error=errors['ckanext.ontario_theme.home_block_one-fr'],
+      classes=['col-md-6'],
+      placeholder='### Heading Text \n \n Paragraph text.') }}
   </div>
-
-  <hr>
-
+  <hr />
   {{ form.input('ckanext.ontario_theme.home_block_two_image',
-                id='field-ckanext.ontario_theme.home_block_two_image',
-                label=_('Home Block Two Image Path'),
-                value=data['ckanext.ontario_theme.home_block_two_image'],
-                error=error,
-                classes=['control-medium']) }}
-
+    id='field-ckanext.ontario_theme.home_block_two_image',
+    label=_('Home Block Two Image Path'),
+    value=data['ckanext.ontario_theme.home_block_two_image'],
+    error=error,
+    classes=['control-medium']) }}
   <div class="row">
     {{ form.input('ckanext.ontario_theme.home_block_two_link-en',
-                  id='field-ckanext.ontario_theme.home_block_two_link-en',
-                  label=_('Home Block Two Link EN'),
-                  value=data['ckanext.ontario_theme.home_block_two_link-en'],
-                  error=error,
-                  classes=['control-medium', 'col-md-6']) }}
-    {{ form.input('ckanext.ontario_theme.home_block_two_link-fr',
-                  id='field-ckanext.ontario_theme.home_block_two_link-fr',
-                  label=_('Home Block Two Link FR'),
-                  value=data['ckanext.ontario_theme.home_block_two_link-fr'],
-                  error=error,
-                  classes=['control-medium', 'col-md-6']) }}
-  </div>
+      id='field-ckanext.ontario_theme.home_block_two_link-en',
+      label=_('Home Block Two Link EN'),
+      value=data['ckanext.ontario_theme.home_block_two_link-en'],
+      error=error,
+      classes=['control-medium', 'col-md-6']) }}
 
+    {{ form.input('ckanext.ontario_theme.home_block_two_link-fr',
+      id='field-ckanext.ontario_theme.home_block_two_link-fr',
+      label=_('Home Block Two Link FR'),
+      value=data['ckanext.ontario_theme.home_block_two_link-fr'],
+      error=error,
+      classes=['control-medium', 'col-md-6']) }}
+  </div>
   <div class="row">
     {{ form.markdown('ckanext.ontario_theme.home_block_two-en',
-                     id='field-ckanext.ontario_theme.home_block_two-en',
-                     label=_('Home Block Two EN'),
-                     value=data['ckanext.ontario_theme.home_block_two-en'],
-                     error=errors['ckanext.ontario_theme.home_block_two-en'],
-                     classes=['col-md-6'],
-                     placeholder='### Heading Text \n \n Paragraph text.') }}
+      id='field-ckanext.ontario_theme.home_block_two-en',
+      label=_('Home Block Two EN'),
+      value=data['ckanext.ontario_theme.home_block_two-en'],
+      error=errors['ckanext.ontario_theme.home_block_two-en'],
+      classes=['col-md-6'],
+      placeholder='### Heading Text \n \n Paragraph text.') }}
 
     {{ form.markdown('ckanext.ontario_theme.home_block_two-fr',
-                     id='field-ckanext.ontario_theme.home_block_two-fr',
-                     label=_('Home Block Two FR'),
-                     value=data['ckanext.ontario_theme.home_block_two-fr'],
-                     error=errors['ckanext.ontario_theme.home_block_two-fr'],
-                     classes=['col-md-6'],
-                     placeholder='### Heading Text \n \n Paragraph text.') }}
+      id='field-ckanext.ontario_theme.home_block_two-fr',
+      label=_('Home Block Two FR'),
+      value=data['ckanext.ontario_theme.home_block_two-fr'],
+      error=errors['ckanext.ontario_theme.home_block_two-fr'],
+      classes=['col-md-6'],
+      placeholder='### Heading Text \n \n Paragraph text.') }}
   </div>
-
-  <hr>
-
+  <hr />
   {{ form.input('ckanext.ontario_theme.home_block_three_image',
-                id='field-ckanext.ontario_theme.home_block_three_image',
-                label=_('Home Block Three Image Path'),
-                value=data['ckanext.ontario_theme.home_block_three_image'],
-                error=error,
-                classes=['control-medium']) }}
-
+    id='field-ckanext.ontario_theme.home_block_three_image',
+    label=_('Home Block Three Image Path'),
+    value=data['ckanext.ontario_theme.home_block_three_image'],
+    error=error,
+    classes=['control-medium']) }}
   <div class="row">
     {{ form.input('ckanext.ontario_theme.home_block_three_link-en',
-                  id='field-ckanext.ontario_theme.home_block_three_link-en',
-                  label=_('Home Block Three Link EN'),
-                  value=data['ckanext.ontario_theme.home_block_three_link-en'],
-                  error=error,
-                  classes=['control-medium', 'col-md-6']) }}
-    {{ form.input('ckanext.ontario_theme.home_block_three_link-fr',
-                  id='field-ckanext.ontario_theme.home_block_three_link-fr',
-                  label=_('Home Block Three Link FR'),
-                  value=data['ckanext.ontario_theme.home_block_three_link-fr'],
-                  error=error,
-                  classes=['control-medium', 'col-md-6']) }}
-  </div>
+      id='field-ckanext.ontario_theme.home_block_three_link-en',
+      label=_('Home Block Three Link EN'),
+      value=data['ckanext.ontario_theme.home_block_three_link-en'],
+      error=error,
+      classes=['control-medium', 'col-md-6']) }}
 
+    {{ form.input('ckanext.ontario_theme.home_block_three_link-fr',
+      id='field-ckanext.ontario_theme.home_block_three_link-fr',
+      label=_('Home Block Three Link FR'),
+      value=data['ckanext.ontario_theme.home_block_three_link-fr'],
+      error=error,
+      classes=['control-medium', 'col-md-6']) }}
+  </div>
   <div class="row">
     {{ form.markdown('ckanext.ontario_theme.home_block_three-en',
-                     id='field-ckanext.ontario_theme.home_block_three-en',
-                     label=_('Home Block Three EN'),
-                     value=data['ckanext.ontario_theme.home_block_three-en'],
-                     error=errors['ckanext.ontario_theme.home_block_three-en'],
-                     classes=['col-md-6'],
-                     placeholder='### Heading Text \n \n Paragraph text.') }}
+      id='field-ckanext.ontario_theme.home_block_three-en',
+      label=_('Home Block Three EN'),
+      value=data['ckanext.ontario_theme.home_block_three-en'],
+      error=errors['ckanext.ontario_theme.home_block_three-en'],
+      classes=['col-md-6'],
+      placeholder='### Heading Text \n \n Paragraph text.') }}
 
     {{ form.markdown('ckanext.ontario_theme.home_block_three-fr',
-                     id='field-ckanext.ontario_theme.home_block_three-fr',
-                     label=_('Home Block Three FR'),
-                     value=data['ckanext.ontario_theme.home_block_three-fr'],
-                     error=errors['ckanext.ontario_theme.home_block_three-fr'],
-                     classes=['col-md-6'],
-                     placeholder='### Heading Text \n \n Paragraph text.') }}
+      id='field-ckanext.ontario_theme.home_block_three-fr',
+      label=_('Home Block Three FR'),
+      value=data['ckanext.ontario_theme.home_block_three-fr'],
+      error=errors['ckanext.ontario_theme.home_block_three-fr'],
+      classes=['col-md-6'],
+      placeholder='### Heading Text \n \n Paragraph text.') }}
   </div>
-
-{% endblock %}
-
+{% endblock admin_form %}
 
 {% block admin_form_help %}
   {{ super() }}
-  <p><strong>Home Block [One, Two, Three] Image Path:</strong> Image path for applicable home page feature content block.</p>
-  <p><strong>Home Block [One, Two, Three] Link EN:</strong> English link for applicable home page feature content block.</p>
-  <p><strong>Home Block [One, Two, Three] Link FR:</strong> French link for applicable home page feature content block.</p>
-  <p><strong>Home Block [One, Two, Three] EN:</strong> English heading and paragraph for applicable home page feature content block.</p>
-  <p><strong>Home Block [One, Two, Three] FR:</strong> French heading and paragraph for applicable home page feature content block.</p>
+  <p>
+    <strong>Home Block [One, Two, Three] Image Path:</strong> Image path for applicable home page feature content block.
+  </p>
+  <p>
+    <strong>Home Block [One, Two, Three] Link EN:</strong> English link for applicable home page feature content block.
+  </p>
+  <p>
+    <strong>Home Block [One, Two, Three] Link FR:</strong> French link for applicable home page feature content block.
+  </p>
+  <p>
+    <strong>Home Block [One, Two, Three] EN:</strong> English heading and paragraph for applicable home page feature
+    content block.
+  </p>
+  <p>
+    <strong>Home Block [One, Two, Three] FR:</strong> French heading and paragraph for applicable home page feature
+    content block.
+  </p>
   <p>Format should be:</p>
   <pre>
-### Heading Text Here
+    ### Heading Text Here
 
-Paragraph text here.
+    Paragraph text here.
   </pre>
-
-{% endblock %}
+{% endblock admin_form_help %}

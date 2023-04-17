@@ -1,34 +1,31 @@
 {% extends "package/snippets/additional_info.html" %}
 
 {%- set exclude_fields = [
-    'id',
-    'title',
-    'name',
-    'notes',
-    'tag_string',
-    'license_id',
-    'owner_org',
-    'notes_translated',
-    'short_description',
-    'access_level',
-    'opened_date',
-    'exemption',
-    'exemption_rationale',
-    'colby_notes',
-    'title_translated'
-    ] -%}
-
+'id',
+'title',
+'name',
+'notes',
+'tag_string',
+'license_id',
+'owner_org',
+'notes_translated',
+'short_description',
+'access_level',
+'opened_date',
+'exemption',
+'exemption_rationale',
+'colby_notes',
+'title_translated'
+] -%}
 {% block package_additional_info %}
   {%- for field in schema.dataset_fields -%}
-    {%- if field.field_name not in exclude_fields
-        and field.display_snippet is not none -%}
+    {%- if field.field_name not in exclude_fields and field.display_snippet is not none -%}
       <tr>
-        <th scope="row" class="dataset-label">{{
-          h.scheming_language_text(field.label) }}</th>
-        <td class="dataset-details"{%
-          if field.display_property %} property="{{ field.display_property
-          }}"{% endif %}>{%- snippet 'scheming/snippets/display_field.html',
-          field=field, data=pkg_dict, schema=schema -%}</td>
+        <th scope="row" class="dataset-label">{{ h.scheming_language_text(field.label) }}</th>
+        <td class="dataset-details"
+            {% if field.display_property %} property="{{ field.display_property }}"{% endif %}>
+          {%- snippet "scheming/snippets/display_field.html", field=field, data=pkg_dict, schema=schema -%}
+        </td>
       </tr>
     {%- endif -%}
   {%- endfor -%}
@@ -38,4 +35,4 @@
       <td class="dataset-details">{{ _(pkg_dict.state) }}</td>
     </tr>
   {% endif %}
-{% endblock %}
+{% endblock package_additional_info %}

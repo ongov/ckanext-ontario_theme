@@ -1,32 +1,33 @@
+{# djlint:off J018 #}
 {% ckan_extends %}
 
 {% block secondary %}
-<aside class="secondary col-sm-4 right-col dataset-font">
-{% block package_info %}
-  <div class="module module-narrow module-shallow context-info">
-    <h2 class="aside-heading">{{ _("Keep updated") }}</h2>
-    <section>
-      <p>
-        {{ _("Subscribe to updates to this dataset using RSS.") }}
-      </p>
-      <p>
-        <a href="/feeds/custom.atom?q=name:{{ pkg.name }}" class="btn btn-primary">
-          <i class="fa fa-rss"></i> {{ _('Subscribe') }}
-        </a>
-      </p>
-    </section>
-  </div>
-{% endblock %}
+  <aside class="secondary col-sm-4 right-col dataset-font">
+    {% block package_info %}
+      <div class="module module-narrow module-shallow context-info">
+        <h2 class="aside-heading">{{ _("Keep updated") }}</h2>
+        <section>
+          <p>{{ _("Subscribe to updates to this dataset using RSS.") }}</p>
+          <p>
+            <a href="/feeds/custom.atom?q=name:{{ pkg.name }}"
+               class="btn btn-primary">
+              <i class="fa fa-rss"></i> {{ _('Subscribe') }}
+            </a>
+          </p>
+        </section>
+      </div>
+    {% endblock package_info %}
 
-  {% block package_organization %}
-    {% if pkg.organization %}
-      {% set org = h.get_organization(pkg.organization.id) %}
-      {% snippet "snippets/organization.html", organization=org, has_context_title=true %}
-    {% endif %}
-  {% endblock %}
+    {% block package_organization %}
+      {% if pkg.organization %}
+        {% set org = h.get_organization(pkg.organization.id) %}
+        {% snippet "snippets/organization.html", organization=org, has_context_title=true %}
+      {% endif %}
+    {% endblock package_organization %}
 
-  {% block package_license %}
-    {% snippet "snippets/license.html", pkg_dict=pkg %}
-  {% endblock %}
-</aside>
-{% endblock %}
+    {% block package_license %}
+      {% snippet "snippets/license.html", pkg_dict=pkg %}
+    {% endblock package_license %}
+  </aside>
+{% endblock secondary %}
+{# djlint:on #}

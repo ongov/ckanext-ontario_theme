@@ -3,7 +3,6 @@
 Override CKAN's read.html to add some new facets.
 
 #}
-
 {% ckan_extends %}
 
 {% set ministry = h.get_translated(c.group_dict, "title") or c.group_dict.name %}
@@ -32,18 +31,18 @@ Override CKAN's read.html to add some new facets.
   {% set form_id = 'organization-datasets-search-form' %}
   <form id="{{ form_id }}" class="search-form col-xs-12" method="get" data-module="select-switch" novalidate>
     {% snippet 'snippets/search_form.html',
-                searchbar_title=searchbar_title,
-                hidden_searchbar_title=searchbar_text,
-                form_id=form_id,
-                type='dataset', 
-                query=q, 
-                sorting=sorting, 
-                sorting_selected=sort_by_selected, 
-                count=page.item_count, 
-                facets=facets, 
-                placeholder=searchbar_text, 
-                show_empty=request.params, 
-                fields=fields %}
+      searchbar_title=searchbar_title,
+      hidden_searchbar_title=searchbar_text,
+      form_id=form_id,
+      type='dataset',
+      query=q,
+      sorting=sorting,
+      sorting_selected=sort_by_selected,
+      count=page.item_count,
+      facets=facets,
+      placeholder=searchbar_text,
+      show_empty=request.params,
+      fields=fields %}
   </form>
 {% endblock groups_search_form %}
 
