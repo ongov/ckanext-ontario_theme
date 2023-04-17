@@ -21,7 +21,6 @@ Override CKAN's read.html to add some new facets.
     (_('Last Modified'), 'metadata_modified desc'),
     (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
   %}
-
   {# Make 'Relevance' the default selection when first landing on page #}
   {% if not sort_by_selected %}
     {% set sort_by_selected = 'score desc, metadata_modified desc' %}
