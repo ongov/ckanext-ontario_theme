@@ -1268,7 +1268,7 @@ via submission form. Copied from DS.*/
   color: #000000;
 }
 
-.dataset-font, .package-item-category {
+.dataset-font{
   font-size: 19px;
   font-weight: 400;
 }
@@ -1748,9 +1748,3 @@ section#dataset-resources > h2{
 .module h1 {
   margin: 2.5rem 0 1.5rem 0;
 }
-/* ========================================================================
-   Package List
-   ======================================================================== */
-   .package-item-category {
-    color: #4d4d4d;
-   }
