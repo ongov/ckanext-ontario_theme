@@ -1979,6 +1979,11 @@ screen and (min-width: 96em) {
   margin: 0 0 10px 0;
 }
 
+.dataset-content > h3.ontario-h4 {
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
 .dataset-content > h3.ontario-h4 a {
   text-decoration: none;
 }
