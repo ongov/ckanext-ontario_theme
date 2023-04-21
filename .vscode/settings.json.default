@@ -7,10 +7,7 @@
   "css.lint.duplicateProperties": "error",
   "css.lint.zeroUnits": "warning",
   "css.format.preserveNewLines": true,
-  "editor.foldingStrategy": "indentation",
   "editor.guides.bracketPairs": true,
-  "editor.linkedEditing": true,
-  "editor.guides.highlightActiveBracketPair": true,
   "editor.language.colorizedBracketPairs": [
     ["{%", "%}"],
     ["{{", "}}"]
