@@ -8,7 +8,7 @@
 {% ckan_extends %}
 
 {% block heading %}
-  <h3 class="dataset-heading">
+  <h3 class="ontario-h4">
     {% block heading_private %}
       {{ super() }}
     {% endblock heading_private %}
@@ -34,28 +34,30 @@
   {# Get the org to get all extras then get the schema for choices/labels of values #}
   {% set organization = h.get_organization(package['owner_org']) %}
   {%- set schema = h.scheming_get_organization_schema('organization') -%}
-  <p class="text-muted">
-    <small>
-      {{ h.get_translated(organization, 'title') }}
-      <em>(
-        {%- snippet 'scheming/snippets/display_field.html', field=h.scheming_field_by_name(schema.fields, 'jurisdiction'), data=organization, schema=schema -%} &nbsp;
-        {%- snippet 'scheming/snippets/display_field.html', field=h.scheming_field_by_name(schema.fields, 'category'), data=organization, schema=schema -%}
-        )</em>
-    </small>
+  <p class="package-item-category">
+      {%- snippet 'scheming/snippets/display_field.html', field=h.scheming_field_by_name(schema.fields, 'category'), data=organization, schema=schema -%}
+      {{ _(':') }} {{ h.get_translated(organization, 'title') }}
   </p>
 {% endblock heading %}
 
-{% block resources_inner %}
-  {% for resource in h.dict_list_reduce(package.resources, 'format') %}
-    <li>
-      <span class="label label-default" data-format="{{ resource.lower() }}">{{ resource }}</span>
-    </li>
-  {% endfor %}
-{% endblock resources_inner %}
+{% block resources_outer %}
+  <div class="resource-formats">
+    <p>{{ _('Resource formats') + _(':') }}</p>
+    <ul class="dataset-resources list-unstyled">
+    {% block resources_inner %}
+      {% for resource in h.dict_list_reduce(package.resources, 'format') %}
+        <li>
+          <span class="label label-default" data-format="{{ resource.lower() }}">{{ resource }}</span>
+        </li>
+      {% endfor %}
+    {% endblock resources_inner %}
+    </ul>
+  </div>
+{% endblock resources_outer %}
 
 {% block notes %}
   {% if notes %}
-    <div>{{ h.markdown_extract(h.get_translated(package, 'notes')|urlize, extract_length=truncate) }}</div>
+    <div class="dataset-font">{{ h.markdown_extract(h.get_translated(package, 'notes')|urlize, extract_length=truncate) }}</div>
   {% else %}
     <p class="empty">{{ _("This dataset has no description") }}</p>
   {% endif %}
