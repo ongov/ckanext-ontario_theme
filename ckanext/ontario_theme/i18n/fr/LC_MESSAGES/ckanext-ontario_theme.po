@@ -2172,6 +2172,10 @@ msgstr "Algorithme/IA"
 msgid "ON Geohub"
 msgstr "CarrefourGéo ON"
 
+#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:45
+msgid "Resource formats"
+msgstr "Formats des ressources"
+
 #: ckanext/ontario_theme/templates/internal/package/resource_read.html:25
 msgid "Open"
 msgstr "Ouvert"
@@ -2486,7 +2490,7 @@ msgstr "Rechercher les jeux de données"
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:58
 msgid "Ministry"
-msgstr "ministère"
+msgstr "Ministère"
 
 #: Report error callout
 msgid "Report an error with this data"

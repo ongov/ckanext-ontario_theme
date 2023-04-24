@@ -1629,6 +1629,10 @@ msgstr ""
 msgid "This dataset has no description"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:45
+msgid "Resource formats"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:17
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:38
 msgid "Remove"
