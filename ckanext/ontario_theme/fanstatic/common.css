@@ -1572,7 +1572,7 @@ via submission form. Copied from DS.*/
   }
 
   .resource-button-text {
-    display: flex;
+    display: inline-flex;
   }
 }
 
