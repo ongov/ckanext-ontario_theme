@@ -1583,8 +1583,12 @@ msgstr ""
 msgid "Add Dataset"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:55
-msgid "Show More {facet_type}"
+#: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:54
+msgid "Show more"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:57
+msgid "Show less"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:58
