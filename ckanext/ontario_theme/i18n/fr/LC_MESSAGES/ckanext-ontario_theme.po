@@ -89,6 +89,10 @@ msgstr ""
 msgid "Help"
 msgstr "Aider"
 
+#: ckanext/ontario_theme/templates/internal/group/index.html:21
+msgid "Browse datasets and resources organized by a specific theme or topic."
+msgstr "Parcourez des ensembles de données et des ressources organisés par thème ou sujet spécifique."
+
 #: ckanext/ontario_theme/templates/internal/organization/index.html
 msgid "Ministries"
 msgstr "Ministères"
