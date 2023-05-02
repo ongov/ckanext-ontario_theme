@@ -1822,6 +1822,11 @@ ul.nav-tabs li a,
   width: fit-content;
 }
 
+/* Add min-width to layout table properly in Safari */
+#collapse-endpoints table {
+  min-width: 100%;
+}
+
 /* Break the URLs so they fit the panel width and the width of screen */
 #collapse-querying .panel-body,
 .resource-url-analytics {
