@@ -86,7 +86,7 @@
         <div class="ontario-columns ontario-small-6 ontario-application-header__logo">
           <a href="{{ _('https://www.ontario.ca/page/government-ontario') }}">
             <img src="/ontario-logo--desktop.svg"
-                 alt="{{ _('Government of Ontario') }}"/>
+                 alt="{{ _('Government of Ontario') }}" role="img"/>
           </a>
         </div>
         <div class="ontario-columns ontario-small-6 ontario-application-header__lang-toggle">
@@ -165,7 +165,8 @@
                   <button class="ontario-header__search-toggler ontario-header-button ontario-header-button--without-outline ontario-hide-for-large"
                           id="ontario-header-search-toggler"
                           aria-controls="ontario-search-form-container"
-                          type="button">
+                          type="button"
+                          aria-label="Search">
                     <svg class="ontario-icon"
                          focusable="false"
                          sol:category="primary"
