@@ -532,7 +532,7 @@ input[type="reset"].ontario-search-reset.home {
   z-index: 2;
 }
 
-.ontario-search-input.ontario-input.snippet{
+.ontario-search-input.ontario-input.snippet {
   padding-right: 8rem;
 }
 
@@ -2026,6 +2026,28 @@ screen and (min-width: 96em) {
   margin-right: 10px;
 }
 
+.restricted_under_review_packages {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.restricted_under_review_packages p {
+  margin-bottom: unset;
+}
+
+.packages_not_available {
+  font-size: 20px;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.packages_access_level {
+  font-size: 20px;
+  font-weight: 400;
+}
+
 /* ========================================================================
    Dataset Search Page - File type labels
    ======================================================================== */
@@ -2045,6 +2067,7 @@ screen and (min-width: 96em) {
 
 .dataset-resources {
   margin-top: unset;
+  display: contents;
 }
 
 .label.label-default {
@@ -2160,6 +2183,7 @@ screen and (min-width: 96em) {
 .wrapper::before {
   z-index: 0;
 }
+
 .module.module-narrow.module-shallow.context-info {
   padding: 30px;
 }

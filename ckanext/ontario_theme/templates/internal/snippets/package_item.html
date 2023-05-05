@@ -39,21 +39,39 @@
       {{ _(':') }} {{ h.get_translated(organization, 'title') }}
   </p>
 {% endblock heading %}
-
-{% block resources_outer %}
-  <div class="resource-formats">
-    <p>{{ _('Resource formats') + _(':') }}</p>
-    <ul class="dataset-resources list-unstyled">
-    {% block resources_inner %}
-      {% for resource in h.dict_list_reduce(package.resources, 'format') %}
-        <li>
-          <span class="label label-default" data-format="{{ resource.lower() }}">{{ resource }}</span>
-        </li>
-      {% endfor %}
-    {% endblock resources_inner %}
-    </ul>
-  </div>
-{% endblock resources_outer %}
+{% set is_admin = h.check_access('package_update', {'id':package.id }) %}
+{% set is_open = (package.access_level == 'open') %}
+{% set is_restricted = (package.access_level == 'restricted') %}
+{% block resources %}
+    {% block resources_outer %}
+      {% if package.resources and not hide_resources %}
+        {% if is_open or is_admin %}
+          <div class="resource-formats">
+            <p>{{ _('Resource formats') + _(':') }}</p>
+            <ul class="dataset-resources list-unstyled">
+            {% block resources_inner %}
+              {% for resource in h.dict_list_reduce(package.resources, 'format') %}
+                <li>
+                  <span class="label label-default" data-format="{{ resource.lower() }}">{{ resource }}</span>
+                </li>
+              {% endfor %}
+            {% endblock resources_inner %}
+            </ul>
+          </div>
+        {% endif %}
+      {% endif %}
+      {% if package.access_level != 'open' %}
+        <div class="restricted_under_review_packages">
+          <p class="packages_not_available">{{ _('Not available to the public') + _(':') }}</p>
+          {% if is_restricted %}
+            <p class="packages_access_level">{{ _('Access to this dataset is restricted') }}</p>
+          {% else %}
+            <p class="packages_access_level">{{ _('This dataset is currently under review') }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endblock resources_outer %}
+{% endblock resources %}
 
 {% block notes %}
   {% if notes %}
