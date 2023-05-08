@@ -35,7 +35,8 @@
             {% else %}
               <p class="date-range">{{ _("No date range") }}</p>
             {% endif %}
-            <ul class="{% block resource_list_class -%}resource-list{%- endblock resource_list_class %}">
+            <ul class="{% block resource_list_class -%}
+                         resource-list{%- endblock resource_list_class %}">
               {% for r in group.list|selectattr("format", "equalto", "CSV") %}
                 {% snippet "package/snippets/resource_item.html", pkg=pkg, res=r, can_edit=can_edit, schema=schema %}
               {% endfor %}
