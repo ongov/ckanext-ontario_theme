@@ -102,23 +102,16 @@ Development
 
 Follow the `CKAN style rules <http://docs.ckan.org/en/latest/contributing/css.html#formatting>`_.
 
-Converting to Less for styling.
+To install the precommit hooks for development, activate your CKAN
+virtualenv and run::
+    pip install -r dev-requirements.txt
+    pre-commit install
 
-This is the current process until a cleaner setup can be created.
+We use the djLint pre-commit hook to lint our code.
 
-Install npm and less, then compile less files to css before pushing changes.::
-
-    sudo apt install npm
-    sudo npm install -g less
-    ln -s /usr/bin/nodejs /usr/bin/node
-    cd /ckanext-ontario_theme/ckanext/ontario_theme/fanstatic/internal
-    lessc ontario_theme.less ontario_theme.css # Builds internal
-    cd ../external
-    lessc ontario_theme.less ontario_theme.css # Builds external
-
-Styles should be broken down into small modules that do one thing and contain all necessary 
-styling for that module. As an example, the smarties.less file should contain all styling
-needed for smarties.
+For our CSS formatting, we are using the vscode CSS formatter. To add our settings to your vscode do ::
+  Create file `settings.json` in the `.vscode` folder
+  Copy contents of `settings.json.default` into the `settings.json` file. Save.
 
 
 -----------------
