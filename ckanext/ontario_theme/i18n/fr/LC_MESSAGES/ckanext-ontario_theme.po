@@ -93,6 +93,12 @@ msgstr "Aider"
 msgid "Ministries"
 msgstr "Ministères"
 
+#: ckanext/ontario_theme/templates/internal/snippets/organization.html:19
+msgid "{number} dataset"
+msgid_plural "{number} datasets"
+msgstr[0] "{number} jeu  de données"
+msgstr[1] "{number} jeux de données"
+
 #: OVERRIDE: ckan/templates/snippets/search_result_text.html
 #: Datasets
 msgid "<strong>{number} dataset</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
@@ -110,9 +116,13 @@ msgstr "l’accès aux données à l’aide de différents types de fichiers."
 msgid "No datasets found with the keyword(s) <strong>\"{query}\"</strong>"
 msgstr "Aucun jeu de données trouvé avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
 
-#: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:55
-msgid "Show More"
-msgstr "Afficher plus d’options"
+#: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:54
+msgid "Show more"
+msgstr "Afficher plus"
+
+#: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:57
+msgid "Show less"
+msgstr "Afficher moins"
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:17
 msgid "<strong>{number} dataset</strong> found"
@@ -2027,7 +2037,7 @@ msgstr "Activité récente"
 
 #: ckanext/ontario_theme/templates/internal/home/snippets/search.html:7
 msgid "Search Ontario's Data"
-msgstr "Rechercher les données de l'Ontario"
+msgstr "Rechercher des données de l'Ontario"
 
 msgid "Search datasets"
 msgstr "Rechercher des jeux de données"
@@ -2166,6 +2176,10 @@ msgstr "Algorithme/IA"
 msgid "ON Geohub"
 msgstr "CarrefourGéo ON"
 
+#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:45
+msgid "Resource formats"
+msgstr "Formats des ressources"
+
 #: ckanext/ontario_theme/templates/internal/package/resource_read.html:25
 msgid "Open"
 msgstr "Ouvert"
@@ -2265,6 +2279,10 @@ msgid ""
 "/ontarios-open-data-directive\">[Learn more]</a> "
 msgstr "Vous consultez un fichier de données en anglais. Cet ensemble de données <strong>n'a </strong> aucun fichier disponible en français. Les données du catalogue de données sont publiées dans la langue dans laquelle elles sont collectées. <a href=\"https://www.ontario.ca/fr/page/"
 "directive-sur-les-donnees-ouvertes-de-lontario\">[Apprendre encore plus]</a>"
+
+#: ckanext/ontario_theme/templates/internal/snippets/organization.html:15
+msgid "Read more"
+msgstr "Lire plus"
 
 #: ckanext/ontario_theme/templates/package/snippets/resources_list.html:17
 msgid "No date range"
@@ -2476,7 +2494,7 @@ msgstr "Rechercher les jeux de données"
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:58
 msgid "Ministry"
-msgstr "ministère"
+msgstr "Ministère"
 
 #: Report error callout
 msgid "Report an error with this data"

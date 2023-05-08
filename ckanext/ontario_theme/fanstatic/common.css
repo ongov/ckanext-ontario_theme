@@ -532,10 +532,8 @@ input[type="reset"].ontario-search-reset.home {
   z-index: 2;
 }
 
-@media screen and (max-width: 40em) {
-  .ontario-search-input.ontario-input.snippet {
-    padding-right: 8rem;
-  }
+.ontario-search-input.ontario-input.snippet{
+  padding-right: 8rem;
 }
 
 input[placeholder] {
@@ -693,8 +691,7 @@ input[placeholder] {
 /* ========================================================================
    Links - Design System
    ======================================================================== */
-a,
-.dataset-heading a {
+a {
   color: #0066cc;
   text-decoration: underline;
 }
@@ -740,6 +737,29 @@ a:focus {
   line-height: 25.6px;
   word-break: break-word;
   hyphens: auto;
+}
+
+.ministry-packages {
+  float: right;
+}
+
+.ministry-package-div,
+.ministry-packages {
+  margin-top: 25px;
+}
+
+.ministry.nums {
+  font-size: 22px;
+  line-height: 25.6px;
+  font-weight: 400;
+}
+
+.module > .page-header.ministry-page-header {
+  margin-top: 0;
+}
+
+.primary.ministry-page {
+  padding-top: unset;
 }
 
 /* ========================================================================
@@ -1515,9 +1535,9 @@ via submission form. Copied from DS.*/
   color: #000000;
 }
 
-.dataset-font {
+.dataset-font,
+.package-item-category {
   font-size: 19px;
-  line-height: 25.6px;
   font-weight: 400;
 }
 
@@ -1973,7 +1993,41 @@ screen and (min-width: 96em) {
 }
 
 /* ========================================================================
-   File type labels
+   Dataset Search Page - Package Items
+   ======================================================================== */
+.package-item-category {
+  color: #4d4d4d;
+  margin: 0 0 10px 0;
+}
+
+.dataset-content > h3.ontario-h4 {
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.dataset-content > h3.ontario-h4 a {
+  text-decoration: none;
+}
+
+.dataset-content > h3.ontario-h4 a:hover {
+  text-decoration: underline;
+}
+
+.resource-formats {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.resource-formats p {
+  font-size: 20px;
+  font-weight: 400;
+  margin-right: 10px;
+}
+
+/* ========================================================================
+   Dataset Search Page - File type labels
    ======================================================================== */
 .dataset-resources li {
   display: inline-block;
@@ -1990,13 +2044,13 @@ screen and (min-width: 96em) {
 }
 
 .dataset-resources {
-  margin-top: 13px;
+  margin-top: unset;
 }
 
 .label.label-default {
   color: #000;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 18px;
   padding: 0.4em 1em;
 }
 
@@ -2100,4 +2154,12 @@ screen and (min-width: 96em) {
 /* About and Help page header */
 .module h1 {
   margin: 2.5rem 0 1.5rem 0;
+}
+
+/* Wrapper styling */
+.wrapper::before {
+  z-index: 0;
+}
+.module.module-narrow.module-shallow.context-info {
+  padding: 30px;
 }

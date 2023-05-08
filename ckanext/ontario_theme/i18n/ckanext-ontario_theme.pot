@@ -1119,6 +1119,12 @@ msgstr ""
 msgid "Datasets"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/snippets/organization.html:19
+msgid "{number} dataset"
+msgid_plural "{number} datasets"
+msgstr[0] ""
+msgstr[1] ""
+
 #: ckanext/ontario_theme/templates/internal/organization/edit_base.html:3
 #: ckanext/ontario_theme/templates/internal/organization/edit_base.html:6
 #: ckanext/ontario_theme/templates/internal/organization/index.html:16
@@ -1577,8 +1583,12 @@ msgstr ""
 msgid "Add Dataset"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:55
-msgid "Show More {facet_type}"
+#: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:54
+msgid "Show more"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:57
+msgid "Show less"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:58
@@ -1595,6 +1605,10 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/organization.html:6
 msgid "Deleted"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/organization.html:15
+msgid "Read more"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/organization.html:15
@@ -1617,6 +1631,10 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/package_item.html:44
 msgid "This dataset has no description"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:45
+msgid "Resource formats"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:17
