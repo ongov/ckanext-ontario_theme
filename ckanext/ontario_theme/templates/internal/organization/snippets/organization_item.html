@@ -7,9 +7,7 @@
         {% set organization_name = (h.get_translated(organization, "title") or organization.name) %}
         <a href="{{ url }}"
            title="{{ _('View {organization_name}').format(organization_name=organization_name) }}"
-           class="ministry-heading">
-          {{ h.get_translated(organization, "title") or organization.name }}
-        </a>
+           class="ministry-heading">{{ h.get_translated(organization, "title") or organization.name }}</a>
       {% endblock title %}
 
       {% block datasets %}

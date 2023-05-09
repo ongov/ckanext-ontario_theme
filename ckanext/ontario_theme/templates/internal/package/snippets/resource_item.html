@@ -58,7 +58,7 @@
                   <i class="fa fa-info-circle"></i>
                   {{ _('About') }}
                 {% endif %}
-                <br/>
+                <br />
                 {% if res.language and res.language != 'english_and_french' %}
                   {{ h.scheming_choices_label(
                   h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}
@@ -80,7 +80,7 @@
                   {% if res.has_views or res.url_type == 'upload' %}
                     <i class="fa fa-arrow-circle-o-down"></i>
                     {{ _('Download') }}
-                    <br/>
+                    <br />
                     {% if res.language and res.language != 'english_and_french' %}
                       {{ h.scheming_choices_label(
                       h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}
@@ -89,7 +89,7 @@
                   {% else %}
                     <i class="fa fa-external-link"></i>
                     {{ _('Open') }}
-                    <br/>
+                    <br />
                     {% if res.language and res.language != 'english_and_french' %}
                       {{ h.scheming_choices_label(
                       h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}

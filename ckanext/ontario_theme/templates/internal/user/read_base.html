@@ -3,9 +3,7 @@
 {% block user_nums %}
   <div class="nums">
     <dl>
-      <dt>
-        {{ _('Datasets') }}
-      </dt>
+      <dt>{{ _('Datasets') }}</dt>
       <dd>
         {{ h.SI_number_span(user.number_created_packages) }}
       </dd>

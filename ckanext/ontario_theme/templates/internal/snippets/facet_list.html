@@ -34,31 +34,29 @@
             {% set label = label_function(item) if label_function else item.display_name %}
             {% set label_truncated = h.truncate(label, 22) if not label_function else label %}
             {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
-            <li class="{{ nav_item_class or 'nav-item' }}{% if item.active %} active{% endif %}">
+            <li class="{{ nav_item_class or 'nav-item' }}
+                       {% if item.active %}active{% endif %}">
               {% if item.active %}<span class="sr-only">Filtered on</span>{% endif %}
               <a href="{{ href }}"
                  title="{{ label if label != label_truncated else '' }}">
                 <span>{{ label_truncated }} {{ count }}</span>
               </a>
             </li>
-          {% endfor %}
-        </ul>
-      </nav>
-      <p class="module-footer">
-        {% if h.get_param_int('_%s_limit' % name) %}
-          {% if h.has_more_facets(name, c.search_facets) %}
-            <a href="{{ h.remove_url_param('_%s_limit' % name, replace=0, extras=extras, alternative_url=alternative_url) }}"
-               class="read-more">{{ _('Show More {facet_type}').format(facet_type=title) }}</a>
-          {% endif %}
-        {% else %}
-          <a href="{{ h.remove_url_param('_%s_limit' % name, extras=extras, alternative_url=alternative_url) }}"
-             class="read-more">{{ _('Show Only Popular {facet_type}').format(facet_type=title) }}</a>
+        {% endfor %}
+      </ul>
+    </nav>
+
+    <p class="module-footer">
+      {% if h.get_param_int('_%s_limit' % name) %}
+        {% if h.has_more_facets(name, c.search_facets) %}
+          <a href="{{ h.remove_url_param('_%s_limit' % name, replace=0, extras=extras, alternative_url=alternative_url) }}" class="show-more">{{ _('Show more') }}</a>
         {% endif %}
-      </p>
+      {% else %}
+        <a href="{{ h.remove_url_param('_%s_limit' % name, extras=extras, alternative_url=alternative_url) }}" class="show-more">{{ _('Show less') }}</a>
+      {% endif %}
+    </p>
     {% else %}
-      <p class="module-content empty">
-        {{ _('There are no {facet_type} that match this search').format(facet_type=title) }}
-      </p>
+      <p class="module-content empty">{{ _('There are no {facet_type} that match this search').format(facet_type=title) }}</p>
     {% endif %}
   {% endwith %}
 {% endblock facet_list_items %}
