@@ -25,7 +25,11 @@
     {% endif %}
   {% endif %}
   <div class="ministry-contact dataset-font">
-    <strong>{% trans %}Ministry contact: {% endtrans %}</strong>
+    <strong>
+      {% trans %}
+        Ministry contact:
+      {% endtrans %}
+    </strong>
     {% if contact_email %}
       {% if contact_name %}
         <a href="mailto:{{ contact_email }}?subject={{ pkg.title }}">{{ contact_name }}</a>
