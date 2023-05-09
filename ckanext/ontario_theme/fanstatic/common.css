@@ -532,10 +532,8 @@ input[type="reset"].ontario-search-reset.home {
   z-index: 2;
 }
 
-@media screen and (max-width: 40em) {
-  .ontario-search-input.ontario-input.snippet {
-    padding-right: 8rem;
-  }
+.ontario-search-input.ontario-input.snippet{
+  padding-right: 8rem;
 }
 
 input[placeholder] {
@@ -739,6 +737,29 @@ a:focus {
   line-height: 25.6px;
   word-break: break-word;
   hyphens: auto;
+}
+
+.ministry-packages {
+  float: right;
+}
+
+.ministry-package-div,
+.ministry-packages {
+  margin-top: 25px;
+}
+
+.ministry.nums {
+  font-size: 22px;
+  line-height: 25.6px;
+  font-weight: 400;
+}
+
+.module > .page-header.ministry-page-header {
+  margin-top: 0;
+}
+
+.primary.ministry-page {
+  padding-top: unset;
 }
 
 /* ========================================================================
@@ -2138,4 +2159,12 @@ screen and (min-width: 96em) {
 /* About and Help page header */
 .module h1 {
   margin: 2.5rem 0 1.5rem 0;
+}
+
+/* Wrapper styling */
+.wrapper::before {
+  z-index: 0;
+}
+.module.module-narrow.module-shallow.context-info {
+  padding: 30px;
 }

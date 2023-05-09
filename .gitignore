@@ -45,4 +45,5 @@ docs/_build/
 gtm.html
 gtm_ns.html
 
-.vscode/
+.vscode/**/*
+!.vscode/settings.json.default
