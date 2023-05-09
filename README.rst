@@ -102,9 +102,9 @@ Development
 
 Follow the `CKAN style rules <http://docs.ckan.org/en/latest/contributing/css.html#formatting>`_.
 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Installing the precommit hooks for development
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Installing the pre-commit hooks for development
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Activate your CKAN virtualenv and run:
 ::
@@ -123,7 +123,7 @@ DjLint 1.19.16 requires PyYAML 6.0, which is incompatible with CKAN2.9's require
 1. install djLint outside of your virtualenv
 ::
   pip3 install djlint
-2. djlint will be installed at /home/<user>/.local/bin/djlint; confirm this by
+2. djlint will be installed at ``/home/<user>/.local/bin/djlint`` confirm this by
 ::
   ls -al /home/<user>/.local/bin/djlint
 3. add djlint to $PATH by editing bashrc
@@ -155,12 +155,11 @@ To reformat the code using djLint:
   djlint ckanext/ontario_theme/templates/<path to file> --check
   // Reformats code
   djlint ckanext/ontario_theme/templates/<path to file> --reformat
-    
-For our CSS formatting, we are using the vscode CSS formatter.
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Adding our settings to your vscode
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+For our CSS formatting, we are using the vscode CSS formatter.
 
 1. Create file ``settings.json`` in the ``.vscode`` folder
 2. Copy contents of ``settings.json.default`` into the ``settings.json`` file. Save.
