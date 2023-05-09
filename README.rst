@@ -109,10 +109,35 @@ virtualenv and run::
 
 We use the djLint pre-commit hook to lint our code.
 
-For our CSS formatting, we are using the vscode CSS formatter. To add our settings to your vscode do ::
+For our CSS formatting, we are using the vscode CSS formatter. To add our settings to your vscode do::
   Create file `settings.json` in the `.vscode` folder
   Copy contents of `settings.json.default` into the `settings.json` file. Save.
 
+To reformat code or lint code outside of the pre-commit hooks:
+
+**Context**
+DjLint 1.19.16 requires PyYAML 6.0, which is incompatible with CKAN2.9's requirement of PyYAML 5.4.1. **Thus djLint needs to be installed outside of the ckan dev environment**.
+
+1. **install djLint outside of your virtualenv**::
+  pip3 install djlint
+2. djlint will be installed at /home/<user>/.local/bin/djlint; confirm this by::
+  ls -al /home/<user>/.local/bin/djlint
+3. add djlint to $PATH by editing bashrc::
+  vim ~/.bashrc
+4. add this to the bottom of the file, and save the file::
+  # add djlint
+  export PATH="/home/<user>/.local/bin:$PATH"
+5. close the terminal; reopen the terminal to reload the bash settings. Now test djlint using::
+  djlint --version
+6. to lint::
+  djlint /usr/lib/ckan/default/src/ckanext-ontario_theme/ckanext/ontario_theme --lint
+  // or
+  djlint ckanext/ontario_theme --lint
+7. to reformat::
+  // in the terminal, it prints what the code would look like after formatting
+  djlint ckanext/ontario_theme/templates/<path to file> --check
+  // Reformats code
+  djlint ckanext/ontario_theme/templates/<path to file> --reformat
 
 -----------------
 Translations
