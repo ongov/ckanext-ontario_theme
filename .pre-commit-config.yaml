@@ -1,0 +1,7 @@
+repos:
+  - repo: https://github.com/Riverside-Healthcare/djLint
+    rev: v1.22.0
+    hooks:
+      - id: djlint-jinja
+        files: "\\.html"
+        types_or: ['html']

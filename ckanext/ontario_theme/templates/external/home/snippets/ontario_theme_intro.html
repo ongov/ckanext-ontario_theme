@@ -22,6 +22,8 @@ Renders a hard coded site description/introduction.
     </div>
   </div>
   <p class="greet learn-more">
-    {% trans url=h.url_for('home.about', _anchor='training-materials') %}Learn more about <a href="{{ url }}">what is covered and how to use data.</a>{% endtrans %}
+    {% trans url=h.url_for('home.about', _anchor='training-materials') %}
+      Learn more about <a href="{{ url }}">what is covered and how to use data.</a>
+    {% endtrans %}
   </p>
 </div>

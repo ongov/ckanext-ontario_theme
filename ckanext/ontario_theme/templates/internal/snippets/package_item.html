@@ -16,13 +16,23 @@
     {% block heading_title %}
       {% link_for h.truncate(h.get_translated(package, 'title'), truncate_title),named_route=('%s.read' % package.type), id=package.name %}
       {% if package.get("asset_type") == "algorithm" %}
-        <div class="label label-info">{% trans %}Algorithm/AI{% endtrans %}</div>
+        <div class="label label-info">
+          {% trans %}
+            Algorithm/AI
+          {% endtrans %}
+        </div>
       {% endif %}
       {% if package.get("harvester", False) == 'ontario-data-catalogue' %}
-        <div class="badge badge-harvest pull-right" data-harvest={{ package['harvester'] }}>{% trans %}ON External{% endtrans %}
+        <div class="badge badge-harvest pull-right" data-harvest={{ package['harvester'] }}>
+          {% trans %}
+            ON External
+          {% endtrans %}
         </div>
       {% elif package.get("harvester", False) == 'ontario-geohub' %}
-        <div class="badge badge-harvest pull-right" data-harvest={{ package['harvester'] }}>{% trans %}ON Geohub{% endtrans %}
+        <div class="badge badge-harvest pull-right" data-harvest={{ package['harvester'] }}>
+          {% trans %}
+            ON Geohub
+          {% endtrans %}
         </div>
       {% endif %}
     {% endblock heading_title %}
