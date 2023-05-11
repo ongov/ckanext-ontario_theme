@@ -1569,12 +1569,6 @@ via submission form. Copied from DS.*/
   }
 }
 
-@media screen and (min-width: 40em) {
-  .resource-item .description {
-    margin-left: 10%;
-  }
-}
-
 .resource-button-primary {
   min-height: 78px;
   min-width: 142px;
@@ -1588,8 +1582,19 @@ via submission form. Copied from DS.*/
 }
 
 .resource-button-text {
+  display: contents;
   text-align: left;
-  display: inline-block;
+  column-gap: 0.5vw;
+}
+
+@media screen and (min-width: 40em) {
+  .resource-item .description {
+    margin-left: 10%;
+  }
+
+  .resource-button-text {
+    display: inline-flex;
+  }
 }
 
 .aside-heading {
