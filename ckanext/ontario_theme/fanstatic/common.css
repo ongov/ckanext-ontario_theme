@@ -532,7 +532,7 @@ input[type="reset"].ontario-search-reset.home {
   z-index: 2;
 }
 
-.ontario-search-input.ontario-input.snippet{
+.ontario-search-input.ontario-input.snippet {
   padding-right: 8rem;
 }
 
@@ -760,6 +760,19 @@ a:focus {
 
 .primary.ministry-page {
   padding-top: unset;
+}
+
+.inline-dl dt:before {
+  content: "";
+  display: block;
+  margin-bottom: 14px;
+}
+
+.inline-dl dt,
+.inline-dl dd {
+  display: inline;
+  font-size: 20px;
+  line-height: 25.6px;
 }
 
 /* ========================================================================
@@ -2160,6 +2173,7 @@ screen and (min-width: 96em) {
 .wrapper::before {
   z-index: 0;
 }
+
 .module.module-narrow.module-shallow.context-info {
   padding: 30px;
 }

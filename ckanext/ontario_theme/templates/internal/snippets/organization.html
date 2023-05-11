@@ -45,10 +45,14 @@
 				{% endblock inner %}
 
 				{% block description %}
-					{% if h.get_translated(organization,"description") %}
-						<p class="{%- if not has_context_title -%}ontario-lead-statement{%- endif -%}">
+					{% if h.get_translated(organization,"description") and has_context_title %}
+						<p>
 							{{ h.markdown_extract(h.get_translated(organization,"description"), 180) }}
 							{% link_for _('Read more'), named_route='organization.about', id=organization.name %}
+						</p>
+					{% elif h.get_translated(organization,"description") and not has_context_title %}
+						<p class="ontario-lead-statement">
+							{{ h.get_translated(organization,"description") }}
 						</p>
 					{% else %}
 						<p class="empty">{{ _('There is no description for this ministry.') }}</p>
