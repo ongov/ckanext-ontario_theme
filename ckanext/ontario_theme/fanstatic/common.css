@@ -771,6 +771,9 @@ a:focus {
 .inline-dl dt,
 .inline-dl dd {
   display: inline;
+}
+
+.inline-dl {
   font-size: 20px;
   line-height: 25.6px;
 }
