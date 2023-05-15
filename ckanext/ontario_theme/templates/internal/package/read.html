@@ -24,7 +24,11 @@
       <div class="col-sm-8 col-xs-12">
         {% if pkg.get("asset_type") == "algorithm" %}
           <div class="new-alert alert-info alert-algorithms alert-huge alert-clear">
-            <strong>{% trans %}Algorithm/AI Asset{% endtrans %}</strong>
+            <strong>
+              {% trans %}
+                Algorithm/AI Asset
+              {% endtrans %}
+            </strong>
             <p>
               {% trans url=h.url_for('group.about', id='artificial-intelligence-and-algorithms') %}
                 This record describes an algorithm or artificial intelligence asset. It does not describe a dataset.
