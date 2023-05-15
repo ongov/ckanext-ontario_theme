@@ -1,0 +1,15 @@
+{
+  "[css]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "vscode.css-language-features"
+  },
+  "css.format.spaceAroundSelectorSeparator": true,
+  "css.lint.duplicateProperties": "error",
+  "css.lint.zeroUnits": "warning",
+  "css.format.preserveNewLines": true,
+  "editor.guides.bracketPairs": true,
+  "editor.language.colorizedBracketPairs": [
+    ["{%", "%}"],
+    ["{{", "}}"]
+  ]
+}
