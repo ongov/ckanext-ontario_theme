@@ -532,7 +532,7 @@ input[type="reset"].ontario-search-reset.home {
   z-index: 2;
 }
 
-.ontario-search-input.ontario-input.snippet{
+.ontario-search-input.ontario-input.snippet {
   padding-right: 8rem;
 }
 
@@ -1569,12 +1569,6 @@ via submission form. Copied from DS.*/
   }
 }
 
-@media screen and (min-width: 40em) {
-  .resource-item .description {
-    margin-left: 10%;
-  }
-}
-
 .resource-button-primary {
   min-height: 78px;
   min-width: 142px;
@@ -1588,8 +1582,20 @@ via submission form. Copied from DS.*/
 }
 
 .resource-button-text {
+  display: contents;
   text-align: left;
-  display: inline-block;
+  column-gap: 0.5vw;
+  align-items: baseline;
+}
+
+@media screen and (min-width: 40em) {
+  .resource-item .description {
+    margin-left: 10%;
+  }
+
+  .resource-button-text {
+    display: inline-flex;
+  }
 }
 
 .aside-heading {
@@ -1822,6 +1828,11 @@ ul.nav-tabs li a,
   width: fit-content;
 }
 
+/* Add min-width to layout table properly in Safari */
+#collapse-endpoints table {
+  min-width: 100%;
+}
+
 /* Break the URLs so they fit the panel width and the width of screen */
 #collapse-querying .panel-body,
 .resource-url-analytics {
@@ -2026,6 +2037,28 @@ screen and (min-width: 96em) {
   margin-right: 10px;
 }
 
+.restricted_under_review_packages {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.restricted_under_review_packages p {
+  margin-bottom: unset;
+}
+
+.packages_not_available {
+  font-size: 20px;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.packages_access_level {
+  font-size: 20px;
+  font-weight: 400;
+}
+
 /* ========================================================================
    Dataset Search Page - File type labels
    ======================================================================== */
@@ -2045,6 +2078,7 @@ screen and (min-width: 96em) {
 
 .dataset-resources {
   margin-top: unset;
+  display: contents;
 }
 
 .label.label-default {
@@ -2160,6 +2194,7 @@ screen and (min-width: 96em) {
 .wrapper::before {
   z-index: 0;
 }
+
 .module.module-narrow.module-shallow.context-info {
   padding: 30px;
 }

@@ -2180,6 +2180,18 @@ msgstr "CarrefourGéo ON"
 msgid "Resource formats"
 msgstr "Formats des ressources"
 
+#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:31
+msgid "Not available to the public"
+msgstr "Non accessible au public"
+
+#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:31
+msgid "Access to this dataset is restricted"
+msgstr "l’accès à ce jeu de données est restreint."
+
+#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:31
+msgid "This dataset is currently under review"
+msgstr "ce jeu de données fait actuellement l’objet d’un examen."
+
 #: ckanext/ontario_theme/templates/internal/package/resource_read.html:25
 msgid "Open"
 msgstr "Ouvert"
