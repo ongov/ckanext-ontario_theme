@@ -53,10 +53,10 @@
                class="resource-button-primary ontario-button ontario-button--primary">
               <span class="resource-button-text">
                 {% if res.format == "CSV" %}
-                  <i class="fa fa-bar-chart-o"></i>
+                  <span><i class="fa fa-bar-chart-o"></i></span>
                   {{ _('Preview') }}
                 {% else %}
-                  <i class="fa fa-info-circle"></i>
+                  <span><i class="fa fa-info-circle"></i></span>
                   {{ _('About') }}
                 {% endif %}
                 <br />
@@ -79,7 +79,7 @@
                  onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">
                 <span class="resource-button-text">
                   {% if res.has_views or res.url_type == 'upload' %}
-                    <i class="fa fa-arrow-circle-o-down"></i>
+                    <span><i class="fa fa-arrow-circle-o-down"></i></span>
                     {{ _('Download') }}
                     <br />
                     {% if res.language and res.language != 'english_and_french' %}
@@ -88,7 +88,7 @@
                     {% endif %}
                     {% if res.size %}({{ h.localised_filesize(res.size) }}){% endif %}
                   {% else %}
-                    <i class="fa fa-external-link"></i>
+                    <span><i class="fa fa-external-link"></i></span>
                     {{ _('Open') }}
                     <br />
                     {% if res.language and res.language != 'english_and_french' %}
