@@ -6,7 +6,7 @@
 
 {% block breadcrumb_content_inner %}
   <li>
-    {% link_for group.display_name|truncate(35), named_route='group.read', id=group.name, named_route=group_type + '.read' %}
+    {% link_for h.get_translated(c.group_dict,"title")|truncate(35), named_route='group.read', id=group.name, named_route=group_type + '.read' %}
   </li>
   <li class="active">
     {% link_for _('Edit'), named_route='group.edit', id=group.name, named_route=group_type + '.edit' %}
