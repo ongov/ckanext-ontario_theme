@@ -762,6 +762,22 @@ a:focus {
   padding-top: unset;
 }
 
+.inline-dl dt:before {
+  content: "";
+  display: block;
+  margin-bottom: 14px;
+}
+
+.inline-dl dt,
+.inline-dl dd {
+  display: inline;
+}
+
+.inline-dl {
+  font-size: 20px;
+  line-height: 25.6px;
+}
+
 /* ========================================================================
    Header - Design System
    ======================================================================== */
