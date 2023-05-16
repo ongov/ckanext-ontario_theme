@@ -15,10 +15,14 @@ Renders contact information for the site on the home page.
   <div class="feedback ontario-alert__body">
     {# Header title should be moved to the header after icon is replaced with svg #}
     <h2 class="feedback ontario-alert__header-title ontario-h4">
-      {% trans %}Help us improve the Data Catalogue{% endtrans %}
+      {% trans %}
+        Help us improve the Data Catalogue
+      {% endtrans %}
     </h2>
     <p>
-      {% trans params=survey_params|urlencode %}Take a <a href="https://www.ontario.ca/form/survey-open-data-catalogue?{{ params }}">2-minute survey</a> and tell us what you think about this page.{% endtrans %}
+      {% trans params=survey_params|urlencode %}
+        Take a <a href="https://www.ontario.ca/form/survey-open-data-catalogue?{{ params }}">2-minute survey</a> and tell us what you think about this page.
+      {% endtrans %}
     </p>
   </div>
 </div>

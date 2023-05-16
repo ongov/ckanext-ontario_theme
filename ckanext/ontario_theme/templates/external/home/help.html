@@ -20,337 +20,486 @@
       {%- endtrans %}
       <ul class="table-of-contents">
         <li>
-          <a href="#i-cant-find-the-dataset-im-looking-for">{% trans %}Q. I cannot find the dataset I’m looking
-            for.{% endtrans %}</a>
+          <a href="#i-cant-find-the-dataset-im-looking-for">
+            {% trans %}
+              Q. I cannot find the dataset I’m looking for.
+            {% endtrans %}
+          </a>
         </li>
         <li>
-          <a href="#how-do-i-download-datasets">{% trans %}Q. How do I download datasets?{% endtrans %}</a>
+          <a href="#how-do-i-download-datasets">
+            {% trans %}
+              Q. How do I download datasets?
+            {% endtrans %}
+          </a>
         </li>
         <li>
-          <a href="#what-does-the-preview-button-do">{% trans %}Q. What does the <strong>Preview</strong> button
-            do?{% endtrans %}</a>
+          <a href="#what-does-the-preview-button-do">
+            {% trans %}
+              Q. What does the <strong>Preview</strong> button do?
+            {% endtrans %}
+          </a>
         </li>
         <li>
-          <a href="#how-does-the-graph-option-work">{% trans %}Q. How does the <strong>Graph</strong> button
-            work?{% endtrans %}</a>
+          <a href="#how-does-the-graph-option-work">
+            {% trans %}
+              Q. How does the <strong>Graph</strong> button work?
+            {% endtrans %}
+          </a>
         </li>
         <li>
-          <a href="#how-does-the-map-option-work">{% trans %}Q. How does the <strong>Map</strong> button
-            work?{% endtrans %}</a>
+          <a href="#how-does-the-map-option-work">
+            {% trans %}
+              Q. How does the <strong>Map</strong> button work?
+            {% endtrans %}
+          </a>
         </li>
         <li>
-          <a href="#what-if-i-dont-see-a-preview-button">{% trans %}Q. What if I don't see a <strong>Preview</strong>
-            button?{% endtrans %}</a>
+          <a href="#what-if-i-dont-see-a-preview-button">
+            {% trans %}
+              Q. What if I don't see a <strong>Preview</strong> button?
+            {% endtrans %}
+          </a>
         </li>
         <li>
-          <a href="#what-if-a-dataset-isnt-available-in-the-format-i-need">{% trans %}Q. What if a dataset isn't available
-            in the format I need?{% endtrans %}</a>
+          <a href="#what-if-a-dataset-isnt-available-in-the-format-i-need">
+            {% trans %}
+              Q. What if a dataset isn't available in the format I need?
+            {% endtrans %}
+          </a>
         </li>
         <li>
-          <a href="#how-do-i-request-an-updated-version-of-a-dataset">{% trans %}Q. How do I request an updated version of
-            a dataset?{% endtrans %}</a>
+          <a href="#how-do-i-request-an-updated-version-of-a-dataset">
+            {% trans %}
+              Q. How do I request an updated version of a dataset?
+            {% endtrans %}
+          </a>
         </li>
         <li>
-          <a href="#how-do-i-report-issues">{% trans %}Q. How do I report errors/issues or provide feedback (for example,
-            inaccurate, outdated data)?{% endtrans %}</a>
+          <a href="#how-do-i-report-issues">
+            {% trans %}
+              Q. How do I report errors/issues or provide feedback (for example, inaccurate, outdated data)?
+            {% endtrans %}
+          </a>
         </li>
         <li>
-          <a href="#why-isnt-a-dataset-available">{% trans %}Q. Why isn't a dataset available?{% endtrans %}</a>
+          <a href="#why-isnt-a-dataset-available">
+            {% trans %}
+              Q. Why isn't a dataset available?
+            {% endtrans %}
+          </a>
         </li>
         <li>
-          <a href="#can-i-get-notified-when-the-catalogue-is-updated">{% trans %}Q. Can you notify me when the catalogue
-            is updated?{% endtrans %}</a>
+          <a href="#can-i-get-notified-when-the-catalogue-is-updated">
+            {% trans %}
+              Q. Can you notify me when the catalogue is updated?
+            {% endtrans %}
+          </a>
         </li>
       </ul>
       <h2>
-        <a name="i-cant-find-the-dataset-im-looking-for"></a>{% trans %}Q. I cannot find the dataset I’m looking
-          for.{% endtrans %}
+        <a name="i-cant-find-the-dataset-im-looking-for"></a>
+        {% trans %}
+          Q. I cannot find the dataset I’m looking for.
+        {% endtrans %}
       </h2>
       <div>
         <p>
-          {% trans url=h.url_for('dataset.search') %}A. Try using the <a href="{{ url }}" target="_blank" rel="noopener noreferrer">catalogue search page</a>. Enter your keywords in the search bar and refine your
-            search, using the filters provided.{% endtrans %}
+          {% trans url=h.url_for('dataset.search') %}
+            A. Try using the <a href="{{ url }}" target="_blank" rel="noopener noreferrer">catalogue search page</a>. Enter your keywords in the search bar and refine your
+            search, using the filters provided.
+          {% endtrans %}
         </p>
       </div>
       <h2>
-        <a name="how-do-i-download-datasets"></a>{% trans %}Q. How do I download datasets?{% endtrans %}
+        <a name="how-do-i-download-datasets"></a>
+        {% trans %}
+          Q. How do I download datasets?
+        {% endtrans %}
       </h2>
       <div>
         <p>
-          {% trans %}A. On each page in the catalogue, where data is available, you will find the data icon under the
-            heading <strong>Data and Resources</strong>.{% endtrans %}
+          {% trans %}
+            A. On each page in the catalogue, where data is available, you will find the data icon under the
+            heading <strong>Data and Resources</strong>.
+          {% endtrans %}
         </p>
         <p>
-          {% trans %}To the right of the data icon, you will find a either a <strong>Download</strong> or
-            <strong>Open</strong> button.{% endtrans %}
+          {% trans %}
+            To the right of the data icon, you will find a either a <strong>Download</strong> or <strong>Open</strong> button.
+          {% endtrans %}
         </p>
         <figure>
           <img src="/images/external/help/Dataset Page - Download Button.jpg"
-               alt="{%- trans -%}A screenshot of the data and resources section of the dataset description page. Each file in the dataset is listed. To the right of each file is a preview button and a download button. An arrow is overlaid onto the screeshot that points to the download button.{%- endtrans -%}"/>
+               alt="{%- trans -%}A screenshot of the data and resources section of the dataset description page. Each file in the dataset is listed. To the right of each file is a preview button and a download button. An arrow is overlaid onto the screeshot that points to the download button.{%- endtrans -%}" />
           <figcaption>
-            {% trans %}Figure 1: The location of the <strong>Download</strong> button on the dataset page.{% endtrans %}
+            {% trans %}
+              Figure 1: The location of the <strong>Download</strong> button on the dataset page.
+            {% endtrans %}
           </figcaption>
         </figure>
         <p>
-          {% trans %}Click the <strong>Download</strong> button and the data will be downloaded immediately to your
-            computer.{% endtrans %}
+          {% trans %}
+            Click the <strong>Download</strong> button and the data will be downloaded immediately to your computer.
+          {% endtrans %}
         </p>
         <p>
-          {% trans %}Click the <strong>Open</strong> button to find out how to access the dataset (which may be hosted
-            outside the catalogue).{% endtrans %}
+          {% trans %}
+            Click the <strong>Open</strong> button to find out how to access the dataset (which may be hosted
+            outside the catalogue).
+          {% endtrans %}
         </p>
         <figure>
           <img src="/images/external/help/Dataset Page - Open Button.jpg"
-               alt="{%- trans -%}A screenshot of the data and resources section of the dataset description page. Each file in the dataset is listed. To the right of each file name is an open button and an about button. An arrow is overlaid onto the screeshot that points to the open button.{%- endtrans -%}"/>
+               alt="{%- trans -%}A screenshot of the data and resources section of the dataset description page. Each file in the dataset is listed. To the right of each file name is an open button and an about button. An arrow is overlaid onto the screeshot that points to the open button.{%- endtrans -%}" />
           <figcaption>
-            {% trans %}Figure 2: The location of the <strong>Open</strong> button on the dataset page.{% endtrans %}
+            {% trans %}
+              Figure 2: The location of the <strong>Open</strong> button on the dataset page.
+            {% endtrans %}
           </figcaption>
         </figure>
       </div>
       <h2>
-        <a name="what-does-the-preview-button-do"></a>{% trans %}Q. What does the <strong>Preview</strong> button
-          do?{% endtrans %}
+        <a name="what-does-the-preview-button-do"></a>
+        {% trans %}
+          Q. What does the <strong>Preview</strong> button do?
+        {% endtrans %}
       </h2>
       <div>
         <p>
-          {% trans %}A. The <strong>Preview</strong> option lets you see a dataset without downloading it. You will see
-            this option for files that are stored as common file types, like CSVs.{% endtrans %}
+          {% trans %}
+            A. The <strong>Preview</strong> option lets you see a dataset without downloading it. You will see
+            this option for files that are stored as common file types, like CSVs.
+          {% endtrans %}
         </p>
         <figure>
           <img src="/images/external/help/Dataset Page - Preview Button.jpg"
-               alt="{%- trans -%}A screenshot of the data and resources section of the dataset description page. Each file in the dataset is listed. To the right of each file name is a preview button and a download button. An arrow is overlaid onto the screeshot that points to the preview button.{%- endtrans -%}"/>
+               alt="{%- trans -%}A screenshot of the data and resources section of the dataset description page. Each file in the dataset is listed. To the right of each file name is a preview button and a download button. An arrow is overlaid onto the screeshot that points to the preview button.{%- endtrans -%}" />
           <figcaption>
-            {% trans %}Figure 3: The location of the <strong>Preview</strong> button on the dataset page.{% endtrans %}
+            {% trans %}
+              Figure 3: The location of the <strong>Preview</strong> button on the dataset page.
+            {% endtrans %}
           </figcaption>
         </figure>
         <p>
-          {% trans %}When you click the <strong>Preview</strong> button, you will get to a page that:{% endtrans %}
+          {% trans %}
+            When you click the <strong>Preview</strong> button, you will get to a page that:
+          {% endtrans %}
         </p>
         <ul>
           <li>
-            {% trans %}describes the files (including a description of the file and the web address where the file is
-              stored){% endtrans %}
+            {% trans %}
+              describes the files (including a description of the file and the web address where the file is stored)
+            {% endtrans %}
           </li>
           <li>
-            {% trans %}allows you to see the data in a few different ways - in a spreadsheet, as a graph or geographic
-              map{% endtrans %}
+            {% trans %}
+              allows you to see the data in a few different ways - in a spreadsheet, as a graph or geographic map
+            {% endtrans %}
           </li>
         </ul>
         <figure>
           <img src="/images/external/help/Resource Page - overview.jpg"
-               alt="{%- trans -%}A screenshot of the file description page. The file name, text description, and web address is found at the top. A visualization tool is found underneath that allows users to transform the contents of the file from spreadsheet to graph to map.{%- endtrans -%}"/>
+               alt="{%- trans -%}A screenshot of the file description page. The file name, text description, and web address is found at the top. A visualization tool is found underneath that allows users to transform the contents of the file from spreadsheet to graph to map.{%- endtrans -%}" />
           <figcaption>
-            {% trans %}Figure 4: A file preview page showing the file description and the contents of the file visualized
-              as a spreadsheet.{% endtrans %}
+            {% trans %}
+              Figure 4: A file preview page showing the file description and the contents of the file visualized
+              as a spreadsheet.
+            {% endtrans %}
           </figcaption>
         </figure>
         <p>
-          {% trans %}The <strong>Graph</strong> and <strong>Map</strong> options are available just above the
-            dataset.{% endtrans %}
+          {% trans %}
+            The <strong>Graph</strong> and <strong>Map</strong> options are available just above the dataset.
+          {% endtrans %}
         </p>
         <figure>
           <img src="/images/external/help/Resource Page - graph and map buttons.jpg"
-               alt="{%- trans -%}A screenshot of the section of the file description page that lets the user transform the contents of the file from spreadsheet to graph to map. The three buttons visible at the top left above the visualization are grid, graph, and map. An arrow is overlaid onto the screeshot that points to the graph and map buttons.{%- endtrans -%}"/>
+               alt="{%- trans -%}A screenshot of the section of the file description page that lets the user transform the contents of the file from spreadsheet to graph to map. The three buttons visible at the top left above the visualization are grid, graph, and map. An arrow is overlaid onto the screeshot that points to the graph and map buttons.{%- endtrans -%}" />
           <figcaption>
-            {% trans %}Figure 5: The <strong>Graph</strong> and <strong>Map</strong> options on a preview
-              page.{% endtrans %}
+            {% trans %}
+              Figure 5: The <strong>Graph</strong> and <strong>Map</strong> options on a preview page.
+            {% endtrans %}
           </figcaption>
         </figure>
       </div>
       <h2>
-        <a name="how-does-the-graph-option-work"></a>{% trans %}Q. How does the <strong>Graph</strong> option
-          work?{% endtrans %}
+        <a name="how-does-the-graph-option-work"></a>
+        {% trans %}
+          Q. How does the <strong>Graph</strong> option work?
+        {% endtrans %}
       </h2>
       <div>
         <p>
-          {% trans %}A. When you click the <strong>Graph</strong> button, you will get to a screen that allows you to set
-            the parameters of the graph you want to see.{% endtrans %}
+          {% trans %}
+            A. When you click the <strong>Graph</strong> button, you will get to a screen that allows you to set
+            the parameters of the graph you want to see.
+          {% endtrans %}
         </p>
         <figure>
           <img src="/images/external/help/Resource Page - graph 1.jpg"
-               alt="{%- trans -%}A screenshot of the section of the file description page that lets the user transform the contents of the file from spreadsheet to graph to map. The graph button has been selected and there is a message instructing the user to fill out the form at the right to specify the type of graph, along with axes that they want.{%- endtrans -%}"/>
+               alt="{%- trans -%}A screenshot of the section of the file description page that lets the user transform the contents of the file from spreadsheet to graph to map. The graph button has been selected and there is a message instructing the user to fill out the form at the right to specify the type of graph, along with axes that they want.{%- endtrans -%}" />
           <figcaption>
-            {% trans %}Figure 6: The screen where you can set the parameters for your graph.{% endtrans %}
+            {% trans %}
+              Figure 6: The screen where you can set the parameters for your graph.
+            {% endtrans %}
           </figcaption>
         </figure>
         <p>
-          {% trans %}Once you select your graph type, and your axes, you should see a simple graph:{% endtrans %}
+          {% trans %}
+            Once you select your graph type, and your axes, you should see a simple graph:
+          {% endtrans %}
         </p>
         <figure>
           <img src="/images/external/help/Resource Page - Graph.jpg"
-               alt="{%- trans -%}A screenshot of the section of the file description page that lets the user transform the contents of the file from spreadsheet to graph to map. The graph button has been selected and the user has chosen a line graph and both axes and a simple line graph is visible.{%- endtrans -%}"/>
+               alt="{%- trans -%}A screenshot of the section of the file description page that lets the user transform the contents of the file from spreadsheet to graph to map. The graph button has been selected and the user has chosen a line graph and both axes and a simple line graph is visible.{%- endtrans -%}" />
           <figcaption>
-            {% trans %}Figure 7: Ontario livestock prices (Bull Slaughter file), graphed in the data
-              catalogue{% endtrans %}
+            {% trans %}
+              Figure 7: Ontario livestock prices (Bull Slaughter file), graphed in the data catalogue
+            {% endtrans %}
           </figcaption>
         </figure>
       </div>
       <h2>
-        <a name="how-does-the-map-option-work"></a>{% trans %}Q. How does the <strong>Map</strong> option
-          work?{% endtrans %}
+        <a name="how-does-the-map-option-work"></a>
+        {% trans %}
+          Q. How does the <strong>Map</strong> option work?
+        {% endtrans %}
       </h2>
       <div>
         <p>
-          {% trans %}A. When you click the <strong>Map</strong> button, you will get to a screen that allows you to
-            identify the mappable information (latitude and longitude) in the file. You should then see a simple
-            map:{% endtrans %}
+          {% trans %}
+            A. When you click the <strong>Map</strong> button, you will get to a screen that allows you to
+            identify the mappable information (latitude and longitude) in the file. You should then see a simple map:
+          {% endtrans %}
         </p>
         <figure>
           <img src="/images/external/help/Resource Page - Map.jpg"
-               alt="{%- trans -%}A screenshot of the map visualization.{%- endtrans -%}"/>
+               alt="{%- trans -%}A screenshot of the map visualization.{%- endtrans -%}" />
           <figcaption>
-            {% trans %}Figure 8: Bridge conditions data, mapped in the data catalogue.{% endtrans %}
+            {% trans %}
+              Figure 8: Bridge conditions data, mapped in the data catalogue.
+            {% endtrans %}
           </figcaption>
         </figure>
       </div>
       <h2>
-        <a name="what-if-i-dont-see-a-preview-button"></a>{% trans %}Q. What if I don’t see a <strong>Preview</strong>
-          button?{% endtrans %}
+        <a name="what-if-i-dont-see-a-preview-button"></a>
+        {% trans %}
+          Q. What if I don’t see a <strong>Preview</strong> button?
+        {% endtrans %}
       </h2>
       <div>
         <p>
-          {% trans %}A. If there is no <strong>Preview</strong> button for a dataset, then you will see an
+          {% trans %}
+            A. If there is no <strong>Preview</strong> button for a dataset, then you will see an
             <strong>About</strong> button. This means that the dataset contents cannot be previewed as a spreadsheet, graph
-            or map by the catalogue.{% endtrans %}
+            or map by the catalogue.
+          {% endtrans %}
         </p>
         <p>
-          {% trans %}When you click <strong>About</strong>, you will get a description of the file.{% endtrans %}
+          {% trans %}
+            When you click <strong>About</strong>, you will get a description of the file.
+          {% endtrans %}
         </p>
         <figure>
           <img src="/images/external/help/Resource Page - overview (about).jpg"
-               alt="{%- trans -%}A screenshot of the file description page when the file is not in a format or structure the catalogue can easily transform. The file name, text description, and web address is found at the top. There is no section for visualizations below.{%- endtrans -%}"/>
+               alt="{%- trans -%}A screenshot of the file description page when the file is not in a format or structure the catalogue can easily transform. The file name, text description, and web address is found at the top. There is no section for visualizations below.{%- endtrans -%}" />
           <figcaption>
-            {% trans %}Figure 9: A description of a dataset, including its web address.{% endtrans %}
+            {% trans %}
+              Figure 9: A description of a dataset, including its web address.
+            {% endtrans %}
           </figcaption>
         </figure>
       </div>
       <h2>
-        <a name="what-if-a-dataset-isnt-available-in-the-format-i-need"></a>{% trans %}Q. What if a dataset isn’t
-          available in the format I need?{% endtrans %}
+        <a name="what-if-a-dataset-isnt-available-in-the-format-i-need"></a>
+        {% trans %}
+          Q. What if a dataset isn’t available in the format I need?
+        {% endtrans %}
       </h2>
       <div>
         <p>
-          {% trans %}A. For any issues related to our datasets, send us a message through our <a href="https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269">contact us form</a>. We will review
-            your issue and reply.{% endtrans %}
+          {% trans %}
+            A. For any issues related to our datasets, send us a message through our <a href="https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269">contact us form</a>. We will review
+            your issue and reply.
+          {% endtrans %}
         </p>
       </div>
       <h2>
-        <a name="how-do-i-request-an-updated-version-of-a-dataset"></a>{% trans %}Q. How do I request an updated version
-          of a dataset?{% endtrans %}
+        <a name="how-do-i-request-an-updated-version-of-a-dataset"></a>
+        {% trans %}
+          Q. How do I request an updated version of a dataset?
+        {% endtrans %}
       </h2>
       <div>
         <p>
-          {% trans %}A. Start by checking the <strong>Update frequency</strong> field to see how often the dataset should
-            be updated.{% endtrans %}
+          {% trans %}
+            A. Start by checking the <strong>Update frequency</strong> field to see how often the dataset should be updated.
+          {% endtrans %}
         </p>
         <p>
-          {% trans %}If the dataset hasn’t been updated as frequently as stated, send an email to the contact listed (in
-            the "For more information" section).{% endtrans %}
-        </p>
-      </div>
-      <h2>
-        <a name="how-do-i-report-issues"></a>{% trans %}Q. How do I report errors/issues/provide feedback (for example,
-          inaccurate, outdated data)?{% endtrans %}
-      </h2>
-      <div>
-        <p>
-          {% trans %}A. Start by sending an email to the contact listed (in the "For more information"
-            section).{% endtrans %}
+          {% trans %}
+            If the dataset hasn’t been updated as frequently as stated, send an email to the contact listed (in
+            the "For more information" section).
+          {% endtrans %}
         </p>
       </div>
       <h2>
-        <a name="why-isnt-a-dataset-available"></a>{% trans %}Q. Why isn't the data for a dataset available?{% endtrans %}
+        <a name="how-do-i-report-issues"></a>
+        {% trans %}
+          Q. How do I report errors/issues/provide feedback (for example, inaccurate, outdated data)?
+        {% endtrans %}
       </h2>
       <div>
         <p>
-          {% trans %}A. There are two reasons why the data for a dataset might not be available:{% endtrans %}
+          {% trans %}
+            A. Start by sending an email to the contact listed (in the "For more information" section).
+          {% endtrans %}
+        </p>
+      </div>
+      <h2>
+        <a name="why-isnt-a-dataset-available"></a>
+        {% trans %}
+          Q. Why isn't the data for a dataset available?
+        {% endtrans %}
+      </h2>
+      <div>
+        <p>
+          {% trans %}
+            A. There are two reasons why the data for a dataset might not be available:
+          {% endtrans %}
         </p>
         <ul>
           <li>
-            {% trans %}The dataset is <strong>Under review</strong>. The government has not finished screening the files.
+            {% trans %}
+              The dataset is <strong>Under review</strong>. The government has not finished screening the files.
               The data will not be available in the short-term and may never actually be published in the case that
               screening determines it isn’t safe to share with the public. You can check back to see if the status
-              changes.{% endtrans %}
+              changes.
+            {% endtrans %}
           </li>
           <li>
-            {% trans %}The dataset is <strong>Restricted</strong>. The government has screened the files and determined
-              that they are not safe to share with the public.{% endtrans %}
+            {% trans %}
+              The dataset is <strong>Restricted</strong>. The government has screened the files and determined
+              that they are not safe to share with the public.
+            {% endtrans %}
           </li>
         </ul>
       </div>
       <h2>
-        <a name="can-i-get-notified-when-the-catalogue-is-updated"></a>{% trans %}Q. Can you notify me when the catalogue
-          is updated?{% endtrans %}
+        <a name="can-i-get-notified-when-the-catalogue-is-updated"></a>
+        {% trans %}
+          Q. Can you notify me when the catalogue is updated?
+        {% endtrans %}
       </h2>
       <div>
         <p>
-          {% trans %}A. Yes, you can get data catalogue updates by RSS feed. RSS (Really Simple Syndication) lets you know
-            when our data catalogue has been updated.{% endtrans %}
+          {% trans %}
+            A. Yes, you can get data catalogue updates by RSS feed. RSS (Really Simple Syndication) lets you know
+            when our data catalogue has been updated.
+          {% endtrans %}
         </p>
         <p>
-          {% trans %}To receive RSS updates:{% endtrans %}
+          {% trans %}
+            To receive RSS updates:
+          {% endtrans %}
         </p>
         <ol>
           <li>
-            {% trans %}Install an RSS reader on your device{% endtrans %}
+            {% trans %}
+              Install an RSS reader on your device
+            {% endtrans %}
           </li>
           <li>
-            {% trans %}Choose the updates you want to receive{% endtrans %}
+            {% trans %}
+              Choose the updates you want to receive
+            {% endtrans %}
           </li>
         </ol>
         <p>
-          {% trans %}Available updates:{% endtrans %}
+          {% trans %}
+            Available updates:
+          {% endtrans %}
         </p>
         <ul>
           <li>
-            {% trans %}Any dataset is updated or added to the catalogue{% endtrans %}
+            {% trans %}
+              Any dataset is updated or added to the catalogue
+            {% endtrans %}
             <br />
-            <strong>
-              RSS URL: data.ontario.ca/feeds/dataset.atom
-            </strong>
+            <strong>RSS URL: data.ontario.ca/feeds/dataset.atom</strong>
           </li>
           <li>
-            {% trans %}A specific dataset is updated{% endtrans %}
+            {% trans %}
+              A specific dataset is updated
+            {% endtrans %}
             <br />
             <strong>
-              RSS URL: data.ontario.ca/feeds/custom.atom?q=name:[{% trans %}name-of-specific-dataset{% endtrans %}]
+              RSS URL: data.ontario.ca/feeds/custom.atom?q=name:[
+              {%- trans -%}
+                name-of-specific-dataset
+              {% endtrans %}]
             </strong>
             <br />
             <em>
-              {% trans %}Example{% endtrans %}: data.ontario.ca/feeds/custom.atom?q=name:zooplankton-monitoring
+              {% trans %}
+                Example
+              {% endtrans %}: data.ontario.ca/feeds/custom.atom?q=name:zooplankton-monitoring
             </em>
           </li>
           <li>
-            {% trans %}A dataset with a specific tag is updated or added{% endtrans %}
+            {% trans %}
+              A dataset with a specific tag is updated or added
+            {% endtrans %}
             <br />
             <strong>
-              RSS URL: data.ontario.ca/feeds/tag/[{% trans %}name-of-tag{% endtrans %}].atom
+              RSS URL: data.ontario.ca/feeds/tag/[
+              {%- trans -%}
+                name-of-tag
+              {% endtrans %}].atom
             </strong>
             <br />
             <em>
-              {% trans %}Example{% endtrans %}: data.ontario.ca/feeds/tag/pepper.atom
+              {% trans %}
+                Example
+              {% endtrans %}: data.ontario.ca/feeds/tag/pepper.atom
             </em>
           </li>
           <li>
-            {% trans %}A dataset based on your custom search term is updated or added{% endtrans %}
+            {% trans %}
+              A dataset based on your custom search term is updated or added
+            {% endtrans %}
             <br />
             <strong>
-              RSS URL: data.ontario.ca/feeds/custom.atom?q=[{% trans %}custom search term{% endtrans %}]
+              RSS URL: data.ontario.ca/feeds/custom.atom?q=[
+              {%- trans -%}
+                custom search term
+              {%- endtrans -%}]
             </strong>
             <br />
             <em>
-              {% trans %}Example{% endtrans %}: data.ontario.ca/feeds/custom.atom?q=apple
+              {% trans %}
+                Example
+              {% endtrans %}: data.ontario.ca/feeds/custom.atom?q=apple
             </em>
           </li>
           <li>
-            {% trans %}A specific ministry updates or adds a dataset{% endtrans %}
+            {% trans %}
+              A specific ministry updates or adds a dataset
+            {% endtrans %}
             <br />
             <strong>
-              RSS URL: data.ontario.ca/feeds/organization/[{% trans %}name-of-specific-ministry{% endtrans %}].atom
+              RSS URL: data.ontario.ca/feeds/organization/[
+              {%- trans -%}
+                name-of-specific-ministry
+              {%- endtrans -%}].atom
             </strong>
             <br />
             <em>
-              {% trans %}Example{% endtrans %}: data.ontario.ca/feeds/organization/agriculture-food-and-rural-affairs.atom
+              {% trans %}
+                Example
+              {% endtrans %}: data.ontario.ca/feeds/organization/agriculture-food-and-rural-affairs.atom
             </em>
           </li>
         </ul>

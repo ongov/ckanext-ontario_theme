@@ -4,7 +4,7 @@
 {% macro organization_option_tag(organization, selected_org) %}
   {% block organization_option scoped %}
     <option value="{{ organization.id }}"
-            {% if selected_org %} selected="selected"{% endif %}>
+            {% if selected_org %}selected="selected"{% endif %}>
       {{ h.get_translated( h.get_organization(organization.name), "title") or organization.display_name }}
     </option>
   {% endblock organization_option %}
