@@ -96,6 +96,31 @@ attribute with the form `ckan-X.Y` -->
       </analyzer>
     </fieldType>
 
+    <fieldType name = "text_fr" class="solr.TextField" positionIncrementGap="100">
+        <analyzer> 
+        <!-- StandardTokenizerFactory tokenizes the text. It splits the text into tokens, usually by whitespace and punctuation.-->
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+        <!-- ElisionFilterFactory removes contractions in French. For example, "l'homme" becomes "homme".-->
+                <filter class="solr.ElisionFilterFactory" ignoreCase="true" articles="lang/contractions_fr.txt"/>
+        <!-- LowerCaseFilterFactory transforms text to lowercase so "Bonjour" and "bonjour" will be treated the same. -->
+                <filter class="solr.LowerCaseFilterFactory"/>
+        <!-- StopFilterFactory removes common, low value words defined in "stopwords_fr.txt" like "et", "le", "la" etc. -->
+                <filter class="solr.StopFilterFactory" format="snowball" words="lang/stopwords_fr.txt" ignoreCase="true"/>
+        <!-- SnowballPorterFilterFactory applies the Snowball stemming algorithm specific to the French language. Stemming is the process of reducing words to their root form. For example, "chevaux" would become "cheval". -->
+                <filter class="solr.SnowballPorterFilterFactory" language="French"/>
+        <!-- ASCIIFoldingFilterFactory replaces accented characters by their unaccented version. For example, "élégant" becomes "elegant". -->
+                <filter class="solr.ASCIIFoldingFilterFactory"/>
+        <!-- FrenchLightStemFilterFactory applies a lighter stemmer for French words, it's less aggressive than Snowball.-->
+                <filter class="solr.FrenchLightStemFilterFactory"/>
+        <!-- RemoveDuplicatesTokenFilterFactory removes duplicate tokens. For example, if the same word is in the text multiple times, it will be indexed only once. -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            </fieldType>
+
+
+
+
+
 </types>
 
 
@@ -167,16 +192,80 @@ attribute with the form `ckan-X.Y` -->
 
     <field name="_version_" type="string" indexed="true" stored="true"/>
 
-    <dynamicField name="*_date" type="date" indexed="true" stored="true" multiValued="false"/>
+    <dynamicField name="*_date" type="date" indexed="true" stored="true" multiValued="false"/
 
     <dynamicField name="extras_*" type="text" indexed="true" stored="true" multiValued="false"/>
     <dynamicField name="res_extras_*" type="text" indexed="true" stored="true" multiValued="true"/>
     <dynamicField name="vocab_*" type="string" indexed="true" stored="true" multiValued="true"/>
     <dynamicField name="*" type="string" indexed="true"  stored="false"/>
 
+    <!--
+    A dynamic field that matches any field ending in '_en'. The field type is 'text_en'.
+    The field is indexed and stored, allowing it to be searchable and returned in the search results.
+    -->
+
+    <dynamicField name="*_en" type="text_en" indexed="true" stored="true"/>
+
+    <!--A dynamic field that matches any field ending in '_fr'. The field type is 'text_fr'.
+    The field is indexed and stored, allowing it to be searchable and returned in the search results.-->
+    <dynamicField name="*_fr" type="text_fr" indexed="true" stored="true"/>
+
+    <!--Copies the value from 'multilang_field' to 'multilang_field_en'. Useful for language-specific processing or searching. -->
+    <copyField source="multilang_field" dest="multilang_field_en"/>
+
+     <!--Copies the value from 'multilang_field' to 'multilang_field_fr'. Useful for language-specific processing or searching.-->
+    <copyField source="multilang_field" dest="multilang_field_fr"/>
+a
+
     <!-- Extra Ontario fields -->
+
+      <!--
+    A field named 'keywords_en'. The field type is 'string'.
+    The field is indexed and stored, allowing it to be searchable and returned in the search results.
+    It can hold multiple values.
+    -->
     <field name="keywords_en" type="string" indexed="true" stored="true" multiValued="true"/>
+
+    <!--
+    A field named 'keywords_fr'. The field type is 'string'.
+    The field is indexed and stored, allowing it to be searchable and returned in the search results.
+    It can hold multiple values.
+    -->
     <field name="keywords_fr" type="string" indexed="true" stored="true" multiValued="true"/>
+
+     <!--
+    A field named 'title_fr'. The field type is 'text_fr'.
+    The field is indexed and stored, allowing it to be searchable and returned in the search results.
+    -->
+    <field name="title_fr" type="text_fr" indexed="true" stored="true" />
+
+    <!--
+    A field named 'description_fr'. The field type is 'text_fr'.
+    The field is indexed and stored, allowing it to be searchable and returned in the search results.
+    -->
+    <field name="description_fr" type="text_fr" indexed="true" stored="true" />
+
+    <!--
+    A field named 'notes_fr'. The field type is 'text_fr'.
+    The field is indexed and stored, allowing it to be searchable and returned in the search results.
+    -->
+    <field name="notes_fr" type="text_fr" indexed="true" stored="true"/>
+
+     <!--
+    A field named 'myFrenchField'. The field type is 'text_fr'.
+    The field is indexed and stored, allowing it to be searchable and returned in the search results.
+    -->
+    <field name="myFrenchField" type="text_fr" indexed="true" stored="true"/>
+
+    <!--
+    A field named 'french_field'. The field type is 'text_fr'.
+    The field is indexed and stored, allowing it to be searchable and returned in the search results.
+    -->
+    <field name="french_field" type="text_fr" indexed="true" stored="true"/>
+
+
+
+
 </fields>
 
 <uniqueKey>index_id</uniqueKey>
@@ -203,5 +292,20 @@ attribute with the form `ckan-X.Y` -->
 <copyField source="res_description" dest="text"/>
 <copyField source="maintainer" dest="text"/>
 <copyField source="author" dest="text"/>
+
+
+<!--
+    A copyField directive that copies the value of the 'title_fr' field into the 'text' field.
+    This allows queries against the 'text' field to also match the contents of the 'title_fr' field.
+    -->
+<copyField source="title_fr" dest="text"/>
+
+   <!--
+    A copyField directive that copies the value of the 'description_fr' field into the 'text' field.
+    This allows queries against the 'text' field to also match the contents of the 'description_fr' field.
+    -->
+
+<copyField source="description_fr" dest="text"/>
+
 
 </schema>
