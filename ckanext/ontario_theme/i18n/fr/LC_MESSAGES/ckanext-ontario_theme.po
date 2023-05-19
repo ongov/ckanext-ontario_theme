@@ -2041,16 +2041,16 @@ msgstr "Activité récente"
 
 #: ckanext/ontario_theme/templates/internal/home/snippets/search.html:7
 msgid "Search Ontario's Data"
-msgstr "Rechercher des données de l'Ontario"
+msgstr "Rechercher les données de l'Ontario"
 
 msgid "Search datasets"
-msgstr "Rechercher des jeux de données"
+msgstr "Rechercher les jeux de données"
 
 msgid "Search ministries"
 msgstr "Rechercher les ministères"
 
 msgid "Search groups"
-msgstr "Rechercher des groupes"
+msgstr "Rechercher les groupes"
 
 #: ckanext/ontario_theme/templates/home/snippets/search.html:21
 msgid "Popular keywords"
