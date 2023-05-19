@@ -1221,6 +1221,10 @@ msgstr ""
 msgid "Add Group"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/group/index.html:21
+msgid "Browse datasets and resources organized by a specific theme or topic."
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/group/index.html:16
 msgid "Search groups"
 msgstr ""
