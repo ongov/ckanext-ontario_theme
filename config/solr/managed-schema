@@ -57,6 +57,8 @@ attribute with the form `ckan-X.Y` -->
             <filter class="solr.LowerCaseFilterFactory"/>
             <filter class="solr.SnowballPorterFilterFactory" language="English" protected="protwords.txt"/>
             <filter class="solr.ASCIIFoldingFilterFactory"/>
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
         </analyzer>
         <analyzer type="query">
             <tokenizer class="solr.WhitespaceTokenizerFactory"/>
@@ -65,6 +67,8 @@ attribute with the form `ckan-X.Y` -->
             <filter class="solr.LowerCaseFilterFactory"/>
             <filter class="solr.SnowballPorterFilterFactory" language="English" protected="protwords.txt"/>
             <filter class="solr.ASCIIFoldingFilterFactory"/>
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
         </analyzer>
     </fieldType>
 
