@@ -2206,6 +2206,11 @@ screen and (min-width: 96em) {
   margin: 2.5rem 0 1.5rem 0;
 }
 
+#about,
+.article-container {
+  overflow-wrap: break-word;
+}
+
 /* Wrapper styling */
 .wrapper::before {
   z-index: 0;
