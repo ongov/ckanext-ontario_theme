@@ -75,7 +75,7 @@
               {% if field == "organization" %}
                 {{ _('Ministry') + _(':') }}
               {% else %}
-                {{ facets.titles.get(field) + _(':') }}
+                {{ facets.titles.get(field) + _(':') if facets.titles.get(field) is not none }}
               {% endif %}
             </span>
             {% for item in h.get_facet_items_dict(field) %}
