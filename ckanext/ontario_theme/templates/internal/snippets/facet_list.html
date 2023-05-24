@@ -7,6 +7,8 @@
 {% set fields = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
 {% set title = title or h.get_facet_title(name) %}
 {% set title = _('Ministries') if title == _('Organizations') else title %}
+{% set title = _('Licence') if title == _('Licenses') else title %}
+
 {% block facet_list_heading %}
   {% with items = items or h.get_facet_items_dict(name) %}
     <h2 class="module-heading">
