@@ -678,11 +678,13 @@ def extract_package_name(url):
             resource_name = toolkit.get_action('resource_show') (
                 data_dict={'id': get_resource_name[0]}
                 )
-            resource_type = resource_name['type']
-            resource_name = resource_name['name']
-            if not resource_type and not resource_name:
-                resource_name = "Supporting File"
-            return resource_name or resource_type
+            if not resource_name['type'] and not resource_name['name']:
+                return "Unnamed Supporting File"
+            if 'name' in resource_name:
+                if len(resource_name['name']) > 0:
+                    return resource_name['name']
+                else:
+                    return "Unnamed Data File"
         except ckan.logic.NotFound:
             return False
     elif len(get_package_name) > 0:
