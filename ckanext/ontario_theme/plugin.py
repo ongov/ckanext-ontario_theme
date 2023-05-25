@@ -1041,7 +1041,7 @@ type data_last_updated
         facets_dict['update_frequency'] = toolkit._('Update Frequency')
         facets_dict['keywords_en'] = toolkit._('Topics')
         facets_dict['keywords_fr'] = toolkit._('Topics')
-        facets_dict['license_id'] = toolkit._('Licence')
+        facets_dict['license_id'] = toolkit._('Licences')
         facets_dict['organization'] = toolkit._('Ministries')
         facets_dict.pop('tags', None) # Remove tags in favor of keywords
         facets_dict['organization_jurisdiction'] = toolkit._('Jurisdiction')
