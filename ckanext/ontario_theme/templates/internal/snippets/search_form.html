@@ -72,13 +72,7 @@
               {% if (not query and not loop.index0==0) or query %}
                 <span class="sr-only">and</span>
               {% endif %}
-              {% if field == "organization" %}
-                {{ _('Ministry') + _(':') }}
-              {% elif field == "license_id" %}
-                {{ _('Licence') + _(':') }}
-              {% else %}
-                {{ facets.titles.get(field) + _(':') }}
-              {% endif %}
+              {{ facets.titles.get(field) + _(':') }}
             </span>
             {% for item in h.get_facet_items_dict(field) %}
               {% set item_id = facets.search.get(field)['title'] %}
