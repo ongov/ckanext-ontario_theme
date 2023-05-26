@@ -488,7 +488,7 @@ msgstr ""
 msgid ""
 "<h2>On this page</h2> <ol class=\"table-of-contents\"> <li> <a href=\"#open-"
 "data\">Open Data</a> </li> <li> <a href=\"#other-data\">Other data</a> </li> "
-"<li> <a href=\"#licensing\">Data licenses and use</a> </li> <li> <a "
+"<li> <a href=\"#licensing\">Data licences and use</a> </li> <li> <a "
 "href=\"#developers\">Developers</a> </li> <li> <a href=\"#training-"
 "materials\">Training materials</a> </li> <li> <a href=\"#metadata\">What do "
 "we tell you about data (metadata)?</a> </li> <li> <a "
@@ -509,7 +509,7 @@ msgid ""
 "restricted and not released. </li> <li> <strong>Restricted</strong> – The "
 "dataset has been screened and will not be released to the public. The record "
 "will be listed in the catalogue, but the data will not be shared. </li> </ul>"
-" <h2> <a name=\"licensing\"></a> Data licenses and use </h2> <p> If you want "
+" <h2> <a name=\"licensing\"></a> Data licences and use </h2> <p> If you want "
 "to use data you find in the catalogue, that data must have a licence – a set "
 "of rules that describes how you can use it. A licence: </p> <ul> <li>grants "
 "you rights to download and use the data</li> <li>outlines your rights</li> "
@@ -980,7 +980,7 @@ msgid "Learn about Open Data and the Ontario Data Catalogue."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:23
-msgid "Data licenses and use"
+msgid "Data licences and use"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:28
@@ -1219,6 +1219,10 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/group/index.html:11
 msgid "Add Group"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/group/index.html:21
+msgid "Browse datasets and resources organized by a specific theme or topic."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/group/index.html:16
@@ -1584,7 +1588,7 @@ msgid "unknown size"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:70
-msgid "License"
+msgid "Licence"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:190
