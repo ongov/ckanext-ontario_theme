@@ -112,7 +112,6 @@ The script processes the CSV files and creates organizations in your CKAN applic
 Monitor the script output for any error messages or failed resource uploads. After completion, check if the organizations and their associated resources were created successfully in your CKAN application.
 
 ### Additional Notes
-The script expects the CSV files to be in the uploads directory. Ensure that the CSV files follow the correct format and contain the necessary data for creating organizations and resources.
 
 If any errors occur during resource uploads, review the error messages and the `failed_resource_writes` list in the script output. Address any issues related to resource files or network connectivity. 
 
