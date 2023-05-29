@@ -2468,6 +2468,10 @@ msgstr "Éditer les réglages"
 msgid "Settings"
 msgstr "Réglages"
 
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:36
+msgid "Additional information"
+msgstr "Informations additionnelles"
+
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:106
 msgid "Use the data API"
 msgstr "Servez-vous de l’API de données"
