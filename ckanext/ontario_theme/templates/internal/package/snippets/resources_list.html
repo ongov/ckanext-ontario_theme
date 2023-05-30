@@ -26,12 +26,7 @@
           {% endfor %}
           {% for group in resources|selectattr("type","equalto","data")|groupby("data_range")|sort(attribute="grouper", reverse=True) %}
             {% if group.list[0].data_range != "N/A - N/A" %}
-              {# Issue with h.render_datetime causes dates to shift to day before
-                <p class="date-range">{{ _("Date range")+_(":")}} {{h.render_datetime(group.list[0].data_range_start)}} - {{h.render_datetime(group.list[0].data_range_end)}}</p>
-              {% else %}
-              <p class="date-range">{{ _("No date range") }}</p>
-              {% endif %} #}
-              <p class="date-range">{{ group.list[0].data_range }}</p>
+              <p class="date-range">{{ _("Date range")+_(":") }} {{ h.render_datetime(group.list[0].data_range_start) }} - {{ h.render_datetime(group.list[0].data_range_end) }}</p>
             {% else %}
               <p class="date-range">{{ _("No date range") }}</p>
             {% endif %}

@@ -2521,3 +2521,7 @@ msgid "Report an error with this data"
 msgstr "Signalez une erreur avec ces données"
 msgid "Fill out a <a href=\"https://www.ontario.ca/form/report-data-error?%(params)s\">Data Catalogue error report</a> to let us know if there are issues with the resources in this dataset."
 msgstr "Remplissez un <a href=\"https://www.ontario.ca/fr/forme/signalez-une-erreur-dans-les-donnees?%(params)s\">rapport d’erreur du Catalogue de données</a> pour nous aviser de problèmes avec les ressources de ce jeu de données."
+
+#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:29
+msgid "Date range"
+msgstr "Plage de dates"
