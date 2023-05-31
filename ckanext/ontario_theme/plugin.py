@@ -678,8 +678,18 @@ def extract_package_name(url):
             resource_name = toolkit.get_action('resource_show') (
                 data_dict={'id': get_resource_name[0]}
                 )
-            if not resource_name['type'] and not resource_name['name']:
-                return "Unnamed Supporting File"
+            if 'name' in resource_name and not resource_name['name']:
+                if 'type' in resource_name:
+                    if not resource_name['type']:
+                        return "Unnamed Supporting File"
+                    else:
+                        return "Unnamed " + resource_name['type']
+                elif 'resource_type' in resource_name:
+                    if not resource_name['resource_type']:
+                        return "Unnamed Supporting File"
+                    else:
+                        return "Unnamed " + resource_name['resource_type']
+            
             if 'name' in resource_name:
                 if len(resource_name['name']) > 0:
                     return resource_name['name']
