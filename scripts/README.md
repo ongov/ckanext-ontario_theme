@@ -82,9 +82,7 @@ The `load_organization_data.py` script enables you to load organization data int
 1. Clone the repository containing the script.
 2. Navigate to the repository directory and install the required dependencies by running:
 ```
-pip
-
- install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ### Script Configuration
