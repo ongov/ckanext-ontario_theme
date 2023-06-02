@@ -3,7 +3,7 @@
    ======================================================================== */
 .toolbar ol.breadcrumb {
   color: #aaa;
-  padding: 10px 16px;
+  padding: 10px 2px;
   list-style: none;
 }
 
@@ -685,7 +685,7 @@ input[placeholder] {
 }
 
 .search-page-heading {
-  padding: 0 20px;
+  padding: 0 16px;
 }
 
 /* ========================================================================
@@ -1119,12 +1119,6 @@ header {
     font-size: 1.5rem;
     letter-spacing: 0.0313rem;
     line-height: 1.5;
-  }
-
-  #ontario-header .ontario-columns,
-  #ontario-application-subheader .ontario-columns {
-    padding-left: 8px;
-    padding-right: 8px;
   }
 }
 
@@ -2218,4 +2212,13 @@ screen and (min-width: 96em) {
 
 .module.module-narrow.module-shallow.context-info {
   padding: 30px;
+}
+
+/* Survey banner styling */
+.survey {
+  margin-bottom: 0;
+}
+
+.alert {
+  padding: 15px 0;
 }

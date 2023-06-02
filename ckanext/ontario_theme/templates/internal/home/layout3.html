@@ -1,9 +1,9 @@
-<div id="landing-page-body">
+<div id="landing-page-body" role="main">
   <div class="hero">
     <h1 class="sr-only">{{ _("Home") }}</h1>
-    <div class="container">
+    <div class="ontario-row">
       <div class="hero-container">
-        <div class="row">
+        <div>
           <div class="col-md-12 welcome">
             {% block intro %}
               {% snippet "home/snippets/ontario_theme_intro.html" %}
@@ -13,10 +13,11 @@
       </div>
     </div>
   </div>
-  <div role="main">
+  <div>
     {% snippet "home/snippets/ontario_theme_sub_intro.html" %}
-    <div class="container" id="topics">
-      <div class="row">
+    <div class="ontario-row" id="topics">
+      <!-- add margin-bottom 20px -->
+      <div>
         <div class="col-md-12">
           <h2>{{ _("Topics") }}</h2>
         </div>
@@ -24,8 +25,8 @@
       {% snippet "home/snippets/ontario_theme_categories.html" %}
     </div>
     <div class="banner-section">
-      <div id="news" class="container">
-        <div class="row homepage-section">
+      <div id="news" class="ontario-row">
+        <div class="ontario-small-12 homepage-section">
           <div class="col-md-6 dataset-list">
             <h2>{{ _("Most popular datasets") }}</h2>
             {% snippet "home/snippets/ontario_theme_popular_datasets.html" %}
@@ -37,11 +38,11 @@
         </div>
       </div>
     </div>
-    <div class="container" id="resources_and_information">
+    <div class="ontario-row" id="resources_and_information">
       {% snippet "home/snippets/ontario_theme_resources_and_information.html" %}
     </div>
-    <div class="container homepage-section">
-      <div class="row">
+    <div class="ontario-small-12 homepage-section">
+      <div class="ontario-row">
         <div class="col-md-12">
           {% block contact_us %}
             {% snippet "home/snippets/ontario_theme_contact_us.html" %}

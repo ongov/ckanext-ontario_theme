@@ -1,7 +1,8 @@
 .alert-banner {
   margin-bottom: 0px;
 }
-.alert{
+
+.alert {
   border-radius: 0px;
 }
 
@@ -17,6 +18,7 @@
   padding-top: 15px;
   position: relative;
 }
+
 .new-alert.alert-success::before,
 .new-alert.alert-info::before,
 .new-alert.alert-warning::before,
@@ -34,54 +36,67 @@
   left: 10px;
   top: 10px;
 }
+
 .new-alert.alert-success::before {
   content: "\f058";
   color: #2B8737;
 }
+
 .new-alert.alert-info::before {
   content: "\f05a";
   color: #0369AC;
 }
+
 .new-alert.alert-warning::before {
   content: "\f06a";
   color: #8A600D;
 }
+
 .new-alert.alert-danger::before {
   content: "\f057";
   color: #D81A21;
 }
+
 .new-alert.alert-open::before {
   content: "\f058";
   color: #2B8737;
 }
+
 .new-alert.alert-to_be_opened::before {
   content: "\f017";
   color: #0369AC;
 }
+
 .new-alert.alert-under_review::before {
   content: "\f059";
   color: #92278F;
 }
+
 .new-alert.alert-restricted::before {
   content: "\f023";
   color: #D81A21;
 }
+
 .new-alert.alert-algorithms::before {
   content: "\f121";
   margin-left: -7px;
   color: #1080A6;
 }
+
 .new-alert.alert-huge {
   padding-left: 160px;
 }
+
 .new-alert.alert-huge::before {
   font-size: 125px;
   line-height: 125px;
 }
+
 .new-alert.alert-large {
   min-height: 80px;
   padding-left: 90px;
 }
+
 .new-alert.alert-large.alert-success::before,
 .new-alert.alert-large.alert-info::before,
 .new-alert.alert-large.alert-warning::before,
@@ -92,57 +107,72 @@
 .new-alert.alert-large.alert-restricted::before {
   font-size: 60px;
 }
+
 .new-alert.alert-open,
 .new-alert.alert-under_review,
 .new-alert.alert-to_be_opened,
 .new-alert.alert-restricted {
   color: #4d4d4d;
 }
+
 .new-alert.alert-open {
   background-color: #e6fad2;
 }
+
 .new-alert.alert-under_review {
   background-color: #F1E3F2;
 }
+
 .new-alert.alert-to_be_opened {
   background-color: #dff3f3;
 }
+
 .new-alert.alert-restricted {
   background-color: #fad2d2;
 }
+
 .new-alert.alert-contact {
   background: #E2F0F4;
   border-color: #1080A6;
   padding: 0.9375rem 2rem 0.9375rem 0.9375rem;
 }
+
 .new-alert.alert-clear {
   margin-bottom: 30px;
 }
+
 /* =====================================================
    Generic classes for Colby colours
    ===================================================== */
 .primary-bg {
   background-color: #00B2E3;
 }
+
 .secondary-bg {
   background-color: #FCAF17;
 }
+
 .recent-activity .module-content {
   padding: 0px;
 }
+
 .recent-activity .module-content ul.activity {
   background: none;
 }
+
 .recent-activity .module-content ul.activity li i.icon {
   display: none;
 }
+
 .recent-activity .module-content ul.activity li p {
   margin-left: 0px;
 }
+
 .recent-activity .module-content ul.activity li p .actor .gravatar {
   left: 0px;
   position: relative;
 }
+
 .sr-only,
 .toolbar .home span,
 .simple-input label,
@@ -151,6 +181,7 @@ a.skip-main {
   background-color: #ffffff;
   color: #1A1A1A;
 }
+
 a.skip-main:focus,
 a.skip-main:active {
   color: #fff;
@@ -170,12 +201,14 @@ a.skip-main:active {
   position: absolute;
   display: inline;
 }
+
 /* =====================================================
    Button overrides
    ===================================================== */
 .btn-primary {
   color: #fff;
 }
+
 .btn-primary:focus,
 .btn-primary.focus,
 .btn-primary:visited,
@@ -185,9 +218,11 @@ a.skip-main:active {
 .btn-primary.active {
   color: #fff;
 }
+
 .btn-secondary {
   color: #1A1A1A;
 }
+
 .btn-secondary:focus,
 .btn-secondary.focus,
 .btn-secondary:visited,
@@ -197,19 +232,23 @@ a.skip-main:active {
 .btn-secondary.active {
   color: #1A1A1A;
 }
+
 .btn-primary {
   background-color: #1080A6;
   border-color: #094a60;
 }
+
 .btn-primary:hover {
   background-color: #094a60;
   border-color: #00B2E3;
 }
+
 .btn-primary:focus,
 .btn-primary.focus {
   background-color: #1080A6;
   border-color: #00B2E3;
 }
+
 .btn-primary:active,
 .btn-primary.active,
 .btn-primary .open > .dropdown-toggle.btn-primary {
@@ -217,6 +256,7 @@ a.skip-main:active {
   border-color: #00B2E3;
   background-image: none;
 }
+
 .btn-primary:active:hover,
 .btn-primary.active:hover,
 .btn-primary .open > .dropdown-toggle.btn-primary:hover,
@@ -229,6 +269,7 @@ a.skip-main:active {
   background-color: #094a60;
   border-color: #00B2E3;
 }
+
 .btn-primary.disabled:hover,
 .btn-primary[disabled]:hover,
 .btn-primary fieldset[disabled] .btn-primary:hover,
@@ -241,23 +282,28 @@ a.skip-main:active {
   background-color: #00B2E3;
   border-color: #094a60;
 }
+
 .btn-primary.badge {
   color: #1080A6;
   background-color: #ffffff;
 }
+
 .btn-secondary {
   background-color: #FCAF17;
   border-color: #8A600D;
 }
+
 .btn-secondary:hover {
   background-color: #8A600D;
   border-color: #442f06;
 }
+
 .btn-secondary:focus,
 .btn-secondary.focus {
   background-color: #8A600D;
   border-color: #442f06;
 }
+
 .btn-secondary:active,
 .btn-secondary.active,
 .btn-secondary .open > .dropdown-toggle.btn-secondary {
@@ -265,6 +311,7 @@ a.skip-main:active {
   border-color: #442f06;
   background-image: none;
 }
+
 .btn-secondary:active:hover,
 .btn-secondary.active:hover,
 .btn-secondary .open > .dropdown-toggle.btn-secondary:hover,
@@ -277,6 +324,7 @@ a.skip-main:active {
   background-color: #8A600D;
   border-color: #442f06;
 }
+
 .btn-secondary.disabled:hover,
 .btn-secondary[disabled]:hover,
 .btn-secondary fieldset[disabled] .btn-secondary:hover,
@@ -289,28 +337,34 @@ a.skip-main:active {
   background-color: #FCAF17;
   border-color: #8A600D;
 }
+
 .btn-secondary.badge {
   color: #FCAF17;
   background-color: #ffffff;
 }
+
 .btn-grey {
   color: #fff;
   background-color: #666;
   border-color: #444;
 }
+
 .btn-grey:hover {
   background-color: #444;
   border-color: #222;
 }
+
 .btn-grey:hover,
 .btn-grey:visited {
   color: #fff;
 }
+
 .btn-grey:focus,
 .btn-grey.focus {
   background-color: #444;
   border-color: #222;
 }
+
 .btn-grey:active,
 .btn-grey.active,
 .btn-grey .open > .dropdown-toggle.btn-grey {
@@ -318,6 +372,7 @@ a.skip-main:active {
   border-color: #222;
   background-image: none;
 }
+
 .btn-grey:active:hover,
 .btn-grey.active:hover,
 .btn-grey .open > .dropdown-toggle.btn-grey:hover,
@@ -330,6 +385,7 @@ a.skip-main:active {
   background-color: #444;
   border-color: #222;
 }
+
 .btn-grey.disabled:hover,
 .btn-grey[disabled]:hover,
 .btn-grey fieldset[disabled] .btn-grey:hover,
@@ -342,10 +398,12 @@ a.skip-main:active {
   background-color: #666;
   border-color: #444;
 }
+
 .btn-grey.badge {
   color: #666;
   background-color: #ffffff;
 }
+
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
@@ -354,6 +412,7 @@ a.skip-main:active {
   /* For IE6-8 */
   src: local('Material Icons'), local('MaterialIcons-Regular'), url(/fonts/material/MaterialIcons-Regular.woff2) format('woff2'), url(/fonts/material/MaterialIcons-Regular.woff) format('woff'), url(/fonts/material/MaterialIcons-Regular.ttf) format('truetype');
 }
+
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
@@ -376,10 +435,12 @@ a.skip-main:active {
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
+
 /* Button wrap text */
 .btn {
   white-space: normal;
 }
+
 a.card div {
   background-color: #CCCCCC;
   transition: 1s;
@@ -389,18 +450,23 @@ a.card div {
   padding: 1rem;
   margin-bottom: 2rem;
 }
+
 a.card div:hover {
   background-color: rgba(230, 230, 230, 0.5);
 }
+
 a.card img {
   width: 100%;
 }
+
 a.card p {
   color: #666666;
 }
+
 a.card:hover {
   text-decoration: none;
 }
+
 div.card {
   background-color: #D1EAEB;
   transition: 1s;
@@ -410,63 +476,78 @@ div.card {
   padding: 1rem;
   margin-bottom: 2rem;
 }
+
 div.card img {
   width: 100%;
 }
+
 div.card p {
   color: #666666;
 }
+
 .col-xs-2-10,
 .col-sm-2-10 {
   position: relative;
   min-height: 1px;
 }
+
 .col-xs-2-10 {
   width: 20%;
   float: left;
 }
+
 @media (min-width: 768px) {
   .col-sm-2-10 {
     width: 20%;
     float: left;
   }
 }
+
 @media (min-width: 992px) {
   .col-md-2-10 {
     width: 20%;
     float: left;
   }
 }
+
 @media (min-width: 1200px) {
   .col-lg-2-10 {
     width: 20%;
     float: left;
   }
 }
+
 .module.search {
   color: #fff;
 }
+
 .module.search .search-giant {
   margin-top: 30px;
 }
+
 .module.search .search-form {
   padding: 0px;
   margin: 0px;
   border: none;
 }
+
 .module.search .search-form .search-input button {
   line-height: 2.8rem;
 }
+
 .module.search .search-form .search-input button i.fa-search {
   color: #000;
 }
+
 .module.search h3 {
   float: left;
 }
+
 .module.search h3,
 .module.search .tag {
   margin: 0 10px 0 0;
 }
+
 .module.search .tags a.tag {
   background-color: #00B2E3;
   color: #fff;
@@ -475,32 +556,40 @@ div.card p {
   box-shadow: none;
   padding: 5px 10px;
 }
+
 .search-form .search-input button i,
 .simple-input .field .btn-search {
   top: 45%;
 }
+
 .dataset-resources li a {
   background-color: #aaaaaa;
   color: #FFFFFF;
 }
+
 .label.right {
   float: right;
 }
+
 .open,
 .under_review,
 .to_be_opened,
-.restricted{
+.restricted {
   color: #4d4d4d;
 }
+
 .open {
   background-color: #e6fad2;
 }
+
 .under_review {
   background: #d2d1eb;
 }
+
 .to_be_opened {
   background-color: #dff3f3;
 }
+
 .restricted {
   background-color: #fad2d2;
 }
@@ -511,6 +600,7 @@ div.card p {
   border-left: solid 5px #1080A6;
   background-color: #E2F0F4;
 }
+
 .stats .number {
   display: block;
   font-size: 60px;
@@ -520,10 +610,12 @@ div.card p {
   line-height: 1.5;
   /* in ontario css this is in ul styling but is needed for this to work. */
 }
+
 .stats .stats-caption {
   font-weight: 600;
   font-size: 25px;
 }
+
 .circle {
   font-family: Raleway, Open Sans, sans-serif;
   border-radius: 50%;
@@ -536,6 +628,7 @@ div.card p {
   width: 18rem;
   height: 18rem;
 }
+
 .circle.c-small {
   width: 3.5rem;
   height: 3.5rem;
@@ -545,44 +638,54 @@ div.card p {
   color: #1A1A1A;
   background: #FCAF17;
 }
+
 .c-small-text {
   padding-top: 0.5rem;
   font-weight: 400;
 }
+
 .circle-container {
   font-size: 14px;
   font-weight: bold;
   line-height: 1;
 }
+
 div#topics {
   margin-bottom: 20px;
 }
+
 div#topics a {
   color: #1A1A1A;
   text-decoration: none;
 }
+
 .hp_category {
   text-align: center;
   display: grid;
 }
+
 div#topics div p {
   position: relative;
   font-weight: 600;
   font-size: 18px;
   line-height: 25px;
 }
+
 .hp_category:hover p {
   text-decoration: underline;
 }
+
 div#topics div a:hover i {
   color: #00B2E3;
 }
+
 @media (min-width: 1200px) {
   div#topics div p {
     left: 26px;
     max-width: 182px;
   }
 }
+
 div#topics div i {
   font-size: 48px;
   color: #1080A6;
@@ -591,6 +694,7 @@ div#topics div i {
 div#topics div.row {
   margin-bottom: 20px;
 }
+
 /* =====================================================
    Typography
    ===================================================== */
@@ -600,58 +704,71 @@ div#topics div.row {
   margin-bottom: 20px;
   padding-bottom: 20px;
 }
+
 #about .metadata-item p,
 #about .format-item p {
   margin-bottom: 5px;
 }
+
 #about .metadata-item .p-intro,
 #about .format-item .p-intro {
   font-weight: bold;
   color: #094a60;
 }
+
 #about .metadata-item .note,
 #about .format-item .note {
   font-size: 90%;
   font-style: italic;
 }
+
 #about .format-item h4,
 #about .metadata-item h3 {
   font-size: 1.5rem;
   margin-bottom: 0px;
 }
+
 figure {
   background-color: #eee;
   width: 80%;
   margin: 50px 10%;
   padding: 10px;
 }
+
 figure img,
 figure figcaption {
   width: 100%;
 }
+
 figure figcaption {
   margin-top: 10px;
   font-style: italic;
   font-size: 1em;
 }
+
 /* =====================================================
    Helpers
    ===================================================== */
 hr.thick {
   border-top: 4px solid #ededed;
 }
+
 .large {
   font-size: 40px;
 }
+
 .text-center {
-  text-align: center!important;
+  text-align: center !important;
 }
+
 .top-margin {
   margin-top: 40px;
 }
+
 .float-right {
   float: right;
 }
+
 /* =====================================================
    Remove background images
    ===================================================== */
@@ -667,7 +784,9 @@ body,
   background-image: none;
   background-color: #fff;
 }
+
 @media (min-width: 768px) {
+
   [role=main],
   .main {
     padding-top: 10px;
@@ -675,41 +794,49 @@ body,
     background-color: transparent;
   }
 }
+
 #dataset-search-form,
 #organization-search-form,
 #group-search-form {
   margin: 0px 0px 45px 0px;
   background: #fafafa;
-  padding: 20px;
+  padding: 20px 16px;
   border-radius: 5px;
   border: none;
   box-shadow: none;
 
   padding-bottom: 0px;
 }
+
 div.add-dataset {
   width: 100%;
   text-align: right;
 }
+
 .filters div section:first-child {
   margin-top: 0px;
 }
+
 .media-item {
   width: 100%;
   position: relative;
   border-bottom: 1px solid #dddddd;
 }
+
 .ministry-item {
   margin-left: 5px;
   padding-left: unset;
 }
+
 .media-image {
   float: left;
   margin-right: 20px;
 }
+
 .media-view {
   border: none;
 }
+
 .resource-item .format-label {
   top: 0px;
   left: -35px;
@@ -720,48 +847,59 @@ li.resource-item .btn-group.download {
   top: unset;
   right: unset;
 }
+
 li.resource-item div.btn-wrapper {
   position: relative;
   display: inline-block;
 }
+
 .hero {
   min-height: 400px;
   line-height: 400px;
   background-image: unset;
 }
+
 .hero .hero-container {
   vertical-align: middle;
   text-align: center;
   color: #1A1A1A;
   width: 100%;
 }
+
 .hero .hero-container a,
 .hero .hero-container a:focus,
 .hero .hero-container a:hover {
   text-decoration: underline;
 }
+
 .hero .hero-container .welcome {
   text-align: left;
   line-height: 1rem;
 }
+
 .learn-more {
   font-weight: 400;
   font-size: 20px;
   line-height: 26px;
 }
+
 .fill-sky {
   fill: #00B2E3;
 }
+
 .contact-us div.container {
   width: 100%;
 }
+
 .contact-us div.container div.symbol {
   text-align: center;
 }
+
 .contact-us div.container div.symbol i.fa {
   font-size: 125px;
   color: #1080A6;
 }
+
 .contact-us div.container div.message p {
   padding-top: 20px;
   padding-left: 30px;
@@ -770,16 +908,19 @@ li.resource-item div.btn-wrapper {
   font-size: 2.375rem;
   line-height: 1.4;
 }
+
 @media (max-width: 768px) {
   .contact-us div.container div.message p {
     padding: 0;
   }
 }
+
 .ie8 .hero,
 .ie7 .hero {
   background-image: none;
   background-color: #003647;
 }
+
 /* =====================================================
    Layout changes
    ===================================================== */
@@ -788,48 +929,59 @@ li.resource-item div.btn-wrapper {
   border: none;
   box-shadow: none;
 }
+
 .wrapper header.page-header {
   border: none;
   background: none;
 }
+
 .wrapper header.page-header ul.nav.nav-tabs {
   width: 100%;
 }
+
 .wrapper header.page-header ul.nav.nav-tabs li a {
   color: #666666;
   border: none;
 }
+
 .wrapper header.page-header ul.nav.nav-tabs li a:hover {
   border: none;
 }
+
 .wrapper header.page-header ul.nav.nav-tabs li.active a {
   border: none;
   border-bottom: solid 2px #1080A6;
   color: #1080A6;
 }
+
 .module-heading {
   border-top: none;
   border-bottom: none;
   background-color: transparent;
 }
+
 .module-heading:not(:first-child) {
   padding-left: 0px;
 }
+
 .module-narrow {
   margin: 40px 0px;
   background: #fafafa;
   padding: 20px 5px;
   border-radius: 5px;
 }
+
 .module-narrow .module-content {
   padding-top: 0px;
   padding-bottom: 0px;
 }
+
 .well {
   border: none;
   background: none;
   box-shadow: none;
 }
+
 .well a.tag {
   background-color: #1080A6;
   color: #fff;
@@ -837,58 +989,73 @@ li.resource-item div.btn-wrapper {
   border: none;
   box-shadow: none;
 }
+
 .homepage-section {
   margin-top: 25px;
   margin-bottom: 25px;
 }
+
 #sub-intro {
   font-size: 2.2rem;
 }
+
 #news {
   color: #000000;
   padding-top: 15px;
   padding-bottom: 15px;
 }
+
 #news img {
   width: 100%;
 }
+
 #news ul a {
   color: #000000;
   text-decoration: none;
 }
+
 #news ul a:hover {
   text-decoration: underline;
 }
+
 #news .dataset-list h2 {
   padding-bottom: 8px;
 }
+
 #news h3 {
   font-weight: 600;
   font-size: 24px;
   line-height: 33px;
 }
+
 #news .dataset-list .row li {
   font-weight: 400;
   line-height: 27px;
   font-size: 20px;
 }
+
 .metadata-list-item {
   font-size: 1rem;
   border-bottom: solid 1px #333;
 }
+
 section.additional-info table.table {
   border: none;
 }
+
 section.additional-info table.table thead {
   display: none;
 }
+
 section.additional-info table.table td {
   border: none;
 }
+
 section.additional-info table.table tbody tr:nth-child(even) th,
 section.additional-info table.table tbody tr:nth-child(even) td {
   background-color: #f9f9f9;
 }
+
 section.additional-info table.table tbody tr th,
 section.additional-info table.table tbody tr td {
   border: none;
@@ -897,16 +1064,20 @@ section.additional-info table.table tbody tr td {
 .media-grid {
   border: none;
 }
+
 .banner-datasets {
   padding-left: 25px;
 }
+
 .banner-section {
   background: #F2F2F2;
   width: 100%;
 }
+
 .banner-section a {
   text-decoration: underline;
 }
+
 .show-more {
   font-weight: 600;
   font-size: 16px;
@@ -918,18 +1089,23 @@ section.additional-info table.table tbody tr td {
 .page_primary_action .add-group {
   text-align: right;
 }
+
 .simple-input .field .btn-search {
   color: #1A1A1A;
 }
+
 .empty {
   color: #666666;
 }
+
 .contact-us.alert-contact {
   margin-top: 40px;
 }
+
 .recently_updated_date_label {
   min-height: 4rem;
 }
+
 .pagination > .disabled > span,
 .pagination > .disabled > span:hover,
 .pagination > .disabled > span:focus,
@@ -940,10 +1116,12 @@ section.additional-info table.table tbody tr td {
 .text-muted {
   color: #666666;
 }
+
 .nav-item.active > a,
 .nav-aside li.active a {
   background-color: #1080A6;
 }
+
 /* =====================================================
    Sub page left panel border removal
    ===================================================== */
@@ -952,6 +1130,7 @@ section.additional-info table.table tbody tr td {
     border-right: none;
   }
 }
+
 /* =====================================================
    Create styles for readonly textarea
    ===================================================== */
@@ -960,45 +1139,55 @@ textarea[readonly] {
   border-color: #ccc;
   color: #999;
 }
+
 textarea[readonly]:focus {
   outline: none;
 }
+
 textarea[readonly]::placeholder {
   opacity: 1;
   color: #999;
 }
+
 .badge-harvest {
   color: #fff;
   border: solid 1px;
 }
+
 .badge-harvest[data-harvest*=ontario-data-catalogue] {
   background-color: #1080A6;
   border-color: #1080a69d;
 }
+
 .badge-harvest[data-harvest*=ontario-geohub] {
   background-color: #774503;
   border-color: #774503dc;
 }
+
 /* ========================================================================
    The main masthead bar that contains the site logo, nav links, and search
    ======================================================================== */
 .masthead {
   background-color: #1080A6;
 }
+
 .masthead a,
 .masthead a:focus,
 .masthead a:visited {
   color: #fff;
   text-decoration: none;
 }
+
 .masthead a:hover {
   color: #fff;
   text-decoration: underline;
 }
+
 /* Allows the utilities to float beside the logo on mobile */
 .account-masthead hgroup {
   display: inline;
 }
+
 .masthead hgroup a {
   float: left;
   font-size: 24px;
@@ -1006,31 +1195,39 @@ textarea[readonly]::placeholder {
   font-weight: 600;
   margin: 0;
 }
+
 @media only screen and (max-width: 768px) {
   .masthead hgroup a {
     padding-top: 9px;
   }
 }
+
 .masthead hgroup a sup {
   font-size: 60%;
 }
+
 .masthead .navbar-collapse {
   padding: 0;
 }
+
 .masthead .navigation ul {
   line-height: 40px;
 }
+
 .mastead .site-search {
   margin: 0;
 }
+
 .logo img {
   width: 153px;
 }
+
 @media only screen and (max-width: 768px) {
   .logo img {
     width: 125px;
   }
 }
+
 footer.site-footer {
   background: #ededed;
   position: relative;
@@ -1039,14 +1236,17 @@ footer.site-footer {
   border-top: 1px solid #d9d9d9;
   color: #666666;
 }
+
 footer.site-footer a.btn i.material-icons {
   color: white;
 }
+
 footer.site-footer a:not(.btn),
 footer.site-footer a:visited:not(.btn) {
   color: #666666;
   text-decoration: underline;
 }
+
 footer.site-footer div.footer-swoosh {
   background: url(/images/footer-swoosh-bg.png) repeat-x;
   display: block;
@@ -1054,6 +1254,7 @@ footer.site-footer div.footer-swoosh {
   height: 96px;
   margin-top: -50px;
 }
+
 footer.site-footer div.footer-swoosh--right {
   background: #ededed url(/images/footer-swoosh.png) no-repeat;
   display: block;
@@ -1061,17 +1262,21 @@ footer.site-footer div.footer-swoosh--right {
   height: 96px;
   float: right;
 }
+
 @media only screen and (min-width: 992px) {
   footer.site-footer div.footer-swoosh--right {
     margin-top: -50px;
   }
 }
+
 footer.site-footer .ckan-footer-logo {
   background: url(/base/images/ckan-logo-footer_dark.png) no-repeat top left;
 }
+
 #resources_and_information {
   margin-top: 51px;
 }
-#resources_and_information h2{
+
+#resources_and_information h2 {
   margin-bottom: 34px;
 }
