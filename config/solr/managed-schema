@@ -93,10 +93,11 @@ attribute with the form `ckan-X.Y` -->
         </analyzer>
     </fieldType>
 
-    <fieldType name="text_ngram" class="solr.TextField" positionIncrementGap="100">
+    <fieldType name="title_ngram" class="solr.TextField" positionIncrementGap="100">
       <analyzer type="index">
         <!-- Pattern Replace will replace all special character with space-->
         <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="[^a-zA-Z0-9\s]" replacement="" />
+        <!-- Allows partial matching and tolerable searching -->
         <tokenizer class="solr.NGramTokenizerFactory" minGramSize="3" maxGramSize="8"/>
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
@@ -108,6 +109,23 @@ attribute with the form `ckan-X.Y` -->
       </analyzer>
     </fieldType>
 
+    <fieldType name="name_ngram" class="solr.TextField" positionIncrementGap="100">
+      <analyzer type="index">
+        <!-- Pattern Replace will replace all special character with space-->
+        <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="[^a-zA-Z0-9\s]" replacement="" />
+        <!-- Allows partial matching and tolerable searching -->
+        <tokenizer class="solr.NGramTokenizerFactory" minGramSize="3" maxGramSize="8"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+      <analyzer type="query">
+        <!-- Pattern Replace will replace all special character with space-->
+        <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="[^a-zA-Z0-9\s]" replacement="" />    
+        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+    </fieldType>
+
+
 </types>
 
 
@@ -116,12 +134,12 @@ attribute with the form `ckan-X.Y` -->
     <field name="id" type="string" indexed="true" stored="true" required="true" />
     <field name="site_id" type="string" indexed="true" stored="true" required="true" />
     <field name="title" type="text" indexed="true" stored="true" />
-    <field name="title_ngram" type="text_ngram" indexed="true" stored="true" />
+    <field name="title_ngram" type="title_ngram" indexed="true" stored="true" />
     <field name="entity_type" type="string" indexed="true" stored="true" omitNorms="true" />
     <field name="dataset_type" type="string" indexed="true" stored="true" />
     <field name="state" type="string" indexed="true" stored="true" omitNorms="true" />
     <field name="name" type="string" indexed="true" stored="true" omitNorms="true" />
-    <field name="name_ngram" type="text_ngram" indexed="true" stored="true" />
+    <field name="name_ngram" type="name_ngram" indexed="true" stored="true" />
     <field name="revision_id" type="string" indexed="true" stored="true" omitNorms="true" />
     <field name="version" type="string" indexed="true" stored="true" />
     <field name="url" type="string" indexed="true" stored="true" omitNorms="true" />
@@ -180,8 +198,8 @@ attribute with the form `ckan-X.Y` -->
     <field name="_version_" type="string" indexed="true" stored="true"/>
 
     <!-- Added New Fields to handle for name and title for minGramSize and maxGramSize -->
-    <field name="name_ngram" type="text_ngram" indexed="true" stored="true"/>
-    <field name="title_ngram" type="text_ngram" indexed="true" stored="true"/>
+    <field name="name_ngram" type="name_ngram" indexed="true" stored="true"/>
+    <field name="title_ngram" type="title_ngram" indexed="true" stored="true"/>
 
     <dynamicField name="*_date" type="date" indexed="true" stored="true" multiValued="false"/>
 
@@ -198,6 +216,7 @@ attribute with the form `ckan-X.Y` -->
 <uniqueKey>index_id</uniqueKey>
 
 <copyField source="url" dest="urls"/>
+<!-- title and name ngram implemented-->
 <copyField source="title" dest="title_ngram"/>
 <copyField source="name" dest="name_ngram"/>
 <copyField source="ckan_url" dest="urls"/>
