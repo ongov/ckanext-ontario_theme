@@ -1,6 +1,8 @@
 {#
   Complete override of template to change "Data and resources" to just data...
 #}
+{% set current_lang = request.environ.CKAN_LANG %}
+
 <section id="dataset-resources" class="resources">
   <h2>{{ _(h.dataset_display_name(pkg)) }}</h2>
   <p class="dataset-font">
@@ -26,7 +28,16 @@
           {% endfor %}
           {% for group in resources|selectattr("type","equalto","data")|groupby("data_range")|sort(attribute="grouper", reverse=True) %}
             {% if group.list[0].data_range != "N/A - N/A" %}
-              <p class="date-range">{{ _("Date range")+_(":") }} {{ h.render_datetime(group.list[0].data_range_start) }} - {{ h.render_datetime(group.list[0].data_range_end) }}</p>
+              {% if group.list[0].data_range_start == group.list[0].data_range_end %}
+                <p class="date-range">{{ _("Date")+_(":") }} {{ h.render_datetime(group.list[0].data_range_start) }}</p>
+              {% elif group.list[0].data_range_start[0:7] == group.list[0].data_range_end[0:7] %}
+                <p class="date-range">{{ _("Date")+_(":") }} {{ h.render_datetime(group.list[0].data_range_start)[] }} - {{ h.render_datetime(group.list[0].data_range_end) }}</p>
+              {% elif group.list[0].data_range_start[0:4] == group.list[0].data_range_end[0:4] %}
+                {% set num = 6 if current_lang == 'en' else 5 %}
+                <p class="date-range">{{ _("Date")+_(":") }} {{ h.render_datetime(group.list[0].data_range_start)[:-num or none] }} - {{ h.render_datetime(group.list[0].data_range_end) }}</p>
+              {% else %}
+                <p class="date-range">{{ _("Date range")+_(":") }} {{ h.render_datetime(group.list[0].data_range_start) }} - {{ h.render_datetime(group.list[0].data_range_end) }}</p>
+              {% endif %}
             {% else %}
               <p class="date-range">{{ _("No date range") }}</p>
             {% endif %}
