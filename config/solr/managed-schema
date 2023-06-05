@@ -87,7 +87,7 @@ attribute with the form `ckan-X.Y` -->
 
     <fieldType name="text_ngram" class="solr.TextField" positionIncrementGap="100">
       <analyzer type="index">
-        <tokenizer class="solr.NGramTokenizerFactory" minGramSize="2" maxGramSize="10"/>
+        <tokenizer class="solr.NGramTokenizerFactory" minGramSize="3" maxGramSize="8"/>
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
       <analyzer type="query">
@@ -166,6 +166,10 @@ attribute with the form `ckan-X.Y` -->
     <field name="validated_data_dict" type="string" indexed="false" stored="true" />
 
     <field name="_version_" type="string" indexed="true" stored="true"/>
+
+    <!-- Added New Fields to handle for name and title for minGramSize and maxGramSize -->
+    <field name="name_ngram" type="text_ngram" indexed="true" stored="true"/>
+    <field name="title_ngram" type="text_ngram" indexed="true" stored="true"/>
 
     <dynamicField name="*_date" type="date" indexed="true" stored="true" multiValued="false"/>
 
