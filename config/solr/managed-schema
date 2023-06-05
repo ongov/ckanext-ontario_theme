@@ -51,6 +51,8 @@ attribute with the form `ckan-X.Y` -->
 
     <fieldType name="text" class="solr.TextField" positionIncrementGap="100">
         <analyzer type="index">
+            <!-- Pattern Replace will replace all special character with space-->
+            <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="[^a-zA-Z0-9\s]" replacement="" />
             <tokenizer class="solr.WhitespaceTokenizerFactory"/>
             <filter class="solr.WordDelimiterGraphFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" splitOnCaseChange="1"/>
             <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
@@ -59,6 +61,8 @@ attribute with the form `ckan-X.Y` -->
             <filter class="solr.ASCIIFoldingFilterFactory"/>
         </analyzer>
         <analyzer type="query">
+        <!-- Pattern Replace will replace all special character with space-->
+            <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="[^a-zA-Z0-9\s]" replacement="" />
             <tokenizer class="solr.WhitespaceTokenizerFactory"/>
             <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
             <filter class="solr.WordDelimiterGraphFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="0" catenateNumbers="0" catenateAll="0" splitOnCaseChange="1"/>
@@ -72,12 +76,16 @@ attribute with the form `ckan-X.Y` -->
     <!-- A general unstemmed text field - good if one does not know the language of the field -->
     <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
         <analyzer type="index">
+            <!-- Pattern Replace will replace all special character with space-->
+            <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="[^a-zA-Z0-9\s]" replacement="" />
             <tokenizer class="solr.WhitespaceTokenizerFactory"/>
             <filter class="solr.WordDelimiterGraphFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" splitOnCaseChange="0"/>
             <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
             <filter class="solr.LowerCaseFilterFactory"/>
         </analyzer>
         <analyzer type="query">
+            <!-- Pattern Replace will replace all special character with space-->
+            <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="[^a-zA-Z0-9\s]" replacement="" />
             <tokenizer class="solr.WhitespaceTokenizerFactory"/>
             <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
             <filter class="solr.WordDelimiterGraphFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="0" catenateNumbers="0" catenateAll="0" splitOnCaseChange="0"/>
@@ -87,10 +95,14 @@ attribute with the form `ckan-X.Y` -->
 
     <fieldType name="text_ngram" class="solr.TextField" positionIncrementGap="100">
       <analyzer type="index">
+        <!-- Pattern Replace will replace all special character with space-->
+        <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="[^a-zA-Z0-9\s]" replacement="" />
         <tokenizer class="solr.NGramTokenizerFactory" minGramSize="3" maxGramSize="8"/>
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
       <analyzer type="query">
+        <!-- Pattern Replace will replace all special character with space-->
+        <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="[^a-zA-Z0-9\s]" replacement="" />    
         <tokenizer class="solr.WhitespaceTokenizerFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
