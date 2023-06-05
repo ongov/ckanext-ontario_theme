@@ -683,12 +683,12 @@ def extract_package_name(url):
                     if not resource_name['type']:
                         return "Unnamed Supporting File"
                     else:
-                        return "Unnamed " + resource_name['type']
+                        return "Unnamed " + resource_name['type'] + " file"
                 elif 'resource_type' in resource_name:
                     if not resource_name['resource_type']:
                         return "Unnamed Supporting File"
                     else:
-                        return "Unnamed " + resource_name['resource_type']
+                        return "Unnamed " + resource_name['resource_type'] + " file"
             
             if 'name' in resource_name:
                 if len(resource_name['name']) > 0:
