@@ -678,11 +678,23 @@ def extract_package_name(url):
             resource_name = toolkit.get_action('resource_show') (
                 data_dict={'id': get_resource_name[0]}
                 )
-            resource_type = resource_name['type']
-            resource_name = resource_name['name']
-            if not resource_type and not resource_name:
-                resource_name = "Supporting File"
-            return resource_name or resource_type
+            if 'name' in resource_name and not resource_name['name']:
+                if 'type' in resource_name:
+                    if not resource_name['type']:
+                        return "Unnamed Supporting File"
+                    else:
+                        return "Unnamed " + resource_name['type'] + " file"
+                elif 'resource_type' in resource_name:
+                    if not resource_name['resource_type']:
+                        return "Unnamed Supporting File"
+                    else:
+                        return "Unnamed " + resource_name['resource_type'] + " file"
+            
+            if 'name' in resource_name:
+                if len(resource_name['name']) > 0:
+                    return resource_name['name']
+                else:
+                    return "Unnamed Data File"
         except ckan.logic.NotFound:
             return False
     elif len(get_package_name) > 0:
@@ -1041,6 +1053,8 @@ type data_last_updated
         facets_dict['update_frequency'] = toolkit._('Update Frequency')
         facets_dict['keywords_en'] = toolkit._('Topics')
         facets_dict['keywords_fr'] = toolkit._('Topics')
+        facets_dict['license_id'] = toolkit._('Licences')
+        facets_dict['organization'] = toolkit._('Ministries')
         facets_dict.pop('tags', None) # Remove tags in favor of keywords
         facets_dict['organization_jurisdiction'] = toolkit._('Jurisdiction')
         facets_dict['organization_category'] = toolkit._('Category')
