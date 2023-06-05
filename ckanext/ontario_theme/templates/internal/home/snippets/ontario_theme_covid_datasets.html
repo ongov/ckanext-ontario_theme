@@ -3,7 +3,7 @@
 Renders a list of the 10 most popular COVID datasets
 
 #}
-{% set covid_datasets = h.ontario_theme_get_group_datasets('2019-novel-coronavirus') %}
+{% set covid_datasets = h.ontario_theme_get_group_datasets('covid-19') %}
 {% for dataset in covid_datasets %}
   <div class="row">
     <div class="col-md-10 col-sm-10 col-xs-10 c-small-text">
@@ -17,7 +17,7 @@ Renders a list of the 10 most popular COVID datasets
   </div>
 {% endfor %}
 <div class="show-more">
-  {% trans url=h.url_for('group.read', id="2019-novel-coronavirus") %}
+  {% trans url=h.url_for('group.read', id="covid-19") %}
     <a href="{{ url }}">Show more</a>
   {% endtrans %}
 </div>
