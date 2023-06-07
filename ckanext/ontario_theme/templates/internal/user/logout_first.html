@@ -1,0 +1,24 @@
+{#
+  Removes underscore from logout button path on login page
+#}
+{% ckan_extends %}
+
+{% block form %}
+  <div class="alert alert-danger">{{ _("You're already logged in as {user}.").format(user=g.user) }} <a href="{{ h.url_for('/user/logout') }}">{{ _('Logout') }}</a>?</div>
+    {{ form.input('login', label=_('Username'), id='field-login', value="", error="", classes=["control-full"], attrs={"disabled": "disabled"}) }}
+    {{ form.input('password', label=_('Password'), id='field-password', type="password", value="", error="", classes=["control-full"], attrs={"disabled": "disabled"}) }}
+    {{ form.checkbox('remember', label=_('Remember me'), id='field-remember', checked=true, attrs={"disabled": "disabled"}) }}
+    <div class="form-actions">
+      <button class="btn btn-primary disabled" type="submit" disabled>{{ _('Log in') }}</button>
+    </div>
+{% endblock form %}
+
+{% block secondary_content %}
+  <section class="module module-narrow module-shallow">
+    <h2 class="module-heading">{{ _("You're already logged in") }}</h2>
+    <div class="module-content">
+      <p>{{ _("You need to log out before you can log in with another account.") }}</p>
+      <p class="action"><a class="btn btn-default" href="{{ h.url_for('/user/logout') }}">{{ _("Log out now") }}</a></p>
+    </div>
+  </section>
+{% endblock secondary_content %}
