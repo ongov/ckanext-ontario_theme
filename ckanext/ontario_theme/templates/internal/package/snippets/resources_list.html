@@ -27,17 +27,24 @@
             {% do resource.update({"data_range": h.ontario_theme_get_date_range(resource.data_range_start|default("N/A"),resource.data_range_end|default("N/A"))}) %}
           {% endfor %}
           {% for group in resources|selectattr("type","equalto","data")|groupby("data_range")|sort(attribute="grouper", reverse=True) %}
-            {% if group.list[0].data_range != "N/A - N/A" %}
-              {% if group.list[0].data_range_start == group.list[0].data_range_end %}
+            {# Single day snapshot of date. Ex output: May 30, 2023 (EN), 30 mai 2023 (FR)#}
+            {% if group.list[0].data_range != "N/A - N/A" and group.list[0].data_range_start == group.list[0].data_range_end %}
                 <p class="date-range">{{ _("Date")+_(":") }} {{ h.render_datetime(group.list[0].data_range_start) }}</p>
-              {% elif group.list[0].data_range_start[0:7] == group.list[0].data_range_end[0:7] %}
-                <p class="date-range">{{ _("Date")+_(":") }} {{ h.render_datetime(group.list[0].data_range_start)[] }} - {{ h.render_datetime(group.list[0].data_range_end) }}</p>
-              {% elif group.list[0].data_range_start[0:4] == group.list[0].data_range_end[0:4] %}
-                {% set num = 6 if current_lang == 'en' else 5 %}
-                <p class="date-range">{{ _("Date")+_(":") }} {{ h.render_datetime(group.list[0].data_range_start)[:-num or none] }} - {{ h.render_datetime(group.list[0].data_range_end) }}</p>
-              {% else %}
-                <p class="date-range">{{ _("Date range")+_(":") }} {{ h.render_datetime(group.list[0].data_range_start) }} - {{ h.render_datetime(group.list[0].data_range_end) }}</p>
-              {% endif %}
+            {% elif group.list[0].data_range != "N/A - N/A" %}
+              <p class="date-range">{{ _("Date range")+_(":") }}
+                {# Condition when the date range is within a month. Ex output: April 1 - 31, 2023 (EN), 1 - 31 avril 2023 (FR) #}
+                {% if group.list[0].data_range_start[0:7] == group.list[0].data_range_end[0:7] %}
+                  {% set month_day = -6 if current_lang == 'en' else 1 %}
+                  {% set en_day = -8 if current_lang == 'en' else 0 %}
+                  {{ h.render_datetime(group.list[0].data_range_start)[:month_day] }} - {{ h.render_datetime(group.list[0].data_range_end)[en_day:] }}</p>
+                {# Condition when the date range is within a year. Ex output: January 1 - December 31, 2022 (EN), 1 janvier - 31 decembre 2022 (FR) #}
+                {% elif group.list[0].data_range_start[0:4] == group.list[0].data_range_end[0:4] %}
+                  {% set month_day = 6 if current_lang == 'en' else 5 %}
+                  {{ h.render_datetime(group.list[0].data_range_start)[:-month_day] }} - {{ h.render_datetime(group.list[0].data_range_end) }}</p>
+                {# Else output the range according to locale. Ex output: January 1 2021 - December 31, 2022 (EN), 1 janvier 2021 - 31 decembre 2022 (FR) #}
+                {% else %}
+                  {{ h.render_datetime(group.list[0].data_range_start) }} - {{ h.render_datetime(group.list[0].data_range_end) }}</p>
+                {% endif %}
             {% else %}
               <p class="date-range">{{ _("No date range") }}</p>
             {% endif %}
