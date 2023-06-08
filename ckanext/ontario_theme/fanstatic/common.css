@@ -2214,6 +2214,10 @@ screen and (min-width: 96em) {
   padding: 30px;
 }
 
+/* ========================================================================
+   Misc - Alignment changes
+   ======================================================================== */
+
 /* Survey banner styling */
 .survey {
   margin-bottom: 0;
@@ -2221,4 +2225,35 @@ screen and (min-width: 96em) {
 
 .alert {
   padding: 15px 0;
+}
+
+.filter-results,
+.ministry-package-div {
+  padding-left: unset;
+  padding-right: unset;
+}
+
+@media screen and (max-width: 767px) {
+  .js .secondary .filters {
+    display: none;
+    position: fixed;
+    overflow: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+@media (max-width: 767px) {
+  .js .secondary .filters > div {
+    background-color: #fff;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
 }
