@@ -49,7 +49,7 @@
         <a href="{{ h.url_for('dataset.search') }}?keywords_{{ request.environ.CKAN_LANG }}={{ _(i['label'])|replace(' ','+')|replace(',','') }}"
            class="hp_category"><i class="fa fa-{{ i['fa-icon'] }}"></i>
           <p>{{ _(i['label']) }}</p></a>
-          <p>&nbsp;({{ h.ontario_theme_get_keyword_count(_(i['label']), language) }})</p>
+          <p>({{ h.ontario_theme_get_keyword_count(_(i['label']), language) }})</p>
       </li>
     {% endfor %}
     </ul>
