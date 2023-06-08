@@ -2219,3 +2219,32 @@ screen and (min-width: 96em) {
 .module.module-narrow.module-shallow.context-info {
   padding: 30px;
 }
+
+.topics-list-item:nth-child(5n+1) {
+  clear: left;
+}
+
+.topics-list {
+  list-style-type: none;
+  display: block;
+  padding: 0;
+}
+
+.topics-list-item {
+  display: grid;
+  justify-items: center;
+  margin-bottom: 2rem;
+}
+
+div#topics div p {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 25px;
+  display: inline;
+  margin: unset;
+}
+
+.inline-text-test {
+  text-align: center;
+  width: 175px;
+}
