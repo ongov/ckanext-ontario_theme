@@ -2220,6 +2220,9 @@ screen and (min-width: 96em) {
   padding: 30px;
 }
 
+/* ========================================================================
+   Homepage - Topics
+   ======================================================================== */
 .topics-list-item:nth-child(5n+1) {
   clear: left;
 }
@@ -2239,12 +2242,7 @@ screen and (min-width: 96em) {
 div#topics div p {
   font-weight: 600;
   font-size: 18px;
-  line-height: 25px;
+  line-height: 24.51px;
   display: inline;
   margin: unset;
-}
-
-.inline-text-test {
-  text-align: center;
-  width: 175px;
 }
