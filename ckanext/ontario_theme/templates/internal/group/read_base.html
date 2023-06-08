@@ -1,9 +1,13 @@
 {% ckan_extends %}
 
+{% block subtitle %}
+  {{ h.get_translated(c.group_dict,"title") }} {{ g.template_title_delimiter }} {{ _('Groups') }}
+{% endblock subtitle %}
+
 {% block breadcrumb_content %}
   <li>{% link_for _('Groups'), named_route=group_type+'.index' %}</li>
   <li class="active">{% link_for h.get_translated(c.group_dict,"title")|truncate(35), named_route=group_type+'.read', id=group_dict.name %}</li>
-{% endblock %}
+{% endblock breadcrumb_content %}
 
 {% block content_action %}
   {% if h.check_access('group_update', {'id': c.group_dict.id}) %}
