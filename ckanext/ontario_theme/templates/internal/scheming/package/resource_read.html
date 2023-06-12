@@ -222,7 +222,7 @@
                           <td>{{ res.mimetype_inner or res.mimetype or res.format or _('unknown') }}</td>
                         </tr>
                         {# Add resource size if known. This extends scheming's template. #}
-                        {% if res.format == "WEB" %}
+                        {% if not res.mimetype and not res.size %}
                           {% set exclude_fields = exclude_fields.append('size') %}
                         {% else %}
                           <tr>
