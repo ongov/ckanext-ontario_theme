@@ -105,10 +105,10 @@ Example
             <div id="collapse-python" class="panel-collapse collapse">
               <div class="panel-body">
                 <pre>
-      import urllib
-      url = '{{ h.url_for(qualified=True, controller='api', action='action', ver=3, logic_function='datastore_search', resource_id=resource_id, limit=5) + '&q=title:jones' }}'  {# not urlencoding the ":" because its clearer #}
-      fileobj = urllib.urlopen(url)
-      print fileobj.read()
+      import urllib.request
+      url = '{{ h.url_for(qualified=True, controller='api', action='action', ver=3, logic_function='datastore_search', resource_id=resource_id, limit=5) }}'  {# not urlencoding the ":" because its clearer #}
+      fileobj = urllib.request.urlopen(url)
+      print(fileobj.read())
       </pre>
               </div>
             </div>
