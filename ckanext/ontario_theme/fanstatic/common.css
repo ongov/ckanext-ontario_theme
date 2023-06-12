@@ -1845,7 +1845,8 @@ ul.nav-tabs li a,
 
 /* Break the URLs so they fit the panel width and the width of screen */
 #collapse-querying .panel-body,
-.resource-url-analytics {
+.resource-url-analytics,
+.page-heading {
   overflow-wrap: break-word;
 }
 
@@ -2256,4 +2257,19 @@ screen and (min-width: 96em) {
     border-radius: 4px;
     overflow: hidden;
   }
+}
+
+#news .dataset-list .ontario-row li {
+  font-weight: 400;
+  line-height: 27px;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+#news.ontario-row .ontario-row {
+  margin: unset;
+}
+
+body {
+  overflow-x: hidden;
 }

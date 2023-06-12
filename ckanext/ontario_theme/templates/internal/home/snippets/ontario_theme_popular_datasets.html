@@ -1,14 +1,14 @@
 {% set popular_datasets = h.ontario_theme_get_popular_datasets() %}
-{% for dataset in popular_datasets %}
-  <div class="row">
-    <div class="col-md-10 col-sm-10 col-xs-10 c-small-text">
-      <ul class="banner-datasets">
-        <li>
+<div class="ontario-row">
+  <div class="col-xs-10">
+    <ul class="banner-datasets">
+      {% for dataset in popular_datasets %}
+        <li class="c-small-text">
           <a href="{%- url_for 'dataset.read', id=dataset.name -%}"
-             class="hp_popular">{{ h.get_translated(dataset, "title") }}</a>
+              class="hp_popular">{{ h.get_translated(dataset, "title") }}</a>
           <br />
         </li>
-      </ul>
-    </div>
+      {% endfor %}
+    </ul>
   </div>
-{% endfor %}
+</div>
