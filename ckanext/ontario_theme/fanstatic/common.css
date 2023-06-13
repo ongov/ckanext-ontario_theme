@@ -2195,6 +2195,11 @@ screen and (min-width: 96em) {
   background-color: #ddedc7;
 }
 
+.label[data-format="web"],
+.label[data-format*="web"] {
+  background-color: #ebe7db;
+}
+
 /* default button background colour */
 .label-default {
   background-color: #f2f2f2;
