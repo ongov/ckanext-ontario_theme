@@ -664,13 +664,6 @@ div#topics a {
   display: grid;
 }
 
-div#topics div p {
-  position: relative;
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 25px;
-}
-
 .hp_category:hover p {
   text-decoration: underline;
 }

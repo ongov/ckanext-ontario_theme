@@ -3,7 +3,7 @@
    ======================================================================== */
 .toolbar ol.breadcrumb {
   color: #aaa;
-  padding: 10px 2px;
+  padding: 10px 0 0;
   list-style: none;
 }
 
@@ -35,6 +35,12 @@
 .toolbar .breadcrumb .active a,
 .toolbar .breadcrumb a.active {
   font-weight: normal;
+}
+
+.toolbar {
+  padding: 0;
+  margin-top: 1rem;
+  margin-bottom: 0;
 }
 
 /* ========================================================================
@@ -685,7 +691,7 @@ input[placeholder] {
 }
 
 .search-page-heading {
-  padding: 0 16px;
+  padding: 0 15px;
 }
 
 /* ========================================================================
@@ -2190,6 +2196,11 @@ screen and (min-width: 96em) {
   background-color: #ddedc7;
 }
 
+.label[data-format="web"],
+.label[data-format*="web"] {
+  background-color: #ebe7db;
+}
+
 /* default button background colour */
 .label-default {
   background-color: #f2f2f2;
@@ -2272,4 +2283,35 @@ screen and (min-width: 96em) {
 
 body {
   overflow-x: hidden;
+}
+
+/* ========================================================================   
+  Homepage - Topics
+  ======================================================================== */
+.topics-list-item:nth-child(5n+1) {
+  clear: left;
+}
+
+.topics-list {
+  list-style-type: none;
+  display: block;
+}
+
+.topics-list-item {
+  display: grid;
+  justify-items: center;
+  margin-bottom: 2rem;
+}
+
+div#topics div p {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24.51px;
+  display: inline;
+  margin: unset;
+}
+
+.col-md-2-10 {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }

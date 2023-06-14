@@ -6,7 +6,7 @@ Renders a list of the 10 most popular COVID datasets
 {% set group_id = 'covid-19' %}
 {% set covid_datasets = h.ontario_theme_get_group_datasets(group_id) %}
   <div class="ontario-row">
-    <div class="col-xs-10">
+    <div class="col-xs-12">
       <ul class="banner-datasets">
         {% for dataset in covid_datasets %}
           <li class="c-small-text">

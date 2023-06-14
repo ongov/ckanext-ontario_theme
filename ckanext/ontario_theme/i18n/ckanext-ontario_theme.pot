@@ -1595,6 +1595,10 @@ msgstr ""
 msgid "File size"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:29
+msgid "Date range"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/snippets/add_dataset.html:6
 msgid "Add Dataset"
 msgstr ""
