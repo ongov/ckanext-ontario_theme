@@ -42,17 +42,15 @@
   ]
   %}
 {% set language = h.lang() %}
-{% for iter1 in [0,5] %}
   <div class="row">
-    {% for iter2 in [0,1,2,3,4] %}
-      {% set i = (iter1+iter2) %}
-      <div class="col-md-2-10">
-        <a href="{{ h.url_for('dataset.search') }}?keywords_{{ request.environ.CKAN_LANG }}={{ _(topics[i]['label'])|replace(' ','+')|replace(',','') }}"
-           class="hp_category">
-          <i class="fa fa-{{ topics[i]['fa-icon'] }}"></i>
-          <p>{{ _(topics[i]['label']) }}&nbsp;({{ h.ontario_theme_get_keyword_count(_(topics[i]['label']), language) }})</p>
-        </a>
-      </div>
+    <ul class="ontario-small-12 topics-list">
+    {% for i in topics %}
+      <li class="col-md-2-10 topics-list-item">
+        <a href="{{ h.url_for('dataset.search') }}?keywords_{{ request.environ.CKAN_LANG }}={{ _(i['label'])|replace(' ','+')|replace(',','') }}"
+           class="hp_category"><i class="fa fa-{{ i['fa-icon'] }}"></i>
+          <p>{{ _(i['label']) }}</p></a>
+          <p>({{ h.ontario_theme_get_keyword_count(_(i['label']), language) }})</p>
+      </li>
     {% endfor %}
+    </ul>
   </div>
-{% endfor %}
