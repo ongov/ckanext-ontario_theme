@@ -14,7 +14,12 @@
         {% if f.field_name not in exclude_fields %}
           <dt>{{ h.scheming_language_text(f.label) }}{{ _(':') }}</dt>
           <dd>
-            {{ c.group_dict[f.field_name] or ("&nbsp;"|safe) }}
+            {% for dict_item in f.choices %}
+              {% if dict_item['value'] == c.group_dict[f.field_name] %}
+                {% set index = loop.index0 |int %}
+                {{ h.scheming_language_text(f.choices[index].label) }}
+              {% endif %}
+            {% endfor %}
           </dd>
         {% endif %}
       {% endfor %}
