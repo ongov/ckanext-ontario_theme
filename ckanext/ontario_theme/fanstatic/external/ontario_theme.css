@@ -793,7 +793,7 @@ body,
 #group-search-form {
   margin: 0px 0px 45px 0px;
   background: #fafafa;
-  padding: 20px;
+  padding: 20px 16px;
   border-radius: 5px;
   border: none;
   box-shadow: none;
@@ -1019,12 +1019,6 @@ li.resource-item div.btn-wrapper {
   font-weight: 600;
   font-size: 24px;
   line-height: 33px;
-}
-
-#news .dataset-list .row li {
-  font-weight: 400;
-  line-height: 27px;
-  font-size: 20px;
 }
 
 .metadata-list-item {

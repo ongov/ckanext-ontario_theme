@@ -3,7 +3,7 @@
    ======================================================================== */
 .toolbar ol.breadcrumb {
   color: #aaa;
-  padding: 10px 16px;
+  padding: 10px 0 0;
   list-style: none;
 }
 
@@ -35,6 +35,12 @@
 .toolbar .breadcrumb .active a,
 .toolbar .breadcrumb a.active {
   font-weight: normal;
+}
+
+.toolbar {
+  padding: 0;
+  margin-top: 1rem;
+  margin-bottom: 0;
 }
 
 /* ========================================================================
@@ -685,7 +691,7 @@ input[placeholder] {
 }
 
 .search-page-heading {
-  padding: 0 20px;
+  padding: 0 15px;
 }
 
 /* ========================================================================
@@ -1119,12 +1125,6 @@ header {
     font-size: 1.5rem;
     letter-spacing: 0.0313rem;
     line-height: 1.5;
-  }
-
-  #ontario-header .ontario-columns,
-  #ontario-application-subheader .ontario-columns {
-    padding-left: 8px;
-    padding-right: 8px;
   }
 }
 
@@ -1851,7 +1851,8 @@ ul.nav-tabs li a,
 
 /* Break the URLs so they fit the panel width and the width of screen */
 #collapse-querying .panel-body,
-.resource-url-analytics {
+.resource-url-analytics,
+.page-heading {
   overflow-wrap: break-word;
 }
 
@@ -2226,8 +2227,67 @@ screen and (min-width: 96em) {
 }
 
 /* ========================================================================
-   Homepage - Topics
+   Misc - Alignment changes
    ======================================================================== */
+
+/* Survey banner styling */
+.survey {
+  margin-bottom: 0;
+}
+
+.alert {
+  padding: 15px 0;
+}
+
+.filter-results,
+.ministry-package-div {
+  padding-left: unset;
+  padding-right: unset;
+}
+
+@media screen and (max-width: 767px) {
+  .js .secondary .filters {
+    display: none;
+    position: fixed;
+    overflow: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+@media (max-width: 767px) {
+  .js .secondary .filters > div {
+    background-color: #fff;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+}
+
+#news .dataset-list .ontario-row li {
+  font-weight: 400;
+  line-height: 27px;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+#news.ontario-row .ontario-row {
+  margin: unset;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* ========================================================================   
+  Homepage - Topics
+  ======================================================================== */
 .topics-list-item:nth-child(5n+1) {
   clear: left;
 }
@@ -2235,7 +2295,6 @@ screen and (min-width: 96em) {
 .topics-list {
   list-style-type: none;
   display: block;
-  padding: 0;
 }
 
 .topics-list-item {
@@ -2250,4 +2309,9 @@ div#topics div p {
   line-height: 24.51px;
   display: inline;
   margin: unset;
+}
+
+.col-md-2-10 {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }

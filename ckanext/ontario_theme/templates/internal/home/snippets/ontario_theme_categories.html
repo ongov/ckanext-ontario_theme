@@ -42,8 +42,8 @@
   ]
   %}
 {% set language = h.lang() %}
-  <div class="row">
-    <ul class="ontario-small-12 topics-list">
+  <div class="ontario-row">
+    <ul class="col-md-12 topics-list">
     {% for i in topics %}
       <li class="col-md-2-10 topics-list-item">
         <a href="{{ h.url_for('dataset.search') }}?keywords_{{ request.environ.CKAN_LANG }}={{ _(i['label'])|replace(' ','+')|replace(',','') }}"

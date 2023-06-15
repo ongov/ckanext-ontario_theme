@@ -3,9 +3,9 @@
 {# extending CKAN to use super() in the blocks that the base templates will
   handle #}
 <footer class="site-footer">
-  <div class="container">
+  <div>
     {% block footer_content %}
-      <div class="row">
+      <div class="ontario-row">
         <div class="col-md-7 footer-links">
           {% block footer_nav %}
             {{ super() }}
