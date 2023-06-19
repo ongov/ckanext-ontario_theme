@@ -15,7 +15,7 @@ export DATASTOREPASS='datastore_default'
 export DATASTOREDB='datastore_default'
 export SOLRURL='http://127.0.0.1'
 export SOLRPORT='8983'
-export XLOADER_REQ_VER='0.9.0'
+export XLOADER_REQ_VER='1.0.1'
 
 CKAN_ONT_THEME_ROOT="`pwd`/.."
 CKAN_EXT_ROOT="/usr/lib/ckan/default/src"
@@ -34,7 +34,7 @@ python3 -m venv /usr/lib/ckan/default
 
 # install tools and ckan
 pip3 install setuptools==45 wheel==0.37.1
-pip3 install -e 'git+https://github.com/ckan/ckan.git@ckan-2.9.5#egg=ckan[requirements]'
+pip3 install -e 'git+https://github.com/ckan/ckan.git@ckan-2.9.7#egg=ckan[requirements]'
 
 echo $SUDOPASS | sudo -S -k mkdir -p /etc/ckan/default
 echo $SUDOPASS | sudo -S -k chown -R `whoami` /etc/ckan/
@@ -72,6 +72,9 @@ ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini
 echo $SUDOPASS | sudo -S -k mkdir -p /var/lib/ckan/default
 echo $SUDOPASS | sudo -S -k chown -R www-data /var/lib/ckan/default
 echo $SUDOPASS | sudo -S -k chmod -R 777 /var/lib/ckan/default # production should use `u+rw`
+# enable cached webpages
+echo $SUDOPASS | sudo -S -k mkdir -p /usr/lib/ckan/default/src/ckan/ckan/public
+echo $SUDOPASS | sudo -S -k chown -R www-data:www-data /usr/lib/ckan/default/src/ckan/ckan/public
 
 # for local, create data tables
 ckan -c /etc/ckan/default/ckan.ini db init
@@ -103,7 +106,8 @@ XLOADER_URI_REPLACEMENT="ckanext.xloader.jobs_db.uri = postgresql://$CKANUSER:$C
 replace_str_in_ckan_ini "$XLOADER_URI" "$XLOADER_URI_REPLACEMENT"
 # clone and install
 cd /usr/lib/ckan/default/src
-git clone http://github.com/ckan/ckanext-xloader.git
+
+git clone --depth 1 --branch $XLOADER_REQ_VER https://github.com/ckan/ckanext-xloader.git
 cd ckanext-xloader
 python3 setup.py develop
 pip3 install -r requirements.txt
