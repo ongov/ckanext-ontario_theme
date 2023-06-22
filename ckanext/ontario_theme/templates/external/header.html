@@ -19,11 +19,11 @@
   {{ super() }}
   <header id="survey">
     <div class="alert ontario-alert-warning alert-clear alert-banner">
-      <div class="container">
+      <div class="ontario-row">
         {% set survey_params = { "page": h.current_url() } %}
         {% set package_name = h.ontario_theme_extract_package_name(h.current_url()) %}
         {% do survey_params.update({'id': package_name}) if package_name %}
-        <strong>
+        <p class="survey ontario-columns ontario-small-12"><strong>
           {% trans %}
             Tell us what you think about our data and how you’re using it.
           {% endtrans %}
@@ -34,7 +34,7 @@
               Take our survey
             {% endtrans %}
           </a>
-        </strong>
+        </strong></p>
       </div>
     </div>
   </header>
