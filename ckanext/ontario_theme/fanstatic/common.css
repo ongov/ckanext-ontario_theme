@@ -403,6 +403,17 @@ input[type="reset"].ontario-search-reset:focus {
   padding-bottom: 0;
 }
 
+#dataset-search-form,
+#organization-search-form,
+#group-search-form {
+  background: #fafafa;
+  padding: 20px 16px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: none;
+  padding-bottom: 0;
+}
+
 .search-form .control-order-by label {
   font-size: 19px;
   padding-top: 5px;
@@ -2314,4 +2325,79 @@ div#topics div p {
 .col-md-2-10 {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+/* ========================================================================   
+  Dropdown - Design System
+  ======================================================================== */
+.ontario-dropdown {
+  background-color: #fff;
+  background-image: url(/images/ontario-material-dropdown-arrow-48px.svg);
+  background-position: right .5rem center;
+  background-repeat: no-repeat;
+  background-size: 2rem;
+  padding-right: 2.25rem;
+  cursor: pointer
+}
+
+.ontario-dropdown::-ms-expand {
+  display: none
+}
+
+.ontario-dropdown option {
+  font-weight: normal
+}
+
+/* ========================================================================   
+  Labels - Design System
+  ======================================================================== */
+
+.ontario-label {
+  cursor: pointer;
+  color: #1a1a1a;
+  font-family: "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.1875rem;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0 0 1rem 0;
+  max-width: 38.75em;
+  white-space: normal;
+  width: 100%
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-label {
+    font-size: 1.125rem;
+    line-height: 1.56
+  }
+}
+
+/* ========================================================================   
+  Labels - Overrides
+  ======================================================================== */
+.search-form .control-order-by.search-page-select .ontario-label {
+  width: unset;
+  padding-top: 10px;
+}
+
+.search-page-select .ontario-input {
+  margin: 0 0 0.5rem;
+}
+
+.search-page-select label::after {
+  content: unset;
+}
+
+.search-form .control-order-by .form-control {
+  height: unset;
+}
+
+/* When Design System is applied throughout site,
+  .search-page-select can be removed from the following two declarations*/
+.search-page-select select {
+  appearance: none;
+}
+
+.search-page-select select::-ms-expand {
+  display: none;
 }
