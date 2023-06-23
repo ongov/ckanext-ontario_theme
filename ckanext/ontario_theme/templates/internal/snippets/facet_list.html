@@ -8,7 +8,7 @@
 {% set title = title or h.get_facet_title(name) %}
 {% block facet_list_heading %}
   {% with items = items or h.get_facet_items_dict(name) %}
-    <h2 class="module-heading">
+    <h4 class="ontario-h5">
       <i class="fa fa-filter"></i>
       {{ title }}
       {% set screen_reader_text = "No search filters applied for "+title+". Options are " %}
@@ -17,7 +17,7 @@
           {% set screen_reader_text = "Search filters are applied for "+title+"." %}
         {% endif %}
       {% endif %}
-    </h2>
+    </h4>
     <span class="sr-only">{{ screen_reader_text }}</span>
   {% endwith %}
 {% endblock facet_list_heading %}

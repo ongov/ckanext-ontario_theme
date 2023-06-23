@@ -2315,3 +2315,54 @@ div#topics div p {
   padding-left: 1rem;
   padding-right: 1rem;
 }
+
+/* ========================================================================
+   Dataset Search Page - Facets
+   ======================================================================== */
+.nav-facet .nav-item > a {
+  font-size: 16px;
+  color: #000;
+}
+
+.nav-facet .nav-item > a:hover {
+  background-color: #d1d1d1;
+}
+
+
+.nav-facet .nav-item.active > a {
+  color: #fff;
+}
+
+.nav-facet .nav-item.active > a:hover {
+  background-color: #00478f;
+}
+
+
+.nav-facet.nav-simple > li {
+  border-bottom: none;
+}
+
+.filters .module.module-narrow.module-shallow {
+  max-width: 352px;
+  background-color: #f2f2f2;
+}
+
+.filters .module.module-narrow.module-shallow h4 {
+  padding: 0 20px;
+}
+
+.filters .module-narrow .nav-item > a {
+  padding-left: 30px;
+}
+
+.filters .module-narrow {
+  padding: 20px 0;
+}
+
+.filters .module-footer {
+  border-top: none;
+}
+
+.fa.fa-filter {
+  margin-right: 5px;
+}
