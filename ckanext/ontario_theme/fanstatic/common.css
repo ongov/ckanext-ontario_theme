@@ -738,7 +738,7 @@ a:focus {
 }
 
 .ontario-module-h3 {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
   line-height: 25.6px;
   word-break: break-word;
@@ -1559,6 +1559,43 @@ via submission form. Copied from DS.*/
 
 .right-col {
   float: right;
+}
+
+@media screen and (max-width: 73em) {
+  .right-col {
+    clear: left;
+    padding-left: unset;
+    padding-right: unset;
+    float: unset;
+  }
+
+  .dataset-main,
+  .resource-main {
+    display: grid;
+  }
+
+  .dataset-aside {
+    order: 2;
+  }
+
+  .resource-aside {
+    order: 7;
+  }
+
+  .package-z-index {
+    order: 1;
+  }
+
+  .page-header {
+    padding-bottom: 0;
+    margin: 40px 0 0;
+  }
+}
+
+
+
+.module-narrow {
+  background: #f2f2f2;
 }
 
 @media screen and (max-width: 39.9375em) {
