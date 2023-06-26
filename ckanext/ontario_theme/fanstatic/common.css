@@ -517,6 +517,10 @@ input[type="reset"].ontario-search-reset:focus {
   z-index: 6;
 }
 
+.group-packages.secondary.col-sm-3.filter-results {
+  z-index: 2;
+}
+
 /* ================================
   Custom overrides - text inputs
   ================================= */
