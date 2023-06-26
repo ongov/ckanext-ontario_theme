@@ -403,6 +403,16 @@ input[type="reset"].ontario-search-reset:focus {
   padding-bottom: 0;
 }
 
+#group-datasets-search-form h2 {
+  display: none;
+}
+
+#group-datasets-search-form.search-form .control-order-by,
+#organization-datasets-search-form.search-form .control-order-by {
+  margin-right: -20px;
+  padding-right: 20px;
+}
+
 #dataset-search-form,
 #organization-search-form,
 #group-search-form {
@@ -2390,7 +2400,7 @@ div#topics div p {
   margin: 0 0 0.5rem;
 }
 
-.search-page-select label::after {
+label::after {
   content: unset;
 }
 
