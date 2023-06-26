@@ -392,9 +392,9 @@ input[type="reset"].ontario-search-reset:focus {
 
   margin-bottom: 0;
   background-color: #fff;
-  padding-right: 20px;
+  padding-right: 15px;
   margin-left: -20px;
-  margin-right: -20px;
+  margin-right: -15px;
 }
 
 #group-datasets-search-form,
@@ -1136,6 +1136,12 @@ header {
     font-size: 1.5rem;
     letter-spacing: 0.0313rem;
     line-height: 1.5;
+  }
+
+  #ontario-header .ontario-columns,
+  #ontario-application-subheader .ontario-columns {
+    padding-left: 8px;
+    padding-right: 8px;
   }
 }
 
