@@ -63,7 +63,7 @@ block. super() will end up calling the facets twice.
 {% endblock packages_list %}
 
 {% block secondary %}
-  <aside class="secondary col-sm-3 filter-results">
+  <aside class="secondary col-sm-3 group-packages filter-results">
     {% block secondary_content %}
       {% snippet "group/snippets/info.html", group=c.group_dict, show_nums=true %}
       <div class="filters">

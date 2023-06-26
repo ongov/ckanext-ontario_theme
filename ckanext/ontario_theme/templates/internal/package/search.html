@@ -86,7 +86,7 @@ in the core template for search.html.
 {% endblock pre_primary %}
 
 {% block primary %}
-  <div class="primary col-sm-8 col-xs-12" role="main">
+  <div class="primary ontario-small-9 packages" role="main">
     {% block primary_content %}
       {# Overriding block to remove page_primary_action and form. #}
       <section class="module">
@@ -109,7 +109,7 @@ in the core template for search.html.
 
 {% block secondary %}
   {% set single_option_facets = ['organization_jurisdiction', 'organization_category'] %}
-  <aside class="secondary col-sm-4 filter-results">
+  <aside class="secondary ontario-column ontario-small-3 filter-results">
     <div class="filters">
       <div>{{ h.snippet('snippets/ontario_theme_keywords_facet.html') }}</div>
       <div>

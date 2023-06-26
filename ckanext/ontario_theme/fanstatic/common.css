@@ -367,7 +367,8 @@ input[type="reset"].ontario-search-reset:focus {
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background: #fafafa;
+  background: #f2f2f2;
+  border-radius: 3px;
 }
 
 /* child div 1: shows search result count */
@@ -401,6 +402,19 @@ input[type="reset"].ontario-search-reset:focus {
 #organization-datasets-search-form {
   border-bottom: none;
   padding-bottom: 0;
+}
+
+#dataset-search-form,
+#organization-search-form,
+#group-search-form {
+  margin: 0px 0px 45px 0px;
+  background: #f2f2f2;
+  padding: 20px 16px;
+  border-radius: 3px;
+  border: none;
+  box-shadow: none;
+
+  padding-bottom: 0px;
 }
 
 .search-form .control-order-by label {
@@ -747,6 +761,7 @@ a:focus {
 
 .ministry-packages {
   float: right;
+  padding-left: 30px;
 }
 
 .ministry-package-div,
@@ -2239,7 +2254,6 @@ screen and (min-width: 96em) {
   padding: 15px 0;
 }
 
-.filter-results,
 .ministry-package-div {
   padding-left: unset;
   padding-right: unset;
@@ -2358,19 +2372,59 @@ div#topics div p {
   padding: 20px 0;
 }
 
+.primary.packages,
+.group-packages + .primary {
+  padding-left: 30px;
+}
+
+.filters .module-narrow .module-footer {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.filter-results .context-info .module-content {
+  padding-left: unset;
+  padding-right: unset;
+}
+
+.group-packages .filters .module-narrow .module-footer {
+  padding-left: 12px;
+}
+
 @media screen and (min-width: 64em) {
   .filters .module-narrow .nav-item > a {
     padding-left: 46px;
   }
 
-  .filters .module.module-narrow.module-shallow {
-    max-width: 352px;
+  .filters .module-narrow .module-footer,
+  .group-packages .filters .module-narrow .module-footer {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media only screen and (min-width: 40.063em) {
+  .ontario-column.filter-results {
+    padding-left: unset;
+    padding-right: unset;
+  }
+}
+
+@media only screen and (max-width: 47.9375em) {
+
+  .primary.packages,
+  .group-packages + .primary {
+    width: 100%;
+    padding-left: 1rem;
   }
 
-  .filters .module-narrow .module-footer {
-    padding-left: 25px;
-    padding-right: 25px;
+  .ministry-packages {
+    padding-left: 20px;
   }
+}
+
+.group-packages {
+  padding-right: unset;
 }
 
 .filters .module-footer {
@@ -2379,11 +2433,6 @@ div#topics div p {
 
 .fa.fa-filter {
   margin-right: 5px;
-}
-
-.filters .module-narrow .module-footer {
-  padding-left: 20px;
-  padding-right: 20px;
 }
 
 .facets-show-more.ontario-button {
