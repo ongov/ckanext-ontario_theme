@@ -2386,7 +2386,8 @@ div#topics div p {
   padding-right: 20px;
 }
 
-.filter-results .context-info .module-content {
+.filter-results .context-info .module-content,
+.secondary.ontario-columns.ontario-small-3.filter-results {
   padding-left: unset;
   padding-right: unset;
 }
