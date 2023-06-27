@@ -27,8 +27,12 @@
             {% do resource.update({"data_range": h.ontario_theme_get_date_range(resource.data_range_start|default("N/A"),resource.data_range_end|default("N/A"))}) %}
           {% endfor %}
           {% for group in resources|selectattr("type","equalto","data")|groupby("data_range")|sort(attribute="grouper", reverse=True) %}
-            {% if not group.list[0].data_range_start or not group.list[0].data_range_end %}
-              <p class="date-range">{{ _("No date range") }}</p>
+            {# No date range output when start and end date is null and when there is an end date, but start date is null #}
+            {% if (not group.list[0].data_range_start and not group.list[0].data_range_end) or (not group.list[0].data_range_start and group.list[0].data_range_end) %}
+              <p class="date-range">{{ _("No date range") }} </p>
+            {# Condition when date range has a start date but no end date. Ex output: May 30, 2023 - present (EN), 30 mai 2023 - présent (FR) #}
+            {% elif group.list[0].data_range_start and not group.list[0].data_range_end %}
+              <p class="date-range">{{ _("Date range")+_(":") }} {{ h.render_datetime(group.list[0].data_range_start) }} - {{ _('present') }} </p>
             {# Single day snapshot of date. Ex output: May 30, 2023 (EN), 30 mai 2023 (FR)#}
             {% elif group.list[0].data_range_start == group.list[0].data_range_end %}
               <p class="date-range">{{ _("Date")+_(":") }} {{ h.render_datetime(group.list[0].data_range_start) }}</p>
