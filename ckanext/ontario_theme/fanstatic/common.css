@@ -770,11 +770,6 @@ a:focus {
   float: right;
 }
 
-.ministry-package-div,
-.ministry-packages {
-  margin-top: 25px;
-}
-
 .ministry.nums {
   font-size: 22px;
   line-height: 25.6px;
@@ -1150,7 +1145,6 @@ header {
 
   #ontario-header .ontario-columns,
   #ontario-application-subheader .ontario-columns {
-    padding-left: 8px;
     padding-right: 8px;
   }
 }
@@ -1210,7 +1204,7 @@ screen and (min-width: 40em) {
 }
 
 /* Moves the closing Menu button when the French title wraps */
-@media screen and (min-width: 40em) and (max-width: 51.5em) {
+@media screen and (min-width: 40em) and (max-width: 51.0625em) {
   .ontario-header-button--with-outline.fr {
     top: calc(-4rem + -1.4rem);
   }

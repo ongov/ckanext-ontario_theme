@@ -31,7 +31,7 @@ Override CKAN's read.html to add some new facets.
     {% set form_id = 'organization-datasets-search-form' %}
     <form id="{{ form_id }}" class="search-form col-xs-12" method="get" data-module="select-switch" novalidate>
       {% snippet 'snippets/search_form.html',
-        sr_input_text=searchbar_title,
+        searchbar_title=searchbar_title,
         form_id=form_id,
         type='dataset',
         query=q,

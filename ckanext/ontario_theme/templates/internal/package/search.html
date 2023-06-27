@@ -42,7 +42,6 @@ in the core template for search.html.
       %}
       <!-- arguments for DS search bar -->
       {% set input_text = _('Search ' + dataset_type + 's') %}
-      {% set sr_submit_text = _("Search") %}
       {% set query = c.q %}
       <!-- arguments for search form -->
       {% set form_id = 'dataset-search-form' %}
@@ -63,7 +62,6 @@ in the core template for search.html.
             novalidate>
         {% snippet "snippets/search_form.html",
           searchbar_title=searchbar_title,
-          hidden_searchbar_title=input_text,
           form_id=form_id,
           type=type,
           query=query,
@@ -71,8 +69,6 @@ in the core template for search.html.
           sorting_selected=sort_order,
           count=c.page.item_count,
           placeholder=input_text,
-          sr_input_text=input_text,
-          sr_submit_text=sr_submit_text,
           facets=facets,
           show_empty=request.params,
           error=c.query_error,

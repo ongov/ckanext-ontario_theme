@@ -4,14 +4,13 @@
 {% block search_input %}
   {#
     Design System search bar. Arguments:
-    - sr_input_text
+    - searchbar_title
     - placeholder
     - query
-    - sr_submit_text
   #}
   <div class="module search">
     <h2 class="ontario-label">
-      <label class="theme_p" for="{{ form_id }}-input">{{ sr_input_text }}</label>
+      <label class="theme_p" for="{{ form_id }}-input">{{ searchbar_title }}</label>
     </h2>
     <div class="ontario-search-container">
       <input class="ontario-search-input ontario-input snippet"
@@ -30,7 +29,7 @@
       <button class="ontario-search-submit"
               id="ontario-search-submit"
               type="submit">
-        <span class="ontario-show-for-sr">{{ sr_submit_text }}</span>
+        <span class="ontario-show-for-sr">{{ _('Search') }}</span>
         <svg class="ontario-icon search"
              focusable="false"
              sol:category="primary"
