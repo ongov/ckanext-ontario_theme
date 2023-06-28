@@ -1592,6 +1592,9 @@ via submission form. Copied from DS.*/
   }
 }
 
+.resource-aside .module-narrow:first-child {
+  margin: 0 0 40px 0;
+}
 
 
 .module-narrow {
@@ -1614,7 +1617,7 @@ via submission form. Copied from DS.*/
 
 @media screen and (min-width: 73em) {
   .right-col {
-    max-width: 350px;
+    max-width: 380px;
   }
 
   section.additional-info table.table tbody tr td.dataset-details {
@@ -1662,6 +1665,10 @@ via submission form. Copied from DS.*/
   color: #000000;
 }
 
+.right-col li {
+  font-weight: 600;
+}
+
 .right-col a.btn.btn-primary {
   font-size: 20px;
   line-height: 27.24px;
@@ -1673,7 +1680,7 @@ via submission form. Copied from DS.*/
 }
 
 .package-z-index {
-  z-index: 2;
+  z-index: 1;
   position: relative;
 }
 
@@ -1890,7 +1897,7 @@ ul.nav-tabs li a,
 #collapse-querying .panel-body,
 .resource-url-analytics,
 .page-heading {
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
 }
 
 /* ========================================================================
@@ -2320,6 +2327,26 @@ screen and (min-width: 96em) {
 
 body {
   overflow-x: hidden;
+}
+
+@media screen and (max-width: 39.9375em) {
+  .resource-view .actions {
+    display: contents;
+  }
+}
+
+.resource-view .actions {
+  right: 15px;
+  top: 55px;
+}
+
+.module-resource .actions {
+  top: unset;
+  right: unset;
+}
+
+.row .page_primary_action {
+  margin-right: 15px;
 }
 
 /* ========================================================================   
