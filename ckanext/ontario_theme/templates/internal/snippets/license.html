@@ -38,9 +38,7 @@
       {% endblock license_content_inner %}
     </p>
     <p>
-      {% if h.get_translated(license._data, 'description') %}
-        {{ h.get_translated(license._data, 'description') }}
-      {% endif %}
+      {% if h.get_translated(license._data, 'description') %}{{ h.get_translated(license._data, 'description') }}{% endif %}
     </p>
   {% endif %}
 {% endblock license_content %}
