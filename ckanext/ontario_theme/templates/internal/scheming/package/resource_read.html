@@ -4,13 +4,7 @@
 #}
 {% extends "package/resource_read.html" %}
 
-{%- set exclude_fields = [
-'data_last_updated',
-'name',
-'description_translated',
-'url',
-'format',
-] -%}
+{%- set exclude_fields = ["data_last_updated", "name", "description_translated", "url", "format"] -%}
 {%- set schema = h.scheming_get_dataset_schema(dataset_type) -%}
 {% set license = h.ontario_theme_get_license(pkg.license_id) %}
 {% block pre_primary %}
@@ -74,7 +68,7 @@
                   {% if pkg.groups %}
                     {% set this_group = pkg.groups[0]['name'] %}
                   {% else %}
-                    {% set this_group = '' %}
+                    {% set this_group = "" %}
                   {% endif %}
                   <div class="action-group">
                     <h2 class="ontario-h4">
@@ -118,6 +112,7 @@
                         </ul>
                       {% endif %}
                     {% endblock download_resource_button %}
+
                   </div>
                 {% endif %}
                 {% if res.datastore_active %}
@@ -155,12 +150,12 @@
             {% block resource_view_nav %}
               {% set resource_preview = h.resource_preview(resource, package) %}
               {% snippet "package/snippets/resource_views_list.html",
-                views=resource_views,
-                pkg=pkg,
-                is_edit=false,
-                view_id=current_resource_view['id'],
-                resource_preview=resource_preview,
-                resource=resource
+              views=resource_views,
+              pkg=pkg,
+              is_edit=false,
+              view_id=current_resource_view['id'],
+              resource_preview=resource_preview,
+              resource=resource
               %}
             {% endblock resource_view_nav %}
 
@@ -182,9 +177,7 @@
   {% set is_admin = h.check_access('package_update', {'id':pkg.id }) %}
   {% set is_open = (pkg.access_level == 'open') %}
   {% if is_open or is_admin %}
-    <div class="col-xs-12">
-      {% snippet 'package/snippets/report_an_error.html' %}
-    </div>
+    <div class="col-xs-12">{% snippet 'package/snippets/report_an_error.html' %}</div>
     <div class="module-content" role="main">
       {% block primary_content %}
         {% block resource_additional_information %}
@@ -263,8 +256,6 @@
         {% endblock resource_additional_information %}
       {% endblock primary_content %}
     </div>
-    <div class="col-xs-12">
-      {% snippet 'home/snippets/ontario_theme_contact_us.html' %}
-    </div>
+    <div class="col-xs-12">{% snippet 'home/snippets/ontario_theme_contact_us.html' %}</div>
   {% endif %}
 {% endblock primary %}
