@@ -3,7 +3,7 @@
 Renders a row of 3 featured content cards on the home page.
 
 #}
-{% set feature_list = ['one','two','three'] %}
+{% set feature_list = ["one", "two", "three"] %}
 {% for feature_item in feature_list %}
   <div class="col-md-4">
     <a href="{{ h.ontario_theme_home_block_link(feature_item) }}">
