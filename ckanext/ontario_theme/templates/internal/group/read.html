@@ -10,24 +10,22 @@ block. super() will end up calling the facets twice.
 
 {% block groups_search_form %}
   {% set facets = {
-  'fields': fields_grouped,
-  'search': search_facets,
-  'titles': facet_titles,
-  'translated_fields': translated_fields,
-  'remove_field': remove_field }
-  %}
+      'fields': fields_grouped,
+      'search': search_facets,
+      'titles': facet_titles,
+      'translated_fields': translated_fields,
+      'remove_field': remove_field } %}
   {% set sorting = [
-  (_('Relevance'), 'score desc, metadata_modified desc'),
-  (_('Name Ascending'), 'name asc'),
-  (_('Name Descending'), 'name desc'),
-  (_('Last Modified'), 'metadata_modified desc'),
-  (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
-  %}
+      (_('Relevance'), 'score desc, metadata_modified desc'),
+      (_('Name Ascending'), 'name asc'),
+      (_('Name Descending'), 'name desc'),
+      (_('Last Modified'), 'metadata_modified desc'),
+      (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ] %}
   {# Make 'Relevance' the default selection when first landing on page #}
   {% if not sort_by_selected %}
-    {% set sort_by_selected = 'score desc, metadata_modified desc' %}
+    {% set sort_by_selected = "score desc, metadata_modified desc" %}
   {% endif %}
-  {% set form_id = 'group-datasets-search-form' %}
+  {% set form_id = "group-datasets-search-form" %}
   <form id="{{ form_id }}"
         class="search-form"
         method="get"
@@ -56,8 +54,8 @@ block. super() will end up calling the facets twice.
       #}
     {% set this_group_name = c.group_dict['name'] %}
     {{ h.snippet('snippets/package_list.html',
-    packages=page.items,
-    this_group_name=this_group_name)
+        packages=page.items,
+        this_group_name=this_group_name) 
     }}
   {% endif %}
 {% endblock packages_list %}
@@ -69,27 +67,21 @@ block. super() will end up calling the facets twice.
       <div class="filters">
         <div>
           {{ h.snippet('snippets/ontario_theme_keywords_facet.html',
-          extras={'id':c.group_dict.id}) }}
+                    extras={'id':c.group_dict.id}) }}
         </div>
         <div>
           {{ h.snippet('snippets/ontario_theme_jurisdiction_facet.html',
-          extras={'id':c.group_dict.id}) }}
+                    extras={'id':c.group_dict.id}) }}
         </div>
         <div>
           {{ h.snippet('snippets/ontario_theme_category_facet.html',
-          extras={'id':c.group_dict.id}) }}
+                    extras={'id':c.group_dict.id}) }}
         </div>
         <div>
           {#
             Flag facets to be ignored from standard loop that calls facets.
           #}
-          {% set excluded_facets = [
-          'organization_jurisdiction',
-          'organization_category',
-          'keywords_en',
-          'keywords_fr'
-          ]
-          %}
+          {% set excluded_facets = ["organization_jurisdiction", "organization_category", "keywords_en", "keywords_fr"] %}
           {% for facet in c.facet_titles %}
             {% if facet not in excluded_facets %}
               {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet, extras={'id':c.group_dict.id}) }}

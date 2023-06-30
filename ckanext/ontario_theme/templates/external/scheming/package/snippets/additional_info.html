@@ -1,23 +1,23 @@
 {% extends "package/snippets/additional_info.html" %}
 
 {%- set exclude_fields = [
-'id',
-'title',
-'name',
-'notes',
-'tag_string',
-'license_id',
-'owner_org',
-'notes_translated',
-'short_description',
-'maintainer',
-'maintainer_email',
-'access_level',
-'opened_date',
-'exemption',
-'exemption_rationale',
-'title_translated',
-'asset_type'
+  "id",
+  "title",
+  "name",
+  "notes",
+  "tag_string",
+  "license_id",
+  "owner_org",
+  "notes_translated",
+  "short_description",
+  "maintainer",
+  "maintainer_email",
+  "access_level",
+  "opened_date",
+  "exemption",
+  "exemption_rationale",
+  "title_translated",
+  "asset_type"
 ] -%}
 {% block package_additional_info %}
   {%- for field in schema.dataset_fields -%}

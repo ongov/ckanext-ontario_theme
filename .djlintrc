@@ -6,5 +6,6 @@
     "max_line_length": "120",
     "format_attribute_template_tags": "true",
     "custom_blocks": "trans",
+    "no_function_formatting": true,
     "ignore": "H006,H023"
 }
