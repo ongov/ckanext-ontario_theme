@@ -35,7 +35,6 @@
     {% block heading_meta %}
       {{ super() }}
     {% endblock heading_meta %}
-
   </h3>
   {# Get the org to get all extras then get the schema for choices/labels of values #}
   {% set organization = h.get_organization(package['owner_org']) %}

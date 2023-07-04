@@ -1,11 +1,13 @@
 {
     "use_gitignore": "True",
     "profile": "jinja",
-    "blank_line_after_tag": "ckan_extends,extends,endblock",
+    "blank_line_after_tag": "ckan_extends,extends,endmacro",
     "indent": "2",
     "max_line_length": "120",
     "format_attribute_template_tags": "true",
     "custom_blocks": "trans",
     "no_function_formatting": true,
-    "ignore": "H006,H023"
+    "ignore": "H006,H023",
+    "max_blank_lines": 1,
+    "preserve_blank_lines": true
 }

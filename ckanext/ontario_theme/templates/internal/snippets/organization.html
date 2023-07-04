@@ -30,7 +30,7 @@
             {% endif %}
           {% endblock heading %}
 
-          {%- if show_nums -%}
+          {% if show_nums %}
             {% block nums %}
               <div class="ministry nums">
                 {% set ministry_dataset_count = ungettext('{number} dataset', '{number} datasets', organization.package_count) %}
@@ -41,8 +41,7 @@
                 {%- endif -%}
               </div>
             {% endblock nums %}
-
-          {%- endif -%}
+          {% endif %}
         {% endblock inner %}
 
         {% block description %}

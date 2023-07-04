@@ -6,6 +6,7 @@ loading in the snippet directly instead of using super() in the secondary
 block. super() will end up calling the facets twice.
 
 #}
+{# Test for staging changes with formatting commit hook #}
 {% ckan_extends %}
 
 {% block groups_search_form %}
@@ -14,13 +15,13 @@ block. super() will end up calling the facets twice.
       'search': search_facets,
       'titles': facet_titles,
       'translated_fields': translated_fields,
-      'remove_field': remove_field } %}
+    'remove_field': remove_field } %}
   {% set sorting = [
       (_('Relevance'), 'score desc, metadata_modified desc'),
       (_('Name Ascending'), 'name asc'),
       (_('Name Descending'), 'name desc'),
       (_('Last Modified'), 'metadata_modified desc'),
-      (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ] %}
+    (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ] %}
   {# Make 'Relevance' the default selection when first landing on page #}
   {% if not sort_by_selected %}
     {% set sort_by_selected = "score desc, metadata_modified desc" %}
@@ -54,8 +55,8 @@ block. super() will end up calling the facets twice.
       #}
     {% set this_group_name = c.group_dict['name'] %}
     {{ h.snippet('snippets/package_list.html',
-        packages=page.items,
-        this_group_name=this_group_name) 
+    packages=page.items,
+    this_group_name=this_group_name)
     }}
   {% endif %}
 {% endblock packages_list %}
@@ -67,15 +68,15 @@ block. super() will end up calling the facets twice.
       <div class="filters">
         <div>
           {{ h.snippet('snippets/ontario_theme_keywords_facet.html',
-                    extras={'id':c.group_dict.id}) }}
+          extras={'id':c.group_dict.id}) }}
         </div>
         <div>
           {{ h.snippet('snippets/ontario_theme_jurisdiction_facet.html',
-                    extras={'id':c.group_dict.id}) }}
+          extras={'id':c.group_dict.id}) }}
         </div>
         <div>
           {{ h.snippet('snippets/ontario_theme_category_facet.html',
-                    extras={'id':c.group_dict.id}) }}
+          extras={'id':c.group_dict.id}) }}
         </div>
         <div>
           {#

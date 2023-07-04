@@ -13,13 +13,13 @@ Override CKAN's read.html to add some new facets.
           'search': search_facets,
           'titles': facet_titles,
           'translated_fields': translated_fields,
-          'remove_field': remove_field } %}
+        'remove_field': remove_field } %}
     {% set sorting = [
           (_('Relevance'), 'score desc, metadata_modified desc'),
           (_('Name Ascending'), 'name asc'),
           (_('Name Descending'), 'tname desc'),
           (_('Last Modified'), 'metadata_modified desc'),
-          (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ] %}
+        (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ] %}
     {# Make 'Relevance' the default selection when first landing on page #}
     {% if not sort_by_selected %}
       {% set sort_by_selected = "score desc, metadata_modified desc" %}
@@ -57,7 +57,6 @@ Override CKAN's read.html to add some new facets.
       {% block page_pagination %}
         {{ page.pager(q=q) }}
       {% endblock page_pagination %}
-
     </div>
   {% endblock packages_list %}
 {% endblock primary_content_inner %}
@@ -71,13 +70,13 @@ Override CKAN's read.html to add some new facets.
       <div>
         {# Flag facets to be ignored from standard loop that calls facets. #}
         {% set excluded_facets = ["organization_jurisdiction", "organization_category", "keywords_en", "keywords_fr"] %}
-      {% for facet in c.facet_titles %}
-        {% if facet not in excluded_facets %}
-          {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet, extras={'id':c.group_dict.id}) }}
-        {% endif %}
-      {% endfor %}
+        {% for facet in c.facet_titles %}
+          {% if facet not in excluded_facets %}
+            {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet, extras={'id':c.group_dict.id}) }}
+          {% endif %}
+        {% endfor %}
+      </div>
+      <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
     </div>
-    <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
   </div>
-</div>
 {% endblock organization_facets %}

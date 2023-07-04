@@ -9,3 +9,4 @@ repos:
         files: "\\.html"
         types_or: ['html']
         stages: [manual]
+        alias: format
