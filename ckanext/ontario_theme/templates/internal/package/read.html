@@ -62,9 +62,7 @@
           <h1>
             {% block page_heading %}
               {{ h.dataset_display_name(pkg) }}
-              {% if pkg.state.startswith('draft') %}
-                [{{ _('Draft') }}]
-              {% endif %}
+              {% if pkg.state.startswith('draft') %}[{{ _('Draft') }}]{% endif %}
               {% if pkg.state == 'deleted' %}[{{ _('Deleted') }}]{% endif %}
             {% endblock page_heading %}
           </h1>

@@ -3,6 +3,7 @@
   whole thing. 
   The translation of description worked fine here assuming the field was translated in the schema.
 #}
+{# djlint:off H037 #}
 {% set url_action = pkg.type ~ ('_resource.edit' if url_is_edit and can_edit else '_resource.read') %}
 {% set url = h.url_for(url_action, id=pkg.id if is_activity_archive else pkg.name, resource_id=res.id, **({'activity_id': request.args['activity_id']} if 'activity_id' in request.args else {})) %}
 <li class="resource-item row" data-id="{{ res.id }}">
@@ -21,9 +22,7 @@
       {% endif %}
       <a class="resource-item-title"
          href="{{ url }}"
-         title="{{ res.name or res.description }}">
-        {{ h.resource_display_name(res) | truncate(50) }}
-      </a>
+         title="{{ res.name or res.description }}">{{ h.resource_display_name(res) | truncate(50) }}</a>
       {% if res.language %}
         <span class="label label-{{ res.language }}">
           {{ h.scheming_choices_label(
@@ -71,7 +70,7 @@
               {% if pkg.groups %}
                 {% set this_group = pkg.groups[0]['name'] %}
               {% else %}
-                {% set this_group = '' %}
+                {% set this_group = "" %}
               {% endif %}
               <a href="{{ res.url }}"
                  class="resource-button-secondary resource-url-analytics ontario-button ontario-button--secondary dataset-download-link"
@@ -112,3 +111,4 @@
     {% endblock resource_item_explore %}
   </div>
 </li>
+{# djlint:on #}

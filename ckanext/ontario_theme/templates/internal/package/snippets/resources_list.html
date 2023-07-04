@@ -2,7 +2,6 @@
   Complete override of template to change "Data and resources" to just data...
 #}
 {% set current_lang = request.environ.CKAN_LANG %}
-
 <section id="dataset-resources" class="resources">
   <h2>{{ _(h.dataset_display_name(pkg)) }}</h2>
   <p class="dataset-font">
@@ -29,22 +28,24 @@
           {% for group in resources|selectattr("type","equalto","data")|groupby("data_range")|sort(attribute="grouper", reverse=True) %}
             {# Single day snapshot of date. Ex output: May 30, 2023 (EN), 30 mai 2023 (FR)#}
             {% if group.list[0].data_range != "N/A - N/A" and group.list[0].data_range_start == group.list[0].data_range_end %}
-                <p class="date-range">{{ _("Date")+_(":") }} {{ h.render_datetime(group.list[0].data_range_start) }}</p>
+              <p class="date-range">{{ _("Date")+_(":") }} {{ h.render_datetime(group.list[0].data_range_start) }}</p>
             {% elif group.list[0].data_range != "N/A - N/A" %}
-              <p class="date-range">{{ _("Date range")+_(":") }}
+              <p class="date-range">
+                {{ _("Date range")+_(":") }}
                 {# Condition when the date range is within a month. Ex output: April 1 - 31, 2023 (EN), 1 - 31 avril 2023 (FR) #}
                 {% if group.list[0].data_range_start[0:7] == group.list[0].data_range_end[0:7] %}
                   {% set month_day = -6 if current_lang == 'en' else 1 %}
                   {% set en_day = -8 if current_lang == 'en' else 0 %}
-                  {{ h.render_datetime(group.list[0].data_range_start)[:month_day] }} - {{ h.render_datetime(group.list[0].data_range_end)[en_day:] }}</p>
-                {# Condition when the date range is within a year. Ex output: January 1 - December 31, 2022 (EN), 1 janvier - 31 decembre 2022 (FR) #}
+                  {{ h.render_datetime(group.list[0].data_range_start)[:month_day] }} - {{ h.render_datetime(group.list[0].data_range_end)[en_day:] }}
+                  {# Condition when the date range is within a year. Ex output: January 1 - December 31, 2022 (EN), 1 janvier - 31 decembre 2022 (FR) #}
                 {% elif group.list[0].data_range_start[0:4] == group.list[0].data_range_end[0:4] %}
                   {% set month_day = 6 if current_lang == 'en' else 5 %}
-                  {{ h.render_datetime(group.list[0].data_range_start)[:-month_day] }} - {{ h.render_datetime(group.list[0].data_range_end) }}</p>
-                {# Else output the range according to locale. Ex output: January 1 2021 - December 31, 2022 (EN), 1 janvier 2021 - 31 decembre 2022 (FR) #}
+                  {{ h.render_datetime(group.list[0].data_range_start)[:-month_day] }} - {{ h.render_datetime(group.list[0].data_range_end) }}
+                  {# Else output the range according to locale. Ex output: January 1 2021 - December 31, 2022 (EN), 1 janvier 2021 - 31 decembre 2022 (FR) #}
                 {% else %}
-                  {{ h.render_datetime(group.list[0].data_range_start) }} - {{ h.render_datetime(group.list[0].data_range_end) }}</p>
+                  {{ h.render_datetime(group.list[0].data_range_start) }} - {{ h.render_datetime(group.list[0].data_range_end) }}
                 {% endif %}
+              </p>
             {% else %}
               <p class="date-range">{{ _("No date range") }}</p>
             {% endif %}
@@ -72,7 +73,6 @@
             <hr />
           {% endfor %}
         {% endblock resource_list_inner %}
-
         <h2>{{ _("Supporting Files") }}</h2>
         {% if resources | rejectattr("type","equalto","data") | list | length > 0 %}
           <ul class="resource-list">
