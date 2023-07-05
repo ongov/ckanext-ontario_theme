@@ -1,57 +1,62 @@
-<footer class="site-footer">
-  <div>
+<footer class="ontario-footer ontario-footer--default">
+  <div class="ontario-row">
     {% block footer_content %}
-      <div class="ontario-row">
-        <div class="col-md-7 footer-links">
-          {% block footer_nav %}
-            <ul class="list-inline">
-              {% block footer_links %}
-                <li>
-                  <a href="{%- trans -%}https://www.ontario.ca/page/accessibility{%- endtrans -%}">
-                    {% trans %}
-                      Accessibility
-                    {% endtrans %}
-                  </a>
-                </li>
-                <li>
-                  <a href="{%- trans -%}https://www.ontario.ca/page/privacy-statement{%- endtrans -%}">
-                    {% trans %}
-                      Privacy
-                    {% endtrans %}
-                  </a>
-                </li>
-                <li>
-                  <a href="{%- trans -%}https://www.ontario.ca/page/terms-use{%- endtrans -%}">
-                    {% trans %}
-                      Terms of use
-                    {% endtrans %}
-                  </a>
-                </li>
-              {% endblock footer_links %}
-            </ul>
-            <p class="small">
-              <a href="{%- trans -%}https://www.ontario.ca/page/copyright-information{%- endtrans -%}">
-                {% trans %}
-                  &copy; King&#8217;s Printer for Ontario
-                {% endtrans %}
-              , 2023</a>
-            </p>
-          {% endblock footer_nav %}
-        </div>
-        <div class="col-md-2 footer-contactus"></div>
-        <div class="col-md-3 attribution">
-          {% block footer_attribution %}
-            <p>
+      <div class="ontario-columns ontario-small-12">
+        {% block footer_nav %}
+          <ul class="ontario-footer__links-container ontario-footer__links-container--inline">
+            {% block footer_links %}
+              <li>
+                <a class="ontario-footer__link" href="{%- trans -%}https://www.ontario.ca/page/accessibility{%- endtrans -%}">
+                  {% trans %}
+                    Accessibility
+                  {% endtrans %}
+                </a>
+              </li>
+              <li>
+                <a class="ontario-footer__link" href="{%- trans -%}https://www.ontario.ca/page/privacy-statement{%- endtrans -%}">
+                  {% trans %}
+                    Privacy
+                  {% endtrans %}
+                </a>
+              </li>
+              <li>
+                <a class="ontario-footer__link" href="{%- trans -%}https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269{%- endtrans -%}">
+                  {% trans %}
+                    Contact us
+                  {% endtrans %}
+                </a>
+              </li>
+              <li>
+                <a class="ontario-footer__link" href="{%- trans -%}https://www.ontario.ca/page/terms-use{%- endtrans -%}">
+                  {% trans %}
+                    Terms of use
+                  {% endtrans %}
+                </a>
+              </li>
+            {% endblock footer_links %}
+          </ul>
+          <div class="ontario-footer__copyright">
+            <a class="ontario-footer__link" href="{%- trans -%}https://www.ontario.ca/page/copyright-information{%- endtrans -%}">
               {% trans %}
-                <strong>Powered by</strong> <a class="hide-text ckan-footer-logo" href="https://ckan.org"><abbr title="Comprehensive Knowledge Archive Network">CKAN</abbr></a>
+                &copy; King&#8217;s Printer for Ontario,
               {% endtrans %}
-            </p>
-          {% endblock footer_attribution %}
+              2012&ndash;23</a>
+          </div>
+        {% endblock footer_nav %}
+      </div>
+      <div class="col-md-2 footer-contactus"></div>
+      <div class="col-md-3 attribution">
+        {% block footer_attribution %}
+          <p>
+            {% trans %}
+              <strong>Powered by</strong> <a class="hide-text ckan-footer-logo" href="https://ckan.org"><abbr title="Comprehensive Knowledge Archive Network">CKAN</abbr></a>
+            {% endtrans %}
+          </p>
+        {% endblock footer_attribution %}
 
-          {% block footer_lang %}
-            <!-- snippet "snippets/language_selector.html" -->
-          {% endblock footer_lang %}
-        </div>
+        {% block footer_lang %}
+          <!-- snippet "snippets/language_selector.html" -->
+        {% endblock footer_lang %}
       </div>
     {% endblock footer_content %}
   </div>
