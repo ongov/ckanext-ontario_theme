@@ -44,20 +44,13 @@
           </div>
         {% endblock footer_nav %}
       </div>
-      <div class="col-md-2 footer-contactus"></div>
-      <div class="col-md-3 attribution">
-        {% block footer_attribution %}
-          <p>
-            {% trans %}
-              <strong>Powered by</strong> <a class="hide-text ckan-footer-logo" href="https://ckan.org"><abbr title="Comprehensive Knowledge Archive Network">CKAN</abbr></a>
-            {% endtrans %}
-          </p>
-        {% endblock footer_attribution %}
+      {% block footer_attribution %}
+        <!-- <strong>Powered by</strong> <a class="hide-text ckan-footer-logo" href="https://ckan.org"><abbr title="Comprehensive Knowledge Archive Network">CKAN</abbr></a> -->
+      {% endblock footer_attribution %}
 
-        {% block footer_lang %}
-          <!-- snippet "snippets/language_selector.html" -->
-        {% endblock footer_lang %}
-      </div>
+      {% block footer_lang %}
+        <!-- snippet "snippets/language_selector.html" -->
+      {% endblock footer_lang %}
     {% endblock footer_content %}
   </div>
   {% block footer_debug %}
