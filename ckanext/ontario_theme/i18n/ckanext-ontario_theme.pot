@@ -1803,3 +1803,7 @@ msgid "Report an error with this data"
 msgstr ""
 msgid "Fill out a <a href=\"https://www.ontario.ca/form/report-data-error?%(params)s\">Data Catalogue error report</a> to let us know if there are issues with the resources in this dataset."
 msgstr ""
+
+# Back to top button
+msgid "Top"
+msgstr ""
