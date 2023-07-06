@@ -1486,10 +1486,10 @@ via submission form. Copied from DS.*/
 }
 
 .label-div {
-  width: 13%;
+  min-width: 61px;
   float: left;
   position: relative;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .resource-item .label[data-format] {
@@ -1521,6 +1521,12 @@ via submission form. Copied from DS.*/
   padding: unset;
 }
 
+@media screen and (max-width: 992px) {
+  .resource-item .text-right {
+    text-align: left;
+  }
+}
+
 .label.label-english,
 .label.label-french,
 .label.label-english_and_french {
@@ -1529,7 +1535,6 @@ via submission form. Copied from DS.*/
   font-weight: 700;
   color: #1a1a1a;
   border-radius: 2px;
-  margin-left: 10px;
   margin-bottom: 5px;
   vertical-align: -30%;
 }
@@ -1564,10 +1569,6 @@ via submission form. Copied from DS.*/
 @media screen and (max-width: 39.9375em) {
   section.additional-info table.table tbody tr td.dataset-details {
     width: 40%;
-  }
-
-  .label-div {
-    width: 17.5%;
   }
 
   .label.label-english_and_french {
@@ -1605,10 +1606,6 @@ via submission form. Copied from DS.*/
 }
 
 @media screen and (min-width: 40em) {
-  .resource-item .description {
-    margin-left: 10%;
-  }
-
   .resource-button-text {
     display: inline-flex;
   }
