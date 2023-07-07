@@ -1758,6 +1758,10 @@ msgstr ""
 msgid "CKAN Data API calls"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/ajax_snippets/api_info.html:129
+msgid "A simple request to the data API using Python."
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:113
 msgid "Use the Data Visualizer below to display this dataset as a table, graph or map."
 msgstr ""
