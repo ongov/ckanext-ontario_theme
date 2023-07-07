@@ -756,7 +756,7 @@ a:focus {
 }
 
 .ontario-module-h3 {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
   line-height: 25.6px;
   word-break: break-word;
@@ -1585,6 +1585,46 @@ via submission form. Copied from DS.*/
   float: right;
 }
 
+@media screen and (max-width: 73em) {
+  .right-col {
+    clear: left;
+    padding-left: unset;
+    padding-right: unset;
+    float: unset;
+  }
+
+  .dataset-main,
+  .resource-main {
+    display: grid;
+  }
+
+  .dataset-aside {
+    order: 2;
+  }
+
+  .resource-aside {
+    order: 7;
+  }
+
+  .package-z-index {
+    order: 1;
+  }
+
+  .page-header {
+    padding-bottom: 0;
+    margin: 40px 0 0;
+  }
+}
+
+.resource-aside .module-narrow:first-child {
+  margin: 0 0 40px 0;
+}
+
+
+.module-narrow {
+  background: #f2f2f2;
+}
+
 @media screen and (max-width: 39.9375em) {
   section.additional-info table.table tbody tr td.dataset-details {
     width: 40%;
@@ -1597,7 +1637,7 @@ via submission form. Copied from DS.*/
 
 @media screen and (min-width: 73em) {
   .right-col {
-    max-width: 350px;
+    max-width: 380px;
   }
 
   section.additional-info table.table tbody tr td.dataset-details {
@@ -1641,6 +1681,10 @@ via submission form. Copied from DS.*/
   color: #000000;
 }
 
+.right-col li {
+  font-weight: 600;
+}
+
 .right-col a.btn.btn-primary {
   font-size: 20px;
   line-height: 27.24px;
@@ -1652,7 +1696,7 @@ via submission form. Copied from DS.*/
 }
 
 .package-z-index {
-  z-index: 2;
+  z-index: 1;
   position: relative;
 }
 
@@ -1869,7 +1913,7 @@ ul.nav-tabs li a,
 #collapse-querying .panel-body,
 .resource-url-analytics,
 .page-heading {
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
 }
 
 /* ========================================================================
@@ -2298,6 +2342,26 @@ screen and (min-width: 96em) {
 
 body {
   overflow-x: hidden;
+}
+
+@media screen and (max-width: 39.9375em) {
+  .resource-view .actions {
+    display: contents;
+  }
+}
+
+.resource-view .actions {
+  right: 15px;
+  top: 55px;
+}
+
+.module-resource .actions {
+  top: unset;
+  right: unset;
+}
+
+.row .page_primary_action {
+  margin-right: 15px;
 }
 
 /* ========================================================================   
