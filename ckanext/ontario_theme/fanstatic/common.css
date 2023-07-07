@@ -119,9 +119,9 @@
   margin-right: 4px;
 }
 
-/* color changed from design system #3c7fa3*/
+/* color #3c7fa3 changed from design system #06c*/
 .ontario-button--primary {
-  background-color: #3c7fa3;
+  background-color: #06c;
   color: #fff;
 }
 
@@ -148,8 +148,8 @@
 
 .ontario-button--secondary {
   background-color: #fff;
-  border: 2px solid #3c7fa3;
-  color: #3c7fa3;
+  border: 2px solid #06c;
+  color: #06c;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
@@ -175,12 +175,12 @@
 }
 
 .ontario-button--secondary:visited {
-  color: #3c7fa3;
+  color: #06c;
 }
 
 .ontario-button--tertiary {
   background-color: transparent;
-  color: #3c7fa3;
+  color: #06c;
   text-decoration: underline;
 }
 
@@ -205,7 +205,7 @@
 }
 
 .ontario-button--tertiary:visited {
-  color: #3c7fa3;
+  color: #06c;
 }
 
 /* ========================================================================
@@ -367,7 +367,8 @@ input[type="reset"].ontario-search-reset:focus {
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background: #fafafa;
+  background: #f2f2f2;
+  border-radius: 3px;
 }
 
 /* child div 1: shows search result count */
@@ -401,6 +402,19 @@ input[type="reset"].ontario-search-reset:focus {
 #organization-datasets-search-form {
   border-bottom: none;
   padding-bottom: 0;
+}
+
+#dataset-search-form,
+#organization-search-form,
+#group-search-form {
+  margin: 0px 0px 45px 0px;
+  background: #f2f2f2;
+  padding: 20px 16px;
+  border-radius: 3px;
+  border: none;
+  box-shadow: none;
+
+  padding-bottom: 0px;
 }
 
 .search-form .control-order-by label {
@@ -501,6 +515,10 @@ input[type="reset"].ontario-search-reset:focus {
 
 .secondary.col-sm-3.filter-results {
   z-index: 6;
+}
+
+.group-packages.secondary.col-sm-3.filter-results {
+  z-index: 2;
 }
 
 /* ================================
@@ -747,6 +765,7 @@ a:focus {
 
 .ministry-packages {
   float: right;
+  padding-left: 30px;
 }
 
 .ministry-package-div,
@@ -1486,10 +1505,10 @@ via submission form. Copied from DS.*/
 }
 
 .label-div {
-  width: 13%;
+  min-width: 61px;
   float: left;
   position: relative;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .resource-item .label[data-format] {
@@ -1521,6 +1540,12 @@ via submission form. Copied from DS.*/
   padding: unset;
 }
 
+@media screen and (max-width: 992px) {
+  .resource-item .text-right {
+    text-align: left;
+  }
+}
+
 .label.label-english,
 .label.label-french,
 .label.label-english_and_french {
@@ -1529,7 +1554,6 @@ via submission form. Copied from DS.*/
   font-weight: 700;
   color: #1a1a1a;
   border-radius: 2px;
-  margin-left: 10px;
   margin-bottom: 5px;
   vertical-align: -30%;
 }
@@ -1606,10 +1630,6 @@ via submission form. Copied from DS.*/
     width: 40%;
   }
 
-  .label-div {
-    width: 17.5%;
-  }
-
   .label.label-english_and_french {
     display: inline-flex;
   }
@@ -1645,10 +1665,6 @@ via submission form. Copied from DS.*/
 }
 
 @media screen and (min-width: 40em) {
-  .resource-item .description {
-    margin-left: 10%;
-  }
-
   .resource-button-text {
     display: inline-flex;
   }
@@ -2283,7 +2299,6 @@ screen and (min-width: 96em) {
   padding: 15px 0;
 }
 
-.filter-results,
 .ministry-package-div {
   padding-left: unset;
   padding-right: unset;
@@ -2378,4 +2393,114 @@ div#topics div p {
 .col-md-2-10 {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+/* ========================================================================
+   Search Page - Facets
+   ======================================================================== */
+.nav-facet .nav-item > a {
+  font-size: 16px;
+  color: #000;
+}
+
+.nav-facet .nav-item > a:hover {
+  background-color: #d1d1d1;
+}
+
+
+.nav-facet .nav-item.active > a {
+  color: #fff;
+}
+
+.nav-facet .nav-item.active > a:hover {
+  background-color: #00478f;
+}
+
+
+.nav-facet.nav-simple > li {
+  border-bottom: none;
+}
+
+.filters .module.module-narrow.module-shallow {
+  background-color: #f2f2f2;
+}
+
+.filters .module.module-narrow.module-shallow h4 {
+  padding: 0 20px;
+}
+
+.filters .module-narrow .nav-item > a {
+  padding-left: 25px;
+}
+
+.filters .module-narrow {
+  padding: 20px 0;
+}
+
+.primary.packages,
+.group-packages + .primary {
+  padding-left: 30px;
+}
+
+.filters .module-narrow .module-footer {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.filter-results .context-info .module-content,
+.secondary.ontario-columns.ontario-small-3.filter-results {
+  padding-left: unset;
+  padding-right: unset;
+}
+
+.group-packages .filters .module-narrow .module-footer {
+  padding-left: 12px;
+}
+
+@media screen and (min-width: 64em) {
+  .filters .module-narrow .nav-item > a {
+    padding-left: 46px;
+  }
+
+  .filters .module-narrow .module-footer,
+  .group-packages .filters .module-narrow .module-footer {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media only screen and (min-width: 40.063em) {
+  .ontario-column.filter-results {
+    padding-left: unset;
+    padding-right: unset;
+  }
+}
+
+@media only screen and (max-width: 47.9375em) {
+
+  .primary.packages,
+  .group-packages + .primary {
+    width: 100%;
+    padding-left: 1rem;
+  }
+
+  .ministry-packages {
+    padding-left: 20px;
+  }
+}
+
+.group-packages {
+  padding-right: unset;
+}
+
+.filters .module-footer {
+  border-top: none;
+}
+
+.fa.fa-filter {
+  margin-right: 5px;
+}
+
+.facets-show-more.ontario-button {
+  margin: 0;
 }
