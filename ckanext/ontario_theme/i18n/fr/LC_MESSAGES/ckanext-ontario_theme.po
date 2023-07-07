@@ -2378,6 +2378,14 @@ msgstr "Niveau d’accès"
 msgid "Update Frequency"
 msgstr "Fréquence de mise à jour"
 
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Category"
+msgstr "Catégorie"
+
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Jurisdiction"
+msgstr "Juridiction"
+
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:14
 msgid "Search"
 msgstr "Recherche"
