@@ -2396,6 +2396,119 @@ div#topics div p {
 }
 
 /* ========================================================================
+  Footer - Design System
+  ======================================================================== */
+
+.ontario-footer {
+  color: #fff;
+  margin-top: 5rem;
+  padding: 4rem 0
+}
+
+.ontario-footer .ontario-columns *:last-child {
+  margin-bottom: 0
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-footer:not(.ontario-footer--default) .ontario-columns:first-child {
+    margin-bottom: 3rem
+  }
+
+  .ontario-footer .ontario-footer__expanded-bottom-section .ontario-columns:first-child {
+    margin-bottom: 0
+  }
+}
+
+.ontario-footer__links-container {
+  list-style: none;
+  margin: 0 0 1rem 0;
+  /* Override */
+  padding-left: 0;
+}
+
+@media screen and (min-width: 73em) {
+  .ontario-footer__links-container {
+    margin-bottom: .5rem
+  }
+}
+
+.ontario-footer__links-container--inline {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap
+}
+
+@media screen and (min-width: 40em) {
+  .ontario-footer__links-container--inline {
+    flex-direction: row
+  }
+}
+
+.ontario-footer__links-container li {
+  padding: .25rem 0
+}
+
+.ontario-footer__link {
+  color: #fff;
+  display: inline-block;
+  padding: .5rem 0;
+  margin: 0;
+  text-decoration: underline
+}
+
+.ontario-footer__link:hover,
+.ontario-footer__link:focus {
+  text-decoration: none
+}
+
+.ontario-footer__link:visited,
+.ontario-footer__link:active,
+.ontario-footer__link:hover {
+  color: #fff
+}
+
+@media screen and (min-width: 40em) {
+  .ontario-footer__link {
+    padding: 0;
+    margin: 0 3rem 1rem 0
+  }
+}
+
+.ontario-footer--default {
+  position: relative;
+  background-color: #1a1a1a;
+  border-bottom: 4px solid #4d4d4d
+}
+
+.ontario-footer--default:before {
+  background-image: url(/images/footer-default-supergraphic-logo.svg);
+  background-size: 112.5rem;
+  background-position: calc(50vw - 73.5rem) -64rem;
+  background-color: #333;
+  background-repeat: no-repeat;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%
+}
+
+@media screen and (min-width: 40em) {
+  .ontario-footer--default:before {
+    background-size: 180rem;
+    background-position: calc(50vw - 120rem) -106rem
+  }
+}
+
+@media screen and (min-width: 73em) {
+  .ontario-footer--default:before {
+    background-size: 275rem;
+    background-position: calc(50vw - 187rem) -160rem
+  }
+}
+
+/* ========================================================================
    Search Page - Facets
    ======================================================================== */
 .nav-facet .nav-item > a {
