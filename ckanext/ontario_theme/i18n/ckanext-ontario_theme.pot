@@ -1069,7 +1069,7 @@ msgid "Terms of use"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/footer.html:15
-msgid "&copy; King&#8217;s Printer for Ontario"
+msgid "&copy; King&#8217;s Printer for Ontario,"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/footer.html:24
