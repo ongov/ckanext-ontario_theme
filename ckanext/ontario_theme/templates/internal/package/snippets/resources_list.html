@@ -32,11 +32,11 @@
               <p class="date-range">{{ _("No date range") }} </p>
             {% elif not group.list[0].data_range_start or not group.list[0].data_range_end %}
               <p class="date-range">{{ _("Date range")+_(":") }}
-              {# Condition when date range has a start date but no end date. Ex output: May 30, 2023 - no end date (EN), 30 mai 2023 - aucun date de fin (FR) #}
+              {# Condition when date range has a start date but no end date. Ex output: May 30, 2023 - no end date (EN), 30 mai 2023 - aucune date de fin (FR) #}
               {% if group.list[0].data_range_start and not group.list[0].data_range_end %}
                 {{ h.render_datetime(group.list[0].data_range_start) }} - {{ _('no end date') }}
               {% endif %}
-              {# Condition when date range has an end date but no start date. Ex output: No start date - May 30, 2023 (EN), Aucun date de début - 30 mai 2023 (FR) #}
+              {# Condition when date range has an end date but no start date. Ex output: No start date - May 30, 2023 (EN), Aucune date de début - 30 mai 2023 (FR) #}
               {% if not group.list[0].data_range_start and group.list[0].data_range_end %}
                 {{ _('No start date') }} - {{ h.render_datetime(group.list[0].data_range_end) }}
               {% endif %}
