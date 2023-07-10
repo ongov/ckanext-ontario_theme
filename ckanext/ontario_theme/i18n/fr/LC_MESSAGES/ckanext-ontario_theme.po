@@ -57,8 +57,8 @@ msgid "https://www.ontario.ca/page/copyright-information"
 msgstr "https://www.ontario.ca/fr/page/droits-dauteur"
 
 #: ckanext/ontario_theme/templates/footer.html:15
-msgid "&copy; King&#8217;s Printer for Ontario"
-msgstr "&copy; Imprimeur du Roi pour l’Ontario"
+msgid "&copy; King&#8217;s Printer for Ontario,"
+msgstr "&copy; Imprimeur du Roi pour l’Ontario,"
 
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read:73
 msgid "Queen&#8217;s Printer for Ontario"
@@ -2377,6 +2377,14 @@ msgstr "Niveau d’accès"
 #: ckanext/ontario_theme/templates/snippets/search_form.html:29
 msgid "Update Frequency"
 msgstr "Fréquence de mise à jour"
+
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Category"
+msgstr "Catégorie"
+
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Jurisdiction"
+msgstr "Juridiction"
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:14
 msgid "Search"

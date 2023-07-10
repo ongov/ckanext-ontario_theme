@@ -645,10 +645,10 @@ def order_package_facets(orig_ordered_dict):
 
     '''
     # Order that facets should appear in left panel
-    facet_order = ['organization', 'groups', 'res_format', 'license_id', 
-                   'asset_type', 'update_frequency', 'access_level',
+    facet_order = ['organization', 'res_format', 'access_level', 'update_frequency', 'license_id',
+                   'asset_type', 'groups',
+                   'organization_jurisdiction', 'organization_category',
                    'keywords_en', 'keywords_fr',
-                   'organization_jurisdiction', 'organization_category'
                   ]
 
     facet_titles_reorg = list()

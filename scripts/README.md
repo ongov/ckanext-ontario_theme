@@ -32,10 +32,6 @@ echo $SUDOPASS | sudo -S -k apt-get update
 git clone https://github.com/ongov/ckanext-ontario_theme.git
 cd ckanext-ontario_theme
 
-# Fetch and checkout the branch
-git fetch origin ckan_2.9_upgrade:ckan_2.9_upgrade
-git checkout ckan_2.9_upgrade
-
 # Navigate to the scripts directory and execute the setup script
 cd scripts
 ./setup_solr.sh
