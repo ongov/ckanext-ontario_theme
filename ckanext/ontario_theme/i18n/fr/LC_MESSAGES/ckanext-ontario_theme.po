@@ -2302,7 +2302,7 @@ msgstr "Lire plus"
 
 #: ckanext/ontario_theme/templates/package/snippets/resources_list.html:17
 msgid "No date range"
-msgstr "Pas de intervalle"
+msgstr "Aucune plage de dates"
 
 #: ckanext/ontario_theme/templates/package/snippets/resources_list.html:20
 msgid "Covers"
