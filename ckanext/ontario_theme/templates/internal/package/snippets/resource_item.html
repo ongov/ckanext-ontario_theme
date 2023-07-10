@@ -30,6 +30,11 @@
           h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}
         </span>
       {% endif %}
+      {% if res.size %}
+        <span class="filesize">
+          [{{ h.localised_filesize(res.size) }}]
+        </span>
+      {% endif %}
     {% endblock resource_item_title %}
 
     {% block resource_item_description %}
@@ -58,11 +63,6 @@
                   <i class="fa fa-info-circle"></i>
                   {{ _('About') }}
                 {% endif %}
-                <br />
-                {% if res.language and res.language != 'english_and_french' %}
-                  {{ h.scheming_choices_label(
-                  h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}
-                {% endif %}
               </span>
             </a>
             {% if res.url and h.is_url(res.url) %}
@@ -80,20 +80,9 @@
                   {% if res.has_views or res.url_type == 'upload' %}
                     <i class="fa fa-arrow-circle-o-down"></i>
                     {{ _('Download') }}
-                    <br />
-                    {% if res.language and res.language != 'english_and_french' %}
-                      {{ h.scheming_choices_label(
-                      h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}
-                    {% endif %}
-                    {% if res.size %}({{ h.localised_filesize(res.size) }}){% endif %}
                   {% else %}
                     <i class="fa fa-external-link"></i>
                     {{ _('Open') }}
-                    <br />
-                    {% if res.language and res.language != 'english_and_french' %}
-                      {{ h.scheming_choices_label(
-                      h.scheming_field_choices(h.scheming_field_by_name(schema.resource_fields, 'language')), res.language) }}
-                    {% endif %}
                   {% endif %}
                 </span>
               </a>
