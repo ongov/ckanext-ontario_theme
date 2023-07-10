@@ -1069,7 +1069,7 @@ msgid "Terms of use"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/footer.html:15
-msgid "&copy; King&#8217;s Printer for Ontario"
+msgid "&copy; King&#8217;s Printer for Ontario,"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/footer.html:24
@@ -1597,6 +1597,14 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:29
 msgid "Date range"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:41
+msgid "No start date"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:37
+msgid "no end date"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/add_dataset.html:6
