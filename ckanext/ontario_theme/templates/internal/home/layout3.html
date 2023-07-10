@@ -16,12 +16,10 @@
   <div>
     {% snippet "home/snippets/ontario_theme_sub_intro.html" %}
     <div class="ontario-row" id="topics">
-      <div>
-        <div class="col-md-12">
-          <h2>{{ _("Topics") }}</h2>
-        </div>
+      <div class="ontario-small-12 ontario-columns">
+        <h2>{{ _("Topics") }}</h2>
+        {% snippet "home/snippets/ontario_theme_categories.html" %}
       </div>
-      {% snippet "home/snippets/ontario_theme_categories.html" %}
     </div>
     <div class="banner-section">
       <div id="news" class="ontario-row">

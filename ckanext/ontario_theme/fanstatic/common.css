@@ -407,14 +407,13 @@ input[type="reset"].ontario-search-reset:focus {
 #dataset-search-form,
 #organization-search-form,
 #group-search-form {
-  margin: 0px 0px 45px 0px;
+  margin: 0 0 45px 0;
   background: #f2f2f2;
   padding: 20px 16px;
   border-radius: 3px;
   border: none;
   box-shadow: none;
-
-  padding-bottom: 0px;
+  padding-bottom: 0;
 }
 
 .search-form .control-order-by label {
@@ -2374,25 +2373,55 @@ body {
 .topics-list {
   list-style-type: none;
   display: block;
+  padding-left: unset;
+  margin-top: 28px;
+}
+
+@media screen and (min-width: 40em) {
+  .topics-list {
+    columns: 2;
+    column-gap: 50px;
+  }
+}
+
+.hp_category {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
 }
 
 .topics-list-item {
-  display: grid;
   justify-items: center;
   margin-bottom: 2rem;
+  display: flex;
+  gap: 5px;
 }
 
-div#topics div p {
+div#topics div i {
+  font-size: 30px;
+  width: 30px;
+  text-align: center;
+  color: #999;
+}
+
+.topics-list-item a {
   font-weight: 600;
-  font-size: 18px;
-  line-height: 24.51px;
+  font-size: 20px;
+}
+
+div#topics div span {
+  font-weight: 600;
+  font-size: 20px;
   display: inline;
   margin: unset;
 }
 
-.col-md-2-10 {
-  padding-left: 1rem;
-  padding-right: 1rem;
+div#topics div a:hover i {
+  color: #00B2E3;
+}
+
+div#topics a:hover span {
+  text-decoration: underline;
 }
 
 /* ========================================================================
