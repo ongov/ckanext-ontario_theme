@@ -2418,6 +2418,102 @@ div#topics div p {
 }
 
 /* ========================================================================
+   Back to top - Design System
+   ======================================================================== */
+.ontario-back-to-top--default {
+  position: fixed;
+  bottom: 5%;
+  right: 2%;
+  visibility: hidden;
+  opacity: 0;
+  transition: .1s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  padding: .5rem 1rem .5rem .75rem;
+  background: #e6e6e6;
+  border: .125rem solid #fff;
+  border-radius: 4px;
+  box-sizing: border-box;
+  box-shadow: 0 .125rem .25rem rgba(26, 26, 26, .6);
+  color: #1a1a1a;
+  line-height: 1.25rem;
+  font-size: 1rem;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  z-index: 10000;
+  cursor: pointer
+}
+
+.ontario-back-to-top--default svg.ontario-icon {
+  margin: .125rem .5rem 0 0;
+  width: 2rem;
+  height: 2rem
+}
+
+.ontario-back-to-top--default:hover {
+  background-color: #ccc
+}
+
+.ontario-back-to-top--default:focus {
+  background-color: #e6e6e6;
+  box-shadow: 0 0 0 .25rem #009adb, 0 .1875rem .3125rem .1875rem rgba(0, 0, 0, .6);
+  outline: .25rem solid transparent;
+  transition: .1s ease-in-out
+}
+
+.ontario-back-to-top--default:active {
+  background-color: #b2b2b2;
+  box-shadow: 0 0 0 .25rem #009adb, 0 .3125rem .4375rem .1875rem rgba(0, 0, 0, .6);
+  outline: .25rem solid transparent;
+  transition: background-color 0s, box-shadow .1s ease-in-out
+}
+
+.ontario-back-to-top--default:visited {
+  color: #fff
+}
+
+@media screen and (max-width: 73em) {
+  .ontario-back-to-top--default {
+    flex-direction: column;
+    height: 4.75rem;
+    padding: .375rem .75rem .5625rem .75rem
+  }
+
+  .ontario-back-to-top--default svg.ontario-icon {
+    margin: .0625rem 0 .25rem 0;
+    width: 2rem;
+    height: 2rem
+  }
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-back-to-top--default {
+    display: block;
+    padding: .5rem;
+    font-size: 0;
+    width: 3rem;
+    height: 3rem
+  }
+
+  .ontario-back-to-top--default svg.ontario-icon {
+    margin: 0
+  }
+
+  @-moz-document url-prefix() {
+    .ontario-back-to-top--default svg.ontario-icon {
+      padding: 0 .25rem .25rem 0
+    }
+  }
+}
+
+.active {
+  visibility: visible;
+  opacity: 1
+}
+
+/* ========================================================================
   Footer - Design System
   ======================================================================== */
 
