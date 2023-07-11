@@ -94,7 +94,7 @@
             {% set can_edit = h.check_access('package_update', {'id':pkg.id }) and h.check_access('resource_update', res) %}
             {% if can_edit %}
               <a href="{{ h.url_for(pkg.type ~ '_resource.edit', id=pkg.name, resource_id=res.id) }}"
-                 class="ontario-button ontario-button--tertiary">
+                 class="resource-button-tertiary ontario-button ontario-button--tertiary">
                 <i class="fa fa-pencil-square-o"></i>
                 {{ _('Edit') }}
               </a>
