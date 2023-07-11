@@ -3,3 +3,4 @@ ontario_theme_js:
     - ontario-a11y.js
     - ontario-header.js
     - odc-search.js
+    - ontario-back-to-top.js
