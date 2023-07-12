@@ -1,10 +1,9 @@
-{% ckan_extends %}
+{% set type = group.type or 'group' %}
+{% set url = h.url_for(type ~ '.read', id=group.name) %}
 
 {% block item %}
   <tr class="group-search-row">
     {% block item_inner %}
-      {% block image %}
-      {% endblock image %}
       <th scope="row" colspan="2">
       {% block title %}
         {% block link %}
