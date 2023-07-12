@@ -1,14 +1,37 @@
 {% ckan_extends %}
 
-{% block image %}
-{% endblock image %}
-
-{% block title %}
-  <h3 class="media-heading">{{ h.get_translated(group,"title") }}</h3>
-{% endblock title %}
-
-{% block description %}
-  {% if h.get_translated(group,"description") %}
-    <p>{{ h.markdown_extract(h.get_translated(group,"description"), extract_length=80) }}</p>
-  {% endif %}
-{% endblock description %}
+{% block item %}
+<tr>
+  {% block item_inner %}
+    {% block image %}
+    {% endblock image %}
+    <td>
+    {% block title %}
+      <h3 class="media-heading">{{ h.get_translated(group,"title") }}</h3>
+    {% endblock title %}
+    {% block description %}
+      {% if h.get_translated(group,"description") %}
+        <p>{{ h.markdown_extract(h.get_translated(group,"description"), extract_length=80) }}</p>
+      {% endif %}
+    {% endblock description %}
+    </td>
+    <td>
+    {% block datasets %}
+      {% if group.package_count %}
+        <strong class="count">{{ ungettext('{num} Dataset', '{num} Datasets', group.package_count).format(num=group.package_count) }}</strong>
+      {% elif group.package_count == 0 %}
+        <span class="count">{{ _('0 Datasets') }}</span>
+      {% endif %}
+    {% endblock datasets %}
+    {% block link %}
+    <a href="{{ url }}" title="{{ _('View {name}').format(name=group.display_name) }}" class="media-view">
+      <span>{{ _('View {name}').format(name=group.display_name) }}</span>
+    </a>
+    {% endblock link %}
+    </td>
+  {% endblock item_inner %}
+</tr>
+{% endblock item %}
+{% if position is divisibleby 3 %}
+  <li class="clearfix js-hide"></li>
+{% endif %}

@@ -9,7 +9,7 @@
     
 #}
 {% block group_list %}
-  <ul class="media-grid" data-module="media-grid">
+  <table>
     {% block group_list_inner %}
       {# Sort array of Group objects according to title_translated.
                 Not necessary when accessing Groups from the groups tab on 
@@ -25,6 +25,13 @@
           reverse=reverse)
         %}
       {% endif %}
+      <thead>
+      <tr>
+        <th>{{ _('Groups') }}</th>
+        <th>{{ _('Datasets') }}</th>
+      </tr>
+      </thead>
+      <tbody>
       {% for group in groups %}
         {% if group['title_translated'] %}
           {% if group['title_translated'][current_lang] %}
@@ -37,6 +44,7 @@
         {% endif %}
         {% snippet "group/snippets/group_item.html", group=group, position=loop.index %}
       {% endfor %}
+      </tbody>
     {% endblock group_list_inner %}
-  </ul>
+  </table>
 {% endblock group_list %}
