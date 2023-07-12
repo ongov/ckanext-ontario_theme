@@ -57,8 +57,8 @@ msgid "https://www.ontario.ca/page/copyright-information"
 msgstr "https://www.ontario.ca/fr/page/droits-dauteur"
 
 #: ckanext/ontario_theme/templates/footer.html:15
-msgid "&copy; King&#8217;s Printer for Ontario"
-msgstr "&copy; Imprimeur du Roi pour l’Ontario"
+msgid "&copy; King&#8217;s Printer for Ontario,"
+msgstr "&copy; Imprimeur du Roi pour l’Ontario,"
 
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read:73
 msgid "Queen&#8217;s Printer for Ontario"
@@ -2302,7 +2302,7 @@ msgstr "Lire plus"
 
 #: ckanext/ontario_theme/templates/package/snippets/resources_list.html:17
 msgid "No date range"
-msgstr "Pas de intervalle"
+msgstr "Aucune plage de dates"
 
 #: ckanext/ontario_theme/templates/package/snippets/resources_list.html:20
 msgid "Covers"
@@ -2377,6 +2377,14 @@ msgstr "Niveau d’accès"
 #: ckanext/ontario_theme/templates/snippets/search_form.html:29
 msgid "Update Frequency"
 msgstr "Fréquence de mise à jour"
+
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Category"
+msgstr "Catégorie"
+
+#: ckanext/ontario_theme/templates/snippets/search_form.html:29
+msgid "Jurisdiction"
+msgstr "Juridiction"
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:14
 msgid "Search"
@@ -2525,3 +2533,15 @@ msgstr "Remplissez un <a href=\"https://www.ontario.ca/fr/forme/signalez-une-err
 #: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:29
 msgid "Date range"
 msgstr "Plage de dates"
+
+#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:41
+msgid "No start date"
+msgstr "Aucune date de début"
+
+#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:37
+msgid "no end date"
+msgstr "aucune date de fin"
+
+# Back to top button
+msgid "Top"
+msgstr "Haut"
