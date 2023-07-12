@@ -9,7 +9,10 @@
     
 #}
 {% block group_list %}
-  <table>
+  <table class="group-search-table ontario-small-12">
+    <colgroup>
+      <col span="2">
+    </colgroup>
     {% block group_list_inner %}
       {# Sort array of Group objects according to title_translated.
                 Not necessary when accessing Groups from the groups tab on 
@@ -26,10 +29,10 @@
         %}
       {% endif %}
       <thead>
-      <tr>
-        <th>{{ _('Groups') }}</th>
-        <th>{{ _('Datasets') }}</th>
-      </tr>
+        <tr>
+          <th colspan="2">{{ _('Groups') }}</th>
+          <th>{{ _('Datasets') }}</th>
+        </tr>
       </thead>
       <tbody>
       {% for group in groups %}

@@ -2713,3 +2713,48 @@ div#topics div p {
 .facets-show-more.ontario-button {
   margin: 0;
 }
+
+/* ========================================================================
+   Group Search Page - Table view
+   ======================================================================== */
+.group-search-table thead th {
+  font-size: 22px;
+  font-weight: 700;
+  padding-bottom: 30px;
+}
+
+.group-search-row,
+.group-search-heading {
+  font-size: 18px;
+}
+
+.group-search-table tbody > tr.group-search-row {
+  border-top: solid 1px #ccc;
+}
+
+.group-search-table tbody > tr.group-search-row > th,
+.group-search-table tbody > tr.group-search-row > td {
+  padding-top: 1.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.group-search-table tbody > tr.group-search-row > td {
+  padding-left: 25px;
+}
+
+.group-search-description > td > p {
+  font-size: 19px;
+  margin-top: -2rem;
+}
+
+@media screen and (max-width: 20em) {
+  .group-search-table colgroup col {
+    width: 30%;
+  }
+}
+
+@media screen and (min-width: 40em) {
+  .group-search-table colgroup col {
+    width: 40%;
+  }
+}
