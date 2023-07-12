@@ -232,7 +232,7 @@
                         {% else %}
                           <tr>
                             <th scope="row">{{ _('File size') }}</th>
-                            <td>{{ h.localised_filesize(res.size) if res.size else _('unknown size') }}</td>
+                            <td>{{ h.ontario_theme_abbr_localised_filesize(res.size)|safe if res.size else _('unknown size') }}</td>
                           </tr>
                         {% endif %}
                       {%- endblock resource_format -%}
