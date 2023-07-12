@@ -1530,24 +1530,20 @@ via submission form. Copied from DS.*/
   margin-bottom: 10px;
 }
 
-.resource-item.row,
-.resource-list {
-  margin: 0 -15px;
-}
-
 .resource-item div {
   padding: unset;
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 64em) {
   .resource-item .text-right {
     text-align: left;
   }
 }
 
-@media screen and (min-width: 40em) and (max-width: 992px) {
+@media screen and (min-width: 40em) and (max-width: 64em) {
   .resource-item .text-right {
     margin-left: 71px;
+    float: left !important;
   }
 }
 
@@ -1660,8 +1656,20 @@ via submission form. Copied from DS.*/
   white-space: nowrap;
 }
 
+.resource-button-primary,
+.resource-button-tertiary,
+.resource-button-secondary {
+  min-width: 175px;
+  min-height: 28px;
+}
+
+@media screen and (max-width: 64em) {
+  .resource-buttons {
+    margin-top: 10px;
+  }
+}
+
 .resource-button-primary {
-  min-width: 150px;
   vertical-align: top;
   background-color: #3c7fa3;
 }
@@ -1672,7 +1680,6 @@ via submission form. Copied from DS.*/
 }
 
 .resource-button-secondary {
-  min-width: 175px;
   vertical-align: top;
   border: 2px solid #3c7fa3;
 }
@@ -1687,12 +1694,6 @@ via submission form. Copied from DS.*/
 @media screen and (min-width: 40em) {
   .resource-button-text {
     display: inline-flex;
-  }
-}
-
-@media screen and (min-width: 64em) {
-  .label-div {
-    margin-bottom: 57px;
   }
 }
 
