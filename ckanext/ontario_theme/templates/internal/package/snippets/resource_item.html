@@ -33,7 +33,7 @@
         {% endif %}
         {% if res.size %}
           <span class="filesize">
-            [{{ h.localised_filesize(res.size) }}]
+            [{{ h.ontario_theme_abbr_localised_filesize(res.size)|safe }}]
           </span>
         {% endif %}
       </div>
