@@ -719,8 +719,11 @@ def resource_update_auth(context, data_dict=None):
     return {'success': True, 'msg': 'This package is editable.'}
 
 def abbr_localised_filesize(number: int) -> str:
-    ''' Returns a localised unicode representation of a number in bytes, MiB with abbreviation tags
-    etc '''
+    ''' Returns a localised unicode representation of a number in bytes, MiB etc
+    with abbreviation tags for accessibility
+
+    Modified localised_filesize function from ckan/lib/formatters.py
+    '''
     def rnd(number: int, divisor: int):
         # round to 1 decimal place
         return formatters.localised_number(float(number * 10 // divisor) / 10)
