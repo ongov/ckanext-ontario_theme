@@ -1815,3 +1815,7 @@ msgstr ""
 # Back to top button
 msgid "Top"
 msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:106
+msgid "Sort by"
+msgstr ""
