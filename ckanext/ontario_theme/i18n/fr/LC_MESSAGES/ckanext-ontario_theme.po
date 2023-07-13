@@ -2488,6 +2488,10 @@ msgstr "Servez-vous de l’API de données"
 msgid "CKAN Data API calls"
 msgstr "appels de l’API de données CKAN"
 
+#: ckanext/ontario_theme/templates/internal/ajax_snippets/api_info.html:129
+msgid "A simple request to the data API using Python."
+msgstr "Une simple requête HTTP à l’API des données en utilisant Python."
+
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:112
 msgid "Visualize data"
 msgstr "Visualisez les données"
