@@ -1,11 +1,14 @@
 {# djlint:off J018 #}
 {% ckan_extends %}
+{% block wrapper_class %}
+  dataset-main
+{% endblock wrapper_class %}
 
 {% block secondary %}
-  <aside class="secondary col-sm-4 right-col dataset-font">
+  <aside class="dataset-aside secondary col-xs-12 col-lg-4 right-col dataset-font">
     {% block package_info %}
       <div class="module module-narrow module-shallow context-info">
-        <h2 class="aside-heading">{{ _("Keep updated") }}</h2>
+        <h2 class="ontario-h4">{{ _("Keep updated") }}</h2>
         <section>
           <p>{{ _("Subscribe to updates to this dataset using RSS.") }}</p>
           <p>

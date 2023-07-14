@@ -8,7 +8,7 @@
 {% set title = title or h.get_facet_title(name) %}
 {% block facet_list_heading %}
   {% with items = items or h.get_facet_items_dict(name) %}
-    <h2 class="module-heading">
+    <h4 class="ontario-h5">
       <i class="fa fa-filter"></i>
       {{ title }}
       {% set screen_reader_text = "No search filters applied for "+title+". Options are " %}
@@ -17,7 +17,7 @@
           {% set screen_reader_text = "Search filters are applied for "+title+"." %}
         {% endif %}
       {% endif %}
-    </h2>
+    </h4>
     <span class="sr-only">{{ screen_reader_text }}</span>
   {% endwith %}
 {% endblock facet_list_heading %}
@@ -41,20 +41,19 @@
                 <span>{{ label_truncated }} {{ count }}</span>
               </a>
             </li>
-          {% endfor %}
-        </ul>
-      </nav>
-      <p class="module-footer">
-        {% if h.get_param_int('_%s_limit' % name) %}
-          {% if h.has_more_facets(name, c.search_facets) %}
-            <a href="{{ h.remove_url_param('_%s_limit' % name, replace=0, extras=extras, alternative_url=alternative_url) }}"
-               class="show-more">{{ _('Show more') }}</a>
-          {% endif %}
-        {% else %}
-          <a href="{{ h.remove_url_param('_%s_limit' % name, extras=extras, alternative_url=alternative_url) }}"
-             class="show-more">{{ _('Show less') }}</a>
+        {% endfor %}
+      </ul>
+    </nav>
+
+    <p class="module-footer">
+      {% if h.get_param_int('_%s_limit' % name) %}
+        {% if h.has_more_facets(name, c.search_facets) %}
+          <a href="{{ h.remove_url_param('_%s_limit' % name, replace=0, extras=extras, alternative_url=alternative_url) }}" role="button" class="facets-show-more ontario-button ontario-button--secondary">{{ _('Show more') }}</a>
         {% endif %}
-      </p>
+      {% else %}
+        <a href="{{ h.remove_url_param('_%s_limit' % name, extras=extras, alternative_url=alternative_url) }}" role="button" class="facets-show-more ontario-button ontario-button--secondary">{{ _('Show less') }}</a>
+      {% endif %}
+    </p>
     {% else %}
       <p class="module-content empty">
         {{ _('There are no {facet_type} that match this search').format(facet_type=title) }}

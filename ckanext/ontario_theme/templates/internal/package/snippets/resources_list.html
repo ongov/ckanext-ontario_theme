@@ -26,12 +26,25 @@
             {% do resource.update({"data_range": h.ontario_theme_get_date_range(resource.data_range_start|default("N/A"),resource.data_range_end|default("N/A"))}) %}
           {% endfor %}
           {% for group in resources|selectattr("type","equalto","data")|groupby("data_range")|sort(attribute="grouper", reverse=True) %}
+            {# No date range output when start and end date is null and when there is an end date, but start date is null #}
+            {% if not group.list[0].data_range_start and not group.list[0].data_range_end %}
+              <p class="date-range">{{ _("No date range") }} </p>
+            {% elif not group.list[0].data_range_start or not group.list[0].data_range_end %}
+              <p class="date-range">{{ _("Date range")+_(":") }}
+              {# Condition when date range has a start date but no end date. Ex output: May 30, 2023 - no end date (EN), 30 mai 2023 - aucune date de fin (FR) #}
+              {% if group.list[0].data_range_start and not group.list[0].data_range_end %}
+                {{ h.render_datetime(group.list[0].data_range_start) }} - {{ _('no end date') }}
+              {% endif %}
+              {# Condition when date range has an end date but no start date. Ex output: No start date - May 30, 2023 (EN), Aucune date de début - 30 mai 2023 (FR) #}
+              {% if not group.list[0].data_range_start and group.list[0].data_range_end %}
+                {{ _('No start date') }} - {{ h.render_datetime(group.list[0].data_range_end) }}
+              {% endif %}
+              </p>
             {# Single day snapshot of date. Ex output: May 30, 2023 (EN), 30 mai 2023 (FR)#}
-            {% if group.list[0].data_range != "N/A - N/A" and group.list[0].data_range_start == group.list[0].data_range_end %}
+            {% elif group.list[0].data_range_start == group.list[0].data_range_end %}
               <p class="date-range">{{ _("Date")+_(":") }} {{ h.render_datetime(group.list[0].data_range_start) }}</p>
-            {% elif group.list[0].data_range != "N/A - N/A" %}
-              <p class="date-range">
-                {{ _("Date range")+_(":") }}
+            {% else %}
+              <p class="date-range">{{ _("Date range")+_(":") }}
                 {# Condition when the date range is within a month. Ex output: April 1 - 31, 2023 (EN), 1 - 31 avril 2023 (FR) #}
                 {% if group.list[0].data_range_start[0:7] == group.list[0].data_range_end[0:7] %}
                   {% set month_day = -6 if current_lang == 'en' else 1 %}
@@ -46,8 +59,6 @@
                   {{ h.render_datetime(group.list[0].data_range_start) }} - {{ h.render_datetime(group.list[0].data_range_end) }}
                 {% endif %}
               </p>
-            {% else %}
-              <p class="date-range">{{ _("No date range") }}</p>
             {% endif %}
             <ul class="{% block resource_list_class -%}
                          resource-list{%- endblock resource_list_class %}">

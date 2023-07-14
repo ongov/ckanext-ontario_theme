@@ -62,7 +62,7 @@ block. super() will end up calling the facets twice.
 {% endblock packages_list %}
 
 {% block secondary %}
-  <aside class="secondary col-sm-3 filter-results">
+  <aside class="secondary col-sm-3 group-packages filter-results">
     {% block secondary_content %}
       {% snippet "group/snippets/info.html", group=c.group_dict, show_nums=true %}
       <div class="filters">
@@ -71,23 +71,11 @@ block. super() will end up calling the facets twice.
           extras={'id':c.group_dict.id}) }}
         </div>
         <div>
-          {{ h.snippet('snippets/ontario_theme_jurisdiction_facet.html',
-          extras={'id':c.group_dict.id}) }}
-        </div>
-        <div>
-          {{ h.snippet('snippets/ontario_theme_category_facet.html',
-          extras={'id':c.group_dict.id}) }}
-        </div>
-        <div>
           {#
             Flag facets to be ignored from standard loop that calls facets.
           #}
-          {% set excluded_facets = ["organization_jurisdiction", "organization_category", "keywords_en", "keywords_fr"] %}
-          {% for facet in c.facet_titles %}
-            {% if facet not in excluded_facets %}
-              {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet, extras={'id':c.group_dict.id}) }}
-            {% endif %}
-          {% endfor %}
+          {% set single_option_facets = ['organization_jurisdiction', 'organization_category'] %}
+          {{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets, extras={'id':c.group_dict.id}) }}
         </div>
         <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
       </div>
