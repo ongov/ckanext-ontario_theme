@@ -53,13 +53,14 @@
   %}
 {% set language = h.lang() %}
 {% set label = "label_fr" if language == "fr" else "label_en" %}
+{% set labels_list = h.ontario_theme_sort_accented_characters(topics, label) %}
 <ul class="topics-list">
-{% for i in topics| sort(attribute=label) %}
-  <li class="topics-list-item">
-    <a href="{{ h.url_for('dataset.search') }}?keywords_{{ request.environ.CKAN_LANG }}={{ _(i['label'])|replace(' ','+')|replace(',','') }}"
-        class="hp_category"><i class="fa fa-{{ i['fa-icon'] }}"></i>
-      <span>{{ i[label] }}</span></a>
-      <span class="category-count">({{ h.ontario_theme_get_keyword_count(_(i[label]), language) }})</span>
-  </li>
+{% for i in labels_list %}
+    <li class="topics-list-item">
+      <a href="{{ h.url_for('dataset.search') }}?keywords_{{ request.environ.CKAN_LANG }}={{ i[label]|replace(' ','+')|replace(',','') }}"
+          class="hp_category"><i class="fa fa-{{ i['fa-icon'] }}"></i>
+        <span>{{ i[label] }}</span></a>
+        <span class="category-count">({{ h.ontario_theme_get_keyword_count(_(i[label]), language) }})</span>
+    </li>
 {% endfor %}
 </ul>

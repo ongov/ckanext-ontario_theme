@@ -22,6 +22,8 @@ from ckan.lib.helpers import core_helper
 
 from ckan.model import Package
 import ckan.model as model
+import locale
+import functools
 
 from ckanext.ontario_theme.resource_upload import ResourceUpload
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
@@ -775,6 +777,12 @@ def default_locale():
     value = config.get('ckan.locale_default', 'en')
     return value
 
+def sort_accented_characters(french_list, primary_key=None):
+    locale.setlocale(locale.LC_ALL, "")
+    def compare_keys(item1, item2):
+        return locale.strcoll(item1[primary_key], item2[primary_key])
+    sorted_list = sorted(french_list, key=functools.cmp_to_key(compare_keys))
+    return sorted_list
 
 def num_resources_filter_scrub(search_params):
     u'''Remove any quotes around num_resources value to enable prober filter
@@ -1001,7 +1009,8 @@ type data_last_updated
                 'ontario_theme_get_keyword_count': get_keyword_count,
                 'ontario_theme_get_all_packages': get_all_packages,
                 'ontario_theme_get_all_organizations': get_all_organizations,
-                'ontario_theme_sort_by_title_translated': sort_by_title_translated
+                'ontario_theme_sort_by_title_translated': sort_by_title_translated,
+                'ontario_theme_sort_accented_characters': sort_accented_characters
                 }
 
     # IBlueprint

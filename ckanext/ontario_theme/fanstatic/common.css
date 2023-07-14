@@ -2372,14 +2372,16 @@ body {
 
 .topics-list {
   list-style-type: none;
-  display: block;
+  display: grid;
   padding-left: unset;
   margin-top: 28px;
 }
 
 @media screen and (min-width: 40em) {
   .topics-list {
-    columns: 2;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(5, auto);
+    grid-auto-flow: column;
     column-gap: 50px;
   }
 }
