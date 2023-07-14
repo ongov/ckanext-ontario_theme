@@ -74,7 +74,7 @@ block. super() will end up calling the facets twice.
           {#
             Flag facets to be ignored from standard loop that calls facets.
           #}
-          {% set single_option_facets = ['organization_jurisdiction', 'organization_category'] %}
+          {% set single_option_facets = ["organization_jurisdiction", "organization_category"] %}
           {{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets, extras={'id':c.group_dict.id}) }}
         </div>
         <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>

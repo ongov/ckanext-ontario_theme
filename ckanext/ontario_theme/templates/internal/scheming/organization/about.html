@@ -1,12 +1,6 @@
 {% ckan_extends %}
 
-{% set exclude_fields = [
-  'name',
-  'title_translated',
-  'org_contact',
-  'image_url',
-  'description_translated'
-  ] %}
+{% set exclude_fields = ["name", "title_translated", "org_contact", "image_url", "description_translated"] %}
 {% set current_lang = request.environ.CKAN_LANG %}
 {% block primary_content_inner %}
   {% block organization_extras %}
