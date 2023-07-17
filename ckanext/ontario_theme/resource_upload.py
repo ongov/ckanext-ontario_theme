@@ -169,5 +169,4 @@ class ResourceUpload(DefaultResourceUpload):
             resource['format'] = 'WEB'
 
         if resource.get('format') and not (resource.get('format') == 'GeoJSON'):
-            resource_format = resource.get('format')
-            resource['format'] = resource_format.upper()
+            resource['format'] = resource.get('format').upper()
