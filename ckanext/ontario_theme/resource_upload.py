@@ -19,7 +19,6 @@ import io
 from werkzeug.datastructures import FileStorage as FlaskFileStorage
 
 import ckan.lib.munge as munge
-import ckan.logic as logic
 import ckan.plugins as plugins
 from ckan.common import config
 
@@ -49,11 +48,13 @@ def accepted_resource_formats():
             resource_types.append(format_line[2])
     return resource_exts, resource_types
 
+
 def allowed_ext(filename):
     '''Returns boolean. Checks if the file extension is acceptable.
     '''
     resource_exts, resource_types = accepted_resource_formats()
     return filename.rsplit('.', 1)[1].upper() in resource_exts
+
 
 def allowed_mimetype(magic_mimetype):
     '''Returns boolean. Checks if the magic mimetype is acceptable.
@@ -68,30 +69,32 @@ def allowed_mimetype(magic_mimetype):
 
     return magic_mimetype in resource_types
 
+
 def alert_invalidfile(resource, this_filename):
     log.error('Upload: Invalid upload file format.{}'.format
-        (this_filename))
+              (this_filename))
     # remove file - by default a resource can be added without any
     # values
     resource['url'] = None
     resource['url_type'] = ''
     raise logic.ValidationError(
         {'upload':
-        ['Invalid upload file format, file has been removed.']}
+         ['Invalid upload file format, file has been removed.']}
     )
+
 
 class ResourceUpload(DefaultResourceUpload):
     def __init__(self, resource):
         def _check_file_mimetype(self):
             try:
                 self.mimetype = magic.from_buffer(self.upload_file.read(),
-                                                mime=True)
+                                                  mime=True)
                 self.upload_file.seek(0, os.SEEK_SET)
 
                 # If zip file, check mimetypes of each file
                 if 'zip' in self.mimetype:
                     _check_zip_mimetype(self)
-                            
+
                 if not allowed_mimetype(self.mimetype):
                     alert_invalidfile(resource, self.filename)
             except IOError as e:
@@ -111,12 +114,12 @@ class ResourceUpload(DefaultResourceUpload):
                         with this_zip.open(zip_item) as each_file:
                             try:
                                 each_mimetype = magic.from_buffer(each_file.read(),
-                                                mime=True)
+                                                                  mime=True)
                                 if not allowed_mimetype(each_mimetype):
                                     alert_invalidfile(resource, self.filename)
                             except:
                                 alert_invalidfile(resource, self.filename)
-                        
+
         path = get_storage_path()
         config_mimetype_guess = config.get('ckan.mimetype_guess', 'file_ext')
 
@@ -144,7 +147,7 @@ class ResourceUpload(DefaultResourceUpload):
                 isinstance(upload_field_storage, ALLOWED_UPLOAD_TYPES):
             self.filesize = 0  # bytes
             self.filename = upload_field_storage.filename
-            self.filename = secure_filename(self.filename) # werkzueg
+            self.filename = secure_filename(self.filename)  # werkzueg
             self.filename = munge.munge_filename(self.filename)
             resource['url'] = self.filename
             resource['url_type'] = 'upload'
@@ -156,12 +159,12 @@ class ResourceUpload(DefaultResourceUpload):
             self.upload_file.seek(0, os.SEEK_SET)
 
             # Check extension against allowed list of extensions
-            if  '.' in self.filename and not allowed_ext(self.filename):
+            if '.' in self.filename and not allowed_ext(self.filename):
                 alert_invalidfile(resource, self.filename)
 
             # Determine mimetype with python-magic
             _check_file_mimetype(self)
-                      
+
         elif self.clear:
             resource['url_type'] = ''
 

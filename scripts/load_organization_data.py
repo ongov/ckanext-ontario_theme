@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-#import the necessary modules
+# import the necessary modules
 import requests
 import json
 from datetime import datetime
@@ -17,7 +17,7 @@ logging.basicConfig(filename='ontario-ca-import.log',
                     level=logging.INFO,
                     filemode='w',
                     format='%(asctime)s - %(levelname)s: %(message)s')
-## Settings
+# Settings
 testing_mode = False
 
 headers = {'Content-type': 'application/json'}

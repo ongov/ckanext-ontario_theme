@@ -27,7 +27,7 @@ from ckanext.ontario_theme.resource_upload import ResourceUpload
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
 
 # For Image Uploader
-#from ckan.controllers.home import CACHE_PARAMETERS
+# from ckan.controllers.home import CACHE_PARAMETERS
 import ckan.lib.navl.dictization_functions as dict_fns
 import ckan.logic as logic
 import os
@@ -36,6 +36,7 @@ import ckan.lib.helpers as h
 
 import logging
 log = logging.getLogger(__name__)
+
 
 def image_uploader():
     '''View function that renders the image uploader form.
@@ -108,17 +109,20 @@ def image_uploaded():
     except Exception as e:
         log.error(e)
     return h.redirect_to(u'ontario_theme.image_uploader', image_url=image_url)
-# Had to add the extra options for methods here instead of in the blueprint add_url_rule to avoid invalid syntax error.
+# Had to add the extra options for methods here instead of in the blueprint
+# add_url_rule to avoid invalid syntax error.
 # See https://flask.palletsprojects.com/en/1.1.x/api/#view-function-options
+
+
 image_uploaded.methods = ['POST', 'OPTIONS']
 
 '''
-default_tags_schema added because when tags are validated on 
-resource_create/resource_update, it doesn't pull tag validators 
+default_tags_schema added because when tags are validated on
+resource_create/resource_update, it doesn't pull tag validators
 from scheming, rather applies core tag validators.
 
 We considered adding tags back into the schema so we could include new
-tag validators for tags, but it seemed neater to continue to keep it out 
+tag validators for tags, but it seemed neater to continue to keep it out
 of the schema.
 
 We also considered using _modify_package_schema, but it doesn't work with
@@ -130,6 +134,8 @@ tag_name_validator
 to
 validators.tag_name_validator
 '''
+
+
 @validator_args
 def default_tags_schema(
         not_missing, not_empty, unicode_safe, tag_length_validator,
@@ -151,7 +157,9 @@ def default_tags_schema(
         'display_name': [ignore],
     }
 
+
 ckan.logic.schema.default_tags_schema = default_tags_schema
+
 
 @core_helper
 def resource_display_name(resource_dict):
@@ -168,11 +176,13 @@ def resource_display_name(resource_dict):
             description = description[:max_len] + '...'
         return description
     elif resource_type:
-        return resource_type.replace('_',' ').capitalize()
+        return resource_type.replace('_', ' ').capitalize()
     else:
         return helpers._("Supporting file")
 
+
 ckan.lib.helpers.resource_display_name = resource_display_name
+
 
 def help():
     '''New help page for site.
@@ -183,11 +193,12 @@ def help():
 def csv_dump():
     '''
         This was rewritten to be compatible with python3.6/ckan2.9
-        It used to use ckanapi_exporter, but that was replaced with borrowing csv generation 
+        It used to use ckanapi_exporter, but that was replaced with borrowing csv generation
         from the datastore extension
     '''
     fields = [
-        {   "id": "Id",
+        {
+            "id": "Id",
             "pattern": ["id"],
             "type": "text"
         },
@@ -197,108 +208,108 @@ def csv_dump():
             "type": "text"
         },
         {
-            "id":"Title EN",
+            "id": "Title EN",
             "pattern": ["title_translated", "en"],
             "type": "text"
         },
         {
-            "id":"Notes EN",
+            "id": "Notes EN",
             "pattern": ["notes_translated", "en"],
             "type": "text"
         },
         {
-            "id":"Organization Title",
+            "id": "Organization Title",
             "pattern": ["organization", "title"],
             "type": "text"
         },
         {
-            "id":"Access Level",
+            "id": "Access Level",
             "pattern": ["access_level"],
             "type": "text"
         },
         {
-            "id":"Type",
+            "id": "Type",
             "pattern": ["type"],
             "type": "text"
         },
         {
-            "id":"Update Frequency",
+            "id": "Update Frequency",
             "pattern": ["update_frequency"],
             "type": "text"
         },
         {
-            "id":"Metadata Created",
+            "id": "Metadata Created",
             "pattern": ["metadata_created"],
             "type": "timestamp"
         },
         {
-            "id":"Metadata Modified",
+            "id": "Metadata Modified",
             "pattern": ["metadata_modified"],
             "type": "timestamp"
         },
         {
-            "id":"License Title",
+            "id": "License Title",
             "pattern": ["license_title"],
             "type": "text"
         },
         {
-            "id":"Keywords EN",
+            "id": "Keywords EN",
             "pattern": ["keywords", "en"],
             "type": "text"
         },
         {
-            "id":"Package Date Opened",
+            "id": "Package Date Opened",
             "pattern": ["opened_date"],
             "type": "text"
         },
         {
-            "id":"Package Last Validated Date",
+            "id": "Package Last Validated Date",
             "pattern": ["current_as_of"],
             "type": "timestamp"
         },
         {
-            "id":"Exemption",
+            "id": "Exemption",
             "pattern": ["exemption"],
             "type": "text"
         },
         {
-            "id":"Exemption Rationale EN",
+            "id": "Exemption Rationale EN",
             "pattern": ["exemption_rationale", "en"],
             "type": "text"
         },
         {
-            "id":"Geographic Coverage EN",
+            "id": "Geographic Coverage EN",
             "pattern": ["geographic_coverage_translated", "en"],
             "type": "text"
         },
         {
-            "id":"Resources Format",
+            "id": "Resources Format",
             "pattern": ["resources", "format"],
             "deduplicate": "true",
             "type": "text"
         },
         {
-            "id":"Num Resources",
+            "id": "Num Resources",
             "pattern": ["num_resources"],
             "type": "int"
         },
         {
-            "id":"Title FR",
+            "id": "Title FR",
             "pattern": ["title_translated", "fr"],
             "type": "text"
         },
         {
-            "id":"Geographic Coverage FR",
+            "id": "Geographic Coverage FR",
             "pattern": ["geographic_coverage_translated", "fr"],
             "type": "text"
         },
         {
-            "id":"Exemption Rationale FR",
+            "id": "Exemption Rationale FR",
             "pattern": ["exemption_rationale", "fr"],
             "type": "text"
         },
         {
-            "id":"Keywords FR",
+            "id": "Keywords FR",
             "pattern": ["keywords", "fr"],
             "type": "text"
         }
@@ -306,14 +317,14 @@ def csv_dump():
 
     import csv
     from ckanext.datastore.writer import csv_writer
-    
+
     def returnValues(value, pattern):
         pattern_step = pattern[0]
         if isinstance(value, list) and len(value) > 0:
             for sub_value in value:
                 return " ".join(returnValues(sub_value, pattern))
         elif len(pattern) == 1 and pattern_step in value:
-            return value[pattern_step]                 
+            return value[pattern_step]
         elif pattern_step in value:
             return returnValues(value[pattern_step], pattern[1:])
         else:
@@ -325,10 +336,10 @@ def csv_dump():
             row = []
             for v in fields:
                 row.append(returnValues(dataset_row, v['pattern']))
-            csv.writer(response.stream).writerow(row)            
+            csv.writer(response.stream).writerow(row)
 
     def result_page(offs, lim):
-        get_packages=toolkit.get_action('package_search')(
+        get_packages = toolkit.get_action('package_search')(
                 data_dict={
                         'sort': 'title desc',
                         'start': offs,
@@ -342,7 +353,7 @@ def csv_dump():
     timestamp = datetime.datetime.now().strftime('%Y-%m-%d')
     csv_filename = 'ontario_data_catalogue_inventory_' + timestamp
 
-    #start response
+    # start response
     response = make_response()
     response.headers[u'content-type'] = u'application/octet-stream'
 
@@ -352,7 +363,7 @@ def csv_dump():
         while start < count:
             result = result_page(start, limit)
             if count == 1:
-                count = result["count"] 
+                count = result["count"]
             write_packages(result["results"])
             start = start + limit
 
@@ -362,22 +373,24 @@ def csv_dump():
 def get_group(group_id):
     '''Helper to return the group.
     CKAN core has a get_organization helper but does not have one for groups.
-    This also allows us to access the group with all extras which are needed to 
+    This also allows us to access the group with all extras which are needed to
     access the scheming/fluent fields.
     '''
     group_dict = toolkit.get_action('group_show')(
         data_dict={'id': group_id})
     return group_dict
 
+
 def get_group_datasets(group_id):
     '''Helper to return 10 of the most popular datasets in the desired group
     '''
     group_id = 'groups:{}'.format(group_id)
     group_datasets = toolkit.get_action('package_search')(
-        data_dict={ 'fq': group_id,
-                    'rows': 10,
-                    'sort': 'views_recent desc'})
+        data_dict={'fq': group_id,
+                   'rows': 10,
+                   'sort': 'views_recent desc'})
     return group_datasets['results']
+
 
 def get_keyword_count(keyword_lang, language):
     '''Helper to return the dataset count of the indicated group by language
@@ -389,21 +402,21 @@ def get_keyword_count(keyword_lang, language):
     language
         Current language of the site.
     '''
-    facet = "keywords_{}".format(language) # either keywords_en or keywords_fr
+    facet = "keywords_{}".format(language)  # either keywords_en or keywords_fr
 
-    # Keywords of all packages as defined manually in the 
+    # Keywords of all packages as defined manually in the
     # dataset page upon creation
     package_keywords = toolkit.get_action('package_search')(
-    data_dict={'facet.field': [facet],
-        'rows': 0})
-    
+        data_dict={'facet.field': [facet],
+                   'rows': 0})
+
     # Keywords that are currently selected
     active_keywords = package_keywords['facets'][facet]
 
     # Determine if any Homepage topics match any currently-selected keywords
     # NB: Commas are not allowed in package keywords, so to match packages
     # containing the keyword string "Housing, Communities and Social Support",
-    # with the Homepage topic "Housing, Communities and Social Support", 
+    # with the Homepage topic "Housing, Communities and Social Support",
     # the comma must be disregarded in the Homepage topic.
     if keyword_lang.replace(',', '') in active_keywords:
         keyword_count_by_lang = active_keywords[keyword_lang.replace(',', '')]
@@ -411,6 +424,7 @@ def get_keyword_count(keyword_lang, language):
         keyword_count_by_lang = 0
 
     return keyword_count_by_lang
+
 
 def paginate_items(all_items, current_page, items_per_page):
     '''Returns a slice of an array of items for pagination
@@ -421,10 +435,10 @@ def paginate_items(all_items, current_page, items_per_page):
         The page number currently being displayed.
 
     items_per_page
-        Maximum number of items to display per page. 
+        Maximum number of items to display per page.
         Defined somewhere as 20.
     '''
-    item_count =  len(all_items)
+    item_count = len(all_items)
 
     # Calculate number of pages in the pagination needed to display
     # all items in input_items
@@ -434,7 +448,7 @@ def paginate_items(all_items, current_page, items_per_page):
         last_page = first_page + page_count - 1
 
     # Set index ranges for slicing the sorted_org object
-    slice0 = [] 
+    slice0 = []
     slice1 = []
     for idx in range(last_page):
         slice0.append(idx * items_per_page)
@@ -448,25 +462,26 @@ def paginate_items(all_items, current_page, items_per_page):
     # pagination page and return it for display
     page = 0
     for idx in range(len(slice0)):
-        page+=1
+        page += 1
         if page == current_page:
             this_slice = all_items[slice0[idx]:slice1[idx]]
-    
-    return this_slice 
+
+    return this_slice
+
 
 def get_all_packages(**kwargs):
-    '''Helper to return the full number of packages matching a 
+    '''Helper to return the full number of packages matching a
     search query, including any facet search requests (in the
     case of no searches, all packages are returned). The full
-    number of packages is needed because in the search page, 
-    only the paginated number of packages for the current page 
-    is available, which prohibits application of any custom 
+    number of packages is needed because in the search page,
+    only the paginated number of packages for the current page
+    is available, which prohibits application of any custom
     sorting since sorting must be done on the full list before
     pagination.
 
     q
         Search query. Passed through c.q.
-    
+
     request_params_items
         Contains the facet search parameters. Passed through
         request.params.
@@ -474,19 +489,19 @@ def get_all_packages(**kwargs):
     current_org
         When datasets are accessed by clicking on an Organization,
         the package search must be limited to the current
-        organization, which is stored in this variable. This 
+        organization, which is stored in this variable. This
         variable is not needed when accessing datasets through
         the Datasets page.
 
     current_group
         When datasets are accessed by clicking on a Group,
         the package search must be limited to the current
-        group, which is stored in this variable. This 
+        group, which is stored in this variable. This
         variable is not needed when accessing datasets through
         the Datasets page.
-    
+
     item_count
-        Number of packages matching search. Passed through 
+        Number of packages matching search. Passed through
         c.page.item_count.
 
     '''
@@ -502,17 +517,17 @@ def get_all_packages(**kwargs):
     fq = ''
     for (param, value) in OrderedDict(request_params_items).items():
         if param not in ['q', 'page', 'sort'] \
-            and len(value) and not param.startswith('_'):
+                and len(value) and not param.startswith('_'):
             if not param.startswith('ext_'):
                 fq += ' %s:"%s"' % (param, value)
             else:
                 search_extras[param] = value
-    
+
     # Add organization to facet query
     # see e.g. https://localhost/api/action/package_search?fq=organization:helloworld&include_private=true
     if current_org:
         fq += ' %s:"%s"' % ('organization', current_org)
-    
+
     # Add groups to facet query
     # see e.g. https://localhost/api/action/package_search?fq=groups:2019-novel-coronavirus
     if current_group:
@@ -522,9 +537,9 @@ def get_all_packages(**kwargs):
     # and any facet queries fq.
     # Note that number of packages matched will be limited to 10
     # unless otherwise specified in 'rows'. Since we already know
-    # there are 'item_count' number of matches, we can set rows 
+    # there are 'item_count' number of matches, we can set rows
     # to 'item_count'.
-    package_search=toolkit.get_action('package_search')(
+    package_search = toolkit.get_action('package_search')(
                 data_dict={
                         'q': q,
                         'fq': fq.strip(),
@@ -537,41 +552,42 @@ def get_all_packages(**kwargs):
 
     return package_search['results']
 
+
 def get_all_organizations(**kwargs):
-    '''Helper function to returns the full list of organizations 
-    output from a keyword search (or all organizations in the 
-    case of no search). In the search page, only the paginated 
-    number of organizations for the current page is available, 
-    which prohibits application of any custom sorting since that 
+    '''Helper function to returns the full list of organizations
+    output from a keyword search (or all organizations in the
+    case of no search). In the search page, only the paginated
+    number of organizations for the current page is available,
+    which prohibits application of any custom sorting since that
     needs the full list.
 
     collection_names
-        An array of short-hand (hyphenated) organization names 
-        (e.g. 'attorney-general') for all items returned from the 
+        An array of short-hand (hyphenated) organization names
+        (e.g. 'attorney-general') for all items returned from the
         search. If no search performed, includes all items.
         Passed from c.page.collection.
 
     '''
-    collection_names=kwargs['collection_names']    
+    collection_names = kwargs['collection_names']
 
     # Get the id of all organizations in the catalogue.
     all_organization_names = toolkit.get_action('organization_list')(data_dict={})
-    
-    # When there are no organizations in the catalogue (e.g. when application is 
+
+    # When there are no organizations in the catalogue (e.g. when application is
     # first installed and database not yet indexed), the below try will fail and
-    # and empty array will be returned, preventing the template from calling 
+    # and empty array will be returned, preventing the template from calling
     # the sort method on organizations.
     try:
         this_name = all_organization_names[0]
-        if toolkit.get_action('organization_show')(data_dict={'id':this_name}):
-            # Filter only those organizations whose names matching those in 
-            # collection_names. Then use helper function h.get_organization() 
+        if toolkit.get_action('organization_show')(data_dict={'id': this_name}):
+            # Filter only those organizations whose names matching those in
+            # collection_names. Then use helper function h.get_organization()
             # to extract the full details for each organization, matching on 'id'.
             org_array = []
             for name in collection_names:
                 for idx in range(len(all_organization_names)):
                     if name == all_organization_names[idx]:
-                        organization_obj = toolkit.get_action('organization_show')(data_dict={'id':name})
+                        organization_obj = toolkit.get_action('organization_show')(data_dict={'id': name})
                         organization_id = organization_obj['id']
                         org_array.append(h.get_organization(organization_id))
     except:
@@ -579,64 +595,69 @@ def get_all_organizations(**kwargs):
 
     return org_array
 
+
 def sort_by_title_translated(item_list, **kwargs):
-    '''Helper function to sort an array of items by the 
-    'title_translated' dict according to the current language. 
-    If this dict does not exist, 'title' is used to sort since 
+    '''Helper function to sort an array of items by the
+    'title_translated' dict according to the current language.
+    If this dict does not exist, 'title' is used to sort since
     'title' always exists.
 
     item_list
         List of items to be sorted.
 
     current_page
-        Current page in the pagination. Passed through c.page.page. 
-    
+        Current page in the pagination. Passed through c.page.page.
+
     items_per_page
         Max number of items per page. Defined in ckan/controllers/package.py
-        as int(config.get('ckan.datasets_per_page', 20)). 
+        as int(config.get('ckan.datasets_per_page', 20)).
         Passed through c.page.items_per_page.
 
     lang
         Current language. Pass through request.environ.CKAN_LANG.
 
     reverse
-        Sort direction. Determined through `asc` or `desc` in request.params['sort']. 
+        Sort direction. Determined through `asc` or `desc` in request.params['sort'].
 
     '''
     field = 'title_translated'
-    current_page=kwargs['current_page']
-    items_per_page=kwargs['items_per_page']
+    current_page = kwargs['current_page']
+    items_per_page = kwargs['items_per_page']
     lang = kwargs['lang']
     reverse = kwargs['reverse']
 
     # Sort item_list by translated title
-    sorted_items = sorted(item_list, 
-                             key=lambda x: x[field][lang].strip() if (field in x and lang in x[field]) else x['title'], 
-                             reverse=reverse)
+    sorted_items = sorted(item_list,
+                          key=lambda x: x[field][lang].strip() if (field in x and lang in x[field]) else x['title'],
+                          reverse=reverse)
 
     # Return subset of sorted_items as per the current pagination page
     return paginate_items(sorted_items, current_page, items_per_page)
+
 
 def get_popular_datasets():
     '''Helper to return most popular datasets, based on ckan core tracking feature
     '''
     popular_datasets = toolkit.get_action('package_search')(
         data_dict={'rows': 10,
-                    'sort': 'views_recent desc'})
+                   'sort': 'views_recent desc'})
     return popular_datasets['results']
+
 
 def get_recently_updated_datasets():
     '''Helper to return 3 freshest datasets
     '''
     recently_updated_datasets = toolkit.get_action('package_search')(
         data_dict={'rows': 3,
-                    'sort': 'current_as_of desc'})
+                   'sort': 'current_as_of desc'})
     return recently_updated_datasets['results']
+
 
 def get_license(license_id):
     '''Helper to return license based on id.
     '''
     return Package.get_license_register().get(license_id)
+
 
 def order_package_facets(orig_ordered_dict):
     ''' Returns an OrderedDict of package facets in the order
@@ -645,26 +666,28 @@ def order_package_facets(orig_ordered_dict):
 
     '''
     # Order that facets should appear in left panel
-    facet_order = ['organization', 'res_format', 'access_level', 'update_frequency', 'license_id',
+    facet_order = ['organization', 'res_format', 'access_level',
+                   'update_frequency', 'license_id',
                    'asset_type', 'groups',
                    'organization_jurisdiction', 'organization_category',
                    'keywords_en', 'keywords_fr',
-                  ]
+                   ]
 
     facet_titles_reorg = list()
     for facet in facet_order:
         for idx in range(len(orig_ordered_dict)):
-            if list(orig_ordered_dict)[idx]==facet:
+            if list(orig_ordered_dict)[idx] == facet:
                 facet_titles_reorg.append((facet, orig_ordered_dict[facet]))
 
     return OrderedDict(facet_titles_reorg)
+
 
 def extract_package_name(url):
     ''' Returns the package name or gets resource name if url is for
         a dataset or resource page
 
-        Returns resource type or "Supporting file" if there is no resource name and
-        no resource type
+        Returns resource type or "Supporting file" if there is no resource
+        name and no resource type
     '''
     import re
 
@@ -672,10 +695,10 @@ def extract_package_name(url):
     resource_pattern = "\/resource\/([-a-z-0-9A-Z\n\r]*)"
     get_resource_name = re.compile(resource_pattern).findall(url)
     get_package_name = re.compile(package_pattern).findall(url)
-    
+
     if len(get_resource_name) > 0:
         try:
-            resource_name = toolkit.get_action('resource_show') (
+            resource_name = toolkit.get_action('resource_show')(
                 data_dict={'id': get_resource_name[0]}
                 )
             if 'name' in resource_name and not resource_name['name']:
@@ -689,7 +712,7 @@ def extract_package_name(url):
                         return "Unnamed Supporting File"
                     else:
                         return "Unnamed " + resource_name['resource_type'] + " file"
-            
+
             if 'name' in resource_name:
                 if len(resource_name['name']) > 0:
                     return resource_name['name']
@@ -702,6 +725,7 @@ def extract_package_name(url):
     else:
         return False
 
+
 def get_translated_lang(data_dict, field, specified_language):
     try:
         return data_dict[field + u'_translated'][specified_language]
@@ -711,7 +735,7 @@ def get_translated_lang(data_dict, field, specified_language):
 
 def resource_update_auth(context, data_dict=None):
     isHarvestedResource = False
-    if data_dict: 
+    if data_dict:
         isHarvestedResource = data_dict.get('harvested_resource', False)
     if isHarvestedResource:
         return {'success': False, 'msg': 'This user is not allowed to edit this resource'}
@@ -743,6 +767,7 @@ def get_package_keywords(language='en'):
     package_top_keywords = package_top_keywords['search_facets'][facet]['items']
     return package_top_keywords
 
+
 def get_date_range(date_start, date_end):
 
     if date_start == 'N/A' or date_end == 'N/A':
@@ -759,12 +784,13 @@ def get_date_range(date_start, date_end):
                 date_range = str(dt_start.year)+' - '+str(dt_end.year)
         elif dt_start.month == 4 and dt_start.day == 1 and \
                 dt_end.month == 3 and dt_end.day == 31:
-            date_range = helpers._("Fiscal: ")+str(dt_start.year) \
-                +' - '+str(dt_end.year)
+            date_range = helpers._("Fiscal: ") + str(dt_start.year) \
+                + ' - ' + str(dt_end.year)
         else:
             date_range = str(date_start) + ' - ' + str(date_end)
 
     return date_range
+
 
 def default_locale():
     '''Wrap the ckan default locale in a helper function to access
@@ -785,7 +811,7 @@ def num_resources_filter_scrub(search_params):
     still access 0 datasets (the opposite of what I've set) by using
     `?num_resources=0`.
     '''
-    # Just a note: this was replacing any double quotes in 
+    # Just a note: this was replacing any double quotes in
     #       the value string so had to change back to exact match
     #       which isn't very re-usable. I started looking at splitting
     #       this out into a dict to loop over easily and find the match
@@ -880,7 +906,6 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
         toolkit.add_resource('fanstatic', 'ontario_theme_common')
         toolkit.add_resource('fanstatic/scripts', 'ontario_theme_scripts')
 
-
         if 'scheming.dataset_schemas' not in config_:
             config_['scheming.dataset_schemas'] = """
 ckanext.ontario_theme:schemas/internal/ontario_theme_dataset.json
@@ -973,14 +998,12 @@ type data_last_updated
 
         return schema
 
-
     # IAuthFunctions
 
     def get_auth_functions(self):
         return {
             'resource_update': resource_update_auth
-            } 
-
+            }
 
     # ITemplateHelpers
 
@@ -991,7 +1014,7 @@ type data_last_updated
                 'ontario_theme_get_translated_lang': get_translated_lang,
                 'ontario_theme_get_popular_datasets': get_popular_datasets,
                 'ontario_theme_get_group': get_group,
-                'ontario_theme_get_date_range' : get_date_range,
+                'ontario_theme_get_date_range': get_date_range,
                 'extrafields_default_locale': default_locale,
                 'ontario_theme_get_package_keywords': get_package_keywords,
                 'ontario_theme_home_block': home_block,
@@ -1015,10 +1038,11 @@ type data_last_updated
 
         @blueprint.before_request
         def before_request():
-            '''Could call this from within the applicable views but this pattern I like better I think.
-            Could also add this as it's own IAuthFunctions as a new auth function, then call that, 
-            but I don't want to override or really create a new one, I want to use the existing sysadmin
-            auth function from my own views.
+            '''Could call this from within the applicable views but this
+            pattern I like better I think. Could also add this as it's own
+            IAuthFunctions as a new auth function, then call that, but I don't
+            want to override or really create a new one, I want to use the
+            existing sysadmin auth function from my own views.
             '''
             if request.endpoint in ['ontario_theme.image_uploader', 'ontario_theme.image_uploaded']:
                 try:
@@ -1062,13 +1086,15 @@ type data_last_updated
 
     def group_facets(self, facets_dict, group_type, package_type):
         u'''Modify and return the ``facets_dict`` for a group's page.
-        Throws AttributeError: no attribute 'organization_facets' without function.
+        Throws AttributeError: no attribute 'organization_facets'
+        without function.
         '''
         return self.dataset_facets(facets_dict, package_type)
 
     def organization_facets(self, facets_dict, organization_type, package_type):
         u'''Modify and return the ``facets_dict`` for an organization's page.
-        Throws AttributeError: no attribute 'organization_facets' without function.
+        Throws AttributeError: no attribute 'organization_facets' without
+        function.
         '''
         return self.dataset_facets(facets_dict, package_type)
 
@@ -1124,8 +1150,8 @@ type data_last_updated
     # IValidators
 
     def get_validators(self):
-       return {
+        return {
             'lock_if_odc': validators.lock_if_odc,
             'ontario_theme_copy_fluent_keywords_to_tags': validators.ontario_theme_copy_fluent_keywords_to_tags,
             'ontario_tag_name_validator': validators.tag_name_validator
-       }
+            }

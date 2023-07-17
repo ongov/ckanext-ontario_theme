@@ -5,6 +5,7 @@ import ckan.lib.navl.dictization_functions as dict_fns
 from ckan.views.dataset import CreateView as CKANCreateView
 from ckan.lib.search import SearchError, SearchQueryError, SearchIndexError
 import ckan.lib.helpers as h
+import logging
 
 NotFound = logic.NotFound
 NotAuthorized = logic.NotAuthorized
@@ -14,7 +15,6 @@ clean_dict = logic.clean_dict
 parse_params = logic.parse_params
 get_action = logic.get_action
 
-import logging
 log = logging.getLogger(__name__)
 
 
@@ -80,7 +80,7 @@ class CreateView(CKANCreateView):
 
             if request.form[u'save'] == 'save-and-finish':
                 url = h.url_for(u'{}.read'.format(package_type),
-                    id=pkg_dict[u'name'])
+                                id=pkg_dict[u'name'])
                 return h.redirect_to(url)
 
             # MODIFICATION END

@@ -5,7 +5,6 @@ from ckan.common import _
 from ckantoolkit import Invalid
 from ckanext.scheming.validation import scheming_validator
 from ckanext.fluent.validators import fluent_text_output
-from ckantoolkit import Invalid
 from ckan.authz import is_sysadmin
 import json
 
@@ -40,6 +39,7 @@ def tag_name_validator(value, context):
                         u'characters or symbols: ’\'-_.') % (value))
     return value
 
+
 @scheming_validator
 def ontario_theme_copy_fluent_keywords_to_tags(field, schema):
     def validator(key, data, errors, context):
@@ -59,10 +59,10 @@ def ontario_theme_copy_fluent_keywords_to_tags(field, schema):
         """
 
         fluent_tags = fluent_text_output(data[key])
-        data[('tags'),] = []
+        data[('tags'), ] = []
         for key, value in fluent_tags.items():
             for tag in value:
-                data[('tags'),].append(
+                data[('tags'), ].append(
                     {'name': tag}
                 )
 
@@ -83,6 +83,7 @@ def __lock_value(value, original_value):
         return False
     return True
 
+
 def __add_error_message(errors, key, message):
     '''
         adds error messages to error dict
@@ -92,6 +93,7 @@ def __add_error_message(errors, key, message):
         errors[key] = []
     errors[key].append(message)
     return errors
+
 
 def __check_all_values(key, value, original_value, errors, message, sub_validator):
     '''
@@ -116,9 +118,11 @@ def __check_all_values(key, value, original_value, errors, message, sub_validato
 
     return errors
 
+
 def __is_public_record(context):
     '''
-        Determines whether a package corresponds to a package on the Ontario Data Catalogue
+        Determines whether a package corresponds to a package on the Ontario
+        Data Catalogue
     '''
 
     package = context.get('package')
@@ -131,35 +135,38 @@ def __is_public_record(context):
 
 def __get_value(key, original_values):
     '''
-        gets the value from the package or resource whether or not it's an extra or not
+        gets the value from the package or resource whether or not it's an
+        extra or not
     '''
 
-    #check if the key is present in the package/resource
+    # check if the key is present in the package/resource
     if hasattr(original_values, key[0]):
         return getattr(original_values, key[0])
-    #if not, check in extras
+    # if not, check in extras
     else:
         return original_values.extras.get(key[0], '')
 
 
 def __if_change_submitted(key, data, context, errors, message):
     '''
-        determines whether a change for a package field has been submitted 
+        determines whether a change for a package field has been submitted
     '''
 
     package = context.get('package')
     if package:
         current = data.get(key, '')
         original = __get_value(key, package)
-        # now we have to run each value (fluent or not, through the validator and add errors)
+        # now we have to run each value (fluent or not, through the validator
+        # and add errors)
         errors = __check_all_values(key, current, original, errors, message, __lock_value)
 
     return errors
 
 
 def lock_if_odc(key, data, errors, context):
-    ''' 
-        Don't let the user change any of these values in the package if it has a public_catalogue_id 
+    '''
+        Don't let the user change any of these values in the package if it has
+        a public_catalogue_id
     '''
 
     if __is_public_record(context) and not is_sysadmin(context['user']):

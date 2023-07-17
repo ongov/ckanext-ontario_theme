@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import six
-import requests 
+import requests
 
 from ckan import model
 from ckan.model import Session
@@ -16,6 +16,7 @@ from sqlalchemy.sql import update, bindparam
 import logging
 log = logging.getLogger(__name__)
 
+
 class OntarioDataCatalogueHarvester(CKANHarvester):
 
     def info(self):
@@ -29,7 +30,7 @@ class OntarioDataCatalogueHarvester(CKANHarvester):
     def gather_stage(self, harvest_job):
         # make sure we have all the right organizations
 
-        url = harvest_job.source.url     
+        url = harvest_job.source.url
 
         session = requests.Session()
         r = session.get("{}/api/action/organization_list".format(url))
@@ -49,7 +50,7 @@ class OntarioDataCatalogueHarvester(CKANHarvester):
                     r = session.get("{}/api/action/organization_show?id={}".format(url, remote_org))
                     if r.json()["success"]:
                         remote_organization = r.json()['result']
-                        new_package = p.toolkit.get_action("organization_create")(context, remote_organization) 
+                        new_package = p.toolkit.get_action("organization_create")(context, remote_organization)
 
         return CKANHarvester.gather_stage(self, harvest_job)
 
@@ -107,45 +108,45 @@ class OntarioDataCatalogueHarvester(CKANHarvester):
                                             existing_package_dict['name'])
 
                     '''
-                    	what we want to do here is
-                    		- not overwrite maintainer name or maintainer email or maintainer branch with blank information
-                    		- not include resources because it will overwrite the existing resources
-                            - match owner_org
-                            - not overwrite all keywords (just add)
+                    what we want to do here is
+                    - not overwrite maintainer name or maintainer email or maintainer branch with blank information
+                    - not include resources because it will overwrite the existing resources
+                    - match owner_org
+                    - not overwrite all keywords (just add)
                     '''
 
                     package_dict['keywords'] = {
-                        "en" : list(set(existing_package_dict['keywords']['en'] + package_dict['keywords']['en'])),
-                        "fr" : list(set(existing_package_dict['keywords']['fr'] + package_dict['keywords']['fr']))
+                        "en": list(set(existing_package_dict['keywords']['en'] + package_dict['keywords']['en'])),
+                        "fr": list(set(existing_package_dict['keywords']['fr'] + package_dict['keywords']['fr']))
                     }
                     package_dict['owner_org'] = package_dict['organization']['name']
                     package_dict['harvester'] = "ontario-data-catalogue"
                     if package_dict.get("maintainer_email", "") == "":
-                    	del package_dict['maintainer_email']
+                        del package_dict['maintainer_email']
                     if "maintainer_translated" in package_dict:
-                        if package_dict['maintainer_translated'].get("en","") == "" and package_dict['maintainer_translated'].get("fr","") == "":
-                    	    del package_dict['maintainer_translated']
-                        elif package_dict['maintainer_translated'].get("en","") != "" and package_dict['maintainer_translated'].get("fr","") == "":
-                            package_dict['maintainer_translated']['fr'] = package_dict['maintainer_translated']['en'] 
-                        elif package_dict['maintainer_translated'].get("en","") == "" and package_dict['maintainer_translated'].get("fr","") != "":
-                            package_dict['maintainer_translated']['en'] = package_dict['maintainer_translated']['fr'] 
+                        if package_dict['maintainer_translated'].get("en", "") == "" and package_dict['maintainer_translated'].get("fr", "") == "":
+                            del package_dict['maintainer_translated']
+                        elif package_dict['maintainer_translated'].get("en", "") != "" and package_dict['maintainer_translated'].get("fr", "") == "":
+                            package_dict['maintainer_translated']['fr'] = package_dict['maintainer_translated']['en']
+                        elif package_dict['maintainer_translated'].get("en", "") == "" and package_dict['maintainer_translated'].get("fr", "") != "":
+                            package_dict['maintainer_translated']['en'] = package_dict['maintainer_translated']['fr']
                     if "maintainer_branch" in package_dict:
-                    	if package_dict['maintainer_branch'].get("en","") == "" and package_dict['maintainer_branch'].get("fr","") == "":
-                    		del package_dict['maintainer_branch']
+                        if package_dict['maintainer_branch'].get("en", "") == "" and package_dict['maintainer_branch'].get("fr", "") == "":
+                            del package_dict['maintainer_branch']
 
                     if 'resources' in package_dict:
                         for resource in package_dict['resources']:
-                            resource.update({"harvested_resource" : True})
+                            resource.update({"harvested_resource": True})
                             resource_context = {
                                 'model': model,
                                 'session': Session,
                                 'user': user_name,
                                 'api_version': api_version,
-                                'id' : resource['id'],
+                                'id': resource['id'],
                                 'ignore_auth': True,
                             }
                             p.toolkit.get_action("resource_patch" if resource['id'] in list(map(lambda x: x["id"], existing_package_dict["resources"])) else "resource_create")(resource_context, resource)
-                        list_of_remote_resources = list(map(lambda x: x["id"],package_dict["resources"]))
+                        list_of_remote_resources = list(map(lambda x: x["id"], package_dict["resources"]))
                         for resource in list(filter(lambda x: x["harvested_resource"] == True, existing_package_dict["resources"])):
                             # if there's a harvested resource locally that isn't in the latest harvested list of resources, delete it
                             if resource['id'] not in list_of_remote_resources:
@@ -154,10 +155,10 @@ class OntarioDataCatalogueHarvester(CKANHarvester):
                                     'session': Session,
                                     'user': user_name,
                                     'api_version': api_version,
-                                    'id' : resource['id'],
+                                    'id': resource['id'],
                                     'ignore_auth': True,
                                 }
-                                p.toolkit.get_action("resource_delete")(resource_context, { 'id' : resource['id']})
+                                p.toolkit.get_action("resource_delete")(resource_context, {'id': resource['id']})
 
                         del package_dict['resources']
                     new_package = p.toolkit.get_action("package_patch")(context, package_dict)
@@ -208,24 +209,24 @@ class OntarioDataCatalogueHarvester(CKANHarvester):
                 package_dict['owner_org'] = package_dict['organization']['name']
                 package_dict['harvester'] = "ontario-data-catalogue"
                 for resource in package_dict['resources']:
-                    resource.update({"harvested_resource" : True})
+                    resource.update({"harvested_resource": True})
 
                 if package_dict.get("maintainer_email", "") == "":
                     package_dict['maintainer_email'] = "opendata@ontario.ca"
                 if "maintainer_translated" in package_dict:
-                    if package_dict['maintainer_translated'].get("en","") == "" and package_dict['maintainer_translated'].get("fr","") == "":
+                    if package_dict['maintainer_translated'].get("en", "") == "" and package_dict['maintainer_translated'].get("fr", "") == "":
                         package_dict['maintainer_translated'] = {
-                            "en" : "Open Data",
-                            "fr" : "Données ouvertes"
+                            "en": "Open Data",
+                            "fr": "Données ouvertes"
                         }
-                    elif package_dict['maintainer_translated'].get("en","") != "" and package_dict['maintainer_translated'].get("fr","") == "":
-                        package_dict['maintainer_translated']['fr'] = package_dict['maintainer_translated']['en'] 
-                    elif package_dict['maintainer_translated'].get("en","") == "" and package_dict['maintainer_translated'].get("fr","") != "":
-                        package_dict['maintainer_translated']['en'] = package_dict['maintainer_translated']['fr'] 
-                else: 
+                    elif package_dict['maintainer_translated'].get("en", "") != "" and package_dict['maintainer_translated'].get("fr", "") == "":
+                        package_dict['maintainer_translated']['fr'] = package_dict['maintainer_translated']['en']
+                    elif package_dict['maintainer_translated'].get("en", "") == "" and package_dict['maintainer_translated'].get("fr", "") != "":
+                        package_dict['maintainer_translated']['en'] = package_dict['maintainer_translated']['fr']
+                else:
                     package_dict['maintainer_translated'] = {
-                        "en" : "Open Data",
-                        "fr" : "Données ouvertes"
+                        "en": "Open Data",
+                        "fr": "Données ouvertes"
                     }
                 new_package = p.toolkit.get_action(
                     'package_create' if package_dict_form == 'package_show'

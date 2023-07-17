@@ -5,7 +5,8 @@ import pytest
 import datetime
 import ckan.tests.helpers as helpers
 
-@pytest.mark.usefixtures('clean_db', 'with_plugins', 'with_request_context','app')
+
+@pytest.mark.usefixtures('clean_db', 'with_plugins', 'with_request_context', 'app')
 class TestOntarioThemePlugin(helpers.FunctionalTestBase):
 
     def setup(self):
