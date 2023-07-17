@@ -126,6 +126,7 @@ $.ajax({
             </div>
             <div id="collapse-python" class="panel-collapse collapse">
               <div class="panel-body">
+                <p>{{ _('A simple request to the data API using Python.') }}</p>
                 <pre>
 import urllib.request
 url = '{{ h.url_for(qualified=True, controller='api', action='action', ver=3, logic_function='datastore_search', resource_id=resource_id, limit=5) }}'  {# not urlencoding the ":" because its clearer #}
