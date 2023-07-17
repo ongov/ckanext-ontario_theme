@@ -1,12 +1,41 @@
 # Installation Scripts Guide
 
-This document provides instructions for using bash scripts to install Ontario CKAN 2.9 and Solr 8.11.2 on individual Ubuntu 20.04 virtual machines.
+Bash scripts to install CKAN 2.9 compliant Ontario Theme, and Solr 8.11.2 on a separate Ubuntu 20.04 virtual machine. The objective of the scripts is to create a local dev-test environment.
+
+During the course of the script execution, the code repository will be cloned into `/usr/lib/ckan/default/src`for installation. This directory and it being cloned are independent of the code used for installation purposes. This is the directory where the code changes need to be made for dev work.
+
+### Common Steps
+
+The installation includes some common steps that are aggregated here. They mentioned in the instructions whenever their execution is needed
+
+1. Export your sudo password as an environment variable named `SUDOPASS`:
+
+```bash
+export SUDOPASS='xxxx'
+```
+
+2. Install git
+
+```bash
+sudo -y apt-get install git
+```
+
+3. Clone this repository
+
+```bash
+git clone https://github.com/ongov/ckanext-ontario_theme.git
+```
+
+4. change to the scripts directory
+
+```bash
+cd ckanext-ontario_theme\scripts
+```
 
 ## Solr Installation
 
-### Bash Script Information
-- Filename: `setup_solr.sh`
-- Version: Solr 8.11.2
+Bash script: `setup_solr.sh`
+Version: Solr 8.11.2
 
 This script requires the `managed-schema` config file, customized for Ontario CKAN. This config file is stored in the `config/solr` directory of this repository and copied into the Solr config folder (`/opt/solr/server/solr/configsets/_default/`) during the script execution.
 
@@ -14,26 +43,10 @@ Take note, this script handles Solr installation, but does not rebuild the index
 
 ### Script Execution Steps
 
-**Step 1:** Export your sudo password as an environment variable, `SUDOPASS`. Example command:
-```
-export SUDOPASS='your_sudo_password'
-```
-
-**Step 2:** Install Git, clone the repository, fetch the `ckan_2.9_upgrade` branch, switch to the scripts directory, and execute the script. Follow the commands below:
+1. Do the steps common to the scripts in [common steps](#common-steps)
+2. run the `setup_solr.sh` script:
 
 ```bash
-# Update packages
-echo $SUDOPASS | sudo -S -k apt-get update
-
-# Install Git
-{ echo $SUDOPASS; echo 'Y'; } | sudo -S -k apt-get install git
-
-# Clone the repository
-git clone https://github.com/ongov/ckanext-ontario_theme.git
-cd ckanext-ontario_theme
-
-# Navigate to the scripts directory and execute the setup script
-cd scripts
 ./setup_solr.sh
 ```
 
@@ -91,68 +104,58 @@ api_token = "your_api_key_here"
 
 ```
 
-## CKAN+Ontario Theme Local installation in Developer Mode
+## CKAN & Ontario Theme
 
-Bash script: `ckan_local_install.sh`  
+Bash script: `setup_ckan_local.sh`
 
-This bash script installs CKAN in developer mode locally. It needs Solr, postgreSQL and relevant databases to be setup before being executed. This can be done by installing SOLR and Postgres by running the accompanying scirpts in shell. 
-The script also needs a base config `ckan.ini` file. This is copied from `config/ckan` to `/etc/ckan/default/ckan.ini`, and modified during the course of execution of the script
+This bash script installs CKAN and Ontario Theme locally, preferably on a Virutal Machine. The script follow the steps from the [official installation guide for installing CKAN from source](https://docs.ckan.org/en/2.9/maintaining/installing/install-from-source.htmlhttps:/).
+
+### Developer and Production Modes
+
+CKAN can be installed in Developer Mode, where the CKAN server is started manually through the commandline (`$ ckan -c /etc/ckan/default/ckan.ini run `) and is available at `localhost:5000` in the browser; Or CKAN can be installed in Production Mode where `supervisor` application is responsible for running the CKAN application and `nginx` is used as the webserver available directly at `localhost` in the browser. The Production Mode is how CKAN runs in production environment.
+
+The script installs CKAN+Ontario Theme in Production Mode.
+
+### What does the Script need?
+
+ The script needs Solr, postgreSQL and relevant databases to be setup. These steps are recorded in the instructions below.
+
+For configuration, files in `config/` directory are used.
+
+* `config/ckan/ckan.ini` file is copied to`/etc/ckan/default/ckan.ini`, and modified during the course of execution of the script
+* `config/gtm/gtm.html` and `config/gtm/gtm_ns.html` are copied to `/usr/lib/ckan/default/src/ckanext-ontario_theme/ckanext/ontario_theme/templates/internal/`
+* `config/nginx/local_ckan_ssl`is copied to `/etc/nginx/sites-available/`
+* `config/supervisor/ckan-uwsgi.conf` and `config/supervisor/ckan-worker.conf`is copied to `/etc/supervisor/conf.d/`
 
 ### Running the script
 
-**Command line:**  
+**Command line:**
 
-1. Export your sudo password as an environment variable named `SUDOPASS`:
-```
-export SUDOPASS='xxxx'
-```
-
+1. Do the steps common to the scripts in [common steps](#common-steps)
 2. setup solr and postgresql
-```
-bash setup_solr.sh && bash postgres_install.sh
+
+```bash
+sudo bash setup_solr.sh && sudo bash postgres_install.sh
 ```
 
 3. run script to install ckan
-```
-bash ckan_local_install.sh
+
+```bash
+bash setup_ckan_local.sh
 ```
 
-4. Unset the SUDOPASS environment variable:
+4. Rebuild SOLR search index
+
+```bash
+ ckan -c /etc/ckan/default/ckan.ini search-index rebuild
 ```
+
+5. Unset the SUDOPASS environment variable:
+
+```bash
 unset SUDOPASS
 ```
 
-5. run ckan
-```
-. /usr/lib/ckan/default/bin/activate
-ckan -c /etc/ckan/default/ckan.ini run
-```
 
-**Browser:** 
-Check ckan status by going to  `http://127.0.0.1:5000` in a browser
-
-## CKAN & Ontario Theme Local installation in Production Mode
-
-Bash script: `ckan_localprod_install.sh`  
-
-This bash script installs CKAN in production mode with SSL Certificates locally. It needs Solr, postgreSQL and relevant databases, ckan and ontario theme to be setup before being executed. This can be done by installing SOLR, Postgres, CKAN and Ontario Theme by running the accompanying scirpts in shell. 
-The script also needs a base config `config/nginx/local_ckan_ssl`, and `config/supervisor/ckan-uwsgi.conf` files. These are copied to `/etc/nginx/sites-enabled/` and `/etc/supervisor/conf.d/ckan-uwsgi.conf` respectively.
-
-### Running the script
-
-**Command line:**  
-
-1. Install CKAN & Ontario Theme locally using instructions in [CKAN Local Install](#CKAN-&-Ontario-Theme-Local -nstallation-in-Production-Mode).
-
-2. Apply settings for production environment using the following command
-```
-bash ckan_localprod_install.sh
-```
-
-3. Unset the SUDOPASS environment variable:
-```
-unset SUDOPASS
-```
-
-**Browser:** 
-Check ckan status by going to  `https://localhost` in a browser
+**Browser:**
+Check ckan status by going to  `localhost` in a browser

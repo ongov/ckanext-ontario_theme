@@ -100,7 +100,10 @@ replace_str_in_ckan_ini "$DATASTORE_READ_URL" "$DATASTORE_READ_URL_REPLACEMENT"
 echo "datastore enabled successfully."
 
 # xloader
-# update xloader in ckan.ini
+# copy xloader configuration
+echo $SUDOPASS | sudo -S -k mkdir /var/log/ckan
+echo $SUDOPASS | sudo -S -k cp $CKAN_ONT_THEME_ROOT/config/supervisor/ckan-worker.conf /etc/supervisor/conf.d/ckan-worker.conf
+# update xloader settings in ckan.ini
 XLOADER_URI="ckanext.xloader.jobs_db.uri = postgresql://ckan_default:pass@localhost/ckan_default"
 XLOADER_URI_REPLACEMENT="ckanext.xloader.jobs_db.uri = postgresql://$CKANUSER:$CKANPASS@$POSTGRESSERVERURL:$POSTGRESSERVERPORT/$CKANDB?sslmode=require"
 replace_str_in_ckan_ini "$XLOADER_URI" "$XLOADER_URI_REPLACEMENT"
@@ -145,3 +148,43 @@ cp $CKAN_ONT_THEME_ROOT/config/gtm/* $GTM_PATH/
 PLUGINS="ckan.plugins = stats text_view image_view recline_view"
 PLUGINS_REPLACEMENT="ckan.plugins = ontario_theme_external ontario_theme scheming_datasets scheming_organizations scheming_groups fluent stats text_view image_view recline_view datastore xloader"
 replace_str_in_ckan_ini "$PLUGINS" "$PLUGINS_REPLACEMENT"
+
+# Setuo CKAN Production Mode
+export CKANINIROOT="/etc/ckan/default/"
+
+# set permissions for cache dir
+echo $SUDOPASS | sudo -S -k chmod -R 777 /tmp/default/*
+
+# uwsgi script & server
+echo $SUDOPASS | sudo -S -k cp /usr/lib/ckan/default/src/ckan/wsgi.py /etc/ckan/default/
+echo $SUDOPASS | sudo -S -k chown www-data /etc/ckan/default/wsgi.py
+echo $SUDOPASS | sudo -S -k chown -R www-data /var/lib/ckan/default/webassets
+. /usr/lib/ckan/default/bin/activate
+pip3 install -Iv uwsgi==2.0.20
+echo $SUDOPASS | sudo -S -k cp /usr/lib/ckan/default/src/ckan/ckan-uwsgi.ini /etc/ckan/default/
+
+# configure supervisor
+echo $SUDOPASS | sudo -S -k apt-get -y install supervisor=4.1.0*
+echo $SUDOPASS | sudo -S -k cp $CKAN_ONT_THEME_ROOT/config/supervisor/ckan-uwsgi.conf /etc/supervisor/conf.d/ckan-uwsgi.conf
+
+# install and configure nginx
+echo $SUDOPASS | sudo -S -k apt-get -y install nginx=1.18.0*
+echo $SUDOPASS | sudo -S -k cp $CKAN_ONT_THEME_ROOT/config/nginx/local_ckan_ssl /etc/nginx/sites-available/
+echo $SUDOPASS | sudo -S -k ln -s /etc/nginx/sites-available/local_ckan_ssl /etc/nginx/sites-enabled/
+
+# Generate and configure a certificate
+# Create SSL certificate
+# https://docs.ckan.org/en/2.9/maintaining/configuration.html#ckan-devserver-ssl-cert
+SSLNAME=$CKANINIROOT'ckan_host'
+openssl genrsa 2048 > $SSLNAME.key
+chmod 400 $SSLNAME.key
+openssl req -new -x509 -nodes -sha256 -days 3650 -key $SSLNAME.key -subj "/C=CA/ST=ON/L=./O=ODS/OU=./CN=." > $SSLNAME.cert
+
+# Modify site_url in ckan.ini
+SITEURL="ckan.site_url = http://localhost:5000"
+SITEURL_REPLACEMENT="ckan.site_url = https://localhost"
+replace_str_in_ckan_ini "$SITEURL" "$SITEURL_REPLACEMENT"
+
+# Restart NGINX and supervisor
+echo $SUDOPASS | sudo -S -k service nginx restart
+echo $SUDOPASS | sudo -S -k service supervisor restart

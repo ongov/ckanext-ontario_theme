@@ -1,6 +1,5 @@
 #! /bin/bash
 
-# export SUDOPASS='1'
 export CKANUSER='ckan_default'
 export CKANPASS='ckan_default'
 export CKANDB='ckan_default'
