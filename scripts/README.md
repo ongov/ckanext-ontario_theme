@@ -118,7 +118,7 @@ The script installs CKAN+Ontario Theme in Production Mode.
 
 ### What does the Script need?
 
- The script needs Solr, postgreSQL and relevant databases to be setup. These steps are recorded in the instructions below.
+The script needs Solr, postgreSQL and relevant databases to be setup. These steps are recorded in the instructions below.
 
 For configuration, files in `config/` directory are used.
 
@@ -135,7 +135,7 @@ For configuration, files in `config/` directory are used.
 2. setup solr and postgresql
 
 ```bash
-sudo bash setup_solr.sh && sudo bash postgres_install.sh
+sudo bash setup_solr.sh && sudo bash setup_postgres_local.sh
 ```
 
 3. run script to install ckan
@@ -156,6 +156,5 @@ bash setup_ckan_local.sh
 unset SUDOPASS
 ```
 
-
 **Browser:**
-Check ckan status by going to  `localhost` in a browser
+Check ckan status by going to `localhost` in a browser

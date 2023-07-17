@@ -70,8 +70,11 @@ ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini
 # setup filestore
 # ckan.storage_path is already enabled and set to /var/lib/ckan/default
 echo $SUDOPASS | sudo -S -k mkdir -p /var/lib/ckan/default
-echo $SUDOPASS | sudo -S -k chown -R www-data /var/lib/ckan/default
-echo $SUDOPASS | sudo -S -k chmod -R 777 /var/lib/ckan/default # production should use `u+rw`
+echo $SUDOPASS | sudo -S -k mkdir -p /var/lib/ckan/default/storage
+echo $SUDOPASS | sudo -S -k mkdir -p /var/lib/ckan/default/webassets
+echo $SUDOPASS | sudo -S -k chown -R www-data:www-data /var/lib/ckan/default
+echo $SUDOPASS | sudo -S -k setfacl -R -m u:www-data:rwx /var/lib/ckan/default # production should use `u+rw`
+
 # enable cached webpages
 echo $SUDOPASS | sudo -S -k mkdir -p /usr/lib/ckan/default/src/ckan/ckan/public
 echo $SUDOPASS | sudo -S -k chown -R www-data:www-data /usr/lib/ckan/default/src/ckan/ckan/public
@@ -157,8 +160,8 @@ echo $SUDOPASS | sudo -S -k chmod -R 777 /tmp/default/*
 
 # uwsgi script & server
 echo $SUDOPASS | sudo -S -k cp /usr/lib/ckan/default/src/ckan/wsgi.py /etc/ckan/default/
-echo $SUDOPASS | sudo -S -k chown www-data /etc/ckan/default/wsgi.py
-echo $SUDOPASS | sudo -S -k chown -R www-data /var/lib/ckan/default/webassets
+echo $SUDOPASS | sudo -S -k chown www-data:www-data /etc/ckan/default/wsgi.py
+#echo $SUDOPASS | sudo -S -k chown -R www-data:www-data /var/lib/ckan/default/webassets
 . /usr/lib/ckan/default/bin/activate
 pip3 install -Iv uwsgi==2.0.20
 echo $SUDOPASS | sudo -S -k cp /usr/lib/ckan/default/src/ckan/ckan-uwsgi.ini /etc/ckan/default/
