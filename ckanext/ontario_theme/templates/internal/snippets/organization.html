@@ -1,18 +1,17 @@
-{# djlint:off J018, H025 #}
 {% ckan_extends %}
 
 {% block info %}
-	{% if has_context_title %}
-		<div class="module module-narrow module-shallow context-info">
-			<h2 class="ontario-h4">{{ _('Ministry') }}</h2>
-	{% else %}
-		<div class="no-context-title">
-	{% endif %}
-			<section>
-				{% block inner %}
-					{% block image %}
-						{# Leave block blank to override image div #}
-					{% endblock image %}
+  {% if has_context_title %}
+    <div class="module module-narrow module-shallow context-info">
+      <h2 class="ontario-h4">{{ _('Ministry') }}</h2>
+  {% else %}
+    <div class="no-context-title">
+  {% endif %}
+      <section>
+        {% block inner %}
+          {% block image %}
+            {# Leave block blank to override image div #}
+          {% endblock image %}
 
           {% block heading %}
             {% if has_context_title %}
@@ -57,9 +56,6 @@
 
         {% block follow %}
         {% endblock follow %}
-
       </section>
     </div>
-  {% endblock info %}
-
-  {# djlint:on #}
+{% endblock info %}
