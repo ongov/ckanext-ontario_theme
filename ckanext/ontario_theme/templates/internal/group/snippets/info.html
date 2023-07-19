@@ -2,33 +2,34 @@
 
 {# Make block image empty to prevent code for image from loading #}
 {% block image %}
-{% endblock %}
+{% endblock image %}
 
 {% block heading %}
-<h1 class="heading">
-  {{ h.get_translated(group, "title") }}
-  {% if group.state == 'deleted' %}
-    [{{ _('Deleted') }}]
-  {% endif %}
-</h1>
-{% endblock %}
+  <h1 class="heading">
+    {{ h.get_translated(group, "title") }}
+    {% if group.state == 'deleted' %}[{{ _('Deleted') }}]{% endif %}
+  </h1>
+{% endblock heading %}
+
 {% block description %}
-{% if h.get_translated(group, "description") %}
-  <p>
-    {{ h.markdown_extract(h.get_translated(group, "description"), 180) }}
-    {% link_for _('read more'), named_route='group.about', id=group.name %}
-  </p>
-{% endif %}
-{% endblock %}
+  {% if h.get_translated(group, "description") %}
+    <p>
+      {{ h.markdown_extract(h.get_translated(group, "description"), 180) }}
+      {% link_for _('read more'), named_route='group.about', id=group.name %}
+    </p>
+  {% endif %}
+{% endblock description %}
 
 {% block nums %}
   <div class="nums">
     <dl>
       <dt>{{ _('Datasets') }}</dt>
-      <dd>{{ h.SI_number_span(group.package_count) }}</dd>
+      <dd>
+        {{ h.SI_number_span(group.package_count) }}
+      </dd>
     </dl>
   </div>
-{% endblock %}
+{% endblock nums %}
 
 {% block follow %}
-{% endblock %}
+{% endblock follow %}

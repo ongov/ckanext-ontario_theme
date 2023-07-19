@@ -557,17 +557,26 @@ def get_all_organizations(**kwargs):
     # Get the id of all organizations in the catalogue.
     all_organization_names = toolkit.get_action('organization_list')(data_dict={})
     
-    # Filter only those organizations whose names matching those in 
-    # collection_names. Then use helper function h.get_organization() 
-    # to extract the full details for each organization, matching on 'id'.
-    org_array = []
-    for name in collection_names:
-        for idx in range(len(all_organization_names)):
-            if name == all_organization_names[idx]:
-                organization_obj = toolkit.get_action('organization_show')(data_dict={'id':name})
-                organization_id = organization_obj['id']
-                org_array.append(h.get_organization(organization_id))
-    
+    # When there are no organizations in the catalogue (e.g. when application is 
+    # first installed and database not yet indexed), the below try will fail and
+    # and empty array will be returned, preventing the template from calling 
+    # the sort method on organizations.
+    try:
+        this_name = all_organization_names[0]
+        if toolkit.get_action('organization_show')(data_dict={'id':this_name}):
+            # Filter only those organizations whose names matching those in 
+            # collection_names. Then use helper function h.get_organization() 
+            # to extract the full details for each organization, matching on 'id'.
+            org_array = []
+            for name in collection_names:
+                for idx in range(len(all_organization_names)):
+                    if name == all_organization_names[idx]:
+                        organization_obj = toolkit.get_action('organization_show')(data_dict={'id':name})
+                        organization_id = organization_obj['id']
+                        org_array.append(h.get_organization(organization_id))
+    except:
+        org_array = []
+
     return org_array
 
 def sort_by_title_translated(item_list, **kwargs):
@@ -636,10 +645,10 @@ def order_package_facets(orig_ordered_dict):
 
     '''
     # Order that facets should appear in left panel
-    facet_order = ['organization', 'groups', 'res_format', 'license_id', 
-                   'asset_type', 'update_frequency', 'access_level',
+    facet_order = ['organization', 'res_format', 'access_level', 'update_frequency', 'license_id',
+                   'asset_type', 'groups',
+                   'organization_jurisdiction', 'organization_category',
                    'keywords_en', 'keywords_fr',
-                   'organization_jurisdiction', 'organization_category'
                   ]
 
     facet_titles_reorg = list()
@@ -669,11 +678,23 @@ def extract_package_name(url):
             resource_name = toolkit.get_action('resource_show') (
                 data_dict={'id': get_resource_name[0]}
                 )
-            resource_type = resource_name['type']
-            resource_name = resource_name['name']
-            if not resource_type and not resource_name:
-                resource_name = "Supporting File"
-            return resource_name or resource_type
+            if 'name' in resource_name and not resource_name['name']:
+                if 'type' in resource_name:
+                    if not resource_name['type']:
+                        return "Unnamed Supporting File"
+                    else:
+                        return "Unnamed " + resource_name['type'] + " file"
+                elif 'resource_type' in resource_name:
+                    if not resource_name['resource_type']:
+                        return "Unnamed Supporting File"
+                    else:
+                        return "Unnamed " + resource_name['resource_type'] + " file"
+            
+            if 'name' in resource_name:
+                if len(resource_name['name']) > 0:
+                    return resource_name['name']
+                else:
+                    return "Unnamed Data File"
         except ckan.logic.NotFound:
             return False
     elif len(get_package_name) > 0:
@@ -1032,6 +1053,8 @@ type data_last_updated
         facets_dict['update_frequency'] = toolkit._('Update Frequency')
         facets_dict['keywords_en'] = toolkit._('Topics')
         facets_dict['keywords_fr'] = toolkit._('Topics')
+        facets_dict['license_id'] = toolkit._('Licences')
+        facets_dict['organization'] = toolkit._('Ministries')
         facets_dict.pop('tags', None) # Remove tags in favor of keywords
         facets_dict['organization_jurisdiction'] = toolkit._('Jurisdiction')
         facets_dict['organization_category'] = toolkit._('Category')

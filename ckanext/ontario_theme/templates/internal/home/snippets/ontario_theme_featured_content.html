@@ -7,10 +7,9 @@ Renders a row of 3 featured content cards on the home page.
 {% for feature_item in feature_list %}
   <div class="col-md-4">
     <a href="{{ h.ontario_theme_home_block_link(feature_item) }}">
-      <img src="{{ h.ontario_theme_home_block_image(feature_item) }}" alt="{% trans %}Decorative image{% endtrans %}" />
-      
-        {{ h.render_markdown(h.ontario_theme_home_block(feature_item)) }}
-      
+      <img src="{{ h.ontario_theme_home_block_image(feature_item) }}"
+           alt="{%- trans -%}Decorative image{%- endtrans -%}" />
+      {{ h.render_markdown(h.ontario_theme_home_block(feature_item)) }}
     </a>
   </div>
 {% endfor %}

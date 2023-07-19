@@ -2,25 +2,40 @@
 
 {% block header_logo %}
   {% if g.site_logo %}
-    <a class="logo" href="{{ h.url_for('home.index') }}"><img src="{{ h.url_for_static_or_external(g.site_logo) }}" alt="{{ g.site_title }}" title="{{ g.site_title }}" /></a>
+    <a class="logo" href="{{ h.url_for('home.index') }}">
+      <img src="{{ h.url_for_static_or_external(g.site_logo) }}"
+           alt="{{ g.site_title }}"
+           title="{{ g.site_title }}" />
+    </a>
   {% else %}
     {# Add alpha styling. #}
     <a href="{{ h.url_for('home.index') }}">{{ _("Data Catalogue") }}</a>
     {# End customization. #}
     {% if g.site_description %}<h2>{{ g.site_description }}</h2>{% endif %}
   {% endif %}
-{% endblock %}
+{% endblock header_logo %}
 
-{% block header_wrapper %} 
+{% block header_wrapper %}
   {{ super() }}
   <header id="survey">
     <div class="alert ontario-alert-warning alert-clear alert-banner">
-      <div class="container">
-        {% set survey_params = { "page": h.current_url() }  %}
+      <div class="ontario-row">
+        {% set survey_params = { "page": h.current_url() } %}
         {% set package_name = h.ontario_theme_extract_package_name(h.current_url()) %}
         {% do survey_params.update({'id': package_name}) if package_name %}
-        <strong>{% trans %}Tell us what you think about our data and how you’re using it.{% endtrans %} <a href="{{ _('https://www.ontario.ca/form/survey-open-data-catalogue') }}?{{ survey_params|urlencode }}" target="_blank">{% trans %}Take our survey{% endtrans %}</a></strong>
+        <p class="survey ontario-columns ontario-small-12"><strong>
+          {% trans %}
+            Tell us what you think about our data and how you’re using it.
+          {% endtrans %}
+          <a href="{{ _('https://www.ontario.ca/form/survey-open-data-catalogue') }}?{{ survey_params|urlencode }}"
+             target="_blank"
+             rel="noopener noreferrer">
+            {% trans %}
+              Take our survey
+            {% endtrans %}
+          </a>
+        </strong></p>
       </div>
     </div>
-</header>
-{% endblock %}
+  </header>
+{% endblock header_wrapper %}

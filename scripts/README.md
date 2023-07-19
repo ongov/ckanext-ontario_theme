@@ -1,72 +1,113 @@
-# Installation Scripts
+# Installation Scripts Guide
 
-Bash scripts to install Ontario ckan 2.9 and Solr 8.11.2 on separate Ubuntu 20.04 virtual machines.
+This document provides instructions for using bash scripts to install Ontario CKAN 2.9 and Solr 8.11.2 on individual Ubuntu 20.04 virtual machines.
 
-## Solr
+## Solr Installation
 
-Bash script: `setup_solr.sh`  
-Version: Solr 8.11.2
+### Bash Script Information
+- Filename: `setup_solr.sh`
+- Version: Solr 8.11.2
 
-The bash script requires the `managed-schema` config file customized for Ontario ckan, stored in the `config/solr` directory of this repository. This config file is obtained in the script by copying the file from `config/solr` into the Solr config folder `/opt/solr/server/solr/configsets/_default/`.
+This script requires the `managed-schema` config file, customized for Ontario CKAN. This config file is stored in the `config/solr` directory of this repository and copied into the Solr config folder (`/opt/solr/server/solr/configsets/_default/`) during the script execution.
 
-Note that the bash script installs Solr but does not rebuild the index: this must be done on the machine running CKAN.
+Take note, this script handles Solr installation, but does not rebuild the index. You must perform this step on the machine where CKAN is running.
 
-### Running the script
+### Script Execution Steps
 
-1. Export your sudo password as an environment variable named `SUDOPASS`:
+**Step 1:** Export your sudo password as an environment variable, `SUDOPASS`. Example command:
 ```
-export SUDOPASS='xxxx'
+export SUDOPASS='your_sudo_password'
 ```
 
-2. Install git, clone this repository, fetch the `ckan_2.9_upgrade` branch, change to the scripts directory, and run the script:
-```
+**Step 2:** Install Git, clone the repository, fetch the `ckan_2.9_upgrade` branch, switch to the scripts directory, and execute the script. Follow the commands below:
+
+```bash
+# Update packages
 echo $SUDOPASS | sudo -S -k apt-get update
+
+# Install Git
 { echo $SUDOPASS; echo 'Y'; } | sudo -S -k apt-get install git
+
+# Clone the repository
 git clone https://github.com/ongov/ckanext-ontario_theme.git
 cd ckanext-ontario_theme
 
-git fetch origin ckan_2.9_upgrade:ckan_2.9_upgrade
-git checkout ckan_2.9_upgrade
-
+# Navigate to the scripts directory and execute the setup script
 cd scripts
 ./setup_solr.sh
 ```
 
-Note: After the tar file is extracted, there will be a message:
-`[sudo] password for ckan29: id: ‘solr’: no such user`. This is normal and can be ignored.
+Note: You may see a message stating `[sudo] password for ckan29: id: ‘solr’: no such user` after the tar file extraction. This is expected and you can ignore it.
 
-3. Unset the SUDOPASS environment variable:
+**Step 3:** Unset the `SUDOPASS` environment variable with the following command:
 ```
 unset SUDOPASS
 ```
-### Check status  
-Check the success of the installation on the command line and/or the browser.
 
-**Command line:**  
-- check that response status is 200:
+### Checking Solr Status
+You can verify the installation success via command line or a browser.
+
+- **Command Line Checks:**  
+   - Confirm response status is 200:  
+     ```
+     curl -s -o /dev/null -I -w '%{http_code}' http://{ip_address}:8983/solr/admin/cores?action=STATUS
+     ```
+   - Verify Solr node is found:  
+     ```
+     sudo /etc/init.d/solr status
+     ```
+   - Check Solr service is running:  
+     ```
+     sudo service solr status
+     ```
+
+- **Browser Checks:**  
+   - Visit `http://127.0.0.1:8983/solr/` to see if Solr is running.
+   - Check the Core Admin menu for the CKAN core with `instanceDir /var/solr/data/ckan`.
+   - Verify that the schema properties reflect the Ontario theme (Unique Key Field should be `index_id`).
+
+## Organization Data Script
+
+The `load_organization_data.py` script enables you to load organization data into your application via the CKAN API. Please fulfill the necessary prerequisites and follow the given instructions before running the script.
+
+### Prerequisites
+- Python 3.x
+- Requests library (install via `pip install requests`)
+
+### Script Setup
+1. Clone the repository containing the script.
+2. Navigate to the repository directory and install the required dependencies by running:
 ```
-$ curl -s -o /dev/null -I -w '%{http_code}' http://{ip_address}:8983/solr/admin/cores?action=STATUS
-
-200
-```
-- check that the Solr node is found:
-```
-$ sudo /etc/init.d/solr status
-
-Found 1 Solr nodes:
-```
-- check that Solr service is running:
-```
-$ sudo service solr status
-
-solr.service - LSB: Controls Apache Solr as a Service
-     Loaded: loaded (/etc/init.d/solr; generated)
-     Active: active (exited) 
+pip install -r requirements.txt
 ```
 
-**Browser:**  
-Check that Solr is running on `http://127.0.0.1:8983/solr/`. The ckan core should be listed in the Core Admin menu with `instanceDir /var/solr/data/ckan`.
+### Script Configuration
+1. Obtain an API key from your CKAN application. You can find this key in the CKAN user settings at `http://localhost/user/edit/admin`. Make sure you're logged in as an administrator.
+2. Open the `load_organization_data.py` script in a text editor.
+3. Find the `api_token` variable in the script and replace the empty string with your API key:
+```python
 
-You can also check that the schema properties reflect the Ontario theme. In the Core Selector dropdown menu, choose ckan, and then select Schema from the menu. The Unique Key Field should be `index_id`.
+api_token = "your_api_key_here"
 
-![image](https://user-images.githubusercontent.com/1254764/167931044-3bb4686a-eebd-4651-92ce-b6a82cb0309f.png)
+```
+
+### Usage 
+Run the script after ensuring your CKAN application is running locally at `http://localhost`. The script will download CSV files.
+
+1. Open a terminal and navigate to the repository directory.
+2. Execute the script with the following command:
+```
+$ python scripts/load_organization_data.py
+
+```
+
+The script processes the CSV files and creates organizations in your CKAN application. It also uploads and attaches any resources associated with the organizations. 
+
+Monitor the script output for any error messages or failed resource uploads. After completion, check if the organizations and their associated resources were created successfully in your CKAN application.
+
+### Additional Notes
+The script expects the CSV files to be in the uploads directory. Ensure that the CSV files follow the correct format and contain the necessary data for creating organizations and resources.
+
+If any errors occur during resource uploads, review the error messages and the `failed_resource_writes` list in the script output. Address any issues related to resource files or network connectivity. 
+
+You may modify the script further to meet specific requirements or change its behavior as needed.

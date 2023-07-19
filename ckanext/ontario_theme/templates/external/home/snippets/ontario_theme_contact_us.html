@@ -3,19 +3,26 @@
 Renders contact information for the site on the home page.
 
 #}
-{% set survey_params = { "page": h.current_url() }  %}
+{% set survey_params = { "page": h.current_url() } %}
 {% set package_name = h.ontario_theme_extract_package_name(h.current_url()) %}
 {% do survey_params.update({'id': package_name}) if package_name %}
-
 <div class="feedback ontario-alert ontario-alert--informational">
   <div class="feedback ontario-alert__header">
-      <div class="feedback ontario-alert__header-icon">
-            <i class="fa fa-comments"></i>
-      </div>
+    <div class="feedback ontario-alert__header-icon">
+      <i class="fa fa-comments"></i>
+    </div>
   </div>
   <div class="feedback ontario-alert__body">
     {# Header title should be moved to the header after icon is replaced with svg #}
-    <h2 class="feedback ontario-alert__header-title ontario-h4">{% trans %}Help us improve the Data Catalogue{% endtrans %}</h2>
-    <p>{% trans params=survey_params|urlencode %}Take a <a href="https://www.ontario.ca/form/survey-open-data-catalogue?{{ params }}">2-minute survey</a> and tell us what you think about this page.{% endtrans %}</p>
+    <h2 class="feedback ontario-alert__header-title ontario-h4">
+      {% trans %}
+        Help us improve the Data Catalogue
+      {% endtrans %}
+    </h2>
+    <p>
+      {% trans params=survey_params|urlencode %}
+        Take a <a href="https://www.ontario.ca/form/survey-open-data-catalogue?{{ params }}">2-minute survey</a> and tell us what you think about this page.
+      {% endtrans %}
+    </p>
   </div>
 </div>

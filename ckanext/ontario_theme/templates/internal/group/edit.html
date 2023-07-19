@@ -1,6 +1,6 @@
 {% ckan_extends %}
 
 {% block breadcrumb_content_inner %}
-  <li>{% link_for group.display_name|truncate(35), named_route='group.read', id=group.name %}</li>
+  <li>{% link_for h.get_translated(c.group_dict,"title")|truncate(35), named_route='group.read', id=group.name %}</li>
   <li class="active">{% link_for _('Edit'), named_route='group.edit', id=group.name %}</li>
-{% endblock %}
+{% endblock breadcrumb_content_inner %}

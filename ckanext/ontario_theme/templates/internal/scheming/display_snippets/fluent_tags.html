@@ -5,26 +5,21 @@ tags=tags changes to keywords_en=tag).
 FYI - Fluent's template is an override of schemings already.
 
 #}
-
 {%- set value = h.scheming_language_text(data[field.field_name]) -%}
 <section class="tags">
-{% block tag_list %}
-  <ul class="tag-list">
-    {% for tag in value %}
-      {% if h.lang() == 'en' %}
-        <li>
-          <a class="tag" href="{%
-            url_for 'dataset.search', keywords_en=tag
-            %}">{{ h.truncate(tag, 22) }}</a>
-        </li>
-      {% else %}
-        <li>
-          <a class="tag" href="{%
-            url_for 'dataset.search', keywords_fr=tag
-            %}">{{ h.truncate(tag, 22) }}</a>
-        </li>
-      {% endif %}
-    {% endfor %}
-  </ul>
-{% endblock %}
+  {% block tag_list %}
+    <ul class="tag-list">
+      {% for tag in value %}
+        {% if h.lang() == 'en' %}
+          <li>
+            <a class="tag" href="{%- url_for 'dataset.search', keywords_en=tag -%}">{{ h.truncate(tag, 22) }}</a>
+          </li>
+        {% else %}
+          <li>
+            <a class="tag" href="{%- url_for 'dataset.search', keywords_fr=tag -%}">{{ h.truncate(tag, 22) }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  {% endblock tag_list %}
 </section>

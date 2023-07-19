@@ -1,46 +1,36 @@
 {#
   Custom snippet to display if any resources exist for the package
 #}
-
 {% if pkg['harvester'] == "ontario-data-catalogue" %}
   <div class="new-alert alert-info alert-large alert-clear">
     <strong>Ontario Data Catalogue Record</strong>
+    <p>
+      The information here is from the Ontario Data Catalogue
+      <a href="https://data.ontario.ca/dataset/{{ pkg.id }}">[The record on the Ontario Data Catalogue can be found here]</a>
+    </p>
+    {% if pkg['access_level'] == 'open' %}
+      <p>This dataset is available to the public.</p>
+    {% elif pkg['access_level'] == 'restricted' %}
+      <p>This dataset is not open to the public. It has been determined to be restricted as it has an exemption.</p>
       <p>
-        The information here is from the Ontario Data Catalogue
-        <a href="https://data.ontario.ca/dataset/{{pkg.id}}">[The record on the Ontario Data Catalogue can be found here]</a>
+        The rationale is: {{ h.scheming_choices_label(h.scheming_field_choices(h.scheming_field_by_name(schema.dataset_fields,"exemption")),pkg['exemption']) }}
+        - {{ h.scheming_language_text(pkg['exemption_rationale']) }}
       </p>
-      {% if pkg['access_level'] == 'open' %}
-        <p>
-          This dataset is available to the public.
-        </p>
-      {% elif pkg['access_level'] == 'restricted' %} 
-        <p>
-          This dataset is not open to the public. It has been determined to be restricted as it has an exemption.
-        </p>
-        <p>
-          The rationale is: {{ h.scheming_choices_label(h.scheming_field_choices(h.scheming_field_by_name(schema.dataset_fields,"exemption")),pkg['exemption']) }} 
-          - {{ h.scheming_language_text(pkg['exemption_rationale']) }}
-        </p>
-      {% elif pkg['access_level'] == 'under_review' %}
-        <p>
-          This dataset is not open to the public. It is currently under review to determine whether it can be made open to the public
-        </p>
-      {% endif %}
+    {% elif pkg['access_level'] == 'under_review' %}
+      <p>
+        This dataset is not open to the public. It is currently under review to determine whether it can be made open to the public
+      </p>
+    {% endif %}
   </div>
 {% endif %}
-
 {% if resources | selectattr("type","equalto","data") | list | length > 0 %}
   <div class="new-alert alert-open alert-large alert-clear">
     <strong>Data Available</strong>
-      <p>
-          This dataset is currently available to the OPS.
-      </p>
+    <p>This dataset is currently available to the OPS.</p>
   </div>
 {% else %}
   <div class="new-alert alert-danger alert-large alert-clear">
     <strong>Data Not Available</strong>
-      <p>
-          This dataset is currently not available to the OPS.
-      </p>
+    <p>This dataset is currently not available to the OPS.</p>
   </div>
 {% endif %}

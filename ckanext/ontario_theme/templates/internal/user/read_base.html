@@ -4,10 +4,12 @@
   <div class="nums">
     <dl>
       <dt>{{ _('Datasets') }}</dt>
-      <dd>{{ h.SI_number_span(user.number_created_packages) }}</dd>
+      <dd>
+        {{ h.SI_number_span(user.number_created_packages) }}
+      </dd>
     </dl>
   </div>
-{% endblock %}
+{% endblock user_nums %}
 
 {% block user_follow %}
-{% endblock %}
+{% endblock user_follow %}

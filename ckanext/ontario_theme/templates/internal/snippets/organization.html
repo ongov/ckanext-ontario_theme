@@ -1,56 +1,67 @@
+{# djlint:off J018, H025 #}
 {% ckan_extends %}
+
 {% block info %}
-  <div class="module module-narrow module-shallow context-info">
-    {% if has_context_title %}
-      <h2 class="aside-heading">{{ _('Ministry') }}</h2>
-    {% endif %}
-    <section>
-      {% block inner %}
-	  {% block image %}
-  		{# Leave block blank to override image div #}
-		{% endblock %}
-      {% block heading %}
-	  <h3 class="ontario-module-h3">{{ h.get_translated(organization, "title") or organization.name }}
-		{% if organization.state == 'deleted' %}
-		  [{{ _('Deleted') }}]
-		{% endif %}
-	  </h3>
-	  {% endblock %}
-      {% block description %}
-	  {% if h.get_translated(organization,"description") %}
-		<p>
-		  {{ h.markdown_extract(h.get_translated(organization,"description"), 180) }}
-		  {% link_for _('read more'), named_route='organization.about', id=organization.name %}
-		</p>
-	  {% else %}
-		<p class="empty">{{ _('There is no description for this ministry.') }}</p>
-	  {% endif %}
-	  {% endblock %}
-      {% if show_nums %}
-        {% block nums %}
-	  <div class="nums">
-		<dl>
-		  <dt>{{ _('Datasets') }}</dt>
-		  <dd>{{ h.SI_number_span(organization.package_count) }}</dd>
-		</dl>
-	  </div>
-	  {% endblock %}
-        {% block follow %}
-	  <hr />
-	  <h2 class="module-heading">{{ _("Keep updated") }}</h2>
-	  <p>
-		{{ _("Subscribe to updates to this ministry using RSS.") }}
-	  </p>
-	  <p>
-		<a href="/feeds/organization/{{ organization.name }}.atom" class="btn btn-primary">
-		  <i class="fa fa-rss"></i> {{ _('Subscribe') }}
-		</a>
-	  </p>
-	  {% endblock %}
-      {% endif %}
-      {% endblock %}
-    </section>
-  </div>
-  {% endblock %}
+	{% if has_context_title %}
+		<div class="module module-narrow module-shallow context-info">
+			<h2 class="ontario-h4">{{ _('Ministry') }}</h2>
+	{% else %}
+		<div class="no-context-title">
+	{% endif %}
+			<section>
+				{% block inner %}
+					{% block image %}
+						{# Leave block blank to override image div #}
+					{% endblock image %}
 
+					{% block heading %}
+						{% if has_context_title %}
+							<h3 class="ontario-module-h3">{{ h.get_translated(organization, "title") or organization.name }}
+								{% if organization.state == 'deleted' %}
+									[{{ _('Deleted') }}]
+								{% endif %}
+							</h3>
+						{% else %}
+							<h1>{{ _('Ministry') + _(':') }} {{ h.get_translated(organization, "title") or organization.name }}
+								{% if organization.state == 'deleted' %}
+									[{{ _('Deleted') }}]
+								{% endif %}
+							</h1>
+						{% endif %}
+					{% endblock heading %}
 
+					{%- if show_nums -%}
+						{% block nums %}
+							<div class="ministry nums">
+								{% set ministry_dataset_count = ungettext('{number} dataset', '{number} datasets', organization.package_count) %}
+								{%- if organization.package_count -%}
+									<p>{{ ministry_dataset_count.format(number=h.localised_number(organization.package_count)) }}</p>
+								{%- else -%}
+									<p>0 {{ _('datasets') }}</p>
+								{%- endif -%}
+							</div>
+						{% endblock nums %}
+					{%- endif -%}
+				{% endblock inner %}
+
+				{% block description %}
+					{% if h.get_translated(organization,"description") and has_context_title %}
+						<p>
+							{{ h.markdown_extract(h.get_translated(organization,"description"), 180) }}
+							{% link_for _('Read more'), named_route='organization.about', id=organization.name %}
+						</p>
+					{% elif h.get_translated(organization,"description") and not has_context_title %}
+						<p class="ontario-lead-statement">
+							{{ h.get_translated(organization,"description") }}
+						</p>
+					{% else %}
+						<p class="empty">{{ _('There is no description for this ministry.') }}</p>
+					{% endif %}
+				{% endblock description %}
+
+				{% block follow %}
+				{% endblock follow %}
+			</section>
+		</div>
+{% endblock info %}
+{# djlint:on #}

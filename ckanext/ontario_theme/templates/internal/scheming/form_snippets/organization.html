@@ -1,24 +1,22 @@
 {# This is specific to datasets' owner_org field and won't work #}
 {# if used with other fields #}
 {# This removes Private (visibility) option. Default is false. #}
-
-
 {% macro organization_option_tag(organization, selected_org) %}
   {% block organization_option scoped %}
-    <option value="{{ organization.id }}"{%
-      if selected_org %} selected="selected"{% endif
-      %}>{{ h.get_translated( h.get_organization(organization.name), "title") or organization.display_name }}</option>
-  {% endblock %}
+    <option value="{{ organization.id }}"
+            {% if selected_org %}selected="selected"{% endif %}>
+      {{ h.get_translated( h.get_organization(organization.name), "title") or organization.display_name }}
+    </option>
+  {% endblock organization_option %}
 {% endmacro %}
-
-  <div data-module="dataset-visibility">
+<div data-module="dataset-visibility">
   {% snippet "scheming/form_snippets/_organization_select.html",
-    field=field,
-    data=data,
-    classes=['col-md-12'],
-    errors=errors,
-    organizations_available=h.organizations_available('create_dataset'),
-    org_required=not h.check_config_permission('create_unowned_dataset')
-      or h.scheming_field_required(field),
-    organization_option_tag=organization_option_tag %}
-  </div>
+  field=field,
+  data=data,
+  classes=['col-md-12'],
+  errors=errors,
+  organizations_available=h.organizations_available('create_dataset'),
+  org_required=not h.check_config_permission('create_unowned_dataset')
+  or h.scheming_field_required(field),
+  organization_option_tag=organization_option_tag %}
+</div>
