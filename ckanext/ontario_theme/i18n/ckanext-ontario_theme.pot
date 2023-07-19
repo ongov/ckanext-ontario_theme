@@ -498,8 +498,8 @@ msgid ""
 "=\"open-data\"></a> Open Data </h2> <p> Open data is data that is shared with"
 " the public. <a href=\"https://www.ontario.ca/page/sharing-government-data\">"
 " Click here to learn more about open data and why Ontario releases it</a>. "
-"</p> <p> <a href=\"https://www.ontario.ca/page/ontarios-open-data-"
-"directive\">Ontario’s Open Data Directive</a> states that all data must be "
+"</p> <p> <a href=\"%(directive_url)s\">"
+"Ontario’s Digital and Data Directive</a> states that all data must be "
 "open, unless there is good reason for it to remain confidential. </p> "
 "<p>Ontario’s Chief Digital and Data Officer also has the authority to make "
 "certain datasets available publicly.</p> <h2> <a name=\"other-data\"></a> "
@@ -1039,7 +1039,7 @@ msgstr ""
 msgid ""
 "This data might be made available in the future. We are reviewing the data "
 "in this record to determine if it can be made open. <a "
-"href=\"https://www.ontario.ca/page/ontarios-open-data-directive\">[Learn "
+"href=\"%(directive_url)s\">[Learn "
 "more]</a>"
 msgstr ""
 
@@ -1447,22 +1447,28 @@ msgstr ""
 msgid ""
 " <p> Data in this record cannot be released because of legal, privacy, "
 "security, confidentiality or commercially-sensitive reasons, as outlined by "
-"the <a href=\"https://www.ontario.ca/page/ontarios-digital-and-data-directive-2021\">Digital and"
+"the <a href=\"%(directive_url)s\">Digital and"
 " Data Directive</a>. </p> "
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/package/snippets/ontario_theme_access_level.html:36
 msgid ""
 " <p> We are reviewing the data in this record to determine if it can be made "
-"open, in support of the <a href=\"http://www.ontario.ca/page/ontarios-open-"
-"data-directive\">Digital and Data Directive</a>. </p> "
+"open, in support of the <a href=\"%(directive_url)s\""
+">Digital and Data Directive</a>. </p> "
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/package/snippets/ontario_theme_access_level.html:43
 msgid ""
 " <p> Data in this record has been reviewed and will be made open in the "
-"future, in support of the <a href=\"http://www.ontario.ca/page/ontarios-open-"
-"data-directive\">Digital and Data Directive</a>. </p> "
+"future, in support of the <a href=\"%(directive_url)s\""
+">Digital and Data Directive</a>. </p> "
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/package/snippets/ontario_theme_access_level.html:10
+#: ckanext/ontario_theme/templates/external/home/snippets/about_text.html:2
+#: ckanext/ontario_theme/templates/internal/package/snippets/ontario_theme_language_disclaimer.html:15
+msgid "https://www.ontario.ca/page/ontarios-digital-and-data-directive-2021"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/package/snippets/ontario_theme_language_disclaimer.html:8
