@@ -5,9 +5,6 @@
 
 <section id="dataset-resources" class="resources">
   <h2>{{ _(h.dataset_display_name(pkg)) }}</h2>
-  {% if pkg.name == 'electric-vehicles-in-ontario-by-forward-sortation-area' %}
-    <iframe width="100%" height="819" frameborder="0" src="https://observablehq.com/embed/24f306625367453a@1910?cells=viewof+type%2Cviewof+qperiod%2Cpoc2"></iframe>
-  {% endif %}
   <p class="dataset-font">
     {{ _("Learn more about ") }} <a href="{{ h.url_for('home.about', _anchor='training-materials') }}">{{ _("accessing data using different file types.") }}</a>
   </p>
