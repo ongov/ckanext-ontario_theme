@@ -26,7 +26,6 @@ control-rows to align french and english fields side by side.
   {%- set schema = h.scheming_get_dataset_schema(dataset_type) -%}
   {%- for field in schema.dataset_fields -%}
     {# djlint:off #}
-    {# Code should be revisted on if we needd these if statements #}
     {%- if field.form_snippet is not none -%}
       {%- if field.fieldset -%}
         <fieldset>
