@@ -80,7 +80,7 @@ echo $SUDOPASS | sudo -S -k chmod -R 777 /var/lib/ckan/default
 # enable cached webpages
 echo $SUDOPASS | sudo -S -k mkdir -p /usr/lib/ckan/default/src/ckan/ckan/public/base
 echo $SUDOPASS | sudo -S -k chown -R www-data:www-data /usr/lib/ckan/default/src/ckan/ckan/public
-#echo $SUDOPASS | sudo -S -k chmod -R 777 /usr/lib/ckan/default/src/ckan/ckan/public
+echo $SUDOPASS | sudo -S -k chmod -R 777 /usr/lib/ckan/default/src/ckan/ckan/public
 
 # for local, create data tables
 ckan -c /etc/ckan/default/ckan.ini db init
