@@ -75,6 +75,10 @@
           {% endblock package_notes %}
 
           <span class="insert-comment-thread"></span>
+          {% if pkg.name == 'electric-vehicles-in-ontario-by-forward-sortation-area' %}
+            <h2>Change in Electric Vehicle Use across Ontario - 2022 & 2023</h2>
+            <iframe width="100%" height="819" frameborder="0" src="https://observablehq.com/embed/24f306625367453a@2225?cells=viewof+type%2Cviewof+qperiod%2Cpoc2"></iframe>
+          {% endif %}
         {% endblock package_description %}
 
         {% block package_additional_info %}
@@ -82,10 +86,6 @@
         {% endblock package_additional_info %}
       </div>
       <div class="col-xs-12">
-        {% if pkg.name == 'electric-vehicles-in-ontario-by-forward-sortation-area' %}
-          <h2>Change in Electric Vehicle Use across Ontario - 2022 & 2023</h2>
-          <iframe width="100%" height="819" frameborder="0" src="https://observablehq.com/embed/24f306625367453a@2225?cells=viewof+type%2Cviewof+qperiod%2Cpoc2"></iframe>
-        {% endif %}
         {% block package_resources %}
           {% snippet "package/snippets/resources_list.html", pkg=pkg, resources=pkg.resources,
           is_activity_archive=is_activity_archive %}
