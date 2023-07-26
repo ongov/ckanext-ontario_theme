@@ -69,15 +69,18 @@ ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini
 
 # setup filestore
 # ckan.storage_path is already enabled and set to /var/lib/ckan/default
-echo $SUDOPASS | sudo -S -k mkdir -p /var/lib/ckan/default
-echo $SUDOPASS | sudo -S -k mkdir -p /var/lib/ckan/default/storage
 echo $SUDOPASS | sudo -S -k mkdir -p /var/lib/ckan/default/webassets
+echo $SUDOPASS | sudo -S -k mkdir -p /var/lib/ckan/default/resources
+echo $SUDOPASS | sudo -S -k mkdir -p /var/lib/ckan/default/storage/uploads/admin
+echo $SUDOPASS | sudo -S -k mkdir -p /var/lib/ckan/default/storage/uploads/group 
+echo $SUDOPASS | sudo -S -k mkdir -p /var/lib/ckan/default/storage/uploads/home
+echo $SUDOPASS | sudo -S -k mkdir -p /var/lib/ckan/default/storage/uploads/user
 echo $SUDOPASS | sudo -S -k chown -R www-data:www-data /var/lib/ckan/default
 echo $SUDOPASS | sudo -S -k chmod -R 777 /var/lib/ckan/default
 # enable cached webpages
-echo $SUDOPASS | sudo -S -k mkdir -p /usr/lib/ckan/default/src/ckan/ckan/public
+echo $SUDOPASS | sudo -S -k mkdir -p /usr/lib/ckan/default/src/ckan/ckan/public/base
 echo $SUDOPASS | sudo -S -k chown -R www-data:www-data /usr/lib/ckan/default/src/ckan/ckan/public
-echo $SUDOPASS | sudo -S -k chmod -R 777 /usr/lib/ckan/default/src/ckan/ckan/public
+#echo $SUDOPASS | sudo -S -k chmod -R 777 /usr/lib/ckan/default/src/ckan/ckan/public
 
 # for local, create data tables
 ckan -c /etc/ckan/default/ckan.ini db init
@@ -160,8 +163,7 @@ echo $SUDOPASS | sudo -S -k chmod -R 777 /tmp/default/*
 
 # uwsgi script & server
 echo $SUDOPASS | sudo -S -k cp /usr/lib/ckan/default/src/ckan/wsgi.py /etc/ckan/default/
-echo $SUDOPASS | sudo -S -k chown www-data:www-data /etc/ckan/default/wsgi.py
-#echo $SUDOPASS | sudo -S -k chown -R www-data:www-data /var/lib/ckan/default/webassets
+echo $SUDOPASS | sudo -S -k chown www-data /etc/ckan/default/wsgi.py
 . /usr/lib/ckan/default/bin/activate
 pip3 install -Iv uwsgi==2.0.20
 echo $SUDOPASS | sudo -S -k cp /usr/lib/ckan/default/src/ckan/ckan-uwsgi.ini /etc/ckan/default/
