@@ -45,7 +45,7 @@ def accepted_resource_formats():
         file_resource_formats = json.loads(format_file.read())
 
         for format_line in file_resource_formats:
-            resource_exts.append(format_line[0])
+            resource_exts.append(format_line[0].upper())
             resource_types.append(format_line[2])
     return resource_exts, resource_types
 
@@ -53,10 +53,7 @@ def allowed_ext(filename):
     '''Returns boolean. Checks if the file extension is acceptable.
     '''
     resource_exts, resource_types = accepted_resource_formats()
-    if filename.rsplit('.', 1)[1] == 'geojson':
-        return 'GeoJSON' in resource_exts
-    else:
-        return filename.rsplit('.', 1)[1].upper() in resource_exts
+    return filename.rsplit('.', 1)[1].upper() in resource_exts
 
 def allowed_mimetype(magic_mimetype):
     '''Returns boolean. Checks if the magic mimetype is acceptable.
@@ -174,5 +171,5 @@ class ResourceUpload(DefaultResourceUpload):
         if url and not (resource.get('url_type') == 'upload') and not resource.get('format'):
             resource['format'] = 'WEB'
 
-        if resource.get('format') and not (resource.get('format') == 'GeoJSON'):
+        if resource.get('format'):
             resource['format'] = resource.get('format').upper()
