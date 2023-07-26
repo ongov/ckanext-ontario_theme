@@ -92,6 +92,8 @@ class ResourceUpload(DefaultResourceUpload):
                 if 'zip' in self.mimetype:
                     _check_zip_mimetype(self)
 
+                # Fix for geojson, python-magic identifies geojson
+                # files as the plain json mimetype 
                 if self.filename.rsplit('.', 1)[1] == 'geojson':
                     self.mimetype = 'application/geo+json'
 
