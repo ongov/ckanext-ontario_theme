@@ -13,13 +13,12 @@
     {% endif %}
   </span>
 {% endmacro %}
+
 {% set license = h.ontario_theme_get_license(pkg_dict.license_id) %}
 <!-- This block is for the license section in the sidebar on
      the dataset page, not the table on the resource page -->
 {% block license_title %}
-  <h2 class="ontario-h4">
-    {{ _('Licence') }}
-  </h2>
+  <h2 class="ontario-h4">{{ _('Licence') }}</h2>
 {% endblock license_title %}
 
 {% block license_content %}
@@ -38,9 +37,7 @@
       {% endblock license_content_inner %}
     </p>
     <p>
-      {% if h.get_translated(license._data, 'description') %}
-        {{ h.get_translated(license._data, 'description') }}
-      {% endif %}
+      {% if h.get_translated(license._data, 'description') %}{{ h.get_translated(license._data, 'description') }}{% endif %}
     </p>
   {% endif %}
 {% endblock license_content %}

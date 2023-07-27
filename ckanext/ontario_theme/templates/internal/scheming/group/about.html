@@ -1,12 +1,6 @@
 {% ckan_extends %}
 
-{%- set exclude_fields = [
-'title',
-'name',
-'image_url',
-'description_translated',
-'title_translated'
-] -%}
+{%- set exclude_fields = ["title", "name", "image_url", "description_translated", "title_translated"] -%}
 {% block primary_content_inner %}
   <h1>
     {% block page_heading %}
