@@ -8,7 +8,7 @@
 <li class="resource-item row" data-id="{{ res.id }}">
   <div class="col-md-6 col-xs-12">
     {% block resource_item_title %}
-      {% if res.format in h.dict_list_reduce(pkg.resources, 'format') and res.format | length < 5 %}
+      {% if res.format in h.dict_list_reduce(pkg.resources, 'format') and res.format %}
         <div class="label-div">
           <span class="label label-default"
                 property="dc:format"
