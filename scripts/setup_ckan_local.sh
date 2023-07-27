@@ -86,6 +86,9 @@ echo $SUDOPASS | sudo -S -k chmod -R 777 /usr/lib/ckan/default/src/ckan/ckan/pub
 ckan -c /etc/ckan/default/ckan.ini db init
 echo $SUDOPASS | sudo -S -k -u postgres psql -c "SELECT table_name FROM information_schema.tables"
 
+# change ownership of i18n to allow write access
+echo $SUDOPASS | sudo -S -k chown -R www-data:www-data /usr/lib/ckan/default/src/ckan/ckan/public/base/i18n/
+
 # create ckan admin account
 ckan -c /etc/ckan/default/ckan.ini user add admin email=admin@localhost password=admin123
 ckan -c /etc/ckan/default/ckan.ini sysadmin add admin
@@ -171,6 +174,7 @@ echo $SUDOPASS | sudo -S -k cp /usr/lib/ckan/default/src/ckan/ckan-uwsgi.ini /et
 # configure supervisor
 echo $SUDOPASS | sudo -S -k apt-get -y install supervisor=4.1.0*
 echo $SUDOPASS | sudo -S -k cp $CKAN_ONT_THEME_ROOT/config/supervisor/ckan-uwsgi.conf /etc/supervisor/conf.d/ckan-uwsgi.conf
+echo $SUDOPASS | sudo -S -k cp $CKAN_ONT_THEME_ROOT/config/supervisor/ckan-worker.conf /etc/supervisor/conf.d/ckan-worker.conf
 
 # install and configure nginx
 echo $SUDOPASS | sudo -S -k apt-get -y install nginx=1.18.0*
