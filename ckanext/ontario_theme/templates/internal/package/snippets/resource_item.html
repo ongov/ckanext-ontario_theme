@@ -8,7 +8,7 @@
 <li class="resource-item row" data-id="{{ res.id }}">
   <div class="col-md-6 col-xs-12">
     {% block resource_item_title %}
-      {% if res.format in h.dict_list_reduce(pkg.resources, 'format') and res.format | length < 5 %}
+      {% if res.format in h.dict_list_reduce(pkg.resources, 'format') and res.format %}
         <div class="label-div">
           <span class="label label-default"
                 property="dc:format"
@@ -21,9 +21,7 @@
       {% endif %}
       <a class="resource-item-title"
          href="{{ url }}"
-         title="{{ res.name or res.description }}">
-        {{ h.resource_display_name(res) | truncate(50) }}
-      </a>
+         title="{{ res.name or res.description }}">{{ h.resource_display_name(res) | truncate(50) }}</a>
       {% if res.language %}
         <span class="label label-{{ res.language }}">
           {{ h.scheming_choices_label(
@@ -71,7 +69,7 @@
               {% if pkg.groups %}
                 {% set this_group = pkg.groups[0]['name'] %}
               {% else %}
-                {% set this_group = '' %}
+                {% set this_group = "" %}
               {% endif %}
               <a href="{{ res.url }}"
                  class="resource-button-secondary resource-url-analytics ontario-button ontario-button--secondary dataset-download-link"
