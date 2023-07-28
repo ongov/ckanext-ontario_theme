@@ -205,7 +205,7 @@
 }
 
 .ontario-button--tertiary:visited {
-  color: #06c;
+  color: #3c7fa3;
 }
 
 /* ========================================================================
@@ -1556,6 +1556,7 @@ via submission form. Copied from DS.*/
   color: #1a1a1a;
   border-radius: 4px;
   margin-bottom: 5px;
+  margin-right: 5px;
   border: solid 2px #fff;
 }
 
@@ -1652,7 +1653,6 @@ via submission form. Copied from DS.*/
 
 .filesize {
   font-size: 20px;
-  margin-left: 5px;
   white-space: nowrap;
 }
 
