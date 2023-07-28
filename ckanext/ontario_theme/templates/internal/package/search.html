@@ -20,40 +20,37 @@ in the core template for search.html.
         {% block page_heading %}
           {{ _(dataset_type + 's') |capitalize }}
         {% endblock page_heading %}
-
       </h1>
     </div>
     {% block form %}
       {% set facets = {
-        'fields': c.fields_grouped,
-        'search': c.search_facets,
-        'titles': c.facet_titles,
-        'translated_fields': c.translated_fields,
-        'remove_field': c.remove_field }
-      %}
+              'fields': c.fields_grouped,
+              'search': c.search_facets,
+              'titles': c.facet_titles,
+              'translated_fields': c.translated_fields,
+            'remove_field': c.remove_field } %}
       {% set sorting = [
-        (_('Relevance'), 'score desc, metadata_modified desc'),
-        (_('Name Ascending'), 'name asc'),
-        (_('Name Descending'), 'name desc'),
-        (_('Last Modified'), 'metadata_modified desc'),
-        (_('Recently Created'), 'dataset_published_date desc'),
-        (_('Datasets With Data'), 'num_resources desc, metadata_modified desc'),
-        (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
-      %}
+              (_('Relevance'), 'score desc, metadata_modified desc'),
+              (_('Name Ascending'), 'name asc'),
+              (_('Name Descending'), 'name desc'),
+              (_('Last Modified'), 'metadata_modified desc'),
+              (_('Recently Created'), 'dataset_published_date desc'),
+              (_('Datasets With Data'), 'num_resources desc, metadata_modified desc'),
+            (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ] %}
       <!-- arguments for DS search bar -->
       {% set input_text = _('Search ' + dataset_type + 's') %}
       {% set query = c.q %}
       <!-- arguments for search form -->
-      {% set form_id = 'dataset-search-form' %}
+      {% set form_id = "dataset-search-form" %}
       {% set type = dataset_type %}
       {% set searchbar_title = input_text + _(':') %}
-      {# Set default sort order. If no sort order has been selected in 
+      {# Set default sort order. If no sort order has been selected in
          the Order By dropdown menu, use 'score desc, metadata_modified desc' (Relevance).
       #}
       {% if request['params'] and 'sort' in request['params'] %}
         {% set sort_order = request.params['sort'] %}
       {% else %}
-        {% set sort_order = 'score desc, metadata_modified desc' %}
+        {% set sort_order = "score desc, metadata_modified desc" %}
       {% endif %}
       <form id="{{ form_id }}"
             class="search-form"
@@ -104,13 +101,11 @@ in the core template for search.html.
 {% endblock primary %}
 
 {% block secondary %}
-  {% set single_option_facets = ['organization_jurisdiction', 'organization_category'] %}
+  {% set single_option_facets = ["organization_jurisdiction", "organization_category"] %}
   <aside class="secondary ontario-columns ontario-small-3 filter-results">
     <div class="filters">
       <div>{{ h.snippet('snippets/ontario_theme_keywords_facet.html') }}</div>
-      <div>
-        {{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets) }}
-      </div>
+      <div>{{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets) }}</div>
       <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
     </div>
   </aside>

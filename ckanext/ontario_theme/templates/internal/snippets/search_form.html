@@ -67,9 +67,7 @@
           <span class="facet-row">
             {% set search_facets_items = facets.search.get(field)['items'] %}
             <span class="facet">
-              {% if (not query and not loop.index0==0) or query %}
-                <span class="sr-only">and</span>
-              {% endif %}
+              {% if (not query and not loop.index0==0) or query %}<span class="sr-only">and</span>{% endif %}
               {{ facets.titles.get(field) + _(':') }}
             </span>
             {% for item in h.get_facet_items_dict(field) %}
