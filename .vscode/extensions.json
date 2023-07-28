@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "samuelcolvin.jinjahtml",
+        "ms-python.flake8",
+        "eamodio.gitlens",
+        "danielroedl.meld-diff",
+        "ahmadalli.vscode-nginx-conf"
+    ]
+}

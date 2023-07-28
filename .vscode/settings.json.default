@@ -8,8 +8,7 @@
   "css.lint.zeroUnits": "warning",
   "css.format.preserveNewLines": true,
   "editor.guides.bracketPairs": true,
-  "editor.language.colorizedBracketPairs": [
-    ["{%", "%}"],
-    ["{{", "}}"]
-  ]
+  "files.associations": {
+    "*.html": "jinja-html"
+  }
 }

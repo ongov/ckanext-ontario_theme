@@ -1,10 +1,23 @@
 {
     "use_gitignore": "True",
     "profile": "jinja",
-    "blank_line_after_tag": "ckan_extends,extends,endblock",
+    "blank_line_after_tag": "ckan_extends,extends,endmacro",
     "indent": "2",
     "max_line_length": "120",
     "format_attribute_template_tags": "true",
     "custom_blocks": "trans",
-    "ignore": "H006,H023"
+    "no_function_formatting": true,
+    "ignore": "H006,H023",
+    "max_blank_lines": 1,
+    "preserve_blank_lines": true,
+    "per-file-ignores": {
+        "ckanext/ontario_theme/templates/internal/admin/ontario_theme_image_uploader.html": "J018",
+        "ckanext/ontario_theme/templates/internal/ajax_snippets/api_info.html": "J018",
+        "ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_contact_us.html": "J018",
+        "ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_intro.html": "J018",
+        "ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_resources_and_information.html": "J018",
+        "ckanext/ontario_theme/templates/internal/package/read_base.html": "J018",
+        "ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html": "H037",
+        "ckanext/ontario_theme/templates/internal/snippets/organization.html": "J018,H025"
+    }
 }

@@ -6,41 +6,35 @@
           <ul class="ontario-footer__links-container ontario-footer__links-container--inline">
             {% block footer_links %}
               <li>
-                <a class="ontario-footer__link" href="{%- trans -%}https://www.ontario.ca/page/accessibility{%- endtrans -%}">
-                  {% trans %}
-                    Accessibility
-                  {% endtrans %}
+                <a class="ontario-footer__link"
+                   href="{%- trans -%}https://www.ontario.ca/page/accessibility{%- endtrans -%}">
+                  {{ _('Accessibility') }}
                 </a>
               </li>
               <li>
-                <a class="ontario-footer__link" href="{%- trans -%}https://www.ontario.ca/page/privacy-statement{%- endtrans -%}">
-                  {% trans %}
-                    Privacy
-                  {% endtrans %}
+                <a class="ontario-footer__link"
+                   href="{%- trans -%}https://www.ontario.ca/page/privacy-statement{%- endtrans -%}">
+                  {{ _('Privacy') }}
                 </a>
               </li>
               <li>
-                <a class="ontario-footer__link" href="{%- trans -%}https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269{%- endtrans -%}">
-                  {% trans %}
-                    Contact us
-                  {% endtrans %}
+                <a class="ontario-footer__link"
+                   href="{%- trans -%}https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269{%- endtrans -%}">
+                  {{ _('Contact us') }}
                 </a>
               </li>
               <li>
-                <a class="ontario-footer__link" href="{%- trans -%}https://www.ontario.ca/page/terms-use{%- endtrans -%}">
-                  {% trans %}
-                    Terms of use
-                  {% endtrans %}
+                <a class="ontario-footer__link"
+                   href="{%- trans -%}https://www.ontario.ca/page/terms-use{%- endtrans -%}">
+                  {{ _('Terms of use') }}
                 </a>
               </li>
             {% endblock footer_links %}
           </ul>
           <div class="ontario-footer__copyright">
-            <a class="ontario-footer__link" href="{%- trans -%}https://www.ontario.ca/page/copyright-information{%- endtrans -%}">
-              {% trans %}
-                &copy; King&#8217;s Printer for Ontario,
-              {% endtrans %}
-              2012&ndash;23</a>
+            <a class="ontario-footer__link"
+               href="{%- trans -%}https://www.ontario.ca/page/copyright-information{%- endtrans -%}">
+            {{ _('&copy; King&#8217;s Printer for Ontario,') }} 2012&ndash;23</a>
           </div>
         {% endblock footer_nav %}
       </div>
