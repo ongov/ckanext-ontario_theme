@@ -76,24 +76,26 @@
 
           <span class="insert-comment-thread"></span>
           {% if pkg.name == 'electric-vehicles-in-ontario-by-forward-sortation-area' %}
-          <h2>Quarterly Electric Vehicle (EV) counts across Ontario - 2022 & 2023</h2>
-          <p>The interactive visualization below colours a map of Forward Sortation Areas (FSAs) in Ontario by
+          <h2>Quarterly Electric Vehicle counts across Ontario - 2022 & 2023</h2>
+          <p class="dataset-font">The interactive visualization below colours a map of Forward Sortation Areas (FSAs) in Ontario by
             the number of Electric Vehicles of the type selected in the dropdown menu. Press "Play" to
             watch how the counts change across FSAs over quarterly time periods (from 2022 up to Q2 2023). 
-            The total number of EVs have are highest in the southernmost regions of Ontario.</p>
-            <div id="observablehq-viewof-evMenu-2022f1f5"></div>
-            <div id="observablehq-dvStyles-2022f1f5"></div>
-            <div id="observablehq-viewof-qperiod-2022f1f5"></div>
-            <div id="observablehq-poc2-2022f1f5"></div>
+            The total number of EVs are highest in the southernmost regions of Ontario.</p>
+            <div id="observablehq-viewof-evMenu-cee8f829"></div>
+            <div id="observablehq-dvStyles-cee8f829"></div>
+            <div id="observablehq-viewof-qperiod-cee8f829"></div>
+            <div id="observablehq-poc2-cee8f829"></div>
+            <p>Credit: <a href="https://observablehq.com/d/24f306625367453a@2472">Electric Vehicles in Ontario – By Forward Sortation Area by katirg</a></p>
 
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@observablehq/inspector@5/dist/inspector.css">
             <script type="module">
             import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js";
-            import define from "https://api.observablehq.com/d/24f306625367453a@2470.js?v=3";
+            import define from "https://api.observablehq.com/d/24f306625367453a@2472.js?v=3";
             new Runtime().module(define, name => {
-              if (name === "viewof evMenu") return new Inspector(document.querySelector("#observablehq-viewof-evMenu-2022f1f5"));
-              if (name === "dvStyles") return new Inspector(document.querySelector("#observablehq-dvStyles-2022f1f5"));
-              if (name === "viewof qperiod") return new Inspector(document.querySelector("#observablehq-viewof-qperiod-2022f1f5"));
-              if (name === "poc2") return new Inspector(document.querySelector("#observablehq-poc2-2022f1f5"));
+              if (name === "viewof evMenu") return new Inspector(document.querySelector("#observablehq-viewof-evMenu-cee8f829"));
+              if (name === "dvStyles") return new Inspector(document.querySelector("#observablehq-dvStyles-cee8f829"));
+              if (name === "viewof qperiod") return new Inspector(document.querySelector("#observablehq-viewof-qperiod-cee8f829"));
+              if (name === "poc2") return new Inspector(document.querySelector("#observablehq-poc2-cee8f829"));
             });
             </script>
        
