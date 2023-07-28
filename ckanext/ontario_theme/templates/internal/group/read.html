@@ -10,24 +10,22 @@ block. super() will end up calling the facets twice.
 
 {% block groups_search_form %}
   {% set facets = {
-  'fields': fields_grouped,
-  'search': search_facets,
-  'titles': facet_titles,
-  'translated_fields': translated_fields,
-  'remove_field': remove_field }
-  %}
+      'fields': fields_grouped,
+      'search': search_facets,
+      'titles': facet_titles,
+      'translated_fields': translated_fields,
+    'remove_field': remove_field } %}
   {% set sorting = [
-  (_('Relevance'), 'score desc, metadata_modified desc'),
-  (_('Name Ascending'), 'name asc'),
-  (_('Name Descending'), 'name desc'),
-  (_('Last Modified'), 'metadata_modified desc'),
-  (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
-  %}
+      (_('Relevance'), 'score desc, metadata_modified desc'),
+      (_('Name Ascending'), 'name asc'),
+      (_('Name Descending'), 'name desc'),
+      (_('Last Modified'), 'metadata_modified desc'),
+    (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ] %}
   {# Make 'Relevance' the default selection when first landing on page #}
   {% if not sort_by_selected %}
-    {% set sort_by_selected = 'score desc, metadata_modified desc' %}
+    {% set sort_by_selected = "score desc, metadata_modified desc" %}
   {% endif %}
-  {% set form_id = 'group-datasets-search-form' %}
+  {% set form_id = "group-datasets-search-form" %}
   <form id="{{ form_id }}"
         class="search-form"
         method="get"
@@ -75,7 +73,7 @@ block. super() will end up calling the facets twice.
           {#
             Flag facets to be ignored from standard loop that calls facets.
           #}
-          {% set single_option_facets = ['organization_jurisdiction', 'organization_category'] %}
+          {% set single_option_facets = ["organization_jurisdiction", "organization_category"] %}
           {{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets, extras={'id':c.group_dict.id}) }}
         </div>
         <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>

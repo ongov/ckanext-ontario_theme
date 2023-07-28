@@ -14,17 +14,22 @@
   {% block page_heading %}
     <div class="search-page-heading">
       <h1>{{ _('Groups') }}</h1>
-      <p class="ontario-lead-statement">{% trans %}Browse datasets and resources organized by a specific theme or topic.{% endtrans %}</p>
+      <p class="ontario-lead-statement">
+        {% trans %}
+          Browse datasets and resources organized by a specific theme or topic.
+        {% endtrans %}
+      </p>
     </div>
   {% endblock page_heading %}
+ 
   {% block groups_search_form %}
     <!-- arguments for DS search bar -->
     {% set input_text = _("Search groups") %}
     {% set sr_submit_text = _("Search") %}
     {% set query = c.q %}
     <!-- arguments for search form -->
-    {% set form_id = 'group-search-form' %}
-    {% set type = 'group' %}
+    {% set form_id = "group-search-form" %}
+    {% set type = "group" %}
     {% set searchbar_title = input_text + _(':') %}
     <form id="{{ form_id }}"
           class="search-form"
@@ -32,19 +37,19 @@
           data-module="select-switch"
           novalidate>
       {% snippet 'snippets/search_form.html',
-        searchbar_title=searchbar_title,
-        hidden_searchbar_title=input_text,
-        form_id=form_id,
-        type=type,
-        query=query,
-        sorting_selected=c.sort_by_selected,
-        count=c.page.item_count,
-        placeholder=input_text,
-        sr_input_text=input_text,
-        sr_submit_text=sr_submit_text,
-        show_empty=request.params,
-        no_bottom_border=true if c.page.items, sorting = [(_('Name Ascending'), 'name asc'), (_('Name Descending'), 'name desc')]
-        %}
+      searchbar_title=searchbar_title,
+      hidden_searchbar_title=input_text,
+      form_id=form_id,
+      type=type,
+      query=query,
+      sorting_selected=c.sort_by_selected,
+      count=c.page.item_count,
+      placeholder=input_text,
+      sr_input_text=input_text,
+      sr_submit_text=sr_submit_text,
+      show_empty=request.params,
+      no_bottom_border=true if c.page.items, sorting = [(_('Name Ascending'), 'name asc'), (_('Name Descending'), 'name desc')]
+      %}
     </form>
   {% endblock groups_search_form %}
 {% endblock pre_primary %}

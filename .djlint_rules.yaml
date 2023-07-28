@@ -1,0 +1,6 @@
+- rule:
+    name: J001
+    message: Add empty line after endblock
+    flags: re.M
+    patterns:
+      - ({% endblock).*( %}$)\n({% )(?!end|ckan_extends|extends)
