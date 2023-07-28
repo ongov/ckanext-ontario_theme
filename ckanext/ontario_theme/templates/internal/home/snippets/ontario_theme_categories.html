@@ -1,57 +1,66 @@
 {% set topics = [
   {
-    "label": "Justice and Public Safety",
+    "label_en": "Justice and Public Safety",
+    "label_fr": "Justice et sécurité publique",
     "fa-icon": "balance-scale"
   },
   {
-    "label": "Agriculture and Food",
+    "label_en": "Agriculture and Food",
+    "label_fr": "Agriculture et alimentation",
     "fa-icon": "leaf"
   },
   {
-    "label": "Housing, Communities and Social Support",
+    "label_en": "Housing, Communities and Social Support",
+    "label_fr": "Logement, collectivités et soutien social",
     "fa-icon": "group"
   },
   {
-    "label": "Education and Training",
+    "label_en": "Education and Training",
+    "label_fr": "Éducation et formation",
     "fa-icon": "mortar-board"
   },
   {
-    "label": "Economy and Business",
+    "label_en": "Economy and Business",
+    "label_fr": "Économie et affaires",
     "fa-icon": "industry"
   },
   {
-    "label": "Culture and Recreation",
+    "label_en": "Culture and Recreation",
+    "label_fr": "Culture et loisirs",
     "fa-icon": "soccer-ball-o"
   },
   {
-    "label": "Environment and Natural Resources",
+    "label_en": "Environment and Natural Resources",
+    "label_fr": "Environnement et richesses naturelles",
     "fa-icon": "tree"
   },
   {
-    "label": "Government and Finance",
+    "label_en": "Government and Finance",
+    "label_fr": "Gouvernement et finances",
     "fa-icon": "money"
   },
   {
-    "label": "Health",
+    "label_en": "Health",
+    "label_fr": "Santé",
     "fa-icon": "heartbeat"
   },
   {
-    "label": "Infrastructure and Transportation",
+    "label_en": "Infrastructure and Transportation",
+    "label_fr": "Infrastructure et transport",
     "fa-icon": "bus"
   }
 ] %}
 {% set language = h.lang() %}
-<div class="ontario-row">
-  <ul class="col-md-12 topics-list">
-    {% for i in topics %}
-      <li class="col-md-2-10 topics-list-item">
-        <a href="{{ h.url_for('dataset.search') }}?keywords_{{ request.environ.CKAN_LANG }}={{ _(i['label'])|replace(' ','+')|replace(',','') }}"
-           class="hp_category">
-          <i class="fa fa-{{ i['fa-icon'] }}"></i>
-          <p>{{ _(i['label']) }}</p>
-        </a>
-        <p>({{ h.ontario_theme_get_keyword_count(_(i['label']), language) }})</p>
-      </li>
-    {% endfor %}
-  </ul>
-</div>
+{% set label = "label_fr" if language == "fr" else "label_en" %}
+{% set labels_list = h.ontario_theme_sort_accented_characters(topics, label) %}
+<ul class="topics-list">
+  {% for i in labels_list %}
+    <li class="topics-list-item">
+      <a href="{{ h.url_for('dataset.search') }}?keywords_{{ request.environ.CKAN_LANG }}={{ i[label]|replace(' ','+')|replace(',','') }}"
+         class="hp_category">
+        <i class="fa fa-{{ i['fa-icon'] }}"></i>
+        <span>{{ i[label] }}</span></a>
+      <span class="category-count">({{ h.ontario_theme_get_keyword_count(_(i[label]), language) }})</span>
+    </li>
+  {% endfor %}
+</ul>

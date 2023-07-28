@@ -2400,26 +2400,58 @@ body {
 
 .topics-list {
   list-style-type: none;
-  display: block;
+  display: grid;
+  padding-left: unset;
+  margin-top: 28px;
+}
+
+@media screen and (min-width: 40em) {
+  .topics-list {
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(5, auto);
+    grid-auto-flow: column;
+    column-gap: 50px;
+  }
+}
+
+.hp_category {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
 }
 
 .topics-list-item {
-  display: grid;
   justify-items: center;
   margin-bottom: 2rem;
+  display: flex;
+  gap: 5px;
 }
 
-div#topics div p {
+div#topics div i {
+  font-size: 30px;
+  width: 30px;
+  text-align: center;
+  color: #999;
+}
+
+.topics-list-item a {
   font-weight: 600;
-  font-size: 18px;
-  line-height: 24.51px;
+  font-size: 20px;
+}
+
+div#topics div span {
+  font-weight: 600;
+  font-size: 20px;
   display: inline;
   margin: unset;
 }
 
-.col-md-2-10 {
-  padding-left: 1rem;
-  padding-right: 1rem;
+div#topics div a:hover i {
+  color: #3c7fa3;
+}
+
+div#topics a:hover span {
+  text-decoration: underline;
 }
 
 /* ========================================================================
