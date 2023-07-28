@@ -205,7 +205,7 @@
 }
 
 .ontario-button--tertiary:visited {
-  color: #06c;
+  color: #3c7fa3;
 }
 
 /* ========================================================================
@@ -1452,27 +1452,11 @@ via submission form. Copied from DS.*/
   margin: 0 0 0.75rem 0;
 }
 
-@media screen and (min-width: 40em) {
-  .embedded-content h2 {
-    font-size: 2.0625rem;
-    letter-spacing: 0.02rem;
-    line-height: 1.33;
-  }
-}
-
 .embedded-content h3 {
   font-size: 1.4375rem;
   letter-spacing: 0.02rem;
   line-height: 1.39;
   margin: 0 0 0.75rem 0;
-}
-
-@media screen and (min-width: 40em) {
-  .embedded-content h3 {
-    font-size: 1.75rem;
-    letter-spacing: 0.02rem;
-    line-height: 1.43;
-  }
 }
 
 .embedded-content h4 {
@@ -1487,6 +1471,22 @@ via submission form. Copied from DS.*/
     font-size: 1.5rem;
     letter-spacing: 0.0313rem;
     line-height: 1.5;
+  }
+
+  .embedded-content h3 {
+    font-size: 1.75rem;
+    letter-spacing: 0.02rem;
+    line-height: 1.43;
+  }
+
+  .embedded-content h2 {
+    font-size: 2.0625rem;
+    letter-spacing: 0.02rem;
+    line-height: 1.33;
+  }
+
+  .resource-item .description {
+    margin-left: 71px;
   }
 }
 
@@ -1530,18 +1530,20 @@ via submission form. Copied from DS.*/
   margin-bottom: 10px;
 }
 
-.resource-item.row,
-.resource-list {
-  margin: 0 -15px;
-}
-
 .resource-item div {
   padding: unset;
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 64em) {
   .resource-item .text-right {
     text-align: left;
+  }
+}
+
+@media screen and (min-width: 40em) and (max-width: 64em) {
+  .resource-item .text-right {
+    margin-left: 71px;
+    float: left !important;
   }
 }
 
@@ -1552,9 +1554,10 @@ via submission form. Copied from DS.*/
   font-size: 20px;
   font-weight: 700;
   color: #1a1a1a;
-  border-radius: 2px;
+  border-radius: 4px;
   margin-bottom: 5px;
-  vertical-align: -30%;
+  margin-right: 5px;
+  border: solid 2px #fff;
 }
 
 .description.details {
@@ -1567,7 +1570,6 @@ via submission form. Copied from DS.*/
   line-height: 27px;
   color: #000000;
   text-decoration: none;
-  vertical-align: -30%;
 }
 
 .resource-item-title:hover {
@@ -1632,6 +1634,11 @@ via submission form. Copied from DS.*/
   .label.label-english_and_french {
     display: inline-flex;
   }
+
+  .resource-info {
+    display: flow-root;
+    margin-bottom: 10px;
+  }
 }
 
 @media screen and (min-width: 73em) {
@@ -1644,16 +1651,37 @@ via submission form. Copied from DS.*/
   }
 }
 
+.filesize {
+  font-size: 20px;
+  white-space: nowrap;
+}
+
+.resource-button-primary,
+.resource-button-tertiary,
+.resource-button-secondary {
+  min-width: 175px;
+  min-height: 28px;
+}
+
+@media screen and (max-width: 64em) {
+  .resource-buttons {
+    margin-top: 10px;
+  }
+}
+
 .resource-button-primary {
-  min-height: 78px;
-  min-width: 142px;
   vertical-align: top;
+  background-color: #3c7fa3;
+}
+
+.resource-button-tertiary,
+.resource-button-secondary {
+  color: #3c7fa3;
 }
 
 .resource-button-secondary {
-  min-height: 78px;
-  min-width: 193px;
   vertical-align: top;
+  border: 2px solid #3c7fa3;
 }
 
 .resource-button-text {
