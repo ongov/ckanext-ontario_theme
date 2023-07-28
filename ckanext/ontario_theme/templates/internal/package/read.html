@@ -76,28 +76,28 @@
 
           <span class="insert-comment-thread"></span>
           {% if pkg.name == 'electric-vehicles-in-ontario-by-forward-sortation-area' %}
-        
-            <h2>Quarterly Electric Vehicle counts across Ontario - 2022 & 2023</h2>
-            <p class="dataset-font">The interactive visualization below colours a map of Forward Sortation Areas (FSAs) in Ontario by
-              the number of Electric Vehicles of the type selected in the dropdown menu. Press "Play" to
-              watch how the counts change across FSAs over quarterly time periods (from 2022 up to Q2 2023). 
-              The total number of EVs are highest in the southernmost regions of Ontario.</p>
-           
-            <div id="observablehq-viewof-evMenu-b5e2684f"></div>
-            <div id="observablehq-dvStyles-b5e2684f"></div>
-            <div id="observablehq-viewof-qperiod-b5e2684f"></div>
-            <div id="observablehq-poc2-b5e2684f"></div>
-            <script type="module">
-              import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js";
-              import define from "https://api.observablehq.com/d/24f306625367453a@2531.js?v=3";
-              new Runtime().module(define, name => {
-                if (name === "viewof evMenu") return new Inspector(document.querySelector("#observablehq-viewof-evMenu-b5e2684f"));
-                if (name === "dvStyles") return new Inspector(document.querySelector("#observablehq-dvStyles-b5e2684f"));
-                if (name === "viewof qperiod") return new Inspector(document.querySelector("#observablehq-viewof-qperiod-b5e2684f"));
-                if (name === "poc2") return new Inspector(document.querySelector("#observablehq-poc2-b5e2684f"));
-              });
-            </script>
-      
+            <div style="border: 1px solid grey;padding:20px;margin-bottom:30px">
+              <h2>Quarterly Electric Vehicle counts across Ontario - 2022 & 2023</h2>
+              <p class="dataset-font">The interactive visualization below colours a map of Forward Sortation Areas (FSAs) in Ontario by
+                the number of Electric Vehicles of the type selected in the dropdown menu. Press "Play" to
+                watch how the counts change across FSAs over quarterly time periods (from 2022 up to Q2 2023). 
+                The total number of EVs are highest in the southernmost regions of Ontario.</p>
+            
+              <div id="observablehq-viewof-evMenu-b5e2684f"></div>
+              <div id="observablehq-dvStyles-b5e2684f"></div>
+              <div id="observablehq-viewof-qperiod-b5e2684f"></div>
+              <div id="observablehq-poc2-b5e2684f"></div>
+              <script type="module">
+                import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js";
+                import define from "https://api.observablehq.com/d/24f306625367453a@2531.js?v=3";
+                new Runtime().module(define, name => {
+                  if (name === "viewof evMenu") return new Inspector(document.querySelector("#observablehq-viewof-evMenu-b5e2684f"));
+                  if (name === "dvStyles") return new Inspector(document.querySelector("#observablehq-dvStyles-b5e2684f"));
+                  if (name === "viewof qperiod") return new Inspector(document.querySelector("#observablehq-viewof-qperiod-b5e2684f"));
+                  if (name === "poc2") return new Inspector(document.querySelector("#observablehq-poc2-b5e2684f"));
+                });
+              </script>
+            </div>
           {% endif %}
         {% endblock package_description %}
 
