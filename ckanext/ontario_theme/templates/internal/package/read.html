@@ -76,22 +76,26 @@
 
           <span class="insert-comment-thread"></span>
           {% if pkg.name == 'electric-vehicles-in-ontario-by-forward-sortation-area' %}
-          <h2>Quarterly Electric Vehicle counts across Ontario - 2022 & 2023</h2>
-          <div id="observablehq-viewof-evMenu-a4f7e32d"></div>
-          <div id="observablehq-dvStyles-a4f7e32d"></div>
-          <div id="observablehq-viewof-qperiod-a4f7e32d"></div>
-          <div id="observablehq-poc2-a4f7e32d"></div>
- 
-          <script type="module">
-          import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js";
-          import define from "https://api.observablehq.com/d/24f306625367453a@2461.js?v=3";
-          new Runtime().module(define, name => {
-            if (name === "viewof evMenu") return new Inspector(document.querySelector("#observablehq-viewof-evMenu-a4f7e32d"));
-            if (name === "dvStyles") return new Inspector(document.querySelector("#observablehq-dvStyles-a4f7e32d"));
-            if (name === "viewof qperiod") return new Inspector(document.querySelector("#observablehq-viewof-qperiod-a4f7e32d"));
-            if (name === "poc2") return new Inspector(document.querySelector("#observablehq-poc2-a4f7e32d"));
-          });
-          </script>
+          <h2>Quarterly Electric Vehicle (EV) counts across Ontario - 2022 & 2023</h2>
+          <p>The interactive visualization below colours a map of Forward Sortation Areas (FSAs) in Ontario by
+            the number of Electric Vehicles of the type selected in the dropdown menu. Press "Play" to
+            watch how the counts change across FSAs over quarterly time periods (from 2022 up to Q2 2023). 
+            The total number of EVs have are highest in the southernmost regions of Ontario.</p>
+            <div id="observablehq-viewof-evMenu-2022f1f5"></div>
+            <div id="observablehq-dvStyles-2022f1f5"></div>
+            <div id="observablehq-viewof-qperiod-2022f1f5"></div>
+            <div id="observablehq-poc2-2022f1f5"></div>
+
+            <script type="module">
+            import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js";
+            import define from "https://api.observablehq.com/d/24f306625367453a@2470.js?v=3";
+            new Runtime().module(define, name => {
+              if (name === "viewof evMenu") return new Inspector(document.querySelector("#observablehq-viewof-evMenu-2022f1f5"));
+              if (name === "dvStyles") return new Inspector(document.querySelector("#observablehq-dvStyles-2022f1f5"));
+              if (name === "viewof qperiod") return new Inspector(document.querySelector("#observablehq-viewof-qperiod-2022f1f5"));
+              if (name === "poc2") return new Inspector(document.querySelector("#observablehq-poc2-2022f1f5"));
+            });
+            </script>
        
             <!-- <h2>Change in Electric Vehicle Use across Ontario - 2022 & 2023</h2>
             <iframe width="100%" height="819" frameborder="0" src="https://observablehq.com/embed/24f306625367453a@2225?cells=viewof+type%2Cviewof+qperiod%2Cpoc2"></iframe> -->
