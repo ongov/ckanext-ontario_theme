@@ -99,18 +99,17 @@
 {% endblock search_facets %}
 
 {% block search_sortby %}
-    {% if sorting %}
-      <div class="form-select form-group control-order-by search-page-select">
-        <label class="ontario-label" for="field-order-by">{{ _('Sort by') + _(':') }}</label>
-        <select id="field-order-by" name="sort" class="form-control ontario-input ontario-dropdown">
-          {% for label, value in sorting %}
-            {% if label and value %}
-              <option value="{{ value }}"{% if sorting_selected == value %} selected="selected"{% endif %}>{{ label }}</option>
-            {% endif %}
-          {% endfor %}
-        </select>
-        {% block search_sortby_button %}
-        {% endblock search_sortby_button %}
-      </div>
-    {% endif %}
-  {% endblock search_sortby %}
+  <div class="form-select form-group control-order-by search-page-select">
+    <label class="ontario-label" for="field-order-by">{{ _('Sort by') + _(':') }}</label>
+    <select id="field-order-by"
+            name="sort"
+            class="form-control ontario-input ontario-dropdown">
+      {% for label, value in sorting %}
+        {% if label and value %}
+          <option value="{{ value }}"
+                  {% if sorting_selected == value %}selected="selected"{% endif %}>{{ label }}</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+  </div>
+{% endblock search_sortby %}
