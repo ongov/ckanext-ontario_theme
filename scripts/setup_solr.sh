@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Assume that the sudo password has been exported as an environment variable
-# export SUDOPASS="mypass"
+# export SUDOPASS="mypassword"
 
 # Vars
 SOLRVER=8.11.2
