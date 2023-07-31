@@ -2554,3 +2554,23 @@ msgstr "aucune date de fin"
 # Back to top button
 msgid "Top"
 msgstr "Haut"
+
+#: ckanext/ontario_theme/plugin.py:729
+msgid "{bytes} <abbr title=\"bytes\">B</abbr>"
+msgstr "{bytes} <abbr title=\"octets\">o</abbr>"
+
+#: ckanext/ontario_theme/plugin.py:731
+msgid "{kibibytes} <abbr title=\"kibibytes\">KiB</abbr>"
+msgstr "{kibibytes} <abbr title=\"kibioctets\">Kio</abbr>"
+
+#: ckanext/ontario_theme/plugin.py:733
+msgid "{mebibytes} <abbr title=\"mebibytes\">MiB</abbr>"
+msgstr "{mebibytes} <abbr title=\"mébioctets\">Mio</abbr>"
+
+#: ckanext/ontario_theme/plugin.py:735
+msgid "{gibibytes} <abbr title=\"gibibytes\">GiB</abbr>"
+msgstr "{gibibytes} <abbr title=\"gibioctets\">Gio</abbr>"
+
+#: ckanext/ontario_theme/plugin.py:737
+msgid "{tebibytes} <abbr title=\"tebibytes\">TiB</abbr>"
+msgstr "{tebibytes} <abbr title=\"tébioctets\">Tio</abbr>"
