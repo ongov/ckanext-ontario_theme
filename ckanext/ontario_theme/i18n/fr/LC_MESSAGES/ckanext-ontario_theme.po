@@ -2555,6 +2555,10 @@ msgstr "aucune date de fin"
 msgid "Top"
 msgstr "Haut"
 
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:106
+msgid "Sort by"
+msgstr "Trier par"
+
 #: ckanext/ontario_theme/plugin.py:729
 msgid "{bytes} <abbr title=\"bytes\">B</abbr>"
 msgstr "{bytes} <abbr title=\"octets\">o</abbr>"

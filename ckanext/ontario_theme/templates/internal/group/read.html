@@ -32,6 +32,7 @@ block. super() will end up calling the facets twice.
         data-module="select-switch"
         novalidate>
     {% snippet 'snippets/search_form.html',
+    searchbar_title= _('Search datasets') + _(':'),
     form_id=form_id,
     type='dataset',
     query=q,

@@ -1,11 +1,11 @@
 {% ckan_extends %}
 
 {% block primary %}
-  <div class="primary ministry-page col-xs-12" role="main">
+  <div class="primary ministry-page" role="main">
     {% block primary_content %}
       <article class="module">
         {% block page_header %}
-          <header class="page-header ministry-page-header">
+          <header class="page-header col-xs-12 ministry-page-header">
             <div class="content_action">
               {% block content_action %}
                 {% if h.check_access('organization_update', {'id': c.group_dict.id}) %}

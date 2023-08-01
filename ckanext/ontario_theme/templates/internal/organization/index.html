@@ -51,22 +51,20 @@
             data-module="select-switch"
             novalidate>
         {% snippet 'snippets/search_form.html',
-        searchbar_title=searchbar_title,
-        hidden_searchbar_title=input_text,
-        form_id=form_id,
-        type=type,
-        query=query,
-        sorting=sorting,
-        sorting_selected=c.sort_by_selected,
-        count=c.page.item_count,
-        placeholder=input_text,
-        sr_input_text=input_text,
-        sr_submit_text=sr_submit_text,
-        facets=facets,
-        show_empty=request.params,
-        error=c.query_error,
-        fields=c.fields
-        %}
+          searchbar_title=searchbar_title,
+          form_id=form_id,
+          type=type,
+          query=query,
+          sorting=sorting,
+          sorting_selected=c.sort_by_selected,
+          count=c.page.item_count,
+          placeholder=input_text,
+          sr_submit_text=sr_submit_text,
+          facets=facets,
+          show_empty=request.params,
+          error=c.query_error,
+          fields=c.fields
+          %}
       </form>
     {% endblock organizations_search_form %}
   </div>
