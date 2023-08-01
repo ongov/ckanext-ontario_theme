@@ -18,10 +18,13 @@ from flask import render_template, render_template_string
 
 import json
 import ckan.lib.helpers as helpers
+import ckan.lib.formatters as formatters
 from ckan.lib.helpers import core_helper
 
 from ckan.model import Package
 import ckan.model as model
+import locale
+import functools
 
 from ckanext.ontario_theme.resource_upload import ResourceUpload
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
@@ -717,6 +720,27 @@ def resource_update_auth(context, data_dict=None):
         return {'success': False, 'msg': 'This user is not allowed to edit this resource'}
     return {'success': True, 'msg': 'This package is editable.'}
 
+def abbr_localised_filesize(number: int) -> str:
+    ''' Returns a localised unicode representation of a number in bytes, MiB etc
+    with abbreviation tags for accessibility
+
+    Modified localised_filesize function from ckan/lib/formatters.py
+    '''
+    def rnd(number: int, divisor: int):
+        # round to 1 decimal place
+        return formatters.localised_number(float(number * 10 // divisor) / 10)
+
+    if number < 1024:
+        return _('{bytes} <abbr title="bytes">B</abbr>').format(bytes=formatters.localised_number(number))
+    elif number < 1024 ** 2:
+        return _('{kibibytes} <abbr title="kibibytes">KiB</abbr>').format(kibibytes=rnd(number, 1024))
+    elif number < 1024 ** 3:
+        return _('{mebibytes} <abbr title="mebibytes">MiB</abbr>').format(mebibytes=rnd(number, 1024 ** 2))
+    elif number < 1024 ** 4:
+        return _('{gibibytes} <abbr title="gibibytes">GiB</abbr>').format(gibibytes=rnd(number, 1024 ** 3))
+    else:
+        return _('{tebibytes} <abbr title="tebibytes">TiB</abbr>').format(tebibytes=rnd(number, 1024 ** 4))
+
 
 def get_package_keywords(language='en'):
     '''Helper to return a list of the top 3 keywords based on specified
@@ -775,6 +799,12 @@ def default_locale():
     value = config.get('ckan.locale_default', 'en')
     return value
 
+def sort_accented_characters(french_list, primary_key=None):
+    locale.setlocale(locale.LC_ALL, "")
+    def compare_keys(item1, item2):
+        return locale.strcoll(item1[primary_key], item2[primary_key])
+    sorted_list = sorted(french_list, key=functools.cmp_to_key(compare_keys))
+    return sorted_list
 
 def num_resources_filter_scrub(search_params):
     u'''Remove any quotes around num_resources value to enable prober filter
@@ -1001,7 +1031,9 @@ type data_last_updated
                 'ontario_theme_get_keyword_count': get_keyword_count,
                 'ontario_theme_get_all_packages': get_all_packages,
                 'ontario_theme_get_all_organizations': get_all_organizations,
-                'ontario_theme_sort_by_title_translated': sort_by_title_translated
+                'ontario_theme_sort_by_title_translated': sort_by_title_translated,
+                'ontario_theme_sort_accented_characters': sort_accented_characters,
+                'ontario_theme_abbr_localised_filesize': abbr_localised_filesize
                 }
 
     # IBlueprint

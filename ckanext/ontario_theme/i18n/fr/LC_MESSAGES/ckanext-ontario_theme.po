@@ -590,8 +590,8 @@ msgid ""
 "=\"open-data\"></a> Open Data </h2> <p> Open data is data that is shared with"
 " the public. <a href=\"https://www.ontario.ca/page/sharing-government-data\">"
 " Click here to learn more about open data and why Ontario releases it</a>. "
-"</p> <p> <a href=\"https://www.ontario.ca/page/ontarios-open-data-"
-"directive\">Ontario’s Open Data Directive</a> states that all data must be "
+"</p> <p> <a href=\"%(directive_url)s\">"
+"Ontario’s Digital and Data Directive</a> states that all data must be "
 "open, unless there is good reason for it to remain confidential. </p> "
 "<p>Ontario’s Chief Digital and Data Officer also has the authority to make "
 "certain datasets available publicly.</p> <h2> <a name=\"other-data\"></a> "
@@ -1030,7 +1030,7 @@ msgstr "\n"
 "  Les Données ouvertes sont celles qui sont rendues publiques. <a href=\"https://www.ontario.ca/fr/page/acces-aux-donnees-gouvernementales\">Cliquez ici pour en savoir plus sur les données ouvertes et les raisons pour lesquelles elles sont communiquées par l’Ontario.\n"
 "</p>\n"
 "<p>\n"
-"  <a href=\"https://www.ontario.ca/fr/page/directive-sur-les-donnees-ouvertes-de-lontario\">La Directive sur les données ouvertes de l’Ontario</a> stipule que toutes les données doivent être ouvertes, sauf s’il existe une bonne raison pour qu’elles demeurent confidentielles.\n"
+"  <a href=\"%(directive_url)s\">La Directive de l’Ontario sur les données et les services numériques</a> stipule que toutes les données doivent être ouvertes, sauf s’il existe une bonne raison pour qu’elles demeurent confidentielles.\n"
 "</p>\n"
 "<p>\n"
 "  La Direction du numérique et des données de l’Ontario a l’autorité de rendre certains ensembles de données disponibles au public.\n"
@@ -2221,12 +2221,12 @@ msgstr "Données disponibles"
 #, python-format
 msgid ""
 "The data described here is available for you to use. <a "
-"href=\"https://www.ontario.ca/page/ontarios-open-data-directive\">[Learn "
+"href=\"%(directive_url)s\">[Learn "
 "more]</a><br /> <a href=\"%(license_url)s\">[See the licence for how you're "
 "allowed to use this data.]</a>"
 msgstr ""
 " Les données décrites ici sont disponibles pour votre utilisation. <a "
-"href=\"https://www.ontario.ca/fr/page/directive-sur-les-donnees-ouvertes-de-lontario\">[Apprendre "
+"href=\"%(directive_url)s\">[Apprendre "
 "encore plus]</a><br /> <a href=\"%(license_url)s\">[Voir la licence pour savoir comment vous "
 "êtes autorisé à utiliser ces données.]</a> "
 
@@ -2244,14 +2244,14 @@ msgid ""
 "This data is not and will not be made available. Data in this record cannot "
 "be released because of legal, privacy, security, confidentiality or "
 "commercially-sensitive reasons, as outlined by the <a "
-"href=\"https://www.ontario.ca/page/ontarios-open-data-directive\">Open Data "
+"href=\"%(directive_url)s\">Digital and Data "
 "Directive</a>."
 msgstr ""
 " Ces données ne sont pas et ne seront pas mises à disposition. Les données contenues dans ce dossier ne peuvent "
 "être divulguées pour des motifs d’application de la loi, de protection des renseignements personnels, "
 "de sécurité ou de secret commercial, comme il est énoncé dans la <a "
-"href=\"https://www.ontario.ca/fr/page/directive-sur-les-donnees-ouvertes-de-lontario\">Directive sur "
-"les données ouvertes de l'Ontario</a>. "
+"href=\"%(directive_url)s\">Directive sur "
+"les données et les services numériques</a>. "
 
 #: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:27
 msgid "Why?"
@@ -2261,22 +2261,27 @@ msgstr "Pourqoui"
 msgid ""
 "This data might be made available in the future. We are reviewing the data "
 "in this record to determine if it can be made open. <a "
-"href=\"https://www.ontario.ca/page/ontarios-open-data-directive\">[Learn "
+"href=\"%(directive_url)s\">[Learn "
 "more]</a>"
 msgstr ""
 " Ces données pourraient être mises à disposition à l'avenir. Nous sommes en train d’examiner "
 "les données de cette série pour déterminer si elles peuvent être ouvertes. <a "
-"href=\"https://www.ontario.ca/fr/page/directive-sur-les-donnees-ouvertes-de-lontario\">[Apprendre "
+"href=\"%(directive_url)s\">[Apprendre "
 "encore plus]</a> "
+
+#: ckanext/ontario_theme/templates/internal/package/snippets/ontario_theme_access_level.html:10
+#: ckanext/ontario_theme/templates/external/home/snippets/about_text.html:2
+msgid "https://www.ontario.ca/page/ontarios-digital-and-data-directive-2021"
+msgstr "https://www.ontario.ca/fr/page/directive-de-lontario-sur-les-donnees-et-les-services-numeriques-2021"
 
 #: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:40
 msgid ""
 " <p> This data will be made open in the future after it has been approved. <a"
-" href=\"http://www.ontario.ca/page/ontarios-open-data-directive\">[Learn "
+" href=\"%(directive_url)s\">[Learn "
 "more]</a> </p> "
 msgstr ""
 " <p> Ces données seront rendues publiques à l'avenir après leur approbation. <a"
-"href=\"https://www.ontario.ca/fr/page/directive-sur-les-donnees-ouvertes-de-lontario\">[Apprendre "
+"href=\"%(directive_url)s\">[Apprendre "
 "encore plus]</a> "
 
 #: ckanext/ontario_theme/templates/package/snippets/ontario_theme_language_disclaimer.html:8
@@ -2291,10 +2296,10 @@ msgstr "Vous consultez un fichier de données en anglais. Cet ensemble de donné
 msgid ""
 " You're viewing a data file in French. This dataset <strong>does not</strong>"
 " have files available in English. Data on the data catalogue is published in "
-"the language in which it’s collected. <a href=\"https://www.ontario.ca/page"
-"/ontarios-open-data-directive\">[Learn more]</a> "
-msgstr "Vous consultez un fichier de données en anglais. Cet ensemble de données <strong>n'a </strong> aucun fichier disponible en français. Les données du catalogue de données sont publiées dans la langue dans laquelle elles sont collectées. <a href=\"https://www.ontario.ca/fr/page/"
-"directive-sur-les-donnees-ouvertes-de-lontario\">[Apprendre encore plus]</a>"
+"the language in which it’s collected. <a href=\"%(directive_url)s\">"
+"[Learn more]</a> "
+msgstr "Vous consultez un fichier de données en anglais. Cet ensemble de données <strong>n'a </strong> aucun fichier disponible en français. Les données du catalogue de données sont publiées dans la langue dans laquelle elles sont collectées. <a href=\"%(directive_url)s\">"
+"[Apprendre encore plus]</a>"
 
 #: ckanext/ontario_theme/templates/internal/snippets/organization.html:15
 msgid "Read more"
@@ -2549,3 +2554,27 @@ msgstr "aucune date de fin"
 # Back to top button
 msgid "Top"
 msgstr "Haut"
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:106
+msgid "Sort by"
+msgstr "Trier par"
+
+#: ckanext/ontario_theme/plugin.py:729
+msgid "{bytes} <abbr title=\"bytes\">B</abbr>"
+msgstr "{bytes} <abbr title=\"octets\">o</abbr>"
+
+#: ckanext/ontario_theme/plugin.py:731
+msgid "{kibibytes} <abbr title=\"kibibytes\">KiB</abbr>"
+msgstr "{kibibytes} <abbr title=\"kibioctets\">Kio</abbr>"
+
+#: ckanext/ontario_theme/plugin.py:733
+msgid "{mebibytes} <abbr title=\"mebibytes\">MiB</abbr>"
+msgstr "{mebibytes} <abbr title=\"mébioctets\">Mio</abbr>"
+
+#: ckanext/ontario_theme/plugin.py:735
+msgid "{gibibytes} <abbr title=\"gibibytes\">GiB</abbr>"
+msgstr "{gibibytes} <abbr title=\"gibioctets\">Gio</abbr>"
+
+#: ckanext/ontario_theme/plugin.py:737
+msgid "{tebibytes} <abbr title=\"tebibytes\">TiB</abbr>"
+msgstr "{tebibytes} <abbr title=\"tébioctets\">Tio</abbr>"

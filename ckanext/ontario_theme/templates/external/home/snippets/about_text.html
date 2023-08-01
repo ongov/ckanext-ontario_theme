@@ -1,5 +1,5 @@
 <div id="about">
-  {% trans image_path=h.url_for_static('/images/external/about/'), url=h.url_for('home.index'),
+  {% trans image_path=h.url_for_static('/images/external/about/'), url=h.url_for('home.index'), directive_url=_("https://www.ontario.ca/page/ontarios-digital-and-data-directive-2021"),
     dataset_url=h.url_for('dataset.search'), help_url=h.url_for('ontario_theme.help', _anchor='what-does-the-preview-button-do') %}
     <h2>On this page</h2>
     <ol class="table-of-contents">
@@ -38,7 +38,7 @@
       Click here to learn more about open data and why Ontario releases it</a>.
     </p>
     <p>
-      <a href="https://www.ontario.ca/page/ontarios-open-data-directive">Ontario’s Open Data Directive</a>
+      <a href="{{ directive_url }}">Ontario’s Digital and Data Directive</a>
       states that all data must be open, unless there is good reason for it to remain confidential.
     </p>
     <p>Ontario’s Chief Digital and Data Officer also has the authority to make certain datasets available publicly.</p>
