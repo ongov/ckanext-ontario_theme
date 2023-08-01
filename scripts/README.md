@@ -107,28 +107,35 @@ For configuration, files in `config/` directory are used.
 **Command line:**
 
 1. Do the steps common to the scripts in [common steps](#common-steps)
+
 2. Setup Solr8 locally as described in [Solr Installation](#solr-installation)
 
-3. Setup PostgreSQL locally
+3. Export your sudo password as an environment variable named `SUDOPASS`:
+
+```bash
+export SUDOPASS='xxxx'
+```
+
+4. Setup PostgreSQL locally
 
 ```bash
 sudo bash setup_postgres_local.sh
 ```
 
-4. run script to install ckan
+5. run script to install ckan
 
 ```bash
 bash setup_ckan_local.sh
 ```
 
-5. Rebuild SOLR search index
+6. Rebuild SOLR search index
 
 ```bash
 . /usr/lib/ckan/default/bin/activate
  ckan -c /etc/ckan/default/ckan.ini search-index rebuild
 ```
 
-6. Unset the SUDOPASS environment variable:
+7. Unset the SUDOPASS environment variable:
 
 ```bash
 unset SUDOPASS
