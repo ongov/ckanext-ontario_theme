@@ -83,18 +83,22 @@
                 watch how the counts change across FSAs over quarterly time periods (from 2022 up to Q2 2023). 
                 The total number of EVs are highest in the southernmost regions of Ontario.</p>
             
-                <div id="observablehq-viewof-evMenu-e79f08b3"></div>
-                <div id="observablehq-dvStyles-e79f08b3"></div>
-                <div id="observablehq-viewof-qperiod-e79f08b3"></div>
-                <div id="observablehq-poc2-e79f08b3"></div>
+                <div id="observablehq-viewof-evMenu-c7346615"></div>
+                <div id="observablehq-dvStyles-c7346615"></div>
+                <div id="observablehq-viewof-qperiod-c7346615"></div>
+                <div id="observablehq-poc2-c7346615"></div>
+                <p>Credit: <a href="https://observablehq.com/d/24f306625367453a@2607">Electric Vehicles in Ontario – By Forward Sortation Area by katirg</a></p>
+
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@observablehq/inspector@5/dist/inspector.css">
                 <script type="module">
                 import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js";
-                import define from "https://api.observablehq.com/d/24f306625367453a@2533.js?v=3";
+                import define from "https://api.observablehq.com/d/24f306625367453a@2607.js?v=3";
                 new Runtime().module(define, name => {
-                  if (name === "viewof evMenu") return new Inspector(document.querySelector("#observablehq-viewof-evMenu-e79f08b3"));
-                  if (name === "dvStyles") return new Inspector(document.querySelector("#observablehq-dvStyles-e79f08b3"));
-                  if (name === "viewof qperiod") return new Inspector(document.querySelector("#observablehq-viewof-qperiod-e79f08b3"));
-                  if (name === "poc2") return new Inspector(document.querySelector("#observablehq-poc2-e79f08b3"));
+                  if (name === "viewof evMenu") return new Inspector(document.querySelector("#observablehq-viewof-evMenu-c7346615"));
+                  if (name === "dvStyles") return new Inspector(document.querySelector("#observablehq-dvStyles-c7346615"));
+                  if (name === "viewof qperiod") return new Inspector(document.querySelector("#observablehq-viewof-qperiod-c7346615"));
+                  if (name === "poc2") return new Inspector(document.querySelector("#observablehq-poc2-c7346615"));
+                  return ["poc3"].includes(name);
                 });
                 </script>
             </div>
