@@ -1561,8 +1561,7 @@ via submission form. Copied from DS.*/
   font-weight: 700;
   color: #1a1a1a;
   border-radius: 4px;
-  margin-bottom: 5px;
-  margin-right: 5px;
+  margin: 5px 5px 5px 0;
   border: solid 2px #fff;
 }
 
@@ -1576,6 +1575,7 @@ via submission form. Copied from DS.*/
   line-height: 27px;
   color: #000000;
   text-decoration: none;
+  margin-right: 7px;
 }
 
 .resource-item-title:hover {
