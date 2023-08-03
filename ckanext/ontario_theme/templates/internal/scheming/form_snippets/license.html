@@ -1,5 +1,5 @@
 {% import "macros/form.html" as form %}
-{%- set options=[] -%}
+{%- set options = [] -%}
 {%- if field.get('form_include_blank_choice', false) -%}
   {%- do options.append({
   'value': '',

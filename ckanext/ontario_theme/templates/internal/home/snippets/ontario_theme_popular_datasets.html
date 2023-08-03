@@ -5,7 +5,7 @@
       {% for dataset in popular_datasets %}
         <li class="c-small-text">
           <a href="{%- url_for 'dataset.read', id=dataset.name -%}"
-              class="hp_popular">{{ h.get_translated(dataset, "title") }}</a>
+             class="hp_popular">{{ h.get_translated(dataset, "title") }}</a>
           <br />
         </li>
       {% endfor %}

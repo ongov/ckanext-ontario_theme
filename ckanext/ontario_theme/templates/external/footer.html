@@ -5,18 +5,18 @@
 <footer class="ontario-footer ontario-footer--default">
   <div class="ontario-row">
     {% block footer_content %}
-        <div class="ontario-columns ontario-small-12">
-          {% block footer_nav %}
-            {{ super() }}
-          {% endblock footer_nav %}
-        </div>
-        <div class="col-md-3 attribution">
-          {% block footer_attribution %}
-          {% endblock footer_attribution %}
+      <div class="ontario-columns ontario-small-12">
+        {% block footer_nav %}
+          {{ super() }}
+        {% endblock footer_nav %}
+      </div>
+      <div class="col-md-3 attribution">
+        {% block footer_attribution %}
+        {% endblock footer_attribution %}
 
-          {% block footer_lang %}
-          {% endblock footer_lang %}
-        </div>
+        {% block footer_lang %}
+        {% endblock footer_lang %}
+      </div>
     {% endblock footer_content %}
   </div>
   {% block footer_debug %}
