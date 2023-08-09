@@ -3,7 +3,6 @@
   header_site_search) but had to copy the whole thing to add accessible text
   for mobile nav.
 #}
-
 {% block header_wrapper %}
   {% block header_account %}
     <header class="account-masthead">
@@ -81,7 +80,20 @@
       </div>
     </header>
   {% endblock %}
-
+  <div class="ontario-critical-alert">
+    <div class="container">
+      <div style="background-color: #FFD440 !important; margin: 0 !important;">
+        <div class="ontario-critical-alert__body">
+          <div class="ontario-critical-alert__icon">
+            <svg class="ontario-icon" aria-hidden="true" focusable="false" sol:category="primary" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+                <use href="#ontario-icon-critical-alert-warning"></use>
+            </svg>
+          </div>
+          <p>Colby will become the Internal Data Catalogue by the end of 2023. There is no action needed on your end. <a href="mailto:opendata@ontario.ca">Let us know if you have questions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 <header class="navbar navbar-static-top masthead">
   {% block header_debug %} {% if g.debug and not g.debug_supress_header %}
   <div class="debug">Controller : {{ c.controller }}<br/>Action : {{ c.action }}</div>
@@ -105,7 +117,7 @@
         {% endif %}
       {% endblock %}
     </hgroup>
-
+    
     <div class="collapse navbar-collapse" id="main-navigation-toggle">
       {% block header_site_navigation %}
         <nav class="section navigation">
