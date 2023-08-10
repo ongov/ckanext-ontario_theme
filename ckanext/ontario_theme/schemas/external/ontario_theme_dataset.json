@@ -634,12 +634,12 @@
         "fr": "URL"
       },
       "preset": "resource_url_upload",
-      "fieldset": 1,
-      "fieldset_name": "Add File",
       "classes": ["form-group","col-md-12"],
       "form_attrs": {
         "class": "col-md-12"
-      }
+      },
+      "required": "true",
+      "validators": "scheming_required"
     },
     {
       "field_name": "format",
@@ -648,6 +648,8 @@
         "fr": "Format"
       },
       "preset": "resource_format_autocomplete",
+      "required": "true",
+      "validators": "not_empty if_empty_guess_format",
       "classes": ["form-group","col-md-12"]
     },
     {
@@ -659,11 +661,10 @@
       "preset": "fluent_core_translated",
       "form_placeholder": "e.g., January 2011 Gold Prices",
       "help_inline" : true,
+      "required": "true",
       "help_text": {
         "en": "Create a human-readable title that will help users understand what the file contains. Leaving the field blank will default the resource name to 'Data'. Add a name if the data describes something different than other files in the same dataset (e.g., 'Stone fruit crops' vs 'Non-stone fruit crops'). Leave blank if information about the data is captured by other fields in this form."
       },
-      "fieldset": 2,
-      "fieldset_name": "Describe the file",
       "classes": ["form-group","col-md-12"] 
     },
     {
@@ -672,6 +673,7 @@
         "en": "Description",
         "fr": "Description"
       },
+      "required": "true",
       "preset": "fluent_core_translated",
       "form_snippet": "fluent_markdown.html",
       "classes": ["form-group","col-md-12"],
@@ -684,9 +686,8 @@
         "fr": "Type"
       },
       "preset": "select",
-      "validators": "ignore_missing scheming_choices",
-      "fieldset": 3,
-      "fieldset_name": "Details",
+      "required": "true",
+      "form_include_blank_choice": "true",
       "classes": ["form-group","col-md-12"],
       "choices": [
         {
@@ -738,7 +739,8 @@
       },
       "classes": ["form-group","col-md-12"],
       "preset": "select",
-      "validators": "ignore_missing scheming_choices",
+      "required": "true",
+      "form_include_blank_choice": "true",
       "choices": [
         {
           "value": "english",
@@ -817,10 +819,10 @@
       "help_inline" : true,
       "help_text": {
         "en": "The last time this data was updated to add or be replaced with more recent data."
-      }, 
+      },
+      "required": "true",
       "classes": ["form-group","col-md-12"],
       "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date",
       "form_placeholder": "yyyy-mm-dd"
     },
     {
