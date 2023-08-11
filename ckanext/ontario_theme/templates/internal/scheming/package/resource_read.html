@@ -237,7 +237,7 @@
                     {% set license = h.ontario_theme_get_license(pkg.license_id) %}
                     <tr>
                       <th scope="row">{{ _('Licence') }}</th>
-                      <td>{{ h.get_translated(license, 'title') }}</td>
+                      <td>{{ h.get_translated(license._data, 'title') }}</td>
                     </tr>
                   {%- endblock resource_license -%}
                   {%- block resource_fields -%}
