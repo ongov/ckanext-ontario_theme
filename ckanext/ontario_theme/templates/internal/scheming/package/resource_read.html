@@ -211,60 +211,58 @@
                         {{ h.render_datetime(res.data_last_updated) or h.render_datetime(res.last_modified) or h.render_datetime(res.revision_timestamp) or h.render_datetime(res.created) or _('unknown') }}
                       </td>
                     </tr>
-                      {%- endblock resource_last_updated -%}
-                      {%- block resource_created -%}
+                  {%- endblock resource_last_updated -%}
+                  {%- block resource_created -%}
+                    <tr>
+                      <th scope="row">{{ _('Created') }}</th>
+                      <td>{{ h.render_datetime(res.created) or _('unknown') }}</td>
+                    </tr>
+                  {%- endblock resource_created -%}
+                  {%- block resource_format -%}
+                    <tr>
+                      <th scope="row">{{ _('Format') }}</th>
+                      <td>{{ res.mimetype_inner or res.mimetype or res.format or _('unknown') }}</td>
+                    </tr>
+                    {# Add resource size if known. This extends scheming's template. #}
+                    {% if not res.mimetype and not res.size %}
+                      {% set exclude_fields = exclude_fields.append('size') %}
+                    {% else %}
+                      <tr>
+                        <th scope="row">{{ _('File size') }}</th>
+                        <td>{{ h.ontario_theme_abbr_localised_filesize(res.size)|safe if res.size else _('unknown size') }}</td>
+                      </tr>
+                    {% endif %}
+                  {%- endblock resource_format -%}
+                  {%- block resource_license -%}
+                    {% set license = h.ontario_theme_get_license(pkg.license_id) %}
+                    <tr>
+                      <th scope="row">{{ _('Licence') }}</th>
+                      <td>{{ h.get_translated(license, 'title') }}</td>
+                    </tr>
+                  {%- endblock resource_license -%}
+                  {%- block resource_fields -%}
+                    {%- for field in schema.resource_fields -%}
+                      {%- if field.field_name not in exclude_fields and res[field.field_name] and (res[field.field_name] != {'fr': '', 'en': ''}) -%}
                         <tr>
-                          <th scope="row">{{ _('Created') }}</th>
-                          <td>{{ h.render_datetime(res.created) or _('unknown') }}</td>
+                          <th scope="row">{{- h.scheming_language_text(field.label) -}}</th>
+                          <td>
+                            {%- if field.preset == "date" -%}
+                              {{- h.render_datetime(res[field.field_name]) -}}
+                            {%- else -%}
+                              {%- snippet "scheming/snippets/display_field.html", field=field, data=res, entity_type='dataset', object_type=dataset_type -%}
+                            {%- endif -%}
+                          </td>
                         </tr>
-                      {%- endblock resource_created -%}
-                      {%- block resource_format -%}
-                        <tr>
-                          <th scope="row">{{ _('Format') }}</th>
-                          <td>{{ res.mimetype_inner or res.mimetype or res.format or _('unknown') }}</td>
-                        </tr>
-                        {# Add resource size if known. This extends scheming's template. #}
-                        {% if not res.mimetype and not res.size %}
-                          {% set exclude_fields = exclude_fields.append('size') %}
-                        {% else %}
-                          <tr>
-                            <th scope="row">{{ _('File size') }}</th>
-                            <td>{{ h.ontario_theme_abbr_localised_filesize(res.size)|safe if res.size else _('unknown size') }}</td>
-                          </tr>
-                        {% endif %}
-                      {%- endblock resource_format -%}
-                      {%- block resource_license -%}
-                        {% set license = h.ontario_theme_get_license(pkg.license_id) %}
-                        <tr>
-                          <th scope="row">{{ _('Licence') }}</th>
-                          <td>{{ h.get_translated(license, 'title') }}</td>
-                        </tr>
-                      {%- endblock resource_license -%}
-                      {%- block resource_fields -%}
-                        {%- for field in schema.resource_fields -%}
-                          {%- if field.field_name not in exclude_fields and res[field.field_name] and (res[field.field_name] != {'fr': '', 'en': ''}) -%}
-                            <tr>
-                              <th scope="row">{{- h.scheming_language_text(field.label) -}}</th>
-                              <td>
-                                {%- if field.preset == "date" -%}
-                                  {{- h.render_datetime(res[field.field_name]) -}}
-                                {%- else -%}
-                                  {%- snippet "scheming/snippets/display_field.html", field=field, data=res, entity_type='dataset', object_type=dataset_type -%}
-                                {%- endif -%}
-                              </td>
-                            </tr>
-                          {%- endif -%}
-                        {%- endfor -%}
-                      {%- endblock resource_fields -%}
-                    </tbody>
-                  </table>
-                </div>
-              {% endblock resource_additional_information_inner %}
-          {% endif %}
-        {% endblock resource_additional_information %}
-      {% endblock primary_content %}
-    <div class="col-xs-12">
-      {% snippet 'home/snippets/ontario_theme_contact_us.html' %}
-    </div>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endblock resource_fields -%}
+                </tbody>
+              </table>
+            </div>
+          {% endblock resource_additional_information_inner %}
+        {% endif %}
+      {% endblock resource_additional_information %}
+    {% endblock primary_content %}
+    <div class="col-xs-12">{% snippet 'home/snippets/ontario_theme_contact_us.html' %}</div>
   {% endif %}
 {% endblock primary %}
