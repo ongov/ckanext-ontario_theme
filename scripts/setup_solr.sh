@@ -38,7 +38,19 @@ cp $REPODIR/../config/solr/managed-schema .
 echo $SUDOPASS | sudo -S -k chmod 775 managed-schema
 echo "Schema fetched."
 
-echo "Creating a ckan core..."
-echo $SUDOPASS | sudo -S -k -u solr /opt/solr/bin/solr create -c ckan
-echo "ckan core created."
+# New CKAN core creation method
+echo "Updating CKAN core with new method..."
+sudo -u solr /opt/solr/bin/solr stop -all
+sudo rm -rf /var/solr/data/ckan
+sudo mkdir -p /opt/solr/server/solr/configsets/ckan_conf/conf
+sudo cp /usr/lib/ckan/default/src/ckanext-ontario_theme/config/solr/managed-schema /opt/solr/server/solr/configsets/ckan_conf/conf
+sudo cp /lib/ckan/default/src/ckanext-ontario_theme/config/solr/solrconfig.xml /opt/solr/server/solr/configsets/ckan_conf/conf
+sudo cp /lib/ckan/default/src/ckanext-ontario_theme/config/solr/protwords.txt /opt/solr/server/solr/configsets/ckan_conf/conf
+sudo cp /lib/ckan/default/src/ckanext-ontario_theme/config/solr/stopwords.txt /opt/solr/server/solr/configsets/ckan_conf/conf
+sudo cp /lib/ckan/default/src/ckanext-ontario_theme/config/solr/synonyms.txt /opt/solr/server/solr/configsets/ckan_conf/conf
+sudo -u solr /opt/solr/bin/solr restart
+sudo -u solr /opt/solr/bin/solr create -c ckan -d /opt/solr/server/solr/configsets/ckan_conf/conf
+echo "CKAN core updated with new method."
+
+
 
