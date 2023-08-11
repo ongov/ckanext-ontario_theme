@@ -1271,3 +1271,35 @@ footer.site-footer div.footer-swoosh--right {
 footer.site-footer .ckan-footer-logo {
   background: url(/base/images/ckan-logo-footer_dark.png) no-repeat top left;
 }
+.ontario-critical-alert{
+  background-color:#ffd440;
+  font-weight:400;
+  margin:0;
+  padding:1rem 0;
+  position:relative;
+  z-index:5
+}
+.ontario-critical-alert__body{
+  display:flex;
+  flex-wrap:nowrap
+}
+.ontario-critical-alert__icon svg{
+  width:28px;
+  height:28px;
+  margin:0 .85rem 0 0
+}
+.ontario-critical-alert p{
+  margin:0;
+  padding:0;
+  line-height:1.8
+}
+.ontario-critical-alert a{
+  color:#1a1a1a;
+  text-decoration:underline;
+}
+.ontario-critical-alert a:hover,.ontario-critical-alert a:focus{
+  text-decoration:underline;
+}
+.ontario-critical-alert a:visited{
+  color:#1a1a1a
+}
