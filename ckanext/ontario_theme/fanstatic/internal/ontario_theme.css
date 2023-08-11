@@ -1295,9 +1295,10 @@ footer.site-footer .ckan-footer-logo {
 }
 .ontario-critical-alert a{
   color:#1a1a1a;
+  text-decoration:underline;
 }
 .ontario-critical-alert a:hover,.ontario-critical-alert a:focus{
-  text-decoration:none
+  text-decoration:underline;
 }
 .ontario-critical-alert a:visited{
   color:#1a1a1a
