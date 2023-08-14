@@ -70,6 +70,14 @@
             {% if pkg.notes %}
               <div class="notes embedded-content dataset-font">{{ h.render_markdown(h.get_translated(pkg, 'notes')) }}</div>
             {% endif %}
+
+          
+            {% if pkg.name == 'status-of-covid-19-cases-in-ontario' %}
+            <h2>Ontario Scholastic</h2>
+  
+            <iframe width="100%" height="819" frameborder="0" src="https://scholastic-mu.vercel.app/"></iframe>
+  
+            {% endif %}
           {% endblock package_notes %}
           <span class="insert-comment-thread"></span>
         {% endblock package_description %}
