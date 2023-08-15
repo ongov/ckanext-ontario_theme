@@ -1580,12 +1580,14 @@ via submission form. Copied from DS.*/
 .label.label-english,
 .label.label-french,
 .label.label-english_and_french {
+  display: inline-block;
   background-color: #f2f2f2;
   font-size: 20px;
   font-weight: 700;
   color: #1a1a1a;
   border-radius: 4px;
-  margin: 5px 5px 5px 0;
+  margin-right: 5px;
+  margin-top: 3.5px;
   border: solid 2px #fff;
 }
 
@@ -1594,6 +1596,7 @@ via submission form. Copied from DS.*/
 }
 
 .resource-item-title {
+  display: inline;
   font-weight: 700;
   font-size: 20px;
   line-height: 27px;
@@ -1667,7 +1670,6 @@ via submission form. Copied from DS.*/
 
   .resource-info {
     display: flow-root;
-    margin-bottom: 10px;
   }
 }
 
