@@ -205,7 +205,7 @@
 }
 
 .ontario-button--tertiary:visited {
-  color: #3c7fa3;
+  color: #06c;
 }
 
 /* ========================================================================
@@ -1707,6 +1707,8 @@ via submission form. Copied from DS.*/
 }
 
 .resource-button-tertiary,
+.resource-button-tertiary:visited,
+.resource-button-secondary:visited,
 .resource-button-secondary {
   color: #3c7fa3;
 }
@@ -1900,6 +1902,12 @@ ul.nav-tabs li a,
 .nav-item a {
   text-decoration: none;
 }
+
+a.ontario-button.ontario-button--tertiary,
+a.ontario-button.ontario-button--tertiary:hover {
+  text-decoration: underline;
+}
+
 
 /* ========================================================================
    Custom overrides - datafile pages
@@ -2834,11 +2842,6 @@ label::after {
   padding-left: 30px;
 }
 
-.filters .module-narrow .module-footer {
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
 .filter-results .context-info .module-content,
 .secondary.ontario-columns.ontario-small-3.filter-results {
   padding-left: unset;
@@ -2852,12 +2855,6 @@ label::after {
 @media screen and (min-width: 64em) {
   .filters .module-narrow .nav-item > a {
     padding-left: 46px;
-  }
-
-  .filters .module-narrow .module-footer,
-  .group-packages .filters .module-narrow .module-footer {
-    padding-left: 40px;
-    padding-right: 40px;
   }
 }
 
