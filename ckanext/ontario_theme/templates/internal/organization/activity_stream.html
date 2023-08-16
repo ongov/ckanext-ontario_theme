@@ -1,0 +1,7 @@
+{% ckan_extends %}
+
+{% block primary_content_inner %}
+  <div class="ontario-columns">
+    {% snippet 'snippets/activity_stream.html', activity_stream=activity_stream, id=id, object_type='organization' %}
+  </div>
+{% endblock primary_content_inner %}

@@ -413,7 +413,6 @@ input[type="reset"].ontario-search-reset:focus {
 #dataset-search-form,
 #organization-search-form,
 #group-search-form {
-  margin: 0 0 45px 0;
   background: #f2f2f2;
   padding: 20px 16px;
   border-radius: 5px;
@@ -783,10 +782,6 @@ a:focus {
   margin-top: 0;
 }
 
-.primary.ministry-page {
-  padding-top: unset;
-}
-
 .inline-dl dt:before {
   content: "";
   display: block;
@@ -801,6 +796,35 @@ a:focus {
 .inline-dl {
   font-size: 20px;
   line-height: 25.6px;
+}
+
+.wrapper div.page-header {
+  border: none;
+  background: none;
+}
+
+.wrapper div.page-header ul.nav.nav-tabs {
+  width: 100%;
+}
+
+.wrapper div.page-header ul.nav.nav-tabs li a {
+  color: #666666;
+  border: none;
+}
+
+.wrapper div.page-header ul.nav.nav-tabs li a:hover {
+  border: none;
+}
+
+.wrapper div.page-header ul.nav.nav-tabs li.active a {
+  border: none;
+  border-bottom: solid 2px #1080A6;
+  color: #1080A6;
+}
+
+.page-header .content_action {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 /* ========================================================================
@@ -1556,12 +1580,14 @@ via submission form. Copied from DS.*/
 .label.label-english,
 .label.label-french,
 .label.label-english_and_french {
+  display: inline-block;
   background-color: #f2f2f2;
   font-size: 20px;
   font-weight: 700;
   color: #1a1a1a;
   border-radius: 4px;
-  margin: 5px 5px 5px 0;
+  margin-right: 5px;
+  margin-top: 3.5px;
   border: solid 2px #fff;
 }
 
@@ -1570,6 +1596,7 @@ via submission form. Copied from DS.*/
 }
 
 .resource-item-title {
+  display: inline;
   font-weight: 700;
   font-size: 20px;
   line-height: 27px;
@@ -1643,7 +1670,6 @@ via submission form. Copied from DS.*/
 
   .resource-info {
     display: flow-root;
-    margin-bottom: 10px;
   }
 }
 
@@ -2114,7 +2140,7 @@ screen and (min-width: 96em) {
 }
 
 /* ========================================================================
-   Dataset Search Page - Package Items
+   Search Page - Package Items
    ======================================================================== */
 .package-item-category {
   color: #4d4d4d;
@@ -2167,6 +2193,10 @@ screen and (min-width: 96em) {
 .packages_access_level {
   font-size: 20px;
   font-weight: 400;
+}
+
+.dataset-item {
+  border-bottom: 1px solid #ccc;
 }
 
 /* ========================================================================
@@ -2393,8 +2423,13 @@ body {
   right: unset;
 }
 
-.row .page_primary_action {
-  margin-right: 15px;
+.ontario-row .page_primary_action {
+  margin-right: 16px;
+}
+
+li.media-item.ministry-item {
+  margin-left: unset;
+  padding: 15px;
 }
 
 /* ========================================================================   

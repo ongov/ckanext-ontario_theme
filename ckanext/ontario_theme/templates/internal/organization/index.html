@@ -13,7 +13,7 @@
 
 {% block ontario_theme_search_form %}
   {# Custom block for search form. #}
-  <div class="row no-padding">
+  <div class="ontario-row no-padding">
     <div class="page_primary_action">
       <div class="add-organization">
         {% if h.check_access('organization_create') %}
@@ -74,7 +74,7 @@
 {% endblock pre_primary %}
 
 {% block primary %}
-  <div class="col-sm-9 col-xs-12" role="main">
+  <div class="ontario-small-12 ontario-medium-9" role="main">
     {% block primary_content_inner %}
       {% block organizations_list %}
         {% if c.page.items or request.params %}
@@ -110,11 +110,7 @@
       {% endblock page_pagination %}
     {% endblock primary_content_inner %}
   </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12">{% snippet 'home/snippets/ontario_theme_contact_us.html' %}</div>
-    </div>
-  </div>
+  <div class="ontario-columns ontario-small-12">{% snippet 'home/snippets/ontario_theme_contact_us.html' %}</div>
 {% endblock primary %}
 
 {% block secondary %}
