@@ -87,7 +87,7 @@ attribute with the form `ckan-X.Y` -->
 
     <fieldType name="text_ngram" class="solr.TextField" positionIncrementGap="100">
       <analyzer type="index">
-        <tokenizer class="solr.NGramTokenizerFactory" minGramSize="2" maxGramSize="10"/>
+        <tokenizer class="solr.NGramTokenizerFactory" minGramSize="1" maxGramSize="25"/>
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
       <analyzer type="query">
@@ -96,10 +96,46 @@ attribute with the form `ckan-X.Y` -->
       </analyzer>
     </fieldType>
 
+    <fieldType name ="text_with_special_chars" class="solr.TextField"
+    <analyzer>
+        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.ASCIIFoldingFilterFactory"/>
+    </analyzer>
+    </fieldType>
+
+    <fieldType name ="text_case_insensitive" class="solr.TextField">
+    <analyzer>
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+    </fieldType>
+
+    <fieldType name="text_fr_edge_ngram" class="solr.TextField" positionIncrementGap="100">
+        <analyzer type="index">
+            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+            <filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="25">
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.FrenchLighStemFilterFactory" minGramSize"1" maxGramSize"25"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.stopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+            <filter class="solr.FrenchLighStemFilterFactory"/>
+        </analyzer>
+    </fieldType>
+
+
+
+
+    
+
 </types>
 
 
 <fields>
+
     <field name="index_id" type="string" indexed="true" stored="true" required="true" />
     <field name="id" type="string" indexed="true" stored="true" required="true" />
     <field name="site_id" type="string" indexed="true" stored="true" required="true" />
@@ -177,6 +213,20 @@ attribute with the form `ckan-X.Y` -->
     <!-- Extra Ontario fields -->
     <field name="keywords_en" type="string" indexed="true" stored="true" multiValued="true"/>
     <field name="keywords_fr" type="string" indexed="true" stored="true" multiValued="true"/>
+
+    <!-- Fields for special character handling -->
+    <field name="url_searchable" type="text_with_special_chars" indexed="true" stored="false"/>
+    <field name="ckan_url_searchable" type="text_with_special_chars" indexed="true" stored="false"/>
+    <field name="download_url_searchable" type="text_with_special_chars" indexed="true" stored="false"/>
+    <field name="res_url_searchable" type="text_with_special_chars" indexed="true" stored="false"/>
+
+    <!-- Fields for Case Insensitivity  -->
+    <field name="license_searchable" type="text_general" indexed="true" stored="false"/>
+    <field name="license_id_searchable" type="text_general" indexed="true" stored="false"/>
+    <!-- French Support  -->
+    <field name="title_fr_partial" type="text_fr_edge_ngram" indexed="true" stored="false"/>
+    <field name="description_fr_partial" type="text_fr_edge_ngram" indexed="true" stored="false"/>
+    <field name="notes_fr_partial" type="text_fr_edge_ngram" indexed="true" stored="false"/>
 </fields>
 
 <uniqueKey>index_id</uniqueKey>
@@ -203,5 +253,19 @@ attribute with the form `ckan-X.Y` -->
 <copyField source="res_description" dest="text"/>
 <copyField source="maintainer" dest="text"/>
 <copyField source="author" dest="text"/>
+
+<!-- Insentitivy copyField Directives -->
+
+<copyField source="license" dest="license_searchable"/>
+<copyField source="license_id" dest="license_id_searchable"/>
+<copyField source="url" dest="url_searchable"/>
+<copyField source="ckan_url" dest="ckan_url_searchable"/>
+<copyField source="download_url" dest="download_url_searchable"/>
+<copyField source="res_url" dest="res_url_searchable"/>
+
+<!-- French Support -->
+<copyField source="title_fr" dest="title_fr_partial"/>
+<copyField source="description_fr" dest="description_fr_partial"/>
+<copyField source="notes_fr" dest="notes_fr_partial"/>
 
 </schema>
