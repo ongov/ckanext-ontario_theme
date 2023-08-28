@@ -1688,22 +1688,10 @@ via submission form. Copied from DS.*/
   white-space: nowrap;
 }
 
-.resource-button-primary,
-.resource-button-tertiary,
-.resource-button-secondary {
-  min-width: 175px;
-  min-height: 28px;
-}
-
 @media screen and (max-width: 64em) {
   .resource-buttons {
     margin-top: 10px;
   }
-}
-
-.resource-button-primary {
-  vertical-align: top;
-  background-color: #3c7fa3;
 }
 
 .resource-button-tertiary,
@@ -1832,6 +1820,16 @@ section#dataset-resources > h2 {
 
 .tag-list {
   padding: 10px 10px 5px 0;
+}
+
+.resource-item:hover .resource-item-title {
+  text-decoration: underline;
+}
+
+.resource-item:hover .ontario-button--secondary {
+  background-color: #e0f0ff;
+  border-color: #00478f;
+  color: #00478f;
 }
 
 /* =====================================================
