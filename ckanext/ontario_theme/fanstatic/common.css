@@ -1705,31 +1705,6 @@ via submission form. Copied from DS.*/
   }
 }
 
-.resource-button-tertiary,
-.resource-button-tertiary:visited,
-.resource-button-secondary:visited,
-.resource-button-secondary {
-  color: #3c7fa3;
-}
-
-.resource-button-secondary {
-  vertical-align: top;
-  border: 2px solid #3c7fa3;
-}
-
-.resource-button-text {
-  display: contents;
-  text-align: left;
-  column-gap: 0.5vw;
-  align-items: baseline;
-}
-
-@media screen and (min-width: 40em) {
-  .resource-button-text {
-    display: inline-flex;
-  }
-}
-
 .aside-heading {
   color: #4d4d4d;
   font-size: 19px;
@@ -1837,7 +1812,8 @@ section#dataset-resources > h2 {
   text-decoration: underline;
 }
 
-.resource-item-div:hover .ontario-button--secondary {
+.resource-item-div:hover .ontario-button--secondary,
+.resource-item .ontario-button--secondary:hover {
   background-color: #e0f0ff;
   border-color: #00478f;
   color: #00478f;
