@@ -1535,10 +1535,10 @@ via submission form. Copied from DS.*/
 
 .anchor-div {
   position: absolute;
-  top: 0;
+  top: 0.25rem;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: 1.3rem;
+  right: 1.3rem;
   z-index: 999;
 }
 
