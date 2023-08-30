@@ -2,35 +2,29 @@
 {% set url = h.url_for(type ~ '.read', id=group.name) %}
 
 {% block item %}
-  <tr class="group-search-row">
+  <div class="group-search-table-row">
     {% block item_inner %}
-      <th scope="row" colspan="2">
-      {% block title %}
-        {% block link %}
-        <a href="{{ url }}" class="group-search-heading">
-          {{ h.get_translated(group,"title") }}
-        </a>
-        {% endblock link %}
-      {% endblock title %}
-      </th>
-      <td>
-      {% block datasets %}
-        {% if group.package_count %}
-          <span class="group-search-count">{{ group.package_count }}</span>
-        {% else %}
-          <span class="group-search-count">0</span>
-        {% endif %}
-      {% endblock datasets %}
-      </td>
+      <div class="group-search-table-cell">
+        {% block title %}
+          {% block link %}
+            <a href="{{ url }}" class="group-search-heading">{{ h.get_translated(group,"title") }}</a>
+          {% endblock link %}
+        {% endblock title %}
+        {% block description %}
+          {% if h.get_translated(group,"description") %}
+            <p>{{ h.markdown_extract(h.get_translated(group,"description"), extract_length=80) }}</p>
+          {% endif %}
+        {% endblock description %}
+      </div>
+      <div class="group-search-table-cell group-search-table-td ">
+        {% block datasets %}
+          {% if group.package_count %}
+            <span class="group-search-count">{{ group.package_count }}</span>
+          {% else %}
+            <span class="group-search-count">0</span>
+          {% endif %}
+        {% endblock datasets %}
+      </div>
     {% endblock item_inner %}
-  </tr>
-  {% block description %}
-    {% if h.get_translated(group,"description") %}
-      <tr class="group-search-description">
-        <td colspan="2">
-          <p>{{ h.markdown_extract(h.get_translated(group,"description"), extract_length=80) }}</p>
-        </td>
-      </tr>
-    {% endif %}
-  {% endblock description %}
+  </div>
 {% endblock item %}
