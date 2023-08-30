@@ -62,9 +62,7 @@
           <h1>
             {% block page_heading %}
               {{ h.dataset_display_name(pkg) }}
-              {% if pkg.state.startswith('draft') %}
-                [{{ _('Draft') }}]
-              {% endif %}
+              {% if pkg.state.startswith('draft') %}[{{ _('Draft') }}]{% endif %}
               {% if pkg.state == 'deleted' %}[{{ _('Deleted') }}]{% endif %}
             {% endblock page_heading %}
           </h1>
@@ -73,7 +71,6 @@
               <div class="notes embedded-content dataset-font">{{ h.render_markdown(h.get_translated(pkg, 'notes')) }}</div>
             {% endif %}
           {% endblock package_notes %}
-
           <span class="insert-comment-thread"></span>
         {% endblock package_description %}
 
@@ -81,7 +78,7 @@
           {% snippet "package/snippets/additional_info.html", pkg_dict=pkg %}
         {% endblock package_additional_info %}
       </div>
-      <div class="col-xs-12">
+      <div class="ontario-column ontario-small-12">
         {% block package_resources %}
           {% snippet "package/snippets/resources_list.html", pkg=pkg, resources=pkg.resources,
           is_activity_archive=is_activity_archive %}

@@ -12,11 +12,11 @@
         to go back and select a file in English.
       {% endtrans %}
     {% else %}
-      {% trans %}
+      {% trans directive_url=_("https://www.ontario.ca/page/ontarios-digital-and-data-directive-2021") %}
         You're viewing a data file in French.
         This dataset <strong>does not</strong> have files available in English.
         Data on the data catalogue is published in the language in which it’s collected.
-        <a href="https://www.ontario.ca/page/ontarios-open-data-directive">[Learn more]</a>
+        <a href="{{ directive_url }}">[Learn more]</a>
       {% endtrans %}
     {% endif %}
   </div>

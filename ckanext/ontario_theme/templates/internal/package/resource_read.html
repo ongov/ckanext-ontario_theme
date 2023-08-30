@@ -6,7 +6,7 @@
   {% if pkg.groups %}
     {% set this_group = pkg.groups[0]['name'] %}
   {% else %}
-    {% set this_group = '' %}
+    {% set this_group = "" %}
   {% endif %}
   {% if res.url and h.is_url(res.url) %}
     {# Download link URL on resource page #}

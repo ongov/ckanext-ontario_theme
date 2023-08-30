@@ -1,40 +1,36 @@
 {% ckan_extends %}
 
-{% set exclude_fields = [
-  'name',
-  'title_translated',
-  'org_contact',
-  'image_url',
-  'description_translated'
-  ] %}
+{% set exclude_fields = ["name", "title_translated", "org_contact", "image_url", "description_translated"] %}
 {% set current_lang = request.environ.CKAN_LANG %}
 {% block primary_content_inner %}
-  {% block organization_extras %}
-    <dl class="inline-dl">
-      {% set about_fields = c.scheming_fields|rejectattr("field_name", "in", exclude_fields ) | list %}
-      {% for f in about_fields %}
-        <dt>{{ h.scheming_language_text(f.label) }}{{ _(':') }}</dt>
-        <dd>
-          {% set translated_labels = f.choices|selectattr("value", "equalto", c.group_dict[f.field_name] )|map(attribute='label') %}
-          {{ translated_labels|map(attribute=current_lang)|join }}
-        </dd>
-      {% endfor %}
-    </dl>
-  {% endblock organization_extras %}
+  <div class="ontario-columns">
+    {% block organization_extras %}
+      <dl class="inline-dl">
+        {% set about_fields = c.scheming_fields|rejectattr("field_name", "in", exclude_fields ) | list %}
+        {% for f in about_fields %}
+          <dt>{{ h.scheming_language_text(f.label) }}{{ _(':') }}</dt>
+          <dd>
+            {% set translated_labels = f.choices|selectattr("value", "equalto", c.group_dict[f.field_name] )|map(attribute='label') %}
+            {{ translated_labels|map(attribute=current_lang)|join }}
+          </dd>
+        {% endfor %}
+      </dl>
+    {% endblock organization_extras %}
 
-  {% block organization_contact %}
-    {% set contact_page = h.scheming_language_text(c.group_dict['org_contact']) %}
-    {% if contact_page %}
-      <h3>
-        {% trans %}
-          For more information
-        {% endtrans %}
-      </h3>
-      <a href="{{ contact_page }}" class="inline-dl">
-        {% trans %}
-          Contact
-        {% endtrans %}
-      {{ h.get_translated(c.group_dict, "title") }}</a>
-    {% endif %}
-  {% endblock organization_contact %}
+    {% block organization_contact %}
+      {% set contact_page = h.scheming_language_text(c.group_dict['org_contact']) %}
+      {% if contact_page %}
+        <h3>
+          {% trans %}
+            For more information
+          {% endtrans %}
+        </h3>
+        <a href="{{ contact_page }}" class="inline-dl">
+          {% trans %}
+            Contact
+          {% endtrans %}
+        {{ h.get_translated(c.group_dict, "title") }}</a>
+      {% endif %}
+    {% endblock organization_contact %}
+  </div>
 {% endblock primary_content_inner %}
