@@ -557,7 +557,7 @@ input[type="reset"].ontario-search-reset.home {
 }
 
 #group-search-form .ontario-search-container {
-  z-index: 2;
+  z-index: 1;
 }
 
 .ontario-search-input.ontario-input.snippet {
