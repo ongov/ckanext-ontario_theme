@@ -1,0 +1,19 @@
+{% set group_id = "artificial-intelligence-and-algorithms" %}
+{% set covid_datasets = h.ontario_theme_get_group_datasets(group_id) %}
+<div class="ontario-row">
+  <div class="col-xs-12">
+    <ul class="banner-datasets">
+      {% for dataset in covid_datasets %}
+        <li class="c-small-text">
+          <a href="{%- url_for 'dataset.read', id=dataset.name -%}"
+             class="hp_covid">{{ h.get_translated(dataset, "title") }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<div class="show-more">
+  {% trans url=h.url_for('group.read', id=group_id) %}
+    <a href="{{ url }}">Show more</a>
+  {% endtrans %}
+</div>
