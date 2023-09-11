@@ -175,16 +175,9 @@ msgid "Data Catalogue"
 msgstr "Catalogue de données"
 
 #: ckanext/ontario_theme/templates/header.html:20
-msgid "Tell us what you think about our data and how you’re using it."
-msgstr "Faites-nous part de vos commentaires au sujet de nos données, et dites-nous de quelle façon vous les utilisez."
-
-#: ckanext/ontario_theme/templates/header.html:20
 msgid "https://www.ontario.ca/form/survey-open-data-catalogue"
 msgstr "https://www.ontario.ca/fr/forme/enquete-catalogue-de-donnees-de-lontario"
 
-#: ckanext/ontario_theme/templates/header.html:20
-msgid "Take our survey"
-msgstr "Veuillez répondre à notre sondage"
 
 #: ckanext/ontario_theme/templates/external/home/help.html:14
 msgid ""
@@ -2056,22 +2049,15 @@ msgstr "Rechercher les groupes"
 msgid "Popular keywords"
 msgstr "Mots-clés populaires"
 
-#: ckanext/ontario_theme/templates/macros/form.html:233
-msgid "Key"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/macros/form.html:277
-msgid "Optional"
-msgstr ""
-
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:14
 msgid ""
 "Help us improve the Data Catalogue"
 msgstr "Aidez-nous à améliorer le Catalogue de données."
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:15
-msgid "Take a <a href=\"https://www.ontario.ca/form/survey-open-data-catalogue?%(params)s\">2-minute survey</a> and tell us what you think about this page."
-msgstr "Répondez à un <a href=\"https://www.ontario.ca/fr/forme/enquete-catalogue-de-donnees-de-lontario?%(params)s\">sondage de deux minutes</a> et faites-nous part de vos impressions sur cette page."
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:24
+#: ckanext/ontario_theme/templates/external/header.html:29
+msgid "<a href=\"https://www.ontario.ca/form/survey-open-data-catalogue?%(params)s\">Provide feedback</a> about our data and how you’re using it."
+msgstr "<a href=\"https://www.ontario.ca/fr/forme/enquete-catalogue-de-donnees-de-lontario?%(params)s\">Faites-nous part de vos commentaires</a> au sujet de nos données, et dites-nous de quelle façon vous les utilisez."
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:9
 msgid "Ontario Data Catalogue"
@@ -2086,8 +2072,8 @@ msgid " datasets published by the Government of Ontario."
 msgstr " jeux de données publiés par le gouvernement de l’Ontario."
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:20
-msgid "Learn more about <a href=\"%(url)s\">what is covered and how to use data.</a>"
-msgstr "Apprenez-en davantage sur <a href=\"/fr/about#training-materials\">ce qui est couvert et sur la façon d’utiliser les données.</a>"
+msgid "Learn more about what is covered and how to use data."
+msgstr "Apprenez-en davantage sur ce qui est couvert et sur la façon d’utiliser les données."
 
 #: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_cateogories.html
 msgid "Justice and Public Safety"
@@ -2136,8 +2122,8 @@ msgid "Learn about the conditions and terms of use for using data."
 msgstr "Renseignez-vous sur les conditions d’utilisation des données."
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:34
-msgid "Developers"
-msgstr "Concepteurs"
+msgid "Developer resources"
+msgstr "Ressources pour les concepteurs"
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:39
 msgid "Guidance for using our data in a software application."
@@ -2407,10 +2393,6 @@ msgstr "Télécharger les données"
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:23
 msgid "<a href=\"/help#how-do-i-download-datasets\">Download and use the data you need.</a>"
 msgstr "<a href=\"/fr/help#how-do-i-download-datasets\">Télécharger et à utiliser les données dont vous avez besoin.</a>"
-
-#: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:28
-msgid "Provide feedback"
-msgstr "Fournir rétroaction"
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:30
 msgid "As we work to develop the catalogue, <a href=\"https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269\">tell us what you think</a>."

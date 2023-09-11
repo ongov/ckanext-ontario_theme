@@ -51,11 +51,9 @@ msgstr ""
 msgid "Data Catalogue"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/header.html:20
-msgid ""
-"Tell us what you think about our data and how you’re using it. <a "
-"href=\"https://www.ontario.ca/form/survey-open-data-catalogue\" "
-"target=\"_blank\">Take our survey</a>"
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:24
+#: ckanext/ontario_theme/templates/external/header.html:29
+msgid "<a href=\"https://www.ontario.ca/form/survey-open-data-catalogue?%(params)s\">Provide feedback</a> about our data and how you’re using it."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/about.html:7
@@ -907,10 +905,6 @@ msgid ""
 "Help us improve the Data Catalogue"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:15
-msgid "Take a <a href=\"https://www.ontario.ca/form/survey-open-data-catalogue?%(params)s\">2-minute survey</a> and tell us what you think about this page."
-msgstr ""
-
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:11
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:22
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:33
@@ -960,7 +954,7 @@ msgid " datasets published by the Government of Ontario."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:20
-msgid "Learn more about <a href=\"%(url)s\">what is covered and how to use data.</a>"
+msgid "Learn more about what is covered and how to use data."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:4
@@ -988,7 +982,7 @@ msgid "Learn about the conditions and terms of use for using data."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:34
-msgid "Developers"
+msgid "Developer resources"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:39
