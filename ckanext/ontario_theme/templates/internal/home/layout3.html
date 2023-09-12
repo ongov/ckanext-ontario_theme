@@ -1,10 +1,10 @@
 <div id="landing-page-body" role="main">
   <div class="ontario-row">
-        <div class="ontario-small-12 ontario-column welcome">
-          {% block intro %}
-            {% snippet "home/snippets/ontario_theme_intro.html" %}
-          {% endblock intro %}
-        </div>
+    <div class="ontario-small-12 ontario-column welcome">
+      {% block intro %}
+        {% snippet "home/snippets/ontario_theme_intro.html" %}
+      {% endblock intro %}
+    </div>
   </div>
   <div>
     {% snippet "home/snippets/ontario_theme_sub_intro.html" %}
@@ -22,10 +22,12 @@
             {% snippet "home/snippets/ontario_theme_popular_datasets.html" %}
           </div>
           <div class="ontario-medium-6 ontario-columns dataset-list">
-            <h2>Artificial Intelligence (<abbr>AI</abbr>) assets</h2>
-            {% snippet "home/snippets/ontario_theme_ai_datasets.html" %}
-            <h2>{{ _("COVID datasets") }}</h2>
-            {% snippet "home/snippets/ontario_theme_covid_datasets.html" %}
+            <h2>
+              {{ _("Artificial Intelligence (<abbr>AI</abbr>) assets") }}
+            </h2>
+            {% snippet "home/snippets/ontario_theme_group_datasets.html", group_id="artificial-intelligence-and-algorithms", group_title=_('<abbr title="Artificial Intelligence">AI</abbr> assets') %}
+            <h2>{{ _("COVID-19 datasets") }}</h2>
+            {% snippet "home/snippets/ontario_theme_group_datasets.html", group_id="covid-19", group_title=_("COVID-19 datasets ") %}
           </div>
         </div>
       </div>
