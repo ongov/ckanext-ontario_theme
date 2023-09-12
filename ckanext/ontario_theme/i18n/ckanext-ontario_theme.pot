@@ -1520,6 +1520,10 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html:60
+msgid "Explore"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:6
 msgid "Data"
 msgstr ""
@@ -1655,7 +1659,7 @@ msgstr ""
 #: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html
 msgid "Learn more about "
 msgstr ""
-msgid "accessing data using different file types."
+msgid "accessing data using different formats."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/organization.html:34

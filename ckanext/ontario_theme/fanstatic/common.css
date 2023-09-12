@@ -557,7 +557,7 @@ input[type="reset"].ontario-search-reset.home {
 }
 
 #group-search-form .ontario-search-container {
-  z-index: 2;
+  z-index: 1;
 }
 
 .ontario-search-input.ontario-input.snippet {
@@ -1527,10 +1527,20 @@ via submission form. Copied from DS.*/
 
 .resource-list {
   overflow: hidden;
+  padding-bottom: 10px;
 }
 
 .resource-item {
   padding: 15px 30px 15px 30px;
+}
+
+.anchor-div {
+  position: absolute;
+  top: 0.25rem;
+  bottom: 0;
+  left: 1.3rem;
+  right: 1.3rem;
+  z-index: 999;
 }
 
 .label-div {
@@ -1605,7 +1615,8 @@ via submission form. Copied from DS.*/
   margin-right: 7px;
 }
 
-.resource-item-title:hover {
+.resource-item-title:hover,
+.resource-item-title:visited {
   color: #000000;
 }
 
@@ -1688,46 +1699,9 @@ via submission form. Copied from DS.*/
   white-space: nowrap;
 }
 
-.resource-button-primary,
-.resource-button-tertiary,
-.resource-button-secondary {
-  min-width: 175px;
-  min-height: 28px;
-}
-
 @media screen and (max-width: 64em) {
   .resource-buttons {
     margin-top: 10px;
-  }
-}
-
-.resource-button-primary {
-  vertical-align: top;
-  background-color: #3c7fa3;
-}
-
-.resource-button-tertiary,
-.resource-button-tertiary:visited,
-.resource-button-secondary:visited,
-.resource-button-secondary {
-  color: #3c7fa3;
-}
-
-.resource-button-secondary {
-  vertical-align: top;
-  border: 2px solid #3c7fa3;
-}
-
-.resource-button-text {
-  display: contents;
-  text-align: left;
-  column-gap: 0.5vw;
-  align-items: baseline;
-}
-
-@media screen and (min-width: 40em) {
-  .resource-button-text {
-    display: inline-flex;
   }
 }
 
@@ -1832,6 +1806,17 @@ section#dataset-resources > h2 {
 
 .tag-list {
   padding: 10px 10px 5px 0;
+}
+
+.resource-item-div:hover .resource-item-title {
+  text-decoration: underline;
+}
+
+.resource-item-div:hover .ontario-button--secondary,
+.resource-item .ontario-button--secondary:hover {
+  background-color: #e0f0ff;
+  border-color: #00478f;
+  color: #00478f;
 }
 
 /* =====================================================
@@ -2892,4 +2877,61 @@ label::after {
 
 .facets-show-more.ontario-button {
   margin: 0;
+}
+
+/* ========================================================================
+   Group Search Page - Table view
+   ======================================================================== */
+.group-search-table-thead-th {
+  display: table-cell;
+  font-size: 22px;
+  font-weight: 700;
+  padding-bottom: 30px;
+}
+
+.group-search-table-thead {
+  display: table-header-group;
+}
+
+.group-search-table-row,
+.group-search-heading {
+  font-size: 18px;
+}
+
+.group-search-heading {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 45px;
+}
+
+.group-search-table-tbody > .group-search-table-row > .group-search-table-cell {
+  padding-top: 1.5rem;
+  padding-bottom: 2.5rem;
+  border-top: solid 1px #ccc;
+}
+
+.group-search-table-tbody > .group-search-table-row > .group-search-table-cell.group-search-table-td {
+  padding-left: 25px;
+}
+
+.group-search-table-cell > p {
+  font-size: 19px;
+  margin-bottom: unset;
+}
+
+.group-search-table {
+  display: table;
+  width: 100%;
+}
+
+.group-search-table-row {
+  display: table-row;
+}
+
+.group-search-table-cell {
+  display: table-cell;
+}
+
+.group-search-table-tbody {
+  display: table-row-group;
 }

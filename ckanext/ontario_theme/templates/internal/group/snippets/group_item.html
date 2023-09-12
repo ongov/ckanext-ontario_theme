@@ -1,14 +1,30 @@
-{% ckan_extends %}
+{% set type = group.type or 'group' %}
+{% set url = h.url_for(type ~ '.read', id=group.name) %}
 
-{% block image %}
-{% endblock image %}
-
-{% block title %}
-  <h3 class="media-heading">{{ h.get_translated(group,"title") }}</h3>
-{% endblock title %}
-
-{% block description %}
-  {% if h.get_translated(group,"description") %}
-    <p>{{ h.markdown_extract(h.get_translated(group,"description"), extract_length=80) }}</p>
-  {% endif %}
-{% endblock description %}
+{% block item %}
+  <div class="group-search-table-row">
+    {% block item_inner %}
+      <div class="group-search-table-cell">
+        {% block title %}
+          {% block link %}
+            <a href="{{ url }}" class="group-search-heading">{{ h.get_translated(group,"title") }}</a>
+          {% endblock link %}
+        {% endblock title %}
+        {% block description %}
+          {% if h.get_translated(group,"description") %}
+            <p>{{ h.markdown_extract(h.get_translated(group,"description"), extract_length=80) }}</p>
+          {% endif %}
+        {% endblock description %}
+      </div>
+      <div class="group-search-table-cell group-search-table-td ">
+        {% block datasets %}
+          {% if group.package_count %}
+            <span class="group-search-count">{{ group.package_count }}</span>
+          {% else %}
+            <span class="group-search-count">0</span>
+          {% endif %}
+        {% endblock datasets %}
+      </div>
+    {% endblock item_inner %}
+  </div>
+{% endblock item %}
