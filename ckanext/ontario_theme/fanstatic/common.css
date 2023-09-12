@@ -557,7 +557,7 @@ input[type="reset"].ontario-search-reset.home {
 }
 
 #group-search-form .ontario-search-container {
-  z-index: 2;
+  z-index: 1;
 }
 
 .ontario-search-input.ontario-input.snippet {
@@ -2877,4 +2877,61 @@ label::after {
 
 .facets-show-more.ontario-button {
   margin: 0;
+}
+
+/* ========================================================================
+   Group Search Page - Table view
+   ======================================================================== */
+.group-search-table-thead-th {
+  display: table-cell;
+  font-size: 22px;
+  font-weight: 700;
+  padding-bottom: 30px;
+}
+
+.group-search-table-thead {
+  display: table-header-group;
+}
+
+.group-search-table-row,
+.group-search-heading {
+  font-size: 18px;
+}
+
+.group-search-heading {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 45px;
+}
+
+.group-search-table-tbody > .group-search-table-row > .group-search-table-cell {
+  padding-top: 1.5rem;
+  padding-bottom: 2.5rem;
+  border-top: solid 1px #ccc;
+}
+
+.group-search-table-tbody > .group-search-table-row > .group-search-table-cell.group-search-table-td {
+  padding-left: 25px;
+}
+
+.group-search-table-cell > p {
+  font-size: 19px;
+  margin-bottom: unset;
+}
+
+.group-search-table {
+  display: table;
+  width: 100%;
+}
+
+.group-search-table-row {
+  display: table-row;
+}
+
+.group-search-table-cell {
+  display: table-cell;
+}
+
+.group-search-table-tbody {
+  display: table-row-group;
 }
