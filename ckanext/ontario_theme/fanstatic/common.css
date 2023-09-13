@@ -2389,11 +2389,29 @@ screen and (min-width: 96em) {
   font-weight: 400;
   line-height: 27px;
   font-size: 20px;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
 }
 
 #news.ontario-row .ontario-row {
   margin: unset;
+}
+
+.c-small-text {
+  padding-top: 0.5rem;
+  font-weight: 400;
+}
+
+#news .dataset-list .show-more {
+  margin-bottom: 40px;
+}
+
+.banner-datasets {
+  padding-left: 10px;
+}
+
+#news {
+  color: #000000;
+  padding-top: 40px;
 }
 
 body {
