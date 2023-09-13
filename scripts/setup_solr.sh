@@ -41,6 +41,7 @@ cp $REPODIR/../config/solr/solrconfig.xml .
 cp $REPODIR/../config/solr/protwords.txt .
 cp $REPODIR/../config/solr/stopwords.txt .
 cp $REPODIR/../config/solr/synonyms.txt .
+cp -r $REPODIR/../config/solr/lang .
 echo $SUDOPASS | sudo -S -k chmod 775 *
 echo "Schema fetched."
 
