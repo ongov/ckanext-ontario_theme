@@ -1697,6 +1697,8 @@ via submission form. Copied from DS.*/
 .filesize {
   font-size: 20px;
   white-space: nowrap;
+  position: relative;
+  z-index: 1000;
 }
 
 @media screen and (max-width: 64em) {
