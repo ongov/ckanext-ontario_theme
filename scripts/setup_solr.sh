@@ -28,29 +28,23 @@ echo $SUDOPASS | sudo -S -k chown -R `whoami` /opt/solr/server/
 
 echo "Fetching managed-schema for ontario_theme..."
 export REPODIR=`pwd`
-cd /opt/solr/server/solr/configsets/_default/
+export CKANCONFDIR='/opt/solr/server/solr/configsets/ckan_conf/conf'
+
+echo $SUDOPASS | sudo -S -k /opt/solr/bin/solr stop -all
+echo $SUDOPASS | sudo -S -k rm -rf /var/solr/data/ckan
+echo $SUDOPASS | sudo -S -k mkdir -p $CKANCONFDIR
+cd $CKANCONFDIR
 echo $SUDOPASS | sudo -S -k chown -R `whoami` .
 echo $SUDOPASS | sudo -S -k chmod -R u+rwx .
-# Make a backup copy of managed-schema
-cd conf/
-mv managed-schema managed-schema.bk
 cp $REPODIR/../config/solr/managed-schema .
-echo $SUDOPASS | sudo -S -k chmod 775 managed-schema
+cp $REPODIR/../config/solr/solrconfig.xml .
+cp $REPODIR/../config/solr/protwords.txt .
+cp $REPODIR/../config/solr/stopwords.txt .
+cp $REPODIR/../config/solr/synonyms.txt .
+echo $SUDOPASS | sudo -S -k chmod 775 *
 echo "Schema fetched."
 
-# New CKAN core creation method
 echo "Creating a CKAN core..."
-echo $SUDOPASS | sudo -S -k /opt/solr/bin/solr stop -all
-sudo rm -rf /var/solr/data/ckan
-sudo mkdir -p /opt/solr/server/solr/configsets/ckan_conf/conf
-sudo cp /usr/lib/ckan/default/src/ckanext-ontario_theme/config/solr/managed-schema /opt/solr/server/solr/configsets/ckan_conf/conf
-sudo cp /lib/ckan/default/src/ckanext-ontario_theme/config/solr/solrconfig.xml /opt/solr/server/solr/configsets/ckan_conf/conf
-sudo cp /lib/ckan/default/src/ckanext-ontario_theme/config/solr/protwords.txt /opt/solr/server/solr/configsets/ckan_conf/conf
-sudo cp /lib/ckan/default/src/ckanext-ontario_theme/config/solr/stopwords.txt /opt/solr/server/solr/configsets/ckan_conf/conf
-sudo cp /lib/ckan/default/src/ckanext-ontario_theme/config/solr/synonyms.txt /opt/solr/server/solr/configsets/ckan_conf/conf
-sudo -u solr /opt/solr/bin/solr restart
-sudo -u solr /opt/solr/bin/solr create -c ckan -d /opt/solr/server/solr/configsets/ckan_conf/conf
+echo $SUDOPASS | sudo -S -k -u solr /opt/solr/bin/solr restart
+echo $SUDOPASS | sudo -S -k -u solr /opt/solr/bin/solr create -c ckan -d $CKANCONFDIR
 echo "CKAN core created."
-
-
-
