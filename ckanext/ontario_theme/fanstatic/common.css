@@ -2396,11 +2396,6 @@ screen and (min-width: 96em) {
   margin: unset;
 }
 
-.c-small-text {
-  padding-top: 0.5rem;
-  font-weight: 400;
-}
-
 #news .dataset-list .show-more {
   margin-bottom: 40px;
 }
