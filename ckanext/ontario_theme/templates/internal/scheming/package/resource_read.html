@@ -92,6 +92,8 @@
             <h2 class="ontario-h4">
               {% if res.datastore_active %}
                 {{ _('Download data') }}
+              {% elif pkg.get("asset_type") == "ai" %}
+                {{ _('Access <abbr title="Artificial Intelligence">AI</abbr>') }}
               {% else %}
                 {{ _('Access data') }}
               {% endif %}

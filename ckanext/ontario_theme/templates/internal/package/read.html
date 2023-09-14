@@ -22,19 +22,16 @@
     </header>
     {% block primary_content_inner %}
       <div class="col-lg-8 col-xs-12">
-        {% if pkg.get("asset_type") == "algorithm" %}
+        {% if pkg.get("asset_type") == "ai" %}
           <div class="new-alert alert-info alert-algorithms alert-huge alert-clear">
             <strong>
-              {% trans %}
-                Algorithm/AI Asset
-              {% endtrans %}
+              {{ _("Artificial Intelligence (<abbr>AI</abbr>)") }}
             </strong>
             <p>
               {% trans url=h.url_for('group.about', id='artificial-intelligence-and-algorithms') %}
-                This record describes an algorithm or artificial intelligence asset. It does not describe a dataset.
+                This record describes an <abbr title="Artificial Intelligence">AI</abbr> asset. It does not describe a dataset.
                 <a href="{{ url }}">
-                  Learn more here about how the Government of Ontario is working to grow our catalogue beyond data for greater
-                  transparency and accountability.
+                  Learn more here about how Ontario uses <abbr title="Artificial Intelligence">AI</abbr> in government.
                 </a>
               {% endtrans %}
             </p>
