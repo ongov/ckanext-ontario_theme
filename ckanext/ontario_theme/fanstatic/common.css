@@ -2877,8 +2877,14 @@ label::after {
   margin-right: 5px;
 }
 
-.facets-show-more.ontario-button {
+.facets-show-more.ontario-button,
+.facets-show-less.ontario-button {
   margin: 0;
+}
+
+.nav > li.show-more-items,
+.hide-button {
+  display: none;
 }
 
 /* ========================================================================

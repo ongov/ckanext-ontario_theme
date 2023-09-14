@@ -34,7 +34,8 @@
             {% set label_truncated = h.truncate(label, 22) if not label_function else label %}
             {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
             <li class="{{ nav_item_class or 'nav-item' }}
-                       {% if item.active %}active{% endif %}">
+                       {% if item.active %}active{% endif %}
+                       {% if loop.index > 5 %}facet-{{ name }} show-more-items{% endif %}">
               {% if item.active %}<span class="sr-only">Filtered on</span>{% endif %}
               <a href="{{ href }}"
                  title="{{ label if label != label_truncated else '' }}">
@@ -47,15 +48,14 @@
 
       <p class="module-footer">
         {% if h.get_param_int('_%s_limit' % name) %}
-          {% if h.has_more_facets(name, c.search_facets) %}
-            <a href="{{ h.remove_url_param('_%s_limit' % name, replace=0, extras=extras, alternative_url=alternative_url) }}"
-               role="button"
-               class="facets-show-more ontario-button ontario-button--tertiary">{{ _('Show more') }}</a>
+          {% if items|length > 5 %}
+            <button id="toggle1-{{ name }}"
+                    class="facets-show-more ontario-button ontario-button--tertiary"
+                    type="button">{{ _('Show more') }}</button>
+            <button id="toggle2-{{ name }}"
+                    class="facets-show-less hide-button ontario-button ontario-button--tertiary"
+                    type="button">{{ _('Show less') }}</button>
           {% endif %}
-        {% else %}
-          <a href="{{ h.remove_url_param('_%s_limit' % name, extras=extras, alternative_url=alternative_url) }}"
-             role="button"
-             class="facets-show-more ontario-button ontario-button--tertiary">{{ _('Show less') }}</a>
         {% endif %}
       </p>
     {% else %}
