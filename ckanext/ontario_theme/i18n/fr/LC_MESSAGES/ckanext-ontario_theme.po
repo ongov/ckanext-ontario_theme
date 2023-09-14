@@ -2023,9 +2023,25 @@ msgstr "Quoi de neuf?"
 msgid "Most popular datasets"
 msgstr "Ensembles de données les plus populaires"
 
+#: ckanext/ontario_theme/templates/internal/home/layout3.html:52
+msgid "More popular datasets"
+msgstr "Plus de jeux de données populaires"
+
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:56
-msgid "COVID datasets"
-msgstr "Jeux de données sur la COVID"
+msgid "COVID-19 datasets"
+msgstr "Jeux de données sur la COVID-19"
+
+#: ckanext/ontario_theme/templates/internal/home/layout3.html:28
+msgid "COVID-19 datasets "
+msgstr "de jeux de données sur la COVID-19"
+
+#: ckanext/ontario_theme/templates/internal/home/layout3.html:56
+msgid "Artificial Intelligence (<abbr>AI</abbr>) assets"
+msgstr "Actifs d’intelligence artificielle (<abbr>IA</abbr>)"
+
+#: ckanext/ontario_theme/templates/internal/home/layout3.html:26
+msgid "<abbr title=\"Artificial Intelligence\">AI</abbr> assets"
+msgstr "d’actifs d’<abbr title=\"intelligence artificielle\">IA</abbr>"
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:9
 msgid "Welcome to the Ontario Data catalogue!"
@@ -2420,9 +2436,9 @@ msgstr "Fournir rétroaction"
 msgid "As we work to develop the catalogue, <a href=\"https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269\">tell us what you think</a>."
 msgstr "Au fur et à mesure que nous travaillons à son amélioration le catalogue, nous aimerions savoir ce que <a href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=532365&nid=138269\">vous en pensez</a>."
 
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_covid_datasets.html:18
-msgid "<a href=\"%(url)s\">Show more</a>"
-msgstr "<a href=\"%(url)s\">Afficher plus d’options</a>"
+#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_group_datasets.html:24
+msgid "<a href=\"%(url)s\">More %(group_title)s</a>"
+msgstr "<a href=\"%(url)s\">Plus %(group_title)s</a>"
 
 #: ckanext/ontario_theme/templates/internal/header.html:89
 msgid "Ministries"

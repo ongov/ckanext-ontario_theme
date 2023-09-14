@@ -373,12 +373,12 @@ def get_group(group_id):
     return group_dict
 
 def get_group_datasets(group_id):
-    '''Helper to return 10 of the most popular datasets in the desired group
+    '''Helper to return 3 of the most popular datasets in the desired group
     '''
     group_id = 'groups:{}'.format(group_id)
     group_datasets = toolkit.get_action('package_search')(
         data_dict={ 'fq': group_id,
-                    'rows': 10,
+                    'rows': 3,
                     'sort': 'views_recent desc'})
     return group_datasets['results']
 

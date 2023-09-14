@@ -1271,7 +1271,19 @@ msgid "Most popular datasets"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:56
-msgid "COVID datasets"
+msgid "COVID-19 datasets"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/home/layout3.html:28
+msgid "COVID-19 datasets "
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/home/layout3.html:56
+msgid "Artificial Intelligence (<abbr>AI</abbr>) assets"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/home/layout3.html:26
+msgid "<abbr title=\"Artificial Intelligence\">AI</abbr> assets"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_intro.html:12
@@ -1791,8 +1803,8 @@ msgstr ""
 msgid "Data Visualizer"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_covid_datasets.html:18
-msgid "<a href=\"%(url)s\">Show more</a>"
+#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_group_datasets.html:24
+msgid "<a href=\"%(url)s\">More %(group_title)s</a>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/organization/new.html:3
