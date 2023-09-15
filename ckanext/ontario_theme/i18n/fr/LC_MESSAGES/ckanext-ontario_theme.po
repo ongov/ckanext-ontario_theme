@@ -2168,13 +2168,14 @@ msgstr "Inscrivez-vous aux mises à jour pour cet ensemble de données à l’ai
 msgid "Artificial Intelligence (<abbr>AI</abbr>)"
 msgstr "Intelligence artificielle (<abbr>IA</abbr>)"
 
-#: ckanext/ontario_theme/templates/internal/package/read.html:9
+#: ckanext/ontario_theme/templates/internal/package/read.html:31
+#, python-format
 msgid ""
-"This record describes an <abbr title=\"Artificial Intelligence\">AI</abbr> asset."
-"It does not describe a dataset."
-"<a href=\"%(url)s\"> Learn more here about how Ontario uses "
-"<abbr title=\"Artificial Intelligence\">AI</abbr> in government.</a>"
-msgstr "Cet enregistrement décrit un algorithme ou actif d’intelligence artificielle. Il ne s’agit pas d’un jeu de données.<a href=\"%(url)s\">Renseignez-vous sur la façon dont l’Ontario utilise l’<abbr title=\"intelligence artificielle\">IA<abbr> au sein du gouvernement.</a>"
+"This record describes an <abbr title=\"Artificial Intelligence\">AI</abbr> "
+"asset. It does not describe a dataset. <a href=\"%(url)s\"> Learn more here "
+"about how Ontario uses <abbr title=\"Artificial Intelligence\">AI</abbr> in "
+"government. </a>"
+msgstr "Cet enregistrement décrit un algorithme ou actif d’intelligence artificielle. Il ne s’agit pas d’un jeu de données. <a href=\"%(url)s\">Renseignez-vous sur la façon dont l’Ontario utilise l’<abbr title=\"intelligence artificielle\">IA<abbr> au sein du gouvernement.</a>"
 #: ckanext/ontario_theme/templates/internal/snippets/package_item.html:10
 msgid "Algorithm/AI"
 msgstr "Algorithme/IA"
