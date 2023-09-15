@@ -86,29 +86,29 @@ attribute with the form `ckan-X.Y` -->
     </fieldType>
 
     <fieldType name="text_ngram" class="solr.TextField" positionIncrementGap="100">
-      <analyzer type="index">
-        <tokenizer class="solr.NGramTokenizerFactory" minGramSize="1" maxGramSize="25"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-      </analyzer>
-      <analyzer type="query">
-        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-      </analyzer>
+        <analyzer type="index">
+            <tokenizer class="solr.NGramTokenizerFactory" minGramSize="1" maxGramSize="25"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
     </fieldType>
 
-    <fieldType name ="text_with_special_chars" class="solr.TextField"
-    <analyzer>
-        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.ASCIIFoldingFilterFactory"/>
-    </analyzer>
+    <fieldType name ="text_with_special_chars" class="solr.TextField">
+        <analyzer>
+            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.ASCIIFoldingFilterFactory"/>
+        </analyzer>
     </fieldType>
 
     <fieldType name ="text_case_insensitive" class="solr.TextField">
-    <analyzer>
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-    </analyzer>
+        <analyzer>
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
     </fieldType>
 
     <fieldType name="text_fr_edge_ngram" class="solr.TextField" positionIncrementGap="100">
