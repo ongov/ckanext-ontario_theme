@@ -49,10 +49,10 @@
       <p class="module-footer">
         {% if h.get_param_int('_%s_limit' % name) %}
           {% if items|length > 5 %}
-            <button id="toggle1-{{ name }}"
+            <button id="more-{{ name }}"
                     class="facets-show-more ontario-button ontario-button--tertiary"
                     type="button">{{ _('Show more') }}</button>
-            <button id="toggle2-{{ name }}"
+            <button id="less-{{ name }}"
                     class="facets-show-less hide-button ontario-button ontario-button--tertiary"
                     type="button">{{ _('Show less') }}</button>
           {% endif %}

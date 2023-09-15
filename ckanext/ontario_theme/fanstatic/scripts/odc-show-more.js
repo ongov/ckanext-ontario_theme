@@ -1,3 +1,13 @@
+/*
+ * Function for facets to show more or show less without being redirected to a new page
+ *
+ * For each facet, the Show more and Show less buttons have an event listener for a button click.
+ * On click: list items are toggled to display: block or display: none,
+ * button clicked is toggled to display: none or visible,
+ * Show more or Show less button is shown depending on the original button clicked.
+ *
+ */
+
 (function () {
     var showMoreButtons = document.querySelectorAll(".facets-show-more");
     var showLessButtons = document.querySelectorAll(".facets-show-less");
@@ -8,19 +18,17 @@
         element.addEventListener('click', toggleShowMore)
     })
     function toggleShowMore() {
-        let showMoreId = this.id.substring(8);
+        /* Toggle list items according to the facet */
+        var showMoreId = this.id.substring(5);
         var listItems = document.querySelectorAll('.facet-' + showMoreId);
         listItems.forEach(listItem => {
-            listItem.classList.toggle("show-more-items"); 
+            listItem.classList.toggle("show-more-items");
         });
         this.classList.toggle("hide-button");
-        if (this.classList.contains("facets-show-less")){
-           let showMore = document.querySelector('#toggle1-' + showMoreId + '.facets-show-more');
-           showMore.classList.toggle("hide-button");
-        } else {
-            let showLess = document.querySelector('#toggle2-' + showMoreId + '.facets-show-less');
-            showLess.classList.toggle("hide-button");
-        }
+        /* Show the Show more or Show less button depending on which button was clicked */
+        var toggleButton = this.classList.contains("facets-show-less") ? 'more-' : 'less-';
+        var showButton = document.getElementById(toggleButton + showMoreId);
+        showButton.classList.toggle("hide-button");
     }
 
 })();
