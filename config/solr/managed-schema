@@ -114,9 +114,9 @@ attribute with the form `ckan-X.Y` -->
     <fieldType name="text_fr_edge_ngram" class="solr.TextField" positionIncrementGap="100">
         <analyzer type="index">
             <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-            <filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="25">
-                <filter class="solr.LowerCaseFilterFactory"/>
-                <filter class="solr.FrenchLighStemFilterFactory" minGramSize"1" maxGramSize"25"/>
+            <filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="25"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.FrenchLighStemFilterFactory" minGramSize="1" maxGramSize="25"/>
         </analyzer>
         <analyzer type="query">
             <tokenizer class="solr.WhitespaceTokenizerFactory"/>
@@ -125,11 +125,6 @@ attribute with the form `ckan-X.Y` -->
             <filter class="solr.FrenchLighStemFilterFactory"/>
         </analyzer>
     </fieldType>
-
-
-
-
-    
 
 </types>
 
