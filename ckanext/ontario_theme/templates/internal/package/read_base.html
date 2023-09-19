@@ -1,8 +1,16 @@
 {% ckan_extends %}
 
+{% block schema_tag_attr %}
+  itemscope itemtype="http://schema.org/Dataset"
+{% endblock schema_tag_attr %}
+
 {% block wrapper_class %}
   dataset-main
 {% endblock wrapper_class %}
+
+{% block head_extras -%}
+  <meta itemprop="identifier" content="{{ pkg.name }}"/>
+{% endblock -%}
 
 {% block secondary %}
   <aside class="dataset-aside secondary col-xs-12 col-lg-4 right-col dataset-font">

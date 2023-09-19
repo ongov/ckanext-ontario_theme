@@ -59,7 +59,7 @@
             {% endif %}
           {% endblock package_archive_notice %}
 
-          <h1>
+          <h1 itemprop="name">
             {% block page_heading %}
               {{ h.dataset_display_name(pkg) }}
               {% if pkg.state.startswith('draft') %}[{{ _('Draft') }}]{% endif %}
