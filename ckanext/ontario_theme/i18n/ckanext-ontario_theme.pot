@@ -1841,11 +1841,10 @@ msgstr ""
 msgid "Artificial Intelligence (<abbr>AI</abbr>)"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/package/read.html:34
+msgid "Learn more here about how Ontario uses <abbr title=\"Artificial Intelligence\">AI</abbr> in government."
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/package/read.html:31
-#, python-format
-msgid ""
-"This record describes an <abbr title=\"Artificial Intelligence\">AI</abbr> "
-"asset. It does not describe a dataset. <a href=\"%(url)s\"> Learn more here "
-"about how Ontario uses <abbr title=\"Artificial Intelligence\">AI</abbr> in "
-"government. </a>"
+msgid "This record describes an <abbr title=\"Artificial Intelligence\">AI</abbr> asset. It does not describe a dataset."
 msgstr ""

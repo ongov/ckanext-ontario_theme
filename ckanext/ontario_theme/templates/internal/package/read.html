@@ -28,13 +28,11 @@
               {{ _("Artificial Intelligence (<abbr>AI</abbr>)") }}
             </strong>
             <p>
-              {% trans url=h.url_for('group.about', id='artificial-intelligence-and-algorithms') %}
-                This record describes an <abbr title="Artificial Intelligence">AI</abbr> asset. It does not describe a dataset.
-                <a href="{{ url }}">
-                  Learn more here about how Ontario uses <abbr title="Artificial Intelligence">AI</abbr> in government.
-                </a>
-              {% endtrans %}
+              {{ _('This record describes an <abbr title="Artificial Intelligence">AI</abbr> asset. It does not describe a dataset.') }}
             </p>
+            <a href="{{ h.url_for('group.about', id='artificial-intelligence-and-algorithms') }}">
+              {{ _('Learn more here about how Ontario uses <abbr title="Artificial Intelligence">AI</abbr> in government.') }}
+            </a>
           </div>
         {% endif %}
         {{ super() }}
