@@ -17,6 +17,11 @@
   {% if is_open or is_admin %}{{ super() }}{% endif %}
 {% endblock breadcrumb_content %}
 
+{% block schema_tag_attr %}
+  {% set is_open = (pkg.access_level == 'open') %}
+  {% if is_open %}itemscope itemtype="http://schema.org/DataDownload"{% endif %}
+{% endblock schema_tag_attr %}
+
 {% block pre_primary %}
   {% block resource %}
     {% set is_open = (pkg.access_level == 'open') %}
@@ -42,7 +47,7 @@
       {% block resource_content %}
         <div class="col-lg-8 col-xs-12">
           {% block resource_read_title %}
-            <h1>{{ h.resource_display_name(res) }}</h1>
+            <h1 itemprop="name">{{ h.resource_display_name(res) }}</h1>
           {% endblock resource_read_title %}
 
           <div class="datafile-p" property="rdfs:label">
@@ -59,7 +64,9 @@
               {% endif %}
             {% endblock resource_read_url %}
 
-            {% if res.description %}{{ h.render_markdown(h.get_translated(res, "description")) }}{% endif %}
+            {% if res.description %}
+              <span itemprop="description">{{ h.render_markdown(h.get_translated(res, "description")) }}</span>
+            {% endif %}
             {% if not res.description and c.package.notes %}
               {% if res.datastore_active %}
                 {{ h.render_markdown(h.get_translated(c.package, 'notes')) }}
@@ -221,7 +228,7 @@
                   {%- block resource_format -%}
                     <tr>
                       <th scope="row">{{ _('Format') }}</th>
-                      <td>{{ res.mimetype_inner or res.mimetype or res.format or _('unknown') }}</td>
+                      <td itemprop="encodingFormat">{{ res.mimetype_inner or res.mimetype or res.format or _('unknown') }}</td>
                     </tr>
                     {# Add resource size if known. This extends scheming's template. #}
                     {% if not res.mimetype and not res.size %}
@@ -229,7 +236,9 @@
                     {% else %}
                       <tr>
                         <th scope="row">{{ _('File size') }}</th>
-                        <td>{{ h.ontario_theme_abbr_localised_filesize(res.size)|safe if res.size else _('unknown size') }}</td>
+                        <td itemprop="contentSize">
+                          {{ h.ontario_theme_abbr_localised_filesize(res.size)|safe if res.size else _('unknown size') }}
+                        </td>
                       </tr>
                     {% endif %}
                   {%- endblock resource_format -%}
@@ -264,5 +273,11 @@
       {% endblock resource_additional_information %}
     {% endblock primary_content %}
     <div class="col-xs-12">{% snippet 'home/snippets/ontario_theme_contact_us.html' %}</div>
+  {% endif %}
+  {% if is_open %}
+    <meta itemprop="identifier" content="{{ res.id }}" />
+    <meta itemprop="contentUrl" content="{{ res.url }}" />
+    <meta itemprop="isPartOf" content="{{ pkg.url }}" />
+    <!--<meta itemprop="temporalCoverage" content="{{ res.name }}" />-->
   {% endif %}
 {% endblock primary %}
