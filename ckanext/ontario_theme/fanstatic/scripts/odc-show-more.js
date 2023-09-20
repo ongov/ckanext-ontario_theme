@@ -24,11 +24,11 @@
         listItems.forEach(listItem => {
             listItem.classList.toggle("show-more-items");
         });
-        this.classList.toggle("hide-button");
+        this.classList.toggle("ontario-hide");
         /* Show the Show more or Show less button depending on which button was clicked */
         var toggleButton = this.classList.contains("facets-show-less") ? 'more-' : 'less-';
         var showButton = document.getElementById(toggleButton + showMoreId);
-        showButton.classList.toggle("hide-button");
+        showButton.classList.toggle("ontario-hide");
     }
 
 })();

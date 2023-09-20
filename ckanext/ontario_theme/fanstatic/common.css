@@ -2895,8 +2895,7 @@ label::after {
   margin: 0;
 }
 
-.nav > li.show-more-items,
-.hide-button {
+.nav > li.show-more-items {
   display: none;
 }
 
