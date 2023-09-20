@@ -47,7 +47,7 @@
       {% block resource_content %}
         <div class="col-lg-8 col-xs-12">
           {% block resource_read_title %}
-            <h1 itemprop="name">{{ h.resource_display_name(res) }}</h1>
+            <h1>{{ h.resource_display_name(res) }}</h1>
           {% endblock resource_read_title %}
 
           <div class="datafile-p" property="rdfs:label">
@@ -65,7 +65,7 @@
             {% endblock resource_read_url %}
 
             {% if res.description %}
-              <span itemprop="description">{{ h.render_markdown(h.get_translated(res, "description")) }}</span>
+              <div itemprop="description">{{ h.render_markdown(h.get_translated(res, "description")) }}</div>
             {% endif %}
             {% if not res.description and c.package.notes %}
               {% if res.datastore_active %}
@@ -254,7 +254,7 @@
                       {%- if field.field_name not in exclude_fields and res[field.field_name] and (res[field.field_name] != {'fr': '', 'en': ''}) -%}
                         <tr>
                           <th scope="row">{{- h.scheming_language_text(field.label) -}}</th>
-                          <td>
+                          <td {% if field.display_itemprop -%}itemprop="{{ field.display_itemprop }}"{%- endif %}>
                             {%- if field.preset == "date" -%}
                               {{- h.render_datetime(res[field.field_name]) -}}
                             {%- else -%}
@@ -274,10 +274,17 @@
     {% endblock primary_content %}
     <div class="col-xs-12">{% snippet 'home/snippets/ontario_theme_contact_us.html' %}</div>
   {% endif %}
+  {% set url = h.url_for('dataset.read', id=c.package['name']) %}
   {% if is_open %}
     <meta itemprop="identifier" content="{{ res.id }}" />
     <meta itemprop="contentUrl" content="{{ res.url }}" />
-    <meta itemprop="isPartOf" content="{{ pkg.url }}" />
-    <!--<meta itemprop="temporalCoverage" content="{{ res.name }}" />-->
+    <meta itemprop="isPartOf" content="{{ url }}" />
+    {% if res.data_range_start and not res.data_range_end %}
+      <meta itemprop="temporalCoverage" content="{{ res.data_range_start }}" />
+    {% endif %}
+    {% if res.data_range_start and res.data_range_end %}
+      <meta itemprop="temporalCoverage"
+            content="{{ res.data_range_start }}/{{ res.data_range_end }}" />
+    {% endif %}
   {% endif %}
 {% endblock primary %}
