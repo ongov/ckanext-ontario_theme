@@ -2890,8 +2890,7 @@ label::after {
   margin-right: 5px;
 }
 
-.facets-show-more.ontario-button,
-.facets-show-less.ontario-button {
+.facets-show-more.ontario-button {
   margin: 0;
 }
 
