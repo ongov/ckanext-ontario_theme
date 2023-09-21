@@ -289,7 +289,7 @@
     <meta itemprop="contentUrl" content="{{ res.url }}" />
     <meta itemprop="isPartOf" content="{{ url }}" />
     {% if res.data_range_start and not res.data_range_end %}
-      <meta itemprop="temporalCoverage" content="{{ res.data_range_start }}" />
+      <meta itemprop="temporalCoverage" content="{{ res.data_range_start }}/.." />
     {% endif %}
     {% if res.data_range_start and res.data_range_end %}
       <meta itemprop="temporalCoverage"
