@@ -1,10 +1,9 @@
 /*
  * Function for facets to show more or show less without being redirected to a new page
  *
- * For each facet, the Show more and Show less buttons have an event listener for a button click.
+ * For each facet, the Show more button has an event listener for a button click.
  * On click: list items are toggled to display: block or display: none,
- * button clicked is toggled to display: none or visible,
- * Show more or Show less button is shown depending on the original button clicked.
+ * button clicked is toggled to display Show less or Show more
  *
  */
 
