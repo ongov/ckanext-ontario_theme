@@ -52,11 +52,10 @@
         {% if h.get_param_int('_%s_limit' % name) %}
           {% if h.has_more_facets(name, c.search_facets) %}
             <button id="more-{{ name }}"
+                    data-toggle-less="{{ _('Show less') }}"
+                    data-toggle-more="{{ _('Show more') }}"
                     class="facets-show-more ontario-button ontario-button--tertiary"
                     type="button">{{ _('Show more') }}</button>
-            <button id="less-{{ name }}"
-                    class="facets-show-less ontario-hide ontario-button ontario-button--tertiary"
-                    type="button">{{ _('Show less') }}</button>
           {% endif %}
         {% endif %}
       </p>

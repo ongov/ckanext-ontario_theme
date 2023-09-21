@@ -10,11 +10,7 @@
 
 (function () {
     var showMoreButtons = document.querySelectorAll(".facets-show-more");
-    var showLessButtons = document.querySelectorAll(".facets-show-less");
     showMoreButtons.forEach(element => {
-        element.addEventListener('click', toggleShowMore)
-    })
-    showLessButtons.forEach(element => {
         element.addEventListener('click', toggleShowMore)
     })
     function toggleShowMore() {
@@ -24,11 +20,11 @@
         listItems.forEach(listItem => {
             listItem.classList.toggle("show-more-items");
         });
-        this.classList.toggle("ontario-hide");
+        this.classList.toggle("show-less");
         /* Show the Show more or Show less button depending on which button was clicked */
-        var toggleButton = this.classList.contains("facets-show-less") ? 'more-' : 'less-';
-        var showButton = document.getElementById(toggleButton + showMoreId);
-        showButton.classList.toggle("ontario-hide");
+        var toggleButton = this.classList.contains("show-less") ? 'data-toggle-less' : 'data-toggle-more';
+        var showMoreOrLess = this.getAttribute(toggleButton);
+        this.innerHTML = showMoreOrLess;
     }
 
 })();
