@@ -227,6 +227,7 @@
         "en": "Is there a webpage that describes this resource? Link to it here."
       },
       "form_placeholder": "e.g., http://example.com/description-of-this-dataset",
+      "display_itemprop": "url",
       "display_property": "foaf:homepage",
       "display_snippet": "link.html",
       "classes": ["form-group","col-md-12"]

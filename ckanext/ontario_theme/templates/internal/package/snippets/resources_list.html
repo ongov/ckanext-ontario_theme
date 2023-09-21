@@ -89,7 +89,7 @@
           <ul class="resource-list">
             {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
             {% for resource in resources|rejectattr("type","equalto","data") %}
-              {% snippet "package/snippets/resource_item.html", pkg=pkg, res=resource, can_edit=can_edit, schema=schema, relation="hasPart" %}
+              {% snippet "package/snippets/resource_item.html", pkg=pkg, res=resource, can_edit=can_edit, schema=schema %}
             {% endfor %}
           </ul>
         {% else %}
@@ -108,4 +108,6 @@
       {% endif %}
     {% endif %}
   {% endblock resource_list %}
+  <meta itemprop="dateModified" content="{{ pkg.metadata_modified }}"/>
+  <meta itemprop="identifier" content="{{ pkg.name }}"/>
 </section>
