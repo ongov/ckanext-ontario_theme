@@ -10,7 +10,14 @@
     </p>
   {%- endif -%}
   {% if h.scheming_field_by_name(schema.dataset_fields, 'notes_translated') and pkg.notes %}
-    <div class="notes embedded-content dataset-font" itemprop="description">
+  {% if h.render_markdown(h.scheming_language_text(pkg['notes_translated']))|length > 5000 %}
+    <span itemprop="description" class="ontario-hide">
+    {{ h.render_markdown(h.scheming_language_text(pkg['notes_translated']))|truncate(5000, true) }}
+    </span>
+  {% else %}
+    {% set itemprop = 'itemprop=description' %}
+  {% endif %}
+    <div class="notes embedded-content dataset-font" {% if itemprop %}{{ itemprop }}{% endif %}>
       {{ h.render_markdown(h.scheming_language_text(pkg['notes_translated'])) }}
     </div>
   {% endif %}
