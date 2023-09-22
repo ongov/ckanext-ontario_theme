@@ -8,6 +8,15 @@
   resource-main
 {% endblock wrapper_class %}
 
+{% block head_extras %}{% endblock head_extras %}
+
+{% block meta -%}
+  {{ super() }}
+  {% set description = h.markdown_extract(h.get_translated(res, 'description'), extract_length=200) if res.description else h.markdown_extract(h.get_translated(package, 'notes'), extract_length=200) %}
+  <meta property="og:title" content="{{ h.dataset_display_name(package) }} - {{ h.resource_display_name(res) }} - {{ g.site_title }}">
+  <meta property="og:description" content="{{ description|forceescape }}">
+{% endblock meta -%}
+
 {%- set exclude_fields = ["data_last_updated", "name", "description_translated", "url", "format"] -%}
 {%- set schema = h.scheming_get_dataset_schema(dataset_type) -%}
 {% set license = h.ontario_theme_get_license(pkg.license_id) %}
@@ -16,6 +25,11 @@
   {% set is_open = (pkg.access_level == 'open') %}
   {% if is_open or is_admin %}{{ super() }}{% endif %}
 {% endblock breadcrumb_content %}
+
+{% block schema_tag_attr %}
+  {% set is_open = (pkg.access_level == 'open') %}
+  {% if is_open %}itemscope itemtype="http://schema.org/DataDownload"{% endif %}
+{% endblock schema_tag_attr %}
 
 {% block pre_primary %}
   {% block resource %}
@@ -59,7 +73,9 @@
               {% endif %}
             {% endblock resource_read_url %}
 
-            {% if res.description %}{{ h.render_markdown(h.get_translated(res, "description")) }}{% endif %}
+            {% if res.description %}
+              <div itemprop="description">{{ h.render_markdown(h.get_translated(res, "description")) }}</div>
+            {% endif %}
             {% if not res.description and c.package.notes %}
               {% if res.datastore_active %}
                 {{ h.render_markdown(h.get_translated(c.package, 'notes')) }}
@@ -223,7 +239,7 @@
                   {%- block resource_format -%}
                     <tr>
                       <th scope="row">{{ _('Format') }}</th>
-                      <td>{{ res.mimetype_inner or res.mimetype or res.format or _('unknown') }}</td>
+                      <td itemprop="encodingFormat">{{ res.mimetype_inner or res.mimetype or res.format or _('unknown') }}</td>
                     </tr>
                     {# Add resource size if known. This extends scheming's template. #}
                     {% if not res.mimetype and not res.size %}
@@ -231,7 +247,9 @@
                     {% else %}
                       <tr>
                         <th scope="row">{{ _('File size') }}</th>
-                        <td>{{ h.ontario_theme_abbr_localised_filesize(res.size)|safe if res.size else _('unknown size') }}</td>
+                        <td itemprop="contentSize">
+                          {{ h.ontario_theme_abbr_localised_filesize(res.size)|safe if res.size else _('unknown size') }}
+                        </td>
                       </tr>
                     {% endif %}
                   {%- endblock resource_format -%}
@@ -247,7 +265,7 @@
                       {%- if field.field_name not in exclude_fields and res[field.field_name] and (res[field.field_name] != {'fr': '', 'en': ''}) -%}
                         <tr>
                           <th scope="row">{{- h.scheming_language_text(field.label) -}}</th>
-                          <td>
+                          <td {% if field.display_itemprop -%}itemprop="{{ field.display_itemprop }}"{%- endif %}>
                             {%- if field.preset == "date" -%}
                               {{- h.render_datetime(res[field.field_name]) -}}
                             {%- else -%}
@@ -266,5 +284,18 @@
       {% endblock resource_additional_information %}
     {% endblock primary_content %}
     <div class="col-xs-12">{% snippet 'home/snippets/ontario_theme_contact_us.html' %}</div>
+  {% endif %}
+  {% set url = h.url_for('dataset.read', id=c.package['name']) %}
+  {% if is_open %}
+    <meta itemprop="identifier" content="{{ res.id }}" />
+    <meta itemprop="contentUrl" content="{{ res.url }}" />
+    <meta itemprop="isPartOf" content="{{ url }}" />
+    {% if res.data_range_start and not res.data_range_end %}
+      <meta itemprop="temporalCoverage" content="{{ res.data_range_start }}/.." />
+    {% endif %}
+    {% if res.data_range_start and res.data_range_end %}
+      <meta itemprop="temporalCoverage"
+            content="{{ res.data_range_start }}/{{ res.data_range_end }}" />
+    {% endif %}
   {% endif %}
 {% endblock primary %}
