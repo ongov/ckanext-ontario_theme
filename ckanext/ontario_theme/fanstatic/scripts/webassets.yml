@@ -4,3 +4,4 @@ ontario_theme_js:
     - ontario-header.js
     - odc-search.js
     - ontario-back-to-top.js
+    - odc-show-more.js
