@@ -1799,6 +1799,10 @@ msgstr ""
 msgid "Access data"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:68
+msgid "Access <abbr title=\"Artificial Intelligence\">AI</abbr>"
+msgstr "Accédez à l’<abbr title =\"intelligence artificielle\">IA</abbr>"
+
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:47
 msgid "Data Visualizer"
 msgstr ""
@@ -1843,4 +1847,16 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:106
 msgid "Sort by"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/package/read.html:7
+msgid "Artificial Intelligence (<abbr>AI</abbr>)"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/package/read.html:34
+msgid "Learn more here about how Ontario uses <abbr title=\"Artificial Intelligence\">AI</abbr> in government."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/package/read.html:31
+msgid "This record describes an <abbr title=\"Artificial Intelligence\">AI</abbr> asset. It does not describe a dataset."
 msgstr ""

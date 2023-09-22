@@ -2440,6 +2440,14 @@ li.media-item.ministry-item {
   padding: 15px;
 }
 
+.new-alert.alert-huge > p {
+  margin-bottom: 0;
+}
+
+.new-alert.alert-huge {
+  padding-bottom: 40px;
+}
+
 /* ========================================================================   
   Homepage - Topics
   ======================================================================== */
@@ -2807,7 +2815,6 @@ label::after {
   background-color: #d1d1d1;
 }
 
-
 .nav-facet .nav-item.active > a {
   color: #fff;
 }
@@ -2816,6 +2823,15 @@ label::after {
   background-color: #00478f;
 }
 
+.nav-item.active > a span,
+.nav-aside li.active a span {
+  white-space: normal;
+}
+
+.nav-item.active > a::before,
+.nav-aside li.active a::before {
+  height: unset;
+}
 
 .nav-facet.nav-simple > li {
   border-bottom: none;
