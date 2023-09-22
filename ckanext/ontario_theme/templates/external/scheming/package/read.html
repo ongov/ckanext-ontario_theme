@@ -15,9 +15,9 @@
     {{ h.render_markdown(h.scheming_language_text(pkg['notes_translated']))|truncate(5000, true) }}
     </span>
   {% else %}
-    {% set itemprop = 'itemprop=description' %}
+    {% set itemprop = "description" %}
   {% endif %}
-    <div class="notes embedded-content dataset-font" {% if itemprop %}{{ itemprop }}{% endif %}>
+    <div class="notes embedded-content dataset-font" {% if itemprop %}itemprop="{{ itemprop }}"{% endif %}>
       {{ h.render_markdown(h.scheming_language_text(pkg['notes_translated'])) }}
     </div>
   {% endif %}
