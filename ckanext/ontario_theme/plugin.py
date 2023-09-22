@@ -790,6 +790,25 @@ def get_date_range(date_start, date_end):
 
     return date_range
 
+
+def get_facet_options():
+    '''Gets config search facet options.
+    default
+        search.facets.default
+        config option for default number of facets shown in search results
+        Returns '10' by default.
+    limit
+        search.facets.limit
+        config option that sets the default number of searched facets
+        returned in a query
+        Returns '50' by default.
+    :rtype: dict
+    '''
+    default = config.get('search.facets.default', 10)
+    limit = config.get('search.facets.limit', 50)
+    return {'limit': limit, 'default': default}
+
+
 def default_locale():
     '''Wrap the ckan default locale in a helper function to access
     in templates.
@@ -1033,7 +1052,8 @@ type data_last_updated
                 'ontario_theme_get_all_organizations': get_all_organizations,
                 'ontario_theme_sort_by_title_translated': sort_by_title_translated,
                 'ontario_theme_sort_accented_characters': sort_accented_characters,
-                'ontario_theme_abbr_localised_filesize': abbr_localised_filesize
+                'ontario_theme_abbr_localised_filesize': abbr_localised_filesize,
+                'ontario_theme_get_facet_options': get_facet_options
                 }
 
     # IBlueprint
