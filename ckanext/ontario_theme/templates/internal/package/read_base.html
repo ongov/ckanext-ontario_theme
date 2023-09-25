@@ -1,8 +1,21 @@
 {% ckan_extends %}
 
+{% block schema_tag_attr %}
+  itemscope itemtype="http://schema.org/Dataset"
+{% endblock schema_tag_attr %}
+
 {% block wrapper_class %}
   dataset-main
 {% endblock wrapper_class %}
+
+{% block head_extras %}{% endblock head_extras %}
+
+{% block meta -%}
+  {{ super() }}
+  {% set description = h.markdown_extract(pkg.notes, extract_length=200)|forceescape %}
+  <meta property="og:title" content="{{ h.dataset_display_name(pkg) }} - {{ g.site_title }}">
+  <meta property="og:description" content="{{ description|forceescape|trim }}">
+{% endblock meta -%}
 
 {% block secondary %}
   <aside class="dataset-aside secondary col-xs-12 col-lg-4 right-col dataset-font">
