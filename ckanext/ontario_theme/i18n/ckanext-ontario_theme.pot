@@ -1854,7 +1854,7 @@ msgid "Artificial Intelligence (<abbr>AI</abbr>)"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/package/read.html:34
-msgid "Learn more here about how Ontario uses <abbr title=\"Artificial Intelligence\">AI</abbr> in government."
+msgid "Learn more about how Ontario uses <abbr title=\"Artificial Intelligence\">AI</abbr> in government."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/package/read.html:31
