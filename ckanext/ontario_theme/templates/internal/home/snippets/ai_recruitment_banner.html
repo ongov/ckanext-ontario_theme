@@ -1,0 +1,19 @@
+{% set package_name = h.ontario_theme_extract_package_name(h.current_url()) %}
+{% set survey_params = { "page": h.current_url(), "id": package_name } %}
+<div class="ontario-column ontario-callout ontario-border-highlight--green">
+  <h2 class="ontario-column ontario-callout__title">{{ _("Help us improve") }}</h2>
+  <div class="ontario-columns ontario-small-12 ontario-medium-6">
+    <h3 class="ontario-callout__title ontario-h5">{{ _("Artificial intelligence (<abbr>AI</abbr>) on the Catalogue") }}</h3>
+    <p>
+      {%- trans params=survey_params|urlencode -%} Tell us what you want to know about <a href="https://www.ontario.ca/form/report-data-error?{{ params }}">artificial intelligence (<abbr>AI</abbr>) assets</a> published to the Catalogue.{%- endtrans -%}
+    </p>
+    <button class="ontario-button ontario-button--secondary">Fill out our <abbr title="artificial intelligence">AI</abbr> inventory survey</button>
+  </div>
+  <div class="ontario-columns ontario-small-12 ontario-medium-6">
+    <h3 class="ontario-callout__title ontario-h5">{{ _("Give us feedback about the Catalogue") }}</h3>
+    <p>
+      {%- trans -%} Take a short survey to let us know what you think about the Catalogue and how we can make data more accessible to Ontarians.{%- endtrans -%}
+    </p>
+    <button class="ontario-button ontario-button--secondary">Fill out our feedback form</button>
+  </div>
+</div>
