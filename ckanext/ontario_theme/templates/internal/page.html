@@ -7,7 +7,7 @@
 
 {%- block content %}
   {% block maintag %}
-    <div class="ontario-row">
+    <div {% block schema_tag_attr %}{% endblock schema_tag_attr %}class="ontario-row">
   {% endblock maintag %}
     <div id="content" class="ontario-small-12 ontario-columns">
       {% block main_content %}

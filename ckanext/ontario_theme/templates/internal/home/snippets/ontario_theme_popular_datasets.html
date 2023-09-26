@@ -12,3 +12,6 @@
     </ul>
   </div>
 </div>
+<div class="show-more">
+  <a href="{{ h.url_for('dataset.search', q=q, sort='views_recent+desc') | replace('%2B', '+') }}">{{ _("More popular datasets") }}</a>
+</div>

@@ -68,10 +68,10 @@
           }
         },
         {
-          "value": "algorithm",
+          "value": "ai",
           "label": {
-            "en": "Algorithm",
-            "fr": "Algorithme"
+            "en": "Artificial intelligence",
+            "fr": "Intelligence artificielle"
           }
         }
       ]
@@ -113,7 +113,8 @@
       },
       "classes": ["col-md-12","form-group"],      
       "preset": "fluent_text",
-      "form_placeholder": "e.g., Ontario"
+      "form_placeholder": "e.g., Ontario",
+      "display_itemprop": "spatialCoverage"
     },
     {
       "field_name": "geographic_granularity",
@@ -226,6 +227,7 @@
         "en": "Is there a webpage that describes this resource? Link to it here."
       },
       "form_placeholder": "e.g., http://example.com/description-of-this-dataset",
+      "display_itemprop": "url",
       "display_property": "foaf:homepage",
       "display_snippet": "link.html",
       "classes": ["form-group","col-md-12"]
@@ -256,6 +258,7 @@
       },
       "preset" : "fluent_core_translated",
       "form_placeholder": "e.g., Joe Bloggs",
+      "display_itemprop": "maintainer",
       "display_property": "dc:contributor",
       "preset": "fluent_text",
       "classes": ["col-md-12","form-group"]
@@ -272,6 +275,7 @@
       },
       "form_placeholder": "e.g., joe@example.com",
       "display_property": "dc:contributor",
+      "display_itemprop": "maintainer",
       "display_snippet": "email.html",
       "display_email_name_field": "maintainer",
       "validators": "ignore_missing email_validator",
@@ -288,6 +292,7 @@
         "en": "Name of a person or organization that originally created the resource. If not known, it will default to your name."
       },
       "form_placeholder": "e.g., Joe Bloggs",
+      "display_itemprop": "creator",
       "display_property": "dc:creator",
       "classes": ["col-md-12","form-group"]
     },
@@ -663,6 +668,7 @@
         "en": "Create a human-readable title that will help users understand what the file contains. Leaving the field blank will default the resource name to 'Data'. Add a name if the data describes something different than other files in the same dataset (e.g., 'Stone fruit crops' vs 'Non-stone fruit crops'). Leave blank if information about the data is captured by other fields in this form."
       },
       "fieldset": 2,
+      "display_itemprop": "name",
       "fieldset_name": "Describe the file",
       "classes": ["form-group","col-md-12"] 
     },
@@ -738,6 +744,7 @@
       },
       "classes": ["form-group","col-md-12"],
       "preset": "select",
+      "display_itemprop": "inLanguage",
       "validators": "ignore_missing scheming_choices",
       "choices": [
         {

@@ -28,6 +28,10 @@ msgstr "<span>&nbsp;:</span>"
 msgid "Other"
 msgstr "Autre"
 
+#: ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html:60
+msgid "Explore"
+msgstr "Explorer"
+
 #: ckanext/ontario_theme/templates/internal/footer.html:9
 msgid "https://www.ontario.ca/page/accessibility"
 msgstr "https://www.ontario.ca/fr/page/accessibilite"
@@ -113,8 +117,8 @@ msgstr[1] "<strong>{number} jeux de données</strong> trouvés avec le(s) mot(s)
 #: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html
 msgid "Learn more about "
 msgstr "Renseignez-vous sur "
-msgid "accessing data using different file types."
-msgstr "l’accès aux données à l’aide de différents types de fichiers."
+msgid "accessing data using different formats."
+msgstr "l’accès aux données à l’aide de différents types de formats."
 
 #: ckan/templates/snippets/search_result_text.html:16
 msgid "No datasets found with the keyword(s) <strong>\"{query}\"</strong>"
@@ -2012,9 +2016,25 @@ msgstr "Quoi de neuf?"
 msgid "Most popular datasets"
 msgstr "Ensembles de données les plus populaires"
 
+#: ckanext/ontario_theme/templates/internal/home/layout3.html:52
+msgid "More popular datasets"
+msgstr "Plus de jeux de données populaires"
+
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:56
-msgid "COVID datasets"
-msgstr "Jeux de données sur la COVID"
+msgid "COVID-19 datasets"
+msgstr "Jeux de données sur la COVID-19"
+
+#: ckanext/ontario_theme/templates/internal/home/layout3.html:28
+msgid "COVID-19 datasets "
+msgstr "de jeux de données sur la COVID-19"
+
+#: ckanext/ontario_theme/templates/internal/home/layout3.html:56
+msgid "Artificial Intelligence (<abbr>AI</abbr>) assets"
+msgstr "Actifs d’intelligence artificielle (<abbr>IA</abbr>)"
+
+#: ckanext/ontario_theme/templates/internal/home/layout3.html:26
+msgid "<abbr title=\"Artificial Intelligence\">AI</abbr> assets"
+msgstr "d’actifs d’<abbr title=\"intelligence artificielle\">IA</abbr>"
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:9
 msgid "Welcome to the Ontario Data catalogue!"
@@ -2147,16 +2167,16 @@ msgid "Subscribe to updates to this dataset using RSS."
 msgstr "Inscrivez-vous aux mises à jour pour cet ensemble de données à l’aide du fil RSS."
 
 #: ckanext/ontario_theme/templates/internal/package/read.html:7
-msgid "Algorithm/AI Asset"
-msgstr "Algorithme/actif d’IA"
+msgid "Artificial Intelligence (<abbr>AI</abbr>)"
+msgstr "Intelligence artificielle (<abbr>IA</abbr>)"
 
-#: ckanext/ontario_theme/templates/internal/package/read.html:9
-msgid ""
-"This record describes an algorithm or artificial intelligence asset. It does "
-"not describe a dataset. <a href=\"%(url)s\"> Learn more here about how the Government of Ontario is working "
-"to grow our catalogue beyond data for greater transparency and "
-"accountability. </a>"
-msgstr "Cet enregistrement décrit un algorithme ou actif d’intelligence artificielle. Il ne s’agit pas d’un jeu de données. <a href=\"%(url)s\">Apprenez-en plus ici sur les mesures prises par le gouvernement de l’Ontario pour ajouter à notre catalogue des éléments autres que des données à des fins de transparence et de responsabilité accrues.</a>"
+#: ckanext/ontario_theme/templates/internal/package/read.html:34
+msgid "Learn more about how Ontario uses <abbr title=\"Artificial Intelligence\">AI</abbr> in government."
+msgstr "Renseignez-vous sur la façon dont l’Ontario utilise l’<abbr title=\"intelligence artificielle\">IA<abbr> au sein du gouvernement."
+
+#: ckanext/ontario_theme/templates/internal/package/read.html:31
+msgid "This record describes an <abbr title=\"Artificial Intelligence\">AI</abbr> asset. It does not describe a dataset."
+msgstr "Cet enregistrement décrit un actif d’intelligence artificielle. Il ne s’agit pas d’un jeu de données."
 
 #: ckanext/ontario_theme/templates/internal/snippets/package_item.html:10
 msgid "Algorithm/AI"
@@ -2398,9 +2418,9 @@ msgstr "<a href=\"/fr/help#how-do-i-download-datasets\">Télécharger et à util
 msgid "As we work to develop the catalogue, <a href=\"https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269\">tell us what you think</a>."
 msgstr "Au fur et à mesure que nous travaillons à son amélioration le catalogue, nous aimerions savoir ce que <a href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=532365&nid=138269\">vous en pensez</a>."
 
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_covid_datasets.html:18
-msgid "<a href=\"%(url)s\">Show more</a>"
-msgstr "<a href=\"%(url)s\">Afficher plus d’options</a>"
+#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_group_datasets.html:24
+msgid "<a href=\"%(url)s\">More %(group_title)s</a>"
+msgstr "<a href=\"%(url)s\">Plus %(group_title)s</a>"
 
 #: ckanext/ontario_theme/templates/internal/header.html:89
 msgid "Ministries"
@@ -2486,6 +2506,10 @@ msgstr "Visualisez les données"
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:68
 msgid "Access data"
 msgstr "Accédez aux données"
+
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:68
+msgid "Access <abbr title=\"Artificial Intelligence\">AI</abbr>"
+msgstr "Accédez à l’<abbr title =\"intelligence artificielle\">IA</abbr>"
 
 #: ckanext/ontario_theme/templates/internal/package/snippets/resource_views_list_item.html:3
 msgid "Data Visualizer"

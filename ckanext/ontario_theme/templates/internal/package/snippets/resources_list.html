@@ -5,7 +5,7 @@
 <section id="dataset-resources" class="resources">
   <h2>{{ _(h.dataset_display_name(pkg)) }}</h2>
   <p class="dataset-font">
-    {{ _("Learn more about ") }} <a href="{{ h.url_for('home.about', _anchor='training-materials') }}">{{ _("accessing data using different file types.") }}</a>
+    {{ _("Learn more about ") }} <a href="{{ h.url_for('home.about', _anchor='training-materials') }}">{{ _("accessing data using different formats.") }}</a>
   </p>
   {% block resource_list %}
     {% snippet "package/snippets/ontario_theme_access_level.html",
@@ -108,4 +108,7 @@
       {% endif %}
     {% endif %}
   {% endblock resource_list %}
+  <meta itemprop="dateModified" content="{{ pkg.metadata_modified }}"/>
+  <meta itemprop="identifier" content="{{ pkg.name }}"/>
+  <link itemprop="url" content="{{ h.url_for('dataset.read', id=pkg.name) }}"/>
 </section>

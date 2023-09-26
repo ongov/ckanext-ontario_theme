@@ -639,11 +639,6 @@ div.card p {
   background: #FCAF17;
 }
 
-.c-small-text {
-  padding-top: 0.5rem;
-  font-weight: 400;
-}
-
 .circle-container {
   font-size: 14px;
   font-weight: bold;
@@ -953,11 +948,6 @@ li.resource-item div.btn-wrapper {
   font-size: 2.2rem;
 }
 
-#news {
-  color: #000000;
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
 
 #news img {
   width: 100%;
@@ -1011,10 +1001,6 @@ section.additional-info table.table tbody tr td {
 
 .media-grid {
   border: none;
-}
-
-.banner-datasets {
-  padding-left: 25px;
 }
 
 .banner-section {

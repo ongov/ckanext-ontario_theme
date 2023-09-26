@@ -9,7 +9,7 @@
     
 #}
 {% block group_list %}
-  <ul class="media-grid" data-module="media-grid">
+  <div class="group-search-table ontario-small-12">
     {% block group_list_inner %}
       {# Sort array of Group objects according to title_translated.
                 Not necessary when accessing Groups from the groups tab on 
@@ -24,18 +24,26 @@
                   lang=current_lang,
                 reverse=reverse) %}
       {% endif %}
-      {% for group in groups %}
-        {% if group['title_translated'] %}
-          {% if group['title_translated'][current_lang] %}
-            {% set this_group_title_translated = group['title_translated'][current_lang] %}
+      <div class="group-search-table-thead">
+        <div class="group-search-table-row">
+          <div class="group-search-table-thead-th">{{ _("Groups") }}</div>
+          <div class="group-search-table-thead-th"> {{ _("Datasets") }}</div>
+        </div>
+      </div>
+      <div class="group-search-table-tbody">
+        {% for group in groups %}
+          {% if group['title_translated'] %}
+            {% if group['title_translated'][current_lang] %}
+              {% set this_group_title_translated = group['title_translated'][current_lang] %}
+            {% else %}
+              {% set this_group_title_translated = group['title'] %}
+            {% endif %}
           {% else %}
             {% set this_group_title_translated = group['title'] %}
           {% endif %}
-        {% else %}
-          {% set this_group_title_translated = group['title'] %}
-        {% endif %}
-        {% snippet "group/snippets/group_item.html", group=group, position=loop.index %}
-      {% endfor %}
+          {% snippet "group/snippets/group_item.html", group=group, position=loop.index %}
+        {% endfor %}
+      </div>
     {% endblock group_list_inner %}
-  </ul>
+  </div>
 {% endblock group_list %}
