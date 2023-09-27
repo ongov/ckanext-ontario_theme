@@ -7,8 +7,11 @@
 
 {%- block content %}
   {% block maintag %}
-    <div {% block schema_tag_attr %}{% endblock schema_tag_attr %}class="ontario-row" role="main">
-  {% endblock maintag %}
+    <div {%- block schema_tag_attr -%}
+         {%- endblock schema_tag_attr -%}
+         class="ontario-row"
+         role="main">
+    {% endblock maintag %}
     <div id="content" class="ontario-small-12 ontario-columns">
       {% block main_content %}
         {% block flash %}
@@ -23,6 +26,10 @@
                   {% snippet "snippets/home_breadcrumb_item.html" %}
                   {% block breadcrumb_content %}
                   {% endblock breadcrumb_content %}
+                </ol>
+              {% else %}
+                <ol class="breadcrumb">
+                  {% snippet "snippets/home_breadcrumb_item.html" %}
                 </ol>
               {% endif %}
             {% endblock breadcrumb %}

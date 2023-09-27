@@ -1,5 +1,8 @@
 {% ckan_extends %}
 
+{% block breadcrumb_content %}
+{% endblock breadcrumb_content %}
+
 {% block about %}
   {% if g.site_about %}
     {{ h.render_markdown(g.site_about, False, True) }}

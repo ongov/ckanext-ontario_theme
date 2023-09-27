@@ -20,8 +20,5 @@
     </li>
   {% else %}
     <li>{% link_for _('Datasets'), named_route='dataset.search' %}</li>
-    <li aria-current="page" class="active">
-      <a href="">{{ _('Create Dataset') }}</a>
-    </li>
   {% endif %}
 {% endblock breadcrumb_content %}

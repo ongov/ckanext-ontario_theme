@@ -2358,7 +2358,7 @@ screen and (min-width: 96em) {
 
 /* About and Help page header */
 .module h1 {
-  margin: 2.5rem 0 1.5rem 0;
+  margin: 0 0 1.5rem 0;
 }
 
 #about,
