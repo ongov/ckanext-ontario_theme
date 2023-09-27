@@ -53,7 +53,10 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:24
 #: ckanext/ontario_theme/templates/external/header.html:29
-msgid "<a href=\"https://www.ontario.ca/form/survey-open-data-catalogue?%(params)s\">Provide feedback</a> about our data and how you’re using it."
+msgid "<a href=\"%(url)s?%(params)s\">Provide feedback</a> about our data and how you’re using it."
+
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:21
+msgid "https://www.ontario.ca/form/provide-feedback-ontario-data-catalogue"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/about.html:7
@@ -896,7 +899,7 @@ msgid ""
 "target=\"_blank\" rel=\"noopener noreferrer\">Open Government Newsletter</a>."
 " </p> </li> <li> <strong>Complete a survey.</strong> <p> You may come across "
 "a survey while using the catalogue. Please complete <a "
-"href=\"https://www.ontario.ca/form/survey-open-data-catalogue\">the "
+"href=\"https://www.ontario.ca/form/provide-feedback-ontario-data-catalogue\">the "
 "survey</a> and tell us how we’re doing. </p> </li> </ul>"
 msgstr ""
 

@@ -25,8 +25,8 @@
         {% do survey_params.update({'id': package_name}) if package_name %}
         <p class="survey ontario-columns ontario-small-12">
           <strong>
-            {% trans params=survey_params|urlencode %}
-              <a href="https://www.ontario.ca/form/survey-open-data-catalogue?{{ params }}">Provide feedback</a> about our data and how you’re using it.
+            {% trans url = _('https://www.ontario.ca/form/provide-feedback-ontario-data-catalogue'), params=survey_params|urlencode %}
+              <a href="{{ url }}?{{ params }}">Provide feedback</a> about our data and how you’re using it.
             {% endtrans %}
           </strong>
         </p>
