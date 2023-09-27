@@ -6,7 +6,7 @@
 {% block breadcrumb_content %}
   {{ super() }}
   {% if pkg %}
-    <li class="active">{% link_for _('Edit'), named_route='dataset.edit', id=pkg.name %}</li>
+    <li aria-current="page" class="active">{% link_for _('Edit'), named_route='dataset.edit', id=pkg.name %}</li>
   {% endif %}
 {% endblock breadcrumb_content %}
 

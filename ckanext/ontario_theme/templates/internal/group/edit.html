@@ -2,5 +2,5 @@
 
 {% block breadcrumb_content_inner %}
   <li>{% link_for h.get_translated(c.group_dict,"title")|truncate(35), named_route='group.read', id=group.name %}</li>
-  <li class="active">{% link_for _('Edit'), named_route='group.edit', id=group.name %}</li>
+  <li aria-current="page" class="active">{% link_for _('Edit'), named_route='group.edit', id=group.name %}</li>
 {% endblock breadcrumb_content_inner %}
