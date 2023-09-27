@@ -51,11 +51,12 @@ msgstr ""
 msgid "Data Catalogue"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/header.html:20
-msgid ""
-"Tell us what you think about our data and how you’re using it. <a "
-"href=\"https://www.ontario.ca/form/survey-open-data-catalogue\" "
-"target=\"_blank\">Take our survey</a>"
+#: ckanext/ontario_theme/templates/header.html:20
+msgid "Tell us what you think about our data and how you’re using it."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:21
+msgid "https://www.ontario.ca/form/provide-feedback-ontario-data-catalogue"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/about.html:7
@@ -898,7 +899,7 @@ msgid ""
 "target=\"_blank\" rel=\"noopener noreferrer\">Open Government Newsletter</a>."
 " </p> </li> <li> <strong>Complete a survey.</strong> <p> You may come across "
 "a survey while using the catalogue. Please complete <a "
-"href=\"https://www.ontario.ca/form/survey-open-data-catalogue\">the "
+"href=\"https://www.ontario.ca/form/provide-feedback-ontario-data-catalogue\">the "
 "survey</a> and tell us how we’re doing. </p> </li> </ul>"
 msgstr ""
 
@@ -908,7 +909,7 @@ msgid ""
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:15
-msgid "Take a <a href=\"https://www.ontario.ca/form/survey-open-data-catalogue?%(params)s\">2-minute survey</a> and tell us what you think about this page."
+msgid "Take a <a href=\"%(url)s?%(params)s\">2-minute survey</a> and tell us what you think about this page."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:11

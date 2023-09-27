@@ -183,10 +183,6 @@ msgid "Tell us what you think about our data and how you’re using it."
 msgstr "Faites-nous part de vos commentaires au sujet de nos données, et dites-nous de quelle façon vous les utilisez."
 
 #: ckanext/ontario_theme/templates/header.html:20
-msgid "https://www.ontario.ca/form/survey-open-data-catalogue"
-msgstr "https://www.ontario.ca/fr/forme/enquete-catalogue-de-donnees-de-lontario"
-
-#: ckanext/ontario_theme/templates/header.html:20
 msgid "Take our survey"
 msgstr "Veuillez répondre à notre sondage"
 
@@ -1023,7 +1019,7 @@ msgid ""
 "target=\"_blank\" rel=\"noopener noreferrer\">Open Government Newsletter</a>."
 " </p> </li> <li> <strong>Complete a survey.</strong> <p> You may come across "
 "a survey while using the catalogue. Please complete <a "
-"href=\"https://www.ontario.ca/form/survey-open-data-catalogue\">the "
+"href=\"https://www.ontario.ca/form/provide-feedback-ontario-data-catalogue\">the "
 "survey</a> and tell us how we’re doing. </p> </li> </ul>"
 msgstr "\n"
 "<h2>\n"
@@ -1981,7 +1977,7 @@ msgstr "\n"
 "    <li>\n"
 "      <strong>Répondez au sondage.</strong>\n"
 "      <p>\n"
-"        Au cours de votre utilisation du catalogue, vous pourriez rencontrer un sondage. Veuillez remplir <a href=\"https://www.ontario.ca/fr/forme/enquete-catalogue-de-donnees-de-lontario\">ce sondage</a> et nous dire ce que vous pensez de notre travail.\n"
+"        Au cours de votre utilisation du catalogue, vous pourriez rencontrer un sondage. Veuillez remplir <a href=\"https://www.ontario.ca/fr/forme/fournir-un-retour-dinformation-catalogue-de-donnees-de-lontario\">ce sondage</a> et nous dire ce que vous pensez de notre travail.\n"
 "      </p>\n"
 "    </li>\n"
 "  </ul>\n"
@@ -2113,14 +2109,17 @@ msgstr ""
 msgid "Optional"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:14
-msgid ""
-"Help us improve the Data Catalogue"
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:18
+msgid "Help us improve the Data Catalogue"
 msgstr "Aidez-nous à améliorer le Catalogue de données."
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:15
-msgid "Take a <a href=\"https://www.ontario.ca/form/survey-open-data-catalogue?%(params)s\">2-minute survey</a> and tell us what you think about this page."
-msgstr "Répondez à un <a href=\"https://www.ontario.ca/fr/forme/enquete-catalogue-de-donnees-de-lontario?%(params)s\">sondage de deux minutes</a> et faites-nous part de vos impressions sur cette page."
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:22
+msgid "Take a <a href=\"%(url)s?%(params)s\">2-minute survey</a> and tell us what you think about this page."
+msgstr "Répondez à un <a href=\"%(url)s?%(params)s\">sondage de deux minutes</a> et faites-nous part de vos impressions sur cette page."
+
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:21
+msgid "https://www.ontario.ca/form/provide-feedback-ontario-data-catalogue"
+msgstr "https://www.ontario.ca/fr/forme/fournir-un-retour-dinformation-catalogue-de-donnees-de-lontario"
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:9
 msgid "Ontario Data Catalogue"
