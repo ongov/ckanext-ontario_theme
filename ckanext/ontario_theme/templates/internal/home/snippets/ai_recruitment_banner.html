@@ -5,15 +5,15 @@
   <div class="ontario-columns ontario-small-12 ontario-medium-6">
     <h3 class="ontario-callout__title ontario-h5">{{ _("Artificial intelligence (<abbr>AI</abbr>) on the Catalogue") }}</h3>
     <p>
-      {%- trans params=survey_params|urlencode -%} Tell us what you want to know about <a href="https://www.ontario.ca/form/report-data-error?{{ params }}">artificial intelligence (<abbr>AI</abbr>) assets</a> published to the Catalogue.{%- endtrans -%}
+      {%- trans url = _(""), params=survey_params|urlencode -%}Tell us what you want to know about <a href="{{ url }}?{{ params }}">artificial intelligence (<abbr>AI</abbr>) assets</a> published to the Catalogue.{%- endtrans -%}
     </p>
-    <button class="ontario-button ontario-button--secondary">Fill out our <abbr title="artificial intelligence">AI</abbr> inventory survey</button>
+    <button class="ontario-button ontario-button--secondary">{{ _('Fill out our <abbr title="artificial intelligence">AI</abbr> inventory survey') }}</button>
   </div>
   <div class="ontario-columns ontario-small-12 ontario-medium-6">
     <h3 class="ontario-callout__title ontario-h5">{{ _("Give us feedback about the Catalogue") }}</h3>
     <p>
-      {%- trans -%} Take a short survey to let us know what you think about the Catalogue and how we can make data more accessible to Ontarians.{%- endtrans -%}
+      {{ _("Take a short survey to let us know what you think about the Catalogue and how we can make data more accessible to Ontarians.") }}
     </p>
-    <button class="ontario-button ontario-button--secondary">Fill out our feedback form</button>
+    <button class="ontario-button ontario-button--secondary"><a href="{{ }}">{{ _("Fill out our feedback form") }}</a></button>
   </div>
 </div>

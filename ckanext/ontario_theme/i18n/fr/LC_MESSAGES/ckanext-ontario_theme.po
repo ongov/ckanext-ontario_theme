@@ -190,6 +190,35 @@ msgstr "https://www.ontario.ca/fr/forme/enquete-catalogue-de-donnees-de-lontario
 msgid "Take our survey"
 msgstr "Veuillez répondre à notre sondage"
 
+#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
+msgid "Tell us what you want to know about <a href=\"%(url)s?%(params)s\">artificial intelligence (<abbr>AI</abbr>) assets</a> published to the Catalogue."
+msgstr "Dites-nous ce que vous aimeriez savoir au sujet des biens d’intelligence artificielle (<abbr>IA<abbr>) publiés au catalogue"
+
+#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
+msgid "Artificial intelligence (<abbr>AI</abbr>) on the Catalogue"
+msgstr "L’intelligence artificielle (<abbr>IA<abbr>) figurant au catalogue"
+
+#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
+msgid "Help us improve"
+msgstr "Aidez-nous à nous améliorer"
+
+#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
+msgid "Fill out our <abbr title=\"artificial intelligence\">AI</abbr> inventory survey"
+msgstr "Remplissez notre sondage sur <abbr title=\"l'intelligence artificielle\">l’AI</abbr>"
+
+#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
+msgid "Give us feedback about the Catalogue"
+msgstr "Donnez-nous une rétroaction au sujet du catalogue"
+
+#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
+msgid "Take a short survey to let us know what you think about the Catalogue and how we can make data more accessible to Ontarians."
+msgstr "Prenez un court sondage pour nous faire savoir ce que vous pensez du catalogue et comment nous pourrions rendre les données "
+"plus accessibles pour la population de l’Ontario."
+
+#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
+msgid "Fill out our feedback form"
+msgstr "Remplissez notre formulaire de rétroaction"
+
 #: ckanext/ontario_theme/templates/external/home/help.html:14
 msgid ""
 "<p> Need more help or want to learn more about the data catalogue? <a "
