@@ -1,19 +1,24 @@
-{% set package_name = h.ontario_theme_extract_package_name(h.current_url()) %}
-{% set survey_params = { "page": h.current_url(), "id": package_name } %}
+{% set feedback_survey = _('https://www.ontario.ca/form/provide-feedback-ontario-data-catalogue') %}
 <div class="ontario-column ontario-callout ontario-border-highlight--green">
   <h2 class="ontario-column ontario-callout__title">{{ _("Help us improve") }}</h2>
   <div class="ontario-columns ontario-small-12 ontario-medium-6">
-    <h3 class="ontario-callout__title ontario-h5">{{ _("Artificial intelligence (<abbr>AI</abbr>) on the Catalogue") }}</h3>
+    <h3 class="ontario-callout__title ontario-h5">
+      {{ _("Artificial intelligence (<abbr>AI</abbr>) on the Catalogue") }}
+    </h3>
     <p>
-      {%- trans url = _(""), params=survey_params|urlencode -%}Tell us what you want to know about <a href="{{ url }}?{{ params }}">artificial intelligence (<abbr>AI</abbr>) assets</a> published to the Catalogue.{%- endtrans -%}
+      {%- trans url = h.url_for('group.read', id='artificial-intelligence') -%}Tell us what you want to know about <a href="{{ url }}">artificial intelligence (<abbr>AI</abbr>) assets</a> published to the Catalogue.{%- endtrans -%}
     </p>
-    <button class="ontario-button ontario-button--secondary">{{ _('Fill out our <abbr title="artificial intelligence">AI</abbr> inventory survey') }}</button>
+    <button class="ontario-button ontario-button--secondary">
+      <a href>{{ _('Fill out our <abbr title="artificial intelligence">AI</abbr> inventory survey') }}</a>
+    </button>
   </div>
   <div class="ontario-columns ontario-small-12 ontario-medium-6">
     <h3 class="ontario-callout__title ontario-h5">{{ _("Give us feedback about the Catalogue") }}</h3>
     <p>
       {{ _("Take a short survey to let us know what you think about the Catalogue and how we can make data more accessible to Ontarians.") }}
     </p>
-    <button class="ontario-button ontario-button--secondary"><a href="{{ }}">{{ _("Fill out our feedback form") }}</a></button>
+    <button class="ontario-button ontario-button--secondary">
+      <a href="{{ feedback_survey }}">{{ _("Fill out our feedback form") }}</a>
+    </button>
   </div>
 </div>

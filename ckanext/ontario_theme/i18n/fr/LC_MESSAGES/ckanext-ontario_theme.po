@@ -187,8 +187,8 @@ msgid "Take our survey"
 msgstr "Veuillez répondre à notre sondage"
 
 #: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
-msgid "Tell us what you want to know about <a href=\"%(url)s?%(params)s\">artificial intelligence (<abbr>AI</abbr>) assets</a> published to the Catalogue."
-msgstr "Dites-nous ce que vous aimeriez savoir au sujet des biens d’intelligence artificielle (<abbr>IA<abbr>) publiés au catalogue"
+msgid "Tell us what you want to know about <a href=\"%(url)s\">artificial intelligence (<abbr>AI</abbr>) assets</a> published to the Catalogue."
+msgstr "Dites-nous ce que vous aimeriez savoir au sujet des <a href=\"%(url)s\">biens d’intelligence artificielle (<abbr>IA<abbr>)</a> publiés au catalogue"
 
 #: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
 msgid "Artificial intelligence (<abbr>AI</abbr>) on the Catalogue"

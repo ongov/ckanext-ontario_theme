@@ -1160,7 +1160,7 @@ msgid "Government of Ontario"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
-msgid "Tell us what you want to know about <a href=\"%(url)s?%(params)s\">artificial intelligence (<abbr>AI</abbr>) assets</a> published to the Catalogue."
+msgid "Tell us what you want to know about <a href=\"%(url)s\">artificial intelligence (<abbr>AI</abbr>) assets</a> published to the Catalogue."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:6
