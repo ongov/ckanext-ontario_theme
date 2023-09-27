@@ -51,10 +51,6 @@
   display: none;
 }
 
-.toolbar ol.breadcrumb li.home {
-  padding-left: 0;
-}
-
 .toolbar ol.breadcrumb li a {
   color: #06c;
   text-decoration: underline;
