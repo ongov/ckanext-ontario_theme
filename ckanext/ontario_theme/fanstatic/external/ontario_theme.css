@@ -650,7 +650,6 @@ div#topics {
 }
 
 div#topics a {
-  color: #1A1A1A;
   text-decoration: none;
 }
 
@@ -951,15 +950,6 @@ li.resource-item div.btn-wrapper {
 
 #news img {
   width: 100%;
-}
-
-#news ul a {
-  color: #000000;
-  text-decoration: none;
-}
-
-#news ul a:hover {
-  text-decoration: underline;
 }
 
 #news .dataset-list h2 {

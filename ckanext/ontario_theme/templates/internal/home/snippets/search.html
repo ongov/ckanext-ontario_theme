@@ -12,12 +12,11 @@ Uncomment type="reset" after header is implemented
         novalidate>
     <div class="ontario-search-container">
       <label class="ontario-label ontario-show-for-sr"
-             for="home-search-input-field">{{ sr_input_text }}</label>
+             for="home-search-input-field">{{ placeholder }}</label>
       <input class="ontario-search-input ontario-input snippet"
              type="text"
              id="home-search-input-field"
              name="q"
-             placeholder="{%- block search_placeholder -%}{{ placeholder }}{%- endblock search_placeholder -%}"
              value=""
              autocomplete="off"
              required />

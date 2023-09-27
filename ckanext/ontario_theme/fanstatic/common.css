@@ -650,6 +650,10 @@ input[placeholder] {
   background-color: #e2f0f4;
 }
 
+.ontario-alert--informational svg {
+  fill: #1080a6;
+}
+
 /* ===============================
    Custom overrides - page alerts
    =============================== */
@@ -2394,6 +2398,23 @@ screen and (min-width: 96em) {
   margin-bottom: 25px;
 }
 
+#news ul a,
+.topics-list-item a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+#news ul a:hover,
+.topics-list-item a:hover {
+  color: #00478f;
+  text-decoration: underline;
+}
+
+#news ul a:visited,
+.topics-list-item a:visited {
+  color: #551a8b;
+}
+
 #news.ontario-row .ontario-row {
   margin: unset;
 }
@@ -2488,7 +2509,6 @@ div#topics div i {
   font-size: 30px;
   width: 30px;
   text-align: center;
-  color: #999;
 }
 
 .topics-list-item a {
@@ -2501,10 +2521,6 @@ div#topics div span {
   font-size: 20px;
   display: inline;
   margin: unset;
-}
-
-div#topics div a:hover i {
-  color: #3c7fa3;
 }
 
 div#topics a:hover span {

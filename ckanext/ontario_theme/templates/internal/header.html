@@ -94,7 +94,6 @@
         </div>
         <div class="ontario-columns ontario-small-6 ontario-application-header__lang-toggle">
           <a href="{{ h.url_for(h.current_url(), locale=toggle_to) }}"
-             title="{{ toggle_to }}"
              class="ontario-header__language-toggler ontario-header-button ontario-header-button--without-outline">
             <span>{{ 'Français' if current_lang =='en' else 'English' }}</span>
           </a>
@@ -138,12 +137,11 @@
                         class="ontario-header__search-container ontario-columns"
                         novalidate>
                     <label class="ontario-label ontario-show-for-sr"
-                           for="ontario-search-input-field">{{ sr_input_text }}</label>
+                           for="ontario-search-input-field">{{ placeholder }}</label>
                     <input class="ontario-search-input ontario-input header-search"
                            type="text"
                            id="ontario-search-input-field"
                            name="q"
-                           placeholder="{%- block search_placeholder -%}{{ placeholder | truncate(26) }}{%- endblock search_placeholder -%}"
                            value=""
                            autocomplete="off"
                            required />
@@ -153,7 +151,7 @@
                            value=""
                            aria-label="Clear field" />
                     <button class="ontario-search-submit header-search"
-                            id="ontario-search-submit"
+                            id="ontario-header-search-submit"
                             type="submit">
                       <span class="ontario-show-for-sr">{{ sr_submit_text }}</span>
                       <svg class="ontario-icon search header-search"

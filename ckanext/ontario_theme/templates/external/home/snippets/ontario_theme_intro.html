@@ -9,7 +9,7 @@ Renders a hard coded site description/introduction.
 </div>
 <div class="greet">
   <p class="ontario-lead-statement">
-    {{ _("Find public data and explore ") }} <span class="stat">{{ stats.dataset_count }}</span> {{ _(" datasets published by the Government of Ontario.") }}
+    {{ _("Find public data and explore ") }} <span class="stat">{{ h.localised_number(stats.dataset_count) }}</span> {{ _(" datasets published by the Government of Ontario.") }}
   </p>
   <div class="ontario-row">
     <div class="col-md-12">
