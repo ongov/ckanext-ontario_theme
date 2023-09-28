@@ -19,8 +19,7 @@ Renders contact information for the site on the home page.
     </h2>
     <p>
       {% trans url=_("https://www.ontario.ca/form/provide-feedback-ontario-data-catalogue"), params=survey_params|urlencode %}
-        Take a <a href="{{ url }}?{{ params }}">2-minute survey</a>
-        and tell us what you think about this page.
+        <a href="{{ url }}?{{ params }}">Provide feedback</a> about our data and how you’re using it.
       {% endtrans %}
     </p>
   </div>
