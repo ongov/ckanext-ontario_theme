@@ -1,12 +1,10 @@
 {% ckan_extends %}
 
-{% set search_placeholder = search_placeholder if search_placeholder is not none else '' %}
 {% set schema_dict = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
 {% block search_input %}
   {#
     Design System search bar. Arguments:
     - searchbar_title
-    - placeholder
     - query
   #}
   <div class="module search">
@@ -18,7 +16,6 @@
              type="text"
              id="{{ form_id }}-input"
              name="q"
-             placeholder="{%- block search_placeholder -%}{{ search_placeholder }}{%- endblock search_placeholder -%}"
              value="{{ query }}"
              autocomplete="off"
              required />
@@ -45,7 +42,9 @@
 
 {% block search_title %}
   {% if not error %}
-    <div role="status" class="search-count">{% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}</div>
+    <div role="status" class="search-count">
+      {% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}
+    </div>
   {% else %}
     <div>Error</div>
   {% endif %}
