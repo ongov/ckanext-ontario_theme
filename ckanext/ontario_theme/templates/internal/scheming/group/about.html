@@ -1,26 +1,9 @@
 {% ckan_extends %}
 
-{%- set exclude_fields = ["title", "name", "image_url", "description_translated", "title_translated"] -%}
 {% block primary_content_inner %}
-  <h1>
-    {% block page_heading %}
-      {{ h.get_translated(c.group_dict, "title") }}
-    {% endblock page_heading %}
-  </h1>
   {% block organization_description %}
     {% if h.get_translated(c.group_dict, "description") %}
-      {{ h.render_markdown(h.get_translated(c.group_dict, "description")) }}
+      {{ h.render_markdown(h.get_translated(c.group_dict, "description"), allow_html=true) }}
     {% endif %}
   {% endblock organization_description %}
-
-  <dl>
-    {% for f in c.scheming_fields %}
-      {% if f.field_name not in exclude_fields %}
-        <dt>{{ h.scheming_language_text(f.label) }}:</dt>
-        <dd>
-          {{ c.group_dict[f.field_name] or ("&nbsp;"|safe) }}
-        </dd>
-      {% endif %}
-    {% endfor %}
-  </dl>
 {% endblock primary_content_inner %}
