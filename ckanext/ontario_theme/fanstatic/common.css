@@ -2325,7 +2325,9 @@ screen and (min-width: 96em) {
   color: #000;
 }
 
-/* About and Help page table of contents*/
+/* ========================================================================
+   About and Help page - On this page
+   ======================================================================== */
 ol.table-of-contents {
   list-style-position: outside;
   margin-left: 1.5em;
@@ -2380,14 +2382,6 @@ h2.ontario-small {
   padding-top: 0;
 }
 
-figure {
-  background-color: #eee;
-  width: 80%;
-  margin: 50px 0;
-  padding: 10px;
-}
-
-/* About and Help page header */
 .module h1 {
   margin: 2.5rem 0 1.5rem 0;
 }
@@ -2395,6 +2389,14 @@ figure {
 #about,
 .article-container {
   overflow-wrap: break-word;
+}
+
+/* About & Help page images */
+figure {
+  background-color: #eee;
+  width: 80%;
+  margin: 50px 0;
+  padding: 10px;
 }
 
 /* Wrapper styling */
