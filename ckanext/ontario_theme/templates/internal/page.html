@@ -9,10 +9,9 @@
   {% block maintag %}
     <div {%- block schema_tag_attr -%}
          {%- endblock schema_tag_attr %}
-         class="ontario-row"
-         role="main">
+         class="ontario-row">
     {% endblock maintag %}
-    <div id="content" class="ontario-small-12 ontario-columns">
+    <div id="content" class="ontario-small-12 ontario-columns" role="main">
       {% block main_content %}
         {% block flash %}
           {{ super() }}
