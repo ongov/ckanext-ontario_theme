@@ -4,7 +4,7 @@
   {% set dataset = h.dataset_display_name(pkg) %}
   {% set organization_dict = h.get_organization(pkg.organization.name) %}
   {% set organization = h.get_translated(organization_dict, 'title') or organization_dict['title'] %}
-  <li>{% link_for _('Organizations'), named_route=pkg.organization.type ~ '.index' %}</li>
+  <li>{% link_for _('Ministries'), named_route=pkg.organization.type ~ '.index' %}</li>
   <li id="ministry-name"
       ministry-name="{{ pkg.organization.title }}"
       ministry-name-fr="{{ h.ontario_theme_get_translated_lang(organization_dict, 'title', 'fr') }}">
