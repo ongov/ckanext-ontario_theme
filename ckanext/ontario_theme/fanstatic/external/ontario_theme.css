@@ -691,13 +691,6 @@ div#topics div.row {
   margin-bottom: 0px;
 }
 
-figure {
-  background-color: #eee;
-  width: 80%;
-  margin: 50px 10%;
-  padding: 10px;
-}
-
 figure img,
 figure figcaption {
   width: 100%;

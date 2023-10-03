@@ -2352,7 +2352,63 @@ screen and (min-width: 96em) {
   color: #000;
 }
 
-/* About and Help page header */
+/* ========================================================================
+   About and Help page - On this page
+   ======================================================================== */
+ol.table-of-contents {
+  list-style-position: outside;
+  margin-left: 1.5em;
+  padding-left: 0;
+}
+
+ul.table-of-contents {
+  list-style-type: none;
+  margin-left: 0;
+  padding: 0;
+}
+
+.table-of-contents {
+  margin-bottom: 1.25rem;
+  columns: 2 21rem;
+  column-gap: 2.5rem;
+}
+
+.table-of-contents li {
+  break-inside: avoid;
+  padding: 0 0 0.75rem 0.25rem;
+}
+
+h2.ontario-small {
+  font-size: 1.25rem;
+}
+
+.article-intro {
+  margin: 0 auto 1.5rem auto;
+  border-bottom: 4px solid #1a1a1a;
+  text-align: left;
+}
+
+.toc-hr {
+  margin: 1rem 0;
+  border-bottom: 4px solid #ededed;
+}
+
+#about h2[id],
+.article-container h2[id] {
+  border-top: 4px solid #d9d9d9;
+  height: 100%;
+  max-width: 100%;
+  padding-top: 2.5rem;
+  margin-top: 2.5rem;
+}
+
+#about h2[id].first-h2,
+.article-container h2[id].first-h2 {
+  margin-top: 0;
+  border-top: 0;
+  padding-top: 0;
+}
+
 .module h1 {
   margin: 0 0 1.5rem 0;
 }
@@ -2360,6 +2416,14 @@ screen and (min-width: 96em) {
 #about,
 .article-container {
   overflow-wrap: break-word;
+}
+
+/* About & Help page images */
+figure {
+  background-color: #eee;
+  width: 80%;
+  margin: 50px 0;
+  padding: 10px;
 }
 
 /* Wrapper styling */
