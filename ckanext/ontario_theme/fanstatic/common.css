@@ -673,47 +673,8 @@ input[placeholder] {
   text-decoration: underline;
 }
 
-/* fa and feedback classes can be removed once icon is replaced with a svg */
-.fa.fa-comments {
-  font-size: 100px;
-  color: #1080a6;
-}
-
-.feedback.ontario-alert__header-icon {
-  height: 100px;
-  width: 100px;
-  margin-left: 3rem;
-}
-
 .feedback.ontario-alert__body {
-  max-width: unset;
-  margin-left: 1rem;
-  padding-top: 22px;
-}
-
-@media screen and (max-width: 992px) {
-  .fa.fa-comments {
-    font-size: 80px;
-  }
-
-  .feedback.ontario-alert__header-icon {
-    height: 80px;
-    width: 80px;
-    margin-left: 0.5rem;
-  }
-
-  .feedback.ontario-alert__body h2 {
-    margin-top: unset;
-  }
-
-  .feedback.ontario-alert__body {
-    padding-top: unset;
-  }
-}
-
-.feedback.ontario-alert {
-  display: flex;
-  min-height: 198px;
+  margin-left: 0;
 }
 
 .search-page-heading {
