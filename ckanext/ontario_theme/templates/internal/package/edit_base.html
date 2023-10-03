@@ -4,7 +4,14 @@
 {% endblock breadcrumb_content_selected %}
 
 {% block breadcrumb_content %}
-  {{ super() }}
+  {% if pkg %}
+    {{ super() }}
+    <li>
+      {% link_for h.dataset_display_name(pkg)|truncate(30), named_route=pkg.type ~ '.read', id=pkg.id if is_activity_archive else pkg.name %}
+    </li>
+  {% else %}
+    {% snippet "package/snippets/package_base_breadcrumb.html" %}
+  {% endif %}
 {% endblock breadcrumb_content %}
 
 {% block content_action %}

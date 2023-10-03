@@ -1,20 +1,7 @@
 {% ckan_extends %}
 
 {% block breadcrumb_content %}
-  {% set dataset = h.dataset_display_name(pkg) %}
-  {% set organization_dict = h.get_organization(pkg.organization.name) %}
-  {% set organization = h.get_translated(organization_dict, 'title') or organization_dict['title'] %}
-  <li>{% link_for _('Ministries'), named_route=pkg.organization.type ~ '.index' %}</li>
-  <li id="ministry-name"
-      ministry-name="{{ pkg.organization.title }}"
-      ministry-name-fr="{{ h.ontario_theme_get_translated_lang(organization_dict, 'title', 'fr') }}">
-    {% link_for organization|truncate(30), named_route=pkg.organization.type ~ '.read', id=pkg.organization.name %}
-  </li>
-  <li id="dataset-name"
-      dataset-name="{{ pkg.title }}"
-      dataset-name-fr="{{ h.ontario_theme_get_translated_lang(pkg, 'title', 'fr') }}">
-    {% link_for dataset|truncate(30), named_route='dataset.read', id=pkg.name %}
-  </li>
+  {% snippet "package/snippets/package_base_breadcrumb.html", pkg=pkg, res=res %}
 {% endblock breadcrumb_content %}
 
 {% block resource_read_url %}
