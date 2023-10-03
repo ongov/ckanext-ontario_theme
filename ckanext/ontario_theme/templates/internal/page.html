@@ -7,8 +7,10 @@
 
 {%- block content %}
   {% block maintag %}
-    <div {% block schema_tag_attr %}{% endblock schema_tag_attr %}class="ontario-row">
-  {% endblock maintag %}
+    <div {%- block schema_tag_attr -%}
+         {%- endblock schema_tag_attr %}
+         class="ontario-row">
+    {% endblock maintag %}
     <div id="content" class="ontario-small-12 ontario-columns" role="main">
       {% block main_content %}
         {% block flash %}
@@ -18,13 +20,13 @@
         {% block toolbar %}
           <div class="toolbar" role="navigation" aria-label="{{ _('Breadcrumb') }}">
             {% block breadcrumb %}
-              {% if self.breadcrumb_content() | trim %}
-                <ol class="breadcrumb">
-                  {% snippet "snippets/home_breadcrumb_item.html" %}
+              <ol class="breadcrumb">
+                {% snippet "snippets/home_breadcrumb_item.html" %}
+                {% if self.breadcrumb_content() | trim %}
                   {% block breadcrumb_content %}
                   {% endblock breadcrumb_content %}
-                </ol>
-              {% endif %}
+                {% endif %}
+              </ol>
             {% endblock breadcrumb %}
           </div>
         {% endblock toolbar %}

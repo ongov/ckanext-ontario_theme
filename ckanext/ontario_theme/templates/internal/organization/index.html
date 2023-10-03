@@ -4,13 +4,6 @@
   {{ _('Ministries') }}
 {% endblock subtitle %}
 
-{% block breadcrumb_content %}
-  <li class="active">{% link_for _('Ministries'), named_route=group_type+'.index' %}</li>
-{% endblock breadcrumb_content %}
-
-{% block page_primary_action %}
-{% endblock page_primary_action %}
-
 {% block ontario_theme_search_form %}
   {# Custom block for search form. #}
   <div class="ontario-row no-padding">
@@ -58,7 +51,6 @@
           sorting=sorting,
           sorting_selected=c.sort_by_selected,
           count=c.page.item_count,
-          placeholder=input_text,
           sr_submit_text=sr_submit_text,
           facets=facets,
           show_empty=request.params,
@@ -74,7 +66,7 @@
 {% endblock pre_primary %}
 
 {% block primary %}
-  <div class="ontario-small-12 ontario-medium-9" role="main">
+  <div class="ontario-small-12 ontario-medium-9">
     {% block primary_content_inner %}
       {% block organizations_list %}
         {% if c.page.items or request.params %}

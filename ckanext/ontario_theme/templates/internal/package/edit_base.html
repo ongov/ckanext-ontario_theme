@@ -4,9 +4,13 @@
 {% endblock breadcrumb_content_selected %}
 
 {% block breadcrumb_content %}
-  {{ super() }}
   {% if pkg %}
-    <li class="active">{% link_for _('Edit'), named_route='dataset.edit', id=pkg.name %}</li>
+    {{ super() }}
+    <li>
+      {% link_for h.dataset_display_name(pkg)|truncate(30), named_route=pkg.type ~ '.read', id=pkg.id if is_activity_archive else pkg.name %}
+    </li>
+  {% else %}
+    {% snippet "package/snippets/package_base_breadcrumb.html" %}
   {% endif %}
 {% endblock breadcrumb_content %}
 
