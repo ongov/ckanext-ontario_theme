@@ -490,7 +490,7 @@ msgid "name-of-specific-ministry"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/home/about.html:16
-msgid "The Ontario government, generates and maintains thousands of datasets. Since 2012, we have shared data with Ontarians via a data catalogue."
+msgid "The Ontario government generates and maintains thousands of datasets. Since 2012, we have shared data with Ontarians via a data catalogue."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/about_text.html:2
