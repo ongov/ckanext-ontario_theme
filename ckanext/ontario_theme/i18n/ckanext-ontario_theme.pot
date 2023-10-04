@@ -1262,6 +1262,10 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/header.html:184
+msgid "close"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:44
 msgid "What's new"
 msgstr ""

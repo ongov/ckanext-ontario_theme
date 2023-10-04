@@ -2008,7 +2008,11 @@ msgstr "Sujets"
 
 #: ckanext/ontario_theme/templates/internal/header.html:150
 msgid "Menu"
-msgstr "Sujets"
+msgstr "Menu"
+
+#: ckanext/ontario_theme/templates/internal/header.html:184
+msgid "close"
+msgstr "fermer"
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:44
 msgid "What's new"
