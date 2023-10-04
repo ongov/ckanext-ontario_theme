@@ -1141,6 +1141,11 @@ msgstr ""
 msgid "Groups"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/group/group_item.html:21
+msgid "{number} <span class=\"ontario-show-for-sr\">dataset</span>"
+msgid_plural "{number} <span class=\"ontario-show-for-sr\">datasets</span>"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/header.html:102
 msgid "Search Datasets"
 msgstr ""
