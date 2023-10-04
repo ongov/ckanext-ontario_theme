@@ -2479,9 +2479,16 @@ figure {
   padding-left: 10px;
 }
 
+#news hr,
+#resources_and_information hr {
+  border: 0;
+  padding: 0;
+  margin: 0 0 2.5rem;
+  border-bottom: 4px solid #ccc;
+}
+
 #news {
   color: #000000;
-  padding-top: 40px;
 }
 
 body {
