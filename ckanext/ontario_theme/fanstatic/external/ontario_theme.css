@@ -740,16 +740,6 @@ body,
   background-color: #fff;
 }
 
-@media (min-width: 768px) {
-
-  [role=main],
-  .main {
-    padding-top: 10px;
-    background-image: none;
-    background-color: transparent;
-  }
-}
-
 div.add-dataset {
   width: 100%;
   text-align: right;
