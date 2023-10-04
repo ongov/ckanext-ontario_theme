@@ -1,7 +1,7 @@
 <div id="about">
   {% trans image_path=h.url_for_static('/images/external/about/'), url=h.url_for('home.index'), directive_url=_("https://www.ontario.ca/page/ontarios-digital-and-data-directive-2021"),
     dataset_url=h.url_for('dataset.search'), help_url=h.url_for('ontario_theme.help', _anchor='what-does-the-preview-button-do') %}
-    <h2>On this page</h2>
+    <h2 class="ontario-small">On this page</h2>
     <ol class="table-of-contents">
       <li>
         <a href="#open-data">Open Data</a>
@@ -13,7 +13,7 @@
         <a href="#licensing">Data licences and use</a>
       </li>
       <li>
-        <a href="#developers">Developers</a>
+        <a href="#developers">Developer resources</a>
       </li>
       <li>
         <a href="#training-materials">Training materials</a>
@@ -25,12 +25,11 @@
         <a href="#engagement">Engagement</a>
       </li>
     </ol>
-    <hr />
+    <hr class="toc-hr"/>
     <p>
       The Ontario government, generates and maintains thousands of datasets. Since 2012, we have shared data with Ontarians via a data catalogue.
     </p>
-    <h2>
-      <a name="open-data"></a>
+    <h2 id="open-data" class="first-h2">
       Open Data
     </h2>
     <p>
@@ -42,8 +41,7 @@
       states that all data must be open, unless there is good reason for it to remain confidential.
     </p>
     <p>Ontario’s Chief Digital and Data Officer also has the authority to make certain datasets available publicly.</p>
-    <h2>
-      <a name="other-data"></a>
+    <h2 id="other-data">
       Other data
     </h2>
     <p>Datasets listed in the catalogue that are not open will have one of the following labels:</p>
@@ -57,8 +55,7 @@
         The record will be listed in the catalogue, but the data will not be shared.
       </li>
     </ul>
-    <h2>
-      <a name="licensing"></a>
+    <h2 id="licensing">
       Data licences and use
     </h2>
     <p>
@@ -79,9 +76,8 @@
       If you have questions about how you can use a specific dataset, please
       <a href="https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269">contact us</a>.
     </p>
-    <h2>
-      <a name="developers"></a>
-      Developers
+    <h2 id="developers">
+      Developers resources
     </h2>
     <h3>Data</h3>
     <p>
@@ -143,8 +139,7 @@
     <p>
       <a href="https://docs.ckan.org/en/2.8/maintaining/datastore.html#the-datastore-api">Read the complete documentation for CKAN's Datastore API.</a>
     </p>
-    <h2>
-      <a name="training-materials"></a>
+    <h2 id="training-materials">
       Training materials
     </h2>
     <h3>How to use the catalogue</h3>
@@ -412,8 +407,7 @@
       understand what the dataset means.
     </p>
     <p>If you need further understanding the data, reach out to the dataset point of contact.</p>
-    <h2>
-      <a name="metadata"></a>
+    <h2 id="metadata">
       What do we tell you about data (metadata)?
     </h2>
     <p>Each dataset listed in the catalogue might have the following details as part of its description:</p>
@@ -831,8 +825,7 @@
         <em>Example value: 1078</em>
       </p>
     </div>
-    <h2>
-      <a name="engagement"></a>
+    <h2 id="engagement">
       Engagement
     </h2>
     <p>We built Ontario’s data catalogue to give you better access to government data.</p>
