@@ -77,8 +77,11 @@ in the core template for search.html.
 {% block pre_primary %}
 {% endblock pre_primary %}
 
+{% block breadcrumb_content %}
+{% endblock breadcrumb_content %}
+
 {% block primary %}
-  <div class="primary ontario-columns ontario-small-9 packages" role="main">
+  <div class="primary ontario-columns ontario-small-9 packages">
     {% block primary_content %}
       {# Overriding block to remove page_primary_action and form. #}
       <section class="module">

@@ -1,5 +1,13 @@
 {% ckan_extends %}
 
+{% block breadcrumb_content %}
+  {% snippet "package/snippets/package_base_breadcrumb.html", pkg=pkg %}
+  <li>
+    {% link_for h.dataset_display_name(pkg)|truncate(30), named_route=pkg.type ~ '.read', id=pkg.id if is_activity_archive else pkg.name %}
+  </li>
+  <li>{% link_for _('Edit'), named_route=pkg.type ~ '.edit', id=pkg.name %}</li>
+{% endblock breadcrumb_content %}
+
 {% block secondary_content %}
   {% snippet "package/snippets/disclaimer.html" %}
   {{ super() }}

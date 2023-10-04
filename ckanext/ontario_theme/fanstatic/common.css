@@ -1,21 +1,54 @@
 /* ========================================================================
    Breadcrumbs - à la Design System
    ======================================================================== */
+.toolbar {
+  display: block;
+  margin: 1.5rem 0;
+}
+
 .toolbar ol.breadcrumb {
-  color: #aaa;
-  padding: 10px 0 0;
+  margin: 0;
+  padding-left: 0;
+  overflow: hidden;
+}
+
+.toolbar ol.breadcrumb > * {
+  display: block;
+  float: left;
+  line-height: inherit;
   list-style: none;
+  overflow: hidden;
+}
+
+.toolbar ol.breadcrumb > *:nth-child(n+1)::before {
+  content: "";
+  background: url(/images/ontario-icon-chevron-right.svg) no-repeat;
+  background-position-y: center;
+  display: inline-block;
+  height: 16px;
+  width: 25px;
+  position: relative;
+  top: 0.15rem;
+  margin-right: 0.2rem;
 }
 
 .toolbar ol.breadcrumb li {
-  display: inline;
-  font-size: 18px;
+  font-size: 16px;
+  text-transform: none;
+  padding: 0.2rem;
 }
 
-.toolbar ol.breadcrumb li + li:before {
-  padding: 8px;
-  color: black;
-  content: ">";
+.toolbar ol.breadcrumb li:not(:last-child)::after {
+  content: "";
+  margin: 0;
+}
+
+.toolbar ol.breadcrumb li:last-child {
+  padding-bottom: 0.25rem;
+}
+
+.toolbar ol.breadcrumb > *:first-child::before {
+  display: none;
 }
 
 .toolbar ol.breadcrumb li a {
@@ -28,19 +61,9 @@
   text-decoration: underline;
 }
 
-.toolbar .breadcrumb a {
-  font-size: 16px;
-}
-
 .toolbar .breadcrumb .active a,
 .toolbar .breadcrumb a.active {
   font-weight: normal;
-}
-
-.toolbar {
-  padding: 0;
-  margin-top: 1rem;
-  margin-bottom: 0;
 }
 
 /* ========================================================================
@@ -714,6 +737,10 @@ input[placeholder] {
 
 .search-page-heading {
   padding: 0 15px;
+}
+
+.search-page-heading h1 {
+  margin-top: 0;
 }
 
 /* ========================================================================
@@ -2383,7 +2410,7 @@ h2.ontario-small {
 }
 
 .module h1 {
-  margin: 2.5rem 0 1.5rem 0;
+  margin: 0 0 1.5rem 0;
 }
 
 #about,
@@ -2496,7 +2523,12 @@ body {
 }
 
 .ontario-row .page_primary_action {
-  margin-right: 16px;
+  padding-right: 16px;
+  margin-bottom: unset;
+}
+
+.page_primary_action .add-dataset {
+  margin-bottom: 20px;
 }
 
 li.media-item.ministry-item {
@@ -2510,6 +2542,10 @@ li.media-item.ministry-item {
 
 .new-alert.alert-huge {
   padding-bottom: 40px;
+}
+
+[role="main"] {
+  padding-bottom: unset;
 }
 
 /* ========================================================================   
