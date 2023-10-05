@@ -177,6 +177,13 @@ def resource_display_name(resource_dict):
 
 ckan.lib.helpers.resource_display_name = resource_display_name
 
+
+def get_datastore_info(resource_id):
+    info=toolkit.get_action('datastore_info')(
+                data_dict={'id': resource_id})
+    return info
+
+
 def help():
     '''New help page for site.
     '''
@@ -1053,7 +1060,8 @@ type data_last_updated
                 'ontario_theme_sort_by_title_translated': sort_by_title_translated,
                 'ontario_theme_sort_accented_characters': sort_accented_characters,
                 'ontario_theme_abbr_localised_filesize': abbr_localised_filesize,
-                'ontario_theme_get_facet_options': get_facet_options
+                'ontario_theme_get_facet_options': get_facet_options,
+                'ontario_theme_get_datastore_info': get_datastore_info
                 }
 
     # IBlueprint
