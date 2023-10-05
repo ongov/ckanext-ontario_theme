@@ -902,11 +902,13 @@ class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
         toolkit.add_resource('fanstatic/external', 'ontario_theme_external')
 
         config_['scheming.dataset_schemas'] = """
-ckanext.ontario_theme:schemas/external/ontario_theme_dataset.json
+ckanext.validation.examples:ckan_default_schema.json
+ckanext.ontario_theme:schemas/internal/ontario_theme_dataset.json
 """
         config_['scheming.presets'] = """
 ckanext.scheming:presets.json
 ckanext.fluent:presets.json
+ckanext.validation:presets.json
 """
         config_['scheming.organization_schemas'] = """
 ckanext.ontario_theme:schemas/ontario_theme_organization.json
