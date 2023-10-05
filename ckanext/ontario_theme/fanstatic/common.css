@@ -2426,6 +2426,12 @@ figure {
   padding: 10px;
 }
 
+#about #files .metadata-item:last-of-type {
+  border-bottom: unset;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
 /* Wrapper styling */
 .wrapper::before {
   z-index: 0;
