@@ -113,13 +113,14 @@
       {% endblock header_debug %}
 
       <section class="ontario-application-subheader"
-               id="ontario-application-subheader">
+               id="ontario-application-subheader"
+               aria-label="Navigation header">
         <div class="ontario-row">
           <div class="ontario-columns ontario-small-12 ontario-application-subheader__container">
             <p class="ontario-application-subheader__heading">
               <a href="{{ h.url_for('home.index') }}">{{ _("Data Catalogue") }}</a>
             </p>
-            <div class="ontario-application-subheader__menu-container" role="navigation" aria-label="Main">
+            <div class="ontario-application-subheader__menu-container">
               {% block header_site_navigation %}
                 <ul id="navigation"
                     class="ontario-application-subheader__menu ontario-show-for-large">
