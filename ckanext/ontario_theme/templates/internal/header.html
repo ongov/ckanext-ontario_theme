@@ -3,7 +3,7 @@
   header_site_search) but had to copy the whole thing to add accessible text
   for mobile nav.
 
-  Variables used in the code: current_Lang, toggle_to, placeholder, sr_input_text, sr_submit_text
+  Variables used in the code: current_Lang, toggle_to, sr_input_text, sr_submit_text
 #}
 {# Setting variables #}
 {% set current_lang = request.environ.CKAN_LANG %}
@@ -11,8 +11,7 @@
 {% if current_lang == "fr" %}
   {% set toggle_to = "en" %}
 {% endif %}
-{% set placeholder = _("Search Ontario's Data") %}
-{% set sr_input_text = _("Search") %}
+{% set sr_input_text = _("Search Ontario's Data") %}
 {% set sr_submit_text = _("Search") %}
 {# End setting variables #}
 {% block header_wrapper %}
@@ -94,7 +93,6 @@
         </div>
         <div class="ontario-columns ontario-small-6 ontario-application-header__lang-toggle">
           <a href="{{ h.url_for(h.current_url(), locale=toggle_to) }}"
-             title="{{ toggle_to }}"
              class="ontario-header__language-toggler ontario-header-button ontario-header-button--without-outline">
             <span>{{ 'Français' if current_lang =='en' else 'English' }}</span>
           </a>
@@ -144,7 +142,6 @@
                            type="text"
                            id="ontario-search-input-field"
                            name="q"
-                           placeholder="{%- block search_placeholder -%}{{ placeholder | truncate(26) }}{%- endblock search_placeholder -%}"
                            value=""
                            autocomplete="off"
                            required />

@@ -1,49 +1,31 @@
-<div>
-  <div class="col-md-12">
-    <h2>
-      {{ _("Resources and information") }}
-    </h2>
-  </div>
+<div class="ontario-medium-12">
+  <h2>{{ _("Resources and information") }}</h2>
 </div>
-<div>
-  <div class="col-md-3">
+<div class="ontario-row">
+  <div class="ontario-medium-3 ontario-columns">
     <h3 class="data-h4" aria-describedby="open-data">
       <a href="{%- trans -%}https://www.ontario.ca/page/sharing-government-data{%- endtrans -%}">
         {{ _("What is Open Data?") }}
       </a>
     </h3>
-    <p id="open-data">
-      {{ _("Learn about Open Data and the Ontario Data Catalogue.") }}
-    </p>
+    <p id="open-data">{{ _("Learn about Open Data and the Ontario Data Catalogue.") }}</p>
   </div>
-  <div class="col-md-3">
+  <div class="ontario-medium-3 ontario-columns">
     <h3 class="data-h4" aria-describedby="data-licences">
-      <a href="{{ h.url_for('home.about', _anchor='licensing') }}">
-        {{ _("Data licences and use") }}
-      </a>
+      <a href="{{ h.url_for('home.about', _anchor='licensing') }}">{{ _("Data licences and use") }}</a>
     </h3>
-    <p id="data-licences">
-      {{ _("Learn about the conditions and terms of use for using data.") }}
-    </p>
+    <p id="data-licences">{{ _("Learn about the conditions and terms of use for using data.") }}</p>
   </div>
-  <div class="col-md-3">
+  <div class="ontario-medium-3 ontario-columns">
     <h3 class="data-h4" aria-describedby="developer-resources">
-      <a href="{{ h.url_for('home.about', _anchor='developers') }}">
-        {{ _("Developer resources") }}
-      </a>
+      <a href="{{ h.url_for('home.about', _anchor='developers') }}">{{ _("Developer resources") }}</a>
     </h3>
-    <p id="developer-resources">
-      {{ _("Guidance for using our data in a software application.") }}
-    </p>
+    <p id="developer-resources">{{ _("Guidance for using our data in a software application.") }}</p>
   </div>
-  <div class="col-md-3">
+  <div class="ontario-medium-3 ontario-columns">
     <h3 class="data-h4" aria-describedby="training-materials">
-      <a href="{{ h.url_for('home.about', _anchor='training-materials') }}">
-        {{ _("Training materials") }}
-      </a>
+      <a href="{{ h.url_for('home.about', _anchor='training-materials') }}">{{ _("Training materials") }}</a>
     </h3>
-    <p id="training-materials">
-      {{ _("Learn to work with government data.") }}
-    </p>
+    <p id="training-materials">{{ _("Learn to work with government data.") }}</p>
   </div>
 </div>
