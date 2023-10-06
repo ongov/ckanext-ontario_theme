@@ -88,7 +88,7 @@
         <div class="ontario-columns ontario-small-6 ontario-application-header__logo">
           <a href="{{ _('https://www.ontario.ca/page/government-ontario') }}">
             <img src="/ontario-logo--desktop.svg"
-                 alt="{{ _('Government of Ontario') }}"
+                 alt="{{ _('Ontario.ca homepage') }}"
                  role="img" />
           </a>
         </div>
@@ -113,7 +113,8 @@
       {% endblock header_debug %}
 
       <section class="ontario-application-subheader"
-               id="ontario-application-subheader">
+               id="ontario-application-subheader"
+               aria-label="Navigation header">
         <div class="ontario-row">
           <div class="ontario-columns ontario-small-12 ontario-application-subheader__container">
             <p class="ontario-application-subheader__heading">
@@ -183,7 +184,7 @@
                             id="ontario-header-search-close"
                             aria-label="close search bar"
                             type="button">
-                      <span aria-hidden="true">close</span>
+                      <span aria-hidden="true">{{ _("close") }}</span>
                       <svg class="ontario-icon"
                            focusable="false"
                            sol:category="primary"
@@ -204,7 +205,7 @@
                 <button class="ontario-hide-for-large ontario-header__menu-toggler ontario-header-button ontario-header-button--with-outline {{ 'fr' if current_lang == 'fr' }}"
                         id="ontario-header-menu-toggler"
                         aria-controls="ontario-navigation"
-                        aria-label="open menu"
+                        aria-label="Show navigation menu"
                         type="button">
                   <svg class="ontario-icon"
                        focusable="false"
@@ -223,7 +224,7 @@
         <button class="ontario-hide-for-large ontario-header__menu-toggler ontario-header-button ontario-header-button--with-outline {{ 'fr' if current_lang =='fr' }}"
                 id="ontario-header-nav-toggler"
                 aria-controls="ontario-navigation"
-                aria-label="close">
+                aria-label="Hide navigation menu">
           <svg class="ontario-icon"
                focusable="false"
                viewBox="0 0 24 24"
