@@ -6,7 +6,7 @@ Renders a hard coded site description/introduction.
 {% set stats = h.get_site_statistics() %}
 <div>
   <h1>
-    {% if g.site_title == "Internal Data Catalogue" %}
+    {% if g.site_title != "Ontario Data Catalogue" %}
       {{ g.site_title }}
     {% else %}
       {{ _('Ontario Data Catalogue') }}
