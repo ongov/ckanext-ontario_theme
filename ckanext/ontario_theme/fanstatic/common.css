@@ -2161,6 +2161,10 @@ screen and (min-width: 96em) {
   border-color: #92278f !important;
 }
 
+.ontario-border-highlight--green {
+  border-color: #2b8737 !important
+}
+
 /* ========================================================================
    Search Page - Package Items
    ======================================================================== */
@@ -2438,6 +2442,9 @@ figure {
 /* ========================================================================
    Misc - Alignment changes
    ======================================================================== */
+.homepage [role="main"] {
+  padding: 0;
+}
 
 /* Survey banner styling */
 .survey {
@@ -2609,6 +2616,21 @@ div#topics div a:hover i {
 
 div#topics a:hover span {
   text-decoration: underline;
+}
+
+/* ========================================================================
+  Homepage - Callout
+  ======================================================================== */
+.ontario-callout div.ontario-columns {
+  margin-bottom: 1.5rem;
+}
+
+.ontario-callout div.ontario-columns h3 {
+  margin-bottom: 1.3rem;
+}
+
+.ontario-callout.ontario-border-highlight--green h2.ontario-column {
+  margin-bottom: 2rem;
 }
 
 /* ========================================================================   
