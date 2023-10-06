@@ -152,6 +152,7 @@
         {% endif %}
         {% if res.datastore_active %}
           {% set info = h.ontario_theme_get_datastore_info(res.id) %}
+          <p>{{info}}</p>
           {% block data_api_button %}
             <div class="module module-narrow module-shallow context-info">
               <h2 class="ontario-h4">{{ _('Use the data API') }}</h2>

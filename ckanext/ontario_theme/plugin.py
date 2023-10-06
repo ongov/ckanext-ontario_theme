@@ -177,12 +177,10 @@ def resource_display_name(resource_dict):
 
 ckan.lib.helpers.resource_display_name = resource_display_name
 
-
 def get_datastore_info(resource_id):
     info=toolkit.get_action('datastore_info')(
                 data_dict={'id': resource_id})
     return info
-
 
 def help():
     '''New help page for site.
@@ -903,7 +901,7 @@ class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
 
         config_['scheming.dataset_schemas'] = """
 ckanext.validation.examples:ckan_default_schema.json
-ckanext.ontario_theme:schemas/internal/ontario_theme_dataset.json
+ckanext.ontario_theme:schemas/external/ontario_theme_dataset.json
 """
         config_['scheming.presets'] = """
 ckanext.scheming:presets.json
@@ -941,11 +939,13 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
 
         if 'scheming.dataset_schemas' not in config_:
             config_['scheming.dataset_schemas'] = """
+ckanext.validation.examples:ckan_default_schema.json
 ckanext.ontario_theme:schemas/internal/ontario_theme_dataset.json
 """
         config_['scheming.presets'] = """
 ckanext.scheming:presets.json
 ckanext.fluent:presets.json
+ckanext.validation:presets.json
 """
 
         config_['scheming.organization_schemas'] = """
