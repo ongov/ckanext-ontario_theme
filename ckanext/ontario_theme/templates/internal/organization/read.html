@@ -33,17 +33,16 @@ Override CKAN's read.html to add some new facets.
           data-module="select-switch"
           novalidate>
       {% snippet 'snippets/search_form.html',
-        searchbar_title=searchbar_title,
-        form_id=form_id,
-        type='dataset',
-        query=q,
-        sorting=sorting,
-        sorting_selected=sort_by_selected,
-        count=page.item_count,
-        facets=facets,
-        placeholder=searchbar_text,
-        show_empty=request.params,
-        fields=fields %}
+      searchbar_title=searchbar_title,
+      form_id=form_id,
+      type='dataset',
+      query=q,
+      sorting=sorting,
+      sorting_selected=sort_by_selected,
+      count=page.item_count,
+      facets=facets,
+      show_empty=request.params,
+      fields=fields %}
     </form>
   {% endblock groups_search_form %}
 

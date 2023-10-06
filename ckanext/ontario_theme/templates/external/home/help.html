@@ -4,20 +4,19 @@
   {{ _('Help') }}
 {% endblock subtitle %}
 
-{% block breadcrumb_content %}
-  <li class="active">{% link_for _('Help'), 'home.help' %}</li>
-{% endblock breadcrumb_content %}
-
 {% block primary %}
   <article class="module article-container">
-    <div class="col-xs-12">
-      <h1>{{ _('Help') }}</h1>
-      {%- trans -%}
-        <p>
-          Need more help or want to learn more about the data catalogue? <a href="https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269">Contact us</a> — we’ll gladly answer any
-          questions you might have!
-        </p>
-      {%- endtrans %}
+    <div class="ontario-column ontario-small-12">
+      <div class="article-intro">
+        <h1>{{ _('Help') }}</h1>
+        {%- trans -%}
+          <p class="ontario-lead-statement">
+            Need more help or want to learn more about the data catalogue? <a href="https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269">Contact us</a> — we’ll gladly answer any
+            questions you might have!
+          </p>
+        {%- endtrans %}
+      </div>
+      <h2 class="ontario-small">{{ _("On this page") }}</h2>
       <ul class="table-of-contents">
         <li>
           <a href="#i-cant-find-the-dataset-im-looking-for">{{ _('Q. I cannot find the dataset I’m looking for.') }}</a>
@@ -69,8 +68,8 @@
           </a>
         </li>
       </ul>
-      <h2>
-        <a name="i-cant-find-the-dataset-im-looking-for"></a>
+      <hr class="toc-hr"/>
+      <h2 id="i-cant-find-the-dataset-im-looking-for" class="first-h2">
         {{ _("Q. I cannot find the dataset I’m looking for.") }}
       </h2>
       <div>
@@ -81,8 +80,7 @@
           {% endtrans %}
         </p>
       </div>
-      <h2>
-        <a name="how-do-i-download-datasets"></a>
+      <h2 id="how-do-i-download-datasets">
         {{ _('Q. How do I download datasets?') }}
       </h2>
       <div>
@@ -99,7 +97,7 @@
           <img src="/images/external/help/Dataset Page - Download Button.jpg"
                alt="{%- trans -%}A screenshot of the data and resources section of the dataset description page. Each file in the dataset is listed. To the right of each file is a preview button and a download button. An arrow is overlaid onto the screeshot that points to the download button.{%- endtrans -%}" />
           <figcaption>
-            Figure 1: The location of the <strong>Download</strong> button on the dataset page.') }}
+            {{ _('Figure 1: The location of the <strong>Download</strong> button on the dataset page.') }}
           </figcaption>
         </figure>
         <p>
@@ -119,8 +117,7 @@
           </figcaption>
         </figure>
       </div>
-      <h2>
-        <a name="what-does-the-preview-button-do"></a>
+      <h2 id="what-does-the-preview-button-do">
         {{ _('Q. What does the <strong>Preview</strong> button do?') }}
       </h2>
       <div>
@@ -167,8 +164,7 @@
           </figcaption>
         </figure>
       </div>
-      <h2>
-        <a name="how-does-the-graph-option-work"></a>
+      <h2 id="how-does-the-graph-option-work">
         {{ _('Q. How does the <strong>Graph</strong> option work?') }}
       </h2>
       <div>
@@ -192,8 +188,7 @@
           </figcaption>
         </figure>
       </div>
-      <h2>
-        <a name="how-does-the-map-option-work"></a>
+      <h2 id="how-does-the-map-option-work">
         {{ _('Q. How does the <strong>Map</strong> option work?') }}
       </h2>
       <div>
@@ -209,8 +204,7 @@
           <figcaption>{{ _('Figure 8: Bridge conditions data, mapped in the data catalogue.') }}</figcaption>
         </figure>
       </div>
-      <h2>
-        <a name="what-if-i-dont-see-a-preview-button"></a>
+      <h2 id="what-if-i-dont-see-a-preview-button">
         {{ _("Q. What if I don’t see a <strong>Preview</strong> button?") }}
       </h2>
       <div>
@@ -230,8 +224,7 @@
           <figcaption>{{ _('Figure 9: A description of a dataset, including its web address.') }}</figcaption>
         </figure>
       </div>
-      <h2>
-        <a name="what-if-a-dataset-isnt-available-in-the-format-i-need"></a>
+      <h2 id="what-if-a-dataset-isnt-available-in-the-format-i-need">
         {{ _("Q. What if a dataset isn’t available in the format I need?") }}
       </h2>
       <div>
@@ -242,8 +235,7 @@
           {% endtrans %}
         </p>
       </div>
-      <h2>
-        <a name="how-do-i-request-an-updated-version-of-a-dataset"></a>
+      <h2 id="how-do-i-request-an-updated-version-of-a-dataset">
         {{ _('Q. How do I request an updated version of a dataset?') }}
       </h2>
       <div>
@@ -257,15 +249,13 @@
           {% endtrans %}
         </p>
       </div>
-      <h2>
-        <a name="how-do-i-report-issues"></a>
+      <h2 id="how-do-i-report-issues">
         {{ _('Q. How do I report errors/issues/provide feedback (for example, inaccurate, outdated data)?') }}
       </h2>
       <div>
         <p>{{ _('A. Start by sending an email to the contact listed (in the "For more information" section).') }}</p>
       </div>
-      <h2>
-        <a name="why-isnt-a-dataset-available"></a>
+      <h2 id="why-isnt-a-dataset-available">
         {{ _("Q. Why isn't the data for a dataset available?") }}
       </h2>
       <div>
@@ -287,8 +277,7 @@
           </li>
         </ul>
       </div>
-      <h2>
-        <a name="can-i-get-notified-when-the-catalogue-is-updated"></a>
+      <h2 id="can-i-get-notified-when-the-catalogue-is-updated">
         {{ _('Q. Can you notify me when the catalogue is updated?') }}
       </h2>
       <div>
