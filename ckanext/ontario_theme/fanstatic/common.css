@@ -614,7 +614,7 @@ input[placeholder] {
 }
 
 .ontario-alert {
-  border-width: 0 0 0 0.9375rem;
+  border-width: 0 0 0 4px;
   border-style: solid;
   padding: 1.5rem;
   margin: 2rem 0 2.5rem 0;
@@ -2450,20 +2450,17 @@ figure {
   margin-bottom: 25px;
 }
 
-#news ul a,
-.topics-list-item a {
+#news ul a {
   color: #0066cc;
   text-decoration: none;
 }
 
-#news ul a:hover,
-.topics-list-item a:hover {
+#news ul a:hover {
   color: #00478f;
   text-decoration: underline;
 }
 
-#news ul a:visited,
-.topics-list-item a:visited {
+#news ul a:visited {
   color: #551a8b;
 }
 
@@ -2476,7 +2473,7 @@ figure {
 }
 
 .banner-datasets {
-  padding-left: 10px;
+  padding-right: 10px;
 }
 
 #news hr,
@@ -2484,7 +2481,7 @@ figure {
   border: 0;
   padding: 0;
   margin: 0 0 2.5rem;
-  border-bottom: 4px solid #ccc;
+  border-bottom: 2px solid #f2f2f2;
 }
 
 #news {
@@ -2556,7 +2553,7 @@ li.media-item.ministry-item {
     grid-template-columns: repeat(2, auto);
     grid-template-rows: repeat(5, auto);
     grid-auto-flow: column;
-    column-gap: 50px;
+    column-gap: 80px;
   }
 }
 
@@ -2577,9 +2574,11 @@ div#topics div i {
   font-size: 30px;
   width: 30px;
   text-align: center;
+  color: #999999;
 }
 
 .topics-list-item a {
+  color: #000;
   font-weight: 600;
   font-size: 20px;
 }
