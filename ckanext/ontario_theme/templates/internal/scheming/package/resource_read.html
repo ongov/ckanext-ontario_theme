@@ -56,7 +56,7 @@
       {% block resource_content %}
         <div class="col-lg-8 col-xs-12">
           {% block resource_read_title %}
-            <h1>{{ h.resource_display_name(res) }}</h1>
+            <h1>{{ h.resource_display_name(res) }} {{ h.get_validation_badge(res)|safe }}</h1>
           {% endblock resource_read_title %}
 
           <div class="datafile-p" property="rdfs:label">
