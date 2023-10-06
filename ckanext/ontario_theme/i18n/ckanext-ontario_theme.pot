@@ -59,6 +59,10 @@ msgid "<a href=\"%(url)s?%(params)s\">Provide feedback</a> about our data and ho
 msgid "https://www.ontario.ca/form/provide-feedback-ontario-data-catalogue"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/external/home/snippets/ai_recruitment_banner.html:2
+msgid "https://www.ontario.ca/form/tell-us-what-you-think-about-our-artificial-intelligence-ai-inventory"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/external/home/about.html:7
 #: ckanext/ontario_theme/templates/internal/header.html:91
 #: ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html:55
