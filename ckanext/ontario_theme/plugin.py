@@ -182,6 +182,13 @@ def get_datastore_info(resource_id):
                 data_dict={'id': resource_id})
     return info
 
+def trigger_ckanext_validation(resource_id):
+    job_id=toolkit.get_action(u'resource_validation_run')(
+                            {u'ignore_auth': True},
+                            {u'resource_id': resource_id,
+                             u'async': False})
+    return job_id
+
 def help():
     '''New help page for site.
     '''
@@ -1063,7 +1070,8 @@ type data_last_updated
                 'ontario_theme_sort_accented_characters': sort_accented_characters,
                 'ontario_theme_abbr_localised_filesize': abbr_localised_filesize,
                 'ontario_theme_get_facet_options': get_facet_options,
-                'ontario_theme_get_datastore_info': get_datastore_info
+                'ontario_theme_get_datastore_info': get_datastore_info,
+                'ontario_theme_trigger_ckanext_validation': trigger_ckanext_validation
                 }
 
     # IBlueprint
