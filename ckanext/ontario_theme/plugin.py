@@ -177,17 +177,32 @@ def resource_display_name(resource_dict):
 
 ckan.lib.helpers.resource_display_name = resource_display_name
 
+# def get_datastore_info(resource_id):
+#     info=toolkit.get_action('datastore_info')(
+#                 data_dict={'id': resource_id})
+#     return info
+
 def get_datastore_info(resource_id):
-    info=toolkit.get_action('datastore_info')(
+    #   p.toolkit.get_action('datastore_search')(context, dict(
+    #         id=resource_id, limit=0))
+    info=toolkit.get_action('datastore_search')(
                 data_dict={'id': resource_id})
     return info
 
-def trigger_ckanext_validation(resource_id):
+  
+
+def trigger_ckanext_validation(resource_id, pkg_id):
+    ''' Calls ckanext-validation action function resource_validataion_run
+    and redirects to the validation report page.
+
+    '''
     job_id=toolkit.get_action(u'resource_validation_run')(
                             {u'ignore_auth': True},
                             {u'resource_id': resource_id,
                              u'async': False})
-    return job_id
+    # Return to validation report page defined in ckanext-validation/ckanext/validation/views.py
+    return h.url_for('validation_read',id=pkg_id,resource_id=resource_id)
+    
 
 def help():
     '''New help page for site.
