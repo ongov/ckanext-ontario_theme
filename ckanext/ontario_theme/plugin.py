@@ -183,23 +183,70 @@ ckan.lib.helpers.resource_display_name = resource_display_name
 #     return info
 
 def get_datastore_info(resource_id):
-    #   p.toolkit.get_action('datastore_search')(context, dict(
-    #         id=resource_id, limit=0))
+    ''' Gets the data dictionary array saved in the 
+     UI form before the resource is re-pushed to the 
+     database against this new dictionary and returns
+     it in the format used by ckanext-validation with
+     data types conforming to Frictionless Data.
+
+     Once the resource is re-pushed, the column types
+     of the database table can be retrieved with
+     toolkit.get_action('datastore_info').
+
+     ''' 
     info=toolkit.get_action('datastore_search')(
                 data_dict={'id': resource_id})
-    return info
 
-  
+    return reformat_ui_dict(info['fields'])
+
+def reformat_ui_dict(o):
+    ''' Reformats the dictionary object from the UI form
+    into the structure used by ckanext-validation. Also
+    replaces PostgreSQL data types with their Fricionless
+    Data equivalents.
+
+    :param o: the array containing the dictionary object
+
+    '''
+    schema_obj = {}
+    typeArray = []
+    for el in o:
+        if el['id'] != "_id":
+            print('el: ', el)
+            if 'info' in el:
+                if el['info']['type_override']:
+                    el['type'] = el['info']['type_override']
+                
+                del el['info']
+
+            # Switch 'id' key name to 'name'
+            el['name'] = el['id']
+            del el['id']
+            
+            # PostgreSQL type text is string in Frictionless
+            if el['type'] == 'text':
+                el['type'] = 'string'
+            typeArray.append(el)
+    
+    schema_obj['fields'] = typeArray
+
+    return schema_obj  
 
 def trigger_ckanext_validation(resource_id, pkg_id):
     ''' Calls ckanext-validation action function resource_validataion_run
     and redirects to the validation report page.
 
     '''
+    # Get the UI dict
+    ui_dict = get_datastore_info(resource_id)
+    print('ui dict in trigger: ', ui_dict)
+
+    # Trigger ckanext-validation with the UI dict
     job_id=toolkit.get_action(u'resource_validation_run')(
                             {u'ignore_auth': True},
                             {u'resource_id': resource_id,
-                             u'async': False})
+                             u'async': False,
+                             u'ui_dict': ui_dict})
     # Return to validation report page defined in ckanext-validation/ckanext/validation/views.py
     return h.url_for('validation_read',id=pkg_id,resource_id=resource_id)
     
