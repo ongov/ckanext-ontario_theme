@@ -887,7 +887,7 @@
     {
       "field_name": "schema",
       "label": "Schema",
-      "preset": "resource_schema"
+      "preset": "hidden_in_form"
     },
     {
       "field_name": "validation_options",
