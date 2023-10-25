@@ -32,7 +32,7 @@
         <a class="resource-item-title"
            href="{{ url }}"
            itemprop="url"
-           title="{{ res.name or res.description }}">{{ h.resource_display_name(res)|truncate(50) }}</a>
+           title="{{ res.name or res.description }}">{{ h.resource_display_name(res) }}</a>
         {% if res.language %}
           <span itemprop="inLanguage" class="label label-{{ res.language }}">
             {{ h.scheming_choices_label(
