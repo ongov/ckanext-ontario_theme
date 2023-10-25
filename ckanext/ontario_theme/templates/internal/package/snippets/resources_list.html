@@ -8,8 +8,6 @@
     {{ _("Learn more about ") }} <a href="{{ h.url_for('home.about', _anchor='training-materials') }}">{{ _("accessing data using different formats.") }}</a>
   </p>
   {% block resource_list %}
-    {% snippet "package/snippets/ontario_theme_access_level.html",
-    pkg=pkg, dataset_type=dataset_type, schema=schema, resources=resources %}
     {# can_edit is True only for users with write access
       (i.e. sysadmins and org admins)
     #}
