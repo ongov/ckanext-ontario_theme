@@ -3075,3 +3075,62 @@ label::after {
 .group-search-table-tbody {
   display: table-row-group;
 }
+
+/* ========================================================================
+   Pagination - Overrides
+   ======================================================================== */
+.pagination {
+  display: inline-flex;
+  border-radius: 3px;
+}
+
+.pagination > li > a,
+.pagination > li > span {
+  font-weight: 600;
+  float: unset;
+  padding: 10px 18px;
+  color: #06c;
+  border: 1px solid #ccc;
+}
+
+.pagination > li:first-child > a,
+.pagination > li:first-child > span {
+  margin-left: unset;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.pagination > li:last-child > a,
+.pagination > li:last-child > span {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+  z-index: 4;
+  color: #00478f;
+  background-color: #f2f2f2;
+  border-color: #ccc;
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  background-color: #666;
+  border-color: #ccc;
+}
+
+.pagination > .disabled > span,
+.pagination > .disabled > span:hover,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > a,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > a:focus {
+  color: #1a1a1a;
+}
