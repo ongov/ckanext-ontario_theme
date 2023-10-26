@@ -17,20 +17,4 @@
 
 {% block header_wrapper %}
   {{ super() }}
-  <header id="survey">
-    <div class="alert ontario-alert-warning alert-clear alert-banner">
-      <div class="ontario-row">
-        {% set survey_params = { "page": h.current_url() } %}
-        {% set package_name = h.ontario_theme_extract_package_name(h.current_url()) %}
-        {% do survey_params.update({'id': package_name}) if package_name %}
-        <p class="survey ontario-columns ontario-small-12">
-          <strong>
-            {% trans url = _('https://www.ontario.ca/form/provide-feedback-ontario-data-catalogue'), params=survey_params|urlencode %}
-              <a href="{{ url }}?{{ params }}">Provide feedback</a> about our data and how you’re using it.
-            {% endtrans %}
-          </strong>
-        </p>
-      </div>
-    </div>
-  </header>
 {% endblock header_wrapper %}

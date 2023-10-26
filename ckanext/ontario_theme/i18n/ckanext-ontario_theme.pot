@@ -59,6 +59,10 @@ msgid "<a href=\"%(url)s?%(params)s\">Provide feedback</a> about our data and ho
 msgid "https://www.ontario.ca/form/provide-feedback-ontario-data-catalogue"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/external/home/snippets/ai_recruitment_banner.html:2
+msgid "https://www.ontario.ca/form/tell-us-what-you-think-about-our-artificial-intelligence-ai-inventory"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/external/home/about.html:7
 #: ckanext/ontario_theme/templates/internal/header.html:91
 #: ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html:55
@@ -1165,6 +1169,34 @@ msgstr ""
 msgid "Government of Ontario"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
+msgid "Tell us what you want to know about <a href=\"%(url)s\">artificial intelligence (<abbr>AI</abbr>) assets</a> published to the Catalogue."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:6
+msgid "Artificial intelligence (<abbr>AI</abbr>) on the Catalogue"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:4
+msgid "Help us improve"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:10
+msgid "Fill out our <abbr title=\"artificial intelligence\">AI</abbr> inventory survey"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:13
+msgid "Give us feedback about the Catalogue"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:15
+msgid "Take a short survey to let us know what you think about the Catalogue and how we can make data more accessible to Ontarians."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:17
+msgid "Fill out our feedback form"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/page.html:4
 msgid "Skip to content"
 msgstr ""
@@ -1267,6 +1299,10 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/header.html:150
 msgid "Menu"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/header.html:184
+msgid "close"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:44
