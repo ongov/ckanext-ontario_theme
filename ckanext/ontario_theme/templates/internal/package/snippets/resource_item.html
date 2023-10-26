@@ -68,7 +68,7 @@
             {% if can_edit %}
               <a href="{{ h.url_for(pkg.type ~ '_resource.edit', id=pkg.name, resource_id=res.id) }}"
                  class="ontario-button ontario-button--tertiary">
-                <i class="fa fa-pencil-square-o"></i>{{ _('Edit') }}
+                <i class="fa fa-pencil-square-o">&nbsp;</i>{{ _('Edit') }}
               </a>
             {% endif %}
           {% endblock resource_item_explore_links %}

@@ -1675,10 +1675,20 @@ via submission form. Copied from DS.*/
   z-index: 1000;
 }
 
-@media screen and (max-width: 64em) {
+@media screen and (max-width: 40em) {
   .resource-buttons {
     margin-top: 10px;
   }
+}
+
+@media screen and (min-width: 40em) {
+  .resource-buttons {
+    margin-left: 10px;
+  }
+}
+
+.resource-buttons .ontario-button {
+  margin-right: 0;
 }
 
 .aside-heading {
