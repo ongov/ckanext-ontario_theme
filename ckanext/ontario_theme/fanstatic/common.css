@@ -614,7 +614,7 @@ input[placeholder] {
 }
 
 .ontario-alert {
-  border-width: 0 0 0 0.9375rem;
+  border-width: 0 0 0 4px;
   border-style: solid;
   padding: 1.5rem;
   margin: 2rem 0 2.5rem 0;
@@ -673,6 +673,10 @@ input[placeholder] {
   background-color: #e2f0f4;
 }
 
+.ontario-alert--informational svg {
+  fill: #1080a6;
+}
+
 /* ===============================
    Custom overrides - page alerts
    =============================== */
@@ -692,47 +696,8 @@ input[placeholder] {
   text-decoration: underline;
 }
 
-/* fa and feedback classes can be removed once icon is replaced with a svg */
-.fa.fa-comments {
-  font-size: 100px;
-  color: #1080a6;
-}
-
-.feedback.ontario-alert__header-icon {
-  height: 100px;
-  width: 100px;
-  margin-left: 3rem;
-}
-
 .feedback.ontario-alert__body {
-  max-width: unset;
-  margin-left: 1rem;
-  padding-top: 22px;
-}
-
-@media screen and (max-width: 992px) {
-  .fa.fa-comments {
-    font-size: 80px;
-  }
-
-  .feedback.ontario-alert__header-icon {
-    height: 80px;
-    width: 80px;
-    margin-left: 0.5rem;
-  }
-
-  .feedback.ontario-alert__body h2 {
-    margin-top: unset;
-  }
-
-  .feedback.ontario-alert__body {
-    padding-top: unset;
-  }
-}
-
-.feedback.ontario-alert {
-  display: flex;
-  min-height: 198px;
+  margin-left: 0;
 }
 
 .search-page-heading {
@@ -2161,6 +2126,10 @@ screen and (min-width: 96em) {
   border-color: #92278f !important;
 }
 
+.ontario-border-highlight--green {
+  border-color: #2b8737 !important
+}
+
 /* ========================================================================
    Search Page - Package Items
    ======================================================================== */
@@ -2444,6 +2413,9 @@ figure {
 /* ========================================================================
    Misc - Alignment changes
    ======================================================================== */
+.homepage [role="main"] {
+  padding: 0;
+}
 
 /* Survey banner styling */
 .survey {
@@ -2491,6 +2463,20 @@ figure {
   margin-bottom: 25px;
 }
 
+#news ul a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+#news ul a:hover {
+  color: #00478f;
+  text-decoration: underline;
+}
+
+#news ul a:visited {
+  color: #551a8b;
+}
+
 #news.ontario-row .ontario-row {
   margin: unset;
 }
@@ -2500,12 +2486,19 @@ figure {
 }
 
 .banner-datasets {
-  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#news hr,
+#resources_and_information hr {
+  border: 0;
+  padding: 0;
+  margin: 0 0 2.5rem;
+  border-bottom: 2px solid #f2f2f2;
 }
 
 #news {
   color: #000000;
-  padding-top: 40px;
 }
 
 body {
@@ -2573,7 +2566,7 @@ li.media-item.ministry-item {
     grid-template-columns: repeat(2, auto);
     grid-template-rows: repeat(5, auto);
     grid-auto-flow: column;
-    column-gap: 50px;
+    column-gap: 80px;
   }
 }
 
@@ -2594,10 +2587,11 @@ div#topics div i {
   font-size: 30px;
   width: 30px;
   text-align: center;
-  color: #999;
+  color: #999999;
 }
 
 .topics-list-item a {
+  color: #000;
   font-weight: 600;
   font-size: 20px;
 }
@@ -2609,12 +2603,23 @@ div#topics div span {
   margin: unset;
 }
 
-div#topics div a:hover i {
-  color: #3c7fa3;
-}
-
 div#topics a:hover span {
   text-decoration: underline;
+}
+
+/* ========================================================================
+  Homepage - Callout
+  ======================================================================== */
+.ontario-callout div.ontario-columns {
+  margin-bottom: 1.5rem;
+}
+
+.ontario-callout div.ontario-columns h3 {
+  margin-bottom: 1.3rem;
+}
+
+.ontario-callout.ontario-border-highlight--green h2.ontario-column {
+  margin-bottom: 2rem;
 }
 
 /* ========================================================================   

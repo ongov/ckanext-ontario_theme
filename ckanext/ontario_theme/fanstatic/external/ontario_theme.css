@@ -650,7 +650,6 @@ div#topics {
 }
 
 div#topics a {
-  color: #1A1A1A;
   text-decoration: none;
 }
 
@@ -936,15 +935,6 @@ li.resource-item div.btn-wrapper {
   width: 100%;
 }
 
-#news ul a {
-  color: #000000;
-  text-decoration: none;
-}
-
-#news ul a:hover {
-  text-decoration: underline;
-}
-
 #news .dataset-list h2 {
   padding-bottom: 8px;
 }
@@ -984,11 +974,6 @@ section.additional-info table.table tbody tr td {
 
 .media-grid {
   border: none;
-}
-
-.banner-section {
-  background: #F2F2F2;
-  width: 100%;
 }
 
 .banner-section a {
@@ -1188,10 +1173,6 @@ footer.site-footer div.footer-swoosh--right {
 
 footer.site-footer .ckan-footer-logo {
   background: url(/base/images/ckan-logo-footer_dark.png) no-repeat top left;
-}
-
-#resources_and_information {
-  margin-top: 51px;
 }
 
 #resources_and_information h2 {

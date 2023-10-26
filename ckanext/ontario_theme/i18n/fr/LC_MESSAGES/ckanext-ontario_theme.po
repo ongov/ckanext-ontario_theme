@@ -186,6 +186,35 @@ msgstr "https://www.ontario.ca/fr/forme/enquete-catalogue-de-donnees-de-lontario
 msgid "On this page"
 msgstr "Dans cette page"
 
+#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
+msgid "Tell us what you want to know about <a href=\"%(url)s\">artificial intelligence (<abbr>AI</abbr>) assets</a> published to the Catalogue."
+msgstr "Dites-nous ce que vous aimeriez savoir au sujet des <a href=\"%(url)s\">biens d’intelligence artificielle (<abbr>IA<abbr>)</a> publiés au catalogue"
+
+#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
+msgid "Artificial intelligence (<abbr>AI</abbr>) on the Catalogue"
+msgstr "L’intelligence artificielle (<abbr>IA<abbr>) figurant au catalogue"
+
+#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
+msgid "Help us improve"
+msgstr "Aidez-nous à nous améliorer"
+
+#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
+msgid "Fill out our <abbr title=\"artificial intelligence\">AI</abbr> inventory survey"
+msgstr "Remplissez notre sondage sur <abbr title=\"l'intelligence artificielle\">l’AI</abbr>"
+
+#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
+msgid "Give us feedback about the Catalogue"
+msgstr "Donnez-nous une rétroaction au sujet du catalogue"
+
+#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
+msgid "Take a short survey to let us know what you think about the Catalogue and how we can make data more accessible to Ontarians."
+msgstr "Prenez un court sondage pour nous faire savoir ce que vous pensez du catalogue et comment nous pourrions rendre les données "
+"plus accessibles pour la population de l’Ontario."
+
+#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
+msgid "Fill out our feedback form"
+msgstr "Remplissez notre formulaire de rétroaction"
+
 #: ckanext/ontario_theme/templates/external/home/help.html:14
 msgid ""
 "<p class=\"ontario-lead-statement\"> Need more help or want to learn more about the data catalogue? <a "
@@ -2029,7 +2058,11 @@ msgstr "Sujets"
 
 #: ckanext/ontario_theme/templates/internal/header.html:150
 msgid "Menu"
-msgstr "Sujets"
+msgstr "Menu"
+
+#: ckanext/ontario_theme/templates/internal/header.html:184
+msgid "close"
+msgstr "fermer"
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:44
 msgid "What's new"
@@ -2104,6 +2137,10 @@ msgstr "<a href=\"%(url)s?%(params)s\">Faites-nous part de vos commentaires</a> 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:21
 msgid "https://www.ontario.ca/form/provide-feedback-ontario-data-catalogue"
 msgstr "https://www.ontario.ca/fr/forme/fournir-un-retour-dinformation-catalogue-de-donnees-de-lontario"
+
+#: ckanext/ontario_theme/templates/external/home/snippets/ai_recruitment_banner.html:2
+msgid "https://www.ontario.ca/form/tell-us-what-you-think-about-our-artificial-intelligence-ai-inventory"
+msgstr "https://www.ontario.ca/fr/forme/dites-nous-ce-que-vous-pensez-de-notre-inventaire-de-lintelligence-artificielle-ia"
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:9
 msgid "Ontario Data Catalogue"
