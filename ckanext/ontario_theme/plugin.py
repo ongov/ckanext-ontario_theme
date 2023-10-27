@@ -20,6 +20,7 @@ from flask import render_template, render_template_string
 from markupsafe import Markup
 
 import json
+import re
 import ckan.lib.helpers as helpers
 import ckan.lib.formatters as formatters
 from ckan.lib.helpers import core_helper
@@ -886,6 +887,7 @@ def home_block_link(block='one'):
         value = config.get('ckanext.ontario_theme.home_block_{}_link-fr'.format(block), '')
     return value
 
+
 class Page(pagination.Page):
     symbol_next = '<svg class="ontario-icon" focusable="false" \
         aria-hidden="true" sol:category="primary" viewBox="0 0 \
@@ -932,8 +934,24 @@ class Page(pagination.Page):
             anchor.set_attribute("aria-label", "Go to page {}".format(page))
         return text_type(tags.li(anchor, **extra_attributes))
 
+    def _range(self, regexp_match):
+        html = super(pagination.Page, self)._range(regexp_match)
+        # Convert '..'
+        dotdot = u'<span class="pager_dotdot">..</span>'
+        dotdot_link = tags.li(tags.span(u"..."), cls=u"disabled",
+                              aria_hidden=u"true")
+        html = re.sub(dotdot, text_type(dotdot_link), html)
+        # Convert current page
+        text = u"%s" % self.page
+        current_page_span = text_type(tags.span(text, **self.curpage_attr))
+        current_page_link = self._pagerlink(
+            self.page, text, extra_attributes=self.curpage_attr
+        )
+        return re.sub(current_page_span, current_page_link, html)
+
     ckan.lib.pagination.Page.pager = pager
     ckan.lib.pagination.Page._pagerlink = _pagerlink
+    ckan.lib.pagination.Page._range = _range
 
 
 class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
