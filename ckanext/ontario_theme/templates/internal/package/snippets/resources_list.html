@@ -3,13 +3,7 @@
 #}
 {% set current_lang = request.environ.CKAN_LANG %}
 <section id="dataset-resources" class="resources">
-  <h2>{{ _(h.dataset_display_name(pkg)) }}</h2>
-  <p class="dataset-font">
-    {{ _("Learn more about ") }} <a href="{{ h.url_for('home.about', _anchor='training-materials') }}">{{ _("accessing data using different formats.") }}</a>
-  </p>
   {% block resource_list %}
-    {% snippet "package/snippets/ontario_theme_access_level.html",
-    pkg=pkg, dataset_type=dataset_type, schema=schema, resources=resources %}
     {# can_edit is True only for users with write access
       (i.e. sysadmins and org admins)
     #}
@@ -20,6 +14,10 @@
     #}
     {% if pkg['access_level'] == 'open' or can_edit %}
       {% if resources %}
+        <h2>{{ _(h.dataset_display_name(pkg)) }}</h2>
+        <p class="dataset-font">
+          {{ _("Learn more about ") }} <a href="{{ h.url_for('home.about', _anchor='training-materials') }}">{{ _("accessing data using different formats.") }}</a>
+        </p>
         {% block resource_list_inner %}
           {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
           {% for resource in resources %}
@@ -106,7 +104,7 @@
       {% endif %}
     {% endif %}
   {% endblock resource_list %}
-  <meta itemprop="dateModified" content="{{ pkg.metadata_modified }}"/>
-  <meta itemprop="identifier" content="{{ pkg.name }}"/>
-  <link itemprop="url" content="{{ h.url_for('dataset.read', id=pkg.name) }}"/>
+  <meta itemprop="dateModified" content="{{ pkg.metadata_modified }}" />
+  <meta itemprop="identifier" content="{{ pkg.name }}" />
+  <link itemprop="url" content="{{ h.url_for('dataset.read', id=pkg.name) }}" />
 </section>
