@@ -6,7 +6,7 @@
     item_class     - The class name to use on each item.
     hide_resources - If true hides the resources (default: false).
     banner         - If true displays a popular banner (default: false).
-    truncate       - The length to trucate the description to (default: 180)
+    truncate       - The length to truncate the description to (default: 180)
     truncate_title - The length to truncate the title to (default: 80).
     
     Overrides CKAN file by adding custom name sort by language.
@@ -41,8 +41,7 @@
           item_class=item_class,
           hide_resources=hide_resources,
           banner=banner,
-          truncate=truncate,
-          truncate_title=truncate_title
+          truncate=truncate
           %}
         {% endfor %}
       {% endblock package_list_inner %}
