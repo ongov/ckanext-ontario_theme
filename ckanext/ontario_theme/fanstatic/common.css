@@ -765,14 +765,10 @@ a:focus {
 /* ========================================================================
    Custom overrides - ministry page
    ======================================================================== */
-.ministry-heading {
+.ministry-heading,
+.group-search-heading {
   font-weight: 700;
   font-size: 18px;
-  line-height: 45px;
-}
-
-a.ministry-heading {
-  text-decoration: none;
 }
 
 .ministry-item.media-item:first-child {
@@ -3064,8 +3060,7 @@ label::after {
   display: table-cell;
   font-weight: 700;
   text-align: left;
-  padding: 1.75rem 1rem 1.75rem 1.5rem;
-  margin: 0;
+  padding: 1.75rem 1rem 1.75rem 1rem;
   font-size: 22px;
   line-height: 1.5rem;
 }
@@ -3074,19 +3069,24 @@ label::after {
   display: table-header-group;
 }
 
-.group-search-table-row,
-.group-search-heading {
+.group-search-table-row {
   font-size: 18px;
 }
 
-.group-search-heading {
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 45px;
+a.group-search-table-cell-row {
+  text-decoration: none;
+}
+
+a.group-search-table-cell-row .group-search-count {
+  color: #000;
+}
+
+a.group-search-table-cell-row p {
+  color: #000;
 }
 
 .group-search-table-cell {
-  padding: 1.1875rem 1rem 1.1875rem 1.5rem;
+  padding: 2.1875rem 1rem 2.1875rem 1rem;
   text-align: left;
   letter-spacing: .025rem;
   border-top: solid 1px #ccc;
@@ -3097,8 +3097,9 @@ label::after {
 }
 
 .group-search-table-cell > p {
-  font-size: 19px;
+  font-size: 16px;
   margin-bottom: unset;
+  margin-top: 5px;
 }
 
 .group-search-table {
@@ -3123,9 +3124,9 @@ label::after {
   background-color: #f2f2f2;
 }
 
-.group-search-table-cell-row:hover a {
+.group-search-table-cell-row:hover .ministry-heading,
+.group-search-table-cell-row:hover .group-search-heading {
   text-decoration: underline;
-  color: #00478f;
 }
 
 .group-search-table-cell-row:hover span {
@@ -3133,8 +3134,29 @@ label::after {
 }
 
 .group-search-table-thead-th.ontario-table-cell--numeric {
-  padding: 1.75rem 1.5rem 1.75rem 1rem;
+  padding: 2.75rem 1.5rem 2.75rem 1rem;
   text-align: right;
+}
+
+@media screen and (max-width: 40em) {
+  .group-search-table-thead-th.ontario-table-cell--numeric {
+    padding: 1.53125rem 1rem 1.53125rem .5rem
+  }
+
+  .group-search-table-thead-th {
+    padding: 1.53125rem .5rem 1.53125rem .5rem;
+  }
+
+  .group-search-table-cell {
+    padding: 1.1875rem .5rem 1.1875rem .5rem;
+  }
+}
+
+.anchor-div-group {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
 }
 
 .group-search-table-cell.group-search-table-td.ontario-table-cell--numeric {

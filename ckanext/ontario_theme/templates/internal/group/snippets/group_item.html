@@ -2,12 +2,12 @@
 {% set url = h.url_for(type ~ '.read', id=group.name) %}
 
 {% block item %}
-  <div class="group-search-table-row">
+  <a href="{{ url }}" class="group-search-table-cell-row">
     {% block item_inner %}
       <div class="group-search-table-cell">
         {% block title %}
           {% block link %}
-            <a href="{{ url }}" class="group-search-heading">{{ h.get_translated(group,"title") }}</a>
+            <span class="group-search-heading">{{ h.get_translated(group,"title") }}</span>
           {% endblock link %}
         {% endblock title %}
         {% block description %}
@@ -16,12 +16,12 @@
           {% endif %}
         {% endblock description %}
       </div>
-      <div class="group-search-table-cell group-search-table-td ">
+      <div class="group-search-table-cell group-search-table-td ontario-table-cell--numeric">
         {% block datasets %}
           {% set group_datasets = ungettext('{number} <span class="ontario-show-for-sr">dataset</span>', '{number} <span class="ontario-show-for-sr">datasets</span>', group.package_count) %}
           <span class="group-search-count">{{ group_datasets.format(number=group.package_count)|safe }}</span>
         {% endblock datasets %}
       </div>
     {% endblock item_inner %}
-  </div>
+  </a>
 {% endblock item %}
