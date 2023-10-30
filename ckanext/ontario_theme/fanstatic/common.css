@@ -677,6 +677,34 @@ input[placeholder] {
   fill: #1080a6;
 }
 
+/* ========================================================================
+   Page Alerts - ODC
+   ======================================================================== */
+.odc-alert {
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.odc-alert-restricted {
+  background-color: #fceff0;
+  border: 1px solid #cd0000;
+}
+
+.odc-alert-under_review {
+  background-color: #f1e3f2;
+  border: 1px solid #92278F;
+}
+
+.odc-alert-algorithm {
+  background-color: #DBE9F5;
+  border: 1px solid #3193CC;
+}
+
+.odc-alert-under_review p,
+.odc-alert-algorithm p:last-child {
+  margin-bottom: 0;
+}
+
 /* ===============================
    Custom overrides - page alerts
    =============================== */
@@ -2393,6 +2421,12 @@ figure {
   width: 80%;
   margin: 50px 0;
   padding: 10px;
+}
+
+#about #files .metadata-item:last-of-type {
+  border-bottom: unset;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 /* Wrapper styling */
