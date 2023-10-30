@@ -1534,10 +1534,6 @@ via submission form. Copied from DS.*/
     letter-spacing: 0.02rem;
     line-height: 1.33;
   }
-
-  .resource-item .description {
-    margin-left: 71px;
-  }
 }
 
 .ministry-contact {
@@ -1564,7 +1560,6 @@ via submission form. Copied from DS.*/
 }
 
 .label-div {
-  min-width: 61px;
   float: left;
   position: relative;
   margin-right: 10px;
@@ -1592,19 +1587,6 @@ via submission form. Copied from DS.*/
 
 .resource-item div {
   padding: unset;
-}
-
-@media screen and (max-width: 64em) {
-  .resource-item .text-right {
-    text-align: left;
-  }
-}
-
-@media screen and (min-width: 40em) and (max-width: 64em) {
-  .resource-item .text-right {
-    margin-left: 71px;
-    float: left !important;
-  }
 }
 
 .label.label-english,
@@ -1721,10 +1703,20 @@ via submission form. Copied from DS.*/
   z-index: 1000;
 }
 
-@media screen and (max-width: 64em) {
+@media screen and (max-width: 40em) {
   .resource-buttons {
     margin-top: 10px;
   }
+}
+
+@media screen and (min-width: 40em) {
+  .resource-buttons {
+    margin-left: 10px;
+  }
+}
+
+.resource-buttons .ontario-button {
+  margin-right: 0;
 }
 
 .aside-heading {
@@ -1839,6 +1831,27 @@ section#dataset-resources > h2 {
   background-color: #e0f0ff;
   border-color: #00478f;
   color: #00478f;
+}
+
+@media screen and (max-width: 40em) {
+  .resource-item {
+    display: grid;
+  }
+}
+
+@media screen and (min-width: 40em) {
+  .resource-item {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .resource-title-div {
+    flex-basis: 85%;
+  }
+
+  .label-div {
+    height: 100%;
+  }
 }
 
 /* =====================================================

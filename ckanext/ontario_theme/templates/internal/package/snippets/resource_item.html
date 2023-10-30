@@ -10,7 +10,7 @@
              resource-item-div{%- endif -%}"
     data-id="{{ res.id }}">
   <meta itemprop="identifier" content="{{ res.id }}"/>
-  <div class="ontario-columns ontario-large-7 ontario-small-12" >
+  <div class="resource-title-div">
     {% block resource_item_title %}
       {% if res.format in h.dict_list_reduce(pkg.resources, 'format') and res.format %}
         <div class="label-div">
@@ -32,7 +32,7 @@
         <a class="resource-item-title"
            href="{{ url }}"
            itemprop="url"
-           title="{{ res.name or res.description }}">{{ h.resource_display_name(res)|truncate(50) }}</a>
+           title="{{ res.name or res.description }}">{{ h.resource_display_name(res) }}</a>
         {% if res.language %}
           <span itemprop="inLanguage" class="label label-{{ res.language }}">
             {{ h.scheming_choices_label(
@@ -57,7 +57,7 @@
       {% endif %}
     {% endblock resource_item_description %}
   </div>
-  <div class="ontario-columns ontario-large-5 ontario-small-12 text-right">
+  <div class="text-right">
     {% block resource_item_explore %}
       {% if not url_is_edit %}
         <div class="resource-buttons">
@@ -68,7 +68,7 @@
             {% if can_edit %}
               <a href="{{ h.url_for(pkg.type ~ '_resource.edit', id=pkg.name, resource_id=res.id) }}"
                  class="ontario-button ontario-button--tertiary">
-                <i class="fa fa-pencil-square-o"></i>{{ _('Edit') }}
+                <i class="fa fa-pencil-square-o">&nbsp;</i>{{ _('Edit') }}
               </a>
             {% endif %}
           {% endblock resource_item_explore_links %}
