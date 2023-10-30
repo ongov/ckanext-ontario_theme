@@ -97,6 +97,12 @@ msgstr "Aider"
 msgid "Browse datasets and resources organized by a specific theme or topic."
 msgstr "Parcourez des ensembles de données et des ressources organisés par thème ou sujet spécifique."
 
+#: ckanext/ontario_theme/templates/internal/group/group_item.html:21
+msgid "{number} <span class=\"ontario-show-for-sr\">dataset</span>"
+msgid_plural "{number} <span class=\"ontario-show-for-sr\">datasets</span>"
+msgstr[0] "{number} <span class=\"ontario-show-for-sr\">jeu de données</span>"
+msgstr[1] "{number} <span class=\"ontario-show-for-sr\">jeux de données</span>"
+
 #: ckanext/ontario_theme/templates/internal/organization/index.html
 msgid "Ministries"
 msgstr "Ministères"
