@@ -925,8 +925,10 @@ class Page(pagination.Page):
             anchor.delete_attribute("href")
         elif text == Page.symbol_previous:
             anchor.set_attribute("aria-label", "Go to previous page")
+            anchor.set_attribute("class", "pagination_symbols")
         elif text == Page.symbol_next:
             anchor.set_attribute("aria-label", "Go to next page")
+            anchor.set_attribute("class", "pagination_symbols")
         elif page == self.last_page:
             anchor.set_attribute("aria-label", "Go to page {}, last page"
                                  .format(page))

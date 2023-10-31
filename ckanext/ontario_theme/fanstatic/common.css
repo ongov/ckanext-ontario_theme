@@ -3129,13 +3129,18 @@ label::after {
 .pagination {
   display: inline-flex;
   border-radius: 3px;
+  flex-wrap: wrap;
+}
+
+.pagination > li {
+  display: inline-flex;
 }
 
 .pagination > li > a,
 .pagination > li > span {
   font-weight: 600;
   float: unset;
-  padding: 10px 18px;
+  padding: 10px 14px;
   color: #06c;
   border: 1px solid #ccc;
 }
@@ -3151,6 +3156,10 @@ label::after {
 .pagination > li:last-child > span {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
+}
+
+.pagination > li > a.pagination_symbols {
+  padding: 10px;
 }
 
 .pagination > li > a:hover,
@@ -3180,4 +3189,5 @@ label::after {
 .pagination > .disabled > a:hover,
 .pagination > .disabled > a:focus {
   color: #1a1a1a;
+  border-color: #ccc;
 }
