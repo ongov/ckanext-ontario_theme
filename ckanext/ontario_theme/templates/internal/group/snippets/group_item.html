@@ -2,7 +2,7 @@
 {% set url = h.url_for(type ~ '.read', id=group.name) %}
 
 {% block item %}
-  <a href="{{ url }}" class="group-search-table-cell-row">
+  <a href="{{ url }}" class="group-search-table-cell-row" aria-describedby="group-description">
     {% block item_inner %}
       <div class="group-search-table-cell">
         {% block title %}
@@ -12,7 +12,7 @@
         {% endblock title %}
         {% block description %}
           {% if h.get_translated(group,"description") %}
-            <p>{{ h.markdown_extract(h.get_translated(group,"description"), extract_length=80) }}</p>
+            <p id="group-description" aria-hidden="true">{{ h.markdown_extract(h.get_translated(group,"description"), extract_length=80) }}</p>
           {% endif %}
         {% endblock description %}
       </div>

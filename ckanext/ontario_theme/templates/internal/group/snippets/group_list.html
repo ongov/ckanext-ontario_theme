@@ -30,7 +30,7 @@
           <div class="group-search-table-thead-th ontario-table-cell--numeric" aria-hidden="true">{{ _("Datasets") }}</div>
         </div>
       </div>
-      <ul class="group-search-table-tbody">
+      <div class="group-search-table-tbody">
         {% for group in groups %}
           {% if group['title_translated'] %}
             {% if group['title_translated'][current_lang] %}
@@ -43,7 +43,7 @@
           {% endif %}
           {% snippet "group/snippets/group_item.html", group=group, position=loop.index %}
         {% endfor %}
-      </ul>
+      </div>
     {% endblock group_list_inner %}
   </div>
 {% endblock group_list %}
