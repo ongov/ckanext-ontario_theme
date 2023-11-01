@@ -2,6 +2,7 @@
 
 import ckan.plugins as plugins
 from ckanext.ontario_theme import validators
+from ckanext.ontario_theme import page
 import ckan.plugins.toolkit as toolkit
 from ckan.lib.plugins import DefaultTranslation
 
@@ -12,15 +13,11 @@ from collections import OrderedDict
 import datetime
 import ckan.authz as authz
 import ckan.lib.i18n as i18n
-import ckan.lib.pagination as pagination
-import dominate.tags as tags
 
 from flask import Blueprint, make_response
 from flask import render_template, render_template_string
-from markupsafe import Markup
 
 import json
-import re
 import ckan.lib.helpers as helpers
 import ckan.lib.formatters as formatters
 from ckan.lib.helpers import core_helper
@@ -29,7 +26,6 @@ from ckan.model import Package
 import ckan.model as model
 import locale
 import functools
-from six import text_type
 
 from ckanext.ontario_theme.resource_upload import ResourceUpload
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
@@ -886,75 +882,6 @@ def home_block_link(block='one'):
     if h.lang() == 'fr':
         value = config.get('ckanext.ontario_theme.home_block_{}_link-fr'.format(block), '')
     return value
-
-
-class Page(pagination.Page):
-    symbol_next = '<svg class="ontario-icon" focusable="false" \
-        aria-hidden="true" sol:category="primary" viewBox="0 0 \
-            24 24" preserveAspectRatio="xMidYMid meet"> \
-                <use href="#ontario-icon-chevron-right"></svg>'
-    symbol_previous = '<svg class="ontario-icon" focusable="false" \
-        aria-hidden="true" sol:category="primary" viewBox="0 0 24 24" \
-            preserveAspectRatio="xMidYMid meet"> \
-                <use href="#ontario-icon-chevron-left"></use></svg>'
-
-    def pager(self, *args, **kwargs):
-        with tags.div(cls="pagination-wrapper") as wrapper:
-            tags.ul(
-                "$link_previous ~2~ $link_next",
-                cls="pagination",
-                role="navigation",
-                aria_label="pagination",
-            )
-        params = dict(
-            format=text_type(wrapper),
-            symbol_previous=Markup(Page.symbol_previous),
-            symbol_next=Markup(Page.symbol_next),
-            curpage_attr={"class": "active"},
-            link_attr={},
-        )
-        params.update(kwargs)
-        return super(pagination.Page, self).pager(*args, **params)
-
-    def _pagerlink(self, page, text, extra_attributes=None):
-        anchor = super(pagination.Page, self)._pagerlink(page, text)
-        extra_attributes = extra_attributes or {}
-        if page == self.page:
-            anchor.set_attribute("aria-current", "page")
-            anchor.set_attribute("aria-label", "page {}".format(page))
-            anchor.delete_attribute("href")
-        elif text == Page.symbol_previous:
-            anchor.set_attribute("aria-label", "Go to previous page")
-            anchor.set_attribute("class", "pagination_symbols")
-        elif text == Page.symbol_next:
-            anchor.set_attribute("aria-label", "Go to next page")
-            anchor.set_attribute("class", "pagination_symbols")
-        elif page == self.last_page:
-            anchor.set_attribute("aria-label", "Go to page {}, last page"
-                                 .format(page))
-        else:
-            anchor.set_attribute("aria-label", "Go to page {}".format(page))
-        return text_type(tags.li(anchor, **extra_attributes))
-
-    def _range(self, regexp_match):
-        html = super(pagination.Page, self)._range(regexp_match)
-        # Convert '..'
-        dotdot = u'<span class="pager_dotdot">..</span>'
-        dotdot_link = tags.li(tags.span(u"..."), cls=u"disabled",
-                              aria_hidden=u"true")
-        html = re.sub(dotdot, text_type(dotdot_link), html)
-        # Convert current page
-        text = u"%s" % self.page
-        current_page_span = text_type(tags.span(text, **self.curpage_attr))
-        current_page_link = self._pagerlink(
-            self.page, text, extra_attributes=self.curpage_attr
-        )
-        return re.sub(current_page_span, current_page_link, html)
-
-    ckan.lib.pagination.Page.pager = pager
-    ckan.lib.pagination.Page._pagerlink = _pagerlink
-    ckan.lib.pagination.Page._range = _range
-
 
 class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
