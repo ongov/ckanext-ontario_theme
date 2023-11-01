@@ -1534,10 +1534,6 @@ via submission form. Copied from DS.*/
     letter-spacing: 0.02rem;
     line-height: 1.33;
   }
-
-  .resource-item .description {
-    margin-left: 71px;
-  }
 }
 
 .ministry-contact {
@@ -1564,7 +1560,6 @@ via submission form. Copied from DS.*/
 }
 
 .label-div {
-  min-width: 61px;
   float: left;
   position: relative;
   margin-right: 10px;
@@ -1592,19 +1587,6 @@ via submission form. Copied from DS.*/
 
 .resource-item div {
   padding: unset;
-}
-
-@media screen and (max-width: 64em) {
-  .resource-item .text-right {
-    text-align: left;
-  }
-}
-
-@media screen and (min-width: 40em) and (max-width: 64em) {
-  .resource-item .text-right {
-    margin-left: 71px;
-    float: left !important;
-  }
 }
 
 .label.label-english,
@@ -1721,10 +1703,20 @@ via submission form. Copied from DS.*/
   z-index: 1000;
 }
 
-@media screen and (max-width: 64em) {
+@media screen and (max-width: 40em) {
   .resource-buttons {
     margin-top: 10px;
   }
+}
+
+@media screen and (min-width: 40em) {
+  .resource-buttons {
+    margin-left: 10px;
+  }
+}
+
+.resource-buttons .ontario-button {
+  margin-right: 0;
 }
 
 .aside-heading {
@@ -1839,6 +1831,27 @@ section#dataset-resources > h2 {
   background-color: #e0f0ff;
   border-color: #00478f;
   color: #00478f;
+}
+
+@media screen and (max-width: 40em) {
+  .resource-item {
+    display: grid;
+  }
+}
+
+@media screen and (min-width: 40em) {
+  .resource-item {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .resource-title-div {
+    flex-basis: 85%;
+  }
+
+  .label-div {
+    height: 100%;
+  }
 }
 
 /* =====================================================
@@ -3164,4 +3177,63 @@ a.group-search-table-cell-row p {
   text-align: right;
   font-family: "Courier Prime", Courier, "Courier New", monospace;
   font-size: 18px;
+}
+
+/* ========================================================================
+   Pagination - Overrides
+   ======================================================================== */
+.pagination {
+  display: inline-flex;
+  border-radius: 3px;
+}
+
+.pagination > li > a,
+.pagination > li > span {
+  font-weight: 600;
+  float: unset;
+  padding: 10px 18px;
+  color: #06c;
+  border: 1px solid #ccc;
+}
+
+.pagination > li:first-child > a,
+.pagination > li:first-child > span {
+  margin-left: unset;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.pagination > li:last-child > a,
+.pagination > li:last-child > span {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+  z-index: 4;
+  color: #00478f;
+  background-color: #f2f2f2;
+  border-color: #ccc;
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  background-color: #666;
+  border-color: #ccc;
+}
+
+.pagination > .disabled > span,
+.pagination > .disabled > span:hover,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > a,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > a:focus {
+  color: #1a1a1a;
 }
