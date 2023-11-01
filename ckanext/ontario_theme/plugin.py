@@ -883,6 +883,7 @@ def home_block_link(block='one'):
         value = config.get('ckanext.ontario_theme.home_block_{}_link-fr'.format(block), '')
     return value
 
+
 class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
     plugins.implements(plugins.IConfigurer)
