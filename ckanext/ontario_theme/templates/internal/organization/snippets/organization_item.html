@@ -1,11 +1,11 @@
 {% set url = h.url_for(organization.type ~ '.read', id=organization.name) %}
+{% set organization_name = (h.get_translated(organization, "title") or organization.name) %}
 {% block item %}
-  <a href="{{ url }}" class="group-search-table-cell-row">
+  <li class="group-search-table-cell-row">
     {% block item_inner %}
       <div class="group-search-table-cell">
         {% block title %}
-          {% set organization_name = (h.get_translated(organization, "title") or organization.name) %}
-          <span href="{{ url }}" class="ministry-heading">{{ organization_name }}</span>
+          <span id="ministry-title" class="ministry-heading">{{ organization_name }}</span>
         {% endblock title %}
       </div>
       <div class="group-search-table-cell group-search-table-td ontario-table-cell--numeric">
@@ -15,5 +15,8 @@
         {% endblock datasets %}
       </div>
     {% endblock item_inner %}
-  </a>
+    <a href="{{ url }}"
+       aria-labelledby="ministry-title"
+       class="anchor-div-group"></a>
+  </li>
 {% endblock item %}

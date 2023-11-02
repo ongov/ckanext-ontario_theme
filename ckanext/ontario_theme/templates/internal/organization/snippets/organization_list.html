@@ -8,11 +8,11 @@
                aria-hidden="true">{{ _("Datasets") }}</div>
         </div>
       </div>
-      <div class="group-search-table-tbody">
+      <ul class="group-search-table-tbody">
         {% for organization in organizations %}
           {% snippet "organization/snippets/organization_item.html", organization=organization, position=loop.index, show_capacity=show_capacity %}
         {% endfor %}
-      </div>
+      </ul>
     {% endblock organization_list_inner %}
   </div>
 {% endblock organization_list %}

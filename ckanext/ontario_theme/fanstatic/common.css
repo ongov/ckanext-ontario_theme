@@ -771,6 +771,26 @@ a:focus {
   font-size: 18px;
 }
 
+.ministry-heading,
+.group-search-heading {
+  color: #0066cc;
+}
+
+.ministry-heading:visited,
+.group-search-heading:visited {
+  color: #551a8b;
+}
+
+.ministry-heading:hover,
+.group-search-heading:hover {
+  color: #00478f;
+}
+
+.ministry-heading:active,
+.group-search-heading:active {
+  color: #002142;
+}
+
 .ministry-item.media-item:first-child {
   border-top: 1px solid #dddddd;
 }
@@ -3069,6 +3089,7 @@ label::after {
 /* ========================================================================
    Group Search Page - Table view
    ======================================================================== */
+
 .group-search-table-thead-th {
   display: table-cell;
   font-weight: 700;
@@ -3086,15 +3107,12 @@ label::after {
   font-size: 18px;
 }
 
-a.group-search-table-cell-row {
+.group-search-table-cell-row {
   text-decoration: none;
 }
 
-a.group-search-table-cell-row .group-search-count {
-  color: #000;
-}
-
-a.group-search-table-cell-row p {
+.group-search-table-cell-row .group-search-count,
+.group-search-table-cell-row p {
   color: #000;
 }
 
@@ -3123,6 +3141,7 @@ a.group-search-table-cell-row p {
 .group-search-table-row,
 .group-search-table-cell-row {
   display: table-row;
+  transform: scale(1);
 }
 
 .group-search-table-cell {
@@ -3169,7 +3188,12 @@ a.group-search-table-cell-row p {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 999;
+  width: 100%;
+  height: 100%;
+}
+
+a.anchor-div-group {
+  text-decoration: none;
 }
 
 .group-search-table-cell.group-search-table-td.ontario-table-cell--numeric {
