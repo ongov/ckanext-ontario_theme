@@ -14,7 +14,7 @@
         {% endblock title %}
         {% block description %}
           {% if h.get_translated(group,"description") %}
-            <p aria-hidden="true" id="description-{{ position }}">
+            <p id="description-{{ position }}">
               {{ h.markdown_extract(h.get_translated(group,"description"), extract_length=80) }}
             </p>
           {% endif %}
@@ -30,8 +30,8 @@
       </div>
     {% endblock item_inner %}
     <a href="{{ url }}"
-       aria-labelledby="group-title-{{ position }}"
-       aria-describedby="description-{{ position }} count-{{ position }}"
+       aria-labelledby="group-title-{{ position }} count-{{ position }}"
+       aria-describedby="description-{{ position }}"
        class="anchor-div-group"></a>
   </li>
 {% endblock item %}
