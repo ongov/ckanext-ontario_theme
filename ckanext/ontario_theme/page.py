@@ -1,3 +1,12 @@
+u'''
+Overrides CKAN's pagination.py module to be more accessbile
+Replaces symbol_next and symbol_previous with single chevron
+rather than double chevron to better align with current
+pagination practices.
+Adds aria-labels to each link in the pagination and
+removes redundant links so users do not get confused
+'''
+
 import ckan.lib.pagination as pagination
 import dominate.tags as tags
 import re
