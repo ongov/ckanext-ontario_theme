@@ -765,40 +765,6 @@ a:focus {
 /* ========================================================================
    Custom overrides - ministry page
    ======================================================================== */
-.ministry-heading,
-.group-search-heading {
-  font-weight: 700;
-  font-size: 18px;
-}
-
-.ministry-heading,
-.group-search-heading {
-  color: #0066cc;
-}
-
-.ministry-heading:visited,
-.group-search-heading:visited {
-  color: #551a8b;
-}
-
-.ministry-heading:hover,
-.group-search-heading:hover {
-  color: #00478f;
-}
-
-.ministry-heading:active,
-.group-search-heading:active {
-  color: #002142;
-}
-
-.ministry-item.media-item:first-child {
-  border-top: 1px solid #dddddd;
-}
-
-.media-item:last-child {
-  border-bottom: none;
-}
-
 .ontario-module-h3 {
   font-size: 20px;
   font-weight: 600;
@@ -3087,10 +3053,35 @@ label::after {
 }
 
 /* ========================================================================
-   Group Search Page - Table view
+   Group & Ministries Search Page - Table view
    ======================================================================== */
+.ministry-heading,
+.group-search-heading {
+  font-weight: 700;
+  font-size: 18px;
+}
 
-.group-search-table-thead-th {
+.ministry-heading,
+.group-search-heading {
+  color: #0066cc;
+}
+
+.ministry-heading:visited,
+.group-search-heading:visited {
+  color: #551a8b;
+}
+
+.ministry-heading:hover,
+.group-search-heading:hover {
+  color: #00478f;
+}
+
+.ministry-heading:active,
+.group-search-heading:active {
+  color: #002142;
+}
+
+.search-table-thead-th {
   display: table-cell;
   font-weight: 700;
   text-align: left;
@@ -3099,89 +3090,63 @@ label::after {
   line-height: 1.5rem;
 }
 
-.group-search-table-thead {
+.search-table-thead {
   display: table-header-group;
 }
 
-.group-search-table-row {
+.search-table-cell {
+  display: table-cell;
+}
+
+.search-table-tbody {
+  display: table-row-group;
+}
+
+.search-table-row {
   font-size: 18px;
 }
 
-.group-search-table-cell-row {
-  text-decoration: none;
-}
-
-.group-search-table-cell-row .group-search-count,
-.group-search-table-cell-row p {
+.search-table-cell-row .search-count,
+.search-table-cell-row p {
   color: #000;
 }
 
-.group-search-table-cell {
+.search-table-cell {
   padding: 2.1875rem 1rem 2.1875rem 1rem;
   text-align: left;
   letter-spacing: .025rem;
   border-top: solid 1px #ccc;
 }
 
-.group-search-table-cell.group-search-table-td {
-  padding-left: 25px;
-}
-
-.group-search-table-cell > p {
+.search-table-cell > p {
   font-size: 16px;
   margin-bottom: unset;
   margin-top: 5px;
 }
 
-.group-search-table {
+.search-table {
   display: table;
   width: 100%;
 }
 
-.group-search-table-row,
-.group-search-table-cell-row {
+/* Interaction state */
+.search-table-row,
+.search-table-cell-row {
   display: table-row;
   transform: scale(1);
 }
 
-.group-search-table-cell {
-  display: table-cell;
-}
-
-.group-search-table-tbody {
-  display: table-row-group;
-}
-
-.group-search-table-cell-row:hover {
+.search-table-cell-row:hover {
   background-color: #f2f2f2;
 }
 
-.group-search-table-cell-row:hover .ministry-heading,
-.group-search-table-cell-row:hover .group-search-heading {
+.search-table-cell-row:hover .ministry-heading,
+.search-table-cell-row:hover .search-heading {
   text-decoration: underline;
 }
 
-.group-search-table-cell-row:hover span {
+.search-table-cell-row:hover span {
   font-weight: 700;
-}
-
-.group-search-table-thead-th.ontario-table-cell--numeric {
-  padding: 2.75rem 1.5rem 2.75rem 1rem;
-  text-align: right;
-}
-
-@media screen and (max-width: 40em) {
-  .group-search-table-thead-th.ontario-table-cell--numeric {
-    padding: 1.53125rem 1rem 1.53125rem .5rem
-  }
-
-  .group-search-table-thead-th {
-    padding: 1.53125rem .5rem 1.53125rem .5rem;
-  }
-
-  .group-search-table-cell {
-    padding: 1.1875rem .5rem 1.1875rem .5rem;
-  }
 }
 
 .anchor-div-group {
@@ -3190,13 +3155,30 @@ label::after {
   left: 0;
   width: 100%;
   height: 100%;
-}
-
-a.anchor-div-group {
   text-decoration: none;
 }
 
-.group-search-table-cell.group-search-table-td.ontario-table-cell--numeric {
+/* Numeric column */
+.search-table-thead-th.ontario-table-cell--numeric {
+  padding: 2.75rem 1.5rem 2.75rem 1rem;
+  text-align: right;
+}
+
+@media screen and (max-width: 40em) {
+  .search-table-thead-th.ontario-table-cell--numeric {
+    padding: 1.53125rem 1rem 1.53125rem .5rem
+  }
+
+  .search-table-thead-th {
+    padding: 1.53125rem .5rem 1.53125rem .5rem;
+  }
+
+  .search-table-cell {
+    padding: 1.1875rem .5rem 1.1875rem .5rem;
+  }
+}
+
+.search-table-cell.search-table-td.ontario-table-cell--numeric {
   padding: 1.1875rem 1.5rem 1.1875rem 1rem;
   text-align: right;
   font-family: "Courier Prime", Courier, "Courier New", monospace;
