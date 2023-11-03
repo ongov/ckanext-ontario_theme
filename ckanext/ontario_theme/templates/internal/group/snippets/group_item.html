@@ -7,24 +7,30 @@
       <div class="group-search-table-cell">
         {% block title %}
           {% block link %}
-            <span class="group-search-heading">{{ h.get_translated(group,"title") }}</span>
+            <span aria-hidden="true"
+                  id="group-title-{{ position }}"
+                  class="group-search-heading">{{ h.get_translated(group,"title") }}</span>
           {% endblock link %}
         {% endblock title %}
         {% block description %}
           {% if h.get_translated(group,"description") %}
-            <p>{{ h.markdown_extract(h.get_translated(group,"description"), extract_length=80) }}</p>
+            <p aria-hidden="true" id="description-{{ position }}">
+              {{ h.markdown_extract(h.get_translated(group,"description"), extract_length=80) }}
+            </p>
           {% endif %}
         {% endblock description %}
       </div>
       <div class="group-search-table-cell group-search-table-td ontario-table-cell--numeric">
         {% block datasets %}
           {% set group_datasets = ungettext('{number} <span class="ontario-show-for-sr">dataset</span>', '{number} <span class="ontario-show-for-sr">datasets</span>', group.package_count) %}
-          <span class="group-search-count">{{ group_datasets.format(number=group.package_count)|safe }}</span>
+          <span aria-hidden="true"
+                id="count-{{ position }}"
+                class="group-search-count">{{ group_datasets.format(number=group.package_count)|safe }}</span>
         {% endblock datasets %}
       </div>
     {% endblock item_inner %}
     <a href="{{ url }}"
-       aria-label="{{ h.get_translated(group,'title') }}"
+       aria-labelledby="group-title-{{ position }} description-{{ position }} count-{{ position }}"
        class="anchor-div-group"></a>
   </li>
 {% endblock item %}
