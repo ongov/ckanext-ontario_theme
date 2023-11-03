@@ -30,7 +30,8 @@
       </div>
     {% endblock item_inner %}
     <a href="{{ url }}"
-       aria-labelledby="group-title-{{ position }} description-{{ position }} count-{{ position }}"
+       aria-labelledby="group-title-{{ position }}"
+       aria-describedby="description-{{ position }} count-{{ position }}"
        class="anchor-div-group"></a>
   </li>
 {% endblock item %}
