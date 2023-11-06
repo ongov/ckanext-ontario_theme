@@ -2653,3 +2653,15 @@ msgstr "{gibibytes} <abbr title=\"gibioctets\">Gio</abbr>"
 #: ckanext/ontario_theme/plugin.py:737
 msgid "{tebibytes} <abbr title=\"tebibytes\">TiB</abbr>"
 msgstr "{tebibytes} <abbr title=\"tébioctets\">Tio</abbr>"
+
+#: ckanext/ontario_theme/page.py:45
+msgid "Go to previous page"
+msgstr "Aller à la page précédente"
+
+#: ckanext/ontario_theme/page.py:48
+msgid "Go to next page"
+msgstr "Aller à la page suivante"
+
+#: ckanext/ontario_theme/page.py:51
+msgid "Go to page {}"
+msgstr "Aller à page {}"
