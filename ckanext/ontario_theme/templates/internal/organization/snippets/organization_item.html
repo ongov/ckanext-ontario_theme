@@ -1,19 +1,26 @@
 {% set url = h.url_for(organization.type ~ '.read', id=organization.name) %}
+{% set organization_name = (h.get_translated(organization, "title") or organization.name) %}
 {% block item %}
-  <li class="media-item ministry-item">
+  <li class="search-table-cell-row">
     {% block item_inner %}
-      {% block title %}
-        {% set organization_name = (h.get_translated(organization, "title") or organization.name) %}
-        <a href="{{ url }}"
-           title="{{ _('View {organization_name}').format(organization_name=organization_name) }}"
-           class="ministry-heading">{{ h.get_translated(organization, "title") or organization.name }}</a>
-      {% endblock title %}
-
-      {% block datasets %}
-        <p>
-          {{ ungettext( _('Datasets: {num}'), _('Datasets: {num}'), organization.package_count).format(num=organization.package_count) }}
-        </p>
-      {% endblock datasets %}
+      <div class="search-table-cell">
+        {% block title %}
+          <span aria-hidden="true"
+                id="ministry-title-{{ position }}"
+                class="ministry-heading">{{ organization_name }}</span>
+        {% endblock title %}
+      </div>
+      <div class="search-table-cell search-table-td ontario-table-cell--numeric">
+        {% block datasets %}
+          {% set organization_datasets = ungettext('{number} <span class="ontario-show-for-sr">dataset</span>', '{number} <span class="ontario-show-for-sr">datasets</span>', organization.package_count) %}
+          <span aria-hidden="true"
+                id="count-{{ position }}"
+                class="search-count">{{ organization_datasets.format(number=organization.package_count)|safe }}</span>
+        {% endblock datasets %}
+      </div>
     {% endblock item_inner %}
+    <a href="{{ url }}"
+       aria-labelledby="ministry-title-{{ position }} count-{{ position }}"
+       class="anchor-div-group"></a>
   </li>
 {% endblock item %}

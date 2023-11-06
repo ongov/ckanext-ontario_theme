@@ -2,26 +2,36 @@
 {% set url = h.url_for(type ~ '.read', id=group.name) %}
 
 {% block item %}
-  <div class="group-search-table-row">
+  <li class="search-table-cell-row">
     {% block item_inner %}
-      <div class="group-search-table-cell">
+      <div class="search-table-cell">
         {% block title %}
           {% block link %}
-            <a href="{{ url }}" class="group-search-heading">{{ h.get_translated(group,"title") }}</a>
+            <span aria-hidden="true"
+                  id="group-title-{{ position }}"
+                  class="group-search-heading">{{ h.get_translated(group,"title") }}</span>
           {% endblock link %}
         {% endblock title %}
         {% block description %}
           {% if h.get_translated(group,"description") %}
-            <p>{{ h.markdown_extract(h.get_translated(group,"description"), extract_length=80) }}</p>
+            <p id="description-{{ position }}">
+              {{ h.markdown_extract(h.get_translated(group,"description"), extract_length=80) }}
+            </p>
           {% endif %}
         {% endblock description %}
       </div>
-      <div class="group-search-table-cell group-search-table-td ">
+      <div class="search-table-cell search-table-td ontario-table-cell--numeric">
         {% block datasets %}
           {% set group_datasets = ungettext('{number} <span class="ontario-show-for-sr">dataset</span>', '{number} <span class="ontario-show-for-sr">datasets</span>', group.package_count) %}
-          <span class="group-search-count">{{ group_datasets.format(number=group.package_count)|safe }}</span>
+          <span aria-hidden="true"
+                id="count-{{ position }}"
+                class="search-count">{{ group_datasets.format(number=group.package_count)|safe }}</span>
         {% endblock datasets %}
       </div>
     {% endblock item_inner %}
-  </div>
+    <a href="{{ url }}"
+       aria-labelledby="group-title-{{ position }} count-{{ position }}"
+       aria-describedby="description-{{ position }}"
+       class="anchor-div-group"></a>
+  </li>
 {% endblock item %}
