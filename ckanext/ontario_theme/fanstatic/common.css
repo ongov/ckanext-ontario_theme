@@ -765,20 +765,6 @@ a:focus {
 /* ========================================================================
    Custom overrides - ministry page
    ======================================================================== */
-.ministry-heading {
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 45px;
-}
-
-.ministry-item.media-item:first-child {
-  border-top: 1px solid #dddddd;
-}
-
-.media-item:last-child {
-  border-bottom: none;
-}
-
 .ontario-module-h3 {
   font-size: 20px;
   font-weight: 600;
@@ -3067,60 +3053,136 @@ label::after {
 }
 
 /* ========================================================================
-   Group Search Page - Table view
+   Group & Ministries Search Page - Table view
    ======================================================================== */
-.group-search-table-thead-th {
-  display: table-cell;
-  font-size: 22px;
+.ministry-heading,
+.group-search-heading {
   font-weight: 700;
-  padding-bottom: 30px;
+  font-size: 18px;
 }
 
-.group-search-table-thead {
+.ministry-heading,
+.group-search-heading {
+  color: #0066cc;
+}
+
+.ministry-heading:visited,
+.group-search-heading:visited {
+  color: #551a8b;
+}
+
+.ministry-heading:hover,
+.group-search-heading:hover {
+  color: #00478f;
+}
+
+.ministry-heading:active,
+.group-search-heading:active {
+  color: #002142;
+}
+
+.search-table-thead-th {
+  display: table-cell;
+  font-weight: 700;
+  text-align: left;
+  padding: 1.75rem 1rem 1.75rem 1rem;
+  font-size: 22px;
+  line-height: 1.5rem;
+}
+
+.search-table-thead {
   display: table-header-group;
 }
 
-.group-search-table-row,
-.group-search-heading {
+.search-table-cell {
+  display: table-cell;
+}
+
+.search-table-tbody {
+  display: table-row-group;
+}
+
+.search-table-row {
   font-size: 18px;
 }
 
-.group-search-heading {
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 45px;
+.search-table-cell-row .search-count,
+.search-table-cell-row p {
+  color: #000;
 }
 
-.group-search-table-tbody > .group-search-table-row > .group-search-table-cell {
-  padding-top: 1.5rem;
-  padding-bottom: 2.5rem;
+.search-table-cell {
+  padding: 2.1875rem 1rem 2.1875rem 1rem;
+  text-align: left;
+  letter-spacing: .025rem;
   border-top: solid 1px #ccc;
 }
 
-.group-search-table-tbody > .group-search-table-row > .group-search-table-cell.group-search-table-td {
-  padding-left: 25px;
-}
-
-.group-search-table-cell > p {
-  font-size: 19px;
+.search-table-cell > p {
+  font-size: 16px;
   margin-bottom: unset;
+  margin-top: 5px;
 }
 
-.group-search-table {
+.search-table {
   display: table;
   width: 100%;
 }
 
-.group-search-table-row {
+/* Interaction state */
+.search-table-row,
+.search-table-cell-row {
   display: table-row;
+  transform: scale(1);
 }
 
-.group-search-table-cell {
-  display: table-cell;
+.search-table-cell-row:hover {
+  background-color: #f2f2f2;
 }
 
-.group-search-table-tbody {
-  display: table-row-group;
+.search-table-cell-row:hover .ministry-heading,
+.search-table-cell-row:hover .search-heading {
+  text-decoration: underline;
+}
+
+.search-table-cell-row:hover span {
+  font-weight: 700;
+}
+
+.anchor-div-group {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+/* Numeric column */
+.search-table-thead-th.ontario-table-cell--numeric {
+  padding: 2.75rem 1.5rem 2.75rem 1rem;
+  text-align: right;
+}
+
+@media screen and (max-width: 40em) {
+  .search-table-thead-th.ontario-table-cell--numeric {
+    padding: 1.53125rem 1rem 1.53125rem .5rem
+  }
+
+  .search-table-thead-th {
+    padding: 1.53125rem .5rem 1.53125rem .5rem;
+  }
+
+  .search-table-cell {
+    padding: 1.1875rem .5rem 1.1875rem .5rem;
+  }
+}
+
+.search-table-cell.search-table-td.ontario-table-cell--numeric {
+  padding: 1.1875rem 1.5rem 1.1875rem 1rem;
+  text-align: right;
+  font-family: "Courier Prime", Courier, "Courier New", monospace;
+  font-size: 18px;
 }
 
 /* ========================================================================
