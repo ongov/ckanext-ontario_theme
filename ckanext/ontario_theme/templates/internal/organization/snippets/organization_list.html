@@ -1,0 +1,18 @@
+{% block organization_list %}
+  <div class="search-table ontario-small-12">
+    {% block organization_list_inner %}
+      <div class="search-table-thead">
+        <div class="search-table-row">
+          <div class="search-table-thead-th" aria-hidden="true">{{ _("Ministries") }}</div>
+          <div class="search-table-thead-th ontario-table-cell--numeric"
+               aria-hidden="true">{{ _("Datasets") }}</div>
+        </div>
+      </div>
+      <ul class="search-table-tbody">
+        {% for organization in organizations %}
+          {% snippet "organization/snippets/organization_item.html", organization=organization, position=loop.index, show_capacity=show_capacity %}
+        {% endfor %}
+      </ul>
+    {% endblock organization_list_inner %}
+  </div>
+{% endblock organization_list %}
