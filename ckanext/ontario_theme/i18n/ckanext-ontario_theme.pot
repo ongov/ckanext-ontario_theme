@@ -1921,3 +1921,15 @@ msgstr ""
 #: ckanext/ontario_theme/templates/internal/package/read.html:31
 msgid "This record describes an <abbr title=\"Artificial Intelligence\">AI</abbr> asset. It does not describe a dataset."
 msgstr ""
+
+#: ckanext/ontario_theme/page.py:45
+msgid "Go to previous page"
+msgstr ""
+
+#: ckanext/ontario_theme/page.py:48
+msgid "Go to next page"
+msgstr ""
+
+#: ckanext/ontario_theme/page.py:51
+msgid "Go to page {}"
+msgstr ""
