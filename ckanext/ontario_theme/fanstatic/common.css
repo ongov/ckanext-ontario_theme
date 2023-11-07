@@ -3061,26 +3061,6 @@ label::after {
   font-size: 18px;
 }
 
-.ministry-heading,
-.group-search-heading {
-  color: #0066cc;
-}
-
-.ministry-heading:visited,
-.group-search-heading:visited {
-  color: #551a8b;
-}
-
-.ministry-heading:hover,
-.group-search-heading:hover {
-  color: #00478f;
-}
-
-.ministry-heading:active,
-.group-search-heading:active {
-  color: #002142;
-}
-
 .search-table-thead-th {
   display: table-cell;
   font-weight: 700;
@@ -3141,8 +3121,24 @@ label::after {
 }
 
 .search-table-cell-row:hover .ministry-heading,
-.search-table-cell-row:hover .search-heading {
+.search-table-cell-row:hover .group-search-heading {
   text-decoration: underline;
+  color: #00478f;
+}
+
+.search-table-cell-row .ministry-heading,
+.search-table-cell-row .group-search-heading {
+  color: #0066cc;
+}
+
+.search-table-cell-row:visited .ministry-heading,
+.search-table-cell-row:visited .group-search-heading {
+  color: #551a8b;
+}
+
+.search-table-cell-row:active .ministry-heading,
+.search-table-cell-row:active .group-search-heading {
+  color: #002142;
 }
 
 .search-table-cell-row:hover span {
