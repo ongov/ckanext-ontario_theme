@@ -2,6 +2,7 @@
 
 import ckan.plugins as plugins
 from ckanext.ontario_theme import validators
+from ckanext.ontario_theme import page
 import ckan.plugins.toolkit as toolkit
 from ckan.lib.plugins import DefaultTranslation
 

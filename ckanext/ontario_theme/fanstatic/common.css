@@ -677,6 +677,34 @@ input[placeholder] {
   fill: #1080a6;
 }
 
+/* ========================================================================
+   Page Alerts - ODC
+   ======================================================================== */
+.odc-alert {
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.odc-alert-restricted {
+  background-color: #fceff0;
+  border: 1px solid #cd0000;
+}
+
+.odc-alert-under_review {
+  background-color: #f1e3f2;
+  border: 1px solid #92278F;
+}
+
+.odc-alert-algorithm {
+  background-color: #DBE9F5;
+  border: 1px solid #3193CC;
+}
+
+.odc-alert-under_review p,
+.odc-alert-algorithm p:last-child {
+  margin-bottom: 0;
+}
+
 /* ===============================
    Custom overrides - page alerts
    =============================== */
@@ -737,20 +765,6 @@ a:focus {
 /* ========================================================================
    Custom overrides - ministry page
    ======================================================================== */
-.ministry-heading {
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 45px;
-}
-
-.ministry-item.media-item:first-child {
-  border-top: 1px solid #dddddd;
-}
-
-.media-item:last-child {
-  border-bottom: none;
-}
-
 .ontario-module-h3 {
   font-size: 20px;
   font-weight: 600;
@@ -1506,10 +1520,6 @@ via submission form. Copied from DS.*/
     letter-spacing: 0.02rem;
     line-height: 1.33;
   }
-
-  .resource-item .description {
-    margin-left: 71px;
-  }
 }
 
 .ministry-contact {
@@ -1536,7 +1546,6 @@ via submission form. Copied from DS.*/
 }
 
 .label-div {
-  min-width: 61px;
   float: left;
   position: relative;
   margin-right: 10px;
@@ -1564,19 +1573,6 @@ via submission form. Copied from DS.*/
 
 .resource-item div {
   padding: unset;
-}
-
-@media screen and (max-width: 64em) {
-  .resource-item .text-right {
-    text-align: left;
-  }
-}
-
-@media screen and (min-width: 40em) and (max-width: 64em) {
-  .resource-item .text-right {
-    margin-left: 71px;
-    float: left !important;
-  }
 }
 
 .label.label-english,
@@ -1693,10 +1689,20 @@ via submission form. Copied from DS.*/
   z-index: 1000;
 }
 
-@media screen and (max-width: 64em) {
+@media screen and (max-width: 40em) {
   .resource-buttons {
     margin-top: 10px;
   }
+}
+
+@media screen and (min-width: 40em) {
+  .resource-buttons {
+    margin-left: 10px;
+  }
+}
+
+.resource-buttons .ontario-button {
+  margin-right: 0;
 }
 
 .aside-heading {
@@ -1811,6 +1817,27 @@ section#dataset-resources > h2 {
   background-color: #e0f0ff;
   border-color: #00478f;
   color: #00478f;
+}
+
+@media screen and (max-width: 40em) {
+  .resource-item {
+    display: grid;
+  }
+}
+
+@media screen and (min-width: 40em) {
+  .resource-item {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .resource-title-div {
+    flex-basis: 85%;
+  }
+
+  .label-div {
+    height: 100%;
+  }
 }
 
 /* =====================================================
@@ -2393,6 +2420,12 @@ figure {
   width: 80%;
   margin: 50px 0;
   padding: 10px;
+}
+
+#about #files .metadata-item:last-of-type {
+  border-bottom: unset;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 /* Wrapper styling */
@@ -3020,58 +3053,199 @@ label::after {
 }
 
 /* ========================================================================
-   Group Search Page - Table view
+   Group & Ministries Search Page - Table view
    ======================================================================== */
-.group-search-table-thead-th {
-  display: table-cell;
-  font-size: 22px;
+.ministry-heading,
+.group-search-heading {
   font-weight: 700;
-  padding-bottom: 30px;
+  font-size: 18px;
 }
 
-.group-search-table-thead {
+.search-table-thead-th {
+  display: table-cell;
+  font-weight: 700;
+  text-align: left;
+  padding: 1.75rem 1rem 1.75rem 1rem;
+  font-size: 22px;
+  line-height: 1.5rem;
+}
+
+.search-table-thead {
   display: table-header-group;
 }
 
-.group-search-table-row,
-.group-search-heading {
+.search-table-cell {
+  display: table-cell;
+}
+
+.search-table-tbody {
+  display: table-row-group;
+}
+
+.search-table-row {
   font-size: 18px;
 }
 
-.group-search-heading {
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 45px;
+.search-table-cell-row .search-count,
+.search-table-cell-row p {
+  color: #000;
 }
 
-.group-search-table-tbody > .group-search-table-row > .group-search-table-cell {
-  padding-top: 1.5rem;
-  padding-bottom: 2.5rem;
+.search-table-cell {
+  padding: 2.1875rem 1rem 2.1875rem 1rem;
+  text-align: left;
+  letter-spacing: .025rem;
   border-top: solid 1px #ccc;
 }
 
-.group-search-table-tbody > .group-search-table-row > .group-search-table-cell.group-search-table-td {
-  padding-left: 25px;
-}
-
-.group-search-table-cell > p {
-  font-size: 19px;
+.search-table-cell > p {
+  font-size: 16px;
   margin-bottom: unset;
+  margin-top: 5px;
 }
 
-.group-search-table {
+.search-table {
   display: table;
   width: 100%;
 }
 
-.group-search-table-row {
+/* Interaction state */
+.search-table-row,
+.search-table-cell-row {
   display: table-row;
+  transform: scale(1);
 }
 
-.group-search-table-cell {
-  display: table-cell;
+.search-table-cell-row:hover {
+  background-color: #f2f2f2;
 }
 
-.group-search-table-tbody {
-  display: table-row-group;
+.search-table-cell-row:hover .ministry-heading,
+.search-table-cell-row:hover .group-search-heading {
+  text-decoration: underline;
+  color: #00478f;
+}
+
+.search-table-cell-row .ministry-heading,
+.search-table-cell-row .group-search-heading {
+  color: #0066cc;
+}
+
+.search-table-cell-row:visited .ministry-heading,
+.search-table-cell-row:visited .group-search-heading {
+  color: #551a8b;
+}
+
+.search-table-cell-row:active .ministry-heading,
+.search-table-cell-row:active .group-search-heading {
+  color: #002142;
+}
+
+.search-table-cell-row:hover span {
+  font-weight: 700;
+}
+
+.anchor-div-group {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+/* Numeric column */
+.search-table-thead-th.ontario-table-cell--numeric {
+  padding: 2.75rem 1.5rem 2.75rem 1rem;
+  text-align: right;
+}
+
+@media screen and (max-width: 40em) {
+  .search-table-thead-th.ontario-table-cell--numeric {
+    padding: 1.53125rem 1rem 1.53125rem .5rem
+  }
+
+  .search-table-thead-th {
+    padding: 1.53125rem .5rem 1.53125rem .5rem;
+  }
+
+  .search-table-cell {
+    padding: 1.1875rem .5rem 1.1875rem .5rem;
+  }
+}
+
+.search-table-cell.search-table-td.ontario-table-cell--numeric {
+  padding: 1.1875rem 1.5rem 1.1875rem 1rem;
+  text-align: right;
+  font-family: "Courier Prime", Courier, "Courier New", monospace;
+  font-size: 18px;
+}
+
+/* ========================================================================
+   Pagination - Overrides
+   ======================================================================== */
+.pagination {
+  display: inline-flex;
+  border-radius: 3px;
+  flex-wrap: wrap;
+}
+
+.pagination > li {
+  display: inline-flex;
+}
+
+.pagination > li > a,
+.pagination > li > span {
+  font-weight: 600;
+  float: unset;
+  padding: 10px 14px;
+  color: #06c;
+  border: 1px solid #ccc;
+}
+
+.pagination > li:first-child > a,
+.pagination > li:first-child > span {
+  margin-left: unset;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.pagination > li:last-child > a,
+.pagination > li:last-child > span {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.pagination > li > a.pagination_symbols {
+  padding: 10px;
+}
+
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+  z-index: 4;
+  color: #00478f;
+  background-color: #f2f2f2;
+  border-color: #ccc;
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  background-color: #666;
+  border-color: #ccc;
+}
+
+.pagination > .disabled > span,
+.pagination > .disabled > span:hover,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > a,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > a:focus {
+  color: #1a1a1a;
+  border-color: #ccc;
 }
