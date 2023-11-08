@@ -3156,7 +3156,6 @@ label::after {
 
 /* Numeric column */
 .search-table-thead-th.ontario-table-cell--numeric {
-  padding: 2.75rem 1.5rem 2.75rem 1rem;
   text-align: right;
 }
 
@@ -3177,7 +3176,6 @@ label::after {
 .search-table-cell.search-table-td.ontario-table-cell--numeric {
   padding: 1.1875rem 1.5rem 1.1875rem 1rem;
   text-align: right;
-  font-family: "Courier Prime", Courier, "Courier New", monospace;
   font-size: 18px;
 }
 
