@@ -1552,14 +1552,14 @@ via submission form. Copied from DS.*/
 }
 
 .resource-item .label[data-format] {
-  height: 57px;
-  min-width: 61px;
+  height: 55px;
+  min-width: 55px;
   position: relative;
   padding: 1em 0.5em;
-  font-size: 16.5px;
-  display: inline-block;
+  display: flex;
   font-weight: 700;
-  line-height: 25px;
+  align-items: center;
+  justify-content: center;
 }
 
 .resource-item .description {
@@ -2242,8 +2242,13 @@ screen and (min-width: 96em) {
 .label.label-default {
   color: #000;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
   padding: 0.4em 1em;
+  height: 33px;
+  min-width: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .label[data-format="html"],
