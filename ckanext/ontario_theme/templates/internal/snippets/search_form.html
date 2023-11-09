@@ -1,6 +1,7 @@
 {% ckan_extends %}
 
 {% set schema_dict = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
+{% set name = "access_level" %}
 {% block search_input %}
   {#
     Design System search bar. Arguments:
@@ -41,6 +42,38 @@
 {% endblock search_input %}
 
 {% block search_title %}
+  {% if facets %}
+    <div class="ontario-form-group">
+      <fieldset class="access-level ontario-fieldset">
+        <legend class="ontario-fieldset__legend">{{ _('Access Level') }}{{ _(':') }}</legend>
+        {% with items = h.get_facet_items_dict(name) %}
+          <div class="ontario-radios">
+            {% for item in items %}
+              {{ h.snippet('snippets/translate_facets.html', fields=schema_dict, name=name, item=item) }}
+              <div class="ontario-radios__item">
+                <input class="ontario-radios__input"
+                       id="radio-button-option-{{ item.name }}"
+                       name="radio-buttons"
+                       type="radio"
+                       value="option-{{ item.name }}">
+                <label class="ontario-label ontario-radios__label"
+                       for="radio-button-option-{{ item.name }}">{{ item.display_name }} ({{ item.count }})</label>
+              </div>
+            {% endfor %}
+            <div class="ontario-radios__item">
+              <input class="ontario-radios__input"
+                     id="radio-button-option-all"
+                     name="radio-buttons"
+                     type="radio"
+                     value="option-all">
+              <label class="ontario-label ontario-radios__label"
+                     for="radio-button-option-all">{{ _('All') }}</label>
+            </div>
+          </div>
+        {% endwith %}
+      </fieldset>
+    </div>
+  {% endif %}
   {% if not error %}
     <div role="status" class="search-count">
       {% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}
