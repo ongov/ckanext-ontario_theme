@@ -3406,4 +3406,5 @@ input[type=radio] + label {
 .access-level .ontario-fieldset__legend {
   float: left;
   width: unset;
+  margin-right: 1rem;
 }
