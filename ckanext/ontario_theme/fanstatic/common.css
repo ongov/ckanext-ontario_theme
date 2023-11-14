@@ -83,7 +83,7 @@
   box-sizing: border-box;
   color: #1a1a1a;
   display: block;
-  font-size: 24px;
+  font-size: 20px;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.5;
   margin: 0 0 2.5rem;
@@ -380,8 +380,7 @@ input[type="reset"].ontario-search-reset:focus {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-style: normal;
   font-weight: 600;
-  font-size: 20px;
-  line-height: 26px;
+  font-size: 19px;
   color: #1a1a1a;
 }
 
@@ -1564,7 +1563,7 @@ via submission form. Copied from DS.*/
 
 .resource-item .description {
   font-weight: 400;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 24.51px;
   color: #1a1a1a;
   margin-top: 5px;
@@ -1580,7 +1579,7 @@ via submission form. Copied from DS.*/
 .label.label-english_and_french {
   display: inline-block;
   background-color: #f2f2f2;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
   color: #1a1a1a;
   border-radius: 4px;
@@ -1596,7 +1595,7 @@ via submission form. Copied from DS.*/
 .resource-item-title {
   display: inline;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 27px;
   color: #000000;
   text-decoration: none;
@@ -1610,7 +1609,7 @@ via submission form. Copied from DS.*/
 
 .dataset-font,
 .package-item-category {
-  font-size: 19px;
+  font-size: 16px;
   font-weight: 400;
 }
 
@@ -1683,7 +1682,7 @@ via submission form. Copied from DS.*/
 }
 
 .filesize {
-  font-size: 20px;
+  font-size: 16px;
   white-space: nowrap;
   position: relative;
   z-index: 1000;
@@ -1765,7 +1764,6 @@ section.additional-info table.table tbody tr:last-child td {
 section.additional-info table.table tbody tr th {
   padding: 5px 15px 5px 30px;
   font-weight: 700;
-  font-size: 20px;
   line-height: 32.6px;
   color: #4d4d4d;
 }
@@ -1773,7 +1771,6 @@ section.additional-info table.table tbody tr th {
 section.additional-info table.table tbody tr td {
   padding: 5px 30px 5px 0;
   font-weight: 400;
-  font-size: 20px;
   line-height: 32.6px;
   color: #4d4d4d;
 }
@@ -1781,10 +1778,6 @@ section.additional-info table.table tbody tr td {
 section.additional-info table.table tbody tr th,
 section.additional-info table.table tbody tr td {
   border: none;
-}
-
-section#dataset-resources .dataset-font {
-  color: #4d4d4d;
 }
 
 section#dataset-resources > h2 {
@@ -1968,7 +1961,7 @@ a.ontario-button.ontario-button--tertiary:hover {
 }
 
 .datafile-p {
-  font-size: 20px;
+  font-size: 16px;
   line-height: 27.24px;
 }
 
@@ -2167,6 +2160,7 @@ screen and (min-width: 96em) {
 
 .dataset-content > h3.ontario-h4 {
   font-weight: 600;
+  font-size: 20px;
   margin-bottom: 0;
 }
 
@@ -2186,7 +2180,7 @@ screen and (min-width: 96em) {
 }
 
 .resource-formats p {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 400;
   margin-right: 10px;
 }
@@ -2203,13 +2197,13 @@ screen and (min-width: 96em) {
 }
 
 .packages_not_available {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   margin-right: 10px;
 }
 
 .packages_access_level {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 400;
 }
 
@@ -3046,6 +3040,7 @@ label::after {
 
 .facets-show-more.ontario-button {
   margin: 0;
+  font-size: 16px;
 }
 
 .nav > li.show-more-items {
@@ -3246,4 +3241,11 @@ label::after {
 .pagination > .disabled > a:focus {
   color: #1a1a1a;
   border-color: #ccc;
+}
+
+/* Homepage under search text */
+.learn-more {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
 }
