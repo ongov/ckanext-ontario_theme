@@ -3398,13 +3398,24 @@ input[type=radio] + label {
   border-bottom: unset;
 }
 
-.ontario-radios {
+.access-level .ontario-radios {
   display: inline-flex;
   margin-bottom: unset;
+}
+
+@media screen and (max-width: 40em) {
+  .access-level .ontario-radios {
+    display: inline-block;
+    margin-bottom: 2.5rem;
+  }
 }
 
 .access-level .ontario-fieldset__legend {
   float: left;
   width: unset;
   margin-right: 1rem;
+}
+
+.ontario-radios__input:checked + .ontario-radios__label {
+  font-weight: 700;
 }

@@ -541,6 +541,80 @@ def get_all_packages(**kwargs):
 
     return package_search['results']
 
+
+def get_access_levels(**kwargs):
+    '''Helper to return the full number of packages matching a
+    search query, including any facet search requests (in the
+    case of no searches, all packages are returned). The full
+    number of packages is needed because in the search page,
+    only the paginated number of packages for the current page
+    is available, which prohibits application of any custom
+    sorting since sorting must be done on the full list before
+    pagination.
+
+    q
+        Search query. Passed through c.q.
+
+    request_params_items
+        Contains the facet search parameters. Passed through
+        request.params.
+
+    current_group
+        When datasets are accessed by clicking on a Group,
+        or organization the package search must be limited
+        to the current group or organization, which is
+        stored in this variable. This variable is not
+        needed when accessing datasets through
+        the Datasets page.
+
+    item_count
+        Number of packages matching search. Passed through
+        c.page.item_count.
+
+    '''
+    q = kwargs['q']
+    request_params_items = kwargs['request_params_items']
+    current_group = kwargs['current_group']
+    item_count = kwargs['item_count']
+
+    # Excerpt from search() fn in ckan/ckan/controllers/package.py
+    # Needed to collect search parameters from facets.
+    search_extras = {}
+    fq = ''
+    facet_field = "%s" % (kwargs['facet_field'])
+    for (param, value) in OrderedDict(request_params_items).items():
+        if param not in ['q', 'page', 'sort'] \
+            and len(value) and not param.startswith('_'):
+            if not param.startswith('ext_'):
+                fq += ' %s:"%s"' % (param, value)
+            else:
+                search_extras[param] = value
+    # Add groups to facet query
+    # see e.g. https://localhost/api/action/package_search?fq=groups:2019-novel-coronavirus
+    if current_group:
+        fq += '%s' % (current_group)
+
+    # Get the full set of packages returned by search query q
+    # and any facet queries fq.
+    # Note that number of packages matched will be limited to 10
+    # unless otherwise specified in 'rows'. Since we already know
+    # there are 'item_count' number of matches, we can set rows
+    # to 'item_count'.
+    package_search=toolkit.get_action('package_search')(
+                data_dict={
+                        'q': q,
+                        'fq': fq.strip(),
+                        'facet.field': [facet_field],
+                        'start': 0,
+                        'sort': 'title desc',
+                        'rows': item_count,
+                        'extras': search_extras,
+                        'include_private': True
+                        })
+
+    return package_search['search_facets']
+
+
 def get_all_organizations(**kwargs):
     '''Helper function to returns the full list of organizations 
     output from a keyword search (or all organizations in the 
@@ -1054,7 +1128,8 @@ type data_last_updated
                 'ontario_theme_sort_by_title_translated': sort_by_title_translated,
                 'ontario_theme_sort_accented_characters': sort_accented_characters,
                 'ontario_theme_abbr_localised_filesize': abbr_localised_filesize,
-                'ontario_theme_get_facet_options': get_facet_options
+                'ontario_theme_get_facet_options': get_facet_options,
+                'ontario_theme_get_access_levels': get_access_levels
                 }
 
     # IBlueprint
