@@ -15,13 +15,12 @@
   function showAccessLevel() {
       if (this.checked) {
         let params = new URLSearchParams(document.location.search)
-        const url = new URL(location);
         if (params.has(this.name)) {
           params.set(this.name, this.value);
         } else {
           params.append(this.name, this.value);
         }
-        window.location = '?' + params;
+        window.location.search = params;
       }
   }
 

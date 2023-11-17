@@ -3401,6 +3401,11 @@ input[type=radio] + label {
 .access-level .ontario-radios {
   display: inline-flex;
   margin-bottom: unset;
+  max-width: unset;
+}
+
+.access-level [type="radio"][disabled] {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 40em) {
@@ -3410,10 +3415,12 @@ input[type=radio] + label {
   }
 }
 
-.access-level .ontario-fieldset__legend {
-  float: left;
-  width: unset;
-  margin-right: 1rem;
+@media screen and (min-width: 40em) {
+  .access-level .ontario-fieldset__legend {
+    float: left;
+    width: unset;
+    margin-right: 1rem;
+  }
 }
 
 .ontario-radios__input:checked + .ontario-radios__label {
