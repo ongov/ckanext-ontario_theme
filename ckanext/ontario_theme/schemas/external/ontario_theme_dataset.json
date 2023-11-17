@@ -688,6 +688,7 @@
       "preset": "select",
       "required": "true",
       "form_include_blank_choice": "true",
+      "validators": "scheming_choices",
       "classes": ["form-group","col-md-12"],
       "choices": [
         {
@@ -740,6 +741,7 @@
       "classes": ["form-group","col-md-12"],
       "preset": "select",
       "required": "true",
+      "validators": "scheming_choices",
       "form_include_blank_choice": "true",
       "choices": [
         {
