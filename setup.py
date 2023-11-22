@@ -18,7 +18,7 @@ setup(
     # the version across setup.py and the project code, see
     # http://packaging.python.org/en/latest/tutorial.html#version
 
-    version='2.1.10',
+    version='2.1.11',
 
     description='''Theme for internal CKAN build.''',
     long_description=long_description,
