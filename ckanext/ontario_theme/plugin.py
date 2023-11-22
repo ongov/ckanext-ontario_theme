@@ -854,7 +854,7 @@ def num_resources_filter_scrub(search_params):
 
 def site_title():
     '''Helper to make the new site title configuration available to templates.
-    Returns the ckan English site title and and our custom French site title.
+    Returns the ckan English site title and our custom French site title.
     '''
     if config.get('ckanext.ontario_theme.site_title_fr') and h.lang() == 'fr':
         value = config.get('ckanext.ontario_theme.site_title_fr')
