@@ -5,7 +5,6 @@
 {% if request_params_copy[name] or request_params_copy[name] == "" %}
   {% do request_params_copy.pop(name) %}
 {% endif %}
-
 {% set facet_list = h.ontario_theme_get_access_levels(q=c.q, request_params_items=request_params_copy,current_group=current_group,facet_field=name) %}
 {# Reorder access level options based on openness #}
 {% for item in facet_list['search_facets'][name]['items'] %}
@@ -19,36 +18,39 @@
     {% do item.update({'order': '3'}) %}
   {% endif %}
 {% endfor %}
-<div class="access-level ontario-form-group">
-  <fieldset class="ontario-fieldset">
-    <legend class="ontario-fieldset__legend">{{ _('Access level') }}{{ _(':') }}</legend>
-    {% with items = facet_list['search_facets'][name]['items']|sort(attribute="order") %}
-      <div id="access-level-radio-buttons" class="ontario-radios">
-        {# Checking selected radio buttons and singular radio buttons by default #}
-        {% for item in items %}
-          {% if item.name == request.params[name] or items|length == 1 %}
-            {% set checked = "checked" %}
-            {% set disabled = "disabled" %}
+{% if facet_list["count"] %}
+  <div class="access-level ontario-form-group">
+    <fieldset class="ontario-fieldset">
+      <legend class="ontario-fieldset__legend">{{ _('Access level') }}{{ _(':') }}</legend>
+      {% with items = facet_list['search_facets'][name]['items']|sort(attribute="order") %}
+        <div id="access-level-radio-buttons" class="ontario-radios">
+          {# Checking selected radio buttons and singular radio buttons by default #}
+          {% for item in items %}
+            {% if item.name == request.params[name] or items|length == 1 %}
+              {% set checked = "checked" %}
+              {% set disabled = "disabled" %}
+            {% endif %}
+            {{ h.snippet('snippets/translate_facets.html', fields=schema_dict, name=name, item=item) }}
+            <div class="ontario-radios__item">
+              <input class="ontario-radios__input" id="radio-button-option-{{ item.name }}" name="access_level" type="radio" value="{{ item.name }}" {{ disabled }} {{ checked }}>
+              <label class="ontario-label ontario-radios__label"
+                      for="radio-button-option-{{ item.name }}">{{ item.display_name }} ({{ h.localised_number(item.count) }})</label>
+            </div>
+          {% endfor %}
+          {# Displaying the "All levels button" when there is more than one radio button option
+             All levels is checked when open is not an option #}
+          {% if items|length > 1 %}
+            {% if "" == request.params[name] or not items|rejectattr('name', '!=', 'open')|list|length %}
+              {% set checked = "checked" %}
+            {% endif %}
+            <div class="ontario-radios__item">
+              <input class="ontario-radios__input" id="radio-button-option-all" name="access_level" type="radio" value="" {{ checked }}>
+              <label class="ontario-label ontario-radios__label"
+                      for="radio-button-option-all">{{ _('All levels') }} ({{ h.localised_number(facet_list['count']) }}) </label>
+            </div>
           {% endif %}
-          {{ h.snippet('snippets/translate_facets.html', fields=schema_dict, name=name, item=item) }}
-          <div class="ontario-radios__item">
-            <input class="ontario-radios__input" id="radio-button-option-{{ item.name }}" name="access_level" type="radio" value="{{ item.name }}" {{ disabled }} {{ checked }}>
-            <label class="ontario-label ontario-radios__label"
-                    for="radio-button-option-{{ item.name }}">{{ item.display_name }} ({{ h.localised_number(item.count) }})</label>
-          </div>
-        {% endfor %}
-        {# Displaying the "All levels button" when there is more than one radio button option #}
-        {% if items|length > 1 %}
-          {% if "" == request.params[name] %}
-            {% set checked = "checked" %}
-          {% endif %}
-          <div class="ontario-radios__item">
-            <input class="ontario-radios__input" id="radio-button-option-all" name="access_level" type="radio" value="" {{ checked }}>
-            <label class="ontario-label ontario-radios__label"
-                    for="radio-button-option-all">{{ _('All levels') }} ({{ h.localised_number(facet_list['count']) }})</label>
-          </div>
-        {% endif %}
-      </div>
-    {% endwith %}
-  </fieldset>
-</div>
+        </div>
+      {% endwith %}
+    </fieldset>
+  </div>
+{% endif %}

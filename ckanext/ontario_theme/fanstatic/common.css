@@ -408,7 +408,7 @@ input[type="reset"].ontario-search-reset:focus {
   bottom margin in external/ontario_theme.css LINE 759
   */
 .search-form .control-order-by {
-  order: 4;
+  order: 5;
   /* Displays Order By menu below count text */
   display: flex;
   justify-content: end;
@@ -456,13 +456,18 @@ input[type="reset"].ontario-search-reset:focus {
   /* increase height to accommodate larger font size */
 }
 
-/* child div 3: shows search keywords just below searchbar */
+/* child div 4: shows search keywords just below searchbar */
 .filter-list {
-  order: 3;
+  order: 4;
   display: flex;
   justify-content: end;
   padding-bottom: 10px;
   /* needed to avoid being squished in mobile mode*/
+}
+
+/* child div 3: access level radio buttons */
+.access-level {
+  order: 3;
 }
 
 .search-form .filter-list,
