@@ -591,7 +591,9 @@ def get_access_levels(**kwargs):
 
     # Add groups and organizations to facet query
     if current_group:
-        fq += '%s' % (current_group)
+        if current_group['type'] == 'group':
+            current_group['type'] = 'groups'
+        fq += '%s:%s' % (current_group['type'], current_group['name'])
 
     # Get the full set of packages returned by search query q
     # and any facet queries fq for the specificied facet field
@@ -604,7 +606,6 @@ def get_access_levels(**kwargs):
                         'extras': search_extras,
                         'include_private': True
                         })
-
     return package_search
 
 

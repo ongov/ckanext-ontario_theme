@@ -1,5 +1,5 @@
 {% set schema_dict = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
-{% set current_group = '' if not c.group_dict else c.group_dict['name'] %}
+{% set current_group = '' if not c.group_dict else c.group_dict %}
 {% set name = "access_level" %}
 {% set request_params_copy = request.params.copy() %}
 {% if request_params_copy[name] or request_params_copy[name] == "" %}
@@ -34,7 +34,9 @@
             <div class="ontario-radios__item">
               <input class="ontario-radios__input" id="radio-button-option-{{ item.name }}" name="access_level" type="radio" value="{{ item.name }}" {{ disabled }} {{ checked }}>
               <label class="ontario-label ontario-radios__label"
-                      for="radio-button-option-{{ item.name }}">{{ item.display_name }} ({{ h.localised_number(item.count) }})</label>
+                     for="radio-button-option-{{ item.name }}">
+                {{ item.display_name }} ({{ h.localised_number(item.count) }})
+              </label>
             </div>
           {% endfor %}
           {# Displaying the "All levels button" when there is more than one radio button option
@@ -46,7 +48,9 @@
             <div class="ontario-radios__item">
               <input class="ontario-radios__input" id="radio-button-option-all" name="access_level" type="radio" value="" {{ checked }}>
               <label class="ontario-label ontario-radios__label"
-                      for="radio-button-option-all">{{ _('All levels') }} ({{ h.localised_number(facet_list['count']) }}) </label>
+                     for="radio-button-option-all">
+                {{ _('All levels') }} ({{ h.localised_number(facet_list['count']) }})
+              </label>
             </div>
           {% endif %}
         </div>
