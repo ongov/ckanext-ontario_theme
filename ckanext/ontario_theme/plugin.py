@@ -930,6 +930,16 @@ def num_resources_filter_scrub(search_params):
     return search_params
 
 
+def site_title():
+    '''Helper to make the new site title configuration available to templates.
+    Returns the ckan English site title and our custom French site title.
+    '''
+    if config.get('ckanext.ontario_theme.site_title_fr') and h.lang() == 'fr':
+        value = config.get('ckanext.ontario_theme.site_title_fr')
+    else:
+        value = config.get('ckan.site_title')
+    return value
+
 def home_block(block='one'):
     '''Helper to make the new configuration available to templates.
     Returns the configuration or empty string for the specified home block
@@ -1040,6 +1050,9 @@ type data_last_updated
         remove_whitespace = toolkit.get_converter('remove_whitespace')
 
         schema.update({
+            'ckanext.ontario_theme.site_title_fr':          [ignore_missing,
+                                                             ignore_not_sysadmin,
+                                                             unicode_safe],
             # Custom configuration options for home page content.
             'ckanext.ontario_theme.home_block_one-en':      [ignore_missing,
                                                              ignore_not_sysadmin,
@@ -1133,7 +1146,8 @@ type data_last_updated
                 'ontario_theme_sort_accented_characters': sort_accented_characters,
                 'ontario_theme_abbr_localised_filesize': abbr_localised_filesize,
                 'ontario_theme_get_facet_options': get_facet_options,
-                'ontario_theme_get_access_levels': get_access_levels
+                'ontario_theme_get_access_levels': get_access_levels,
+                'ontario_theme_site_title': site_title
                 }
 
     # IBlueprint
