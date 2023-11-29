@@ -606,6 +606,16 @@ def get_access_levels(**kwargs):
                         'extras': search_extras,
                         'include_private': True
                         })
+
+    # Reorder access level options based on openness
+    if kwargs['facet_field'] == 'access_level':
+        for access_level in package_search['search_facets']['access_level']['items']:
+            if access_level['name'] == 'open':
+                access_level.update({'order': '1'})
+            elif access_level['name'] == 'under_review':
+                access_level.update({'order': '2'})
+            else:
+                access_level.update({'order': '3'})
     return package_search
 
 

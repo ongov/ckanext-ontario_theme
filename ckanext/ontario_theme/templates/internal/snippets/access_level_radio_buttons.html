@@ -1,28 +1,16 @@
 {% set schema_dict = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
-{% set current_group = '' if not c.group_dict else c.group_dict %}
 {% set name = "access_level" %}
 {% set request_params_copy = request.params.copy() %}
 {% if request_params_copy[name] or request_params_copy[name] == "" %}
   {% do request_params_copy.pop(name) %}
 {% endif %}
-{% set facet_list = h.ontario_theme_get_access_levels(q=c.q, request_params_items=request_params_copy,current_group=current_group,facet_field=name) %}
-{# Reorder access level options based on openness #}
-{% for item in facet_list['search_facets'][name]['items'] %}
-  {% if item.display_name == 'open' %}
-    {% do item.update({'order': '1'}) %}
-  {% endif %}
-  {% if item.display_name == 'under_review' %}
-    {% do item.update({'order': '2'}) %}
-  {% endif %}
-  {% if item.display_name == 'restricted' %}
-    {% do item.update({'order': '3'}) %}
-  {% endif %}
-{% endfor %}
-{% if facet_list["count"] %}
+{% set package_list = h.ontario_theme_get_access_levels(q=c.q, request_params_items=request_params_copy,current_group=c.group_dict,facet_field=name) %}
+
+{% if package_list["count"] %}
   <div class="access-level ontario-form-group">
     <fieldset class="ontario-fieldset">
       <legend class="ontario-fieldset__legend">{{ _('Access level') }}{{ _(':') }}</legend>
-      {% with items = facet_list['search_facets'][name]['items']|sort(attribute="order") %}
+      {% with items = package_list['search_facets'][name]['items']|sort(attribute="order") %}
         <div id="access-level-radio-buttons" class="ontario-radios">
           {# Checking selected radio buttons and singular radio buttons by default #}
           {% for item in items %}
@@ -39,17 +27,17 @@
               </label>
             </div>
           {% endfor %}
-          {# Displaying the "All levels button" when there is more than one radio button option
-             All levels is checked when open is not an option #}
+          {# Displaying the "All levels" radio button when there is more than one radio button option
+             All levels is checked by default #}
           {% if items|length > 1 %}
-            {% if "" == request.params[name] or not items|rejectattr('name', '!=', 'open')|list|length %}
+            {% if "" == request.params[name] or not request.params[name] %}
               {% set checked = "checked" %}
             {% endif %}
             <div class="ontario-radios__item">
               <input class="ontario-radios__input" id="radio-button-option-all" name="access_level" type="radio" value="" {{ checked }}>
               <label class="ontario-label ontario-radios__label"
                      for="radio-button-option-all">
-                {{ _('All levels') }} ({{ h.localised_number(facet_list['count']) }})
+                {{ _('All levels') }} ({{ h.localised_number(package_list['count']) }})
               </label>
             </div>
           {% endif %}
