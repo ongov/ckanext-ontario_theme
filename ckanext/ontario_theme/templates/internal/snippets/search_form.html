@@ -41,6 +41,9 @@
 {% endblock search_input %}
 
 {% block search_title %}
+  {% if facets %}
+    {% snippet 'snippets/access_level_radio_buttons.html' %}
+  {% endif %}
   {% if not error %}
     <div role="status" class="search-count">
       {% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}
@@ -64,33 +67,35 @@
       {% endif %}
       {% if facets %}
         {% for field in facets.fields %}
-          <span class="facet-row">
-            {% set search_facets_items = facets.search.get(field)['items'] %}
-            <span class="facet">
-              {% if (not query and not loop.index0==0) or query %}<span class="sr-only">and</span>{% endif %}
-              {{ facets.titles.get(field) + _(':') }}
-            </span>
-            {% for item in h.get_facet_items_dict(field) %}
-              {% set item_id = facets.search.get(field)['title'] %}
-              {% if item_id == "organization_category" %}
-                {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'category')) %}
-              {% endif %}
-              {% if item_id == "organization_jurisdiction" %}
-                {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'jurisdiction')) %}
-              {% endif %}
-              {{ h.snippet('snippets/translate_facets.html', fields=schema_dict, name=item_id, item=item, scheming_choices=choices) }}
-              {% if item.active %}
-                <span class="filtered pill">
-                  <span class="pill-contents">
-                    {{ item.display_name }}
-                    <a href="{{ facets.remove_field(field, item.name) }}"
-                       class="remove"
-                       title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
+          {% if field != 'access_level' %}
+            <span class="facet-row">
+              {% set search_facets_items = facets.search.get(field)['items'] %}
+              <span class="facet">
+                {% if (not query and not loop.index0==0) or query %}<span class="sr-only">and</span>{% endif %}
+                {{ facets.titles.get(field) + _(':') }}
+              </span>
+              {% for item in h.get_facet_items_dict(field) %}
+                {% set item_id = facets.search.get(field)['title'] %}
+                {% if item_id == "organization_category" %}
+                  {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'category')) %}
+                {% endif %}
+                {% if item_id == "organization_jurisdiction" %}
+                  {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'jurisdiction')) %}
+                {% endif %}
+                {{ h.snippet('snippets/translate_facets.html', fields=schema_dict, name=item_id, item=item, scheming_choices=choices) }}
+                {% if item.active %}
+                  <span class="filtered pill">
+                    <span class="pill-contents">
+                      {{ item.display_name }}
+                      <a href="{{ facets.remove_field(field, item.name) }}"
+                        class="remove"
+                        title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
+                    </span>
                   </span>
-                </span>
-              {% endif %}
-            {% endfor %}
-          </span>
+                {% endif %}
+              {% endfor %}
+            </span>
+          {% endif %}
         {% endfor %}
       {% endif %}
     </p>
