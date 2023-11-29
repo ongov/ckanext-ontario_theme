@@ -5,7 +5,13 @@ Renders a hard coded site description/introduction.
 #}
 {% set stats = h.get_site_statistics() %}
 <div>
-  <h1>{{ h.ontario_theme_site_title() }}</h1>
+  <h1>
+    {% if g.site_title != "Ontario Data Catalogue" %}
+      {{ g.site_title }}
+    {% else %}
+      {{ _('Ontario Data Catalogue') }}
+    {% endif %}
+  </h1>
 </div>
 <div class="greet">
   <p class="ontario-lead-statement">

@@ -2673,11 +2673,3 @@ msgstr "Aller à la page suivante"
 #: ckanext/ontario_theme/page.py:51
 msgid "Go to page {}"
 msgstr "Aller à page {}"
-
-#: ckan/templates/admin/config.html:16
-msgid "Site Title FR"
-msgstr "Titre du site FR"
-
-#: ckan/templates/admin/config.html:9
-msgid "Site Title EN"
-msgstr "Titre du site EN"
