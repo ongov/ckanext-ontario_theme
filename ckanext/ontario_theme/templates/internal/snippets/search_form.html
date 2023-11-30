@@ -42,7 +42,7 @@
 
 {% block search_title %}
   {% if facets %}
-    {% snippet 'snippets/access_level_radio_buttons.html' %}
+    {% snippet 'snippets/access_level_radio_buttons.html', count=count %}
   {% endif %}
   {% if not error %}
     <div role="status" class="search-count">

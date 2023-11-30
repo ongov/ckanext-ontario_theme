@@ -5,6 +5,7 @@ from ckanext.ontario_theme import validators
 from ckanext.ontario_theme import page
 import ckan.plugins.toolkit as toolkit
 from ckan.lib.plugins import DefaultTranslation
+import re
 
 import ckan.logic.schema
 from ckan.logic.schema import validator_args
@@ -458,6 +459,18 @@ def paginate_items(all_items, current_page, items_per_page):
     
     return this_slice 
 
+
+def reorder_access_level(access_level_dict):
+    for access_level in access_level_dict:
+        if access_level['name'] == 'open':
+            access_level.update({'order': '1'})
+        elif access_level['name'] == 'under_review':
+            access_level.update({'order': '2'})
+        else:
+            access_level.update({'order': '3'})
+    return access_level_dict
+
+
 def get_all_packages(**kwargs):
     '''Helper to return the full number of packages matching a 
     search query, including any facet search requests (in the
@@ -541,76 +554,6 @@ def get_all_packages(**kwargs):
 
     return package_search['results']
 
-def get_access_levels(**kwargs):
-    '''Helper to return facet field specific counts of packages
-    matching a search query. This method is needed for instances
-    where the ability to view all facet options for the
-    specified facet field on a search page should not be
-    dependent on if a facet has been selected.
-    q
-        Search query. Passed through c.q.
-    request_params_items
-        Contains the facet search parameters. Passed through a
-        modified mutable copy of request.params.
-    current_group
-        When datasets are accessed by clicking on a group
-        or organization the package search must be limited
-        to the current group or organization, which is
-        stored in this variable. This variable is not
-        needed when accessing datasets through
-        the Datasets page.
-    facet_field
-        The facet field that will be queried. For this method it
-        will be 'access_level', can be changed if method is needed
-        for different purposes.
-    '''
-    q = kwargs['q']
-    request_params_items = kwargs['request_params_items']
-    current_group = kwargs['current_group']
-    facet_field = "%s" % (kwargs['facet_field'])
-
-    # Needed to collect search parameters from facets.
-    search_extras = {}
-    fq = ''
-    # Gets key-value pairs in which values are converted to a list
-    # to not lose values from MultiDict
-    for param, value in request_params_items.to_dict(flat=False).items():
-        if param not in ['q', 'page', 'sort'] \
-                and len(value) and not param.startswith('_'):
-            if not param.startswith('ext_'):
-                for list_item in value:
-                    fq += ' %s:"%s"' % (param, list_item)
-            else:
-                search_extras[param] = value
-
-    # Add groups and organizations to facet query
-    if current_group:
-        if current_group['type'] == 'group':
-            current_group['type'] = 'groups'
-        fq += '%s:%s' % (current_group['type'], current_group['name'])
-
-    # Get the full set of packages returned by search query q
-    # and any facet queries fq for the specificied facet field
-    package_search = toolkit.get_action('package_search')(
-                data_dict={
-                        'q': q,
-                        'fq': fq.strip(),
-                        'facet.field': [facet_field],
-                        'start': 0,
-                        'extras': search_extras,
-                        'include_private': True
-                        })
-
-    # Reorder access level options based on openness
-    if kwargs['facet_field'] == 'access_level':
-        for access_level in package_search['search_facets']['access_level']['items']:
-            if access_level['name'] == 'open':
-                access_level.update({'order': '1'})
-            elif access_level['name'] == 'under_review':
-                access_level.update({'order': '2'})
-            else:
-                access_level.update({'order': '3'})
-    return package_search
 
 def get_all_organizations(**kwargs):
     '''Helper function to returns the full list of organizations 
@@ -1140,7 +1083,7 @@ type data_last_updated
                 'ontario_theme_abbr_localised_filesize': abbr_localised_filesize,
                 'ontario_theme_get_facet_options': get_facet_options,
                 'ontario_theme_site_title': site_title,
-                'ontario_theme_get_access_levels': get_access_levels
+                'ontario_theme_reorder_access_levels': reorder_access_level
                 }
 
     # IBlueprint
@@ -1217,6 +1160,20 @@ type data_last_updated
         u'''Extensions will receive a dictionary with the query parameters,
         and should return a modified (or not) version of it.
         '''
+        access_level = search_params.get('fq')
+        facet_field = search_params.get('facet.field')
+        if access_level:
+            facet = re.findall('access_level:"\\w+"', access_level)
+            fq_list = re.findall("(?:\".*?\"|\\S)+", access_level)
+            if facet and facet_field:
+                tag = re.sub("access_level", "{!tag=al}access_level", facet[0])
+                for i in range(len(fq_list)):
+                    if fq_list[i] == facet[0]:
+                        fq_list[i] = tag
+                search_params.pop('fq')
+                search_params.update({"fq_list": fq_list})
+                facet_field[4] = "{!ex=al}access_level"
+                search_params.update({"facet.field": facet_field})
         return num_resources_filter_scrub(search_params)
 
     def after_search(self, search_results, search_params):
