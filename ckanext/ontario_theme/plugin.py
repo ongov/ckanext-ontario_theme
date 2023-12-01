@@ -1187,6 +1187,7 @@ type data_last_updated
                 for i in range(len(fq_list)):
                     if fq_list[i] == facet_al[0]:
                         fq_list[i] = facet_tag
+                search_params.pop('fq')
         else:
             if not (request.params and request.params['access_level'] == ""):
                 fq_list.append(tag + ":open")
@@ -1194,7 +1195,6 @@ type data_last_updated
                 search_params.update({"facet.field": exclude})
             else:
                 facet_field.append(exclude)
-        search_params.pop('fq')
         search_params.update({"fq_list": fq_list,
                               "facet.field": facet_field})
         return num_resources_filter_scrub(search_params)
