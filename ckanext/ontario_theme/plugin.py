@@ -461,6 +461,13 @@ def paginate_items(all_items, current_page, items_per_page):
 
 
 def reorder_access_level(access_level_dict):
+    '''Returns dictionary of access level items ordered by
+    openness.
+
+    access_level_dict
+        dictionary of facet field access level with name,
+        display_name and count
+    '''
     for access_level in access_level_dict:
         if access_level['name'] == 'open':
             access_level.update({'order': '1'})
@@ -1159,6 +1166,12 @@ type data_last_updated
     def before_search(self, search_params):
         u'''Extensions will receive a dictionary with the query parameters,
         and should return a modified (or not) version of it.
+
+        Allows access level radio buttons to display counts of other options
+        when a radio button is selected by tagging and excluding the access
+        level filter options and facet field.
+        Uses fq_list instead of fq to allow for multiple facet fields to be
+        selected and for the tagging to work.
         '''
         access_level = search_params.get('fq')
         facet_field = search_params.get('facet.field')

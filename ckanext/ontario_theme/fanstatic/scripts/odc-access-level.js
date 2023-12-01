@@ -1,9 +1,6 @@
 /*
- * Function for facets to show more or show less without being redirected to a new page
- *
- * For each facet, the Show more button has an event listener for a button click.
- * On click: list items are toggled to display: block or display: none,
- * button clicked is toggled to display Show less or Show more
+ * Function for changing URL parameters when an access level
+ * radio button is clicked.
  *
  */
 
