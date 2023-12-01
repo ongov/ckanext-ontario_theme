@@ -1173,20 +1173,30 @@ type data_last_updated
         Uses fq_list instead of fq to allow for multiple facet fields to be
         selected and for the tagging to work.
         '''
-        access_level = search_params.get('fq')
+        fq = search_params.get('fq')
         facet_field = search_params.get('facet.field')
-        if access_level:
-            facet = re.findall('access_level:"\\w+"', access_level)
-            fq_list = re.findall("(?:\".*?\"|\\S)+", access_level)
-            if facet and facet_field:
-                tag = re.sub("access_level", "{!tag=al}access_level", facet[0])
+        exclude = "{!ex=al}access_level"
+        tag = "{!tag=al}access_level"
+        fq_list = []
+        if fq:
+            facet_al = re.findall('access_level:"\\w+"', fq)
+            fq_list = re.findall("(?:\".*?\"|\\S)+", fq)
+            if facet_al and facet_field:
+                facet_field[4] = exclude
+                facet_tag = re.sub("access_level", tag, facet_al[0])
                 for i in range(len(fq_list)):
-                    if fq_list[i] == facet[0]:
-                        fq_list[i] = tag
-                search_params.pop('fq')
-                search_params.update({"fq_list": fq_list})
-                facet_field[4] = "{!ex=al}access_level"
-                search_params.update({"facet.field": facet_field})
+                    if fq_list[i] == facet_al[0]:
+                        fq_list[i] = facet_tag
+        else:
+            if not (request.params and request.params['access_level'] == ""):
+                fq_list.append(tag + ":open")
+            if not facet_field:
+                search_params.update({"facet.field": exclude})
+            else:
+                facet_field.append(exclude)
+        search_params.pop('fq')
+        search_params.update({"fq_list": fq_list,
+                              "facet.field": facet_field})
         return num_resources_filter_scrub(search_params)
 
     def after_search(self, search_results, search_params):

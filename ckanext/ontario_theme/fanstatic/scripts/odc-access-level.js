@@ -6,6 +6,11 @@
 
 (function () {
   var accessLevelButtons = document.querySelectorAll('input[name="access_level"]');
+  let params = new URLSearchParams(document.location.search);
+  if (!params.has("access_level")) {
+    var openRadioButton = document.getElementById("radio-button-option-open");
+    openRadioButton.checked = true;
+  }
   accessLevelButtons.forEach(element => {
       element.addEventListener('change', showAccessLevel)
   })

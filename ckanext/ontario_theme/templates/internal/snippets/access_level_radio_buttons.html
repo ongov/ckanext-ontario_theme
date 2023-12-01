@@ -26,7 +26,7 @@
              All levels is checked by default #}
         {% if items|length > 1 %}
           {% set total_count = items|sum(attribute='count') %}
-          {% if "" == request.params[name] or not request.params[name] %}
+          {% if "" == request.params[name] %}
             {% set checked = "checked" %}
           {% endif %}
           <div class="ontario-radios__item">
