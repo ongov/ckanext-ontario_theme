@@ -16,7 +16,10 @@
   })
   function showAccessLevel() {
       if (this.checked) {
-        let params = new URLSearchParams(document.location.search)
+        let params = new URLSearchParams(document.location.search);
+        if (params.has('page')) {
+          params.delete('page');
+        }
         if (params.has(this.name)) {
           params.set(this.name, this.value);
         } else {

@@ -1189,7 +1189,7 @@ type data_last_updated
                         fq_list[i] = facet_tag
                 search_params.pop('fq')
         else:
-            if not (request.params and request.params['access_level'] == ""):
+            if not request.params.get('access_level'):
                 fq_list.append(tag + ":open")
             if not facet_field:
                 search_params.update({"facet.field": exclude})
