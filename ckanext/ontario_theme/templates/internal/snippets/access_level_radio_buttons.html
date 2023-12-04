@@ -1,4 +1,5 @@
 {% set schema_dict = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
+{% set open_datasets = c.search_facets["access_level"]["items"]|rejectattr('name', '!=', 'open')|list|length %}
 {% set name = "access_level" %}
 {# Reorder access level options based on openness #}
 {% set items = h.ontario_theme_reorder_access_levels(h.get_facet_items_dict(name)) %}
@@ -23,10 +24,10 @@
           </div>
         {% endfor %}
         {# Displaying the "All levels" radio button when there is more than one radio button option
-             All levels is checked by default #}
+             All levels is checked by default when there are no open datasets #}
         {% if items|length > 1 %}
           {% set total_count = items|sum(attribute='count') %}
-          {% if "" == request.params[name] %}
+          {% if "" == request.params[name] or not (request.params[name] or open_datasets) %}
             {% set checked = "checked" %}
           {% endif %}
           <div class="ontario-radios__item">
