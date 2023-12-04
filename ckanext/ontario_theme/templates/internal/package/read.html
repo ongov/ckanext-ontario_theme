@@ -1,5 +1,9 @@
 {% extends "package/read_base.html" %}
 
+{% block schema_tag_attr %}
+  {% snippet "package/snippets/schema_markup.html", pkg=pkg, resources=pkg.resources, schema=schema %}
+{% endblock schema_tag_attr %}
+
 {% block primary %}
   <article class="module package-z-index">
     <header class="page-header col-xs-12 col-lg-8">

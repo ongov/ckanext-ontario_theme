@@ -1,0 +1,43 @@
+ {% set license = h.ontario_theme_get_license(pkg.license_id) %}
+ {% if h.scheming_field_by_name(schema.dataset_fields, 'notes_translated') and pkg.notes %}
+    {% if h.render_markdown(h.scheming_language_text(pkg['notes_translated']))|length > 5000 %}
+      {% set description = h.render_markdown(h.scheming_language_text(pkg['notes_translated']))|truncate(5000, true)|striptags %}
+    {% else %}
+      {% set description = h.render_markdown(h.scheming_language_text(pkg['notes_translated']))|striptags %}
+    {% endif %}
+  {% endif %}
+{% block javascript %}
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Dataset",
+    "name": "{{ h.dataset_display_name(pkg) }}",
+    "url": "https://data.ontario.ca{{ h.url_for('dataset.read', id=pkg.name) }}",
+    "includedInDataCatalog": {
+      "@type": "DataCatalog",
+      "url": "https://data.ontario.ca/"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "{{ pkg.organization.title }}"
+    },
+    "description": "{{ description }}",
+    "license": {
+      "@type": "CreativeWork",
+      "name": "{{ pkg.license_title }}",
+      "text": "{{ h.get_translated(license._data, 'description') }}",
+      "url": "{{ pkg.license_url }}"
+    },
+    "dateModified": "{{ pkg.metadata_modified }}",
+    "keywords": "{{ pkg.keywords[h.lang()] }}",
+    "distribution": [
+      {
+        "@type": "DataDownload",
+        "contentUrl": "https://fsadata.github.io/food-and-feed-businesses-subject-to-re-enforced-checks/data/food-and-feed-businesses-subject-to-re-enforced-checks-as-at-23-07-2018.csv",
+        "fileFormat": "CSV",
+        "name": "Food and feed businesses subject to re-enforced checks as at 23/07/2018"
+      },
+    ]
+  }
+</script>
+{% endblock javascript %}
