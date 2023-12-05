@@ -1,11 +1,11 @@
- {% set license = h.ontario_theme_get_license(pkg.license_id) %}
- {% if h.scheming_field_by_name(schema.dataset_fields, 'notes_translated') and pkg.notes %}
-    {% if h.render_markdown(h.scheming_language_text(pkg['notes_translated']))|length > 5000 %}
-      {% set description = h.render_markdown(h.scheming_language_text(pkg['notes_translated']))|truncate(5000, true)|striptags %}
-    {% else %}
-      {% set description = h.render_markdown(h.scheming_language_text(pkg['notes_translated']))|striptags %}
-    {% endif %}
+{%- set license = h.ontario_theme_get_license(pkg.license_id) -%}
+{%- if h.scheming_field_by_name(schema.dataset_fields, 'notes_translated') and pkg.notes %}
+  {% if h.scheming_language_text(pkg['notes_translated'])|length > 5000 %}
+    {% set description = h.scheming_language_text(pkg['notes_translated'])|truncate(5000, true) %}
+  {% else %}
+    {% set description = h.scheming_language_text(pkg['notes_translated']) %}
   {% endif %}
+{% endif -%}
 {% block javascript %}
 <script type="application/ld+json">
   {
@@ -13,6 +13,12 @@
     "@type": "Dataset",
     "name": "{{ h.dataset_display_name(pkg) }}",
     "url": "https://data.ontario.ca{{ h.url_for('dataset.read', id=pkg.name) }}",
+    {% for field in schema.dataset_fields -%}
+      {%- if field.display_itemprop and pkg[field.field_name] -%}
+        {%- set display_value = pkg[field.field_name] if not (pkg[field.field_name][h.lang()] or pkg[field.field_name][h.lang()] == "") else pkg[field.field_name][h.lang()] -%}
+        "{{ field.display_itemprop }}": "{{ display_value }}",
+      {%- endif -%}
+    {%- endfor %}
     "includedInDataCatalog": {
       "@type": "DataCatalog",
       "url": "https://data.ontario.ca/"
@@ -29,15 +35,28 @@
       "url": "{{ pkg.license_url }}"
     },
     "dateModified": "{{ pkg.metadata_modified }}",
-    "keywords": "{{ pkg.keywords[h.lang()] }}",
-    "distribution": [
-      {
-        "@type": "DataDownload",
-        "contentUrl": "https://fsadata.github.io/food-and-feed-businesses-subject-to-re-enforced-checks/data/food-and-feed-businesses-subject-to-re-enforced-checks-as-at-23-07-2018.csv",
-        "fileFormat": "CSV",
-        "name": "Food and feed businesses subject to re-enforced checks as at 23/07/2018"
-      },
-    ]
+    "keywords": "{%- for keyword in pkg.keywords[h.lang()] -%}{{ keyword }}{%- if not loop.last -%},{%- endif -%}{%- endfor -%}",
+    {% if pkg.access_level == 'open' -%}
+      "distribution": [
+        {% for res in resources -%}
+          {% if res.data_range_start and not res.data_range_end -%}
+            {% set temporalCoverage = res.data_range_start + "/.." %}
+          {%- endif -%}
+          {% if res.data_range_start and res.data_range_end -%}
+            {% set temporalCoverage = res.data_range_start + "/" + res.data_range_end %}
+          {%- endif -%}
+            {
+            "@type": "DataDownload",
+            "contentUrl": "{{ res.url }}",
+            "encodingFormat": "{{ res.format }}",
+            "contentSize": "{{ res.size }}",
+            "inLanguage": "{{ res.language }}",
+            "name": "{{ h.get_translated(res, 'name') }}",
+            "temporalCoverage": "{{ temporalCoverage }}"
+          }{%- if not loop.last -%},{%- endif -%}
+        {%- endfor %}
+      ]
+    {% endif %}
   }
 </script>
 {% endblock javascript %}

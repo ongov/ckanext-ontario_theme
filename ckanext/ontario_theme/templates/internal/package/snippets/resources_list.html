@@ -104,7 +104,4 @@
       {% endif %}
     {% endif %}
   {% endblock resource_list %}
-  <meta itemprop="dateModified" content="{{ pkg.metadata_modified }}" />
-  <meta itemprop="identifier" content="{{ pkg.name }}" />
-  <link itemprop="url" content="{{ h.url_for('dataset.read', id=pkg.name) }}" />
 </section>
