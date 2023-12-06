@@ -11,6 +11,13 @@
 			{% endtrans %}
 	    </p>  
 	</div>
+		{% elif pkg.get("asset_type") == "software_application" %}
+	<div class="new-alert alert-info alert-software_application alert-short alert-clear">
+		<strong>{% trans %}Software Application{% endtrans %}</strong>
+		<p>
+			{% trans %}This record describes a software application asset. It does not describe a dataset.{% endtrans %}
+	    </p>  
+	</div>
 	{% endif %}
 	{{ super() }}
 {% endblock %}

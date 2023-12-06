@@ -2614,9 +2614,23 @@ msgid ""
 msgstr "Cet enregistrement décrit un algorithme ou actif d’intelligence artificielle. Il ne s’agit pas d’un jeu de données. <a href=\"/fr/group/about/artificial-intelligence-"
 "and-algorithms\">Apprenez-en plus ici sur les mesures prises par le gouvernement de l’Ontario pour ajouter à notre catalogue des éléments autres que des données à des fins de transparence et de responsabilité accrues.</a>"
 
+#: ckanext/ontario_theme/templates/internal/package/read.html:16
+msgid "Software Application"
+msgstr "Logiciel d’application"
+
+#: ckanext/ontario_theme/templates/internal/package/read.html:18
+msgid ""
+" This record describes a software application asset. It does"
+" not describe a dataset."
+msgstr "Cette fiche décrit un logiciel d’application. Il ne s’agit pas d’un jeu de données."
+
 #: ckanext/ontario_theme/templates/internal/snippets/package_item.html:10
 msgid "Algorithm/AI"
 msgstr "Algorithme/IA"
+
+#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:10
+msgid "Software Application"
+msgstr "Logiciel d’application"
 
 #: ckanext/ontario_theme/templates/internal/snippets/package_item.html:10
 msgid "ON Geohub"
