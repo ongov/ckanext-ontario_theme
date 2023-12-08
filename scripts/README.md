@@ -168,3 +168,28 @@ pip install -r requirements.txt
 api_token = "your_api_key_here"
 
 ```
+4. Run the `load_organization_data.py` script.
+
+
+### Known Issues
+**Script Doesn't Run (load_organization_data.py)**
+If the script starts to run, but throws `simplejson.errors.JSONDecodeError` it might be because you're not connected to VPN. Try connecting to your VPN connection and rerunning the script. 
+
+**Storage Issues (M1)**
+If you receive a message about not having enough disk space left while running the load_organization_data.py script or during any of the other steps, follow the troublshooting steps in the links below to regain some space.
+
+https://github.com/utmapp/UTM/issues/2636#issuecomment-1290021310
+
+https://linux.afnom.net/install_apple/apple_silicon.html
+
+Breakdown of the steps:
+
+1. Delete some data from the VM, so you have around 1GB of free space.
+2. Use df -h to check if there's free space.
+3. On the VM, install gparted software.
+```
+   sudo apt-get install gparted -y
+```
+4. Start gparted. gparted is a linux disk management utility. What you will see is that the disk is 10GB but it can be expanded to 40GB and that space is not occupied. Extend your disk to 40GB and apply the settings.
+5. The VM will reboot, and your Ubuntu disk will now be 40GB.
+6. You can now run the data loading scripts.
