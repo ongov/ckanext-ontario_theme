@@ -30,7 +30,8 @@ echo "Fetching managed-schema for ontario_theme..."
 export REPODIR=`pwd`
 export CKANCONFDIR='/opt/solr/server/solr/configsets/ckan_conf/conf'
 
-echo $SUDOPASS | sudo -S -k /opt/solr/bin/solr stop -all
+echo $SUDOPASS | sudo -S -k -u solr /opt/solr/bin/solr delete -c ckan
+echo $SUDOPASS | sudo -S -k -u solr /opt/solr/bin/solr stop -all
 echo $SUDOPASS | sudo -S -k rm -rf /var/solr/data/ckan
 echo $SUDOPASS | sudo -S -k mkdir -p $CKANCONFDIR
 cd $CKANCONFDIR
