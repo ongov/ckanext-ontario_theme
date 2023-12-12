@@ -84,7 +84,7 @@
           {% snippet "package/snippets/tags.html", tags=pkg.tags %}
         {% endblock package_tags %}
 
-        {% if pkg.resources ['access_level'] and pkg == 'open' %}
+        {% if pkg.resources and pkg['access_level'] == 'open' %}
           {% snippet "package/snippets/report_an_error.html" %}
         {% endif %}
         <div class="row">
