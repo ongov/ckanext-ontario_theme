@@ -73,7 +73,7 @@
             {% for field_value in facets.fields[field] %}
               {% set dict = h.get_facet_items_dict(field)|selectattr("name", "equalto", field_value)|list if h.get_facet_items_dict(field) %}
               {% set item = dict[0] if dict else ({'name': field_value, 'display_name': field_value }) %}
-              {{ h.snippet('snippets/translate_facets.html', fields=schema_dict, name=field, item=item, scheming_choices=choices) }}
+              {{ h.snippet('snippets/translate_facets.html', fields=schema_dict, name=field, item=item) }}
               <span class="filtered pill">
                 <span class="pill-contents">
                   {{ item.display_name }}
