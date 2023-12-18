@@ -13,27 +13,12 @@
 {% block meta -%}
   {{ super() }}
   {% set description = h.markdown_extract(pkg.notes, extract_length=200)|forceescape %}
-  <meta property="og:title" content="{{ h.dataset_display_name(pkg) }} - {{ g.site_title }}">
+  <meta property="og:title" content="{{ h.dataset_display_name(pkg) }} - {{ h.ontario_theme_site_title() }}">
   <meta property="og:description" content="{{ description|forceescape|trim }}">
 {% endblock meta -%}
 
 {% block secondary %}
   <aside class="dataset-aside secondary col-xs-12 col-lg-4 right-col dataset-font">
-    {% block package_info %}
-      <div class="module module-narrow module-shallow context-info">
-        <h2 class="ontario-h4">{{ _("Keep updated") }}</h2>
-        <section>
-          <p>{{ _("Subscribe to updates to this dataset using RSS.") }}</p>
-          <p>
-            <a href="/feeds/custom.atom?q=name:{{ pkg.name }}"
-               class="btn btn-primary">
-              <i class="fa fa-rss"></i> {{ _('Subscribe') }}
-            </a>
-          </p>
-        </section>
-      </div>
-    {% endblock package_info %}
-
     {% block package_organization %}
       {% if pkg.organization %}
         {% set org = h.get_organization(pkg.organization.id) %}

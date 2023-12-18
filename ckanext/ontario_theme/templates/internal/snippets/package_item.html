@@ -17,7 +17,7 @@
     {% endblock heading_private %}
 
     {% block heading_title %}
-      {% link_for h.truncate(h.get_translated(package, 'title'), truncate_title),named_route=('%s.read' % package.type), id=package.name %}
+      {% link_for h.get_translated(package, 'title'), named_route=('%s.read' % package.type), id=package.name %}
       {% if package.get("harvester", False) == 'ontario-data-catalogue' %}
         <div class="badge badge-harvest pull-right" data-harvest={{ package['harvester'] }}>
           {{ _('ON External') }}

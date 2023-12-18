@@ -23,16 +23,16 @@
     {% block primary_content_inner %}
       <div class="col-lg-8 col-xs-12">
         {% if pkg.get("asset_type") == "ai" %}
-          <div class="new-alert alert-info alert-algorithms alert-huge alert-clear">
-            <strong>
+          <div class="odc-alert odc-alert-algorithm">
+            <p class="ontario-h5">
               {{ _("Artificial Intelligence (<abbr>AI</abbr>)") }}
-            </strong>
+            </p>
             <p>
               {{ _('This record describes an <abbr title="Artificial Intelligence">AI</abbr> asset. It does not describe a dataset.') }}
+              <a href="{{ h.url_for('group.about', id='artificial-intelligence') }}">
+                {{ _('Learn more about how Ontario uses <abbr title="Artificial Intelligence">AI</abbr> in government.') }}
+              </a>
             </p>
-            <a href="{{ h.url_for('group.about', id='artificial-intelligence') }}">
-              {{ _('Learn more about how Ontario uses <abbr title="Artificial Intelligence">AI</abbr> in government.') }}
-            </a>
           </div>
         {% endif %}
         {{ super() }}
@@ -61,6 +61,7 @@
               {% if pkg.state == 'deleted' %}[{{ _('Deleted') }}]{% endif %}
             {% endblock page_heading %}
           </h1>
+          {% snippet "package/snippets/ontario_theme_access_level.html", pkg=pkg, dataset_type=dataset_type, schema=schema, resources=resources %}
           {% block package_notes %}
             {% if pkg.notes %}
               <div class="notes embedded-content dataset-font">{{ h.render_markdown(h.get_translated(pkg, 'notes')) }}</div>
@@ -83,7 +84,9 @@
           {% snippet "package/snippets/tags.html", tags=pkg.tags %}
         {% endblock package_tags %}
 
-        {% snippet "package/snippets/report_an_error.html" %}
+        {% if pkg.resources and pkg['access_level'] == 'open' %}
+          {% snippet "package/snippets/report_an_error.html" %}
+        {% endif %}
         <div class="row">
           <div class="col-md-12">{% snippet "home/snippets/ontario_theme_contact_us.html" %}</div>
         </div>
