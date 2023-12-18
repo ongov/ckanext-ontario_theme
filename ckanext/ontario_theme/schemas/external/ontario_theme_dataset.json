@@ -517,17 +517,17 @@
           }
         },
         {
-          "value": "restricted",
-          "label": {
-            "en": "Restricted",
-            "fr": "Restreintes"
-          }
-        },
-        {
           "value": "under_review",
           "label": {
             "en": "Under review",
             "fr": "En examen"
+          }
+        },
+        {
+          "value": "restricted",
+          "label": {
+            "en": "Restricted",
+            "fr": "Restreintes"
           }
         }
       ]

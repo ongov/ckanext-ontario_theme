@@ -460,24 +460,6 @@ def paginate_items(all_items, current_page, items_per_page):
     return this_slice 
 
 
-def reorder_access_level(access_level_dict):
-    '''Returns dictionary of access level items ordered by
-    openness.
-
-    access_level_dict
-        dictionary of facet field access level with name,
-        display_name and count
-    '''
-    for access_level in access_level_dict:
-        if access_level['name'] == 'open':
-            access_level.update({'order': '1'})
-        elif access_level['name'] == 'under_review':
-            access_level.update({'order': '2'})
-        else:
-            access_level.update({'order': '3'})
-    return access_level_dict
-
-
 def get_all_packages(**kwargs):
     '''Helper to return the full number of packages matching a 
     search query, including any facet search requests (in the
@@ -1089,8 +1071,7 @@ type data_last_updated
                 'ontario_theme_sort_accented_characters': sort_accented_characters,
                 'ontario_theme_abbr_localised_filesize': abbr_localised_filesize,
                 'ontario_theme_get_facet_options': get_facet_options,
-                'ontario_theme_site_title': site_title,
-                'ontario_theme_reorder_access_levels': reorder_access_level
+                'ontario_theme_site_title': site_title
                 }
 
     # IBlueprint
@@ -1179,23 +1160,27 @@ type data_last_updated
         exclude = "{!ex=al}access_level"
         tag = "{!tag=al}access_level"
         fq_list = []
-        if facet_field:
-            facet_field[4] = exclude
-        else:
-            search_params.update({"facet.field": exclude})
+
         if access_level not in request.params:
             fq_list.append(tag + ":open")
+
         if fq and access_level in request.params:
             facet_al = re.findall('access_level:"\\w+"', fq)
             fq_list = re.findall("(?:\".*?\"|\\S)+", fq)
             if facet_al and facet_field:
-                facet_tag = re.sub("access_level", tag, facet_al[0])
+                facet_tag = re.sub(access_level, tag, facet_al[0])
                 for i in range(len(fq_list)):
                     if fq_list[i] == facet_al[0]:
                         fq_list[i] = facet_tag
             search_params.pop('fq')
-        search_params.update({"fq_list": fq_list,
-                              "facet.field": facet_field})
+
+        if facet_field and len(facet_field) >= 10:
+            facet_field[4] = exclude
+        else:
+            search_params.update({"facet.field": exclude})
+        if facet_field is not None:
+            search_params.update({"fq_list": fq_list,
+                                  "facet.field": facet_field})
         return num_resources_filter_scrub(search_params)
 
     def after_search(self, search_results, search_params):
