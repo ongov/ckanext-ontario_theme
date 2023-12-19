@@ -88,7 +88,9 @@
           {% snippet "package/snippets/tags.html", tags=pkg.tags %}
         {% endblock package_tags %}
 
-        {% snippet "package/snippets/report_an_error.html" %}
+        {% if pkg.resources and pkg['access_level'] == 'open' %}
+          {% snippet "package/snippets/report_an_error.html" %}
+        {% endif %}
         <div class="row">
           <div class="col-md-12">{% snippet "home/snippets/ontario_theme_contact_us.html" %}</div>
         </div>
