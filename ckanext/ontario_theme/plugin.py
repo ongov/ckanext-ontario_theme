@@ -49,18 +49,6 @@ from .column_types import ColumnType, TextColumn, _standard_column_types
 
 _column_types: Dict[str, Type[ColumnType]] = {}
 
-def tabledesigner_column_type(field: Dict[str, Any]) -> ColumnType:
-    """
-    return column type object (fall back to text if not found)
-    """
-    info = field['info']
-    tdtype = info.get('tdtype', field.get('type', 'text'))
-    return _column_types.get(
-        tdtype,
-        _column_types.get('text', TextColumn)
-    )(info)
-
-
 def image_uploader():
     '''View function that renders the image uploader form.
     Passes `'image_url': 'submitted-image-path'` and `'uploads': {'path',}'`
@@ -198,6 +186,17 @@ def resource_display_name(resource_dict):
 
 ckan.lib.helpers.resource_display_name = resource_display_name
 
+def tabledesigner_column_type(field: Dict[str, Any]) -> ColumnType:
+    """
+    return column type object (fall back to text if not found)
+    """
+    info = field['info']
+    tdtype = info.get('tdtype', field.get('type', 'text'))
+    return _column_types.get(
+        tdtype,
+        _column_types.get('text', TextColumn)
+    )(info)
+
 # def get_datastore_info(resource_id):
 #     info=toolkit.get_action('datastore_info')(
 #                 data_dict={'id': resource_id})
@@ -235,6 +234,9 @@ def reformat_ui_dict(o):
         if el['id'] != "_id":
             print('el: ', el)
             if 'info' in el:
+                ct = tabledesigner_column_type(el)
+                ct_datastore_type = ct.datastore_type
+                ct_table_schema_type = ct.table_schema_type
                 if el['info']['type_override']:
                     el['type'] = el['info']['type_override']
                 

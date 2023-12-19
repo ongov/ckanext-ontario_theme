@@ -36,3 +36,11 @@ class TextColumn(ColumnType):
     example = _('free-form text')
     table_schema_type = 'string'
     table_schema_format = 'default'
+
+@_standard_column('integer')
+class IntegerColumn(ColumnType):
+    label = _('Integer')
+    description = _('Whole numbers with no decimal')
+    example = '21'
+    datastore_type = 'int8'
+    table_schema_type = 'integer'
