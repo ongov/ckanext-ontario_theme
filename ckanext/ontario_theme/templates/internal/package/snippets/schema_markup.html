@@ -1,11 +1,7 @@
 {%- set license = h.ontario_theme_get_license(pkg.license_id) -%}
 {%- if h.scheming_field_by_name(schema.dataset_fields, 'notes_translated') and pkg.notes %}
-  {% if h.scheming_language_text(pkg['notes_translated'])|length > 5000 %}
-    {% set description = h.scheming_language_text(pkg['notes_translated'])|truncate(5000, true) %}
-  {% else %}
-    {% set description = h.scheming_language_text(pkg['notes_translated']) %}
-  {% endif %}
-{% endif -%}
+  {% set description = h.scheming_language_text(pkg['notes_translated'])|truncate(5000, true) %}
+{%- endif -%}
 {% block javascript %}
 <script type="application/ld+json">
   {
