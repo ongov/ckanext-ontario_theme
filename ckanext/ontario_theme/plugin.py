@@ -41,6 +41,24 @@ import ckan.lib.helpers as h
 import logging
 log = logging.getLogger(__name__)
 
+# For ckanext-validation
+from typing import Callable, List, Any
+from collections.abc import Iterable, Mapping
+
+from .column_types import ColumnType, _standard_column_types
+
+# def tabledesigner_column_type(field: dict[str, Any]) -> ColumnType:
+#     """
+#     return column type object (fall back to text if not found)
+#     """
+#     info = field['info']
+#     tdtype = info.get('tdtype', field.get('type', 'text'))
+#     return plugin._column_types.get(
+#         tdtype,
+#         plugin._column_types.get('text', TextColumn)
+#     )(info, plugin._column_constraints.get(tdtype, []))
+
+
 def image_uploader():
     '''View function that renders the image uploader form.
     Passes `'image_url': 'submitted-image-path'` and `'uploads': {'path',}'`
