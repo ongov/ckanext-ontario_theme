@@ -1933,3 +1933,35 @@ msgstr ""
 #: ckanext/ontario_theme/page.py:51
 msgid "Go to page {}"
 msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/header.html:115
+msgid "Navigation header"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/header.html:152
+msgid "Clear field"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/header.html:170
+msgid "Search"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/header.html:182
+msgid "close search bar"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/header.html:205
+msgid "Show navigation menu"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/header.html:224
+msgid "Hide navigation menu"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/page.html:21
+msgid "Breadcrumb"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/home_breadcrumb_item.html:2
+msgid "Home"
+msgstr ""
