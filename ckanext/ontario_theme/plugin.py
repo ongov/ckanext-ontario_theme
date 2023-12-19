@@ -42,21 +42,23 @@ import logging
 log = logging.getLogger(__name__)
 
 # For ckanext-validation
-from typing import Callable, List, Any
-from collections.abc import Iterable, Mapping
+from typing import Type, Callable, List, Any, Dict
+# from collections.abc import Iterable, Mappings
 
-from .column_types import ColumnType, _standard_column_types
+from .column_types import ColumnType, TextColumn, _standard_column_types
 
-# def tabledesigner_column_type(field: dict[str, Any]) -> ColumnType:
-#     """
-#     return column type object (fall back to text if not found)
-#     """
-#     info = field['info']
-#     tdtype = info.get('tdtype', field.get('type', 'text'))
-#     return plugin._column_types.get(
-#         tdtype,
-#         plugin._column_types.get('text', TextColumn)
-#     )(info, plugin._column_constraints.get(tdtype, []))
+_column_types: Dict[str, Type[ColumnType]] = {}
+
+def tabledesigner_column_type(field: Dict[str, Any]) -> ColumnType:
+    """
+    return column type object (fall back to text if not found)
+    """
+    info = field['info']
+    tdtype = info.get('tdtype', field.get('type', 'text'))
+    return _column_types.get(
+        tdtype,
+        _column_types.get('text', TextColumn)
+    )(info)
 
 
 def image_uploader():

@@ -1,12 +1,6 @@
 from __future__ import annotations
 
-from typing import Type, Callable, Any, List
-# from collections.abc import Iterable, Mapping
-
-# from ckanext.datastore.backend.postgres import identifier, literal_string
-
-# from .column_constraints import ColumnConstraint
-
+from typing import Type, Callable, Any, Dict
 
 def _(x: str):
     return x
@@ -26,6 +20,14 @@ class ColumnType:
     label = 'undefined'
     # some defaults to save repetition in subclasses
     datastore_type = 'text'
+    html_input_type = 'text'
+
+    def __init__(            
+            self,
+            info: Dict[str, Any]
+            ):
+        self.colname = info.get('id', '')
+        self.info = info
 
 @_standard_column('text')
 class TextColumn(ColumnType):
