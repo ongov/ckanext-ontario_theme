@@ -1165,6 +1165,7 @@ type data_last_updated
                 'ontario_theme_abbr_localised_filesize': abbr_localised_filesize,
                 'ontario_theme_get_facet_options': get_facet_options,
                 'ontario_theme_get_datastore_info': get_datastore_info,
+                'ontario_theme_site_title': site_title,
                 'ontario_theme_trigger_ckanext_validation': trigger_ckanext_validation
                 }
 
