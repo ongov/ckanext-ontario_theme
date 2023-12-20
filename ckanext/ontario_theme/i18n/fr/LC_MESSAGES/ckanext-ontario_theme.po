@@ -2673,3 +2673,37 @@ msgstr "Titre du site FR"
 #: ckan/templates/admin/config.html:9
 msgid "Site Title EN"
 msgstr "Titre du site EN"
+
+#: ckanext/ontario_theme/templates/internal/header.html:115
+msgid "Navigation header"
+msgstr "Navigation en-tête"
+
+#: ckanext/ontario_theme/templates/internal/header.html:152
+#: ckanext/ontario_theme/templates/internal/home/snippets/search.html:27
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:26
+msgid "Clear field"
+msgstr "Effacer le champ"
+
+#: ckanext/ontario_theme/templates/internal/header.html:170
+msgid "Search"
+msgstr "Rechercher"
+
+#: ckanext/ontario_theme/templates/internal/header.html:182
+msgid "Close search bar"
+msgstr "Fermer la barre de recherche"
+
+#: ckanext/ontario_theme/templates/internal/header.html:205
+msgid "Show navigation menu"
+msgstr "Afficher le menu de navigation"
+
+#: ckanext/ontario_theme/templates/internal/header.html:224
+msgid "Hide navigation menu"
+msgstr "Cacher le menu de navigation"
+
+#: ckanext/ontario_theme/templates/internal/page.html:21
+msgid "Breadcrumb"
+msgstr "Fil d'Ariane"
+
+#: ckanext/ontario_theme/templates/internal/snippets/home_breadcrumb_item.html:2
+msgid "Home"
+msgstr "Page d'accueil"
