@@ -1,5 +1,11 @@
 {% ckan_extends %}
 
+{%- block title -%}
+  {%- block subtitle %}{% endblock -%}
+  {%- if self.subtitle()|trim %} {{ g.template_title_delimiter }} {% endif -%}
+  {{ h.ontario_theme_site_title() }}
+{%- endblock -%}
+
 {%- block links -%}
   {{ super() }}
   {% asset "ontario_theme/msappproxy_js" %}
