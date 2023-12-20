@@ -1947,7 +1947,7 @@ msgid "Search"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/header.html:182
-msgid "close search bar"
+msgid "Close search bar"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/header.html:205
