@@ -37,6 +37,15 @@ class TextColumn(ColumnType):
     table_schema_type = 'string'
     table_schema_format = 'default'
 
+@_standard_column('numeric')
+class NumericColumn(ColumnType):
+    label = _('Numeric')
+    description = _('Number with arbitrary precision (any number of '
+                    'digits before and after the decimal)')
+    example = '2.01'
+    datastore_type = 'numeric'
+    table_schema_type = 'number'
+
 @_standard_column('integer')
 class IntegerColumn(ColumnType):
     label = _('Integer')
@@ -44,3 +53,26 @@ class IntegerColumn(ColumnType):
     example = '21'
     datastore_type = 'int8'
     table_schema_type = 'integer'
+
+@_standard_column('timestamp')
+class TimestampColumn(ColumnType):
+    label = _('Timestamp')
+    description = _('Date and time without time zone')
+    example = '2024-01-01 12:00:00'
+    datastore_type = 'timestamp'
+    table_schema_type = 'time'
+
+def column_types(
+            self, existing_types: Dict[str, Type[ColumnType]]
+            ) -> Dict[str, Type[ColumnType]]:
+        """
+        return a {tdtype string value: ColumnType subclasses, ...} dict
+        existing_types is the standard column types dict, possibly modified
+        by other IColumnTypes plugins later in the plugin list (earlier
+        plugins may modify types added/removed/updated by later plugins)
+        ColumnType subclasses are used to set underlying datastore types,
+        validation rules, input widget types, template snippets, choice
+        lists, examples, help text and control other table designer
+        features.
+        """
+        return existing_types
