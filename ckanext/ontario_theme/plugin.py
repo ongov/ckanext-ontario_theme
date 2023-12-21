@@ -270,6 +270,36 @@ def trigger_ckanext_validation(resource_id, pkg_id):
     # Get the UI dict
     ui_dict = get_datastore_info(resource_id)
 
+    print('HEJ final ui_dict: ', ui_dict)
+    # {'fields': [{'type': 'string', 'name': 'broken_rule'}, {'type': 'number', 'name': 'numeric'}]}
+
+    datastore_info=toolkit.get_action('datastore_search')(
+                data_dict={'id': resource_id})
+    print('HEJ datastore_info: ', datastore_info)
+
+
+    for row in datastore_info['fields']:
+        if 'info' in row:
+            col_name = row['id']
+            frictionless_type = [item for item in ui_dict['fields'] if item.get('name')==col_name][0]['type']
+            row['info']['frictionless_type'] = frictionless_type
+
+    print('HEJ new datastore_info: ',datastore_info)
+    # {'include_total': True, 'limit': 100, 'records_format': 'objects', 
+    # 'resource_id': '62799719-d386-4881-a78f-220f62cfb2d9', 
+    # 'total_estimation_threshold': None, 
+    # 'records': <LazyJSONObject '[{"_id":1,"broken_rule":"string in numeric","numeric":"N/A"}]'>, 
+    # 'fields': [{'id': '_id', 'type': 'int'}, 
+    #            {'id': 'broken_rule', 'type': 'text', 'info': {'label': '', 'notes': '', 'type_override': '', 'frictionless_type': 'string'}}, 
+    #            {'id': 'numeric', 'type': 'text', 'info': {'label': '', 'notes': '', 'type_override': 'numeric', 'frictionless_type': 'number'}}
+    #           ], 
+    # '_links': {'start': '/dataset/test-validation-ext/dictionary/62799719-d386-4881-a78f-220f62cfb2d9?__no_cache__=True', 
+    # 'next': '/dataset/test-validation-ext/dictionary/62799719-d386-4881-a78f-220f62cfb2d9?__no_cache__=True&offset=100'}, 
+    # 'total': 1, 'total_was_estimated': False}
+
+    # Push modified fields dict to datastore
+    # https://docs.ckan.org/en/2.9/maintaining/datastore.html#ckanext.datastore.logic.action.datastore_create
+
     # Trigger ckanext-validation with the UI dict
     job_id=toolkit.get_action(u'resource_validation_run')(
                             {u'ignore_auth': True},
