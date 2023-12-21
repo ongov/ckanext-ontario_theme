@@ -42,11 +42,13 @@ import logging
 log = logging.getLogger(__name__)
 
 # For ckanext-validation
-from typing import Type, Callable, List, Any, Dict
+from typing import Type, Callable, List, Any, Dict 
+# Dict not needed for python 3.10 (https://stackoverflow.com/questions/67701167/how-to-use-quoted-type-annotations-for-base-class-in-python-3-8)
 # from collections.abc import Iterable, Mappings
 
-from .column_types import ColumnType, TextColumn, _standard_column_types
+from .column_types import ColumnType, TextColumn, IntegerColumn, _standard_column_types
 
+# NB: # Dict not needed for python 3.10 (https://stackoverflow.com/questions/67701167/how-to-use-quoted-type-annotations-for-base-class-in-python-3-8)
 _column_types: Dict[str, Type[ColumnType]] = {}
 
 def image_uploader():
@@ -186,15 +188,26 @@ def resource_display_name(resource_dict):
 
 ckan.lib.helpers.resource_display_name = resource_display_name
 
+# NB: # Dict not needed for python 3.10 (https://stackoverflow.com/questions/67701167/how-to-use-quoted-type-annotations-for-base-class-in-python-3-8)
 def tabledesigner_column_type(field: Dict[str, Any]) -> ColumnType:
     """
     return column type object (fall back to text if not found)
     """
-    info = field['info']
-    tdtype = info.get('tdtype', field.get('type', 'text'))
+    if 'info' in field:
+        info = field['info']
+        if info['type_override']:
+            type_override =  info['type_override']
+        else:
+            type_override = 'text'
+    else:
+        type_override = field['type']
+        info = field
+
+    coltypes = dict(_standard_column_types)
+
     return _column_types.get(
-        tdtype,
-        _column_types.get('text', TextColumn)
+        type_override,
+        coltypes.get(type_override)
     )(info)
 
 # def get_datastore_info(resource_id):
@@ -232,23 +245,17 @@ def reformat_ui_dict(o):
     typeArray = []
     for el in o:
         if el['id'] != "_id":
-            print('el: ', el)
             if 'info' in el:
-                ct = tabledesigner_column_type(el)
-                ct_datastore_type = ct.datastore_type
-                ct_table_schema_type = ct.table_schema_type
-                if el['info']['type_override']:
-                    el['type'] = el['info']['type_override']
+                el['type'] = tabledesigner_column_type(el).table_schema_type
                 
                 del el['info']
+            else:
+                el['type'] = tabledesigner_column_type(el).table_schema_type
 
             # Switch 'id' key name to 'name'
             el['name'] = el['id']
             del el['id']
             
-            # PostgreSQL type text is string in Frictionless
-            if el['type'] == 'text':
-                el['type'] = 'string'
             typeArray.append(el)
     
     schema_obj['fields'] = typeArray
@@ -262,7 +269,6 @@ def trigger_ckanext_validation(resource_id, pkg_id):
     '''
     # Get the UI dict
     ui_dict = get_datastore_info(resource_id)
-    print('ui dict in trigger: ', ui_dict)
 
     # Trigger ckanext-validation with the UI dict
     job_id=toolkit.get_action(u'resource_validation_run')(
