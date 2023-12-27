@@ -54,6 +54,22 @@ class IntegerColumn(ColumnType):
     datastore_type = 'int8'
     table_schema_type = 'integer'
 
+@_standard_column('boolean')
+class BooleanColumn(ColumnType):
+    label = _('Boolean')
+    description = _('True or false values')
+    example = 'false'
+    datastore_type = 'boolean'
+    table_schema_type = 'boolean'
+
+@_standard_column('date')
+class DateColumn(ColumnType):
+    label = _('Date')
+    description = _('Date without time of day')
+    example = '2024-01-01'
+    datastore_type = 'date'
+    table_schema_type = 'date'
+
 @_standard_column('timestamp')
 class TimestampColumn(ColumnType):
     label = _('Timestamp')
