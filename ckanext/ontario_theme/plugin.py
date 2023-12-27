@@ -42,16 +42,7 @@ import logging
 log = logging.getLogger(__name__)
 
 # For ckanext-validation
-from typing import Type, Callable, List, Any, Dict 
-# Dict not needed for python 3.10 (https://stackoverflow.com/questions/67701167/how-to-use-quoted-type-annotations-for-base-class-in-python-3-8)
-# from collections.abc import Iterable, Mappings
-
-from .column_types import ColumnType, TextColumn, IntegerColumn, _standard_column_types
-
-import ckan.tests.helpers as testhelpers
-
-# NB: # Dict not needed for python 3.10 (https://stackoverflow.com/questions/67701167/how-to-use-quoted-type-annotations-for-base-class-in-python-3-8)
-_column_types: Dict[str, Type[ColumnType]] = {}
+from .plugin_for_validation import get_datastore_info
 
 def image_uploader():
     '''View function that renders the image uploader form.
@@ -189,80 +180,6 @@ def resource_display_name(resource_dict):
         return helpers._("Supporting file")
 
 ckan.lib.helpers.resource_display_name = resource_display_name
-
-# NB: # Dict not needed for python 3.10 (https://stackoverflow.com/questions/67701167/how-to-use-quoted-type-annotations-for-base-class-in-python-3-8)
-def tabledesigner_column_type(field: Dict[str, Any]) -> ColumnType:
-    """
-    return column type object (fall back to text if not found)
-    """
-    if 'info' in field:
-        info = field['info']
-        if info['type_override']:
-            type_override =  info['type_override']
-        else:
-            type_override = 'text'
-    else:
-        type_override = field['type']
-        info = field
-
-    coltypes = dict(_standard_column_types)
-
-    return _column_types.get(
-        type_override,
-        coltypes.get(type_override)
-    )(info)
-
-# def get_datastore_info(resource_id):
-#     info=toolkit.get_action('datastore_info')(
-#                 data_dict={'id': resource_id})
-#     return info
-
-def get_datastore_info(resource_id):
-    ''' Gets the data dictionary array saved in the 
-     UI form before the resource is re-pushed to the 
-     database against this new dictionary and returns
-     it in the format used by ckanext-validation with
-     data types conforming to Frictionless Data.
-
-     Once the resource is re-pushed, the column types
-     of the database table can be retrieved with
-     toolkit.get_action('datastore_info').
-
-     ''' 
-    info=toolkit.get_action('datastore_search')(
-                data_dict={'id': resource_id})
-
-    return reformat_ui_dict(info['fields'])
-
-def reformat_ui_dict(o):
-    ''' Reformats the dictionary object from the UI form
-    into the structure used by ckanext-validation. Also
-    replaces PostgreSQL data types with their Fricionless
-    Data equivalents.
-
-    :param o: the array containing the dictionary object
-
-    '''
-    schema_obj = {}
-    typeArray = []
-    for el in o:
-        if el['id'] != "_id":
-            if 'info' in el:
-                el['type'] = tabledesigner_column_type(el).table_schema_type
-                
-                del el['info']
-            else:
-                el['type'] = tabledesigner_column_type(el).table_schema_type
-
-            # Switch 'id' key name to 'name'
-            el['name'] = el['id']
-            del el['id']
-            
-            typeArray.append(el)
-    
-    schema_obj['fields'] = typeArray
-
-    return schema_obj  
 
 def trigger_ckanext_validation(resource_id, pkg_id):
     ''' Calls ckanext-validation action function resource_validataion_run
@@ -1197,7 +1114,6 @@ type data_last_updated
                 'ontario_theme_sort_accented_characters': sort_accented_characters,
                 'ontario_theme_abbr_localised_filesize': abbr_localised_filesize,
                 'ontario_theme_get_facet_options': get_facet_options,
-                'ontario_theme_get_datastore_info': get_datastore_info,
                 'ontario_theme_site_title': site_title,
                 'ontario_theme_trigger_ckanext_validation': trigger_ckanext_validation
                 }
