@@ -22,7 +22,6 @@
     </button>
   </form>
 <p></p>
-  {% set this_dict = h.ontario_theme_get_datastore_info(res.id) %}
   {% set validate_action = h.ontario_theme_trigger_ckanext_validation(res.id, pkg.id) %}
   <form method="get" action="{{ validate_action }}" >
     <button class="btn btn-primary" name="save" type="submit">
