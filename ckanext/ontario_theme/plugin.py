@@ -1145,6 +1145,11 @@ type data_last_updated
         u'''Extensions will receive a dictionary with the query parameters,
         and should return a modified (or not) version of it.
         '''
+        sort = search_params.get('sort')
+        if sort and 'titles' in sort:
+            title_sorted = 'fr' if h.lang() == 'fr' else 'string'
+            new_sort = sort.replace('titles', 'title_{}'.format(title_sorted))
+            search_params.update({"sort": new_sort})
         return num_resources_filter_scrub(search_params)
 
     def after_search(self, search_results, search_params):
@@ -1154,6 +1159,9 @@ type data_last_updated
         kw = json.loads(pkg_dict.get('extras_keywords', '{}'))
         pkg_dict['keywords_en'] = kw.get('en', [])
         pkg_dict['keywords_fr'] = kw.get('fr', [])
+
+        title = json.loads(pkg_dict.get('title_translated', '{}'))
+        pkg_dict['title_fr'] = title.get('fr', '')
 
         # Index some organization extras fields from fluent/scheming.
         organization_dict = toolkit.get_action('organization_show')(data_dict={'id': pkg_dict['organization']})
