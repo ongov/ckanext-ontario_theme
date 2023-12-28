@@ -2707,3 +2707,21 @@ msgstr "Fil d'Ariane"
 #: ckanext/ontario_theme/templates/internal/snippets/home_breadcrumb_item.html:2
 msgid "Home"
 msgstr "Page d'accueil"
+
+#: ckanext/ontario_theme/templates/internal/group/read_base.html:19
+#: ckanext/ontario_theme/templates/internal/organization/read_base.html:21
+#: ckanext/ontario_theme/templates/internal/package/read.html:18
+msgid "Asset"
+msgstr "Actif"
+
+#: ckanext/ontario_theme/templates/internal/group/read_base.html:19
+#: ckanext/ontario_theme/templates/internal/organization/read_base.html:21
+#: ckanext/ontario_theme/templates/internal/package/read.html:18
+msgid "Assets"
+msgstr "Actifs"
+
+#: ckanext/ontario_theme/templates/internal/group/read_base.html:20
+#: ckanext/ontario_theme/templates/internal/organization/read_base.html:21
+#: ckanext/ontario_theme/templates/internal/package/read.html:18
+msgid "History"
+msgstr "Historique"
