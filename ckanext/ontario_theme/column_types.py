@@ -76,6 +76,14 @@ class TimestampColumn(ColumnType):
     description = _('Date and time without time zone')
     example = '2024-01-01 12:00:00'
     datastore_type = 'timestamp'
+    table_schema_type = 'datetime'
+
+@_standard_column('time')
+class TimestampColumn(ColumnType):
+    label = _('Time')
+    description = _('Date and time without time zone')
+    example = '12:00:00'
+    datastore_type = 'time'
     table_schema_type = 'time'
 
 def column_types(
