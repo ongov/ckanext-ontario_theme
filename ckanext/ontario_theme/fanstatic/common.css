@@ -3254,3 +3254,44 @@ label::after {
   font-size: 16px;
   line-height: 26px;
 }
+
+/* ========================================================================
+   Resource Page - Additional info table
+   ======================================================================== */
+
+.package-additional-info-thead {
+  display: none;
+}
+
+.package-additional-info-td,
+.package-additional-info-th {
+  display: table-cell;
+}
+
+.package-additional-info-tr {
+  display: table-row;
+}
+
+.package-additional-info-tbody {
+  display: table-row-group;
+}
+
+.table.package-additional-info-table {
+  background-color: #f9f9f9;
+  border: none;
+}
+
+.dataset-label.package-additional-info-th {
+  padding: 5px 15px 5px 30px;
+  font-weight: 700;
+  line-height: 32.6px;
+  color: #4d4d4d;
+  width: 40%;
+}
+
+.dataset-details.package-additional-info-td {
+  padding: 5px 30px 5px 0;
+  font-weight: 400;
+  line-height: 32.6px;
+  color: #4d4d4d;
+}
