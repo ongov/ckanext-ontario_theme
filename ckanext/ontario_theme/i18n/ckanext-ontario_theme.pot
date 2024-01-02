@@ -1176,6 +1176,7 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/header.html:103
 #: ckanext/ontario_theme/templates/internal/home/snippets/search.html:15
+#: ckanext/ontario_theme/templates/internal/header.html:170
 msgid "Search"
 msgstr ""
 
@@ -1940,10 +1941,6 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/header.html:152
 msgid "Clear field"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/header.html:170
-msgid "Search"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/header.html:182

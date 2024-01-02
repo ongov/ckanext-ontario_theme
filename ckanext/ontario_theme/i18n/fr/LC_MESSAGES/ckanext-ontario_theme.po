@@ -2467,8 +2467,9 @@ msgid "Jurisdiction"
 msgstr "Juridiction"
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:14
+#: ckanext/ontario_theme/templates/internal/header.html:170
 msgid "Search"
-msgstr "Recherche"
+msgstr "Rechercher"
 
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:16
 msgid "Try using the <a href=\"/dataset\">catalogue search</a>."
@@ -2683,10 +2684,6 @@ msgstr "Navigation en-tête"
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:26
 msgid "Clear field"
 msgstr "Effacer le champ"
-
-#: ckanext/ontario_theme/templates/internal/header.html:170
-msgid "Search"
-msgstr "Rechercher"
 
 #: ckanext/ontario_theme/templates/internal/header.html:182
 msgid "Close search bar"
