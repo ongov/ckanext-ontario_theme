@@ -892,7 +892,7 @@
     {
       "field_name": "validation_options",
       "label": "Validation options",
-      "preset": "validation_options"
+      "preset": "hidden_in_form"
     },
     {
       "field_name": "validation_status",
