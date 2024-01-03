@@ -15,12 +15,14 @@
           {% set organization_datasets = ungettext('{number} <span class="ontario-show-for-sr">dataset</span>', '{number} <span class="ontario-show-for-sr">datasets</span>', organization.package_count) %}
           <span aria-hidden="true"
                 id="count-{{ position }}"
-                class="search-count">{{ organization_datasets.format(number=organization.package_count)|safe }}</span>
+                class="search-count"
+                data-nw="{{ organization.name }}-count">{{ organization_datasets.format(number=organization.package_count)|safe }}</span>
         {% endblock datasets %}
       </div>
     {% endblock item_inner %}
     <a href="{{ url }}"
        aria-labelledby="ministry-title-{{ position }} count-{{ position }}"
-       class="anchor-div-group"></a>
+       class="anchor-div-group"
+       data-nw="{{ organization.name }}"></a>
   </li>
 {% endblock item %}

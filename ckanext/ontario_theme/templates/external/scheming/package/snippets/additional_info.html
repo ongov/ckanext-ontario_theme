@@ -28,8 +28,7 @@
       <div class="package-additional-info-tr">
         <div scope="row" class="dataset-label package-additional-info-th">{{ h.scheming_language_text(field.label) }}</div>
         <div class="dataset-details package-additional-info-td"
-            {% if field.display_property -%}property="{{ field.display_property }}"{%- endif %}
-            {% if field.display_itemprop -%}itemprop="{{ field.display_itemprop }}"{%- endif %}>
+            {% if field.display_property -%}property="{{ field.display_property }}"{%- endif %}>
           {% if field.preset == "date" %}
             {{ h.render_datetime(pkg_dict[field.field_name]) }}
           {% else %}

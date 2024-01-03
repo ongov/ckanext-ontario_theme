@@ -1176,6 +1176,7 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/header.html:103
 #: ckanext/ontario_theme/templates/internal/home/snippets/search.html:15
+#: ckanext/ontario_theme/templates/internal/header.html:170
 msgid "Search"
 msgstr ""
 
@@ -1942,10 +1943,6 @@ msgstr ""
 msgid "Clear field"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/header.html:170
-msgid "Search"
-msgstr ""
-
 #: ckanext/ontario_theme/templates/internal/header.html:182
 msgid "Close search bar"
 msgstr ""
@@ -1964,4 +1961,22 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/home_breadcrumb_item.html:2
 msgid "Home"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/group/read_base.html:20
+#: ckanext/ontario_theme/templates/internal/organization/read_base.html:21
+#: ckanext/ontario_theme/templates/internal/package/read.html:18
+msgid "Asset"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/group/read_base.html:19
+#: ckanext/ontario_theme/templates/internal/organization/read_base.html:21
+#: ckanext/ontario_theme/templates/internal/package/read.html:18
+msgid "Assets"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/group/read_base.html:20
+#: ckanext/ontario_theme/templates/internal/organization/read_base.html:21
+#: ckanext/ontario_theme/templates/internal/package/read.html:18
+msgid "History"
 msgstr ""
