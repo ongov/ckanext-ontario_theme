@@ -6,7 +6,7 @@
   <h1 class="hide-heading">
     {% block page_heading -%}
       {{ _('History') }}
-    {%- endblock %}
+    {%- endblock page_heading %}
   </h1>
   {% snippet 'snippets/activity_stream.html', activity_stream=activity_stream, id=id, object_type='group' %}
 {% endblock primary_content_inner %}
