@@ -25,13 +25,15 @@
           {% set group_datasets = ungettext('{number} <span class="ontario-show-for-sr">dataset</span>', '{number} <span class="ontario-show-for-sr">datasets</span>', group.package_count) %}
           <span aria-hidden="true"
                 id="count-{{ position }}"
-                class="search-count">{{ group_datasets.format(number=group.package_count)|safe }}</span>
+                class="search-count"
+                data-nw="{{ group.name }}-count">{{ group_datasets.format(number=group.package_count)|safe }}</span>
         {% endblock datasets %}
       </div>
     {% endblock item_inner %}
     <a href="{{ url }}"
        aria-labelledby="group-title-{{ position }} count-{{ position }}"
        aria-describedby="description-{{ position }}"
-       class="anchor-div-group"></a>
+       class="anchor-div-group"
+       data-nw="{{ group.name }}"></a>
   </li>
 {% endblock item %}
