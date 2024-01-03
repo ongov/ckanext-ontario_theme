@@ -227,7 +227,6 @@
         "en": "Is there a webpage that describes this resource? Link to it here."
       },
       "form_placeholder": "e.g., http://example.com/description-of-this-dataset",
-      "display_itemprop": "url",
       "display_property": "foaf:homepage",
       "display_snippet": "link.html",
       "classes": ["form-group","col-md-12"]
@@ -668,7 +667,6 @@
         "en": "Create a human-readable title that will help users understand what the file contains. Leaving the field blank will default the resource name to 'Data'. Add a name if the data describes something different than other files in the same dataset (e.g., 'Stone fruit crops' vs 'Non-stone fruit crops'). Leave blank if information about the data is captured by other fields in this form."
       },
       "fieldset": 2,
-      "display_itemprop": "name",
       "fieldset_name": "Describe the file",
       "classes": ["form-group","col-md-12"] 
     },
@@ -744,7 +742,6 @@
       },
       "classes": ["form-group","col-md-12"],
       "preset": "select",
-      "display_itemprop": "inLanguage",
       "validators": "ignore_missing scheming_choices",
       "choices": [
         {
