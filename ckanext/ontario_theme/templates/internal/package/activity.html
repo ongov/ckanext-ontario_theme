@@ -1,5 +1,8 @@
 {% extends "package/read.html" %}
 
+{% block schema_tag_attr %}
+{% endblock schema_tag_attr %}
+
 {% block subtitle %}
   {{ _('History') }} {{ g.template_title_delimiter }} {{ super() }}
 {% endblock subtitle %}
