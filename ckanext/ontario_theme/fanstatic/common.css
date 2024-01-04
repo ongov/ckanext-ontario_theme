@@ -1752,7 +1752,7 @@ section#dataset-resources > h2 {
 }
 
 .tag-list {
-  padding: 10px 10px 5px 0;
+  padding: 10px 0 5px 0;
 }
 
 .resource-item-div:hover .resource-item-title {
@@ -3261,19 +3261,8 @@ label::after {
   font-weight: 700;
   line-height: 32.6px;
   color: #4d4d4d;
-  width: 50%;
-  padding: 5px 15px 5px 15px;
-}
-
-@media screen and (min-width: 40em) {
-  .dataset-label.package-additional-info-th {
-    padding: 5px 15px 5px 30px;
-    width: 40%;
-  }
-
-  .dataset-details.package-additional-info-td {
-    padding: 5px 30px 5px 0;
-  }
+  width: 40%;
+  padding: 5px 15px 5px 30px;
 }
 
 .package-additional-info-tr {
@@ -3291,8 +3280,19 @@ label::after {
 }
 
 .dataset-details.package-additional-info-td {
-  padding: 5px 0;
+  padding: 5px 15px 5px 0;
   font-weight: 400;
   line-height: 32.6px;
   color: #4d4d4d;
+}
+
+@media screen and (max-width: 40em) {
+  .dataset-details.package-additional-info-td {
+    padding: 5px 0;
+  }
+
+  .dataset-label.package-additional-info-th {
+    padding: 5px 15px 5px 15px;
+    width: 50%;
+  }
 }

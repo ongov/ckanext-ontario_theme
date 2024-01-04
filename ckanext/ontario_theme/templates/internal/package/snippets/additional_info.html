@@ -3,15 +3,15 @@
   <div class="package-additional-info-table table-condensed">
     <div class="package-additional-info-thead">
       <div class="package-additional-info-tr">
-        <div class="package-additional-info-th" scope="col">{{ _('Field') }}</div>
-        <div class="package-additional-info-th" scope="col">{{ _('Value') }}</div>
+        <div class="package-additional-info-th">{{ _('Field') }}</div>
+        <div class="package-additional-info-th">{{ _('Value') }}</div>
       </div>
     </div>
     <div class="package-additional-info-tbody">
       {% block package_additional_info %}
         {% if pkg_dict.url %}
           <div class="package-additional-info-tr">
-            <div scope="row" class="dataset-label package-additional-info-th">{{ _('Source') }}</div>
+            <div class="dataset-label package-additional-info-th">{{ _('Source') }}</div>
             {% if h.is_url(pkg_dict.url) %}
               <div class="dataset-details package-additional-info-td" property="foaf:homepage">
                 {{ h.link_to(pkg_dict.url, pkg_dict.url, rel='foaf:homepage', target='_blank') }}
@@ -23,45 +23,45 @@
         {% endif %}
         {% if pkg_dict.author_email %}
           <div class="package-additional-info-tr">
-            <div scope="row" class="dataset-label package-additional-info-th">{{ _("Author") }}</div>
+            <div class="dataset-label package-additional-info-th">{{ _("Author") }}</div>
             <div class="dataset-details package-additional-info-td" property="dc:creator">
               {{ h.mail_to(email_address=pkg_dict.author_email, name=pkg_dict.author) }}
             </div>
           </div>
         {% elif pkg_dict.author %}
           <div class="package-additional-info-tr">
-            <div scope="row" class="dataset-label package-additional-info-th">{{ _("Author") }}</div>
+            <div class="dataset-label package-additional-info-th">{{ _("Author") }}</div>
             <div class="dataset-details package-additional-info-td" property="dc:creator">{{ pkg_dict.author }}</div>
           </div>
         {% endif %}
         {% if pkg_dict.maintainer_email %}
           <div class="package-additional-info-tr">
-            <div scope="row" class="dataset-label package-additional-info-th">{{ _('Maintainer') }}</div>
+            <div class="dataset-label package-additional-info-th">{{ _('Maintainer') }}</div>
             <div class="dataset-details package-additional-info-td" property="dc:contributor">
               {{ h.mail_to(email_address=pkg_dict.maintainer_email, name=pkg_dict.maintainer) }}
             </div>
           </div>
         {% elif pkg_dict.maintainer %}
           <div class="package-additional-info-tr">
-            <div scope="row" class="dataset-label package-additional-info-th">{{ _('Maintainer') }}</div>
+            <div class="dataset-label package-additional-info-th">{{ _('Maintainer') }}</div>
             <div class="dataset-details package-additional-info-td" property="dc:contributor">{{ pkg_dict.maintainer }}</div>
           </div>
         {% endif %}
         {% if pkg_dict.version %}
           <div class="package-additional-info-tr">
-            <div scope="row" class="dataset-label package-additional-info-th">{{ _("Version") }}</div>
+            <div class="dataset-label package-additional-info-th">{{ _("Version") }}</div>
             <div class="dataset-details package-additional-info-td">{{ pkg_dict.version }}</div>
           </div>
         {% endif %}
         {% if h.check_access('package_update',{'id':pkg_dict.id}) %}
           <div class="package-additional-info-tr">
-            <div scope="row" class="dataset-label package-additional-info-th">{{ _("State") }}</div>
+            <div class="dataset-label package-additional-info-th">{{ _("State") }}</div>
             <div class="dataset-details package-additional-info-td">{{ _(pkg_dict.state) }}</div>
           </div>
         {% endif %}
         {% if pkg_dict.metadata_modified %}
           <div class="package-additional-info-tr">
-            <div scope="row" class="dataset-label package-additional-info-th">{{ _("Last Updated") }}</div>
+            <div class="dataset-label package-additional-info-th">{{ _("Last Updated") }}</div>
             <div class="dataset-details package-additional-info-td">
               {% snippet "snippets/local_friendly_datetime.html", datetime_obj=pkg_dict.metadata_modified %}
             </div>
@@ -69,7 +69,7 @@
         {% endif %}
         {% if pkg_dict.metadata_created %}
           <div class="package-additional-info-tr">
-            <div scope="row" class="dataset-label package-additional-info-th">{{ _("Created") }}</div>
+            <div class="dataset-label package-additional-info-th">{{ _("Created") }}</div>
             <div class="dataset-details package-additional-info-td">
               {% snippet "snippets/local_friendly_datetime.html", datetime_obj=pkg_dict.metadata_created %}
             </div>
@@ -79,7 +79,7 @@
           {% for extra in h.sorted_extras(pkg_dict.extras) %}
             {% set key, value = extra %}
             <div class="package-additional-info-tr" rel="dc:relation" resource="_:extra{{ i }}">
-              <div scope="row" class="dataset-label package-additional-info-th" property="rdfs:label">{{ _(key|e) }}</div>
+              <div class="dataset-label package-additional-info-th" property="rdfs:label">{{ _(key|e) }}</div>
               <div class="dataset-details package-additional-info-td" property="rdf:value">{{ value }}</div>
             </div>
           {% endfor %}
