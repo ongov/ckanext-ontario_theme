@@ -22,6 +22,8 @@ import ckan.lib.helpers as helpers
 import ckan.lib.formatters as formatters
 from ckan.lib.helpers import core_helper
 
+from datetime import datetime
+
 from ckan.model import Package
 import ckan.model as model
 import locale
@@ -663,6 +665,11 @@ def order_package_facets(orig_ordered_dict):
 
     return OrderedDict(facet_titles_reorg)
 
+
+def get_current_year():
+    return datetime.today().strftime('%Y')
+
+
 def extract_package_name(url):
     ''' Returns the package name or gets resource name if url is for
         a dataset or resource page
@@ -1068,7 +1075,8 @@ type data_last_updated
                 'ontario_theme_sort_accented_characters': sort_accented_characters,
                 'ontario_theme_abbr_localised_filesize': abbr_localised_filesize,
                 'ontario_theme_get_facet_options': get_facet_options,
-                'ontario_theme_site_title': site_title
+                'ontario_theme_site_title': site_title,
+                'ontario_theme_get_current_year': get_current_year
                 }
 
     # IBlueprint
