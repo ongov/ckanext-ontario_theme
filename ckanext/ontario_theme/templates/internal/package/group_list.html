@@ -1,6 +1,10 @@
 {% extends "package/read.html" %}
 
 {% import "macros/form.html" as form %}
+
+{% block schema_tag_attr %}
+{% endblock schema_tag_attr %}
+
 {% block primary_content_inner %}
   <h2 class="hide-heading">{{ _('Groups') }}</h2>
   <div class="col-sm-8 col-xs-12">
