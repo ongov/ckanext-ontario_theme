@@ -34,7 +34,7 @@
           <div class="ontario-footer__copyright">
             <a class="ontario-footer__link"
                href="{%- trans -%}https://www.ontario.ca/page/copyright-information{%- endtrans -%}">
-            {{ _('&copy; King&#8217;s Printer for Ontario,') }} 2012&ndash;23</a>
+            {{ _('&copy; King&#8217;s Printer for Ontario,') }} 2012&ndash;{{ h.ontario_theme_get_current_year()[-2:] }}</a>
           </div>
         {% endblock footer_nav %}
       </div>
