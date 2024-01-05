@@ -45,8 +45,9 @@
     {% snippet 'snippets/access_level_radio_buttons.html', count=count %}
   {% endif %}
   {% if not error %}
+    {% set total_count = h.get_facet_items_dict('access_level')|sum(attribute='count') if facets else count %}
     <div role="status" class="search-count">
-      {% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}
+      {% snippet 'snippets/search_result_text.html', query=query, count=total_count, type=type %}
     </div>
   {% else %}
     <div>Error</div>
