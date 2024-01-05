@@ -15,7 +15,7 @@
 
           {% block heading %}
             {% if has_context_title %}
-              <h3 itemprop="sourceOrganization" class="ontario-module-h3">
+              <h3 class="ontario-module-h3">
                 {{ h.get_translated(organization, "title") or organization.name }}
                 {% if organization.state == 'deleted' %}[{{ _('Deleted') }}]{% endif %}
               </h3>

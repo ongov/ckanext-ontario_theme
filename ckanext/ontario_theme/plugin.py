@@ -23,6 +23,8 @@ import ckan.lib.helpers as helpers
 import ckan.lib.formatters as formatters
 from ckan.lib.helpers import core_helper
 
+from datetime import datetime
+
 from ckan.model import Package
 import ckan.model as model
 import locale
@@ -666,6 +668,11 @@ def order_package_facets(orig_ordered_dict):
 
     return OrderedDict(facet_titles_reorg)
 
+
+def get_current_year():
+    return datetime.today().strftime('%Y')
+
+
 def extract_package_name(url):
     ''' Returns the package name or gets resource name if url is for
         a dataset or resource page
@@ -1071,7 +1078,8 @@ type data_last_updated
                 'ontario_theme_sort_accented_characters': sort_accented_characters,
                 'ontario_theme_abbr_localised_filesize': abbr_localised_filesize,
                 'ontario_theme_get_facet_options': get_facet_options,
-                'ontario_theme_site_title': site_title
+                'ontario_theme_site_title': site_title,
+                'ontario_theme_get_current_year': get_current_year
                 }
 
     # IBlueprint
@@ -1181,6 +1189,12 @@ type data_last_updated
         if facet_field is not None:
             search_params.update({"fq_list": fq_list,
                                   "facet.field": facet_field})
+
+        sort = search_params.get('sort')
+        if sort and 'titles' in sort:
+            title_sorted = 'fr' if h.lang() == 'fr' else 'string'
+            new_sort = sort.replace('titles', 'title_{}'.format(title_sorted))
+            search_params.update({"sort": new_sort})
         return num_resources_filter_scrub(search_params)
 
     def after_search(self, search_results, search_params):
@@ -1190,6 +1204,9 @@ type data_last_updated
         kw = json.loads(pkg_dict.get('extras_keywords', '{}'))
         pkg_dict['keywords_en'] = kw.get('en', [])
         pkg_dict['keywords_fr'] = kw.get('fr', [])
+
+        title = json.loads(pkg_dict.get('title_translated', '{}'))
+        pkg_dict['title_fr'] = title.get('fr', '')
 
         # Index some organization extras fields from fluent/scheming.
         organization_dict = toolkit.get_action('organization_show')(data_dict={'id': pkg_dict['organization']})
