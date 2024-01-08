@@ -25,23 +25,23 @@
       and field.display_snippet is not none
       and pkg_dict[field.field_name]
       and (pkg_dict[field.field_name] != {'fr': '', 'en': ''}) -%}
-      <tr>
-        <th scope="row" class="dataset-label">{{ h.scheming_language_text(field.label) }}</th>
-        <td class="dataset-details"
+      <div class="package-additional-info-tr">
+        <div class="dataset-label package-additional-info-th">{{ h.scheming_language_text(field.label) }}</div>
+        <div class="dataset-details package-additional-info-td"
             {% if field.display_property -%}property="{{ field.display_property }}"{%- endif %}>
           {% if field.preset == "date" %}
             {{ h.render_datetime(pkg_dict[field.field_name]) }}
           {% else %}
             {%- snippet 'scheming/snippets/display_field.html', field=field, data=pkg_dict, schema=schema -%}
           {% endif %}
-        </td>
-      </tr>
+        </div>
+      </div>
     {%- endif -%}
   {%- endfor -%}
   {% if h.check_access('package_update',{'id':pkg_dict.id}) %}
-    <tr>
-      <th scope="row" class="dataset-label">{{ _("State") }}</th>
-      <td class="dataset-details">{{ _(pkg_dict.state) }}</td>
-    </tr>
+    <div class="package-additional-info-tr">
+      <div class="dataset-label package-additional-info-th">{{ _("State") }}</div>
+      <div class="dataset-details package-additional-info-td">{{ _(pkg_dict.state) }}</div>
+    </div>
   {% endif %}
 {% endblock package_additional_info %}
