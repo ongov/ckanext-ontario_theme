@@ -1210,5 +1210,6 @@ type data_last_updated
        return {
             'lock_if_odc': validators.lock_if_odc,
             'ontario_theme_copy_fluent_keywords_to_tags': validators.ontario_theme_copy_fluent_keywords_to_tags,
-            'ontario_tag_name_validator': validators.tag_name_validator
+            'ontario_tag_name_validator': validators.tag_name_validator,
+            'ontario_strip_fluent_value': validators.strip_fluent_value
        }
