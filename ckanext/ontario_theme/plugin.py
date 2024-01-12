@@ -545,48 +545,6 @@ def get_all_packages(**kwargs):
 
     return package_search['results']
 
-def get_all_organizations(**kwargs):
-    '''Helper function to returns the full list of organizations 
-    output from a keyword search (or all organizations in the 
-    case of no search). In the search page, only the paginated 
-    number of organizations for the current page is available, 
-    which prohibits application of any custom sorting since that 
-    needs the full list.
-
-    collection_names
-        An array of short-hand (hyphenated) organization names 
-        (e.g. 'attorney-general') for all items returned from the 
-        search. If no search performed, includes all items.
-        Passed from c.page.collection.
-
-    '''
-    collection_names=kwargs['collection_names']    
-
-    # Get the id of all organizations in the catalogue.
-    all_organization_names = toolkit.get_action('organization_list')(data_dict={})
-    
-    # When there are no organizations in the catalogue (e.g. when application is 
-    # first installed and database not yet indexed), the below try will fail and
-    # and empty array will be returned, preventing the template from calling 
-    # the sort method on organizations.
-    try:
-        this_name = all_organization_names[0]
-        if toolkit.get_action('organization_show')(data_dict={'id':this_name}):
-            # Filter only those organizations whose names matching those in 
-            # collection_names. Then use helper function h.get_organization() 
-            # to extract the full details for each organization, matching on 'id'.
-            org_array = []
-            for name in collection_names:
-                for idx in range(len(all_organization_names)):
-                    if name == all_organization_names[idx]:
-                        organization_obj = toolkit.get_action('organization_show')(data_dict={'id':name})
-                        organization_id = organization_obj['id']
-                        org_array.append(h.get_organization(organization_id))
-    except:
-        org_array = []
-
-    return org_array
-
 
 def sort_by_title_translated(item_list, **kwargs):
     '''Helper function to sort an array of items by the
@@ -1083,7 +1041,6 @@ type data_last_updated
                 'ontario_theme_get_group_datasets': get_group_datasets,
                 'ontario_theme_get_keyword_count': get_keyword_count,
                 'ontario_theme_get_all_packages': get_all_packages,
-                'ontario_theme_get_all_organizations': get_all_organizations,
                 'ontario_theme_sort_by_title_translated': sort_by_title_translated,
                 'ontario_theme_sort_accented_characters': sort_accented_characters,
                 'ontario_theme_abbr_localised_filesize': abbr_localised_filesize,
