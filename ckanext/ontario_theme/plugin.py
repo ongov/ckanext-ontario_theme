@@ -32,7 +32,7 @@ import functools
 
 from ckanext.ontario_theme.resource_upload import ResourceUpload
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
-from ckanext.ontario_theme.organization import index
+from ckanext.ontario_theme.organization import index as organization_index
 
 # For Image Uploader
 #from ckan.controllers.home import CACHE_PARAMETERS
@@ -1075,13 +1075,13 @@ type data_last_updated
         # Add url rules to Blueprint object.
         rules = [
             (u'/help', u'help', help),
-            (u'/dataset/inventory', u'inventory', csv_dump),
+            (u'/dataset/inventory', u'inventory', csv_dump)
         ]
 
         for rule in rules:
             blueprint.add_url_rule(*rule)
         blueprint.add_url_rule('/dataset/new', view_func=OntarioThemeCreateView.as_view(str(u'new')), defaults={u'package_type': u'dataset'})
-        blueprint.add_url_rule(u'/organization', view_func=index, strict_slashes=False)
+        blueprint.add_url_rule(u'/organization', view_func=organization_index, strict_slashes=False)
         return blueprint
 
     # IUploader

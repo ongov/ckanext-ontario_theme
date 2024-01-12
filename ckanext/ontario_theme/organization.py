@@ -1,4 +1,3 @@
-
 from ckan.logic import NotAuthorized, ValidationError
 import ckan.lib.base as base
 import ckan.lib.helpers as h
@@ -8,6 +7,10 @@ from ckan.views.group import _check_access, _action, _get_group_template, set_or
 
 
 def index(group_type='organization', is_organization=True):
+    '''Function from ckan.views.group modified to remove pagination
+    and return all fields of organizations for easier multilingual sorting
+    Specifically for organizations but can be reworked for both
+    groups and organizations.'''
     extra_vars = {}
     set_org(is_organization)
     page = h.get_page_number(request.params) or 1
