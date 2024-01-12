@@ -22,6 +22,8 @@ import ckan.lib.helpers as helpers
 import ckan.lib.formatters as formatters
 from ckan.lib.helpers import core_helper
 
+from natsort import humansorted
+
 from ckan.model import Package
 import ckan.model as model
 import locale
@@ -29,6 +31,7 @@ import functools
 
 from ckanext.ontario_theme.resource_upload import ResourceUpload
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
+from ckanext.ontario_theme.organization import index
 
 # For Image Uploader
 #from ckan.controllers.home import CACHE_PARAMETERS
@@ -583,43 +586,45 @@ def get_all_organizations(**kwargs):
 
     return org_array
 
+
 def sort_by_title_translated(item_list, **kwargs):
-    '''Helper function to sort an array of items by the 
-    'title_translated' dict according to the current language. 
-    If this dict does not exist, 'title' is used to sort since 
+    '''Helper function to sort an array of items by the
+    'title_translated' dict according to the current language.
+    If this dict does not exist, 'title' is used to sort since
     'title' always exists.
 
     item_list
         List of items to be sorted.
 
     current_page
-        Current page in the pagination. Passed through c.page.page. 
-    
+        Current page in the pagination. Passed through c.page.page.
+
     items_per_page
         Max number of items per page. Defined in ckan/controllers/package.py
-        as int(config.get('ckan.datasets_per_page', 20)). 
+        as int(config.get('ckan.datasets_per_page', 20)).
         Passed through c.page.items_per_page.
 
     lang
         Current language. Pass through request.environ.CKAN_LANG.
 
     reverse
-        Sort direction. Determined through `asc` or `desc` in request.params['sort']. 
+        Sort direction. Determined through `asc` or `desc` in
+        request.params['sort'].
 
     '''
     field = 'title_translated'
-    current_page=kwargs['current_page']
-    items_per_page=kwargs['items_per_page']
+    current_page = kwargs['current_page']
+    items_per_page = kwargs['items_per_page']
     lang = kwargs['lang']
     reverse = kwargs['reverse']
 
     # Sort item_list by translated title
-    sorted_items = sorted(item_list, 
-                             key=lambda x: x[field][lang].strip() if (field in x and lang in x[field]) else x['title'], 
-                             reverse=reverse)
+    sorted_items = sort_accented_characters(item_list, field, lang, 'title',
+                                            reverse)
 
     # Return subset of sorted_items as per the current pagination page
     return paginate_items(sorted_items, current_page, items_per_page)
+
 
 def get_popular_datasets():
     '''Helper to return most popular datasets, based on ckan core tracking feature
@@ -824,12 +829,21 @@ def default_locale():
     value = config.get('ckan.locale_default', 'en')
     return value
 
-def sort_accented_characters(french_list, primary_key=None):
+
+def sort_accented_characters(french_list, primary_key, secondary_key=None,
+                             tertiary_option=None, reverse=False):
     locale.setlocale(locale.LC_ALL, "")
-    def compare_keys(item1, item2):
-        return locale.strcoll(item1[primary_key], item2[primary_key])
-    sorted_list = sorted(french_list, key=functools.cmp_to_key(compare_keys))
+
+    def get_key(item):
+        if secondary_key and tertiary_option:
+            return item[primary_key][secondary_key].strip()if (primary_key in item and secondary_key in item[primary_key]) else item[tertiary_option]
+        elif secondary_key:
+            return item[primary_key][secondary_key]
+        else:
+            return item[primary_key]
+    sorted_list = humansorted(french_list, key=get_key, reverse=reverse)
     return sorted_list
+
 
 def num_resources_filter_scrub(search_params):
     u'''Remove any quotes around num_resources value to enable prober filter
@@ -1103,12 +1117,13 @@ type data_last_updated
         # Add url rules to Blueprint object.
         rules = [
             (u'/help', u'help', help),
-            (u'/dataset/inventory', u'inventory', csv_dump)
+            (u'/dataset/inventory', u'inventory', csv_dump),
         ]
 
         for rule in rules:
             blueprint.add_url_rule(*rule)
         blueprint.add_url_rule('/dataset/new', view_func=OntarioThemeCreateView.as_view(str(u'new')), defaults={u'package_type': u'dataset'})
+        blueprint.add_url_rule(u'/organization', view_func=index, strict_slashes=False)
         return blueprint
 
     # IUploader

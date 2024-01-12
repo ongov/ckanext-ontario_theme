@@ -71,21 +71,14 @@
       {% block organizations_list %}
         {% if c.page.items or request.params %}
           {% if c.page.items %}
-            {# Custom sort by language for name ascending and descending #}
-            {# Get all organization returned by query #}
-            {% set org_list = h.ontario_theme_get_all_organizations(collection_names=c.page.collection) %}
-            {# Prevent any organization sorting when there are no organizations #}
-            {% if org_list | length > 0 %}
-              {# Sort org_list by title_translated as per current language #}
-              {% set current_lang = request.environ.CKAN_LANG %}
-              {% set reverse = True if 'desc' in request.params['sort'] else False %}
-              {% set sorted_org = h.ontario_theme_sort_by_title_translated(org_list,
+            {% set current_lang = request.environ.CKAN_LANG %}
+            {% set reverse = True if 'desc' in request.params['sort'] else False %}
+            {% set sorted_org = h.ontario_theme_sort_by_title_translated(c.page.items,
                               current_page=c.page.page,
                               items_per_page=c.page.items_per_page,
                               lang=current_lang,
                             reverse=reverse) %}
-              {% snippet "organization/snippets/organization_list.html", organizations=sorted_org %}
-            {% endif %}
+            {% snippet "organization/snippets/organization_list.html", organizations=sorted_org %}
           {% endif %}
         {% else %}
           <p class="empty">
