@@ -789,8 +789,33 @@ def default_locale():
     return value
 
 
-def sort_accented_characters(french_list, primary_key, secondary_key=None,
+def sort_accented_characters(french_dict, primary_key, secondary_key=None,
                              tertiary_option=None, reverse=False):
+    '''Sorts a dict containing accented and different cased letters
+
+    french_dict
+        Dict in French containing accented characters and different
+        cased letters.
+    primary_key
+        Key of key:value pair, where the string containing accented
+        characters is the value.
+        (E.g. {"label_fr": "Justice et sécurité publique"})
+    secondary_key
+        Key of nested dictionary key:value pair, where
+        the string containing accented characters is the value.
+        (E.g. {'title_translated': {'en': 'Justice and Public Safety',
+                                    'fr': 'Justice et sécurité publique'}})
+    tertiary_option
+        Optional key for cases where a secondary key value is missing
+        from the nested dictionary. The optional key should be used
+        in place of primary_key and secondary_key.
+        (E.g. {'title': 'Justice and Public Safety',
+               'title_translated': {'en': 'Justice and Public Safety',
+                                    'fr': ''}})
+    reverse
+        Direction of sort, ascending or descending. Set to False (asc)
+        by default.
+    '''
     locale.setlocale(locale.LC_ALL, "")
 
     def get_key(item):
@@ -800,7 +825,7 @@ def sort_accented_characters(french_list, primary_key, secondary_key=None,
             return item[primary_key][secondary_key]
         else:
             return item[primary_key]
-    sorted_list = humansorted(french_list, key=get_key, reverse=reverse)
+    sorted_list = humansorted(french_dict, key=get_key, reverse=reverse)
     return sorted_list
 
 
