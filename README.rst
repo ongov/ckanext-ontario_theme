@@ -8,6 +8,8 @@ Theme for Ontario ckan including:
 * forms
 * templates and design
 
+<placeholder edit>
+
 -------------------
 Directory Structure
 -------------------
