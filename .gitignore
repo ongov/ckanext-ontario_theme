@@ -47,3 +47,4 @@ gtm_ns.html
 
 .vscode/**/*
 !.vscode/settings.json.default
+!.vscode/extensions.json

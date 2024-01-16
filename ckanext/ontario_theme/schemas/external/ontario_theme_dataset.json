@@ -21,7 +21,8 @@
       "required": "true",
       "fieldset": 1,
       "fieldset_name": "Describing the resource",
-      "form_snippet": "extrafields_fluent_title.html"
+      "form_snippet": "extrafields_fluent_title.html",
+      "validators": "fluent_text ontario_strip_fluent_value"
     },
     {
       "field_name": "name",
@@ -68,10 +69,10 @@
           }
         },
         {
-          "value": "algorithm",
+          "value": "ai",
           "label": {
-            "en": "Algorithm",
-            "fr": "Algorithme"
+            "en": "Artificial intelligence",
+            "fr": "Intelligence artificielle"
           }
         }
       ]
@@ -113,7 +114,8 @@
       },
       "classes": ["col-md-12","form-group"],      
       "preset": "fluent_text",
-      "form_placeholder": "e.g., Ontario"
+      "form_placeholder": "e.g., Ontario",
+      "display_itemprop": "spatialCoverage"
     },
     {
       "field_name": "geographic_granularity",
@@ -256,6 +258,7 @@
       },
       "preset" : "fluent_core_translated",
       "form_placeholder": "e.g., Joe Bloggs",
+      "display_itemprop": "maintainer",
       "display_property": "dc:contributor",
       "preset": "fluent_text",
       "classes": ["col-md-12","form-group"]
@@ -272,6 +275,7 @@
       },
       "form_placeholder": "e.g., joe@example.com",
       "display_property": "dc:contributor",
+      "display_itemprop": "maintainer",
       "display_snippet": "email.html",
       "display_email_name_field": "maintainer",
       "validators": "ignore_missing email_validator",
@@ -288,6 +292,7 @@
         "en": "Name of a person or organization that originally created the resource. If not known, it will default to your name."
       },
       "form_placeholder": "e.g., Joe Bloggs",
+      "display_itemprop": "creator",
       "display_property": "dc:creator",
       "classes": ["col-md-12","form-group"]
     },
@@ -664,7 +669,8 @@
       },
       "fieldset": 2,
       "fieldset_name": "Describe the file",
-      "classes": ["form-group","col-md-12"] 
+      "classes": ["form-group","col-md-12"],
+      "validators": "fluent_text ontario_strip_fluent_value"
     },
     {
       "field_name": "description_translated",

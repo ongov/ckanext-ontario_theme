@@ -1,21 +1,54 @@
 /* ========================================================================
    Breadcrumbs - à la Design System
    ======================================================================== */
+.toolbar {
+  display: block;
+  margin: 1.5rem 0;
+}
+
 .toolbar ol.breadcrumb {
-  color: #aaa;
-  padding: 10px 16px;
+  margin: 0;
+  padding-left: 0;
+  overflow: hidden;
+}
+
+.toolbar ol.breadcrumb > * {
+  display: block;
+  float: left;
+  line-height: inherit;
   list-style: none;
+  overflow: hidden;
+}
+
+.toolbar ol.breadcrumb > *:nth-child(n+1)::before {
+  content: "";
+  background: url(/images/ontario-icon-chevron-right.svg) no-repeat;
+  background-position-y: center;
+  display: inline-block;
+  height: 16px;
+  width: 25px;
+  position: relative;
+  top: 0.15rem;
+  margin-right: 0.2rem;
 }
 
 .toolbar ol.breadcrumb li {
-  display: inline;
-  font-size: 18px;
+  font-size: 16px;
+  text-transform: none;
+  padding: 0.2rem;
 }
 
-.toolbar ol.breadcrumb li + li:before {
-  padding: 8px;
-  color: black;
-  content: ">";
+.toolbar ol.breadcrumb li:not(:last-child)::after {
+  content: "";
+  margin: 0;
+}
+
+.toolbar ol.breadcrumb li:last-child {
+  padding-bottom: 0.25rem;
+}
+
+.toolbar ol.breadcrumb > *:first-child::before {
+  display: none;
 }
 
 .toolbar ol.breadcrumb li a {
@@ -26,10 +59,6 @@
 .toolbar ol.breadcrumb li a:hover {
   color: #00478f;
   text-decoration: underline;
-}
-
-.toolbar .breadcrumb a {
-  font-size: 16px;
 }
 
 .toolbar .breadcrumb .active a,
@@ -54,7 +83,7 @@
   box-sizing: border-box;
   color: #1a1a1a;
   display: block;
-  font-size: 24px;
+  font-size: 20px;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.5;
   margin: 0 0 2.5rem;
@@ -113,9 +142,9 @@
   margin-right: 4px;
 }
 
-/* color changed from design system #3c7fa3*/
+/* color #3c7fa3 changed from design system #06c*/
 .ontario-button--primary {
-  background-color: #3c7fa3;
+  background-color: #06c;
   color: #fff;
 }
 
@@ -142,8 +171,8 @@
 
 .ontario-button--secondary {
   background-color: #fff;
-  border: 2px solid #3c7fa3;
-  color: #3c7fa3;
+  border: 2px solid #06c;
+  color: #06c;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
@@ -169,12 +198,12 @@
 }
 
 .ontario-button--secondary:visited {
-  color: #3c7fa3;
+  color: #06c;
 }
 
 .ontario-button--tertiary {
   background-color: transparent;
-  color: #3c7fa3;
+  color: #06c;
   text-decoration: underline;
 }
 
@@ -199,7 +228,7 @@
 }
 
 .ontario-button--tertiary:visited {
-  color: #3c7fa3;
+  color: #06c;
 }
 
 /* ========================================================================
@@ -351,8 +380,7 @@ input[type="reset"].ontario-search-reset:focus {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-style: normal;
   font-weight: 600;
-  font-size: 20px;
-  line-height: 26px;
+  font-size: 19px;
   color: #1a1a1a;
 }
 
@@ -361,7 +389,8 @@ input[type="reset"].ontario-search-reset:focus {
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background: #fafafa;
+  background: #f2f2f2;
+  border-radius: 3px;
 }
 
 /* child div 1: shows search result count */
@@ -386,14 +415,31 @@ input[type="reset"].ontario-search-reset:focus {
 
   margin-bottom: 0;
   background-color: #fff;
-  padding-right: 20px;
+  padding-right: 1rem;
   margin-left: -20px;
-  margin-right: -20px;
+  margin-right: -1rem;
 }
 
 #group-datasets-search-form,
 #organization-datasets-search-form {
   border-bottom: none;
+  padding-bottom: 0;
+}
+
+#group-datasets-search-form.search-form .control-order-by,
+#organization-datasets-search-form.search-form .control-order-by {
+  margin-right: -20px;
+  padding-right: 20px;
+}
+
+#dataset-search-form,
+#organization-search-form,
+#group-search-form {
+  background: #f2f2f2;
+  padding: 20px 16px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: none;
   padding-bottom: 0;
 }
 
@@ -497,6 +543,10 @@ input[type="reset"].ontario-search-reset:focus {
   z-index: 6;
 }
 
+.group-packages.secondary.col-sm-3.filter-results {
+  z-index: 2;
+}
+
 /* ================================
   Custom overrides - text inputs
   ================================= */
@@ -529,7 +579,7 @@ input[type="reset"].ontario-search-reset.home {
 }
 
 #group-search-form .ontario-search-container {
-  z-index: 2;
+  z-index: 1;
 }
 
 .ontario-search-input.ontario-input.snippet {
@@ -563,7 +613,7 @@ input[placeholder] {
 }
 
 .ontario-alert {
-  border-width: 0 0 0 0.9375rem;
+  border-width: 0 0 0 4px;
   border-style: solid;
   padding: 1.5rem;
   margin: 2rem 0 2.5rem 0;
@@ -622,6 +672,38 @@ input[placeholder] {
   background-color: #e2f0f4;
 }
 
+.ontario-alert--informational svg {
+  fill: #1080a6;
+}
+
+/* ========================================================================
+   Page Alerts - ODC
+   ======================================================================== */
+.odc-alert {
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.odc-alert-restricted {
+  background-color: #fceff0;
+  border: 1px solid #cd0000;
+}
+
+.odc-alert-under_review {
+  background-color: #f1e3f2;
+  border: 1px solid #92278F;
+}
+
+.odc-alert-algorithm {
+  background-color: #DBE9F5;
+  border: 1px solid #3193CC;
+}
+
+.odc-alert-under_review p,
+.odc-alert-algorithm p:last-child {
+  margin-bottom: 0;
+}
+
 /* ===============================
    Custom overrides - page alerts
    =============================== */
@@ -641,51 +723,16 @@ input[placeholder] {
   text-decoration: underline;
 }
 
-/* fa and feedback classes can be removed once icon is replaced with a svg */
-.fa.fa-comments {
-  font-size: 100px;
-  color: #1080a6;
-}
-
-.feedback.ontario-alert__header-icon {
-  height: 100px;
-  width: 100px;
-  margin-left: 3rem;
-}
-
 .feedback.ontario-alert__body {
-  max-width: unset;
-  margin-left: 1rem;
-  padding-top: 22px;
-}
-
-@media screen and (max-width: 992px) {
-  .fa.fa-comments {
-    font-size: 80px;
-  }
-
-  .feedback.ontario-alert__header-icon {
-    height: 80px;
-    width: 80px;
-    margin-left: 0.5rem;
-  }
-
-  .feedback.ontario-alert__body h2 {
-    margin-top: unset;
-  }
-
-  .feedback.ontario-alert__body {
-    padding-top: unset;
-  }
-}
-
-.feedback.ontario-alert {
-  display: flex;
-  min-height: 198px;
+  margin-left: 0;
 }
 
 .search-page-heading {
-  padding: 0 20px;
+  padding: 0 15px;
+}
+
+.search-page-heading h1 {
+  margin-top: 0;
 }
 
 /* ========================================================================
@@ -717,22 +764,8 @@ a:focus {
 /* ========================================================================
    Custom overrides - ministry page
    ======================================================================== */
-.ministry-heading {
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 45px;
-}
-
-.ministry-item.media-item:first-child {
-  border-top: 1px solid #dddddd;
-}
-
-.media-item:last-child {
-  border-bottom: none;
-}
-
 .ontario-module-h3 {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
   line-height: 25.6px;
   word-break: break-word;
@@ -741,11 +774,7 @@ a:focus {
 
 .ministry-packages {
   float: right;
-}
-
-.ministry-package-div,
-.ministry-packages {
-  margin-top: 25px;
+  padding-left: 30px;
 }
 
 .ministry.nums {
@@ -756,10 +785,6 @@ a:focus {
 
 .module > .page-header.ministry-page-header {
   margin-top: 0;
-}
-
-.primary.ministry-page {
-  padding-top: unset;
 }
 
 .inline-dl dt:before {
@@ -776,6 +801,35 @@ a:focus {
 .inline-dl {
   font-size: 20px;
   line-height: 25.6px;
+}
+
+.wrapper div.page-header {
+  border: none;
+  background: none;
+}
+
+.wrapper div.page-header ul.nav.nav-tabs {
+  width: 100%;
+}
+
+.wrapper div.page-header ul.nav.nav-tabs li a {
+  color: #666666;
+  border: none;
+}
+
+.wrapper div.page-header ul.nav.nav-tabs li a:hover {
+  border: none;
+}
+
+.wrapper div.page-header ul.nav.nav-tabs li.active a {
+  border: none;
+  border-bottom: solid 2px #1080A6;
+  color: #1080A6;
+}
+
+.page-header .content_action {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 /* ========================================================================
@@ -1123,7 +1177,6 @@ header {
 
   #ontario-header .ontario-columns,
   #ontario-application-subheader .ontario-columns {
-    padding-left: 8px;
     padding-right: 8px;
   }
 }
@@ -1183,7 +1236,7 @@ screen and (min-width: 40em) {
 }
 
 /* Moves the closing Menu button when the French title wraps */
-@media screen and (min-width: 40em) and (max-width: 51.5em) {
+@media screen and (min-width: 40em) and (max-width: 51.0625em) {
   .ontario-header-button--with-outline.fr {
     top: calc(-4rem + -1.4rem);
   }
@@ -1434,27 +1487,11 @@ via submission form. Copied from DS.*/
   margin: 0 0 0.75rem 0;
 }
 
-@media screen and (min-width: 40em) {
-  .embedded-content h2 {
-    font-size: 2.0625rem;
-    letter-spacing: 0.02rem;
-    line-height: 1.33;
-  }
-}
-
 .embedded-content h3 {
   font-size: 1.4375rem;
   letter-spacing: 0.02rem;
   line-height: 1.39;
   margin: 0 0 0.75rem 0;
-}
-
-@media screen and (min-width: 40em) {
-  .embedded-content h3 {
-    font-size: 1.75rem;
-    letter-spacing: 0.02rem;
-    line-height: 1.43;
-  }
 }
 
 .embedded-content h4 {
@@ -1470,6 +1507,18 @@ via submission form. Copied from DS.*/
     letter-spacing: 0.0313rem;
     line-height: 1.5;
   }
+
+  .embedded-content h3 {
+    font-size: 1.75rem;
+    letter-spacing: 0.02rem;
+    line-height: 1.43;
+  }
+
+  .embedded-content h2 {
+    font-size: 2.0625rem;
+    letter-spacing: 0.02rem;
+    line-height: 1.33;
+  }
 }
 
 .ministry-contact {
@@ -1479,42 +1528,46 @@ via submission form. Copied from DS.*/
 
 .resource-list {
   overflow: hidden;
+  padding-bottom: 10px;
 }
 
 .resource-item {
   padding: 15px 30px 15px 30px;
 }
 
+.anchor-div {
+  position: absolute;
+  top: 0.25rem;
+  bottom: 0;
+  left: 1.3rem;
+  right: 1.3rem;
+  z-index: 999;
+}
+
 .label-div {
-  width: 13%;
   float: left;
   position: relative;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .resource-item .label[data-format] {
-  height: 57px;
-  min-width: 61px;
+  height: 55px;
+  min-width: 55px;
   position: relative;
   padding: 1em 0.5em;
-  font-size: 16.5px;
-  display: inline-block;
+  display: flex;
   font-weight: 700;
-  line-height: 25px;
+  align-items: center;
+  justify-content: center;
 }
 
 .resource-item .description {
   font-weight: 400;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 24.51px;
   color: #1a1a1a;
   margin-top: 5px;
   margin-bottom: 10px;
-}
-
-.resource-item.row,
-.resource-list {
-  margin: 0 -15px;
 }
 
 .resource-item div {
@@ -1524,14 +1577,15 @@ via submission form. Copied from DS.*/
 .label.label-english,
 .label.label-french,
 .label.label-english_and_french {
+  display: inline-block;
   background-color: #f2f2f2;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
   color: #1a1a1a;
-  border-radius: 2px;
-  margin-left: 10px;
-  margin-bottom: 5px;
-  vertical-align: -30%;
+  border-radius: 4px;
+  margin-right: 5px;
+  margin-top: 3.5px;
+  border: solid 2px #fff;
 }
 
 .description.details {
@@ -1539,21 +1593,23 @@ via submission form. Copied from DS.*/
 }
 
 .resource-item-title {
+  display: inline;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 27px;
   color: #000000;
   text-decoration: none;
-  vertical-align: -30%;
+  margin-right: 7px;
 }
 
-.resource-item-title:hover {
+.resource-item-title:hover,
+.resource-item-title:visited {
   color: #000000;
 }
 
 .dataset-font,
 .package-item-category {
-  font-size: 19px;
+  font-size: 16px;
   font-weight: 400;
 }
 
@@ -1561,23 +1617,63 @@ via submission form. Copied from DS.*/
   float: right;
 }
 
+@media screen and (max-width: 73em) {
+  .right-col {
+    clear: left;
+    padding-left: unset;
+    padding-right: unset;
+    float: unset;
+  }
+
+  .dataset-main,
+  .resource-main {
+    display: grid;
+  }
+
+  .dataset-aside {
+    order: 2;
+  }
+
+  .resource-aside {
+    order: 7;
+  }
+
+  .package-z-index {
+    order: 1;
+  }
+
+  .page-header {
+    padding-bottom: 0;
+    margin: 40px 0 0;
+  }
+}
+
+.resource-aside .module-narrow:first-child {
+  margin: 0 0 40px 0;
+}
+
+
+.module-narrow {
+  background: #f2f2f2;
+}
+
 @media screen and (max-width: 39.9375em) {
   section.additional-info table.table tbody tr td.dataset-details {
     width: 40%;
   }
 
-  .label-div {
-    width: 17.5%;
-  }
-
   .label.label-english_and_french {
     display: inline-flex;
+  }
+
+  .resource-info {
+    display: flow-root;
   }
 }
 
 @media screen and (min-width: 73em) {
   .right-col {
-    max-width: 350px;
+    max-width: 380px;
   }
 
   section.additional-info table.table tbody tr td.dataset-details {
@@ -1585,33 +1681,27 @@ via submission form. Copied from DS.*/
   }
 }
 
-.resource-button-primary {
-  min-height: 78px;
-  min-width: 142px;
-  vertical-align: top;
+.filesize {
+  font-size: 16px;
+  white-space: nowrap;
+  position: relative;
+  z-index: 1000;
 }
 
-.resource-button-secondary {
-  min-height: 78px;
-  min-width: 193px;
-  vertical-align: top;
-}
-
-.resource-button-text {
-  display: contents;
-  text-align: left;
-  column-gap: 0.5vw;
-  align-items: baseline;
+@media screen and (max-width: 40em) {
+  .resource-buttons {
+    margin-top: 10px;
+  }
 }
 
 @media screen and (min-width: 40em) {
-  .resource-item .description {
-    margin-left: 10%;
+  .resource-buttons {
+    margin-left: 10px;
   }
+}
 
-  .resource-button-text {
-    display: inline-flex;
-  }
+.resource-buttons .ontario-button {
+  margin-right: 0;
 }
 
 .aside-heading {
@@ -1625,6 +1715,10 @@ via submission form. Copied from DS.*/
   color: #000000;
 }
 
+.right-col li {
+  font-weight: 600;
+}
+
 .right-col a.btn.btn-primary {
   font-size: 20px;
   line-height: 27.24px;
@@ -1636,60 +1730,8 @@ via submission form. Copied from DS.*/
 }
 
 .package-z-index {
-  z-index: 2;
+  z-index: 1;
   position: relative;
-}
-
-section.additional-info table.table {
-  border: none;
-}
-
-section.additional-info table.table thead {
-  display: none;
-}
-
-section.additional-info table.table td {
-  border: none;
-}
-
-section.additional-info table.table tbody tr:nth-child(even) th,
-section.additional-info table.table tbody tr:nth-child(even) td {
-  background-color: #f9f9f9;
-}
-
-section.additional-info table.table tbody tr:first-child th,
-section.additional-info table.table tbody tr:first-child td {
-  padding-top: 10px;
-}
-
-section.additional-info table.table tbody tr:last-child th,
-section.additional-info table.table tbody tr:last-child td {
-  padding-bottom: 10px;
-}
-
-section.additional-info table.table tbody tr th {
-  padding: 5px 15px 5px 30px;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 32.6px;
-  color: #4d4d4d;
-}
-
-section.additional-info table.table tbody tr td {
-  padding: 5px 30px 5px 0;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 32.6px;
-  color: #4d4d4d;
-}
-
-section.additional-info table.table tbody tr th,
-section.additional-info table.table tbody tr td {
-  border: none;
-}
-
-section#dataset-resources .dataset-font {
-  color: #4d4d4d;
 }
 
 section#dataset-resources > h2 {
@@ -1710,7 +1752,39 @@ section#dataset-resources > h2 {
 }
 
 .tag-list {
-  padding: 10px 10px 5px 0;
+  padding: 10px 0 5px 0;
+}
+
+.resource-item-div:hover .resource-item-title {
+  text-decoration: underline;
+}
+
+.resource-item-div:hover .ontario-button--secondary,
+.resource-item .ontario-button--secondary:hover {
+  background-color: #e0f0ff;
+  border-color: #00478f;
+  color: #00478f;
+}
+
+@media screen and (max-width: 40em) {
+  .resource-item {
+    display: grid;
+  }
+}
+
+@media screen and (min-width: 40em) {
+  .resource-item {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .resource-title-div {
+    flex-basis: 85%;
+  }
+
+  .label-div {
+    height: 100%;
+  }
 }
 
 /* =====================================================
@@ -1782,32 +1856,73 @@ ul.nav-tabs li a,
   text-decoration: none;
 }
 
+a.ontario-button.ontario-button--tertiary,
+a.ontario-button.ontario-button--tertiary:hover {
+  text-decoration: underline;
+}
+
+
 /* ========================================================================
-   Custom overrides - datafile pages
+   Custom overrides - resource pages
    ======================================================================== */
 .ontario-margin-top-40 {
   margin-top: 40px;
 }
 
-.additional-info-table.table-bordered > tbody > tr > th,
-.additional-info-table.table-bordered > thead > tr > th {
-  border-right: unset;
+.res-additional-info-thead {
+  display: table-header-group;
 }
 
-.additional-info-table.table-bordered > tbody > tr > td,
-.additional-info-table.table-bordered > thead > tr > th {
-  border-left: unset;
-}
-
-.module-resource {
+.res-additional-info-table {
+  display: table;
+  line-height: 22.85px;
+  font-size: 16px;
   border-bottom: unset;
-  z-index: 1;
+}
+
+.res-additional-info-thead .res-additional-info-th,
+.res-additional-info-thead .res-additional-info-td {
+  border-bottom-width: 2px;
+  font-weight: 700;
+}
+
+.res-additional-info-th {
+  font-weight: 700;
+}
+
+.res-additional-info-tr {
+  display: table-row;
+}
+
+.res-additional-info-tbody {
+  display: table-row-group;
+}
+
+.res-additional-info-tbody .res-additional-info-tr:nth-of-type(2n+1) {
+  background-color: #f9f9f9;
+}
+
+.res-additional-info-tbody .res-additional-info-tr:nth-of-type(2n) {
+  background-color: #f2f2f2;
+}
+
+.res-additional-info-th,
+.res-additional-info-td {
+  display: table-cell;
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  width: 50%;
 }
 
 .table-condensed > tbody > tr > th,
 .table-condensed > thead > tr > th,
 .table-condensed > tbody > tr > td {
   padding: 12px;
+}
+
+.module-resource {
+  border-bottom: unset;
+  z-index: 1;
 }
 
 .action-group {
@@ -1835,7 +1950,7 @@ ul.nav-tabs li a,
 }
 
 .datafile-p {
-  font-size: 20px;
+  font-size: 16px;
   line-height: 27.24px;
 }
 
@@ -1851,8 +1966,9 @@ ul.nav-tabs li a,
 
 /* Break the URLs so they fit the panel width and the width of screen */
 #collapse-querying .panel-body,
-.resource-url-analytics {
-  overflow-wrap: break-word;
+.resource-url-analytics,
+.page-heading {
+  overflow-wrap: anywhere;
 }
 
 /* ========================================================================
@@ -2019,8 +2135,12 @@ screen and (min-width: 96em) {
   border-color: #92278f !important;
 }
 
+.ontario-border-highlight--green {
+  border-color: #2b8737 !important
+}
+
 /* ========================================================================
-   Dataset Search Page - Package Items
+   Search Page - Package Items
    ======================================================================== */
 .package-item-category {
   color: #4d4d4d;
@@ -2029,6 +2149,7 @@ screen and (min-width: 96em) {
 
 .dataset-content > h3.ontario-h4 {
   font-weight: 600;
+  font-size: 20px;
   margin-bottom: 0;
 }
 
@@ -2048,7 +2169,7 @@ screen and (min-width: 96em) {
 }
 
 .resource-formats p {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 400;
   margin-right: 10px;
 }
@@ -2065,14 +2186,18 @@ screen and (min-width: 96em) {
 }
 
 .packages_not_available {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   margin-right: 10px;
 }
 
 .packages_access_level {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 400;
+}
+
+.dataset-item {
+  border-bottom: 1px solid #ccc;
 }
 
 /* ========================================================================
@@ -2100,8 +2225,13 @@ screen and (min-width: 96em) {
 .label.label-default {
   color: #000;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
   padding: 0.4em 1em;
+  height: 33px;
+  min-width: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .label[data-format="html"],
@@ -2195,15 +2325,95 @@ screen and (min-width: 96em) {
   background-color: #ddedc7;
 }
 
+.label[data-format="web"],
+.label[data-format*="web"] {
+  background-color: #ebe7db;
+}
+
 /* default button background colour */
 .label-default {
   background-color: #f2f2f2;
   color: #000;
 }
 
-/* About and Help page header */
+/* ========================================================================
+   About and Help page - On this page
+   ======================================================================== */
+ol.table-of-contents {
+  list-style-position: outside;
+  margin-left: 1.5em;
+  padding-left: 0;
+}
+
+ul.table-of-contents {
+  list-style-type: none;
+  margin-left: 0;
+  padding: 0;
+}
+
+.table-of-contents {
+  margin-bottom: 1.25rem;
+  columns: 2 21rem;
+  column-gap: 2.5rem;
+}
+
+.table-of-contents li {
+  break-inside: avoid;
+  padding: 0 0 0.75rem 0.25rem;
+}
+
+h2.ontario-small {
+  font-size: 1.25rem;
+}
+
+.article-intro {
+  margin: 0 auto 1.5rem auto;
+  border-bottom: 4px solid #1a1a1a;
+  text-align: left;
+}
+
+.toc-hr {
+  margin: 1rem 0;
+  border-bottom: 4px solid #d9d9d9;
+}
+
+#about h2[id],
+.article-container h2[id] {
+  border-top: 4px solid #d9d9d9;
+  height: 100%;
+  max-width: 100%;
+  padding-top: 2.5rem;
+  margin-top: 2.5rem;
+}
+
+#about h2[id].first-h2,
+.article-container h2[id].first-h2 {
+  margin-top: 0;
+  border-top: 0;
+  padding-top: 0;
+}
+
 .module h1 {
-  margin: 2.5rem 0 1.5rem 0;
+  margin: 0 0 1.5rem 0;
+}
+
+#about,
+.article-container {
+  overflow-wrap: break-word;
+}
+
+/* About & Help page images */
+figure {
+  background-color: #eee;
+  width: 80%;
+  margin: 50px 0;
+  padding: 10px;
+}
+
+#about #files .metadata-item:last-of-type {
+  border-bottom: unset;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 /* Wrapper styling */
@@ -2213,4 +2423,876 @@ screen and (min-width: 96em) {
 
 .module.module-narrow.module-shallow.context-info {
   padding: 30px;
+}
+
+/* ========================================================================
+   Misc - Alignment changes
+   ======================================================================== */
+.homepage [role="main"] {
+  padding: 0;
+}
+
+/* Survey banner styling */
+.survey {
+  margin-bottom: 0;
+}
+
+.alert {
+  padding: 15px 0;
+}
+
+.ministry-package-div {
+  padding-left: unset;
+  padding-right: unset;
+}
+
+@media screen and (max-width: 767px) {
+  .js .secondary .filters {
+    display: none;
+    position: fixed;
+    overflow: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+@media (max-width: 767px) {
+  .js .secondary .filters > div {
+    background-color: #fff;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+}
+
+#news .dataset-list .ontario-row li {
+  font-weight: 400;
+  line-height: 25.6px;
+  font-size: 16px;
+  margin-bottom: 25px;
+}
+
+#news ul a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+#news ul a:hover {
+  color: #00478f;
+  text-decoration: underline;
+}
+
+#news ul a:visited {
+  color: #551a8b;
+}
+
+#news.ontario-row .ontario-row {
+  margin: unset;
+}
+
+#news .dataset-list .show-more {
+  margin-bottom: 40px;
+}
+
+.banner-datasets {
+  padding-right: 10px;
+}
+
+#news hr,
+#resources_and_information hr {
+  border: 0;
+  padding: 0;
+  margin: 0 0 2.5rem;
+  border-bottom: 2px solid #f2f2f2;
+}
+
+#news {
+  color: #000000;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+@media screen and (max-width: 39.9375em) {
+  .resource-view .actions {
+    display: contents;
+  }
+}
+
+.resource-view .actions {
+  right: 15px;
+  top: 55px;
+}
+
+.module-resource .actions {
+  top: unset;
+  right: unset;
+}
+
+.ontario-row .page_primary_action {
+  padding-right: 16px;
+  margin-bottom: unset;
+}
+
+.page_primary_action .add-dataset {
+  margin-bottom: 20px;
+}
+
+li.media-item.ministry-item {
+  margin-left: unset;
+  padding: 15px;
+}
+
+.new-alert.alert-huge > p {
+  margin-bottom: 0;
+}
+
+.new-alert.alert-huge {
+  padding-bottom: 40px;
+}
+
+[role="main"] {
+  padding-bottom: unset;
+}
+
+/* ========================================================================   
+  Homepage - Topics
+  ======================================================================== */
+.topics-list-item:nth-child(5n+1) {
+  clear: left;
+}
+
+.topics-list {
+  list-style-type: none;
+  display: grid;
+  padding-left: unset;
+  margin-top: 28px;
+}
+
+@media screen and (min-width: 40em) {
+  .topics-list {
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(5, auto);
+    grid-auto-flow: column;
+    column-gap: 80px;
+  }
+}
+
+.hp_category {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.topics-list-item {
+  justify-items: center;
+  margin-bottom: 2rem;
+  display: flex;
+  gap: 5px;
+}
+
+div#topics div i {
+  font-size: 30px;
+  width: 30px;
+  text-align: center;
+  color: #999999;
+}
+
+.topics-list-item a {
+  color: #000;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+div#topics div span {
+  font-weight: 600;
+  font-size: 20px;
+  display: inline;
+  margin: unset;
+}
+
+div#topics a:hover span {
+  text-decoration: underline;
+}
+
+/* ========================================================================
+  Homepage - Callout
+  ======================================================================== */
+.ontario-callout div.ontario-columns {
+  margin-bottom: 1.5rem;
+}
+
+.ontario-callout div.ontario-columns h3 {
+  margin-bottom: 1.3rem;
+}
+
+.ontario-callout.ontario-border-highlight--green h2.ontario-column {
+  margin-bottom: 2rem;
+}
+
+/* ========================================================================   
+  Dropdown - Design System
+  ======================================================================== */
+.ontario-dropdown {
+  background-color: #fff;
+  background-image: url(/images/ontario-material-dropdown-arrow-48px.svg);
+  background-position: right .5rem center;
+  background-repeat: no-repeat;
+  background-size: 2rem;
+  padding-right: 2.25rem;
+  cursor: pointer
+}
+
+.ontario-dropdown::-ms-expand {
+  display: none
+}
+
+.ontario-dropdown option {
+  font-weight: normal
+}
+
+/* ========================================================================
+  Dropdown - Overrides
+  ======================================================================== */
+.ontario-input.ontario-dropdown {
+  border-color: #1a1a1a;
+  color: #1a1a1a;
+}
+
+/* ========================================================================
+  Labels - Design System
+  ======================================================================== */
+
+.ontario-label {
+  cursor: pointer;
+  color: #1a1a1a;
+  font-family: "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.1875rem;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0 0 1rem 0;
+  max-width: 38.75em;
+  white-space: normal;
+  width: 100%
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-label {
+    font-size: 1.125rem;
+    line-height: 1.56
+  }
+}
+
+/* ========================================================================   
+  Labels - Overrides
+  ======================================================================== */
+.search-form .control-order-by.search-page-select .ontario-label {
+  width: unset;
+  padding-top: 10px;
+}
+
+.search-page-select .ontario-input {
+  margin: 0 0 0.5rem;
+}
+
+label::after {
+  content: unset;
+}
+
+.search-form .control-order-by .form-control {
+  height: unset;
+}
+
+/* When Design System is applied throughout site,
+  .search-page-select can be removed from the following two declarations*/
+.search-page-select select {
+  appearance: none;
+}
+
+.search-page-select select::-ms-expand {
+  display: none;
+}
+
+/* ========================================================================
+   Back to top - Design System
+   ======================================================================== */
+.ontario-back-to-top--default {
+  position: fixed;
+  bottom: 5%;
+  right: 2%;
+  visibility: hidden;
+  opacity: 0;
+  transition: .1s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  padding: .5rem 1rem .5rem .75rem;
+  background: #e6e6e6;
+  border: .125rem solid #fff;
+  border-radius: 4px;
+  box-sizing: border-box;
+  box-shadow: 0 .125rem .25rem rgba(26, 26, 26, .6);
+  color: #1a1a1a;
+  line-height: 1.25rem;
+  font-size: 1rem;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  z-index: 10000;
+  cursor: pointer
+}
+
+.ontario-back-to-top--default svg.ontario-icon {
+  margin: .125rem .5rem 0 0;
+  width: 2rem;
+  height: 2rem
+}
+
+.ontario-back-to-top--default:hover {
+  background-color: #ccc
+}
+
+.ontario-back-to-top--default:focus {
+  background-color: #e6e6e6;
+  box-shadow: 0 0 0 .25rem #009adb, 0 .1875rem .3125rem .1875rem rgba(0, 0, 0, .6);
+  outline: .25rem solid transparent;
+  transition: .1s ease-in-out
+}
+
+.ontario-back-to-top--default:active {
+  background-color: #b2b2b2;
+  box-shadow: 0 0 0 .25rem #009adb, 0 .3125rem .4375rem .1875rem rgba(0, 0, 0, .6);
+  outline: .25rem solid transparent;
+  transition: background-color 0s, box-shadow .1s ease-in-out
+}
+
+.ontario-back-to-top--default:visited {
+  color: #fff
+}
+
+@media screen and (max-width: 73em) {
+  .ontario-back-to-top--default {
+    flex-direction: column;
+    height: 4.75rem;
+    padding: .375rem .75rem .5625rem .75rem
+  }
+
+  .ontario-back-to-top--default svg.ontario-icon {
+    margin: .0625rem 0 .25rem 0;
+    width: 2rem;
+    height: 2rem
+  }
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-back-to-top--default {
+    display: block;
+    padding: .5rem;
+    font-size: 0;
+    width: 3rem;
+    height: 3rem
+  }
+
+  .ontario-back-to-top--default svg.ontario-icon {
+    margin: 0
+  }
+
+  @-moz-document url-prefix() {
+    .ontario-back-to-top--default svg.ontario-icon {
+      padding: 0 .25rem .25rem 0
+    }
+  }
+}
+
+.active {
+  visibility: visible;
+  opacity: 1
+}
+
+/* ========================================================================
+  Footer - Design System
+  ======================================================================== */
+
+.ontario-footer {
+  color: #fff;
+  margin-top: 5rem;
+  padding: 4rem 0
+}
+
+.ontario-footer .ontario-columns *:last-child {
+  margin-bottom: 0
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-footer:not(.ontario-footer--default) .ontario-columns:first-child {
+    margin-bottom: 3rem
+  }
+
+  .ontario-footer .ontario-footer__expanded-bottom-section .ontario-columns:first-child {
+    margin-bottom: 0
+  }
+}
+
+.ontario-footer__links-container {
+  list-style: none;
+  margin: 0 0 1rem 0;
+  /* Override */
+  padding-left: 0;
+}
+
+@media screen and (min-width: 73em) {
+  .ontario-footer__links-container {
+    margin-bottom: .5rem
+  }
+}
+
+.ontario-footer__links-container--inline {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap
+}
+
+@media screen and (min-width: 40em) {
+  .ontario-footer__links-container--inline {
+    flex-direction: row
+  }
+}
+
+.ontario-footer__links-container li {
+  padding: .25rem 0
+}
+
+.ontario-footer__link {
+  color: #fff;
+  display: inline-block;
+  padding: .5rem 0;
+  margin: 0;
+  text-decoration: underline
+}
+
+.ontario-footer__link:hover,
+.ontario-footer__link:focus {
+  text-decoration: none
+}
+
+.ontario-footer__link:visited,
+.ontario-footer__link:active,
+.ontario-footer__link:hover {
+  color: #fff
+}
+
+@media screen and (min-width: 40em) {
+  .ontario-footer__link {
+    padding: 0;
+    margin: 0 3rem 1rem 0
+  }
+}
+
+.ontario-footer--default {
+  position: relative;
+  background-color: #1a1a1a;
+  border-bottom: 4px solid #4d4d4d
+}
+
+.ontario-footer--default:before {
+  background-image: url(/images/footer-default-supergraphic-logo.svg);
+  background-size: 112.5rem;
+  background-position: calc(50vw - 73.5rem) -64rem;
+  background-color: #333;
+  background-repeat: no-repeat;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%
+}
+
+@media screen and (min-width: 40em) {
+  .ontario-footer--default:before {
+    background-size: 180rem;
+    background-position: calc(50vw - 120rem) -106rem
+  }
+}
+
+@media screen and (min-width: 73em) {
+  .ontario-footer--default:before {
+    background-size: 275rem;
+    background-position: calc(50vw - 187rem) -160rem
+  }
+}
+
+/* ========================================================================
+   Search Page - Facets
+   ======================================================================== */
+.nav-facet .nav-item > a {
+  font-size: 16px;
+  color: #000;
+}
+
+.nav-facet .nav-item > a:hover {
+  background-color: #d1d1d1;
+}
+
+.nav-facet .nav-item.active > a {
+  color: #fff;
+}
+
+.nav-facet .nav-item.active > a:hover {
+  background-color: #00478f;
+}
+
+.nav-item.active > a span,
+.nav-aside li.active a span {
+  white-space: normal;
+}
+
+.nav-item.active > a::before,
+.nav-aside li.active a::before {
+  height: unset;
+}
+
+.nav-facet.nav-simple > li {
+  border-bottom: none;
+}
+
+.filters .module.module-narrow.module-shallow {
+  background-color: #f2f2f2;
+}
+
+.filters .module.module-narrow.module-shallow h4 {
+  padding: 0 20px;
+}
+
+.filters .module-narrow .nav-item > a {
+  padding-left: 25px;
+}
+
+.filters .module-narrow {
+  padding: 20px 0;
+}
+
+.primary.packages,
+.group-packages + .primary {
+  padding-left: 30px;
+}
+
+.filter-results .context-info .module-content,
+.secondary.ontario-columns.ontario-small-3.filter-results {
+  padding-left: unset;
+  padding-right: unset;
+}
+
+.group-packages .filters .module-narrow .module-footer {
+  padding-left: 12px;
+}
+
+@media screen and (min-width: 64em) {
+  .filters .module-narrow .nav-item > a {
+    padding-left: 46px;
+  }
+}
+
+@media only screen and (min-width: 40.063em) {
+  .ontario-column.filter-results {
+    padding-left: unset;
+    padding-right: unset;
+  }
+}
+
+@media only screen and (max-width: 47.9375em) {
+
+  .primary.packages,
+  .group-packages + .primary {
+    width: 100%;
+    padding-left: 1rem;
+  }
+
+  .ministry-packages {
+    padding-left: 20px;
+  }
+}
+
+.group-packages {
+  padding-right: unset;
+}
+
+.filters .module-footer {
+  border-top: none;
+}
+
+.fa.fa-filter {
+  margin-right: 5px;
+}
+
+.facets-show-more.ontario-button {
+  margin: 0;
+  font-size: 16px;
+}
+
+.nav > li.show-more-items {
+  display: none;
+}
+
+/* ========================================================================
+   Group & Ministries Search Page - Table view
+   ======================================================================== */
+.ministry-heading,
+.group-search-heading {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.search-table-thead-th {
+  display: table-cell;
+  font-weight: 700;
+  text-align: left;
+  padding: 1.75rem 1rem 1.75rem 1rem;
+  font-size: 22px;
+  line-height: 1.5rem;
+}
+
+.search-table-thead {
+  display: table-header-group;
+}
+
+.search-table-cell {
+  display: table-cell;
+}
+
+.search-table-tbody {
+  display: table-row-group;
+}
+
+.search-table-row {
+  font-size: 18px;
+}
+
+.search-table-cell-row .search-count,
+.search-table-cell-row p {
+  color: #000;
+}
+
+.search-table-cell {
+  padding: 2.1875rem 1rem 2.1875rem 1rem;
+  text-align: left;
+  letter-spacing: .025rem;
+  border-top: solid 1px #ccc;
+}
+
+.search-table-cell > p {
+  font-size: 16px;
+  margin-bottom: unset;
+  margin-top: 5px;
+}
+
+.search-table {
+  display: table;
+  width: 100%;
+}
+
+/* Interaction state */
+.search-table-row,
+.search-table-cell-row {
+  display: table-row;
+  transform: scale(1);
+}
+
+.search-table-cell-row:hover {
+  background-color: #f2f2f2;
+}
+
+.search-table-cell-row:hover .ministry-heading,
+.search-table-cell-row:hover .group-search-heading {
+  text-decoration: underline;
+  color: #00478f;
+}
+
+.search-table-cell-row .ministry-heading,
+.search-table-cell-row .group-search-heading {
+  color: #0066cc;
+}
+
+.search-table-cell-row:visited .ministry-heading,
+.search-table-cell-row:visited .group-search-heading {
+  color: #551a8b;
+}
+
+.search-table-cell-row:active .ministry-heading,
+.search-table-cell-row:active .group-search-heading {
+  color: #002142;
+}
+
+.search-table-cell-row:hover span {
+  font-weight: 700;
+}
+
+.anchor-div-group {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+/* Numeric column */
+.search-table-thead-th.ontario-table-cell--numeric {
+  text-align: right;
+}
+
+@media screen and (max-width: 40em) {
+  .search-table-thead-th.ontario-table-cell--numeric {
+    padding: 1.53125rem 1rem 1.53125rem .5rem
+  }
+
+  .search-table-thead-th {
+    padding: 1.53125rem .5rem 1.53125rem .5rem;
+  }
+
+  .search-table-cell {
+    padding: 1.1875rem .5rem 1.1875rem .5rem;
+  }
+}
+
+.search-table-cell.search-table-td.ontario-table-cell--numeric {
+  padding: 1.1875rem 1.5rem 1.1875rem 1rem;
+  text-align: right;
+  font-size: 18px;
+}
+
+/* ========================================================================
+   Pagination - Overrides
+   ======================================================================== */
+.pagination {
+  display: inline-flex;
+  border-radius: 3px;
+  flex-wrap: wrap;
+}
+
+.pagination > li {
+  display: inline-flex;
+}
+
+.pagination > li > a,
+.pagination > li > span {
+  font-weight: 600;
+  float: unset;
+  padding: 10px 14px;
+  color: #06c;
+  border: 1px solid #ccc;
+}
+
+.pagination > li:first-child > a,
+.pagination > li:first-child > span {
+  margin-left: unset;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.pagination > li:last-child > a,
+.pagination > li:last-child > span {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.pagination > li > a.pagination_symbols {
+  padding: 10px;
+}
+
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+  z-index: 4;
+  color: #00478f;
+  background-color: #f2f2f2;
+  border-color: #ccc;
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  background-color: #666;
+  border-color: #ccc;
+}
+
+.pagination > .disabled > span,
+.pagination > .disabled > span:hover,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > a,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > a:focus {
+  color: #1a1a1a;
+  border-color: #ccc;
+}
+
+/* Homepage under search text */
+.learn-more {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+/* ========================================================================
+   Dataset Page - Additional info table
+   ======================================================================== */
+
+.package-additional-info-thead {
+  display: none;
+}
+
+.package-additional-info-td,
+.package-additional-info-th {
+  display: table-cell;
+}
+
+.dataset-label.package-additional-info-th {
+  font-weight: 700;
+  line-height: 32.6px;
+  color: #4d4d4d;
+  width: 40%;
+  padding: 5px 15px 5px 30px;
+}
+
+.package-additional-info-tr {
+  display: table-row;
+}
+
+.package-additional-info-tbody {
+  display: table-row-group;
+}
+
+.package-additional-info-table {
+  background-color: #f9f9f9;
+  border: none;
+  display: table;
+}
+
+.dataset-details.package-additional-info-td {
+  padding: 5px 15px 5px 0;
+  font-weight: 400;
+  line-height: 32.6px;
+  color: #4d4d4d;
+}
+
+@media screen and (max-width: 40em) {
+  .dataset-details.package-additional-info-td {
+    padding: 5px 0;
+  }
+
+  .dataset-label.package-additional-info-th {
+    padding: 5px 15px 5px 15px;
+    width: 50%;
+  }
 }

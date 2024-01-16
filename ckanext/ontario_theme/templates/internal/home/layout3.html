@@ -1,53 +1,47 @@
-<div id="landing-page-body">
-  <div class="hero">
-    <h1 class="sr-only">{{ _("Home") }}</h1>
-    <div class="container">
-      <div class="hero-container">
-        <div class="row">
-          <div class="col-md-12 welcome">
-            {% block intro %}
-              {% snippet "home/snippets/ontario_theme_intro.html" %}
-            {% endblock intro %}
-          </div>
-        </div>
-      </div>
+<div id="landing-page-body" class="ontario-row" role="main">
+  <div class="ontario-column">
+    <div class="ontario-small-12 welcome">
+      {% block intro %}
+        {% snippet "home/snippets/ontario_theme_intro.html" %}
+      {% endblock intro %}
     </div>
-  </div>
-  <div role="main">
-    {% snippet "home/snippets/ontario_theme_sub_intro.html" %}
-    <div class="container" id="topics">
-      <div class="row">
-        <div class="col-md-12">
+    <div>
+      {% snippet "home/snippets/ontario_theme_sub_intro.html" %}
+      <div id="topics">
+        <div class="ontario-small-12">
           <h2>{{ _("Topics") }}</h2>
+          {% snippet "home/snippets/ontario_theme_categories.html" %}
         </div>
       </div>
-      {% snippet "home/snippets/ontario_theme_categories.html" %}
-    </div>
-    <div class="banner-section">
-      <div id="news" class="container">
-        <div class="row homepage-section">
-          <div class="col-md-6 dataset-list">
-            <h2>{{ _("Most popular datasets") }}</h2>
-            {% snippet "home/snippets/ontario_theme_popular_datasets.html" %}
-          </div>
-          <div class="col-md-6 dataset-list">
-            <h2>{{ _("COVID datasets") }}</h2>
-            {% snippet "home/snippets/ontario_theme_covid_datasets.html" %}
+      <div class="banner-section">
+        <div id="news">
+          <hr />
+          <div class="ontario-small-12 ontario-row">
+            <div class="ontario-medium-6 ontario-columns dataset-list">
+              <h2>{{ _("Most popular datasets") }}</h2>
+              {% snippet "home/snippets/ontario_theme_popular_datasets.html" %}
+            </div>
+            <div class="ontario-medium-6 ontario-columns dataset-list">
+              <h2>
+                {{ _("Artificial Intelligence (<abbr>AI</abbr>) assets") }}
+              </h2>
+              {% snippet "home/snippets/ontario_theme_group_datasets.html", group_id="artificial-intelligence", group_title=_('<abbr title="Artificial Intelligence">AI</abbr> assets') %}
+              <h2>{{ _("COVID-19 datasets") }}</h2>
+              {% snippet "home/snippets/ontario_theme_group_datasets.html", group_id="covid-19", group_title=_("COVID-19 datasets ") %}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="container" id="resources_and_information">
-      {% snippet "home/snippets/ontario_theme_resources_and_information.html" %}
-    </div>
-    <div class="container homepage-section">
-      <div class="row">
-        <div class="col-md-12">
-          {% block contact_us %}
-            {% snippet "home/snippets/ontario_theme_contact_us.html" %}
-          {% endblock contact_us %}
-        </div>
+      <div id="resources_and_information">
+        <hr />
+        {% snippet "home/snippets/ontario_theme_resources_and_information.html" %}
+      </div>
+      <div class="ontario-small-12">
+        {% block contact_us %}
+          {% snippet "home/snippets/ontario_theme_contact_us.html" %}
+        {% endblock contact_us %}
       </div>
     </div>
   </div>
+  {% snippet "snippets/back_to_top.html" %}
 </div>

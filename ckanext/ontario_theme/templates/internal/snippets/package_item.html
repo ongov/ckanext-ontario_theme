@@ -17,25 +17,14 @@
     {% endblock heading_private %}
 
     {% block heading_title %}
-      {% link_for h.truncate(h.get_translated(package, 'title'), truncate_title),named_route=('%s.read' % package.type), id=package.name %}
-      {% if package.get("asset_type") == "algorithm" %}
-        <div class="label label-info">
-          {% trans %}
-            Algorithm/AI
-          {% endtrans %}
-        </div>
-      {% endif %}
+      {% link_for h.get_translated(package, 'title'), named_route=('%s.read' % package.type), id=package.name %}
       {% if package.get("harvester", False) == 'ontario-data-catalogue' %}
         <div class="badge badge-harvest pull-right" data-harvest={{ package['harvester'] }}>
-          {% trans %}
-            ON External
-          {% endtrans %}
+          {{ _('ON External') }}
         </div>
       {% elif package.get("harvester", False) == 'ontario-geohub' %}
         <div class="badge badge-harvest pull-right" data-harvest={{ package['harvester'] }}>
-          {% trans %}
-            ON Geohub
-          {% endtrans %}
+          {{ _('ON Geohub') }}
         </div>
       {% endif %}
     {% endblock heading_title %}
@@ -43,7 +32,6 @@
     {% block heading_meta %}
       {{ super() }}
     {% endblock heading_meta %}
-
   </h3>
   {# Get the org to get all extras then get the schema for choices/labels of values #}
   {% set organization = h.get_organization(package['owner_org']) %}

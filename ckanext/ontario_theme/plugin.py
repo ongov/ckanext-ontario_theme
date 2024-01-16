@@ -2,6 +2,7 @@
 
 import ckan.plugins as plugins
 from ckanext.ontario_theme import validators
+from ckanext.ontario_theme import page
 import ckan.plugins.toolkit as toolkit
 from ckan.lib.plugins import DefaultTranslation
 
@@ -18,10 +19,15 @@ from flask import render_template, render_template_string
 
 import json
 import ckan.lib.helpers as helpers
+import ckan.lib.formatters as formatters
 from ckan.lib.helpers import core_helper
+
+from datetime import datetime
 
 from ckan.model import Package
 import ckan.model as model
+import locale
+import functools
 
 from ckanext.ontario_theme.resource_upload import ResourceUpload
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
@@ -370,12 +376,12 @@ def get_group(group_id):
     return group_dict
 
 def get_group_datasets(group_id):
-    '''Helper to return 10 of the most popular datasets in the desired group
+    '''Helper to return 3 of the most popular datasets in the desired group
     '''
     group_id = 'groups:{}'.format(group_id)
     group_datasets = toolkit.get_action('package_search')(
         data_dict={ 'fq': group_id,
-                    'rows': 10,
+                    'rows': 3,
                     'sort': 'views_recent desc'})
     return group_datasets['results']
 
@@ -645,10 +651,10 @@ def order_package_facets(orig_ordered_dict):
 
     '''
     # Order that facets should appear in left panel
-    facet_order = ['organization', 'groups', 'res_format', 'license_id', 
-                   'asset_type', 'update_frequency', 'access_level',
+    facet_order = ['organization', 'res_format', 'access_level', 'update_frequency', 'license_id',
+                   'asset_type', 'groups',
+                   'organization_jurisdiction', 'organization_category',
                    'keywords_en', 'keywords_fr',
-                   'organization_jurisdiction', 'organization_category'
                   ]
 
     facet_titles_reorg = list()
@@ -658,6 +664,11 @@ def order_package_facets(orig_ordered_dict):
                 facet_titles_reorg.append((facet, orig_ordered_dict[facet]))
 
     return OrderedDict(facet_titles_reorg)
+
+
+def get_current_year():
+    return datetime.today().strftime('%Y')
+
 
 def extract_package_name(url):
     ''' Returns the package name or gets resource name if url is for
@@ -678,11 +689,23 @@ def extract_package_name(url):
             resource_name = toolkit.get_action('resource_show') (
                 data_dict={'id': get_resource_name[0]}
                 )
-            resource_type = resource_name['type']
-            resource_name = resource_name['name']
-            if not resource_type and not resource_name:
-                resource_name = "Supporting File"
-            return resource_name or resource_type
+            if 'name' in resource_name and not resource_name['name']:
+                if 'type' in resource_name:
+                    if not resource_name['type']:
+                        return "Unnamed Supporting File"
+                    else:
+                        return "Unnamed " + resource_name['type'] + " file"
+                elif 'resource_type' in resource_name:
+                    if not resource_name['resource_type']:
+                        return "Unnamed Supporting File"
+                    else:
+                        return "Unnamed " + resource_name['resource_type'] + " file"
+            
+            if 'name' in resource_name:
+                if len(resource_name['name']) > 0:
+                    return resource_name['name']
+                else:
+                    return "Unnamed Data File"
         except ckan.logic.NotFound:
             return False
     elif len(get_package_name) > 0:
@@ -704,6 +727,27 @@ def resource_update_auth(context, data_dict=None):
     if isHarvestedResource:
         return {'success': False, 'msg': 'This user is not allowed to edit this resource'}
     return {'success': True, 'msg': 'This package is editable.'}
+
+def abbr_localised_filesize(number: int) -> str:
+    ''' Returns a localised unicode representation of a number in bytes, MiB etc
+    with abbreviation tags for accessibility
+
+    Modified localised_filesize function from ckan/lib/formatters.py
+    '''
+    def rnd(number: int, divisor: int):
+        # round to 1 decimal place
+        return formatters.localised_number(float(number * 10 // divisor) / 10)
+
+    if number < 1024:
+        return _('{bytes} <abbr title="bytes">B</abbr>').format(bytes=formatters.localised_number(number))
+    elif number < 1024 ** 2:
+        return _('{kibibytes} <abbr title="kibibytes">KiB</abbr>').format(kibibytes=rnd(number, 1024))
+    elif number < 1024 ** 3:
+        return _('{mebibytes} <abbr title="mebibytes">MiB</abbr>').format(mebibytes=rnd(number, 1024 ** 2))
+    elif number < 1024 ** 4:
+        return _('{gibibytes} <abbr title="gibibytes">GiB</abbr>').format(gibibytes=rnd(number, 1024 ** 3))
+    else:
+        return _('{tebibytes} <abbr title="tebibytes">TiB</abbr>').format(tebibytes=rnd(number, 1024 ** 4))
 
 
 def get_package_keywords(language='en'):
@@ -754,6 +798,25 @@ def get_date_range(date_start, date_end):
 
     return date_range
 
+
+def get_facet_options():
+    '''Gets config search facet options.
+    default
+        search.facets.default
+        config option for default number of facets shown in search results
+        Returns '10' by default.
+    limit
+        search.facets.limit
+        config option that sets the default number of searched facets
+        returned in a query
+        Returns '50' by default.
+    :rtype: dict
+    '''
+    default = config.get('search.facets.default', 10)
+    limit = config.get('search.facets.limit', 50)
+    return {'limit': limit, 'default': default}
+
+
 def default_locale():
     '''Wrap the ckan default locale in a helper function to access
     in templates.
@@ -763,6 +826,12 @@ def default_locale():
     value = config.get('ckan.locale_default', 'en')
     return value
 
+def sort_accented_characters(french_list, primary_key=None):
+    locale.setlocale(locale.LC_ALL, "")
+    def compare_keys(item1, item2):
+        return locale.strcoll(item1[primary_key], item2[primary_key])
+    sorted_list = sorted(french_list, key=functools.cmp_to_key(compare_keys))
+    return sorted_list
 
 def num_resources_filter_scrub(search_params):
     u'''Remove any quotes around num_resources value to enable prober filter
@@ -789,6 +858,16 @@ def num_resources_filter_scrub(search_params):
 
     return search_params
 
+
+def site_title():
+    '''Helper to make the new site title configuration available to templates.
+    Returns the ckan English site title and our custom French site title.
+    '''
+    if config.get('ckanext.ontario_theme.site_title_fr') and h.lang() == 'fr':
+        value = config.get('ckanext.ontario_theme.site_title_fr')
+    else:
+        value = config.get('ckan.site_title')
+    return value
 
 def home_block(block='one'):
     '''Helper to make the new configuration available to templates.
@@ -900,6 +979,9 @@ type data_last_updated
         remove_whitespace = toolkit.get_converter('remove_whitespace')
 
         schema.update({
+            'ckanext.ontario_theme.site_title_fr':          [ignore_missing,
+                                                             ignore_not_sysadmin,
+                                                             unicode_safe],
             # Custom configuration options for home page content.
             'ckanext.ontario_theme.home_block_one-en':      [ignore_missing,
                                                              ignore_not_sysadmin,
@@ -989,7 +1071,12 @@ type data_last_updated
                 'ontario_theme_get_keyword_count': get_keyword_count,
                 'ontario_theme_get_all_packages': get_all_packages,
                 'ontario_theme_get_all_organizations': get_all_organizations,
-                'ontario_theme_sort_by_title_translated': sort_by_title_translated
+                'ontario_theme_sort_by_title_translated': sort_by_title_translated,
+                'ontario_theme_sort_accented_characters': sort_accented_characters,
+                'ontario_theme_abbr_localised_filesize': abbr_localised_filesize,
+                'ontario_theme_get_facet_options': get_facet_options,
+                'ontario_theme_site_title': site_title,
+                'ontario_theme_get_current_year': get_current_year
                 }
 
     # IBlueprint
@@ -1041,6 +1128,8 @@ type data_last_updated
         facets_dict['update_frequency'] = toolkit._('Update Frequency')
         facets_dict['keywords_en'] = toolkit._('Topics')
         facets_dict['keywords_fr'] = toolkit._('Topics')
+        facets_dict['license_id'] = toolkit._('Licences')
+        facets_dict['organization'] = toolkit._('Ministries')
         facets_dict.pop('tags', None) # Remove tags in favor of keywords
         facets_dict['organization_jurisdiction'] = toolkit._('Jurisdiction')
         facets_dict['organization_category'] = toolkit._('Category')
@@ -1064,6 +1153,11 @@ type data_last_updated
         u'''Extensions will receive a dictionary with the query parameters,
         and should return a modified (or not) version of it.
         '''
+        sort = search_params.get('sort')
+        if sort and 'titles' in sort:
+            title_sorted = 'fr' if h.lang() == 'fr' else 'string'
+            new_sort = sort.replace('titles', 'title_{}'.format(title_sorted))
+            search_params.update({"sort": new_sort})
         return num_resources_filter_scrub(search_params)
 
     def after_search(self, search_results, search_params):
@@ -1073,6 +1167,9 @@ type data_last_updated
         kw = json.loads(pkg_dict.get('extras_keywords', '{}'))
         pkg_dict['keywords_en'] = kw.get('en', [])
         pkg_dict['keywords_fr'] = kw.get('fr', [])
+
+        title = json.loads(pkg_dict.get('title_translated', '{}'))
+        pkg_dict['title_fr'] = title.get('fr', '')
 
         # Index some organization extras fields from fluent/scheming.
         organization_dict = toolkit.get_action('organization_show')(data_dict={'id': pkg_dict['organization']})
@@ -1113,5 +1210,6 @@ type data_last_updated
        return {
             'lock_if_odc': validators.lock_if_odc,
             'ontario_theme_copy_fluent_keywords_to_tags': validators.ontario_theme_copy_fluent_keywords_to_tags,
-            'ontario_tag_name_validator': validators.tag_name_validator
+            'ontario_tag_name_validator': validators.tag_name_validator,
+            'ontario_strip_fluent_value': validators.strip_fluent_value
        }

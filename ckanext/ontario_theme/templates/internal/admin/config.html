@@ -1,8 +1,70 @@
+{# djlint:off #}
 {% ckan_extends %}
 
 {% import "macros/form.html" as form %}
 {% block admin_form %}
-  {{ super() }}
+  <div class="row">
+    {{ form.input('ckan.site_title',
+      id='field-ckan-site-title',
+      label=_('Site Title EN'),
+      value=data['ckan.site_title'],
+      error=error,
+      classes=['control-medium', 'col-md-6']) }}
+
+    {{ form.input('ckanext.ontario_theme.site_title_fr',
+      id='field-ckanext.ontario_theme.site_title_fr',
+      label=_('Site Title FR'),
+      value=data['ckanext.ontario_theme.site_title_fr'],
+      error=error,
+      classes=['control-medium', 'col-md-6']) }}
+  </div>
+  {{ form.select('ckan.theme',
+    id='field-ckan-main-css',
+    label=_('Style'),
+    options=styles,
+    selected=data['ckan.theme'],
+    error=error) }}
+
+  {{ form.input('ckan.site_description',
+    id='field-ckan-site-description',
+    label=_('Site Tag Line'),
+    value=data['ckan.site_description'],
+    error=error,
+    classes=['control-medium']) }}
+
+  {% set field_url = 'ckan.site_logo' %}
+  {% set is_upload = data[field_url] and not data[field_url].startswith('http') %}
+  {% set is_url = data[field_url] and data[field_url].startswith('http') %}
+  {{ form.image_upload(data, errors, is_upload_enabled=h.uploads_enabled(), is_url=is_url, is_upload=is_upload, upload_label = _('Site logo'), url_label=_('Site logo'),  field_url=field_url, field_upload='logo_upload', field_clear='clear_logo_upload' )}}
+
+  {{ form.markdown('ckan.site_about',
+    id='field-ckan-site-about',
+    label=_('About'),
+    value=data['ckan.site_about'],
+    error=error,
+    placeholder=_('About page text')) }}
+
+  {{ form.markdown('ckan.site_intro_text',
+    id='field-ckan-site-intro-text',
+    label=_('Intro Text'),
+    value=data['ckan.site_intro_text'],
+    error=error,
+    placeholder=_('Text on home page')) }}
+
+  {{ form.textarea('ckan.site_custom_css',
+    id='field-ckan-site-custom-css',
+    label=_('Custom CSS'),
+    value=data['ckan.site_custom_css'],
+    error=error,
+    placeholder=_('Customisable css inserted into the page header')) }}
+
+  {{ form.select('ckan.homepage_style',
+    id='field-homepage-style',
+    label=_('Homepage'),
+    options=homepages,
+    selected=data['ckan.homepage_style'],
+    error=error) }}
+
   <h3>Home Page Content Blocks</h3>
   {{ form.input('ckanext.ontario_theme.home_block_one_image',
     id='field-ckanext.ontario_theme.home_block_one_image',
@@ -148,3 +210,4 @@
     Paragraph text here.
   </pre>
 {% endblock admin_form_help %}
+{# djlint:on #}

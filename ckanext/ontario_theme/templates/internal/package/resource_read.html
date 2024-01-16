@@ -1,12 +1,16 @@
 {% ckan_extends %}
 
+{% block breadcrumb_content %}
+  {% snippet "package/snippets/package_base_breadcrumb.html", pkg=pkg, res=res %}
+{% endblock breadcrumb_content %}
+
 {% block resource_read_url %}
   {% asset "ontario_theme/ontario_theme_download_tracker_js" %}
   {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
   {% if pkg.groups %}
     {% set this_group = pkg.groups[0]['name'] %}
   {% else %}
-    {% set this_group = '' %}
+    {% set this_group = "" %}
   {% endif %}
   {% if res.url and h.is_url(res.url) %}
     {# Download link URL on resource page #}

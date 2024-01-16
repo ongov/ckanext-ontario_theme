@@ -1,8 +1,12 @@
 {% extends "package/read_base.html" %}
 
+{% block schema_tag_attr %}
+  {% snippet "package/snippets/schema_markup.html", pkg=pkg, resources=pkg.resources, schema=schema %}
+{% endblock schema_tag_attr %}
+
 {% block primary %}
   <article class="module package-z-index">
-    <header class="page-header col-xs-12 col-sm-8">
+    <header class="page-header col-xs-12 col-lg-8">
       <div class="content_action">
         {% block content_action %}
           {% if h.check_access('package_update', {'id':pkg.id }) %}
@@ -13,30 +17,25 @@
       {# Override CKAN: Do not pass any icons to nav bar menu items #}
       <ul class="nav nav-tabs">
         {% block content_primary_nav %}
-          {{ h.build_nav_icon(dataset_type ~ '.read', _('Dataset'), id=pkg.id if is_activity_archive else pkg.name) }}
+          {{ h.build_nav_icon(dataset_type ~ '.read', _('Asset'), id=pkg.id if is_activity_archive else pkg.name) }}
           {{ h.build_nav_icon(dataset_type ~ '.groups', _('Groups'), id=pkg.id if is_activity_archive else pkg.name) }}
-          {{ h.build_nav_icon(dataset_type ~ '.activity', _('Activity Stream'), id=pkg.id if is_activity_archive else
+          {{ h.build_nav_icon(dataset_type ~ '.activity', _('History'), id=pkg.id if is_activity_archive else
           pkg.name) }}
         {% endblock content_primary_nav %}
       </ul>
     </header>
     {% block primary_content_inner %}
-      <div class="col-sm-8 col-xs-12">
-        {% if pkg.get("asset_type") == "algorithm" %}
-          <div class="new-alert alert-info alert-algorithms alert-huge alert-clear">
-            <strong>
-              {% trans %}
-                Algorithm/AI Asset
-              {% endtrans %}
-            </strong>
+      <div class="col-lg-8 col-xs-12">
+        {% if pkg.get("asset_type") == "ai" %}
+          <div class="odc-alert odc-alert-algorithm">
+            <p class="ontario-h5">
+              {{ _("Artificial Intelligence (<abbr>AI</abbr>)") }}
+            </p>
             <p>
-              {% trans url=h.url_for('group.about', id='artificial-intelligence-and-algorithms') %}
-                This record describes an algorithm or artificial intelligence asset. It does not describe a dataset.
-                <a href="{{ url }}">
-                  Learn more here about how the Government of Ontario is working to grow our catalogue beyond data for greater
-                  transparency and accountability.
-                </a>
-              {% endtrans %}
+              {{ _('This record describes an <abbr title="Artificial Intelligence">AI</abbr> asset. It does not describe a dataset.') }}
+              <a href="{{ h.url_for('group.about', id='artificial-intelligence') }}">
+                {{ _('Learn more about how Ontario uses <abbr title="Artificial Intelligence">AI</abbr> in government.') }}
+              </a>
             </p>
           </div>
         {% endif %}
@@ -62,18 +61,16 @@
           <h1>
             {% block page_heading %}
               {{ h.dataset_display_name(pkg) }}
-              {% if pkg.state.startswith('draft') %}
-                [{{ _('Draft') }}]
-              {% endif %}
+              {% if pkg.state.startswith('draft') %}[{{ _('Draft') }}]{% endif %}
               {% if pkg.state == 'deleted' %}[{{ _('Deleted') }}]{% endif %}
             {% endblock page_heading %}
           </h1>
+          {% snippet "package/snippets/ontario_theme_access_level.html", pkg=pkg, dataset_type=dataset_type, schema=schema, resources=resources %}
           {% block package_notes %}
             {% if pkg.notes %}
               <div class="notes embedded-content dataset-font">{{ h.render_markdown(h.get_translated(pkg, 'notes')) }}</div>
             {% endif %}
           {% endblock package_notes %}
-
           <span class="insert-comment-thread"></span>
         {% endblock package_description %}
 
@@ -81,7 +78,7 @@
           {% snippet "package/snippets/additional_info.html", pkg_dict=pkg %}
         {% endblock package_additional_info %}
       </div>
-      <div class="col-xs-12">
+      <div class="ontario-column ontario-small-12">
         {% block package_resources %}
           {% snippet "package/snippets/resources_list.html", pkg=pkg, resources=pkg.resources,
           is_activity_archive=is_activity_archive %}
@@ -91,7 +88,9 @@
           {% snippet "package/snippets/tags.html", tags=pkg.tags %}
         {% endblock package_tags %}
 
-        {% snippet "package/snippets/report_an_error.html" %}
+        {% if pkg.resources and pkg['access_level'] == 'open' %}
+          {% snippet "package/snippets/report_an_error.html" %}
+        {% endif %}
         <div class="row">
           <div class="col-md-12">{% snippet "home/snippets/ontario_theme_contact_us.html" %}</div>
         </div>

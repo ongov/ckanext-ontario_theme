@@ -6,11 +6,6 @@
 
 {% block breadcrumb_content %}
   <li>{{ h.nav_link(_('Ministries'), named_route=group_type+'.index') }}</li>
-  <li class="active">
-    {% block breadcrumb_link %}
-      {{ h.nav_link(_('Create a Ministry'), named_route=group_type+'.new') }}
-    {% endblock breadcrumb_link %}
-  </li>
 {% endblock breadcrumb_content %}
 
 {% block page_heading %}

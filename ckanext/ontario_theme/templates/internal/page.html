@@ -5,44 +5,57 @@
   <a href="#content" class="skip-main sr-only sr-only-focusable">{{ _('Skip to content') }}</a>
 {% endblock skip %}
 
-{% block main_content %}
-  {% block flash %}
-    {{ super() }}
-  {% endblock flash %}
+{%- block content %}
+  {% block maintag %}
+    {%- block schema_tag_attr -%}
+    {%- endblock schema_tag_attr %}
+    <div class="ontario-row">
+    {% endblock maintag %}
+    <div id="content" class="ontario-small-12 ontario-columns" role="main">
+      {% block main_content %}
+        {% block flash %}
+          {{ super() }}
+        {% endblock flash %}
 
-  {% block toolbar %}
-    <div class="toolbar" role="navigation" aria-label="{{ _('Breadcrumb') }}">
-      {% block breadcrumb %}
-        {% if self.breadcrumb_content() | trim %}
-          <ol class="breadcrumb">
-            {% snippet "snippets/home_breadcrumb_item.html" %}
-            {% block breadcrumb_content %}
-            {% endblock breadcrumb_content %}
-          </ol>
-        {% endif %}
-      {% endblock breadcrumb %}
+        {% block toolbar %}
+          <div class="toolbar" role="navigation" aria-label="{{ _('Breadcrumb') }}">
+            {% block breadcrumb %}
+              <ol class="breadcrumb">
+                {% snippet "snippets/home_breadcrumb_item.html" %}
+                {% if self.breadcrumb_content() | trim %}
+                  {% block breadcrumb_content %}
+                  {% endblock breadcrumb_content %}
+                {% endif %}
+              </ol>
+            {% endblock breadcrumb %}
+          </div>
+        {% endblock toolbar %}
+
+        {% block ontario_theme_search_form %}
+          {# Custom block for search form. #}
+        {% endblock ontario_theme_search_form %}
+
+        <div class="wrapper ontario-row
+                    {% block wrapper_class %}
+                    {% endblock wrapper_class %}
+                    {% if self.secondary()|trim == '' or c.action=='resource_read' %}no-nav{% endif %}">
+          {#
+          The pre_primary block can be used to add content to before the
+          rendering of the main content columns of the page.
+          #}
+          {% block pre_primary %}
+          {% endblock pre_primary %}
+
+          {% block secondary %}
+            {{ super() }}
+          {% endblock secondary %}
+
+          {% block primary %}
+            {{ super() }}
+          {% endblock primary %}
+        </div>
+      {% endblock main_content %}
     </div>
-  {% endblock toolbar %}
-
-  {% block ontario_theme_search_form %}
-    {# Custom block for search form. #}
-  {% endblock ontario_theme_search_form %}
-
-  <div class="row wrapper{% block wrapper_class %}{% endblock wrapper_class %}
-     {% if self.secondary()|trim == '' or c.action=='resource_read' %} no-nav{% endif %}">
-    {#
-    The pre_primary block can be used to add content to before the
-    rendering of the main content columns of the page.
-    #}
-    {% block pre_primary %}
-    {% endblock pre_primary %}
-
-    {% block secondary %}
-      {{ super() }}
-    {% endblock secondary %}
-
-    {% block primary %}
-      {{ super() }}
-    {% endblock primary %}
   </div>
-{% endblock main_content %}
+  {% snippet "snippets/back_to_top.html" %}
+{% endblock content %}

@@ -9,7 +9,7 @@ in the core template for search.html.
 {% ckan_extends %}
 
 {% block ontario_theme_search_form %}
-  <div class="row no-padding">
+  <div class="ontario-row no-padding">
     {# Lifting these block above main content. #}
     {% block page_primary_action %}
       {{ super() }}
@@ -20,41 +20,36 @@ in the core template for search.html.
         {% block page_heading %}
           {{ _(dataset_type + 's') |capitalize }}
         {% endblock page_heading %}
-
       </h1>
     </div>
     {% block form %}
       {% set facets = {
-        'fields': c.fields_grouped,
-        'search': c.search_facets,
-        'titles': c.facet_titles,
-        'translated_fields': c.translated_fields,
-        'remove_field': c.remove_field }
-      %}
+              'fields': c.fields_grouped,
+              'search': c.search_facets,
+              'titles': c.facet_titles,
+              'translated_fields': c.translated_fields,
+            'remove_field': c.remove_field } %}
       {% set sorting = [
-        (_('Relevance'), 'score desc, metadata_modified desc'),
-        (_('Name Ascending'), 'name asc'),
-        (_('Name Descending'), 'name desc'),
-        (_('Last Modified'), 'metadata_modified desc'),
-        (_('Recently Created'), 'dataset_published_date desc'),
-        (_('Datasets With Data'), 'num_resources desc, metadata_modified desc'),
-        (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
-      %}
+              (_('Relevance'), 'score desc, metadata_modified desc'),
+              (_('Name Ascending'), 'titles asc'),
+              (_('Name Descending'), 'titles desc'),
+              (_('Last Modified'), 'metadata_modified desc'),
+              (_('Recently Created'), 'dataset_published_date desc'),
+            (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ] %}
       <!-- arguments for DS search bar -->
       {% set input_text = _('Search ' + dataset_type + 's') %}
-      {% set sr_submit_text = _("Search") %}
       {% set query = c.q %}
       <!-- arguments for search form -->
-      {% set form_id = 'dataset-search-form' %}
+      {% set form_id = "dataset-search-form" %}
       {% set type = dataset_type %}
       {% set searchbar_title = input_text + _(':') %}
-      {# Set default sort order. If no sort order has been selected in 
+      {# Set default sort order. If no sort order has been selected in
          the Order By dropdown menu, use 'score desc, metadata_modified desc' (Relevance).
       #}
       {% if request['params'] and 'sort' in request['params'] %}
         {% set sort_order = request.params['sort'] %}
       {% else %}
-        {% set sort_order = 'score desc, metadata_modified desc' %}
+        {% set sort_order = "score desc, metadata_modified desc" %}
       {% endif %}
       <form id="{{ form_id }}"
             class="search-form"
@@ -63,7 +58,6 @@ in the core template for search.html.
             novalidate>
         {% snippet "snippets/search_form.html",
           searchbar_title=searchbar_title,
-          hidden_searchbar_title=input_text,
           form_id=form_id,
           type=type,
           query=query,
@@ -71,8 +65,6 @@ in the core template for search.html.
           sorting_selected=sort_order,
           count=c.page.item_count,
           placeholder=input_text,
-          sr_input_text=input_text,
-          sr_submit_text=sr_submit_text,
           facets=facets,
           show_empty=request.params,
           error=c.query_error,
@@ -85,54 +77,37 @@ in the core template for search.html.
 {% block pre_primary %}
 {% endblock pre_primary %}
 
-{% block primary_content %}
-  {# Overriding block to remove page_primary_action and form. #}
-  <section class="module">
-    <div class="module-content">
-      {% block package_search_results_list %}
-        {{ super() }}
-        {{ h.snippet('snippets/package_list.html', packages=packages) }}
-      {% endblock package_search_results_list %}
-    </div>
-    {% block page_pagination %}
-      {{ super() }}
-    {% endblock page_pagination %}
-  </section>
-  {# Override CKAN block to remove API link #}
-  {% block package_search_results_api %}
-  {% endblock package_search_results_api %}
-{% endblock primary_content %}
+{% block breadcrumb_content %}
+{% endblock breadcrumb_content %}
+
+{% block primary %}
+  <div class="primary ontario-columns ontario-small-9 packages">
+    {% block primary_content %}
+      {# Overriding block to remove page_primary_action and form. #}
+      <section class="module">
+        <div class="module-content">
+          {% block package_search_results_list %}
+            {{ super() }}
+            {{ h.snippet('snippets/package_list.html', packages=packages) }}
+          {% endblock package_search_results_list %}
+        </div>
+        {% block page_pagination %}
+          {{ super() }}
+        {% endblock page_pagination %}
+      </section>
+      {# Override CKAN block to remove API link #}
+      {% block package_search_results_api %}
+      {% endblock package_search_results_api %}
+    {% endblock primary_content %}
+  </div>
+{% endblock primary %}
 
 {% block secondary %}
-  <aside class="secondary col-sm-3 filter-results">
+  {% set single_option_facets = ["organization_jurisdiction", "organization_category"] %}
+  <aside class="secondary ontario-columns ontario-small-3 filter-results">
     <div class="filters">
       <div>{{ h.snippet('snippets/ontario_theme_keywords_facet.html') }}</div>
-      {% set this_name = 'organization_jurisdiction' %}
-      {% if h.get_facet_items_dict(this_name)|length > 1 %}
-        <div>{{ h.snippet('snippets/ontario_theme_jurisdiction_facet.html') }}</div>
-      {% endif %}
-      {% set this_name = 'organization_category' %}
-      {% if h.get_facet_items_dict(this_name)|length > 1 %}
-        <div>{{ h.snippet('snippets/ontario_theme_category_facet.html') }}</div>
-      {% endif %}
-      <div>
-        {#
-          Flag facets to be ignored from standard loop that calls facets.
-        #}
-        {% set excluded_facets = [
-          'organization_jurisdiction',
-          'organization_category',
-          'keywords_en',
-          'keywords_fr'
-          ]
-        %}
-        {% set reordered_facet_titles = h.ontario_theme_order_package_facets(c.facet_titles) %}
-        {% for facet in reordered_facet_titles %}
-          {% if facet not in excluded_facets %}
-            {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet) }}
-          {% endif %}
-        {% endfor %}
-      </div>
+      <div>{{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets) }}</div>
       <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
     </div>
   </aside>

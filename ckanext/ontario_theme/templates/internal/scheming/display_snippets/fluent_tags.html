@@ -13,10 +13,12 @@ FYI - Fluent's template is an override of schemings already.
         {% if h.lang() == 'en' %}
           <li>
             <a class="tag" href="{%- url_for 'dataset.search', keywords_en=tag -%}">{{ h.truncate(tag, 22) }}</a>
+            <span class="ontario-hide">{{ tag }}</span>
           </li>
         {% else %}
           <li>
             <a class="tag" href="{%- url_for 'dataset.search', keywords_fr=tag -%}">{{ h.truncate(tag, 22) }}</a>
+            <span class="ontario-hide">{{ tag }}</span>
           </li>
         {% endif %}
       {% endfor %}

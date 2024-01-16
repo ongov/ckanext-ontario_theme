@@ -1,40 +1,41 @@
 {#
   Custom snippet to display access level information to users
 #}
+{% set directive_url=_("https://www.ontario.ca/page/ontarios-digital-and-data-directive-2021") %}
 {% if h.scheming_field_by_name(schema.dataset_fields, 'access_level') and pkg.access_level %}
   {% if pkg['access_level'] == 'restricted' or pkg['access_level'] == 'under_review' %}
-    <div class="new-alert alert-{{ pkg['access_level'] }} alert-large alert-clear">
+    <div class="odc-alert odc-alert-{{ pkg['access_level'] }}">
       {% if pkg['access_level'] == 'open' %}
         <strong>{{ _("Data Available") }}</strong>
         <p>
-          {% trans license_url=_(pkg.license_url) %}
-            The data described here is available for you to use. <a href="https://www.ontario.ca/page/ontarios-open-data-directive">[Learn more]</a>
+          {% trans license_url=_(pkg.license_url), directive_url=directive_url %}
+            The data described here is available for you to use. <a href="{{ directive_url }}">[Learn more]</a>
             <br />
             <a href="{{ license_url }}">[See the licence for how you're allowed to use this data.]</a>
           {% endtrans %}
         </p>
       {% elif pkg['access_level'] == 'restricted' %}
-        <strong>{{ _("Data Not Available") }}</strong>
+        <h2 class="ontario-h5">{{ _("Data Not Available") }}</h2>
         <p>
-          {% trans %}
+          {% trans directive_url=directive_url %}
             This data is not and will not be made available.
             Data in this record cannot be released because of legal, privacy, security,
             confidentiality or commercially-sensitive reasons, as outlined by the
-            <a href="https://www.ontario.ca/page/ontarios-open-data-directive">Open Data Directive</a>.
+            <a href="{{ directive_url }}">Digital and Data Directive</a>.
           {% endtrans %}
         </p>
-        <p>
+        <span>
           <strong>{{ _("Why?") }}</strong>
           {{ h.scheming_choices_label(h.scheming_field_choices(h.scheming_field_by_name(schema.dataset_fields,"exemption")),pkg['exemption']) }}
           - {{ h.scheming_language_text(pkg['exemption_rationale']) }}
-        </p>
+        </span>
       {% elif pkg['access_level'] == 'under_review' %}
-        <strong>{{ _("Data Not Available") }}</strong>
+        <h2 class="ontario-h5">{{ _("Data Not Available") }}</h2>
         <p>
-          {% trans %}
+          {% trans directive_url=directive_url %}
             This data might be made available in the future. We are reviewing the data in this record to determine if it can be
             made open.
-            <a href="https://www.ontario.ca/page/ontarios-open-data-directive">[Learn more]</a>
+            <a href="{{ directive_url }}">[Learn more]</a>
           {% endtrans %}
         </p>
       {% endif %}

@@ -6,10 +6,11 @@
 {% set hide_empty = true %}
 {% set fields = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
 {% set title = title or h.get_facet_title(name) %}
-{% set title = _('Ministries') if title == _('Organizations') else title %}
+{% set limit = h.ontario_theme_get_facet_options()['limit']|int %}
+{% set default = h.ontario_theme_get_facet_options()['default']|int %}
 {% block facet_list_heading %}
   {% with items = items or h.get_facet_items_dict(name) %}
-    <h2 class="module-heading">
+    <h4 class="ontario-h5">
       <i class="fa fa-filter"></i>
       {{ title }}
       {% set screen_reader_text = "No search filters applied for "+title+". Options are " %}
@@ -18,13 +19,13 @@
           {% set screen_reader_text = "Search filters are applied for "+title+"." %}
         {% endif %}
       {% endif %}
-    </h2>
+    </h4>
     <span class="sr-only">{{ screen_reader_text }}</span>
   {% endwith %}
 {% endblock facet_list_heading %}
 
 {% block facet_list_items %}
-  {% with items = items or h.get_facet_items_dict(name) %}
+  {% with items = items or h.get_facet_items_dict(name, limit=limit) %}
     {% if items %}
       <nav>
         <ul class="{{ nav_class or 'list-unstyled nav nav-simple nav-facet' }}">
@@ -32,31 +33,34 @@
             {{ h.snippet('snippets/translate_facets.html', fields=fields, name=name, item=item, scheming_choices=scheming_choices) }}
             {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
             {% set label = label_function(item) if label_function else item.display_name %}
-            {% set label_truncated = h.truncate(label, 22) if not label_function else label %}
             {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
             <li class="{{ nav_item_class or 'nav-item' }}
-                       {% if item.active %}active{% endif %}">
+                       {% if item.active %}active{% endif %}
+                       {% if loop.index > default %}facet-{{ name }} show-more-items{% endif %}">
               {% if item.active %}<span class="sr-only">Filtered on</span>{% endif %}
-              <a href="{{ href }}"
-                 title="{{ label if label != label_truncated else '' }}">
-                <span>{{ label_truncated }} {{ count }}</span>
+              <a href="{{ href }}">
+                <span>{{ label }} {{ count }}</span>
               </a>
             </li>
-        {% endfor %}
-      </ul>
-    </nav>
+          {% endfor %}
+        </ul>
+      </nav>
 
-    <p class="module-footer">
-      {% if h.get_param_int('_%s_limit' % name) %}
-        {% if h.has_more_facets(name, c.search_facets) %}
-          <a href="{{ h.remove_url_param('_%s_limit' % name, replace=0, extras=extras, alternative_url=alternative_url) }}" class="show-more">{{ _('Show more') }}</a>
+      <p class="module-footer">
+        {% if h.get_param_int('_%s_limit' % name) %}
+          {% if h.has_more_facets(name, c.search_facets) %}
+            <button id="more-{{ name }}"
+                    data-toggle-less="{{ _('Show less') }}"
+                    data-toggle-more="{{ _('Show more') }}"
+                    class="facets-show-more ontario-button ontario-button--tertiary"
+                    type="button">{{ _('Show more') }}</button>
+          {% endif %}
         {% endif %}
-      {% else %}
-        <a href="{{ h.remove_url_param('_%s_limit' % name, extras=extras, alternative_url=alternative_url) }}" class="show-more">{{ _('Show less') }}</a>
-      {% endif %}
-    </p>
+      </p>
     {% else %}
-      <p class="module-content empty">{{ _('There are no {facet_type} that match this search').format(facet_type=title) }}</p>
+      <p class="module-content empty">
+        {{ _('There are no {facet_type} that match this search').format(facet_type=title) }}
+      </p>
     {% endif %}
   {% endwith %}
 {% endblock facet_list_items %}

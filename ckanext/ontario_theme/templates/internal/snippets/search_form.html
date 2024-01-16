@@ -4,22 +4,18 @@
 {% block search_input %}
   {#
     Design System search bar. Arguments:
-    - sr_input_text
-    - placeholder
+    - searchbar_title
     - query
-    - sr_submit_text
   #}
   <div class="module search">
-    <h2 aria-label='{{ hidden_searchbar_title }}'>
-      <p class="theme_p" aria-hidden="true">{{ searchbar_title }}</p>
+    <h2 class="ontario-label">
+      <label class="theme_p" for="{{ form_id }}-input">{{ searchbar_title }}</label>
     </h2>
     <div class="ontario-search-container">
-      <label class="ontario-label ontario-show-for-sr" for="{{ form_id }}-input">{{ sr_input_text }}</label>
       <input class="ontario-search-input ontario-input snippet"
              type="text"
              id="{{ form_id }}-input"
              name="q"
-             placeholder="{%- block search_placeholder -%}{{ placeholder }}{%- endblock search_placeholder -%}"
              value="{{ query }}"
              autocomplete="off"
              required />
@@ -27,11 +23,11 @@
              id="{{ form_id }}-reset"
              type="reset"
              value=""
-             aria-label="Clear field" />
+             aria-label="{{ _('Clear field') }}"/>
       <button class="ontario-search-submit"
               id="ontario-search-submit"
               type="submit">
-        <span class="ontario-show-for-sr">{{ sr_submit_text }}</span>
+        <span class="ontario-show-for-sr">{{ _('Search') }}</span>
         <svg class="ontario-icon search"
              focusable="false"
              sol:category="primary"
@@ -46,7 +42,9 @@
 
 {% block search_title %}
   {% if not error %}
-    <div class="search-count">{% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}</div>
+    <div role="status" class="search-count">
+      {% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}
+    </div>
   {% else %}
     <div>Error</div>
   {% endif %}
@@ -69,34 +67,21 @@
           <span class="facet-row">
             {% set search_facets_items = facets.search.get(field)['items'] %}
             <span class="facet">
-              {% if (not query and not loop.index0==0) or query %}
-                <span class="sr-only">and</span>
-              {% endif %}
-              {% if field == "organization" %}
-                {{ _('Ministry') + _(':') }}
-              {% else %}
-                {{ facets.titles.get(field) + _(':') if facets.titles.get(field) is not none }}
-              {% endif %}
+              {% if (not query and not loop.index0==0) or query %}<span class="sr-only">and</span>{% endif %}
+              {{ facets.titles.get(field) + _(':') if facets.titles.get(field) is not none }}
             </span>
-            {% for item in h.get_facet_items_dict(field) %}
-              {% set item_id = facets.search.get(field)['title'] %}
-              {% if item_id == "organization_category" %}
-                {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'category')) %}
-              {% endif %}
-              {% if item_id == "organization_jurisdiction" %}
-                {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'jurisdiction')) %}
-              {% endif %}
-              {{ h.snippet('snippets/translate_facets.html', fields=schema_dict, name=item_id, item=item, scheming_choices=choices) }}
-              {% if item.active %}
-                <span class="filtered pill">
-                  <span class="pill-contents">
-                    {{ item.display_name }}
-                    <a href="{{ facets.remove_field(field, item.name) }}"
-                       class="remove"
-                       title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
-                  </span>
+            {% for field_value in facets.fields[field] %}
+              {% set dict = h.get_facet_items_dict(field)|selectattr("name", "equalto", field_value)|list if h.get_facet_items_dict(field) %}
+              {% set item = dict[0] if dict else ({'name': field_value, 'display_name': field_value }) %}
+              {{ h.snippet('snippets/translate_facets.html', fields=schema_dict, name=field, item=item) }}
+              <span class="filtered pill">
+                <span class="pill-contents">
+                  {{ item.display_name }}
+                  <a href="{{ facets.remove_field(field, item.name) }}"
+                     class="remove"
+                     title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
                 </span>
-              {% endif %}
+              </span>
             {% endfor %}
           </span>
         {% endfor %}
@@ -105,3 +90,19 @@
     <a class="show-filters btn btn-default">{{ _('Filter Results') }}</a>
   {% endif %}
 {% endblock search_facets %}
+
+{% block search_sortby %}
+  <div class="form-select form-group control-order-by search-page-select">
+    <label class="ontario-label" for="field-order-by">{{ _('Sort by') + _(':') }}</label>
+    <select id="field-order-by"
+            name="sort"
+            class="form-control ontario-input ontario-dropdown">
+      {% for label, value in sorting %}
+        {% if label and value %}
+          <option value="{{ value }}"
+                  {% if sorting_selected == value %}selected="selected"{% endif %}>{{ label }}</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+  </div>
+{% endblock search_sortby %}

@@ -3,12 +3,12 @@
 {% set is_url = data.image_url and data.image_url.startswith('http') %}
 <div class="col-md-12 control-full">
   {{ form.image_upload(
-    data,
-    errors,
-    is_upload_enabled=h.uploads_enabled(),
-    is_url=is_url,
-    is_upload=is_upload
-    )
+  data,
+  errors,
+  is_upload_enabled=h.uploads_enabled(),
+  is_url=is_url,
+  is_upload=is_upload
+  )
   }}
   {# image_upload macro doesn't support call #}
   {%- snippet "scheming/form_snippets/help_text.html", field=field -%}
