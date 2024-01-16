@@ -21,8 +21,7 @@
       "required": "true",
       "fieldset": 1,
       "fieldset_name": "Describing the resource",
-      "form_snippet": "extrafields_fluent_title.html",
-      "validators": "fluent_text ontario_strip_fluent_value"
+      "form_snippet": "extrafields_fluent_title.html"
     },
     {
       "field_name": "name",
@@ -669,8 +668,7 @@
       },
       "fieldset": 2,
       "fieldset_name": "Describe the file",
-      "classes": ["form-group","col-md-12"],
-      "validators": "fluent_text ontario_strip_fluent_value"
+      "classes": ["form-group","col-md-12"] 
     },
     {
       "field_name": "description_translated",

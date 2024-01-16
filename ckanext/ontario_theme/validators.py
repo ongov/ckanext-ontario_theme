@@ -165,13 +165,3 @@ def lock_if_odc(key, data, errors, context):
     if __is_public_record(context) and not is_sysadmin(context['user']):
         errors = __if_change_submitted(key, data, context, errors, _(u'This is a public catalogue field and can\'t be changed.')) or errors
     return
-
-
-def strip_fluent_value(key, data, errors, context):
-    '''Trims the Whitespace of fluent field'''
-    value = json.loads(data[key])
-    for lang, text in value.items():
-        if isinstance(text, str):
-            value[lang] = text.strip()
-    data[key] = json.dumps(value)
-    return
