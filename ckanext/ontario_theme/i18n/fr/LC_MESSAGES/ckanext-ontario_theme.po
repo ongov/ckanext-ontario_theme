@@ -32,6 +32,14 @@ msgstr "Autre"
 msgid "Explore"
 msgstr "Explorer"
 
+#: ckanext/ontario_theme/templates/internal/snippets/access_level_radio_buttons.html:24
+msgid "Access level"
+msgstr "Niveau d'accès"
+
+#: ckanext/ontario_theme/templates/internal/snippets/access_level_radio_buttons.html:47
+msgid "All levels"
+msgstr "Tous les niveaux"
+
 #: ckanext/ontario_theme/templates/internal/footer.html:9
 msgid "https://www.ontario.ca/page/accessibility"
 msgstr "https://www.ontario.ca/fr/page/accessibilite"

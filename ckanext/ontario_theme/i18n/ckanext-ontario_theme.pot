@@ -38,6 +38,15 @@ msgstr ""
 msgid "Keywords"
 msgstr ""
 
+
+#: ckanext/ontario_theme/templates/internal/snippets/access_level_radio_buttons.html:24
+msgid "Access level"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/access_level_radio_buttons.html:47
+msgid "All levels"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/external/footer.html:15
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:17
 msgid "Contact Us"

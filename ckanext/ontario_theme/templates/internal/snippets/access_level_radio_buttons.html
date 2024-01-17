@@ -1,0 +1,41 @@
+{% set schema_dict = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
+{% set name = "access_level" %}
+{% if count >= 0 %}
+  <div class="access-level ontario-form-group">
+    <fieldset class="ontario-fieldset">
+      <legend class="ontario-fieldset__legend">{{ _('Access level') }}{{ _(':') }}</legend>
+      <div id="access-level-radio-buttons" class="ontario-radios">
+        {# Checking selected radio buttons #}
+        {% with access_levels = h.scheming_field_by_name(schema_dict, name).choices %}
+          {% for levels in access_levels %}
+            {% set value = levels.get('value') %}
+            {% set count = h.get_facet_items_dict(name)|selectattr('name', '==', value)|map(attribute='count')|list %}
+            {% set display_name = h.scheming_choices_label(access_levels, value) %}
+            {% if value == request.params[name] %}
+              {% set checked = "checked" %}
+              {% set disabled = "disabled" %}
+            {% endif %}
+            {% set level_count = count[0] if count else '0' %}
+            <div class="ontario-radios__item">
+              <input class="ontario-radios__input" id="radio-button-option-{{ value }}" name="access_level" type="radio" value="{{ value }}" {{ disabled }} {{ checked }}>
+              <label class="ontario-label ontario-radios__label"
+                    for="radio-button-option-{{ value }}">
+                {{ display_name }} ({{ h.localised_number(level_count) }})
+              </label>
+            </div>
+          {% endfor %}
+        {% endwith %}
+        {# Displaying the "All levels" radio button #}
+        {% set total_count = h.get_facet_items_dict(name)|sum(attribute='count') %}
+        {% if "" == request.params[name] %}
+          {% set checked = "checked" %}
+        {% endif %}
+        <div class="ontario-radios__item">
+          <input class="ontario-radios__input" id="radio-button-option-all" name="access_level" type="radio" value="" {{ checked }}>
+          <label class="ontario-label ontario-radios__label"
+                  for="radio-button-option-all">{{ _('All levels') }} ({{ h.localised_number(total_count) }})</label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+{% endif %}

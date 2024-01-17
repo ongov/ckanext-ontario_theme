@@ -5,6 +5,7 @@ from ckanext.ontario_theme import validators
 from ckanext.ontario_theme import page
 import ckan.plugins.toolkit as toolkit
 from ckan.lib.plugins import DefaultTranslation
+import re
 
 import ckan.logic.schema
 from ckan.logic.schema import validator_args
@@ -460,6 +461,7 @@ def paginate_items(all_items, current_page, items_per_page):
     
     return this_slice 
 
+
 def get_all_packages(**kwargs):
     '''Helper to return the full number of packages matching a 
     search query, including any facet search requests (in the
@@ -542,6 +544,7 @@ def get_all_packages(**kwargs):
                         })
 
     return package_search['results']
+
 
 def get_all_organizations(**kwargs):
     '''Helper function to returns the full list of organizations 
@@ -1152,7 +1155,41 @@ type data_last_updated
     def before_search(self, search_params):
         u'''Extensions will receive a dictionary with the query parameters,
         and should return a modified (or not) version of it.
+
+        Allows access level radio buttons to display counts of other options
+        when a radio button is selected by tagging and excluding the access
+        level filter options and facet field.
+        Uses fq_list instead of fq to allow for multiple facet fields to be
+        selected and for the tagging to work.
         '''
+        access_level = 'access_level'
+        fq = search_params.get('fq')
+        facet_field = search_params.get('facet.field')
+        exclude = "{!ex=al}access_level"
+        tag = "{!tag=al}access_level"
+        fq_list = []
+
+        if access_level not in request.params:
+            fq_list.append(tag + ":open")
+
+        if fq and access_level in request.params:
+            facet_al = re.findall('access_level:"\\w+"', fq)
+            fq_list = re.findall("(?:\".*?\"|\\S)+", fq)
+            if facet_al and facet_field:
+                facet_tag = re.sub(access_level, tag, facet_al[0])
+                for i in range(len(fq_list)):
+                    if fq_list[i] == facet_al[0]:
+                        fq_list[i] = facet_tag
+            search_params.pop('fq')
+
+        if facet_field and len(facet_field) >= 10:
+            facet_field[4] = exclude
+        else:
+            search_params.update({"facet.field": exclude})
+        if facet_field is not None:
+            search_params.update({"fq_list": fq_list,
+                                  "facet.field": facet_field})
+
         sort = search_params.get('sort')
         if sort and 'titles' in sort:
             title_sorted = 'fr' if h.lang() == 'fr' else 'string'
