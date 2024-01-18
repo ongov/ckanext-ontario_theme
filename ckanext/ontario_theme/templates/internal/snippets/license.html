@@ -8,7 +8,6 @@
   <span property="dc:rights">
     {% if license.get('url', False) %}
       <a href="{{ h.get_translated(license, 'url') }}"
-         itemprop="license"
          rel="dc:rights">{{ h.get_translated(license, 'title') }}</a>
     {% else %}
       {{ h.get_translated(license, 'title') }}
