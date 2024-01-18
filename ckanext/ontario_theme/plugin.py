@@ -187,7 +187,12 @@ ckan.lib.helpers.resource_display_name = resource_display_name
 
 def trigger_ckanext_validation(resource_id, pkg_id):
     ''' Calls ckanext-validation action function resource_validataion_run
-    and redirects to the validation report page.
+    to validate the CKAN UI dictionary of a resource, and passes in the 
+    reformatted Frictionless dictionary. Also pushes this dictionary 
+    to database so it can be retrieved by ckanext-validation when
+    an existing resource is updated.
+    
+    Redirects to the validation report page when done.
 
     '''
     # Get the UI dict
@@ -196,21 +201,21 @@ def trigger_ckanext_validation(resource_id, pkg_id):
     # Get the fields from datastore_search and add the frictionless types from ui_dict
     datastore_info=toolkit.get_action('datastore_search')(
                 data_dict={'id': resource_id})
+
     for row in datastore_info['fields']:
         if 'info' in row:
             col_name = row['id']
-            frictionless_type = [item for item in ui_dict['fields'] if item.get('name')==col_name][0]['type']
-            row['info']['frictionless_type'] = frictionless_type
+            row['info']['frictionless_dict'] = [item for item in ui_dict['fields'] if item.get('name')==col_name]
 
-    # Push the updated fields to the datastore so that ckanext-validation can retrieve
-    # the frictionless fields in _run_sync_validation (logic.py)
-    updated_fields = datastore_info.get('fields')
-    updated_fields = updated_fields[1:]
-    push_this = toolkit.get_action('datastore_create')(None,
+    # Push the updated datastore_info object to the database so that 
+    # ckanext-validation can retrieve the frictionless dictionary in 
+    # _run_sync_validation (logic.py)
+    # (Exclude the first row: {'id': '_id', 'type': 'int'})
+    toolkit.get_action('datastore_create')(None,
               {
                 'resource_id': resource_id,
                 'force': True,
-                'fields': updated_fields
+                'fields': datastore_info.get('fields')[1:]
                 }
             )
 
