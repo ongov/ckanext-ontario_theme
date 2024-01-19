@@ -22,8 +22,6 @@ import ckan.lib.helpers as helpers
 import ckan.lib.formatters as formatters
 from ckan.lib.helpers import core_helper
 
-from datetime import datetime
-
 from ckan.model import Package
 import ckan.model as model
 import locale
@@ -667,7 +665,7 @@ def order_package_facets(orig_ordered_dict):
 
 
 def get_current_year():
-    return datetime.today().strftime('%Y')
+    return datetime.datetime.today().strftime('%Y')
 
 
 def extract_package_name(url):
