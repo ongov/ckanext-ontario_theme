@@ -3057,6 +3057,7 @@ label::after {
   padding: 1.75rem 1rem 1.75rem 1rem;
   font-size: 22px;
   line-height: 1.5rem;
+  border-bottom: solid 1px #ccc;
 }
 
 .search-table-thead {
@@ -3084,7 +3085,7 @@ label::after {
   padding: 2.1875rem 1rem 2.1875rem 1rem;
   text-align: left;
   letter-spacing: .025rem;
-  border-top: solid 1px #ccc;
+  border-bottom: solid 1px #ccc;
 }
 
 .search-table-cell > p {
