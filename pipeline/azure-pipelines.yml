@@ -1,0 +1,237 @@
+resources:
+  webhooks:
+    - webhook: ckan_ontario_theme_Webhook
+      connection: ckan_ontario_theme_Webhook_SC
+
+parameters: 
+  - name: Environment
+    displayName: Environment
+    type: string
+    default: ist
+    values: 
+      - ist
+      - uat
+      - prd
+  - name: Increment_Version
+    displayName: Increment Version?
+    type: string
+    default: patch
+    values: 
+      - major
+      - minor
+      - patch
+      - reset
+      - no
+  
+trigger:
+  branches:
+    include:
+#      - main
+#      - develop
+      - DATA-1207
+    exclude:
+    - 'refs/tags/*'
+  paths:
+    include:
+      - '*'
+    exclude:
+      - /setup.py
+pr: none
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages: 
+- stage: Build
+  condition: eq('${{ parameters.environment }}', 'ist')
+  variables: 
+    - group: ${{ parameters.environment }}-vars
+  jobs:
+  - job: Build
+    steps: 
+     - checkout: self
+       persistCredentials: true
+     - script: |
+         pip install twine wheel flake8 pytest pytest-azurepipelines bump
+       displayName: 'Installing Pipeline Tools Required to Build Project' 
+     - script: |
+         set -e
+         flake8 .
+       displayName: 'Run Lint Tests'
+       continueOnError: true
+     - script: |
+         set -e
+         echo "UNIT TESTS COMING SOON, CURRENTLY BROKEN!!"
+       displayName: 'Run Unit Tests'
+       continueOnError: true
+     - ${{ if eq(parameters.Increment_Version, 'major') }}:
+       - script: |
+           set -e
+           export APP_VERSION=`bump -M setup.py`
+           echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
+           git tag "$APP_VERSION"
+         displayName: 'Incrementing Major Version'
+         name: Commit
+     - ${{ elseif eq(parameters.Increment_Version, 'minor') }}:
+       - script: |
+           set -e
+           export APP_VERSION=`bump -m setup.py`
+           echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
+           git tag "$APP_VERSION"
+         displayName: 'Incrementing Minor Version'
+         name: Commit
+     - ${{ elseif eq(parameters.Increment_Version, 'reset') }}:
+       - script: |
+           set -e
+           export APP_VERSION=`bump -r setup.py`
+           echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
+           git tag "$APP_VERSION"
+         displayName: 'Application Version Reset'
+         name: Commit
+     - ${{ elseif eq(parameters.Increment_Version, 'patch')  }}:
+       - script: |
+           set -e
+           export APP_VERSION=`bump -p setup.py`
+           echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
+           git tag "$APP_VERSION"
+         displayName: 'Incrementing Patch Version'
+         name: Commit
+     - ${{ else  }}:
+       - script: |
+           set -e
+           export PYTHONWARNINGS="ignore"
+           export APP_VERSION=`python3 setup.py --version`
+           echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
+           git tag "$APP_VERSION"
+         displayName: 'Incrementing Patch Version'
+         name: Commit
+     - script: |
+         set -e
+         python setup.py bdist_wheel 
+       displayName: 'Create Artifact'
+     - task: TwineAuthenticate@1
+       displayName: 'Twine Authenticate'
+       inputs:
+         artifactFeed: 'Ontario Data Catalogue/edc_python_feed'
+     - script: |
+         set -e
+         python -m twine upload --skip-existing --verbose -r edc_python_feed --config-file  $(PYPIRC_PATH) dist/*.whl
+       displayName: 'Artifact Upload to Artifact Repository'
+     - script: |
+         set -e
+         git config user.email "dev.ops@ontario.ca"
+         git config user.name "ods-devops-automation"
+         git add setup.py
+         git commit -m 'Version update by Build Id: $(Build.BuildNumber) on $(Agent.Id)'
+         git push origin HEAD:$(Build.SourceBranchName)
+         git push --tags origin HEAD:$(Build.SourceBranchName)    
+       displayName: "Commiting Final Changes"
+        
+- stage: IST_Deploy
+  variables:
+    - name: app_version
+      value: $[ stageDependencies.Build.Build.outputs['Commit.VarKey'] ]
+    - group: ist-vars
+  dependsOn: Build
+  condition: and(succeeded(), eq('${{ parameters.environment }}', 'ist'))
+  jobs:
+  - deployment:
+    displayName: IST deploy
+    environment: 
+      name: IST
+      resourceType: virtualMachine
+      resourceName: cacazristckan01
+    strategy:
+     runOnce:
+       deploy:
+         steps:
+           - task: PipAuthenticate@1
+             displayName: 'Pip Authenticate'
+             inputs:
+               artifactFeeds: 'Ontario Data Catalogue/edc_python_feed'
+           - script: |
+               set -e
+               pip install -U --extra-index-url=https://pkgs.dev.azure.com/devops-EDC-0000/2fe9107c-920f-4653-bd7f-17ecfd94eaec/_packaging/edc_python_feed/pypi/simple/ ckanext-ontario-theme==$(app_version)
+               echo "#### INSTALLED PACKAGE INFORMATION. ####"
+               pip show ckanext-ontario-theme 
+               echo "#### STOPPING CKAN & FLUSHING WEBASSETS CACHE! ####"
+               sudo systemctl stop supervisor && sudo systemctl status supervisor && sudo rm -rf /var/lib/ckan/default/webassets/*
+               echo "#### STOPPING NGINX & FLUSHING CACHE! ####"
+               sudo systemctl stop nginx && sudo systemctl status nginx && sudo rm -rf /tmp/nginx_cache_default/* && sudo rm -rf /tmp/nginx_cache_default && sudo rm -rf /tmp/api_cache/* && sudo rm -rf /tmp/api_cache
+               echo "#### STARTING CKAN & NGINX! ####"
+               sudo systemctl start supervisor && sudo systemctl start nginx && sudo systemctl status supervisor && sudo systemctl status nginx
+               echo "#### DEPLOYMENT COMPLETE! ####"
+             displayName: 'Deploying to IST'
+             
+- stage: UAT_Deploy
+  dependsOn: IST_Deploy
+  condition: succeeded()
+  variables:
+    - name: app_version
+      value: $[ stageDependencies.Build.Build.outputs['Commit.VarKey'] ]
+    - group: uat-vars
+  jobs:
+  - deployment:
+    displayName: UAT deploy
+    environment: 
+      name: UAT
+      resourceType: virtualMachine
+      resourceName: azuaedc00ckan01
+    strategy:
+     runOnce:
+       deploy:
+         steps:
+           - task: PipAuthenticate@1
+             displayName: 'Pip Authenticate'
+             inputs:
+               artifactFeeds: 'Ontario Data Catalogue/edc_python_feed'
+           - script: |
+               set -e
+               pip install -U --extra-index-url=https://pkgs.dev.azure.com/devops-EDC-0000/2fe9107c-920f-4653-bd7f-17ecfd94eaec/_packaging/edc_python_feed/pypi/simple/ ckanext-ontario-theme==$(app_version)
+               echo "#### INSTALLED PACKAGE INFORMATION. ####"
+               pip show ckanext-ontario-theme 
+               echo "#### STOPPING CKAN & FLUSHING WEBASSETS CACHE! ####"
+               sudo systemctl stop supervisor && sudo systemctl status supervisor && sudo rm -rf /var/lib/ckan/default/webassets/*
+               echo "#### STOPPING NGINX & FLUSHING CACHE! ####"
+               sudo systemctl stop nginx && sudo systemctl status nginx && sudo rm -rf /tmp/nginx_cache_default/* && sudo rm -rf /tmp/nginx_cache_default && sudo rm -rf /tmp/api_cache/* && sudo rm -rf /tmp/api_cache
+               echo "#### STARTING CKAN & NGINX! ####"
+               sudo systemctl start supervisor && sudo systemctl start nginx && sudo systemctl status supervisor && sudo systemctl status nginx
+               echo "#### DEPLOYMENT COMPLETE! ####"
+             displayName: 'Deploying to UAT'
+             
+- stage: PRD_Deploy
+  dependsOn: UAT_DEPLOY
+  condition: and(succeeded(), eq('${{ parameters.environment }}', 'prd'))
+  variables:
+    - name: app_version
+      value: $[ stageDependencies.Build.Build.outputs['Commit.VarKey'] ]
+    - group: prd-vars
+  jobs:
+  - deployment:
+    displayName: PRD deploy
+    environment: 
+      name: PRD
+      resourceType: virtualMachine
+      resourceName: azpredc00ckan01
+    strategy:
+     runOnce:
+       deploy:
+         steps:
+           - task: PipAuthenticate@1
+             displayName: 'Pip Authenticate'
+             inputs:
+               artifactFeeds: 'Ontario Data Catalogue/edc_python_feed'
+           - script: |
+               set -e
+               pip install -U --extra-index-url=https://pkgs.dev.azure.com/devops-EDC-0000/2fe9107c-920f-4653-bd7f-17ecfd94eaec/_packaging/edc_python_feed/pypi/simple/ ckanext-ontario-theme==$(app_version)
+               echo "#### INSTALLED PACKAGE INFORMATION. ####"
+               pip show ckanext-ontario-theme 
+               echo "#### STOPPING CKAN & FLUSHING WEBASSETS CACHE! ####"
+               sudo systemctl stop supervisor && sudo systemctl status supervisor && sudo rm -rf /var/lib/ckan/default/webassets/*
+               echo "#### STOPPING NGINX & FLUSHING CACHE! ####"
+               sudo systemctl stop nginx && sudo systemctl status nginx && sudo rm -rf /tmp/nginx_cache_default/* && sudo rm -rf /tmp/nginx_cache_default && sudo rm -rf /tmp/api_cache/* && sudo rm -rf /tmp/api_cache
+               echo "#### STARTING CKAN & NGINX! ####"
+               sudo systemctl start supervisor && sudo systemctl start nginx && sudo systemctl status supervisor && sudo systemctl status nginx
+               echo "#### DEPLOYMENT COMPLETE! ####"
+             displayName: 'Deploying to PRD'
+             
