@@ -3,7 +3,6 @@ resources:
     - webhook: ckan_ontario_theme_Webhook
       connection: ckan_ontario_theme_Webhook_SC
 
-
 parameters: 
   - name: Environment
     displayName: Environment
