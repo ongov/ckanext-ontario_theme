@@ -8,6 +8,13 @@ in the core template for search.html.
 #}
 {% ckan_extends %}
 
+{% set lead_statement = _("Search for specific datasets or use filters to explore our data.") %}
+
+{% block meta -%}
+  {{ super() }}
+  <meta name="description" content="{{ lead_statement }}">
+{% endblock meta -%}
+
 {% block ontario_theme_search_form %}
   <div class="ontario-row no-padding">
     {# Lifting these block above main content. #}
@@ -21,6 +28,9 @@ in the core template for search.html.
           {{ _(dataset_type + 's') |capitalize }}
         {% endblock page_heading %}
       </h1>
+      <p class="ontario-lead-statement">
+        {{ lead_statement }}
+      </p>
     </div>
     {% block form %}
       {% set facets = {

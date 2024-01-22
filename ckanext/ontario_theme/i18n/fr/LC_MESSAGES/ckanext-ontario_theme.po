@@ -2284,6 +2284,10 @@ msgstr "L'origine: <a href=\"%(url)s\">%(dataset)s</a>"
 msgid "Recently Created"
 msgstr "Récemment créé"
 
+#: ckanext/ontario_theme/templates/package/search.html:11
+msgid "Search for specific datasets or use filters to explore our data."
+msgstr "Recherchez des ensembles de données particuliers ou utilisez des filtres pour explorer nos données."
+
 #: ckanext/ontario_theme/templates/package/search.html:33
 msgid "Datasets with data"
 msgstr "Jeux de données avec données"

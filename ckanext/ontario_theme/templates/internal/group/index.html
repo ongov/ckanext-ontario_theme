@@ -1,5 +1,12 @@
 {% ckan_extends %}
 
+{% set lead_statement = _("Browse datasets and resources organized by a specific theme or topic.") %}
+
+{% block meta -%}
+  {{ super() }}
+  <meta name="description" content="{{ lead_statement }}">
+{% endblock meta -%}
+
 {% block page_primary_action %}
 {% endblock page_primary_action %}
 
@@ -18,9 +25,7 @@
     <div class="search-page-heading">
       <h1>{{ _('Groups') }}</h1>
       <p class="ontario-lead-statement">
-        {% trans %}
-          Browse datasets and resources organized by a specific theme or topic.
-        {% endtrans %}
+        {{ lead_statement }}
       </p>
     </div>
   {% endblock page_heading %}

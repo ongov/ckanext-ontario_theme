@@ -1480,6 +1480,10 @@ msgstr ""
 msgid "This dataset is currently under review"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/package/search.html:11
+msgid "Search for specific datasets or use filters to explore our data."
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/package/search.html:29
 msgid "Relevance"
 msgstr ""
