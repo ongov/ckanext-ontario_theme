@@ -4,13 +4,13 @@
   dataset-main
 {% endblock wrapper_class %}
 
-{% block head_extras %}{% endblock head_extras %}
+{% block head_extras %}
+{% endblock head_extras %}
 
-{% block meta -%}
-  {{ super() }}
+{% block meta_description -%}
   {% set description = h.markdown_extract(h.get_translated(pkg, 'notes'), extract_length=165) %}
   <meta name="description" content="{{ description|forceescape|trim }}">
-{% endblock meta -%}
+{% endblock meta_description -%}
 
 {% block secondary %}
   <aside class="dataset-aside secondary col-xs-12 col-lg-4 right-col dataset-font">

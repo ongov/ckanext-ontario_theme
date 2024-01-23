@@ -10,10 +10,9 @@ in the core template for search.html.
 
 {% set lead_statement = _("Search for specific datasets or use filters to explore our data.") %}
 
-{% block meta -%}
-  {{ super() }}
+{% block meta_description -%}
   <meta name="description" content="{{ lead_statement }}">
-{% endblock meta -%}
+{% endblock meta_description -%}
 
 {% block ontario_theme_search_form %}
   <div class="ontario-row no-padding">
@@ -28,9 +27,7 @@ in the core template for search.html.
           {{ _(dataset_type + 's') |capitalize }}
         {% endblock page_heading %}
       </h1>
-      <p class="ontario-lead-statement">
-        {{ lead_statement }}
-      </p>
+      <p class="ontario-lead-statement">{{ lead_statement }}</p>
     </div>
     {% block form %}
       {% set facets = {

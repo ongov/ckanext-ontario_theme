@@ -2,10 +2,9 @@
 
 {% set lead_statement = _("Browse datasets and resources organized by a specific theme or topic.") %}
 
-{% block meta -%}
-  {{ super() }}
+{% block meta_description -%}
   <meta name="description" content="{{ lead_statement }}">
-{% endblock meta -%}
+{% endblock meta_description -%}
 
 {% block page_primary_action %}
 {% endblock page_primary_action %}
@@ -24,9 +23,7 @@
   {% block page_heading %}
     <div class="search-page-heading">
       <h1>{{ _('Groups') }}</h1>
-      <p class="ontario-lead-statement">
-        {{ lead_statement }}
-      </p>
+      <p class="ontario-lead-statement">{{ lead_statement }}</p>
     </div>
   {% endblock page_heading %}
  

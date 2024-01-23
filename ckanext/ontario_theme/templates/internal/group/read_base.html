@@ -1,5 +1,12 @@
 {% ckan_extends %}
 
+{% block meta_description -%}
+  {% if h.get_translated(c.group_dict,"description") %}
+    <meta name="description"
+          content="{{ h.markdown_extract(h.get_translated(c.group_dict,'description'), 165) }}">
+  {% endif %}
+{% endblock meta_description -%}
+
 {% block subtitle %}
   {{ h.get_translated(c.group_dict,"title") }} {{ g.template_title_delimiter }} {{ _('Groups') }}
 {% endblock subtitle %}

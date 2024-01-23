@@ -1,10 +1,10 @@
 {% extends "page.html" %}
+
 {% set lead_statement = _("Find data published by each of Ontario's Ministries.") %}
 
-{% block meta -%}
-  {{ super() }}
+{% block meta_description -%}
   <meta name="description" content="{{ lead_statement }}">
-{% endblock meta -%}
+{% endblock meta_description -%}
 
 {% block subtitle %}
   {{ _('Ministries') }}
@@ -26,9 +26,7 @@
           {{ _('Ministries') }}
         {% endblock page_heading %}
       </h1>
-      <p class="ontario-lead-statement">
-        {{ lead_statement }}
-      </p>
+      <p class="ontario-lead-statement">{{ lead_statement }}</p>
     </div>
     {% block organizations_search_form %}
       <!-- arguments for DS search bar -->
