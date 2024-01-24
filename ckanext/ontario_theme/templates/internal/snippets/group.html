@@ -10,7 +10,7 @@ Example:
     {% snippet 'snippets/group, group=c.group_dict %}
 
 #}
-{% with truncate=truncate or 0, url=h.url_for('group.read', id=group.name) %}
+{# {% with truncate=truncate or 0, url=h.url_for('group.read', id=group.name) %}
   <section class="module module-narrow module-shallow group">
     <div class="module-content media media-vertical">
       <div class="media-content">
@@ -23,4 +23,4 @@ Example:
       </div>
     </div>
   </section>
-{% endwith %}
+{% endwith %} #}

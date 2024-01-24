@@ -1,35 +1,43 @@
 {% ckan_extends %}
 
-{# Make block image empty to prevent code for image from loading #}
+{% block info %}
+{% block inner %}
+
 {% block image %}
+{# Make block image empty to prevent code for image from loading #}
 {% endblock image %}
 
 {% block heading %}
-  <h1 class="heading">
+  <h1>
     {{ h.get_translated(group, "title") }}
     {% if group.state == 'deleted' %}[{{ _('Deleted') }}]{% endif %}
   </h1>
 {% endblock heading %}
 
+{% if show_nums %}
+{% block nums %}
+  <div class="ministry nums">
+    {% set group_dataset_count = ungettext('{number} dataset', '{number} datasets', group.package_count) %}
+    {%- if group.package_count -%}
+      <p>{{ group_dataset_count.format(number=h.localised_number(group.package_count)) }}</p>
+    {%- else -%}
+      <p>0 {{ _('datasets') }}</p>
+    {%- endif -%}
+  </div>
+{% endblock nums %}
+{% endif %}
+{% endblock inner %}
+
 {% block description %}
   {% if h.get_translated(group, "description") %}
-    <p>
-      {{ h.markdown_extract(h.get_translated(group, "description"), 180) }}
+    <p class="ontario-lead-statement">
+      {{ h.markdown_extract(h.get_translated(group, "description"), 80) }}
       {% link_for _('read more'), named_route='group.about', id=group.name %}
     </p>
   {% endif %}
 {% endblock description %}
 
-{% block nums %}
-  <div class="nums">
-    <dl>
-      <dt>{{ _('Datasets') }}</dt>
-      <dd>
-        {{ h.SI_number_span(group.package_count) }}
-      </dd>
-    </dl>
-  </div>
-{% endblock nums %}
-
 {% block follow %}
 {% endblock follow %}
+
+{% endblock info %}
