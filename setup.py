@@ -17,7 +17,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # http://packaging.python.org/en/latest/tutorial.html#version
-    version='2.1.14',
+    version='2.5.3',
 
     description='''Theme for internal CKAN build.''',
     long_description=long_description,
@@ -26,8 +26,8 @@ setup(
     url='https://github.com/ongov/ckanext-ontario_theme',
 
     # Author details
-    author='''Ontario Digital Service''',
-    author_email='''https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269''',
+    author='''Ontario Digital Catalogue''',
+    author_email='''data.ops@ontario.ca''',
 
     # Choose your license
     license='AGPL',
@@ -100,6 +100,15 @@ setup(
             ('**.py', 'python', None),
             ('**.js', 'javascript', None),
             ('**/templates/**.html', 'ckan', None),
+            ('**.html', 'HTML', None),
+            ('**.css', 'css', None),
+            ('**.mo', 'machine_object', None),
+            ('**.ttf', 'true_type_font', None),
+            ('**.woff', 'web_open_font_format', None),
+            ('**.woff2', 'web_open_font_format2', None),
+            ('**.png', 'PNG', None),
+            ('**.svg', 'SVG', None),
+            ('**.jpg', 'JPG', None)
         ],
     }
 )

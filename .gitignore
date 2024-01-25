@@ -42,8 +42,8 @@ coverage.xml
 docs/_build/
 
 # Google Tag Manager
-gtm.html
-gtm_ns.html
+# gtm.html
+# gtm_ns.html
 
 .vscode/**/*
 !.vscode/settings.json.default
