@@ -200,7 +200,10 @@ def trigger_ckanext_validation(resource_id, pkg_id):
 
     # Get the fields from datastore_search and add the frictionless types from ui_dict
     datastore_info=toolkit.get_action('datastore_search')(
-                data_dict={'id': resource_id})
+		data_dict={'id': resource_id,
+                           'limit': 0
+                          })
+
 
     for row in datastore_info['fields']:
         if 'info' in row:
