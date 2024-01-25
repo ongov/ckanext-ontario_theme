@@ -1734,52 +1734,6 @@ via submission form. Copied from DS.*/
   position: relative;
 }
 
-section.additional-info table.table {
-  border: none;
-}
-
-section.additional-info table.table thead {
-  display: none;
-}
-
-section.additional-info table.table td {
-  border: none;
-}
-
-section.additional-info table.table tbody tr:nth-child(even) th,
-section.additional-info table.table tbody tr:nth-child(even) td {
-  background-color: #f9f9f9;
-}
-
-section.additional-info table.table tbody tr:first-child th,
-section.additional-info table.table tbody tr:first-child td {
-  padding-top: 10px;
-}
-
-section.additional-info table.table tbody tr:last-child th,
-section.additional-info table.table tbody tr:last-child td {
-  padding-bottom: 10px;
-}
-
-section.additional-info table.table tbody tr th {
-  padding: 5px 15px 5px 30px;
-  font-weight: 700;
-  line-height: 32.6px;
-  color: #4d4d4d;
-}
-
-section.additional-info table.table tbody tr td {
-  padding: 5px 30px 5px 0;
-  font-weight: 400;
-  line-height: 32.6px;
-  color: #4d4d4d;
-}
-
-section.additional-info table.table tbody tr th,
-section.additional-info table.table tbody tr td {
-  border: none;
-}
-
 section#dataset-resources > h2 {
   margin-top: 35px;
   margin-bottom: 20px;
@@ -1798,7 +1752,7 @@ section#dataset-resources > h2 {
 }
 
 .tag-list {
-  padding: 10px 10px 5px 0;
+  padding: 10px 0 5px 0;
 }
 
 .resource-item-div:hover .resource-item-title {
@@ -1909,31 +1863,66 @@ a.ontario-button.ontario-button--tertiary:hover {
 
 
 /* ========================================================================
-   Custom overrides - datafile pages
+   Custom overrides - resource pages
    ======================================================================== */
 .ontario-margin-top-40 {
   margin-top: 40px;
 }
 
-.additional-info-table.table-bordered > tbody > tr > th,
-.additional-info-table.table-bordered > thead > tr > th {
-  border-right: unset;
+.res-additional-info-thead {
+  display: table-header-group;
 }
 
-.additional-info-table.table-bordered > tbody > tr > td,
-.additional-info-table.table-bordered > thead > tr > th {
-  border-left: unset;
-}
-
-.module-resource {
+.res-additional-info-table {
+  display: table;
+  line-height: 22.85px;
+  font-size: 16px;
   border-bottom: unset;
-  z-index: 1;
+}
+
+.res-additional-info-thead .res-additional-info-th,
+.res-additional-info-thead .res-additional-info-td {
+  border-bottom-width: 2px;
+  font-weight: 700;
+}
+
+.res-additional-info-th {
+  font-weight: 700;
+}
+
+.res-additional-info-tr {
+  display: table-row;
+}
+
+.res-additional-info-tbody {
+  display: table-row-group;
+}
+
+.res-additional-info-tbody .res-additional-info-tr:nth-of-type(2n+1) {
+  background-color: #f9f9f9;
+}
+
+.res-additional-info-tbody .res-additional-info-tr:nth-of-type(2n) {
+  background-color: #f2f2f2;
+}
+
+.res-additional-info-th,
+.res-additional-info-td {
+  display: table-cell;
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  width: 50%;
 }
 
 .table-condensed > tbody > tr > th,
 .table-condensed > thead > tr > th,
 .table-condensed > tbody > tr > td {
   padding: 12px;
+}
+
+.module-resource {
+  border-bottom: unset;
+  z-index: 1;
 }
 
 .action-group {
@@ -3068,6 +3057,7 @@ label::after {
   padding: 1.75rem 1rem 1.75rem 1rem;
   font-size: 22px;
   line-height: 1.5rem;
+  border-bottom: solid 1px #ccc;
 }
 
 .search-table-thead {
@@ -3095,7 +3085,7 @@ label::after {
   padding: 2.1875rem 1rem 2.1875rem 1rem;
   text-align: left;
   letter-spacing: .025rem;
-  border-top: solid 1px #ccc;
+  border-bottom: solid 1px #ccc;
 }
 
 .search-table-cell > p {
@@ -3253,4 +3243,57 @@ label::after {
   font-weight: 400;
   font-size: 16px;
   line-height: 26px;
+}
+
+/* ========================================================================
+   Dataset Page - Additional info table
+   ======================================================================== */
+
+.package-additional-info-thead {
+  display: none;
+}
+
+.package-additional-info-td,
+.package-additional-info-th {
+  display: table-cell;
+}
+
+.dataset-label.package-additional-info-th {
+  font-weight: 700;
+  line-height: 32.6px;
+  color: #4d4d4d;
+  width: 40%;
+  padding: 5px 15px 5px 30px;
+}
+
+.package-additional-info-tr {
+  display: table-row;
+}
+
+.package-additional-info-tbody {
+  display: table-row-group;
+}
+
+.package-additional-info-table {
+  background-color: #f9f9f9;
+  border: none;
+  display: table;
+}
+
+.dataset-details.package-additional-info-td {
+  padding: 5px 15px 5px 0;
+  font-weight: 400;
+  line-height: 32.6px;
+  color: #4d4d4d;
+}
+
+@media screen and (max-width: 40em) {
+  .dataset-details.package-additional-info-td {
+    padding: 5px 0;
+  }
+
+  .dataset-label.package-additional-info-th {
+    padding: 5px 15px 5px 15px;
+    width: 50%;
+  }
 }
