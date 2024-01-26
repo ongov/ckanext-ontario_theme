@@ -1046,25 +1046,27 @@ msgstr ""
 msgid "Data Not Available"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:19
+#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:33
+msgid "Data under review"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:35
 msgid ""
-"This data is not and will not be made available. Data in this record cannot "
-"be released because of legal, privacy, security, confidentiality or "
-"commercially-sensitive reasons, as outlined by the <a "
-"href=\"%(directive_url)s\">Digital and Data "
-"Directive</a>."
+"This data is not and will not be made available. The data was reviewed and "
+"cannot be released to the public because of reasons outlined by the <a "
+"href=\"%(directive_url)s\">Digital and Data Directive</a>."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:27
 msgid "Why?"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:20
+msgid "This data is not available right now. We are reviewing the data to determine if it can be made open to the public."
+msgstr ""
+
 #: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:33
-msgid ""
-"This data might be made available in the future. We are reviewing the data "
-"in this record to determine if it can be made open. <a "
-"href=\"%(directive_url)s\">[Learn "
-"more]</a>"
+msgid "Data restricted"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/scheming/package/read.html:20
@@ -1755,6 +1757,10 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:45
 msgid "Filter Results"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:123
+msgid "Please try another search or <a href=\"mailto:opendata@ontario.ca\">reach out to us if you think data is missing.</a>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:15
