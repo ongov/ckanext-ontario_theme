@@ -3278,6 +3278,7 @@ label::after {
   background-color: #f9f9f9;
   border: none;
   display: table;
+  width: 100%;
 }
 
 .dataset-details.package-additional-info-td {
