@@ -2340,7 +2340,6 @@ h2.ontario-small {
 
 #about h2[id].first-h2,
 .article-container h2[id].first-h2 {
-  margin-top: 0;
   border-top: 0;
   padding-top: 0;
 }

@@ -1,5 +1,10 @@
 {% extends "page.html" %}
 
+{% set lead_statement = _('Need more help or want to learn more about the data catalogue?') %}
+{% block meta_description -%}
+  <meta name="description" content="{{ lead_statement }}">
+{% endblock meta_description -%}
+
 {% block subtitle %}
   {{ _('Help') }}
 {% endblock subtitle %}
@@ -9,12 +14,9 @@
     <div class="ontario-column ontario-small-12">
       <div class="article-intro">
         <h1>{{ _('Help') }}</h1>
-        {%- trans -%}
-          <p class="ontario-lead-statement">
-            Need more help or want to learn more about the data catalogue? <a href="https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269">Contact us</a> — we’ll gladly answer any
-            questions you might have!
-          </p>
-        {%- endtrans %}
+        <p class="ontario-lead-statement">
+          {{ lead_statement }} {{ _('<a href="https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269">Contact us</a> — we’ll gladly answer any questions you might have!') }}
+        </p>
       </div>
       <h2 class="ontario-small">{{ _("On this page") }}</h2>
       <ul class="table-of-contents">
@@ -68,7 +70,7 @@
           </a>
         </li>
       </ul>
-      <hr class="toc-hr"/>
+      <hr class="toc-hr" />
       <h2 id="i-cant-find-the-dataset-im-looking-for" class="first-h2">
         {{ _("Q. I cannot find the dataset I’m looking for.") }}
       </h2>
@@ -80,9 +82,7 @@
           {% endtrans %}
         </p>
       </div>
-      <h2 id="how-do-i-download-datasets">
-        {{ _('Q. How do I download datasets?') }}
-      </h2>
+      <h2 id="how-do-i-download-datasets">{{ _('Q. How do I download datasets?') }}</h2>
       <div>
         <p>
           {% trans %}
@@ -255,9 +255,7 @@
       <div>
         <p>{{ _('A. Start by sending an email to the contact listed (in the "For more information" section).') }}</p>
       </div>
-      <h2 id="why-isnt-a-dataset-available">
-        {{ _("Q. Why isn't the data for a dataset available?") }}
-      </h2>
+      <h2 id="why-isnt-a-dataset-available">{{ _("Q. Why isn't the data for a dataset available?") }}</h2>
       <div>
         <p>{{ _('A. There are two reasons why the data for a dataset might not be available:') }}</p>
         <ul>
