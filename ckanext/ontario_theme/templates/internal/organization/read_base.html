@@ -3,7 +3,7 @@
 {% block meta_description -%}
   {% if h.get_translated(c.group_dict,"description") %}
     <meta name="description"
-          content="{{ h.markdown_extract(h.get_translated(c.group_dict,'description'), 165) }}">
+          content="{{ h.markdown_extract(h.get_translated(c.group_dict,'description')) }}">
   {% endif %}
 {% endblock meta_description -%}
 
