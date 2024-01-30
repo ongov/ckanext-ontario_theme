@@ -1869,51 +1869,6 @@ a.ontario-button.ontario-button--tertiary:hover {
   margin-top: 40px;
 }
 
-.res-additional-info-thead {
-  display: table-header-group;
-}
-
-.res-additional-info-table {
-  display: table;
-  line-height: 22.85px;
-  font-size: 16px;
-  border-bottom: unset;
-}
-
-.res-additional-info-thead .res-additional-info-th,
-.res-additional-info-thead .res-additional-info-td {
-  border-bottom-width: 2px;
-  font-weight: 700;
-}
-
-.res-additional-info-th {
-  font-weight: 700;
-}
-
-.res-additional-info-tr {
-  display: table-row;
-}
-
-.res-additional-info-tbody {
-  display: table-row-group;
-}
-
-.res-additional-info-tbody .res-additional-info-tr:nth-of-type(2n+1) {
-  background-color: #f9f9f9;
-}
-
-.res-additional-info-tbody .res-additional-info-tr:nth-of-type(2n) {
-  background-color: #f2f2f2;
-}
-
-.res-additional-info-th,
-.res-additional-info-td {
-  display: table-cell;
-  padding: 12px;
-  border-bottom: 1px solid #ddd;
-  width: 50%;
-}
-
 .table-condensed > tbody > tr > th,
 .table-condensed > thead > tr > th,
 .table-condensed > tbody > tr > td {
@@ -3246,32 +3201,35 @@ label::after {
    Dataset Page - Additional info table
    ======================================================================== */
 
-.package-additional-info-thead {
-  display: none;
-}
-
 .package-additional-info-td,
-.package-additional-info-th {
+.package-additional-info-th,
+.res-additional-info-th,
+.res-additional-info-td {
   display: table-cell;
+  word-wrap: break-word;
 }
 
-.dataset-label.package-additional-info-th {
+.dataset-label.package-additional-info-th,
+.res-additional-info-th {
   font-weight: 700;
   line-height: 32.6px;
-  color: #4d4d4d;
+  color: #1a1a1a;
   width: 40%;
   padding: 5px 15px 5px 30px;
 }
 
-.package-additional-info-tr {
+.package-additional-info-tr,
+.res-additional-info-tr {
   display: table-row;
 }
 
-.package-additional-info-tbody {
+.package-additional-info-tbody,
+.res-additional-info-tbody {
   display: table-row-group;
 }
 
-.package-additional-info-table {
+.package-additional-info-table,
+.res-additional-info-table {
   background-color: #f9f9f9;
   border: none;
   display: table;
@@ -3282,15 +3240,18 @@ label::after {
   padding: 5px 15px 5px 0;
   font-weight: 400;
   line-height: 32.6px;
-  color: #4d4d4d;
+  color: #1a1a1a;
 }
 
 @media screen and (max-width: 40em) {
-  .dataset-details.package-additional-info-td {
+
+  .dataset-details.package-additional-info-td,
+  .res-additional-info-td {
     padding: 5px 0;
   }
 
-  .dataset-label.package-additional-info-th {
+  .dataset-label.package-additional-info-th,
+  .res-additional-info-th {
     padding: 5px 15px 5px 15px;
     width: 50%;
   }
