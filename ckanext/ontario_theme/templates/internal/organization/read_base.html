@@ -1,5 +1,12 @@
 {% ckan_extends %}
 
+{% block meta_description -%}
+  {% if h.get_translated(c.group_dict,"description") %}
+    <meta name="description"
+          content="{{ h.markdown_extract(h.get_translated(c.group_dict,'description')) }}">
+  {% endif %}
+{% endblock meta_description -%}
+
 {% block primary %}
   <div class="primary ministry-page">
     {% block primary_content %}
