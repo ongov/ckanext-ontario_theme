@@ -64,6 +64,12 @@
       <filter class="solr.LowerCaseFilterFactory"/>
     </analyzer>
   </fieldType>
+  <fieldType name="text_sort_case_insensitive" class="solr.TextField" omitNorms="true" sortMissingLast="true">
+    <analyzer>
+      <tokenizer class="solr.KeywordTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+  </fieldType>
   <field name="_version_" type="string" indexed="true" stored="true"/>
   <field name="author" type="text_general" indexed="true" stored="true"/>
   <field name="author_email" type="text_general" indexed="true" stored="true"/>
@@ -111,6 +117,7 @@
   <field name="tags" type="string" multiValued="true" indexed="true" stored="true"/>
   <field name="text" type="text" multiValued="true" indexed="true" stored="false"/>
   <field name="title" type="text" indexed="true" stored="true"/>
+  <field name="title_en" type="text_sort_case_insensitive" stored="true"/>
   <field name="title_fr" type="icu_sort_fr" stored="false"/>
   <field name="title_ngram" type="text_ngram" indexed="true" stored="true"/>
   <field name="title_string" type="string" indexed="true" stored="false"/>
