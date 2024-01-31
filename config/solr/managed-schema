@@ -117,7 +117,7 @@
   <field name="tags" type="string" multiValued="true" indexed="true" stored="true"/>
   <field name="text" type="text" multiValued="true" indexed="true" stored="false"/>
   <field name="title" type="text" indexed="true" stored="true"/>
-  <field name="title_en" type="text_sort_case_insensitive" stored="true"/>
+  <field name="title_en" type="text_sort_case_insensitive" stored="false"/>
   <field name="title_fr" type="icu_sort_fr" stored="false"/>
   <field name="title_ngram" type="text_ngram" indexed="true" stored="true"/>
   <field name="title_string" type="string" indexed="true" stored="false"/>
