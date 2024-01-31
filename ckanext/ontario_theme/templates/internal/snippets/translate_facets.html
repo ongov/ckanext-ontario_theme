@@ -3,7 +3,13 @@
     Custom snippet to translate the filters displayed on search page, according to set language.
     
 #}
-{% set scheming_choices = scheming_choices or h.scheming_field_by_name(fields, name).choices or None %}
+{% if name == "organization_category" %}
+  {% set scheming_choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'category')) %}
+{% elif name == "organization_jurisdiction" %}
+  {% set scheming_choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'jurisdiction')) %}
+{% else %}
+  {% set scheming_choices = scheming_choices or h.scheming_field_by_name(fields, name).choices or None %}
+{% endif %}
 {% do item.update({'display_name': h.scheming_choices_label(scheming_choices, item.display_name)}) if scheming_choices %}
 {% do item.update({'display_name': h.get_translated( h.ontario_theme_get_license(item.name)._data, "title" )}) if name == "license_id" %}
 {% do item.update({'display_name': h.get_translated( h.get_organization(item.name), "title") or item.display_name}) if name == "organization" %}

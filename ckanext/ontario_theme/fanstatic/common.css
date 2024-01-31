@@ -1734,52 +1734,6 @@ via submission form. Copied from DS.*/
   position: relative;
 }
 
-section.additional-info table.table {
-  border: none;
-}
-
-section.additional-info table.table thead {
-  display: none;
-}
-
-section.additional-info table.table td {
-  border: none;
-}
-
-section.additional-info table.table tbody tr:nth-child(even) th,
-section.additional-info table.table tbody tr:nth-child(even) td {
-  background-color: #f9f9f9;
-}
-
-section.additional-info table.table tbody tr:first-child th,
-section.additional-info table.table tbody tr:first-child td {
-  padding-top: 10px;
-}
-
-section.additional-info table.table tbody tr:last-child th,
-section.additional-info table.table tbody tr:last-child td {
-  padding-bottom: 10px;
-}
-
-section.additional-info table.table tbody tr th {
-  padding: 5px 15px 5px 30px;
-  font-weight: 700;
-  line-height: 32.6px;
-  color: #4d4d4d;
-}
-
-section.additional-info table.table tbody tr td {
-  padding: 5px 30px 5px 0;
-  font-weight: 400;
-  line-height: 32.6px;
-  color: #4d4d4d;
-}
-
-section.additional-info table.table tbody tr th,
-section.additional-info table.table tbody tr td {
-  border: none;
-}
-
 section#dataset-resources > h2 {
   margin-top: 35px;
   margin-bottom: 20px;
@@ -1798,7 +1752,7 @@ section#dataset-resources > h2 {
 }
 
 .tag-list {
-  padding: 10px 10px 5px 0;
+  padding: 10px 0 5px 0;
 }
 
 .resource-item-div:hover .resource-item-title {
@@ -1909,31 +1863,21 @@ a.ontario-button.ontario-button--tertiary:hover {
 
 
 /* ========================================================================
-   Custom overrides - datafile pages
+   Custom overrides - resource pages
    ======================================================================== */
 .ontario-margin-top-40 {
   margin-top: 40px;
-}
-
-.additional-info-table.table-bordered > tbody > tr > th,
-.additional-info-table.table-bordered > thead > tr > th {
-  border-right: unset;
-}
-
-.additional-info-table.table-bordered > tbody > tr > td,
-.additional-info-table.table-bordered > thead > tr > th {
-  border-left: unset;
-}
-
-.module-resource {
-  border-bottom: unset;
-  z-index: 1;
 }
 
 .table-condensed > tbody > tr > th,
 .table-condensed > thead > tr > th,
 .table-condensed > tbody > tr > td {
   padding: 12px;
+}
+
+.module-resource {
+  border-bottom: unset;
+  z-index: 1;
 }
 
 .action-group {
@@ -2186,9 +2130,7 @@ screen and (min-width: 96em) {
 }
 
 .restricted_under_review_packages {
-  display: flex;
   align-items: baseline;
-  flex-wrap: wrap;
   margin-top: 10px;
 }
 
@@ -2199,7 +2141,6 @@ screen and (min-width: 96em) {
 .packages_not_available {
   font-size: 16px;
   font-weight: 600;
-  margin-right: 10px;
 }
 
 .packages_access_level {
@@ -2399,7 +2340,6 @@ h2.ontario-small {
 
 #about h2[id].first-h2,
 .article-container h2[id].first-h2 {
-  margin-top: 0;
   border-top: 0;
   padding-top: 0;
 }
@@ -3068,6 +3008,7 @@ label::after {
   padding: 1.75rem 1rem 1.75rem 1rem;
   font-size: 22px;
   line-height: 1.5rem;
+  border-bottom: solid 1px #ccc;
 }
 
 .search-table-thead {
@@ -3095,7 +3036,7 @@ label::after {
   padding: 2.1875rem 1rem 2.1875rem 1rem;
   text-align: left;
   letter-spacing: .025rem;
-  border-top: solid 1px #ccc;
+  border-bottom: solid 1px #ccc;
 }
 
 .search-table-cell > p {
@@ -3253,4 +3194,64 @@ label::after {
   font-weight: 400;
   font-size: 16px;
   line-height: 26px;
+}
+
+/* ========================================================================
+   Dataset Page - Additional info table
+   ======================================================================== */
+
+.package-additional-info-td,
+.package-additional-info-th,
+.res-additional-info-th,
+.res-additional-info-td {
+  display: table-cell;
+  word-wrap: break-word;
+}
+
+.dataset-label.package-additional-info-th,
+.res-additional-info-th {
+  font-weight: 700;
+  line-height: 32.6px;
+  color: #1a1a1a;
+  width: 40%;
+  padding: 5px 15px 5px 30px;
+}
+
+.package-additional-info-tr,
+.res-additional-info-tr {
+  display: table-row;
+}
+
+.package-additional-info-tbody,
+.res-additional-info-tbody {
+  display: table-row-group;
+}
+
+.package-additional-info-table,
+.res-additional-info-table {
+  background-color: #f9f9f9;
+  border: none;
+  display: table;
+  width: 100%;
+}
+
+.dataset-details.package-additional-info-td {
+  padding: 5px 15px 5px 0;
+  font-weight: 400;
+  line-height: 32.6px;
+  color: #1a1a1a;
+}
+
+@media screen and (max-width: 40em) {
+
+  .dataset-details.package-additional-info-td,
+  .res-additional-info-td {
+    padding: 5px 0;
+  }
+
+  .dataset-label.package-additional-info-th,
+  .res-additional-info-th {
+    padding: 5px 15px 5px 15px;
+    width: 50%;
+  }
 }
