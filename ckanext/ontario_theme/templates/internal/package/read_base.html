@@ -4,14 +4,13 @@
   dataset-main
 {% endblock wrapper_class %}
 
-{% block head_extras %}{% endblock head_extras %}
+{% block head_extras %}
+{% endblock head_extras %}
 
-{% block meta -%}
-  {{ super() }}
-  {% set description = h.markdown_extract(pkg.notes, extract_length=200)|forceescape %}
-  <meta property="og:title" content="{{ h.dataset_display_name(pkg) }} - {{ h.ontario_theme_site_title() }}">
-  <meta property="og:description" content="{{ description|forceescape|trim }}">
-{% endblock meta -%}
+{% block meta_description -%}
+  {% set description = h.markdown_extract(h.get_translated(pkg, 'notes')) %}
+  <meta name="description" content="{{ description|forceescape|trim }}">
+{% endblock meta_description -%}
 
 {% block secondary %}
   <aside class="dataset-aside secondary col-xs-12 col-lg-4 right-col dataset-font">
