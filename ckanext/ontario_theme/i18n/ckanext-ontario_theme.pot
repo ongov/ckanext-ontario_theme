@@ -1987,3 +1987,8 @@ msgstr ""
 #: ckanext/ontario_theme/templates/internal/package/read.html:18
 msgid "History"
 msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/group/read_base.html:29
+#: ckanext/ontario_theme/templates/internal/organization/read_base.html:22
+msgid "More information"
+msgstr ""
