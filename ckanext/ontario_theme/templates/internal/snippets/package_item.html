@@ -72,11 +72,11 @@
     <p class="empty">{{ _("This dataset has no description") }}</p>
   {% else %}
     <div class="restricted_under_review_packages">
-      <p class="packages_not_available">{{ _('Not available to the public') + _(':') }}</p>
+      <span class="packages_not_available">{{ _('Not available to the public') + _(':') }}</span>
       {% if is_restricted %}
-        <p class="packages_access_level">{{ _('Access to this dataset is restricted') }}</p>
+        <span class="packages_access_level">{{ _('Access to this dataset is restricted') }}</span>
       {% else %}
-        <p class="packages_access_level">{{ _('This dataset is currently under review') }}</p>
+        <span class="packages_access_level">{{ _('This dataset is currently under review') }}</span>
       {% endif %}
     </div>
   {% endif %}

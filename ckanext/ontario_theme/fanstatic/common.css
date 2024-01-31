@@ -2130,9 +2130,7 @@ screen and (min-width: 96em) {
 }
 
 .restricted_under_review_packages {
-  display: flex;
   align-items: baseline;
-  flex-wrap: wrap;
   margin-top: 10px;
 }
 
@@ -2143,7 +2141,6 @@ screen and (min-width: 96em) {
 .packages_not_available {
   font-size: 16px;
   font-weight: 600;
-  margin-right: 10px;
 }
 
 .packages_access_level {

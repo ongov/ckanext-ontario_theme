@@ -2314,35 +2314,31 @@ msgstr "https://www.ontario.ca/fr/page/licence-du-gouvernement-ouvert-ontario"
 msgid "Data Not Available"
 msgstr "Données non disponibles"
 
-#: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:19
+#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:33
+msgid "Data under review"
+msgstr "Données en cours d’examen"
+
+#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:35
+msgid "This data is not available right now. We are reviewing the data to determine if it can be made open to the public."
+msgstr "Ces données ne sont pas disponibles pour l’instant. Nous sommes en train d’examiner les données de cette série pour déterminer si elles peuvent être mises à la disposition du public."
+
+#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:33
+msgid "Data restricted"
+msgstr "Données restreintes"
+
+#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:35
 msgid ""
-"This data is not and will not be made available. Data in this record cannot "
-"be released because of legal, privacy, security, confidentiality or "
-"commercially-sensitive reasons, as outlined by the <a "
-"href=\"%(directive_url)s\">Digital and Data "
-"Directive</a>."
+"This data is not and will not be made available. The data was reviewed and "
+"cannot be released to the public because of reasons outlined by the <a "
+"href=\"%(directive_url)s\">Digital and Data Directive</a>."
 msgstr ""
-" Ces données ne sont pas et ne seront pas mises à disposition. Les données contenues dans ce dossier ne peuvent "
-"être divulguées pour des motifs d’application de la loi, de protection des renseignements personnels, "
-"de sécurité ou de secret commercial, comme il est énoncé dans la <a "
-"href=\"%(directive_url)s\">Directive sur "
-"les données et les services numériques</a>. "
+"Ces données ne sont pas et ne seront pas mises à disposition."
+"Les données contenues dans ce dossier ont été examinées et ne peuvent pas être divulguées pour des raisons énoncés dans la "
+"<a href=\"%(directive_url)s\">Directive sur les données et les services numériques</a>. "
 
 #: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:27
-msgid "Why?"
-msgstr "Pourqoui"
-
-#: ckanext/ontario_theme/templates/package/snippets/ontario_theme_access_level.html:33
-msgid ""
-"This data might be made available in the future. We are reviewing the data "
-"in this record to determine if it can be made open. <a "
-"href=\"%(directive_url)s\">[Learn "
-"more]</a>"
-msgstr ""
-" Ces données pourraient être mises à disposition à l'avenir. Nous sommes en train d’examiner "
-"les données de cette série pour déterminer si elles peuvent être ouvertes. <a "
-"href=\"%(directive_url)s\">[Apprendre "
-"encore plus]</a> "
+msgid "Restriction"
+msgstr "Restriction"
 
 #: ckanext/ontario_theme/templates/internal/package/snippets/ontario_theme_access_level.html:10
 #: ckanext/ontario_theme/templates/external/home/snippets/about_text.html:2
@@ -2634,6 +2630,10 @@ msgstr "Haut"
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:106
 msgid "Sort by"
 msgstr "Trier par"
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:123
+msgid "Please try another search or <a href=\"mailto:opendata@ontario.ca\">reach out to us if you think data is missing.</a>"
+msgstr "Veuillez essayer une autre recherche ou <a href=\"mailto:opendata@ontario.ca\">communiquer avec nous si vous pensez que des données sont manquantes.</a>"
 
 #: ckanext/ontario_theme/plugin.py:729
 msgid "{bytes} <abbr title=\"bytes\">B</abbr>"
