@@ -488,6 +488,11 @@
         "en": "Are you releasing this under a licence?",
         "fr": "Licence s’appliquant au jeu de données"
       },
+      "form_attrs": {
+        "data-module": "conditional_field",
+        "data-module-trigger_field": "#field-access_level",
+        "data-module-conditional_option": "restricted,under_review"
+      },
       "classes": ["col-md-12","form-group"]
     },
     {
@@ -504,7 +509,7 @@
       "fieldset_subtitle": "If the process to assess this dataset for its appropriateness for the Open Data Catalogue (ontario.ca/data) has started, please fill out these fields. If the process hasn't been started, skip this section.",
       "help_text": {
         "en": "Who can access these resources?"
-      }, 
+      },
       "classes": ["form-group","col-md-12"],
       "preset": "select",
       "validators": "scheming_choices scheming_required",
