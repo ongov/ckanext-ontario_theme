@@ -1,6 +1,3 @@
-include README.rst
-include LICENSE
-recursive-include requirements.txt
 recursive-include ckanext/ontario_theme *.html
 recursive-include ckanext/ontario_theme *.json
 recursive-include ckanext/ontario_theme *.js
