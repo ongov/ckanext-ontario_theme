@@ -85,10 +85,11 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/help.html:14
 msgid ""
-"<p class=\"ontario-lead-statement\">  Need more help or want to learn more about the data catalogue? <a "
-"href=\"https://www.ontario.ca/feedback/contact-"
+"Need more help or want to learn more about the data catalogue?"
+msgstr ""
+msgid "<a href=\"https://www.ontario.ca/feedback/contact-"
 "us?id=532365&nid=138269\">Contact us</a> — we’ll gladly answer any questions "
-"you might have! </p>"
+"you might have!"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/help.html:17
@@ -976,11 +977,7 @@ msgid "Ontario Data Catalogue"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:12
-msgid "Find public data and explore "
-msgstr ""
-
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:12
-msgid " datasets published by the Government of Ontario."
+msgid "Find public data and explore {count} datasets published by the Government of Ontario."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:20
@@ -1478,6 +1475,10 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/package_item.html:31
 msgid "This dataset is currently under review"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/package/search.html:11
+msgid "Search for specific datasets or use filters to explore our data."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/package/search.html:29

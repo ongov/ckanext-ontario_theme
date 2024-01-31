@@ -13,9 +13,12 @@
 
 {% block meta -%}
   {{ super() }}
+<<<<<<< HEAD
   {% set description = h.markdown_extract(h.get_translated(res, 'description'), extract_length=200) if res.description else h.markdown_extract(h.get_translated(package, 'notes'), extract_length=200) %}
   <meta property="og:title" content="{{ h.dataset_display_name(package) }} - {{ h.resource_display_name(res) }} - {{ h.ontario_theme_site_title() }}">
   <meta property="og:description" content="{{ description|forceescape }}">
+=======
+>>>>>>> ce768990c4dd93d15732af4005eba2fd7910a9db
 {% endblock meta -%}
 
 {%- set exclude_fields = ["data_last_updated", "name", "description_translated", "url", "format"] -%}
