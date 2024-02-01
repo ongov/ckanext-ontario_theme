@@ -41,10 +41,6 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
-# Google Tag Manager
-# gtm.html
-# gtm_ns.html
-
 .vscode/**/*
 !.vscode/settings.json.default
 !.vscode/extensions.json

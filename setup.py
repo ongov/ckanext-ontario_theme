@@ -17,7 +17,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # http://packaging.python.org/en/latest/tutorial.html#version
-    version='2.5.4',
+    version='2.1.14',
 
     description='''Theme for internal CKAN build.''',
     long_description=long_description,
@@ -100,15 +100,6 @@ setup(
             ('**.py', 'python', None),
             ('**.js', 'javascript', None),
             ('**/templates/**.html', 'ckan', None),
-            ('**.html', 'HTML', None),
-            ('**.css', 'css', None),
-            ('**.mo', 'machine_object', None),
-            ('**.ttf', 'true_type_font', None),
-            ('**.woff', 'web_open_font_format', None),
-            ('**.woff2', 'web_open_font_format2', None),
-            ('**.png', 'PNG', None),
-            ('**.svg', 'SVG', None),
-            ('**.jpg', 'JPG', None)
         ],
     }
 )
