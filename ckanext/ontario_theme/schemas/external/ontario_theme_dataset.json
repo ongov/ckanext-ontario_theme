@@ -491,7 +491,8 @@
       "form_attrs": {
         "data-module": "conditional_field",
         "data-module-trigger_field": "#field-access_level",
-        "data-module-conditional_option": "restricted,under_review"
+        "data-module-conditional_option": "restricted,under_review",
+        "data-module-trigger_option": "other-closed"
       },
       "classes": ["col-md-12","form-group"]
     },
