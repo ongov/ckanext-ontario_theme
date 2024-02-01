@@ -26,9 +26,8 @@ parameters:
 trigger:
   branches:
     include:
-#      - main
-#      - develop
-       - manifest_file
+      - main
+      - develop
     exclude:
     - 'refs/tags/*'
   paths:
