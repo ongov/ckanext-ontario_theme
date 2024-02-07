@@ -813,18 +813,26 @@ a:focus {
 }
 
 .wrapper div.page-header ul.nav.nav-tabs li a {
-  color: #666666;
-  border: none;
+  color: #1A1A1A;
+  border: 1px solid #cccccc;
+  background-color: #f2f2f2;
+  border-bottom: none;
+  margin-right: 12px;
 }
 
 .wrapper div.page-header ul.nav.nav-tabs li a:hover {
-  border: none;
+  border: 1px solid #cccccc;
+  background-color: #cccccc;
+  text-decoration: none;
 }
 
 .wrapper div.page-header ul.nav.nav-tabs li.active a {
-  border: none;
-  border-bottom: solid 2px #1080A6;
-  color: #1080A6;
+  border: 1px solid #cccccc;
+  border-bottom: solid 2px #ffffff;
+  color: #1A1A1A;
+  background-color: #ffffff;
+  font-weight: 700;
+  margin-bottom: -1px;
 }
 
 .page-header .content_action {
