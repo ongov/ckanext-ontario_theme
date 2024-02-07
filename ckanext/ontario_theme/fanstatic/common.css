@@ -1761,6 +1761,7 @@ section#dataset-resources > h2 {
 
 .tag-list {
   padding: 10px 0 5px 0;
+  padding: 10px 0 5px 0;
 }
 
 .resource-item-div:hover .resource-item-title {
@@ -1872,6 +1873,7 @@ a.ontario-button.ontario-button--tertiary:hover {
 
 /* ========================================================================
    Custom overrides - resource pages
+   Custom overrides - resource pages
    ======================================================================== */
 .ontario-margin-top-40 {
   margin-top: 40px;
@@ -1883,9 +1885,12 @@ a.ontario-button.ontario-button--tertiary:hover {
   padding: 12px;
 }
 
-.module-resource {
-  border-bottom: unset;
-  z-index: 1;
+.res-additional-info-th,
+.res-additional-info-td {
+  display: table-cell;
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  width: 50%;
 }
 
 .action-group {
@@ -3017,6 +3022,7 @@ label::after {
   font-size: 22px;
   line-height: 1.5rem;
   border-bottom: solid 1px #ccc;
+  border-bottom: solid 1px #ccc;
 }
 
 .search-table-thead {
@@ -3044,6 +3050,7 @@ label::after {
   padding: 2.1875rem 1rem 2.1875rem 1rem;
   text-align: left;
   letter-spacing: .025rem;
+  border-bottom: solid 1px #ccc;
   border-bottom: solid 1px #ccc;
 }
 
