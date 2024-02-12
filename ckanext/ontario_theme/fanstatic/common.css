@@ -803,28 +803,97 @@ a:focus {
   line-height: 25.6px;
 }
 
-.wrapper div.page-header {
+.wrapper div.page-header,
+.wrapper header.page-header {
   border: none;
   background: none;
 }
 
-.wrapper div.page-header ul.nav.nav-tabs {
+.wrapper div.page-header ul.nav.nav-tabs,
+.wrapper header.page-header ul.nav.nav-tabs {
   width: 100%;
+  display: flex;
 }
 
-.wrapper div.page-header ul.nav.nav-tabs li a {
-  color: #666666;
-  border: none;
+.wrapper div.page-header ul.nav.nav-tabs li a,
+.wrapper header.page-header ul.nav.nav-tabs li a {
+  color: #1A1A1A;
+  border: 1px solid #cccccc;
+  background-color: #f2f2f2;
+  border-bottom: none;
+  margin-right: 12px;
 }
 
-.wrapper div.page-header ul.nav.nav-tabs li a:hover {
-  border: none;
+.wrapper div.page-header ul.nav.nav-tabs li a:hover,
+.wrapper header.page-header ul.nav.nav-tabs li a:hover {
+  border: 1px solid #cccccc;
+  background-color: #cccccc;
+  text-decoration: none;
 }
 
-.wrapper div.page-header ul.nav.nav-tabs li.active a {
+.wrapper div.page-header ul.nav.nav-tabs li.active a,
+.wrapper header.page-header ul.nav.nav-tabs li.active a {
+  border-bottom: solid 2px #ffffff;
+  color: #1A1A1A;
+  background-color: #ffffff;
+  font-weight: 700;
+  margin-bottom: -1px;
+}
+
+.wrapper {
+  background-image: none;
   border: none;
-  border-bottom: solid 2px #1080A6;
-  color: #1080A6;
+  box-shadow: none;
+}
+
+@media screen and (max-width: 40em) {
+.wrapper div.page-header ul.nav.nav-tabs,
+.wrapper header.page-header ul.nav.nav-tabs {
+  display: flex;
+  border-radius: 0;
+  width: 100%;
+  }
+.wrapper div.page-header ul.nav.nav-tabs li a,
+.wrapper header.page-header ul.nav.nav-tabs li a {
+  margin-right: -1px;
+  border-bottom: solid 1px #cccccc;
+  border-radius: 0;
+  height: 62px;
+  }
+
+.wrapper div.page-header ul.nav.nav-tabs li.active a,
+.wrapper header.page-header ul.nav.nav-tabs li.active a {
+  border-bottom: solid 1px #cccccc;
+  border-radius: 0;
+  }
+
+.wrapper div.page-header ul.nav.nav-tabs li:last-child a,
+.wrapper header.page-header ul.nav.nav-tabs li:last-child a {
+  border-radius: 0 4px 4px 0;
+  } 
+
+.wrapper div.page-header ul.nav.nav-tabs li:first-child a,
+.wrapper header.page-header ul.nav.nav-tabs li:first-child a {
+  border-radius: 4px 0 0 4px;
+  } 
+}
+
+
+@media screen and (min-width: 40em) and (max-width: 73em) {
+  .wrapper div.page-header ul.nav.nav-tabs,
+  .wrapper header.page-header ul.nav.nav-tabs {
+    display: flex;
+    border-bottom: solid 1px #cccccc;
+    margin-bottom: 10px;
+  }
+
+  .wrapper div.page-header ul.nav.nav-tabs li a,
+  .wrapper header.page-header ul.nav.nav-tabs li a {
+    display: flex;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-right: 12px;
+  }
 }
 
 .page-header .content_action {
