@@ -888,6 +888,48 @@ li.resource-item div.btn-wrapper {
   margin-bottom: -1px;
 }
 
+
+@media screen and (max-width: 40em) {
+  .wrapper header.page-header ul.nav.nav-tabs {
+    display: flex;
+    border-radius: 0;
+    }
+  .wrapper header.page-header ul.nav.nav-tabs li a{
+    margin-right: -1px;
+    border-bottom: solid 1px #cccccc;
+    border-radius: 0;
+    }
+  
+  .wrapper header.page-header ul.nav.nav-tabs li.active a {
+    border-bottom: solid 1px #cccccc;
+    border-radius: 0;
+    }
+  
+  .wrapper header.page-header ul.nav.nav-tabs li:last-child a {
+    border-radius: 0 4px 4px 0;
+    } 
+  
+  .wrapper header.page-header ul.nav.nav-tabs li:first-child a {
+    border-radius: 4px 0 0 4px;
+  } 
+}
+  
+  @media screen and (min-width: 40em) and (max-width: 73em) {
+    .wrapper header.page-header ul.nav.nav-tabs {
+      display: flex;
+      border-bottom: solid 1px #cccccc;
+      margin-bottom: 10px;
+  
+    }
+  
+    .wrapper header.page-header ul.nav.nav-tabs li a {
+      display: flex;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      margin-right: 12px;
+    }
+}
+
 .module-heading {
   border-top: none;
   border-bottom: none;
