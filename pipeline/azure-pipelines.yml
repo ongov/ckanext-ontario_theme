@@ -68,7 +68,7 @@ stages:
            set -e
            export APP_VERSION=`bump -M setup.py`
            echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
-           git tag "$APP_VERSION"
+           git tag "v$APP_VERSION"
          displayName: 'Incrementing Major Version'
          name: Commit
      - ${{ elseif eq(parameters.Increment_Version, 'minor') }}:
@@ -76,7 +76,7 @@ stages:
            set -e
            export APP_VERSION=`bump -m setup.py`
            echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
-           git tag "$APP_VERSION"
+           git tag "v$APP_VERSION"
          displayName: 'Incrementing Minor Version'
          name: Commit
      - ${{ elseif eq(parameters.Increment_Version, 'reset') }}:
@@ -84,7 +84,7 @@ stages:
            set -e
            export APP_VERSION=`bump -r setup.py`
            echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
-           git tag "$APP_VERSION"
+           git tag "v$APP_VERSION"
          displayName: 'Application Version Reset'
          name: Commit
      - ${{ elseif eq(parameters.Increment_Version, 'patch')  }}:
@@ -92,7 +92,7 @@ stages:
            set -e
            export APP_VERSION=`bump -p setup.py`
            echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
-           git tag "$APP_VERSION"
+           git tag "v$APP_VERSION"
          displayName: 'Incrementing Patch Version'
          name: Commit
      - ${{ else  }}:
@@ -101,7 +101,7 @@ stages:
            export PYTHONWARNINGS="ignore"
            export APP_VERSION=`python3 setup.py --version`
            echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
-           git tag "$APP_VERSION"
+           git tag "v$APP_VERSION"
          displayName: 'Incrementing Patch Version'
          name: Commit
      - script: |
