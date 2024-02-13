@@ -485,8 +485,15 @@
       "form_snippet": "license.html",
       "default": "OGL-ON-1.0",
       "help_text": {
-        "en": "Are you releasing this under a licence?",
-        "fr": "Licence s’appliquant au jeu de données"
+        "en": "All Open datasets need to be released under a licence. Restricted datasets and datasets that are Under review won’t be given a licence.",
+        "fr": "All Open datasets need to be released under a licence. Restricted datasets and datasets that are Under review won’t be given a licence."
+      },
+      "form_attrs": {
+        "data-module": "conditional_field",
+        "data-module-trigger_field": "#field-access_level",
+        "data-module-conditional_option": "restricted,under_review",
+        "data-module-trigger_option": "other-closed",
+        "style": "width: 100%;"
       },
       "classes": ["col-md-12","form-group"]
     },
@@ -504,7 +511,7 @@
       "fieldset_subtitle": "If the process to assess this dataset for its appropriateness for the Open Data Catalogue (ontario.ca/data) has started, please fill out these fields. If the process hasn't been started, skip this section.",
       "help_text": {
         "en": "Who can access these resources?"
-      }, 
+      },
       "classes": ["form-group","col-md-12"],
       "preset": "select",
       "validators": "scheming_choices scheming_required",
