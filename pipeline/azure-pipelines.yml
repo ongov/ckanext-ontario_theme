@@ -114,7 +114,7 @@ stages:
          artifactFeed: 'Ontario Data Catalogue/edc_python_feed'
      - script: |
          set -e
-         python -m twine upload --skip-existing --verbose -r edc_python_feed --config-file  $(PYPIRC_PATH) dist/*.whl
+         python -m twine upload --verbose -r edc_python_feed --config-file  $(PYPIRC_PATH) dist/*.whl
        displayName: 'Artifact Upload to Artifact Repository'
      - script: |
          set -e
