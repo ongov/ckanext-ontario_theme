@@ -26,7 +26,7 @@ setup(
     url='https://github.com/ongov/ckanext-ontario_theme',
 
     # Author details
-    author='''Ontario Digital Catalogue''',
+    author='''Ontario Data Catalogue''',
     author_email='''data.ops@ontario.ca''',
 
     # Choose your license
