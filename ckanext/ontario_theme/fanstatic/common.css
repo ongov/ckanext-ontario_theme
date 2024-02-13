@@ -840,13 +840,22 @@ a:focus {
   margin-bottom: -1px;
 }
 
+.page-header .nav-tabs {
+  margin: 5px 10px 10px 0;
+}
+
 .wrapper {
   background-image: none;
   border: none;
   box-shadow: none;
 }
 
-@media screen and (max-width: 40em) {
+@media screen and (max-width: 32.5em) {
+.wrapper div.page-header ul.nav.nav-tabs li,
+.wrapper header.page-header ul.nav.nav-tabs li {
+      display: flex;
+  }
+
 .wrapper div.page-header ul.nav.nav-tabs,
 .wrapper header.page-header ul.nav.nav-tabs {
   display: flex;
@@ -858,13 +867,15 @@ a:focus {
   margin-right: -1px;
   border-bottom: solid 1px #cccccc;
   border-radius: 0;
-  height: 62px;
+  display: flex;
+  align-items: center;
   }
 
 .wrapper div.page-header ul.nav.nav-tabs li.active a,
 .wrapper header.page-header ul.nav.nav-tabs li.active a {
   border-bottom: solid 1px #cccccc;
   border-radius: 0;
+  margin-bottom: unset;
   }
 
 .wrapper div.page-header ul.nav.nav-tabs li:last-child a,
@@ -878,8 +889,15 @@ a:focus {
   } 
 }
 
+@media screen and (max-width: 23.75em) {
+  .wrapper div.page-header ul.nav.nav-tabs li:last-child a,
+  .wrapper header.page-header ul.nav.nav-tabs li:last-child a {
+    word-break: break-all;
+    hyphens: auto;
+  }
+}
 
-@media screen and (min-width: 40em) and (max-width: 73em) {
+@media screen and (min-width: 32.5em) and (max-width: 73em) {
   .wrapper div.page-header ul.nav.nav-tabs,
   .wrapper header.page-header ul.nav.nav-tabs {
     display: flex;
