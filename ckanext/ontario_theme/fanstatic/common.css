@@ -851,41 +851,41 @@ a:focus {
 }
 
 @media screen and (max-width: 32.5em) {
-.wrapper div.page-header ul.nav.nav-tabs li,
-.wrapper header.page-header ul.nav.nav-tabs li {
-      display: flex;
+  .wrapper div.page-header ul.nav.nav-tabs li,
+  .wrapper header.page-header ul.nav.nav-tabs li {
+    display: flex;
   }
 
-.wrapper div.page-header ul.nav.nav-tabs,
-.wrapper header.page-header ul.nav.nav-tabs {
-  display: flex;
-  border-radius: 0;
-  width: 100%;
+  .wrapper div.page-header ul.nav.nav-tabs,
+  .wrapper header.page-header ul.nav.nav-tabs {
+    display: flex;
+    border-radius: 0;
+    width: 100%;
   }
-.wrapper div.page-header ul.nav.nav-tabs li a,
-.wrapper header.page-header ul.nav.nav-tabs li a {
-  margin-right: -1px;
-  border-bottom: solid 1px #cccccc;
-  border-radius: 0;
-  display: flex;
-  align-items: center;
-  }
-
-.wrapper div.page-header ul.nav.nav-tabs li.active a,
-.wrapper header.page-header ul.nav.nav-tabs li.active a {
-  border-bottom: solid 1px #cccccc;
-  border-radius: 0;
-  margin-bottom: unset;
+  .wrapper div.page-header ul.nav.nav-tabs li a,
+  .wrapper header.page-header ul.nav.nav-tabs li a {
+    margin-right: -1px;
+    border-bottom: solid 1px #cccccc;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
   }
 
-.wrapper div.page-header ul.nav.nav-tabs li:last-child a,
-.wrapper header.page-header ul.nav.nav-tabs li:last-child a {
-  border-radius: 0 4px 4px 0;
+  .wrapper div.page-header ul.nav.nav-tabs li.active a,
+  .wrapper header.page-header ul.nav.nav-tabs li.active a {
+    border-bottom: solid 1px #cccccc;
+    border-radius: 0;
+    margin-bottom: unset;
+  }
+
+  .wrapper div.page-header ul.nav.nav-tabs li:last-child a,
+  .wrapper header.page-header ul.nav.nav-tabs li:last-child a {
+    border-radius: 0 4px 4px 0;
   } 
 
-.wrapper div.page-header ul.nav.nav-tabs li:first-child a,
-.wrapper header.page-header ul.nav.nav-tabs li:first-child a {
-  border-radius: 4px 0 0 4px;
+  .wrapper div.page-header ul.nav.nav-tabs li:first-child a,
+  .wrapper header.page-header ul.nav.nav-tabs li:first-child a {
+    border-radius: 4px 0 0 4px;
   } 
 }
 
