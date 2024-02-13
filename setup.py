@@ -17,7 +17,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # http://packaging.python.org/en/latest/tutorial.html#version
-    version='2.1.15',
+    version='2.1.14',
 
     description='''Theme for internal CKAN build.''',
     long_description=long_description,
@@ -26,7 +26,7 @@ setup(
     url='https://github.com/ongov/ckanext-ontario_theme',
 
     # Author details
-    author='''Ontario Digital Catalogue''',
+    author='''Ontario Data Catalogue''',
     author_email='''data.ops@ontario.ca''',
 
     # Choose your license
