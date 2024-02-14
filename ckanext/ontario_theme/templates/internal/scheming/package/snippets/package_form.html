@@ -16,6 +16,7 @@ control-rows to align french and english fields side by side.
 {% endblock errors %}
 
 {% block basic_fields %}
+  {% asset "ontario_theme_scripts/ontario_theme_form_validators_js" %}
   {% asset "ontario_theme/ontario_theme_lock_if_odc_js" %}
   {%- if not dataset_type -%}
     <p>

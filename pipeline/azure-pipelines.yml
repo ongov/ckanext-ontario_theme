@@ -68,7 +68,7 @@ stages:
            set -e
            export APP_VERSION=`bump -M setup.py`
            echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
-           git tag "$APP_VERSION"
+           git tag "v$APP_VERSION"
          displayName: 'Incrementing Major Version'
          name: Commit
      - ${{ elseif eq(parameters.Increment_Version, 'minor') }}:
@@ -76,7 +76,7 @@ stages:
            set -e
            export APP_VERSION=`bump -m setup.py`
            echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
-           git tag "$APP_VERSION"
+           git tag "v$APP_VERSION"
          displayName: 'Incrementing Minor Version'
          name: Commit
      - ${{ elseif eq(parameters.Increment_Version, 'reset') }}:
@@ -84,7 +84,7 @@ stages:
            set -e
            export APP_VERSION=`bump -r setup.py`
            echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
-           git tag "$APP_VERSION"
+           git tag "v$APP_VERSION"
          displayName: 'Application Version Reset'
          name: Commit
      - ${{ elseif eq(parameters.Increment_Version, 'patch')  }}:
@@ -92,7 +92,7 @@ stages:
            set -e
            export APP_VERSION=`bump -p setup.py`
            echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
-           git tag "$APP_VERSION"
+           git tag "v$APP_VERSION"
          displayName: 'Incrementing Patch Version'
          name: Commit
      - ${{ else  }}:
@@ -101,7 +101,7 @@ stages:
            export PYTHONWARNINGS="ignore"
            export APP_VERSION=`python3 setup.py --version`
            echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
-           git tag "$APP_VERSION"
+           git tag "v$APP_VERSION"
          displayName: 'Incrementing Patch Version'
          name: Commit
      - script: |
@@ -111,10 +111,10 @@ stages:
      - task: TwineAuthenticate@1
        displayName: 'Twine Authenticate'
        inputs:
-         artifactFeed: 'Ontario Data Catalogue/edc_python_feed'
+         artifactFeed: 'Ontario Data Catalogue/odc_python_feed'
      - script: |
          set -e
-         python -m twine upload --skip-existing --verbose -r edc_python_feed --config-file  $(PYPIRC_PATH) dist/*.whl
+         python -m twine upload --verbose -r odc_python_feed --config-file  $(PYPIRC_PATH) dist/*.whl
        displayName: 'Artifact Upload to Artifact Repository'
      - script: |
          set -e
@@ -149,14 +149,14 @@ stages:
            - task: PipAuthenticate@1
              displayName: 'Pip Authenticate'
              inputs:
-               artifactFeeds: 'Ontario Data Catalogue/edc_python_feed'
+               artifactFeeds: 'Ontario Data Catalogue/odc_python_feed'
            - script: |
                set -xe
                echo "#### CURRENT PACKAGE INFORMATION. ####"
                pip list --path $(application_folder)
                rm -rf $(application_folder)/*
                echo "#### INSTALLING PACKAGE. ####"
-               pip install -U ckanext-ontario-theme==$(app_version) -t $(application_folder) --extra-index-url=https://pkgs.dev.azure.com/devops-EDC-0000/2fe9107c-920f-4653-bd7f-17ecfd94eaec/_packaging/edc_python_feed/pypi/simple/
+               pip install -U ckanext-ontario-theme==$(app_version) -t $(application_folder) --extra-index-url=https://pkgs.dev.azure.com/devops-EDC-0000/2fe9107c-920f-4653-bd7f-17ecfd94eaec/_packaging/odc_python_feed/pypi/simple/
                echo "#### NEW PACKAGE INFORMATION. ####"
                pip list --path $(application_folder)
                echo "#### STOPPING CKAN & FLUSHING WEBASSETS CACHE! ####"
@@ -193,14 +193,14 @@ stages:
            - task: PipAuthenticate@1
              displayName: 'Pip Authenticate'
              inputs:
-               artifactFeeds: 'Ontario Data Catalogue/edc_python_feed'
+               artifactFeeds: 'Ontario Data Catalogue/odc_python_feed'
            - script: |
                set -xe
                echo "#### CURRENT PACKAGE INFORMATION. ####"
                pip list --path $(application_folder)
                rm -rf $(application_folder)/*
                echo "#### INSTALLING PACKAGE. ####"
-               pip install -U ckanext-ontario-theme==$(app_version) -t $(application_folder) --extra-index-url=https://pkgs.dev.azure.com/devops-EDC-0000/2fe9107c-920f-4653-bd7f-17ecfd94eaec/_packaging/edc_python_feed/pypi/simple/
+               pip install -U ckanext-ontario-theme==$(app_version) -t $(application_folder) --extra-index-url=https://pkgs.dev.azure.com/devops-EDC-0000/2fe9107c-920f-4653-bd7f-17ecfd94eaec/_packaging/odc_python_feed/pypi/simple/
                echo "#### NEW PACKAGE INFORMATION. ####"
                pip list --path $(application_folder)
                echo "#### STOPPING CKAN & FLUSHING WEBASSETS CACHE! ####"
@@ -238,14 +238,14 @@ stages:
            - task: PipAuthenticate@1
              displayName: 'Pip Authenticate'
              inputs:
-               artifactFeeds: 'Ontario Data Catalogue/edc_python_feed'
+               artifactFeeds: 'Ontario Data Catalogue/odc_python_feed'
            - script: |
                set -xe
                echo "#### CURRENT PACKAGE INFORMATION. ####"
                pip list --path $(application_folder)
                rm -rf $(application_folder)/*
                echo "#### INSTALLING PACKAGE. ####"
-               pip install -U ckanext-ontario-theme==$(app_version) -t $(application_folder) --extra-index-url=https://pkgs.dev.azure.com/devops-EDC-0000/2fe9107c-920f-4653-bd7f-17ecfd94eaec/_packaging/edc_python_feed/pypi/simple/
+               pip install -U ckanext-ontario-theme==$(app_version) -t $(application_folder) --extra-index-url=https://pkgs.dev.azure.com/devops-EDC-0000/2fe9107c-920f-4653-bd7f-17ecfd94eaec/_packaging/odc_python_feed/pypi/simple/
                echo "#### NEW PACKAGE INFORMATION. ####"
                pip list --path $(application_folder)
                echo "#### STOPPING CKAN & FLUSHING WEBASSETS CACHE! ####"
@@ -256,4 +256,3 @@ stages:
                sudo systemctl start supervisor && sudo systemctl start nginx && sudo systemctl status supervisor && sudo systemctl status nginx
                echo "#### DEPLOYMENT COMPLETE! ####"
              displayName: 'Deploying to PRD'
-
