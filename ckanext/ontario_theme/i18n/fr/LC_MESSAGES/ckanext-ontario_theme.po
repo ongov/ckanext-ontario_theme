@@ -2606,10 +2606,10 @@ msgid "Ministry"
 msgstr "Ministère"
 
 #: Report error callout
-msgid "Report an error with this data"
-msgstr "Signalez une erreur avec ces données"
-msgid "Fill out a <a href=\"https://www.ontario.ca/form/report-data-error?%(params)s\">Data Catalogue error report</a> to let us know if there are issues with the resources in this dataset."
-msgstr "Remplissez un <a href=\"https://www.ontario.ca/fr/forme/signalez-une-erreur-dans-les-donnees?%(params)s\">rapport d’erreur du Catalogue de données</a> pour nous aviser de problèmes avec les ressources de ce jeu de données."
+msgid "Report an issue with this data"
+msgstr "Signalez un problème avec ces données"
+msgid "<a href=\"https://www.ontario.ca/form/report-data-issue-ontario-data-catalogue?%(params)s\">Submit a report</a> if you are experiencing issues with the data resources in this dataset."
+msgstr "<a href=\"https://www.ontario.ca/fr/forme/signalez-un-probleme-dans-les-donnees-catalogue-de-donnees-ouvertes-de-lontario?%(params)s\">Soumettez un rapport</a> si vous rencontrez des problèmes avec les ressources de données de ce jeu de données."
 
 #: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:29
 msgid "Date range"
