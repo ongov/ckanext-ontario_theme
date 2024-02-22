@@ -850,35 +850,6 @@ li.resource-item div.btn-wrapper {
 /* =====================================================
    Layout changes
    ===================================================== */
-.wrapper {
-  background-image: none;
-  border: none;
-  box-shadow: none;
-}
-
-.wrapper header.page-header {
-  border: none;
-  background: none;
-}
-
-.wrapper header.page-header ul.nav.nav-tabs {
-  width: 100%;
-}
-
-.wrapper header.page-header ul.nav.nav-tabs li a {
-  color: #666666;
-  border: none;
-}
-
-.wrapper header.page-header ul.nav.nav-tabs li a:hover {
-  border: none;
-}
-
-.wrapper header.page-header ul.nav.nav-tabs li.active a {
-  border: none;
-  border-bottom: solid 2px #1080A6;
-  color: #1080A6;
-}
 
 .module-heading {
   border-top: none;

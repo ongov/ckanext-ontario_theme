@@ -6,3 +6,12 @@ ontario_theme_js:
     - ontario-back-to-top.js
     - odc-show-more.js
     - odc-active-page.js
+
+ontario_theme_form_validators_js:
+  filters: rjsmin
+  contents: odc-dataset-form-validators.js
+  output: ontario_theme_scripts/%(version)s_odc-dataset-form-validators.js
+  extra:
+    preload:
+      - vendor/jquery
+      - base/main
