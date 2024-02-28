@@ -3618,7 +3618,7 @@ label::after {
   content: " "
 }
 
-/* override */
+/* overrides */
 legend {
   border-bottom: unset;
 }
@@ -3633,7 +3633,25 @@ legend {
   max-width: 80%;
 }
 
+@media screen and (max-width: 40em) {
+  .related-datasets-container .ontario-input {
+    max-width: 100%;
+  }
+}
+
 .related-datasets-list {
   list-style: none;
   padding: 0;
+}
+
+.related-datasets-container .ontario-radios {
+  margin-bottom: 1rem;
+}
+
+.related-datasets-container p {
+  margin-bottom: 0.625rem;
+}
+
+.related-datasets-container ul {
+  margin-bottom: 2.5rem;
 }
