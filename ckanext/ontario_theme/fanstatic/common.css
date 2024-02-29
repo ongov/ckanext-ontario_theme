@@ -851,6 +851,7 @@ a:focus {
 }
 
 @media screen and (max-width: 32.5em) {
+
   .wrapper div.page-header ul.nav.nav-tabs li,
   .wrapper header.page-header ul.nav.nav-tabs li {
     display: flex;
@@ -862,6 +863,7 @@ a:focus {
     border-radius: 0;
     width: 100%;
   }
+
   .wrapper div.page-header ul.nav.nav-tabs li a,
   .wrapper header.page-header ul.nav.nav-tabs li a {
     margin-right: -1px;
@@ -881,15 +883,16 @@ a:focus {
   .wrapper div.page-header ul.nav.nav-tabs li:last-child a,
   .wrapper header.page-header ul.nav.nav-tabs li:last-child a {
     border-radius: 0 4px 4px 0;
-  } 
+  }
 
   .wrapper div.page-header ul.nav.nav-tabs li:first-child a,
   .wrapper header.page-header ul.nav.nav-tabs li:first-child a {
     border-radius: 4px 0 0 4px;
-  } 
+  }
 }
 
 @media screen and (max-width: 23.75em) {
+
   .wrapper div.page-header ul.nav.nav-tabs li:last-child a,
   .wrapper header.page-header ul.nav.nav-tabs li:last-child a {
     word-break: break-all;
@@ -898,6 +901,7 @@ a:focus {
 }
 
 @media screen and (min-width: 32.5em) and (max-width: 73em) {
+
   .wrapper div.page-header ul.nav.nav-tabs,
   .wrapper header.page-header ul.nav.nav-tabs {
     display: flex;
@@ -2728,6 +2732,16 @@ div#topics a:hover span {
   }
 }
 
+.ontario-label__flag {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400
+}
+
+.ontario-label__flag:before {
+  content: " "
+}
+
 /* ========================================================================   
   Labels - Overrides
   ======================================================================== */
@@ -3341,4 +3355,303 @@ label::after {
     padding: 5px 15px 5px 15px;
     width: 50%;
   }
+}
+
+/* ========================================================================
+   Badges - Design System
+   ======================================================================== */
+.ontario-badge__container {
+  display: flex;
+  align-items: baseline;
+  column-gap: 20px;
+}
+
+.ontario-badge__label {
+  display: block;
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: .75rem;
+  font-size: .875rem;
+  color: #4d4d4d
+}
+
+.ontario-badge {
+  display: inline-block;
+  background-color: #e2f0f4;
+  color: #4d4d4d;
+  padding: .25rem .5rem;
+  font-family: "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5625rem;
+  letter-spacing: .03rem;
+  text-transform: uppercase
+}
+
+.ontario-badge--default-light {
+  background-color: #e2f0f4;
+  color: #4d4d4d
+}
+
+.ontario-badge--default-heavy {
+  background-color: #1080a6;
+  color: #fff
+}
+
+.ontario-badge--neutral-light {
+  background-color: #f2f2f2;
+  color: #4d4d4d
+}
+
+.ontario-badge--neutral-heavy {
+  background-color: #1a1a1a;
+  color: #fff
+}
+
+.ontario-badge--alert-heavy {
+  background-color: #cd0000;
+  color: #fff
+}
+
+.ontario-badge--warning-heavy {
+  background-color: #ffd440;
+  color: #1a1a1a
+}
+
+.ontario-badge--success-heavy {
+  background-color: #118847;
+  color: #fff
+}
+
+/* ========================================================================
+   Radio buttons - Design System
+   ======================================================================== */
+
+* .ontario-radios {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -moz-tap-highlight-color: rgba(0, 0, 0, 0)
+}
+
+.ontario-radios {
+  padding: 0 0 0 .125rem;
+  margin-bottom: 2.5rem;
+  max-width: 48rem
+}
+
+.ontario-radios__item {
+  position: relative;
+  display: block;
+  margin: 0 0 1rem;
+  padding: 0 2rem 0
+}
+
+.ontario-radios__item:last-of-type {
+  margin-bottom: 0
+}
+
+.ontario-radios__input {
+  cursor: pointer;
+  margin: 0;
+  position: absolute;
+  opacity: 0;
+  top: -2px;
+  left: -2px;
+  width: 36px;
+  height: 36px;
+  z-index: 1
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-radios__input {
+    width: 40px;
+    height: 40px;
+    top: -1.5px;
+    left: -1.5px
+  }
+}
+
+.ontario-radios__label {
+  display: inline-block;
+  font-size: 1rem;
+  margin: .2rem 0;
+  padding: 0 .75rem;
+  touch-action: manipulation;
+  white-space: normal
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-radios__label {
+    margin: .3rem 0;
+    padding: 0 1rem
+  }
+}
+
+.ontario-radios__label:before {
+  content: "";
+  border: 2px solid #1a1a1a;
+  border-radius: 50%;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  transition: border .1s ease-in-out
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-radios__label:before {
+    width: 36px;
+    height: 36px
+  }
+}
+
+.ontario-radios__label:after {
+  content: "";
+  border-radius: 50%;
+  border: 10px solid #1a1a1a;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(6px, 6px);
+  opacity: 0
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-radios__label:after {
+    border: 12px solid #1a1a1a
+  }
+}
+
+.ontario-radios__input:focus + .ontario-radios__label:before {
+  box-shadow: 0 0 0 4px #009adb;
+  outline: 4px solid transparent;
+  transition: box-shadow .1s ease-in-out
+}
+
+.ontario-radios__input:checked + .ontario-radios__label:after {
+  opacity: 1
+}
+
+/* ========================================================================
+   Fieldsets - Design System
+   ======================================================================== */
+.ontario-fieldset__legend--large h1,
+.ontario-fieldset__legend--heading h1 {
+  font-style: normal;
+  font-weight: 700;
+  text-rendering: optimizeLegibility;
+  margin-bottom: 1rem;
+  font-feature-settings: normal;
+  font-family: "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.ontario-fieldset__legend--large h1,
+.ontario-fieldset__legend--heading h1 {
+  font-size: 2rem;
+  letter-spacing: .04rem;
+  line-height: 1.29;
+  margin: 2.5rem 0 1.5rem 0;
+  max-width: 70rem
+}
+
+@media screen and (min-width: 40em) {
+
+  .ontario-fieldset__legend--large h1,
+  .ontario-fieldset__legend--heading h1 {
+    font-size: 2.5rem;
+    letter-spacing: .04rem;
+    line-height: 1.2
+  }
+}
+
+.ontario-fieldset__legend {
+  color: #1a1a1a;
+  font-family: "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.1875rem;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0 0 1rem 0;
+  max-width: 38.75em;
+  white-space: normal;
+  width: 100%
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-fieldset__legend {
+    font-size: 1.125rem;
+    line-height: 1.56
+  }
+}
+
+.ontario-fieldset__legend--large,
+.ontario-fieldset__legend--heading {
+  font-size: 1.75rem;
+  letter-spacing: .02rem;
+  line-height: 1.2;
+  max-width: 26.25em;
+  margin-top: 1rem
+}
+
+.ontario-fieldset__legend--large h1,
+.ontario-fieldset__legend--heading h1 {
+  display: inline-block;
+  margin: 0
+}
+
+@media screen and (max-width: 40em) {
+
+  .ontario-fieldset__legend--large,
+  .ontario-fieldset__legend--heading {
+    font-size: 1.4375rem;
+    line-height: 1.39
+  }
+}
+
+.ontario-fieldset__legend__flag {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400
+}
+
+.ontario-fieldset__legend__flag:before {
+  content: " "
+}
+
+/* overrides */
+legend {
+  border-bottom: unset;
+}
+
+.related-datasets-container {
+  background-color: #f2f2f2;
+  padding: 25px;
+}
+
+.related-datasets-container .ontario-input {
+  border-color: #000;
+  max-width: 80%;
+}
+
+@media screen and (max-width: 40em) {
+  .related-datasets-container .ontario-input {
+    max-width: 100%;
+  }
+}
+
+.related-datasets-list {
+  list-style: none;
+  padding: 0;
+}
+
+.related-datasets-container .ontario-radios {
+  margin-bottom: 1rem;
+}
+
+.related-datasets-container p {
+  margin-bottom: 0.625rem;
+}
+
+.related-datasets-container ul {
+  margin-bottom: 2.5rem;
 }

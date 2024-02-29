@@ -1,0 +1,48 @@
+<div class="related-datasets-container ontario-small-12 ontario-medium-10 ontario-large-8">
+  <div class="ontario-badge__container">
+    <h2 class="ontario-h3">{{ _("Related datasets") }}</h2>
+    <span class="ontario-badge ontario-badge--default-heavy">Beta</span>
+  </div>
+  <p>
+    Browse similar datasets grouped by artificial intelligence (<abbr>AI</abbr>).
+  </p>
+  {# list of related datasets as links #}
+  <ul class="related-datasets-list">
+    {# For loop for displaying AI generated list #}
+    <li>
+      <a href="#">Test link</a>
+    </li>
+  </ul>
+  <fieldset class="ontario-fieldset">
+    <legend class="ontario-fieldset__legend">
+      Are these suggestions accurate? <span class="ontario-label__flag">(required)</span>
+    </legend>
+    <div class="ontario-radios">
+      <div class="ontario-radios__item">
+        <input class="ontario-radios__input"
+               id="radio-button-option-yes"
+               name="radio-buttons"
+               type="radio"
+               value="option-no">
+        <label class="ontario-label ontario-radios__label"
+               for="radio-button-option-yes">Yes</label>
+      </div>
+      <div class="ontario-radios__item">
+        <input class="ontario-radios__input"
+               id="radio-button-option-no"
+               name="radio-buttons"
+               type="radio"
+               value="option-no">
+        <label class="ontario-label ontario-radios__label"
+               for="radio-button-option-no">No</label>
+      </div>
+    </div>
+    <div class="ontario-form-group">
+      <label class="ontario-label" for="texplanation-input">
+        Please explain <span class="ontario-label__flag">(optional)</span>
+      </label>
+      <input class="ontario-input" type="text" id="explanation-input">
+    </div>
+    <button class="ontario-button ontario-button--primary">{{ _('Submit') }}</button>
+  </fieldset>
+</div>

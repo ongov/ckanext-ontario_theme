@@ -91,6 +91,7 @@
         {% if pkg.resources and pkg['access_level'] == 'open' %}
           {% snippet "package/snippets/report_an_error.html" %}
         {% endif %}
+        <div class="ontario-small-12">{% snippet "package/snippets/related_datasets.html" %}</div>
         <div class="row">
           <div class="col-md-12">{% snippet "home/snippets/ontario_theme_contact_us.html" %}</div>
         </div>
