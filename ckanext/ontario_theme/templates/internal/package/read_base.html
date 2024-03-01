@@ -24,5 +24,10 @@
     {% block package_license %}
       {% snippet "snippets/license.html", pkg_dict=pkg %}
     {% endblock package_license %}
+<div id="related-dataset-feedback-form" class="related-feedback-default">
+  {% block package_related %}
+    {% snippet "snippets/related_dataset_page.html" %}
+  {% endblock package_related %}
+</div>
   </aside>
 {% endblock secondary %}

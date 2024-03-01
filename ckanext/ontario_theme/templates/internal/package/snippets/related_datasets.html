@@ -7,7 +7,7 @@
     Browse similar datasets grouped by artificial intelligence (<abbr>AI</abbr>).
   </p>
   {# list of related datasets as links #}
-  <ul class="related-datasets-list">
+  <ul class="related-datasets-list" id="related-datasets-right-module">
     {# For loop for displaying AI generated list #}
     <li>
       <a href="#">Test link</a>
@@ -17,7 +17,7 @@
     <legend class="ontario-fieldset__legend">
       Are these suggestions accurate? <span class="ontario-label__flag">(required)</span>
     </legend>
-    <div class="ontario-radios">
+    <div class="ontario-radios" id="related-dataset-feedback-bottom">
       <div class="ontario-radios__item">
         <input class="ontario-radios__input"
                id="radio-button-option-yes"
@@ -37,8 +37,8 @@
                for="radio-button-option-no">No</label>
       </div>
     </div>
-    <div class="ontario-form-group">
-      <label class="ontario-label" for="texplanation-input">
+    <div class="ontario-form-group" id="feedback-input-bottom">     
+      <label class="ontario-label" for="explanation-input">
         Please explain <span class="ontario-label__flag">(optional)</span>
       </label>
       <input class="ontario-input" type="text" id="explanation-input">

@@ -1722,7 +1722,7 @@ via submission form. Copied from DS.*/
   }
 
   .dataset-aside {
-    order: 2;
+    order: 3;
   }
 
   .resource-aside {
@@ -3427,7 +3427,7 @@ label::after {
    Radio buttons - Design System
    ======================================================================== */
 
-* .ontario-radios {
+.ontario-radios {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -moz-tap-highlight-color: rgba(0, 0, 0, 0)
 }
@@ -3654,4 +3654,12 @@ legend {
 
 .related-datasets-container ul {
   margin-bottom: 2.5rem;
+}
+
+.related-feedback-default {
+  display: none;
+}
+
+#feedback-input-right, #feedback-input-bottom{
+  display: none;
 }
