@@ -1,0 +1,42 @@
+{
+    "nodes": [
+      {"id": "THIS_PACKAGE", "group": 1, "order": 0},
+      {"id": "visitation-to-provincial-parks", "group": 1, "order": 0},
+      {"id": "municipal-parks", "group": 1, "order": 0},
+      {"id": "picnic-parks", "group": 1, "order": 0},
+      {"id": "huronia-historical-parks-vendors", "group": 1, "order": 0},
+      {"id": "provincial-park-administration-zones", "group": 1, "order": 0},
+      {"id": "provincial-park-regulated", "group": 1, "order": 0},
+      {"id": "provincial-park-zones-parkzreg", "group": 1, "order": 0},
+      {"id": "fort-william-historical-park-reservations-system", "group": 1, "order": 0},
+      {"id": "huronia-historical-parks-visitor-surveys", "group": 1, "order": 0},
+      
+      {"id": "provincial-watersheds-historical", "group": 1, "order": 1},
+      {"id": "historical-fish-stocking-data", "group": 1, "order": 1},
+      {"id": "huronia-historical-parks-visitor-attendance", "group": 1, "order": 1},
+
+      {"id": "municipal-property-standards-bylaws", "group": 1, "order": 1},
+      {"id": "municipal-restructuring-activity-summary-table", "group": 1, "order": 1}
+      
+    ],
+    "links": [
+      {"source": "fort-william-historical-park-reservations-system", "target": "THIS_PACKAGE", "value": 10},
+      {"source": "huronia-historical-parks-visitor-surveys", "target": "THIS_PACKAGE", "value": 10},
+      {"source": "municipal-parks", "target": "THIS_PACKAGE", "value": 8},
+      {"source": "provincial-park-administration-zones", "target": "THIS_PACKAGE", "value": 7},
+      {"source": "provincial-park-zones-parkzreg", "target": "THIS_PACKAGE", "value": 5},
+      {"source": "provincial-park-regulated", "target": "THIS_PACKAGE", "value": 4},
+      {"source": "huronia-historical-parks-vendors", "target": "THIS_PACKAGE", "value": 3},
+      {"source": "picnic-parks", "target": "THIS_PACKAGE", "value": 2},
+      {"source": "visitation-to-provincial-parks", "target": "THIS_PACKAGE", "value": 1},
+
+      {"source": "visitation-to-provincial-parks", "target": "provincial-watersheds-historical", "value": 10},
+      {"source": "historical-fish-stocking-data", "target": "provincial-watersheds-historical", "value": 6},
+      {"source": "huronia-historical-parks-visitor-attendance", "target": "provincial-watersheds-historical", "value": 3},
+
+      {"source": "municipal-property-standards-bylaws", "target": "municipal-parks", "value": 3},
+      {"source": "municipal-restructuring-activity-summary-table", "target": "municipal-parks", "value": 3}
+      
+
+    ]
+}
