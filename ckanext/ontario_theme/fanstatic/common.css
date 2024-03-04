@@ -3628,9 +3628,9 @@ legend {
   padding: 25px;
 }
 
-.related-datasets-container .ontario-input {
+.related-datasets-container .ontario-input,
+#feedback-input-right .ontario-input {
   border-color: #000;
-  max-width: 80%;
 }
 
 @media screen and (max-width: 40em) {
@@ -3660,6 +3660,7 @@ legend {
   display: none;
 }
 
-#feedback-input-right, #feedback-input-bottom{
+#feedback-input-right,
+#feedback-input-bottom {
   display: none;
 }

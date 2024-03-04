@@ -828,6 +828,17 @@ def sort_accented_characters(french_dict, primary_key, secondary_key=None,
     return sorted_list
 
 
+def hackathon_json():
+    '''Function needs to be modified to take package id so that
+    if the <package_id>.json is found, then return the json data
+    else return and display nothing.'''
+    json_path = os.path.join(os.path.dirname(__file__),
+                             'schemas/hackathon/test_data.json')
+    with open(json_path) as f:
+        data = json.load(f)
+    return data
+
+
 def num_resources_filter_scrub(search_params):
     u'''Remove any quotes around num_resources value to enable prober filter
     query.
@@ -1070,7 +1081,8 @@ type data_last_updated
                 'ontario_theme_abbr_localised_filesize': abbr_localised_filesize,
                 'ontario_theme_get_facet_options': get_facet_options,
                 'ontario_theme_site_title': site_title,
-                'ontario_theme_get_current_year': get_current_year
+                'ontario_theme_get_current_year': get_current_year,
+                'ontario_theme_hackathon_json': hackathon_json
                 }
 
     # IBlueprint
