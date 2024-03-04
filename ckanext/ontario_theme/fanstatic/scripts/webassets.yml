@@ -6,6 +6,8 @@ ontario_theme_js:
     - ontario-back-to-top.js
     - odc-show-more.js
     - odc-active-page.js
+    - odc-related-datasets-links-feedback.js
+    - odc-relevant-datasets-form.js
 
 ontario_theme_form_validators_js:
   filters: rjsmin

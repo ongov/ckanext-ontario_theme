@@ -1,0 +1,43 @@
+<div class="module module-narrow module-shallow context-info">
+
+  {% block related_title %}
+    <h2 class="ontario-h4">Is this page relevant?</h2>
+  {% endblock related_title %}
+
+  {% block relevant_content %}
+    <fieldset class="ontario-fieldset">
+      <legend class="ontario-fieldset__legend">
+        Do you think this dataset is related to the one you just came from? <span class="ontario-label__flag">(required)</span>
+      </legend>
+      <div class="ontario-radios" id="related-dataset-feedback-right">
+        <div class="ontario-radios__item">
+          <input class="ontario-radios__input"
+                 id="radio-button-option-yes-right"
+                 name="radio-buttons"
+                 type="radio"
+                 value="option-yes"
+                 data-feedback="right">
+          <label class="ontario-label ontario-radios__label"
+                 for="radio-button-option-yes-right">Yes</label>
+        </div>
+        <div class="ontario-radios__item">
+          <input class="ontario-radios__input"
+                 id="radio-button-option-no-right"
+                 name="radio-buttons"
+                 type="radio"
+                 value="option-no"
+                 data-feedback="right">
+          <label class="ontario-label ontario-radios__label"
+                 for="radio-button-option-no-right">No</label>
+        </div>
+      </div>
+      <div class="ontario-form-group" id="feedback-input-right">
+        <label class="ontario-label" for="explanation-input">
+          Please explain <span class="ontario-label__flag">(optional)</span>
+        </label>
+        <input class="ontario-input" type="text" id="explanation-input">
+      </div>
+      <button class="ontario-button ontario-button--primary">{{ _('Submit') }}</button>
+    </fieldset>
+  {% endblock relevant_content %}
+</div>
