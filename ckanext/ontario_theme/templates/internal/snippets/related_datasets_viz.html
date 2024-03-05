@@ -10,6 +10,16 @@
             const width = 428;
             const height = 280;
 
+            // CSS
+            const css = {
+                "fill": {"centreNode": "#FDDA0D", "order0": "#add8e6", "order1": "grey"},
+                "stroke": {"node": "#969696",
+                        "link": "#999"
+                        },
+                "strokeWidth": {"node": 0.9, "link": 2},
+                "strokeOpacity": {"link": 0.6}
+            };
+
             // Specify the color scale.
             const color = d3.scaleOrdinal(d3.schemeCategory10);
             const colorLinks = d3.scaleOrdinal(d3.schemeGreys[8]);
@@ -23,10 +33,7 @@
 
             // Create a simulation with several forces.
             const simulation = d3.forceSimulation(nodes)
-                //.force("link", d3.forceLink(links).id(d => d.id))
-                //.force("link", d3.forceLink(links).id(d => d.id).distance(0).strength(1))
                 .force("link", d3.forceLink(links).id(d => d.id).strength(1.9))
-                //.force("charge", d3.forceManyBody().strength(-50))
                 .force("charge", d3.forceManyBody())
                 .force("x", d3.forceX())
                 .force("y", d3.forceY());
@@ -40,51 +47,60 @@
 
             // Add a line for each link, and a circle for each node.
             const link = svg.append("g")
-                .attr("stroke", "#999")
-                .attr("stroke-opacity", 0.6)
+                .attr("stroke", css.stroke.link)
+                .attr("stroke-opacity", css.strokeOpacity.link)
                 .selectAll("line")
                 .data(links)
                 .join("line")
                 .attr("stroke-width", d => {
-                let thisWidth = isWeighted ? Math.sqrt(d.value) : 2;
+                let thisWidth = isWeighted ? Math.sqrt(d.value) : css.strokeWidth.link;
                 return thisWidth;
                 })
-                .attr("stroke", d => d.value )
-            ;
+                .attr("stroke", d => d.value );
 
-            const node = svg.append("g")
-                .attr("stroke", "#fff")
-                .attr("stroke-width", 1.5)
-                .selectAll("circle")
-                .data(nodes)
-                .join("circle")
-                .attr("r", d => {
-                let circleVal = isWeighted ? 2 * Math.sqrt(d.value) : 5;
-                return d.id === "THIS_PACKAGE" ? 12 : circleVal;
-                })
-                .attr("stroke", d => {
-                return d.order === 0 ? "#336699" : "none";
-                })
-                .attr("stroke-width", 0.9)
-                .attr("fill", d => {
-                console.log('node: ', d)
-                let thisFill;
-                if (isWeighted) {
-                    //TODO divide by max value
-                    thisFill = d.order === 0 ? d3.interpolateBlues(d.value/10) : d3.interpolateGreys(d.value/10);
-                } else {
-                    thisFill = d.order === 0 ? "#add8e6" : "grey";
-                }
-                // return color(d.group)
-                return thisFill;
-                })
-                // .attr("opacity", d => {
-                //   return d.order === 0 ? 1 : 0.5;
-                // })  
-                ; 
+                const node = svg.append("g")
+                    .attr("stroke", "#fff")
+                    .attr("stroke-width", 1.5)
+                    .selectAll("circle")
+                    .data(nodes)
+                    .join("circle")
+                    .attr("r", d => {
+                    let isCentre = d.centre ? true: false;
+                    let circleVal = isWeighted ? 2 * Math.sqrt(d.value) : 5;
+                    return isCentre ? 12 : circleVal;
+                    })
+                    .attr("stroke", d => {
+                    return css.stroke.node;
+                    })
+                    .attr("stroke-width", css.strokeWidth.node)
+                    .attr("fill", d => {
+                    let isCentre = d.centre ? true: false;
+                    let thisFill;
+                    if (isCentre) {
+                        thisFill = css.fill.centreNode;
+                    } else {
+                        if (isWeighted) {
+                        //TODO divide by max value
+                        thisFill = d.order === 0 ? d3.interpolateBlues(d.value/10) : d3.interpolateGreys(d.value/10);
+                        } else {
+                        thisFill = d.order === 0 ? css.fill.order0 : css.fill.order1;
+                        }
+                    }
+                    return thisFill;
+                    }); 
 
             node.append("title")
-                .text(d => d.id);
+                .text(d => d.title);
+
+            // ************************************************
+            // MOUSE ACTIONS
+            // ************************************************
+            node.on("click", (event, d) => {    
+                window.open(
+                `https://data.ontario.ca/dataset/${d.name}`,
+                "_blank"
+                );                    
+            });
 
             // Add a drag behavior.
             node.call(d3.drag()
