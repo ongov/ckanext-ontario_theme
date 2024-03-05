@@ -1,9 +1,14 @@
 {# JavaScript Function to display observable svg
     Modify function to take package id #}
-{% set data = h.ontario_theme_hackathon_json() %}
+{% set data = h.ontario_theme_hackathon_json(pkg_name) %}
+{% set data1 = h.ontario_theme_related_datasets(pkg_name) %}
+<p>
+  Each node circle represents a dataset. Related datasets are connected by lines.
+  Hover over each node to see dataset names and click on a node to go to the dataset.
+</p>
 {% block javascript %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
-    <script type="module">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+  <script type="module">
         const networkOrdersChart = (data) => {
             const container = document.getElementById('svg-container');
             // Specify the dimensions of the chart.
@@ -150,5 +155,5 @@
             container.append(svg.node());
         }
         networkOrdersChart({{ data|tojson }})
-    </script>
+  </script>
 {% endblock javascript %}
