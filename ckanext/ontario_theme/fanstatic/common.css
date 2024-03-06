@@ -3626,6 +3626,7 @@ legend {
 .related-datasets-container {
   background-color: #f2f2f2;
   padding: 25px;
+  margin-top: 16px;
 }
 
 .related-datasets-container .ontario-input,
@@ -3656,8 +3657,8 @@ legend {
   margin-bottom: 2.5rem;
 }
 
-.related-feedback-default {
-  display: none;
+.related-datasets-container ul > li {
+  margin-bottom: 10px;
 }
 
 #feedback-input-right,

@@ -1,9 +1,13 @@
 {# JavaScript Function to display observable svg
     Modify function to take package id #}
-{% set data = h.ontario_theme_hackathon_json() %}
+{% set data = h.ontario_theme_hackathon_json(pkg_name) %}
+<p>
+  Each node circle represents a dataset. Related datasets are connected by lines.
+  Hover over each node to see dataset names and click on a node to go to the dataset.
+</p>
 {% block javascript %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
-    <script type="module">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+  <script type="module">
         const networkOrdersChart = (data) => {
             const container = document.getElementById('svg-container');
             // Specify the dimensions of the chart.
@@ -16,7 +20,7 @@
                 "stroke": {"node": "#969696",
                         "link": "#999"
                         },
-                "strokeWidth": {"node": 0.9, "link": 2},
+                "strokeWidth": {"node": 0.9, "link": 0.7},
                 "strokeOpacity": {"link": 0.6}
             };
 
@@ -33,7 +37,7 @@
 
             // Create a simulation with several forces.
             const simulation = d3.forceSimulation(nodes)
-                .force("link", d3.forceLink(links).id(d => d.id).strength(1.9))
+                .force("link", d3.forceLink(links).id(d => d.id).distance(50).strength(.01))
                 .force("charge", d3.forceManyBody())
                 .force("x", d3.forceX())
                 .force("y", d3.forceY());
@@ -97,7 +101,7 @@
             // ************************************************
             node.on("click", (event, d) => {    
                 window.open(
-                `https://data.ontario.ca/dataset/${d.name}`,
+                `https://test.data4.ontario.ca/dataset/${d.name}`,
                 "_blank"
                 );                    
             });
@@ -150,5 +154,5 @@
             container.append(svg.node());
         }
         networkOrdersChart({{ data|tojson }})
-    </script>
+  </script>
 {% endblock javascript %}

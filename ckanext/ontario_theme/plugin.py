@@ -828,15 +828,37 @@ def sort_accented_characters(french_dict, primary_key, secondary_key=None,
     return sorted_list
 
 
-def hackathon_json():
-    '''Function needs to be modified to take package id so that
-    if the <package_id>.json is found, then return the json data
-    else return and display nothing.'''
+def hackathon_json(json_file, related_list=False):
+    '''Function to take package name so that
+    if the <package_name>.json is found, then return the json data
+    else return and display nothing.
+    If related_list is true, return a list of the properties of all datasets
+    related to the current dataset'''
     json_path = os.path.join(os.path.dirname(__file__),
-                             'schemas/hackathon/test_data.json')
-    with open(json_path) as f:
-        data = json.load(f)
-    return data
+                             'schemas/hackathon/%s.json' % (json_file))
+    try:
+        with open(json_path) as f:
+            data = json.load(f)
+            if related_list is True:
+                nodes = data.get("nodes")
+                related_dataset_list = list(iter(key for key in nodes if key['order'] == 0))
+                return related_dataset_list
+            else:
+                return data
+    except FileNotFoundError:
+        return
+
+
+def referrer_link(link):
+    ''' If link is not empty, check that the referrer link is from a dataset
+    page. If it is return true and display the right side feedback box'''
+    if link:
+        package = link.rsplit('/', 1)[-1]
+        try:
+            toolkit.get_action('package_show')(data_dict={'id': package})
+            return True
+        except (ckan.logic.ValidationError, ckan.logic.NotFound):
+            return False
 
 
 def num_resources_filter_scrub(search_params):
@@ -874,6 +896,7 @@ def site_title():
     else:
         value = config.get('ckan.site_title')
     return value
+
 
 def home_block(block='one'):
     '''Helper to make the new configuration available to templates.
@@ -1082,7 +1105,8 @@ type data_last_updated
                 'ontario_theme_get_facet_options': get_facet_options,
                 'ontario_theme_site_title': site_title,
                 'ontario_theme_get_current_year': get_current_year,
-                'ontario_theme_hackathon_json': hackathon_json
+                'ontario_theme_hackathon_json': hackathon_json,
+                'ontario_theme_referrer_link': referrer_link
                 }
 
     # IBlueprint

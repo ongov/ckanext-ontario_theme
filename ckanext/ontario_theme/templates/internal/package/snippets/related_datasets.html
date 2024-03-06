@@ -1,17 +1,13 @@
-<div class="related-datasets-container">
-  <div class="ontario-badge__container">
-    <h2 class="ontario-h3">{{ _("Related datasets") }}</h2>
-    <span class="ontario-badge ontario-badge--default-heavy">Beta</span>
-  </div>
+<div>
   <p>
     Browse similar datasets grouped by artificial intelligence (<abbr>AI</abbr>).
   </p>
-  {# list of related datasets as links #}
   <ul class="related-datasets-list" id="related-datasets-right-module">
-    {# For loop for displaying AI generated list #}
-    <li>
-      <a href="#">Test link</a>
-    </li>
+    {% for dataset in related_datasets %}
+      <li>
+        <a href="{{ h.url_for('dataset.read', id=dataset.name) }}">{{ dataset.title }}</a>
+      </li>
+    {% endfor %}
   </ul>
   <fieldset class="ontario-fieldset">
     <legend class="ontario-fieldset__legend">

@@ -91,10 +91,20 @@
         {% if pkg.resources and pkg['access_level'] == 'open' %}
           {% snippet "package/snippets/report_an_error.html" %}
         {% endif %}
-        <div class="ontario-row">
-          <div class="ontario-small-12 ontario-columns ontario-medium-6">{% snippet "package/snippets/related_datasets.html" %}</div>
-          <div class="ontario-small-12 ontario-columns ontario-medium-6" id="svg-container">{% snippet "snippets/related_datasets_viz.html" %}</div>
-        </div>
+        {% if h.ontario_theme_hackathon_json(pkg.name, true) %}
+          {% set related_datasets = h.ontario_theme_hackathon_json(pkg.name, true) %}
+          <div class="ontario-column related-datasets-container">
+            <div class="ontario-column ontario-badge__container">
+              <h2 class="ontario-h3">{{ _("Related datasets") }}</h2>
+              <span class="ontario-badge ontario-badge--default-heavy">Beta</span>
+            </div>
+            <div class="ontario-small-12 ontario-columns ontario-medium-6">
+              {% snippet "package/snippets/related_datasets.html", related_datasets=related_datasets %}
+            </div>
+            <div class="ontario-small-12 ontario-columns ontario-medium-6"
+                 id="svg-container">{% snippet "snippets/related_datasets_viz.html", pkg_name=pkg.name %}</div>
+          </div>
+        {% endif %}
         <div class="row">
           <div class="col-md-12">{% snippet "home/snippets/ontario_theme_contact_us.html" %}</div>
         </div>
