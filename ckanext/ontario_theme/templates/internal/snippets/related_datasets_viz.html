@@ -20,7 +20,7 @@
                 "stroke": {"node": "#969696",
                         "link": "#999"
                         },
-                "strokeWidth": {"node": 0.9, "link": 2},
+                "strokeWidth": {"node": 0.9, "link": 0.7},
                 "strokeOpacity": {"link": 0.6}
             };
 
@@ -37,7 +37,7 @@
 
             // Create a simulation with several forces.
             const simulation = d3.forceSimulation(nodes)
-                .force("link", d3.forceLink(links).id(d => d.id).strength(1.9))
+                .force("link", d3.forceLink(links).id(d => d.id).distance(50).strength(.01))
                 .force("charge", d3.forceManyBody())
                 .force("x", d3.forceX())
                 .force("y", d3.forceY());
