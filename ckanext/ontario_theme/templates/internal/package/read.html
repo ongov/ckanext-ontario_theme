@@ -91,8 +91,8 @@
         {% if pkg.resources and pkg['access_level'] == 'open' %}
           {% snippet "package/snippets/report_an_error.html" %}
         {% endif %}
-        {% if h.ontario_theme_related_datasets(pkg.name) %}
-          {% set related_datasets = h.ontario_theme_related_datasets(pkg.name) %}
+        {% if h.ontario_theme_hackathon_json(pkg.name, true) %}
+          {% set related_datasets = h.ontario_theme_hackathon_json(pkg.name, true) %}
           <div class="ontario-column related-datasets-container">
             <div class="ontario-column ontario-badge__container">
               <h2 class="ontario-h3">{{ _("Related datasets") }}</h2>

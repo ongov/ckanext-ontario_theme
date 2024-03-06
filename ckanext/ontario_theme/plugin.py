@@ -828,7 +828,7 @@ def sort_accented_characters(french_dict, primary_key, secondary_key=None,
     return sorted_list
 
 
-def hackathon_json(json_file):
+def hackathon_json(json_file, related_list=False):
     '''Function to take package name so that
     if the <package_name>.json is found, then return the json data
     else return and display nothing.'''
@@ -837,28 +837,24 @@ def hackathon_json(json_file):
     try:
         with open(json_path) as f:
             data = json.load(f)
-        return data
+            if related_list is True:
+                nodes = data.get("nodes")
+                related_dataset_list = list(iter(key for key in nodes if key['order'] == 0))
+                return related_dataset_list
+            else:
+                return data
     except FileNotFoundError:
         return
 
 
-def related_datasets(json_file):
-    if hackathon_json(json_file):
-        data = hackathon_json(json_file)
-        nodes = data.get("nodes")
-        related_list = list(iter(key for key in nodes if key['order'] == 0))
-        return related_list
-    else:
-        return
-
-
 def referrer_link(link):
-    package = link.rsplit('/', 1)[-1]
-    try:
-        toolkit.get_action('package_show')(data_dict={'id': package})
-        return True
-    except (ckan.logic.ValidationError, ckan.logic.NotFound):
-        return False
+    if link:
+        package = link.rsplit('/', 1)[-1]
+        try:
+            toolkit.get_action('package_show')(data_dict={'id': package})
+            return True
+        except (ckan.logic.ValidationError, ckan.logic.NotFound):
+            return False
 
 
 def num_resources_filter_scrub(search_params):
@@ -1106,7 +1102,6 @@ type data_last_updated
                 'ontario_theme_site_title': site_title,
                 'ontario_theme_get_current_year': get_current_year,
                 'ontario_theme_hackathon_json': hackathon_json,
-                'ontario_theme_related_datasets': related_datasets,
                 'ontario_theme_referrer_link': referrer_link
                 }
 
