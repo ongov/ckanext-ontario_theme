@@ -25,9 +25,11 @@ ckan.module('conditional_field', function ($) {
   return {
     options : {
       trigger_values: null,
+      field_options: null,
 		},
     initialize: function () {
       this.trigger_values = (this.options.conditional_option).split(",");
+      this.field_options = (this.el.find('option'))
       $(this.options.trigger_field).on('change', jQuery.proxy(this._onChange, this));
     },
     _onChange: function (event) {
@@ -35,9 +37,9 @@ ckan.module('conditional_field', function ($) {
       let id = $(this.el).attr('id');
       if ($.inArray(option_selected, this.trigger_values) != -1) {
         $(`#${id}`).val(this.options.trigger_option).change();
-        $(`#${id}`).find(':not(:selected)').prop('disabled', true);
+        $(`#${id}`).find(':not(:selected)').remove();
       } else {
-        $(`#${id}`).find(':not(:selected)').prop('disabled', false)
+        $(`#${id}`).append(this.field_options)
       }
     }
   }
