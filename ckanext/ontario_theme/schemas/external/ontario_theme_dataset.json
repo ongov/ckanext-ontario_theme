@@ -229,6 +229,7 @@
       },
       "form_placeholder": "e.g., http://example.com/description-of-this-dataset",
       "display_property": "foaf:homepage",
+      "display_class": "break-all",
       "display_snippet": "link.html",
       "classes": ["form-group","col-md-12"]
     },
