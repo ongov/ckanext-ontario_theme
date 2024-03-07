@@ -8,76 +8,78 @@ block. super() will end up calling the facets twice.
 #}
 {% ckan_extends %}
 
-{% block groups_search_form %}
-  {% set facets = {
-      'fields': fields_grouped,
-      'search': search_facets,
-      'titles': facet_titles,
-      'translated_fields': translated_fields,
-    'remove_field': remove_field } %}
-  {% set sorting = [
-      (_('Relevance'), 'score desc, metadata_modified desc'),
-      (_('Name Ascending'), 'titles asc'),
-      (_('Name Descending'), 'titles desc'),
-      (_('Last Modified'), 'metadata_modified desc'),
-    (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ] %}
-  {# Make 'Relevance' the default selection when first landing on page #}
-  {% if not sort_by_selected %}
-    {% set sort_by_selected = "score desc, metadata_modified desc" %}
-  {% endif %}
-  {% set form_id = "group-datasets-search-form" %}
-  <form id="{{ form_id }}"
-        class="search-form"
-        method="get"
-        data-module="select-switch"
-        novalidate>
-    {% snippet 'snippets/search_form.html',
-    searchbar_title= _('Search datasets') + _(':'),
-    form_id=form_id,
-    type='dataset',
-    query=q,
-    sorting=sorting,
-    sorting_selected=sort_by_selected,
-    count=page.item_count,
-    facets=facets,
-    show_empty=request.params,
-    fields=fields
-    %}
-  </form>
-{% endblock groups_search_form %}
+{% block primary_content_inner %}
+  {% block groups_search_form %}
+    {% set facets = {
+        'fields': fields_grouped,
+        'search': search_facets,
+        'titles': facet_titles,
+        'translated_fields': translated_fields,
+      'remove_field': remove_field } %}
+    {% set sorting = [
+        (_('Relevance'), 'score desc, metadata_modified desc'),
+        (_('Name Ascending'), 'titles asc'),
+        (_('Name Descending'), 'titles desc'),
+        (_('Last Modified'), 'metadata_modified desc'),
+      (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ] %}
+    {# Make 'Relevance' the default selection when first landing on page #}
+    {% if not sort_by_selected %}
+      {% set sort_by_selected = "score desc, metadata_modified desc" %}
+    {% endif %}
+    {% set form_id = "group-datasets-search-form" %}
+    <form id="{{ form_id }}"
+          class="search-form"
+          method="get"
+          data-module="select-switch"
+          novalidate>
+      {% snippet 'snippets/search_form.html',
+      searchbar_title= _('Search datasets') + _(':'),
+      form_id=form_id,
+      type='dataset',
+      query=q,
+      sorting=sorting,
+      sorting_selected=sort_by_selected,
+      count=page.item_count,
+      facets=facets,
+      show_empty=request.params,
+      fields=fields
+      %}
+    </form>
+  {% endblock groups_search_form %}
 
-{% block packages_list %}
-  {% if page.items %}
-    {# Store current group name to pass to package_list.html.
+  {% block packages_list %}
+    <div class="ministry-packages col-sm-9 col-xs-12">
+      {% if page.items %}
+        {# Store current group name to pass to package_list.html.
         To be used as a facet query param in get_all_packages()
         helper function.
       #}
-    {% set this_group_name = c.group_dict['name'] %}
-    {{ h.snippet('snippets/package_list.html',
-    packages=page.items,
-    this_group_name=this_group_name)
-    }}
-  {% endif %}
-{% endblock packages_list %}
+        {% set this_group_name = c.group_dict['name'] %}
+        {{ h.snippet('snippets/package_list.html',
+        packages=page.items,
+        this_group_name=this_group_name)
+        }}
+      {% endif %}
+      {% block page_pagination %}
+        {{ page.pager(q=q) }}
+      {% endblock page_pagination %}
+    </div>
+  {% endblock packages_list %}
 
-{% block secondary %}
-  <aside class="secondary col-sm-3 group-packages filter-results">
-    {% block secondary_content %}
-      {% snippet "group/snippets/info.html", group=c.group_dict, show_nums=true %}
+  {% block secondary_content %}
+    <div class="ministry-package-div secondary col-sm-3">
       <div class="filters">
         <div>
           {{ h.snippet('snippets/ontario_theme_keywords_facet.html',
           extras={'id':c.group_dict.id}) }}
         </div>
         <div>
-          {#
-            Flag facets to be ignored from standard loop that calls facets.
-          #}
+          {# Flag facets to be ignored from standard loop that calls facets.#}
           {% set single_option_facets = ["organization_jurisdiction", "organization_category"] %}
           {{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets, extras={'id':c.group_dict.id}) }}
         </div>
         <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
       </div>
-    {% endblock secondary_content %}
-  </aside>
-{% endblock secondary %}
+    </div>
+  {% endblock secondary_content %}
+{% endblock primary_content_inner %}

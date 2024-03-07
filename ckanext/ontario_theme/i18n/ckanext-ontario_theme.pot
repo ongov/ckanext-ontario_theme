@@ -94,10 +94,11 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/help.html:14
 msgid ""
-"<p class=\"ontario-lead-statement\">  Need more help or want to learn more about the data catalogue? <a "
-"href=\"https://www.ontario.ca/feedback/contact-"
+"Need more help or want to learn more about the data catalogue?"
+msgstr ""
+msgid "<a href=\"https://www.ontario.ca/feedback/contact-"
 "us?id=532365&nid=138269\">Contact us</a> — we’ll gladly answer any questions "
-"you might have! </p>"
+"you might have!"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/help.html:17
@@ -985,11 +986,7 @@ msgid "Ontario Data Catalogue"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:12
-msgid "Find public data and explore "
-msgstr ""
-
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:12
-msgid " datasets published by the Government of Ontario."
+msgid "Find public data and explore {count} datasets published by the Government of Ontario."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:20
@@ -1055,25 +1052,27 @@ msgstr ""
 msgid "Data Not Available"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:19
+#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:33
+msgid "Data under review"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:35
 msgid ""
-"This data is not and will not be made available. Data in this record cannot "
-"be released because of legal, privacy, security, confidentiality or "
-"commercially-sensitive reasons, as outlined by the <a "
-"href=\"%(directive_url)s\">Digital and Data "
-"Directive</a>."
+"This data is not and will not be made available. The data was reviewed and "
+"cannot be released to the public because of reasons outlined by the <a "
+"href=\"%(directive_url)s\">Digital and Data Directive</a>."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:27
 msgid "Why?"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:20
+msgid "This data is not available right now. We are reviewing the data to determine if it can be made open to the public."
+msgstr ""
+
 #: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:33
-msgid ""
-"This data might be made available in the future. We are reviewing the data "
-"in this record to determine if it can be made open. <a "
-"href=\"%(directive_url)s\">[Learn "
-"more]</a>"
+msgid "Data restricted"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/scheming/package/read.html:20
@@ -1489,6 +1488,10 @@ msgstr ""
 msgid "This dataset is currently under review"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/package/search.html:11
+msgid "Search for specific datasets or use filters to explore our data."
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/package/search.html:29
 msgid "Relevance"
 msgstr ""
@@ -1766,6 +1769,10 @@ msgstr ""
 msgid "Filter Results"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:123
+msgid "Please try another search or <a href=\"mailto:opendata@ontario.ca\">reach out to us if you think data is missing.</a>"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:15
 msgid "<strong>{number} dataset</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
 msgid_plural "<strong>{number} datasets</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
@@ -1988,4 +1995,9 @@ msgstr ""
 #: ckanext/ontario_theme/templates/internal/organization/read_base.html:21
 #: ckanext/ontario_theme/templates/internal/package/read.html:18
 msgid "History"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/group/read_base.html:29
+#: ckanext/ontario_theme/templates/internal/organization/read_base.html:22
+msgid "More information"
 msgstr ""
