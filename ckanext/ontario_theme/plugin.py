@@ -831,7 +831,9 @@ def sort_accented_characters(french_dict, primary_key, secondary_key=None,
 def hackathon_json(json_file, related_list=False):
     '''Function to take package name so that
     if the <package_name>.json is found, then return the json data
-    else return and display nothing.'''
+    else return and display nothing.
+    If related_list is true, return a list of the properties of all datasets
+    related to the current dataset'''
     json_path = os.path.join(os.path.dirname(__file__),
                              'schemas/hackathon/%s.json' % (json_file))
     try:
@@ -848,6 +850,8 @@ def hackathon_json(json_file, related_list=False):
 
 
 def referrer_link(link):
+    ''' If link is not empty, check that the referrer link is from a dataset
+    page. If it is return true and display the right side feedback box'''
     if link:
         package = link.rsplit('/', 1)[-1]
         try:
