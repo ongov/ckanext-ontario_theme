@@ -457,11 +457,9 @@ input[type="reset"].ontario-search-reset:focus {
 
 /* child div 4: shows search keywords just below searchbar */
 .filter-list {
-  order: 4;
+  order: 6;
   display: flex;
-  justify-content: end;
   padding-bottom: 10px;
-  /* needed to avoid being squished in mobile mode*/
 }
 
 /* child div 3: access level radio buttons */
@@ -469,7 +467,6 @@ input[type="reset"].ontario-search-reset:focus {
   order: 3;
 }
 
-.search-form .filter-list,
 .search-form .search-count {
   font-size: 20px;
   font-weight: 400;
@@ -478,47 +475,64 @@ input[type="reset"].ontario-search-reset:focus {
 
 .search-form .filter-list {
   color: #000;
-  margin-right: -14px;
-  margin-top: 0;
   flex-wrap: wrap;
 }
 
-.pill a.remove {
-  font-size: 20px;
+.search-form .filter-list a:hover.pill {
+  color: #000;
+  background-color: #d8d8d8;
+  border: solid 1px #000;
 }
 
-.pill a:visited {
+a:visited.pill {
   color: unset;
 }
 
-.pill a {
+
+a.pill {
   margin: auto;
-  margin-left: 5px;
+  text-decoration: none;
 }
 
 .pill-contents {
   display: flex;
-  padding: 0 10px;
+  align-items: center;
+}
+
+.pill-contents svg {
+  margin-left: 10px;
+  margin-bottom: unset;
+  height: 19px;
+  width: 19px;
 }
 
 .search-form .filter-list .pill {
-  line-height: 25.6px;
-  background-color: #666666;
+  background-color: #fff;
+  border: solid 1px #666666;
+  color: #4d4d4d;
   margin-right: 14px;
-  padding: 5px 10px;
+  padding: 6px 15px;
   text-align: left;
   margin-bottom: 5px;
   border-radius: 52px;
 }
 
-.facet-row {
-  text-align: right;
+@media screen and (min-width: 39.9375em) {
+  .facet-row {
+    margin-bottom: 10px;
+  }
+
+  .search-form .filter-list {
+    font-size: 20px;
+    margin: 0 -16px;
+    padding: 0 16px;
+    background-color: #fff;
+  }
 }
 
 @media screen and (max-width: 39.9375em) {
-  .facet-row {
-    display: block;
-    float: right;
+  .filter-list {
+    order: 4;
   }
 
   .facet {
@@ -527,6 +541,11 @@ input[type="reset"].ontario-search-reset:focus {
 
   .search-form .filter-list .pill {
     margin-right: unset;
+    margin-top: 10px;
+    background-color: #f2f2f2;
+    border: solid 1px #000;
+    color: #000;
+    line-height: 25.6px;
   }
 }
 
