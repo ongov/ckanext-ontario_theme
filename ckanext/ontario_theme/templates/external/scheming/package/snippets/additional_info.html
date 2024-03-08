@@ -27,7 +27,7 @@
       and (pkg_dict[field.field_name] != {'fr': '', 'en': ''}) -%}
       <div class="package-additional-info-tr">
         <dt class="dataset-label package-additional-info-th">{{ h.scheming_language_text(field.label) }}</dt>
-        <dd class="dataset-details package-additional-info-td {{ field.display_class }}"
+        <dd class="dataset-details package-additional-info-td"
             {% if field.display_property -%}property="{{ field.display_property }}"{%- endif %}>
           {% if field.preset == "date" %}
             {{ h.render_datetime(pkg_dict[field.field_name]) }}
