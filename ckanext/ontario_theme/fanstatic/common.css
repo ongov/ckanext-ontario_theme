@@ -533,6 +533,7 @@ a.pill {
 @media screen and (max-width: 39.9375em) {
   .filter-list {
     order: 4;
+    display: inline-grid;
   }
 
   .facet {
@@ -546,6 +547,10 @@ a.pill {
     border: solid 1px #000;
     color: #000;
     line-height: 25.6px;
+  }
+
+  #clear-filters-button {
+    margin-top: 10px;
   }
 }
 
