@@ -3347,6 +3347,7 @@ label::after {
   }
 }
 
-.break-all {
-  word-break: break-all;
+.notes.embedded-content.dataset-font p a,
+.dataset-details.package-additional-info-td > a {
+  word-break: break-word;
 }
