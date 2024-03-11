@@ -455,16 +455,16 @@ input[type="reset"].ontario-search-reset:focus {
   /* increase height to accommodate larger font size */
 }
 
-/* child div 4: shows search keywords just below searchbar */
-.filter-list {
-  order: 6;
-  display: flex;
-  padding-bottom: 10px;
-}
-
 /* child div 3: access level radio buttons */
 .access-level {
   order: 3;
+}
+
+/* child div 4: shows search keywords just below radio buttons */
+.filter-list {
+  order: 4;
+  display: inline-grid;
+  padding-bottom: 10px;
 }
 
 .search-form .search-count {
@@ -528,18 +528,19 @@ a.pill {
     padding: 0 16px;
     background-color: #fff;
   }
+
+  /* child div 4 in position 6: shows search keywords just below sort by dropdown */
+  .filter-list {
+    order: 6;
+    display: flex;
+  }
+}
+
+.facet {
+  padding-right: 5px;
 }
 
 @media screen and (max-width: 39.9375em) {
-  .filter-list {
-    order: 4;
-    display: inline-grid;
-  }
-
-  .facet {
-    padding-right: 5px;
-  }
-
   .search-form .filter-list .pill {
     margin-right: unset;
     margin-top: 10px;
