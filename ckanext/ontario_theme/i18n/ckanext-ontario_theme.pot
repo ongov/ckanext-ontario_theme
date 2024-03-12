@@ -1769,6 +1769,10 @@ msgstr ""
 msgid "Filter Results"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:111
+msgid "Clear filters"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:123
 msgid "Please try another search or <a href=\"mailto:opendata@ontario.ca\">reach out to us if you think data is missing.</a>"
 msgstr ""
