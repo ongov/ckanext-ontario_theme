@@ -23,18 +23,16 @@ parameters:
       - reset
       - no
 
-trigger:
-  branches:
-    include:
-      - main
-      - develop
-    exclude:
-    - 'refs/tags/*'
-  paths:
-    include:
-      - '*'
-    exclude:
-      - /setup.py
+trigger: none
+#  branches:
+#    include:
+#      - main
+#      - developyml
+#  tags:
+#    exclude:
+#  paths:
+#    exclude:
+#      - /setup.py
 pr: none
 
 pool:
