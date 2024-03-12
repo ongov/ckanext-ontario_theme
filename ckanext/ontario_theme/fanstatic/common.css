@@ -520,6 +520,7 @@ a.pill {
 @media screen and (min-width: 39.9375em) {
   .facet-row {
     margin-bottom: 10px;
+    margin-top: 5px;
   }
 
   .search-form .filter-list {
@@ -553,6 +554,10 @@ a.pill {
   #clear-filters-button {
     margin-top: 10px;
   }
+}
+
+#clear-filters-button {
+  display: none;
 }
 
 .show-filters.btn {
