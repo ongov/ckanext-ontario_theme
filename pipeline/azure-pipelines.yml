@@ -40,11 +40,7 @@ trigger:
   tags:
     exclude:
     - '*'
-pr:
-  branches:
-    include:
-      - main
-      - develop
+pr: none
 
 
 pool:
