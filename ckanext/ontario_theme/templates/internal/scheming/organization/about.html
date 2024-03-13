@@ -1,5 +1,9 @@
 {% ckan_extends %}
 
+{% block subtitle %}
+  {{ _('More information') }} {{ g.template_title_delimiter }} {{ h.get_translated(c.group_dict,"title") }}
+{% endblock subtitle %} 
+
 {% set exclude_fields = ["name", "title_translated", "org_contact", "image_url", "description_translated"] %}
 {% set current_lang = request.environ.CKAN_LANG %}
 {% block primary_content_inner %}

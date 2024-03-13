@@ -13,10 +13,6 @@
 
 {% block meta -%}
   {{ super() }}
-  {% set description = h.markdown_extract(h.get_translated(res, 'description'), extract_length=200) if res.description else h.markdown_extract(h.get_translated(package, 'notes'), extract_length=200) %}
-  <meta property="og:title"
-        content="{{ h.dataset_display_name(package) }} - {{ h.resource_display_name(res) }} - {{ h.ontario_theme_site_title() }}">
-  <meta property="og:description" content="{{ description|forceescape }}">
 {% endblock meta -%}
 
 {%- set exclude_fields = ["data_last_updated", "name", "description_translated", "url", "format"] -%}
@@ -39,7 +35,7 @@
             {% block resource_actions %}
               {% block resource_actions_inner %}
                 {% if is_admin %}
-                  <header class="col-xs-12 page-header">
+                  <header class="ontario-small-12 page-header">
                     <div class="content_action">
                       {% link_for _('Edit'), named_route=pkg.type + '_resource.edit', id=pkg.name, resource_id=res.id, class_='btn btn-default content_action', icon='wrench' %}
                     </div>
@@ -51,7 +47,7 @@
         {% endblock resource_inner %}
       </section>
       {% block resource_content %}
-        <div class="col-lg-8 col-xs-12">
+        <div class="ontario-columns ontario-small-12 ontario-large-8">
           {% block resource_read_title %}
             <h1>{{ h.resource_display_name(res) }}{{ h.get_validation_badge(res, in_listing=True)|safe }}</h1>
           {% endblock resource_read_title %}
@@ -70,7 +66,11 @@
               {% endif %}
             {% endblock resource_read_url %}
 
-            {% if res.description %}<div>{{ h.render_markdown(h.get_translated(res, "description")) }}</div>{% endif %}
+            {% if res.description %}
+              <div>
+                {{ h.render_markdown(h.get_translated(res, "description")) }}
+              </div>
+            {% endif %}
             {% if not res.description and c.package.notes %}
               {% if res.datastore_active %}
                 {{ h.render_markdown(h.get_translated(c.package, 'notes')) }}
@@ -91,7 +91,7 @@
       {% endblock resource_content %}
 
       {% asset "ontario_theme/ontario_theme_download_tracker_js" %}
-      <div class="secondary col-xs-12 col-lg-4 right-col dataset-font resource-aside">
+      <div class="secondary ontario-small-12 ontario-large-4 right-col dataset-font resource-aside">
         {% if res.url and h.is_url(res.url) %}
           {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
           {% if pkg.groups %}
@@ -169,7 +169,7 @@
           </div>
         {% endif %}
       </div>
-      <div class="col-xs-12">
+      <div class="ontario-column ontario-small-12">
         {% block data_preview %}
           {% if res.format == "CSV" %}
             {% block resource_view_nav %}
@@ -192,7 +192,7 @@
       </div>
       {# if dataset is not open and user is not admin, show msg #}
     {% else %}
-      <h1 class="col-xs-12">{{ _('Data Not Available') }}</h1>
+      <h1 class="ontario-column ontario-small-12">{{ _('Data Not Available') }}</h1>
     {% endif %}
   {% endblock resource %}
 {% endblock pre_primary %}
@@ -210,68 +210,68 @@
               <h2>{{ _('Additional information') }}</h2>
               <div class="ontario-margin-top-40 res-additional-info-table table table-striped table-bordered table-condensed"
                    data-module="table-toggle-more">
-                <div class="res-additional-info-thead">
-                  <div class="res-additional-info-tr">
-                    <div class="res-additional-info-th">{{ _('Field') }}</div>
-                    <div class="res-additional-info-th">{{ _('Value') }}</div>
-                  </div>
-                </div>
-                <div class="res-additional-info-tbody">
+                <dl class="res-additional-info-tbody">
                   {%- block resource_last_updated -%}
                     <div class="res-additional-info-tr">
-                      <div class="res-additional-info-th">{{ _('Last updated') }}</div>
-                      <div class="res-additional-info-td">
+                      <dt class="res-additional-info-th">{{ _('Last updated') }}</dt>
+                      <dd class="res-additional-info-td">
                         {{ h.render_datetime(res.data_last_updated) or h.render_datetime(res.last_modified) or h.render_datetime(res.revision_timestamp) or h.render_datetime(res.created) or _('unknown') }}
-                      </div>
+                      </dd>
                     </div>
                   {%- endblock resource_last_updated -%}
                   {%- block resource_created -%}
                     <div class="res-additional-info-tr">
-                      <div class="res-additional-info-th">{{ _('Created') }}</div>
-                      <div class="res-additional-info-td">{{ h.render_datetime(res.created) or _('unknown') }}</div>
+                      <dt class="res-additional-info-th">{{ _('Created') }}</dt>
+                      <dd class="res-additional-info-td">
+                        {{ h.render_datetime(res.created) or _('unknown') }}
+                      </dd>
                     </div>
                   {%- endblock resource_created -%}
                   {%- block resource_format -%}
                     <div class="res-additional-info-tr">
-                      <div class="res-additional-info-th">{{ _('Format') }}</div>
-                      <div class="res-additional-info-td">{{ res.mimetype_inner or res.mimetype or res.format or _('unknown') }}</div>
+                      <dt class="res-additional-info-th">{{ _('Format') }}</dt>
+                      <dd class="res-additional-info-td">
+                        {{ res.mimetype_inner or res.mimetype or res.format or _('unknown') }}
+                      </dd>
                     </div>
                     {# Add resource size if known. This extends scheming's template. #}
                     {% if not res.mimetype and not res.size %}
                       {% set exclude_fields = exclude_fields.append('size') %}
                     {% else %}
                       <div class="res-additional-info-tr">
-                        <div class="res-additional-info-th">{{ _('File size') }}</div>
-                        <div class="res-additional-info-td">
+                        <dt class="res-additional-info-th">{{ _('File size') }}</dt>
+                        <dd class="res-additional-info-td">
                           {{ h.ontario_theme_abbr_localised_filesize(res.size)|safe if res.size else _('unknown size') }}
-                        </div>
+                        </dd>
                       </div>
                     {% endif %}
                   {%- endblock resource_format -%}
                   {%- block resource_license -%}
                     {% set license = h.ontario_theme_get_license(pkg.license_id) %}
                     <div class="res-additional-info-tr">
-                      <div class="res-additional-info-th">{{ _('Licence') }}</div>
-                      <div class="res-additional-info-td">{{ h.get_translated(license._data, 'title') }}</div>
+                      <dt class="res-additional-info-th">{{ _('Licence') }}</dt>
+                      <dd class="res-additional-info-td">
+                        {{ h.get_translated(license._data, 'title') }}
+                      </dd>
                     </div>
                   {%- endblock resource_license -%}
                   {%- block resource_fields -%}
                     {%- for field in schema.resource_fields -%}
                       {%- if field.field_name not in exclude_fields and res[field.field_name] and (res[field.field_name] != {'fr': '', 'en': ''}) -%}
                         <div class="res-additional-info-tr">
-                          <div class="res-additional-info-th">{{- h.scheming_language_text(field.label) -}}</div>
-                          <div class="res-additional-info-td">
+                          <dt class="res-additional-info-th">{{- h.scheming_language_text(field.label) -}}</dt>
+                          <dd class="res-additional-info-td">
                             {%- if field.preset == "date" -%}
                               {{- h.render_datetime(res[field.field_name]) -}}
                             {%- else -%}
                               {%- snippet "scheming/snippets/display_field.html", field=field, data=res, entity_type='dataset', object_type=dataset_type -%}
                             {%- endif -%}
-                          </div>
+                          </dd>
                         </div>
                       {%- endif -%}
                     {%- endfor -%}
                   {%- endblock resource_fields -%}
-                </div>
+                </dl>
               </div>
             </div>
           {% endblock resource_additional_information_inner %}

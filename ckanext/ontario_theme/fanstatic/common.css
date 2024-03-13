@@ -803,28 +803,119 @@ a:focus {
   line-height: 25.6px;
 }
 
-.wrapper div.page-header {
+.wrapper div.page-header,
+.wrapper header.page-header {
   border: none;
   background: none;
 }
 
-.wrapper div.page-header ul.nav.nav-tabs {
+.wrapper div.page-header ul.nav.nav-tabs,
+.wrapper header.page-header ul.nav.nav-tabs {
   width: 100%;
+  display: flex;
 }
 
-.wrapper div.page-header ul.nav.nav-tabs li a {
-  color: #666666;
-  border: none;
+.wrapper div.page-header ul.nav.nav-tabs li a,
+.wrapper header.page-header ul.nav.nav-tabs li a {
+  color: #1A1A1A;
+  border: 1px solid #cccccc;
+  background-color: #f2f2f2;
+  border-bottom: none;
+  margin-right: 12px;
 }
 
-.wrapper div.page-header ul.nav.nav-tabs li a:hover {
-  border: none;
+.wrapper div.page-header ul.nav.nav-tabs li a:hover,
+.wrapper header.page-header ul.nav.nav-tabs li a:hover {
+  border: 1px solid #cccccc;
+  background-color: #cccccc;
+  text-decoration: none;
 }
 
-.wrapper div.page-header ul.nav.nav-tabs li.active a {
+.wrapper div.page-header ul.nav.nav-tabs li.active a,
+.wrapper header.page-header ul.nav.nav-tabs li.active a {
+  border-bottom: solid 2px #ffffff;
+  color: #1A1A1A;
+  background-color: #ffffff;
+  font-weight: 700;
+  margin-bottom: -1px;
+}
+
+.page-header .nav-tabs {
+  margin: 5px 10px 10px 0;
+}
+
+.wrapper {
+  background-image: none;
   border: none;
-  border-bottom: solid 2px #1080A6;
-  color: #1080A6;
+  box-shadow: none;
+}
+
+@media screen and (max-width: 32.5em) {
+
+  .wrapper div.page-header ul.nav.nav-tabs li,
+  .wrapper header.page-header ul.nav.nav-tabs li {
+    display: flex;
+  }
+
+  .wrapper div.page-header ul.nav.nav-tabs,
+  .wrapper header.page-header ul.nav.nav-tabs {
+    display: flex;
+    border-radius: 0;
+    width: 100%;
+  }
+
+  .wrapper div.page-header ul.nav.nav-tabs li a,
+  .wrapper header.page-header ul.nav.nav-tabs li a {
+    margin-right: -1px;
+    border-bottom: solid 1px #cccccc;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .wrapper div.page-header ul.nav.nav-tabs li.active a,
+  .wrapper header.page-header ul.nav.nav-tabs li.active a {
+    border-bottom: solid 1px #cccccc;
+    border-radius: 0;
+    margin-bottom: unset;
+  }
+
+  .wrapper div.page-header ul.nav.nav-tabs li:last-child a,
+  .wrapper header.page-header ul.nav.nav-tabs li:last-child a {
+    border-radius: 0 4px 4px 0;
+  }
+
+  .wrapper div.page-header ul.nav.nav-tabs li:first-child a,
+  .wrapper header.page-header ul.nav.nav-tabs li:first-child a {
+    border-radius: 4px 0 0 4px;
+  }
+}
+
+@media screen and (max-width: 23.75em) {
+
+  .wrapper div.page-header ul.nav.nav-tabs li:last-child a,
+  .wrapper header.page-header ul.nav.nav-tabs li:last-child a {
+    word-break: break-all;
+    hyphens: auto;
+  }
+}
+
+@media screen and (min-width: 32.5em) and (max-width: 73em) {
+
+  .wrapper div.page-header ul.nav.nav-tabs,
+  .wrapper header.page-header ul.nav.nav-tabs {
+    display: flex;
+    border-bottom: solid 1px #cccccc;
+    margin-bottom: 10px;
+  }
+
+  .wrapper div.page-header ul.nav.nav-tabs li a,
+  .wrapper header.page-header ul.nav.nav-tabs li a {
+    display: flex;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-right: 12px;
+  }
 }
 
 .page-header .content_action {
@@ -1869,15 +1960,10 @@ a.ontario-button.ontario-button--tertiary:hover {
   margin-top: 40px;
 }
 
-.res-additional-info-thead {
-  display: table-header-group;
-}
-
-.res-additional-info-table {
-  display: table;
-  line-height: 22.85px;
-  font-size: 16px;
-  border-bottom: unset;
+.table-condensed > tbody > tr > th,
+.table-condensed > thead > tr > th,
+.table-condensed > tbody > tr > td {
+  padding: 12px;
 }
 
 .res-additional-info-thead .res-additional-info-th,
@@ -1912,17 +1998,6 @@ a.ontario-button.ontario-button--tertiary:hover {
   padding: 12px;
   border-bottom: 1px solid #ddd;
   width: 50%;
-}
-
-.table-condensed > tbody > tr > th,
-.table-condensed > thead > tr > th,
-.table-condensed > tbody > tr > td {
-  padding: 12px;
-}
-
-.module-resource {
-  border-bottom: unset;
-  z-index: 1;
 }
 
 .action-group {
@@ -2175,9 +2250,7 @@ screen and (min-width: 96em) {
 }
 
 .restricted_under_review_packages {
-  display: flex;
   align-items: baseline;
-  flex-wrap: wrap;
   margin-top: 10px;
 }
 
@@ -2188,7 +2261,6 @@ screen and (min-width: 96em) {
 .packages_not_available {
   font-size: 16px;
   font-weight: 600;
-  margin-right: 10px;
 }
 
 .packages_access_level {
@@ -2388,7 +2460,6 @@ h2.ontario-small {
 
 #about h2[id].first-h2,
 .article-container h2[id].first-h2 {
-  margin-top: 0;
   border-top: 0;
   padding-top: 0;
 }
@@ -3249,51 +3320,63 @@ label::after {
    Dataset Page - Additional info table
    ======================================================================== */
 
-.package-additional-info-thead {
-  display: none;
-}
-
 .package-additional-info-td,
-.package-additional-info-th {
+.package-additional-info-th,
+.res-additional-info-th,
+.res-additional-info-td {
   display: table-cell;
+  word-wrap: break-word;
 }
 
-.dataset-label.package-additional-info-th {
+.dataset-label.package-additional-info-th,
+.res-additional-info-th {
   font-weight: 700;
   line-height: 32.6px;
-  color: #4d4d4d;
+  color: #1a1a1a;
   width: 40%;
   padding: 5px 15px 5px 30px;
 }
 
-.package-additional-info-tr {
+.package-additional-info-tr,
+.res-additional-info-tr {
   display: table-row;
 }
 
-.package-additional-info-tbody {
+.package-additional-info-tbody,
+.res-additional-info-tbody {
   display: table-row-group;
 }
 
-.package-additional-info-table {
+.package-additional-info-table,
+.res-additional-info-table {
   background-color: #f9f9f9;
   border: none;
   display: table;
+  width: 100%;
 }
 
 .dataset-details.package-additional-info-td {
   padding: 5px 15px 5px 0;
   font-weight: 400;
   line-height: 32.6px;
-  color: #4d4d4d;
+  color: #1a1a1a;
 }
 
 @media screen and (max-width: 40em) {
-  .dataset-details.package-additional-info-td {
+
+  .dataset-details.package-additional-info-td,
+  .res-additional-info-td {
     padding: 5px 0;
   }
 
-  .dataset-label.package-additional-info-th {
+  .dataset-label.package-additional-info-th,
+  .res-additional-info-th {
     padding: 5px 15px 5px 15px;
     width: 50%;
   }
+}
+
+.notes.embedded-content.dataset-font p a,
+.dataset-details.package-additional-info-td > a {
+  word-break: break-word;
 }

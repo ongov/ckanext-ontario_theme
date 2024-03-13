@@ -6,7 +6,7 @@
 
 {% block primary %}
   <article class="module package-z-index">
-    <header class="page-header col-xs-12 col-lg-8">
+    <header class="page-header ontario-columns ontario-small-12 ontario-large-8">
       <div class="content_action">
         {% block content_action %}
           {% if h.check_access('package_update', {'id':pkg.id }) %}
@@ -25,7 +25,7 @@
       </ul>
     </header>
     {% block primary_content_inner %}
-      <div class="col-lg-8 col-xs-12">
+      <div class="ontario-columns ontario-small-12 ontario-large-8">
         {% if pkg.get("asset_type") == "ai" %}
           <div class="odc-alert odc-alert-algorithm">
             <p class="ontario-h5">
@@ -91,9 +91,7 @@
         {% if pkg.resources and pkg['access_level'] == 'open' %}
           {% snippet "package/snippets/report_an_error.html" %}
         {% endif %}
-        <div class="row">
-          <div class="col-md-12">{% snippet "home/snippets/ontario_theme_contact_us.html" %}</div>
-        </div>
+        <div class="ontario-small-12">{% snippet "home/snippets/ontario_theme_contact_us.html" %}</div>
       </div>
     {% endblock primary_content_inner %}
   </article>
