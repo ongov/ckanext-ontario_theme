@@ -2,6 +2,10 @@ resources:
   webhooks:
     - webhook: ckan_ontario_theme_Webhook
       connection: ckan_ontario_theme_Webhook_SC
+      filters:
+        - path: repository.fields['default_branch']
+          value: develop
+
 
 parameters: 
   - name: Environment
