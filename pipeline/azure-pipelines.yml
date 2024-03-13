@@ -5,8 +5,7 @@ resources:
       filters:
         - path: ref
           value: "refs/heads/main"
-
-
+          
 parameters: 
   - name: Environment
     displayName: Environment
@@ -28,17 +27,19 @@ parameters:
       - no
 
 trigger:
+  batch: true
   branches:
     include:
       - main
       - develop
-  tags:
-    exclude:
-      - "*"
   paths:
     exclude:
       - /setup.py
+  tags:
+    exclude:
+    - '*'
 pr: none
+
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -69,42 +70,37 @@ stages:
      - ${{ if eq(parameters.Increment_Version, 'major') }}:
        - script: |
            set -e
-           export APP_VERSION=`bump -M setup.py`
+           APP_VERSION=`bump -M setup.py`
            echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
-           git tag "v$APP_VERSION"
          displayName: 'Incrementing Major Version'
          name: Commit
      - ${{ elseif eq(parameters.Increment_Version, 'minor') }}:
        - script: |
            set -e
-           export APP_VERSION=`bump -m setup.py`
+           APP_VERSION=`bump -m setup.py`
            echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
-           git tag "v$APP_VERSION"
          displayName: 'Incrementing Minor Version'
          name: Commit
      - ${{ elseif eq(parameters.Increment_Version, 'reset') }}:
        - script: |
            set -e
-           export APP_VERSION=`bump -r setup.py`
+           APP_VERSION=`bump -r setup.py`
            echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
-           git tag "v$APP_VERSION"
          displayName: 'Application Version Reset'
          name: Commit
      - ${{ elseif eq(parameters.Increment_Version, 'patch')  }}:
        - script: |
            set -e
-           export APP_VERSION=`bump -p setup.py`
+           APP_VERSION=`bump -p setup.py`
            echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
-           git tag "v$APP_VERSION"
          displayName: 'Incrementing Patch Version'
          name: Commit
      - ${{ else  }}:
        - script: |
            set -e
            export PYTHONWARNINGS="ignore"
-           export APP_VERSION=`python3 setup.py --version`
+           APP_VERSION=`python3 setup.py --version`
            echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
-           git tag "v$APP_VERSION"
          displayName: 'Incrementing Patch Version'
          name: Commit
      - script: |
@@ -125,6 +121,7 @@ stages:
          git config user.name "ods-devops-automation"
          git add setup.py
          git commit -m 'Version update by Build Id: $(Build.BuildNumber) on $(Agent.Id)'
+         git tag "v$(Commit.VarKey)"
          git push origin HEAD:$(Build.SourceBranchName)
          git push --tags origin HEAD:$(Build.SourceBranchName)    
        displayName: "Commiting Final Changes"
