@@ -1966,38 +1966,9 @@ a.ontario-button.ontario-button--tertiary:hover {
   padding: 12px;
 }
 
-.res-additional-info-thead .res-additional-info-th,
-.res-additional-info-thead .res-additional-info-td {
-  border-bottom-width: 2px;
-  font-weight: 700;
-}
-
-.res-additional-info-th {
-  font-weight: 700;
-}
-
-.res-additional-info-tr {
-  display: table-row;
-}
-
-.res-additional-info-tbody {
-  display: table-row-group;
-}
-
-.res-additional-info-tbody .res-additional-info-tr:nth-of-type(2n+1) {
-  background-color: #f9f9f9;
-}
-
-.res-additional-info-tbody .res-additional-info-tr:nth-of-type(2n) {
-  background-color: #f2f2f2;
-}
-
-.res-additional-info-th,
-.res-additional-info-td {
-  display: table-cell;
-  padding: 12px;
-  border-bottom: 1px solid #ddd;
-  width: 50%;
+.module-resource {
+  border-bottom: unset;
+  z-index: 1;
 }
 
 .action-group {
