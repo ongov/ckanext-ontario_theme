@@ -18,3 +18,7 @@
     </div>
   {%- endfor -%}
 {% endblock basic_fields %}
+
+{% block add_button %}
+  <button class="btn btn-primary" name="save" value="go-dataset-step2" type="submit">GOTODICT {{ _('Add') }}</button>
+{% endblock %}

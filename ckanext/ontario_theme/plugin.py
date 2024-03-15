@@ -31,6 +31,11 @@ import functools
 
 from ckanext.ontario_theme.resource_upload import ResourceUpload
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
+#from ckanext.ontario_theme.resource import CreateView as OntarioThemeResourceCreateView
+#from ckanext.scheming import helpers, validation, logic, loader, views
+# from ckanext.ontario_theme import resource
+from ckanext.ontario_theme.resource import CreateView as OntarioThemeResourceCreateView
+from ckan.views.resource import EditResourceViewView
 from ckanext.ontario_theme.organization import index as organization_index
 
 # For Image Uploader
@@ -1136,6 +1141,7 @@ type data_last_updated
 
         blueprint = Blueprint(self.name, self.__module__)
         blueprint.template_folder = u'templates'
+        print('HEJ get blueprint!!')
 
         @blueprint.before_request
         def before_request():
@@ -1160,6 +1166,19 @@ type data_last_updated
         for rule in rules:
             blueprint.add_url_rule(*rule)
         blueprint.add_url_rule('/dataset/new', view_func=OntarioThemeCreateView.as_view(str(u'new')), defaults={u'package_type': u'dataset'})
+        
+        # blueprint.add_url_rule(u'/new', view_func=OntarioThemeResourceCreateView.as_view(str(u'new2')))
+        # blueprint.add_url_rule(
+        #     u'/new_resource/<id>', view_func=OntarioThemeResourceCreateView.as_view(str(u'new_resource'))
+        # )
+        blueprint.add_url_rule(
+            u'/dataset/<id>/resource/new', 
+            view_func=OntarioThemeResourceCreateView.as_view(str(u'edit_step2')),
+            defaults={u'package_type': u'dataset'}
+        )
+        # blueprint.add_url_rule(
+        #     u'/dataset/<id>/resource/<resource_id>/edit', view_func=EditResourceViewView.as_view(str(u'edit_step2'))
+        # )
         blueprint.add_url_rule(u'/organization', view_func=organization_index, strict_slashes=False)
         return blueprint
 
