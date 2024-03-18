@@ -33,6 +33,9 @@ import functools
 from ckanext.ontario_theme.resource_upload import ResourceUpload
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
 from ckanext.ontario_theme.organization import index as organization_index
+from ckanext.ontario_theme.datastore import DictionaryView
+
+from ckanext.validation.helpers import dump_json_value
 
 # For Image Uploader
 #from ckan.controllers.home import CACHE_PARAMETERS
@@ -185,6 +188,13 @@ def resource_display_name(resource_dict):
 
 ckan.lib.helpers.resource_display_name = resource_display_name
 
+def get_validation_report(resource_id):
+    validation = toolkit.get_action(u"resource_validation_show")(
+            {u'ignore_auth': True}, {u"resource_id": resource_id}
+        )
+    errors = validation['report']
+    errors = json.loads(errors)
+    return errors
 def trigger_ckanext_validation(resource_id, pkg_id):
     ''' Calls ckanext-validation action function resource_validataion_run
     to validate the CKAN UI dictionary of a resource, and passes in the 
@@ -1126,7 +1136,9 @@ type data_last_updated
                 'ontario_theme_get_facet_options': get_facet_options,
                 'ontario_theme_site_title': site_title,
                 'ontario_theme_trigger_ckanext_validation': trigger_ckanext_validation,
-                'ontario_theme_get_current_year': get_current_year
+                'ontario_theme_get_current_year': get_current_year,
+                'ontario_theme_get_validation_report': get_validation_report,
+                'dump_json_value': dump_json_value
                 }
 
     # IBlueprint
@@ -1162,6 +1174,8 @@ type data_last_updated
             blueprint.add_url_rule(*rule)
         blueprint.add_url_rule('/dataset/new', view_func=OntarioThemeCreateView.as_view(str(u'new')), defaults={u'package_type': u'dataset'})
         blueprint.add_url_rule(u'/organization', view_func=organization_index, strict_slashes=False)
+        blueprint.add_url_rule(u'/dataset/<id>/dictionary/<resource_id>',view_func=DictionaryView.as_view(str(u'dictionary'))
+)
         return blueprint
 
     # IUploader

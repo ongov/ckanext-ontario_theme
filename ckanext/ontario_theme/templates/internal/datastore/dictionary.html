@@ -2,7 +2,7 @@
 
 {% import 'macros/form.html' as form %}
 
-{% block subtitle %}{{ h.dataset_display_name(pkg) }} - {{ h.resource_display_name(res) }}{% endblock %}
+{% block subtitle %}{{ h.dataset_display_name(pkg) }} - {{ h.resource_display_name(res) }}{% endblock subtitle %}
 
 {% block primary_content_inner %}
 
@@ -16,16 +16,14 @@
             position=loop.index 
           %}
       {% endfor %}
-    {% endblock %}
+    {% endblock dictionary_form %}
     <button class="btn btn-primary" name="save" type="submit">
-      <i class="fa fa-book"></i> {{ _('Save') }}
+      <i class="fa fa-book"></i> {{ _('Run validator to continue') }}
     </button>
   </form>
-<p></p>
-  {% set validate_action = h.ontario_theme_trigger_ckanext_validation(res.id, pkg.id) %}
-  <form method="get" action="{{ validate_action }}" >
-    <button class="btn btn-primary" name="save" type="submit">
-      Validate
-    </button>
-  </form>
-{% endblock %}
+  {% if res.validation_status and res.validation_status == 'failure' %}
+    {% set validation_report = h.ontario_theme_get_validation_report(res.id) %}
+    {% snippet 'validation/snippets/validation_report_dialog.html', validation_report=h.dump_json_value(validation_report) %}
+    <div><a class="btn btn-primary" href="#validation-report" data-module="modal-dialog" data-module-div="validation-report-dialog"> Show validate modal </a></div>
+  {% endif %}
+{% endblock primary_content_inner %}
