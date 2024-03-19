@@ -1,8 +1,8 @@
 {% set package_name = h.ontario_theme_extract_package_name(h.current_url()) %}
 {% set survey_params = { "page": h.current_url(), "id": package_name } %}
 <div class="ontario-callout ontario-border-highlight--purple">
-  <h2 class="ontario-callout__title ontario-h5">{{ _("Report an error with this data") }}</h2>
+  <h2 class="ontario-callout__title ontario-h5">{{ _("Report an issue with this data") }}</h2>
   <p>
-    {%- trans params=survey_params|urlencode -%} Fill out a <a href="https://www.ontario.ca/form/report-data-error?{{ params }}">Data Catalogue error report</a> to let us know if there are issues with the resources in this dataset.{%- endtrans -%}
+    {%- trans params=survey_params|urlencode -%}<a href="https://www.ontario.ca/form/report-data-issue-ontario-data-catalogue?{{ params }}">Submit a report</a> if you are experiencing issues with the data resources in this dataset.{%- endtrans -%}
   </p>
 </div>

@@ -1,5 +1,12 @@
 {% ckan_extends %}
 
+{% block meta_description -%}
+  {% if h.get_translated(c.group_dict,"description") %}
+    <meta name="description"
+          content="{{ h.markdown_extract(h.get_translated(c.group_dict,'description')) }}">
+  {% endif %}
+{% endblock meta_description -%}
+
 {% block subtitle %}
   {{ h.get_translated(c.group_dict,"title") }} {{ g.template_title_delimiter }} {{ _('Groups') }}
 {% endblock subtitle %}
@@ -8,15 +15,47 @@
   <li>{% link_for _('Groups'), named_route=group_type+'.index' %}</li>
 {% endblock breadcrumb_content %}
 
-{% block content_action %}
-  {% if h.check_access('group_update', {'id': c.group_dict.id}) %}
-    {% link_for _('Edit'), named_route='group.edit', id=c.group_dict.name, class_='btn btn-default btn-secondary', icon='wrench', named_route=group_type + '.edit' %}
-  {% endif %}
-{% endblock content_action %}
+{% block primary %}
+  <div class="primary ministry-page">
+    {% block primary_content %}
+      <article class="module">
+        {% block page_header %}
+          <div class="ontario-columns page-header ontario-small-12 ministry-page-header">
+            <div class="content_action">
+              {% block content_action %}
+                {% if h.check_access('group_update', {'id': c.group_dict.id}) %}
+                  {% link_for _('Edit'), named_route='group.edit', id=c.group_dict.name, class_='btn btn-default btn-secondary', icon='wrench', named_route=group_type + '.edit' %}
+                {% endif %}
+              {% endblock content_action %}
+            </div>
+            {% snippet "group/snippets/info.html", group=c.group_dict, show_nums=true, group_type=group_type %}
+            <ul class="nav nav-tabs">
+              {# Override CKAN: Do not pass any icons to nav bar menu items #}
+              {% block content_primary_nav %}
+                {{ h.build_nav_icon(group_type + '.read', _('Assets'), id=group_dict.name) }}
+                {{ h.build_nav_icon(group_type + '.activity', _('History'), id=group_dict.name, offset=0) }}
+                {{ h.build_nav_icon(group_type + '.about', _('More information'), id=group_dict.name) }}
+              {% endblock content_primary_nav %}
+            </ul>
+          </div>
+        {% endblock page_header %}
 
-{# Override CKAN: Do not pass any icons to nav bar menu items #}
-{% block content_primary_nav %}
-  {{ h.build_nav_icon(group_type + '.read', _('Assets'), id=group_dict.name) }}
-  {{ h.build_nav_icon(group_type + '.activity', _('History'), id=group_dict.name, offset=0) }}
-  {{ h.build_nav_icon(group_type + '.about', _('About'), id=group_dict.name) }}
-{% endblock content_primary_nav %}
+        <div class="ontario-columns">
+          {% if self.page_primary_action() | trim %}
+            <div class="page_primary_action">
+              {% block page_primary_action %}
+              {% endblock page_primary_action %}
+            </div>
+          {% endif %}
+          {% block primary_content_inner %}
+          {% endblock primary_content_inner %}
+          {% block organization_facets %}
+          {% endblock organization_facets %}
+        </div>
+      </article>
+    {% endblock primary_content %}
+  </div>
+{% endblock primary %}
+
+{% block secondary %}
+{% endblock secondary %}

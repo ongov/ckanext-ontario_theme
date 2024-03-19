@@ -1,7 +1,7 @@
 {#
   Custom snippet to display access level information to users
 #}
-{% set directive_url=_("https://www.ontario.ca/page/ontarios-digital-and-data-directive-2021") %}
+{% set directive_url = _("https://www.ontario.ca/page/ontarios-digital-and-data-directive-2021") %}
 {% if h.scheming_field_by_name(schema.dataset_fields, 'access_level') and pkg.access_level %}
   {% if pkg['access_level'] == 'restricted' or pkg['access_level'] == 'under_review' %}
     <div class="odc-alert odc-alert-{{ pkg['access_level'] }}">
@@ -15,28 +15,23 @@
           {% endtrans %}
         </p>
       {% elif pkg['access_level'] == 'restricted' %}
-        <h2 class="ontario-h5">{{ _("Data Not Available") }}</h2>
+        <h2 class="ontario-h5">{{ _("Data restricted") }}</h2>
         <p>
           {% trans directive_url=directive_url %}
             This data is not and will not be made available.
-            Data in this record cannot be released because of legal, privacy, security,
-            confidentiality or commercially-sensitive reasons, as outlined by the
+            The data was reviewed and cannot be released to the public because of reasons outlined by the
             <a href="{{ directive_url }}">Digital and Data Directive</a>.
           {% endtrans %}
         </p>
         <span>
-          <strong>{{ _("Why?") }}</strong>
+          <strong>{{ _("Restriction") }}{{ _(":") }}</strong>
           {{ h.scheming_choices_label(h.scheming_field_choices(h.scheming_field_by_name(schema.dataset_fields,"exemption")),pkg['exemption']) }}
           - {{ h.scheming_language_text(pkg['exemption_rationale']) }}
         </span>
       {% elif pkg['access_level'] == 'under_review' %}
-        <h2 class="ontario-h5">{{ _("Data Not Available") }}</h2>
+        <h2 class="ontario-h5">{{ _("Data under review") }}</h2>
         <p>
-          {% trans directive_url=directive_url %}
-            This data might be made available in the future. We are reviewing the data in this record to determine if it can be
-            made open.
-            <a href="{{ directive_url }}">[Learn more]</a>
-          {% endtrans %}
+          {{ _("This data is not available right now. We are reviewing the data to determine if it can be made open to the public.") }}
         </p>
       {% endif %}
     </div>

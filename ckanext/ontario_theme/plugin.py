@@ -22,7 +22,6 @@ import ckan.lib.helpers as helpers
 import ckan.lib.formatters as formatters
 from ckan.lib.helpers import core_helper
 
-from datetime import datetime
 from natsort import humansorted
 
 from ckan.model import Package
@@ -689,7 +688,7 @@ def order_package_facets(orig_ordered_dict):
 
 
 def get_current_year():
-    return datetime.today().strftime('%Y')
+    return datetime.datetime.today().strftime('%Y')
 
 
 def extract_package_name(url):
@@ -1220,7 +1219,7 @@ type data_last_updated
         '''
         sort = search_params.get('sort')
         if sort and 'titles' in sort:
-            title_sorted = 'fr' if h.lang() == 'fr' else 'string'
+            title_sorted = 'fr' if h.lang() == 'fr' else 'en'
             new_sort = sort.replace('titles', 'title_{}'.format(title_sorted))
             search_params.update({"sort": new_sort})
         return num_resources_filter_scrub(search_params)
@@ -1235,6 +1234,7 @@ type data_last_updated
 
         title = json.loads(pkg_dict.get('title_translated', '{}'))
         pkg_dict['title_fr'] = title.get('fr', '')
+        pkg_dict['title_en'] = title.get('en', '')
 
         # Index some organization extras fields from fluent/scheming.
         organization_dict = toolkit.get_action('organization_show')(data_dict={'id': pkg_dict['organization']})
