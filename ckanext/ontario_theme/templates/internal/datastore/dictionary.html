@@ -17,13 +17,13 @@
           %}
       {% endfor %}
     {% endblock dictionary_form %}
-    <button class="btn btn-primary" name="save" type="submit">
-      <i class="fa fa-book"></i> {{ _('Run validator to continue') }}
+    <button class="ontario-button ontario-button--primary" name="save" type="submit">
+      {{ _('Run validator to continue') }}
     </button>
   </form>
   {% if res.validation_status and res.validation_status == 'failure' %}
     {% set validation_report = h.ontario_theme_get_validation_report(res.id) %}
-    {% snippet 'validation/snippets/validation_report_dialog.html', validation_report=h.dump_json_value(validation_report) %}
-    <div><a class="btn btn-primary" href="#validation-report" data-module="modal-dialog" data-module-div="validation-report-dialog"> Show validate modal </a></div>
+    {% snippet 'validation/snippets/validation_report_dialog.html', validation_report=validation_report %}
+    <div><a class="ontario-button ontario-button--secondary" href="#validation-report" data-module="modal-dialog" data-module-div="validation-report-dialog"> Show validation results modal </a></div>
   {% endif %}
 {% endblock primary_content_inner %}
