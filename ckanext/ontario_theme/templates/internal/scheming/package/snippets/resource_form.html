@@ -19,6 +19,10 @@
   {%- endfor -%}
 {% endblock basic_fields %}
 
+{# Empty again_button block to remove "Save & add another" button #}
+{% block again_button %}
+{% endblock %}
+
 {% block add_button %}
-  <button class="btn btn-primary" name="save" value="go-dataset-step2" type="submit">GOTODICT {{ _('Add') }}</button>
+  <button class="btn btn-primary" name="save" value="go-dataset-step2" type="submit">Run validator to continue</button>
 {% endblock %}
