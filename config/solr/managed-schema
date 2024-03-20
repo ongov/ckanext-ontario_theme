@@ -114,7 +114,7 @@
   <field name="revision_id" type="string" omitNorms="true" indexed="true" stored="true"/>
   <field name="site_id" type="string" indexed="true" required="true" stored="true"/>
   <field name="state" type="string" omitNorms="true" indexed="true" stored="true"/>
-  <field name="tags" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="tags" type="text_sort_case_insensitive" multiValued="true" indexed="true" stored="true"/>
   <field name="text" type="text" multiValued="true" indexed="true" stored="false"/>
   <field name="title" type="text" indexed="true" stored="true"/>
   <field name="title_en" type="text_sort_case_insensitive" stored="false"/>
