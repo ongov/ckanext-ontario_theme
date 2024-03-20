@@ -8,6 +8,30 @@
 
   {% set action = h.url_for('datastore.dictionary', id=pkg.name, resource_id=res.id) %}
 
+  {% if res.validation_status and res.validation_status == 'failure' %}
+    <div class="ontario-alert ontario-alert--error">
+      <div class="ontario-alert__header">
+          <div class="ontario-alert__header-icon">
+              <svg class="ontario-icon" alt="" aria-hidden="true" focusable="false" sol:category="primary" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+                  <use href="#ontario-icon-alert-error"></use>
+              </svg>
+          </div>
+          <h2 class="ontario-alert__header-title ontario-h4">There is a problem</h2>
+      </div>
+      <div class="ontario-alert__body">
+          <p>Data dictionary didn’t match the uploaded resource file.
+          <a href="#validation-report" data-module="modal-dialog" data-module-div="validation-report-dialog">Show validation report modal </a></p>
+          <p>You can either:</p>
+          <ul>
+            <li>Edit the data dictionary information on this page or</li>
+            <li>Upload a corrected data resource file on Step 2</li>
+          </ul>
+      </div>
+    </div>
+    {% set validation_report = h.ontario_theme_get_validation_report(res.id) %}
+    {% snippet 'validation/snippets/validation_report_dialog.html', validation_report=validation_report %}
+  {% endif %}
+
   <form method="post" action="{{ action }}" >
     {% block dictionary_form %}
       {% for field in fields %}
@@ -21,9 +45,4 @@
       {{ _('Run validator to continue') }}
     </button>
   </form>
-  {% if res.validation_status and res.validation_status == 'failure' %}
-    {% set validation_report = h.ontario_theme_get_validation_report(res.id) %}
-    {% snippet 'validation/snippets/validation_report_dialog.html', validation_report=validation_report %}
-    <div><a class="ontario-button ontario-button--secondary" href="#validation-report" data-module="modal-dialog" data-module-div="validation-report-dialog"> Show validation results modal </a></div>
-  {% endif %}
 {% endblock primary_content_inner %}
