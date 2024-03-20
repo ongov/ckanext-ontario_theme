@@ -219,7 +219,7 @@ stages:
     - Build
     - IST_Deploy
     - UAT_Deploy
-  condition: and(succeeded(), eq('${{ parameters.environment }}', 'prd'))
+  condition: succeeded()
   variables:
     - name: app_version
       value: $[ stageDependencies.Build.Build.outputs['Commit.VarKey'] ]
