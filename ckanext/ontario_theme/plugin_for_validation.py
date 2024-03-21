@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 from typing import Type, Any, Dict
-# Dict not needed for python 3.10 (https://stackoverflow.com/questions/67701167/how-to-use-quoted-type-annotations-for-base-class-in-python-3-8)
 
 from .column_types import ColumnType, _standard_column_types
 
