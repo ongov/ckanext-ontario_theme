@@ -86,6 +86,8 @@ class DictionaryView(MethodView):
             )
         ) """
 
+        # Reformat dictionary into structure used by ckanext-validation and
+        # replace PostgreSQL data types with Frictionless equivalents
         ui_dict = reformat_ui_dict(ui_dict_fields["fields"])
 
         for row in dict_fields["fields"]:
@@ -95,6 +97,8 @@ class DictionaryView(MethodView):
                     item for item in ui_dict["fields"] if item.get("name") == col_name
                 ]
 
+        # Push the Frictionless data dictionary to database so that
+        # ckanext-validation can retrieve it in _run_sync_validation (logic.py)
         get_action("datastore_create")(
             None,
             {
@@ -103,6 +107,7 @@ class DictionaryView(MethodView):
                 "fields": dict_fields.get("fields"),
             },
         )
+        # Trigger ckanext-validation
         get_action("resource_validation_run")(
             {"ignore_auth": True},
             {"resource_id": resource_id, "async": False, "ui_dict": ui_dict},
