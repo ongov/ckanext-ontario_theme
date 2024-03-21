@@ -47,8 +47,6 @@ import ckan.lib.helpers as h
 import logging
 log = logging.getLogger(__name__)
 
-# For ckanext-validation
-from .plugin_for_validation import get_datastore_info
 
 def image_uploader():
     '''View function that renders the image uploader form.
