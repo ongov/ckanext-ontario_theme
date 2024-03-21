@@ -35,6 +35,8 @@ cd ckanext-ontario_theme/scripts
 ## Solr Installation
 
 Bash script: `setup_solr.sh`
+
+
 Version: Solr 8.11.2
 
 This script requires the `managed-schema` config file, customized for Ontario CKAN. This config file is stored in the `config/solr` directory of this repository and copied into the Solr config folder (`/opt/solr/server/solr/configsets/_default/`) during the script execution.
@@ -53,31 +55,34 @@ Take note, this script handles Solr installation, but does not rebuild the index
 Note: You may see a message stating `[sudo] password for ckan29: id: ‘solr’: no such user` after the tar file extraction. This is expected and you can ignore it.
 
 **Step 3:** Unset the `SUDOPASS` environment variable with the following command:
+
 ```
 unset SUDOPASS
 ```
 
 ### Checking Solr Status
+
 You can verify the installation success via command line or a browser.
 
-- **Command Line Checks:**  
-   - Confirm response status is 200:  
-     ```
-     curl -s -o /dev/null -I -w '%{http_code}' http://{ip_address}:8983/solr/admin/cores?action=STATUS
-     ```
-   - Verify Solr node is found:  
-     ```
-     sudo /etc/init.d/solr status
-     ```
-   - Check Solr service is running:  
-     ```
-     sudo service solr status
-     ```
+- **Command Line Checks:**
 
-- **Browser Checks:**  
-   - Visit `http://127.0.0.1:8983/solr/` to see if Solr is running.
-   - Check the Core Admin menu for the CKAN core with `instanceDir /var/solr/data/ckan`.
-   - Verify that the schema properties reflect the Ontario theme (Unique Key Field should be `index_id`).
+  - Confirm response status is 200:
+    ```
+    curl -s -o /dev/null -I -w '%{http_code}' http://{ip_address}:8983/solr/admin/cores?action=STATUS
+    ```
+  - Verify Solr node is found:
+    ```
+    sudo /etc/init.d/solr status
+    ```
+  - Check Solr service is running:
+    ```
+    sudo service solr status
+    ```
+- **Browser Checks:**
+
+  - Visit `http://127.0.0.1:8983/solr/` to see if Solr is running.
+  - Check the Core Admin menu for the CKAN core with `instanceDir /var/solr/data/ckan`.
+  - Verify that the schema properties reflect the Ontario theme (Unique Key Field should be `index_id`).
 
 ## CKAN & Ontario Theme
 
@@ -97,7 +102,7 @@ The script needs Solr, postgreSQL and relevant databases to be setup. These step
 
 For configuration, files in `config/` directory are used.
 
-* `config/ckan/ckan.ini` file is copied to`/etc/ckan/default/ckan.ini`, and modified during the course of execution of the script
+* `config/ckan/ckan.ini` file is copied to `/etc/ckan/default/ckan.ini`, and modified during the course of execution of the script
 * `config/gtm/gtm.html` and `config/gtm/gtm_ns.html` are copied to `/usr/lib/ckan/default/src/ckanext-ontario_theme/ckanext/ontario_theme/templates/internal/`
 * `config/nginx/local_ckan_ssl` is copied to `/etc/nginx/sites-available/`
 * `config/supervisor/ckan-uwsgi.conf` and `config/supervisor/ckan-worker.conf` are copied to `/etc/supervisor/conf.d/`
@@ -107,9 +112,7 @@ For configuration, files in `config/` directory are used.
 **Command line:**
 
 1. Do the steps common to the scripts in [common steps](#common-steps)
-
 2. Setup Solr8 locally as described in [Solr Installation](#solr-installation)
-
 3. Export your sudo password as an environment variable named `SUDOPASS`:
 
 ```bash
@@ -149,31 +152,37 @@ Check ckan status by going to `localhost` in a browser
 The `load_organization_data.py` script enables you to load organization data into your application via the CKAN API. Please fulfill the necessary prerequisites and follow the given instructions before running the script.
 
 ### Prerequisites
+
 - Python 3.x
 - Requests library (install via `pip install requests`)
 
 ### Script Setup
+
 1. Clone the repository containing the script.
 2. Navigate to the repository directory and install the required dependencies by running:
+
 ```
 pip install -r requirements.txt
 ```
 
 ### Script Configuration
+
 1. Obtain an API key from your CKAN application. You can find this key in the CKAN user settings at `http://localhost/user/edit/admin`. Make sure you're logged in as an administrator.
 2. Open the `load_organization_data.py` script in a text editor.
 3. Find the `api_token` variable in the script and replace the empty string with your API key:
+
 ```python
 
 api_token = "your_api_key_here"
 
 ```
+
 4. Run the `load_organization_data.py` script.
 
-
 ### Known Issues
+
 **Script Doesn't Run (load_organization_data.py)**
-If the script starts to run, but throws `simplejson.errors.JSONDecodeError` it might be because you're not connected to VPN. Try connecting to your VPN connection and rerunning the script. 
+If the script starts to run, but throws `simplejson.errors.JSONDecodeError` it might be because you're not connected to VPN. Try connecting to your VPN connection and rerunning the script.
 
 **Storage Issues (M1)**
 If you receive a message about not having enough disk space left while running the load_organization_data.py script or during any of the other steps, follow the troublshooting steps in the links below to regain some space.
@@ -187,9 +196,11 @@ Breakdown of the steps:
 1. Delete some data from the VM, so you have around 1GB of free space.
 2. Use df -h to check if there's free space.
 3. On the VM, install gparted software.
+
 ```
    sudo apt-get install gparted -y
 ```
+
 4. Start gparted. gparted is a linux disk management utility. What you will see is that the disk is 10GB but it can be expanded to 40GB and that space is not occupied. Extend your disk to 40GB and apply the settings.
 5. The VM will reboot, and your Ubuntu disk will now be 40GB.
 6. You can now run the data loading scripts.
