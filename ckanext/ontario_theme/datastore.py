@@ -113,4 +113,16 @@ class DictionaryView(MethodView):
             {"resource_id": resource_id, "async": False, "ui_dict": ui_dict},
         )
 
+        # Get status of validation to submit
+        # to xloader when status is successful
+        status = get_action(u"resource_validation_show")(
+            {u'ignore_auth': True},
+            {u"resource_id": resource_id}
+        )
+
+        if status['status'] == 'success':
+            get_action("xloader_submit")(
+                None,
+                {"resource_id": resource_id, "ignore_hash": True}
+            )
         return h.redirect_to("datastore.dictionary", id=id, resource_id=resource_id)
