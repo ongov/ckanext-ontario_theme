@@ -8,8 +8,6 @@ from .column_types import ColumnType, _standard_column_types
 # NB: # Dict not needed for python 3.10 (https://stackoverflow.com/questions/67701167/how-to-use-quoted-type-annotations-for-base-class-in-python-3-8)
 _column_types: Dict[str, Type[ColumnType]] = {}
 
-# NB: # Dict not needed for python 3.10 (https://stackoverflow.com/questions/67701167/how-to-use-quoted-type-annotations-for-base-class-in-python-3-8)
-
 
 def tabledesigner_column_type(field: Dict[str, Any]) -> ColumnType:
     """
