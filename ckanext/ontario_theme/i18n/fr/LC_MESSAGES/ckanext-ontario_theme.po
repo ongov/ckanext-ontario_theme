@@ -86,13 +86,6 @@ msgstr ""
 "href=\"https://ckan.org\"><abbr title=\"Comprehensive Knowledge Archive "
 "Network\">CKAN</abbr></a>"
 
-#: ckanext/ontario_theme/templates/header.html:89
-#: ckanext/ontario_theme/templates/home/help.html:3
-#: ckanext/ontario_theme/templates/home/help.html:6
-#: ckanext/ontario_theme/templates/home/help.html:12
-msgid "Help"
-msgstr "Aider"
-
 #: ckanext/ontario_theme/templates/internal/group/index.html:21
 msgid "Browse datasets and resources organized by a specific theme or topic."
 msgstr "Parcourez des ensembles de données et des ressources organisés par thème ou sujet spécifique."
@@ -188,10 +181,6 @@ msgstr "Catalogue de données"
 msgid "https://www.ontario.ca/form/survey-open-data-catalogue"
 msgstr "https://www.ontario.ca/fr/forme/enquete-catalogue-de-donnees-de-lontario"
 
-#: ckanext/ontario_theme/templates/external/home/help.html:23
-msgid "On this page"
-msgstr "Dans cette page"
-
 #: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
 msgid "Tell us what you want to know about <a href=\"%(url)s\">artificial intelligence (<abbr>AI</abbr>) assets</a> published to the Catalogue."
 msgstr "Dites-nous ce que vous aimeriez savoir au sujet des <a href=\"%(url)s\">biens d’intelligence artificielle (<abbr>IA<abbr>)</a> publiés au catalogue"
@@ -220,396 +209,6 @@ msgstr "Prenez un court sondage pour nous faire savoir ce que vous pensez du cat
 #: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
 msgid "Fill out our feedback form"
 msgstr "Remplissez notre formulaire de rétroaction"
-
-#: ckanext/ontario_theme/templates/external/home/help.html:14
-msgid ""
-"Need more help or want to learn more about the data catalogue?"
-msgstr "Vous avez besoin d’aide supplémentaire ou vous souhaitez en savoir plus sur le catalogue de données?"
-msgid "<a href=\"https://www.ontario.ca/feedback/contact-"
-"us?id=532365&nid=138269\">Contact us</a> — we’ll gladly answer any questions "
-"you might have!"
-msgstr "<a href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=532365&nid=138269\">Contactez-nous</a>; c’est avec plaisir que nous répondrons à toutes vos questions!"
-
-#: ckanext/ontario_theme/templates/home/help.html:17
-#: ckanext/ontario_theme/templates/home/help.html:30
-msgid "Q. I cannot find the dataset I’m looking for."
-msgstr "Q. Je n’arrive pas à trouver l’ensemble de données que je recherche."
-
-#: ckanext/ontario_theme/templates/home/help.html:18
-#: ckanext/ontario_theme/templates/home/help.html:65
-msgid "Q. How do I download datasets?"
-msgstr "Q. Comment télécharger des ensembles de données?"
-
-#: ckanext/ontario_theme/templates/home/help.html:19
-#: ckanext/ontario_theme/templates/home/help.html:90
-msgid "Q. What does the <strong>Preview</strong> button do?"
-msgstr "Q. À quoi sert le bouton <strong>Aperçu</strong>?"
-
-#: ckanext/ontario_theme/templates/home/help.html:20
-msgid "Q. How does the <strong>Graph</strong> button work?"
-msgstr "Q. Comment fonctionne l’option <strong>Graphique</strong>?"
-
-#: ckanext/ontario_theme/templates/home/help.html:21
-msgid "Q. How does the <strong>Map</strong> button work?"
-msgstr "Q. Comment fonctionne l’option <strong>Carte</strong>?"
-
-#: ckanext/ontario_theme/templates/home/help.html:22
-msgid "Q. What if I don't see a <strong>Preview</strong> button?"
-msgstr "Q. Et si je ne vois pas le bouton <strong>Aperçu</strong>?"
-
-#: ckanext/ontario_theme/templates/home/help.html:23
-msgid "Q. What if a dataset isn't available in the format I need?"
-msgstr "Q. Et si un ensemble de données n’est pas disponible dans le format dont j’ai besoin?"
-
-#: ckanext/ontario_theme/templates/home/help.html:24
-#: ckanext/ontario_theme/templates/home/help.html:178
-msgid "Q. How do I request an updated version of a dataset?"
-msgstr "Q. Comment puis-je demander une version mise à jour d’un ensemble de données?"
-
-#: ckanext/ontario_theme/templates/home/help.html:25
-msgid ""
-"Q. How do I report errors/issues or provide feedback (for example, "
-"inaccurate, outdated data)?"
-msgstr "Q. Comment puis-je signaler des erreurs/problèmes ou fournir une rétroaction (par exemple, données inexactes ou caduques)?"
-
-#: ckanext/ontario_theme/templates/home/help.html:26
-msgid "Q. Why isn't a dataset available?"
-msgstr "Q. Pourquoi un ensemble de données n’est-il pas disponible?"
-
-#: ckanext/ontario_theme/templates/home/help.html:27
-#: ckanext/ontario_theme/templates/home/help.html:221
-msgid "Q. Can you notify me when the catalogue is updated?"
-msgstr "Q. Pouvez-vous m’aviser des mises à jour du catalogue?"
-
-#: ckanext/ontario_theme/templates/home/help.html:33
-msgid ""
-"A. Try using the <a href=\"%(url)s\" target=\"_blank\" rel=\"noopener noreferrer\">catalogue search "
-"page</a>. Enter your keywords in the search bar and refine your search, "
-"using the filters provided."
-msgstr "R. Essayez d’utiliser la <a href=\"%(url)s\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">page de recherche du catalogue</a>. Entrez vos mots clés dans la barre de recherche et affinez votre recherche en utilisant les filtres proposés."
-
-
-
-
-#: ckanext/ontario_theme/templates/home/help.html:57
-msgid ""
-"<a href=\"https://www.ontario.ca/feedback/contact-"
-"us?id=14655&nid=74524\">Use our contact form</a> to tell us what data you"
-" are looking for. We will review your request and reply."
-msgstr "<a href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=532365&nid=138269\">Utilisez notre formulaire de contact</a> pour nous dire quelles sont les données que vous recherchez. Nous étudierons votre demande et vous enverrons une réponse."
-
-#: ckanext/ontario_theme/templates/home/help.html:68
-msgid ""
-"A. On each page in the catalogue, where data is available, you will find "
-"the data icon under the heading <strong>Data and Resources</strong>."
-msgstr "R. Sur chaque page du catalogue où les données sont disponibles, vous trouverez l’icône des données sous la rubrique <strong>Données et ressources</strong>."
-
-#: ckanext/ontario_theme/templates/home/help.html:71
-msgid ""
-"To the right of the data icon, you will find a either a "
-"<strong>Download</strong> or <strong>Open</strong> button."
-msgstr "À droite de l’icône des données, vous trouverez un bouton <strong>Télécharger</strong> ou <strong>Ouvrir</strong>."
-
-#: ckanext/ontario_theme/templates/home/help.html:74
-msgid "A screenshot of the data and resources section of the dataset description page. Each file in the dataset is listed. To the right of each file is a preview button and a download button. An arrow is overlaid onto the screeshot that points to the download button."
-msgstr "Capture d’écran de la rubrique de données et de ressources de la page de description de l’ensemble de données. Chaque fichier figurant dans l’ensemble de données est indiqué. À la droite de chaque fichier se trouvent un bouton Aperçu et un bouton Téléchargement. Une flèche surimposée sur la capture d’écran indique le bouton Téléchargement."
-
-#: ckanext/ontario_theme/templates/home/help.html:84
-msgid "A screenshot of the data and resources section of the dataset description page. Each file in the dataset is listed. To the right of each file name is an open button and an about button. An arrow is overlaid onto the screeshot that points to the open button."
-msgstr "Capture d’écran de la rubrique de données et de ressources de la page de description de l’ensemble de données. Chaque fichier figurant dans l’ensemble de données est indiqué. À la droite de chaque fichier se trouvent un bouton À propos et un bouton ouvrir. Une flèche surimposée sur la capture d’écran indique le bouton ouvrir."
-
-#: ckanext/ontario_theme/templates/home/help.html:96
-msgid "A screenshot of the data and resources section of the dataset description page. Each file in the dataset is listed. To the right of each file name is a preview button and a download button. An arrow is overlaid onto the screeshot that points to the preview button."
-msgstr "Capture d’écran de la rubrique de données et de ressources de la page de description de l’ensemble de données. Chaque fichier figurant dans l’ensemble de données est indiqué. À la droite de chaque fichier se trouvent un bouton Aperçu et un bouton Téléchargement. Une flèche surimposée sur la capture d’écran indique le bouton aperçu."
-
-#: ckanext/ontario_theme/templates/home/help.html:111
-msgid "A screenshot of the file description page. The file name, text description, and web address is found at the top. A visualization tool is found underneath that allows users to transform the contents of the file from spreadsheet to graph to map."
-msgstr "Capture d’écran de la page de description du fichier. Le nom du fichier, la description du texte et l’adresse URL se trouvent en haut. Un outil de visualisation situé en bas permet aux utilisateurs de transformer le contenu du fichier affiché sous forme de feuille de calcul en graphique ou en carte."
-
-#: ckanext/ontario_theme/templates/home/help.html:118
-msgid "A screenshot of the section of the file description page that lets the user transform the contents of the file from spreadsheet to graph to map. The three buttons visible at the top left above the visualization are grid, graph, and map. An arrow is overlaid onto the screeshot that points to the graph and map buttons."
-msgstr "Capture d’écran de la rubrique de la page de description du fichier permettant à l’utilisateur de transformer le contenu du fichier affiché sous forme de feuille de calcul en graphique ou en carte. Les trois boutons visibles en haut à gauche au-dessus de la visualisation sont Grille, Graphique et Carte. Une flèche surimposée sur la capture d’écran indique les boutons Graphique et Carte."
-
-#: ckanext/ontario_theme/templates/home/help.html:130
-msgid "A screenshot of the section of the file description page that lets the user transform the contents of the file from spreadsheet to graph to map. The graph button has been selected and there is a message instructing the user to fill out the form at the right to specify the type of graph, along with axes that they want."
-msgstr "Capture d’écran de la rubrique de la page de description du fichier permettant à l’utilisateur de transformer le contenu du fichier affiché sous forme de feuille de calcul en graphique ou en carte. Le bouton Graphique a été sélectionné et un message invite l’utilisateur à remplir le formulaire à droite pour préciser le type de graphique, ainsi que les axes souhaités."
-
-#: ckanext/ontario_theme/templates/home/help.html:137
-msgid "A screenshot of the section of the file description page that lets the user transform the contents of the file from spreadsheet to graph to map. The graph button has been selected and the user has chosen a line graph and both axes and a simple line graph is visible."
-msgstr "Capture d’écran de la rubrique de la page de description du fichier permettant à l’utilisateur de transformer le contenu du fichier affiché sous forme de feuille de calcul en graphique ou en carte. Le bouton Graphique a été sélectionné et l’utilisateur a choisi un graphique linéaire et les deux axes, et un graphique simple est visible."
-
-#: ckanext/ontario_theme/templates/home/help.html:149
-msgid "A screenshot of the map visualization."
-msgstr "Capture d’écran de la visualisation de la carte."
-
-#: ckanext/ontario_theme/templates/home/help.html:164
-msgid "A screenshot of the file description page when the file is not in a format or structure the catalogue can easily transform. The file name, text description, and web address is found at the top. There is no section for visualizations below."
-msgstr "Capture d’écran de la page de description du fichier lorsque le format ou la structure du fichier ne peuvent pas être facilement transformés par le catalogue. Le nom du fichier, la description du texte et l’adresse URL se trouvent en haut. Il n’y a pas de rubrique pour les visualisations en dessous."
-
-#: ckanext/ontario_theme/templates/home/help.html:75
-msgid ""
-"Figure 1: The location of the <strong>Download</strong> button on the "
-"dataset page."
-msgstr "Schéma 1 : Le bouton <strong>Télécharger</strong> est situé sur la page de l’ensemble de données."
-
-#: ckanext/ontario_theme/templates/home/help.html:78
-msgid ""
-"Click the <strong>Download</strong> button and the data will be "
-"downloaded immediately to your computer."
-msgstr "Cliquez sur le bouton <strong>Télécharger</strong> pour télécharger immédiatement les données sur votre ordinateur."
-
-#: ckanext/ontario_theme/templates/home/help.html:81
-msgid ""
-"Click the <strong>Open</strong> button to find out how to access the "
-"dataset (which may be hosted outside the catalogue)."
-msgstr "Cliquez le bouton <strong>Ouvrir</strong> pour savoir comment avoir accès à l’ensemble de données (qui peut être hébergé hors du catalogue)."
-
-#: ckanext/ontario_theme/templates/home/help.html:85
-msgid ""
-"Figure 2: The location of the <strong>Open</strong> button on the dataset"
-" page."
-msgstr "Schéma 2 : Le bouton <strong>Ouvrir</strong> est situé sur la page de l’ensemble de données."
-
-#: ckanext/ontario_theme/templates/home/help.html:93
-msgid ""
-"A. The <strong>Preview</strong> option lets you see a dataset without "
-"downloading it. You will see this option for files that are stored as "
-"common file types, like CSVs."
-msgstr "R. L’option <strong>Aperçu</strong> vous permet de visualiser un ensemble de données sans le télécharger. Vous verrez cette option pour les dossiers stockés en tant que fichiers courants, comme les fichiers CSV."
-
-#: ckanext/ontario_theme/templates/home/help.html:97
-msgid ""
-"Figure 3: The location of the <strong>Preview</strong> button on the "
-"dataset page."
-msgstr "Schéma 3 : Le bouton <strong>Aperçu</strong> est situé sur la page de l’ensemble de données."
-
-#: ckanext/ontario_theme/templates/home/help.html:100
-msgid ""
-"When you click the <strong>Preview</strong> button, you will get to a "
-"page that:"
-msgstr "Lorsque vous cliquez sur le bouton <strong>Aperçu</strong>, vous serez dirigé(e) vers une page qui:"
-
-#: ckanext/ontario_theme/templates/home/help.html:104
-msgid ""
-"describes the files (including a description of the file and the web "
-"address where the file is stored)"
-msgstr "décrit les fichiers (incluant une description du fichier et l’adresse URL où il est stocké);"
-
-#: ckanext/ontario_theme/templates/home/help.html:107
-msgid ""
-"allows you to see the data in a few different ways - in a spreadsheet, as"
-" a graph or geographic map"
-msgstr "vous permet de visualiser les données de différentes manières – en format feuille de calcul, graphique ou carte géographique."
-
-#: ckanext/ontario_theme/templates/home/help.html:112
-msgid ""
-"Figure 4: A file preview page showing the file description and the "
-"contents of the file visualized as a spreadsheet."
-msgstr "Schéma 4 : Page d’aperçu montrant la description du fichier et son contenu, visualisé en format feuille de calcul."
-
-#: ckanext/ontario_theme/templates/home/help.html:115
-msgid ""
-"The <strong>Graph</strong> and <strong>Map</strong> options are available"
-" just above the dataset."
-msgstr "Les options <strong>Graphique</strong> et <strong>Carte</strong> sont disponibles juste au-dessus de l’ensemble de données."
-
-#: ckanext/ontario_theme/templates/home/help.html:119
-msgid ""
-"Figure 5: The <strong>Graph</strong> and <strong>Map</strong> options on "
-"a preview page."
-msgstr "Schéma 5 : Signalement des options <strong>Graphique</strong> et <strong>Carte</strong> sur une page d’aperçu."
-
-#: ckanext/ontario_theme/templates/home/help.html:124
-msgid "Q. How does the <strong>Graph</strong> option work?"
-msgstr "Q. Comment fonctionne l’option <strong>Graphique</strong>?"
-
-#: ckanext/ontario_theme/templates/home/help.html:127
-msgid ""
-"A. When you click the <strong>Graph</strong> button, you will get to a "
-"screen that allows you to set the parameters of the graph you want to "
-"see."
-msgstr "R. Lorsque vous cliquez sur le bouton <strong>Graphique</strong>, vous arrivez à un écran qui vous permet de définir les paramètres du graphique que vous voulez voir."
-
-#: ckanext/ontario_theme/templates/home/help.html:131
-msgid "Figure 6: The screen where you can set the parameters for your graph."
-msgstr "Schéma 6 : L’écran où vous pouvez définir les paramètres de votre graphique."
-
-#: ckanext/ontario_theme/templates/home/help.html:134
-msgid ""
-"Once you select your graph type, and your axes, you should see a simple "
-"graph:"
-msgstr "Une fois que vous avez choisi le type de graphique et vos axes, un graphique simple devrait s’afficher."
-
-#: ckanext/ontario_theme/templates/home/help.html:138
-msgid ""
-"Figure 7: Ontario livestock prices (Bull Slaughter file), graphed in the "
-"data catalogue"
-msgstr "Schéma 7 : Prix du bétail en Ontario (fichier Bœuf de boucherie), en format graphique dans le catalogue de données."
-
-#: ckanext/ontario_theme/templates/home/help.html:143
-msgid "Q. How does the <strong>Map</strong> option work?"
-msgstr "Q. Comment fonctionne l’option <strong>Carte</strong>?"
-
-#: ckanext/ontario_theme/templates/home/help.html:146
-msgid ""
-"A. When you click the <strong>Map</strong> button, you will get to a "
-"screen that allows you to identify the mappable information (latitude and"
-" longitude) in the file. You should then see a simple map:"
-msgstr "R. Lorsque vous cliquez sur le bouton <strong>Carte</strong>, vous arrivez à un écran qui vous permet de trouver les informations cartographiables (latitude et longitude) dans le fichier. Une carte simple devrait alors s’afficher:"
-
-#: ckanext/ontario_theme/templates/home/help.html:150
-msgid "Figure 8: Bridge conditions data, mapped in the data catalogue."
-msgstr "Schéma 8 : Données sur l’état des ponts, en format carte dans le catalogue de données."
-
-#: ckanext/ontario_theme/templates/home/help.html:155
-msgid "Q. What if I don’t see a <strong>Preview</strong> button?"
-msgstr "Q. Et si je ne vois pas le bouton <strong>Aperçu</strong>?"
-
-#: ckanext/ontario_theme/templates/home/help.html:158
-msgid ""
-"A. If there is no <strong>Preview</strong> button for a dataset, then you"
-" will see an <strong>About</strong> button. This means that the dataset "
-"contents cannot be previewed as a spreadsheet, graph or map by the "
-"catalogue."
-msgstr "R. S’il n’y a pas de bouton <strong>Aperçu</strong> pour un ensemble de données, vous verrez alors un bouton <strong>À propos</strong>. Cela signifie que le catalogue ne permet pas de prévisualiser le contenu de l’ensemble de données en format feuille de calcul, graphique ou carte."
-
-#: ckanext/ontario_theme/templates/home/help.html:161
-msgid ""
-"When you click <strong>About</strong>, you will get a description of the "
-"file."
-msgstr "Lorsque vous cliquez sur <strong>À propos</strong>, vous obtenez une description du fichier."
-
-#: ckanext/ontario_theme/templates/home/help.html:165
-msgid "Figure 9: A description of a dataset, including its web address."
-msgstr "Schéma 9: Description d’un ensemble de données, incluant son adresse URL."
-
-#: ckanext/ontario_theme/templates/home/help.html:170
-msgid "Q. What if a dataset isn’t available in the format I need?"
-msgstr "Q. Et si un ensemble de données n’est pas disponible dans le format dont j’ai besoin?"
-
-#: ckanext/ontario_theme/templates/home/help.html:173
-msgid ""
-"A. For any issues related to our datasets, send us a "
-"message through our <a href=\"https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269\">contact us form</a>. We will review your issue "
-"and reply."
-msgstr "R. Pour tout problème concernant nos ensembles de données, envoyez-nous un message en utilisant <a href=\"https://www.ontario.ca/fr/commentaires/pour-nous-joindre?id=532365&nid=138269\">notre formulaire de contact</a>. Nous examinerons le problème et vous répondrons."
-
-#: ckanext/ontario_theme/templates/home/help.html:181
-msgid ""
-"A. Start by checking the <strong>Update frequency</strong> field to see "
-"how often the dataset should be updated."
-msgstr "R. Commencez par consulter le champ <strong>Fréquence de mise à jour</strong> pour savoir avec quelle fréquence l’ensemble de données est actualisé."
-
-#: ckanext/ontario_theme/templates/home/help.html:184
-msgid ""
-"If the dataset hasn’t been updated as frequently as stated, send an email to the contact "
-"listed (in the \"For more information\" section)."
-msgstr "Si l’ensemble de données n’a pas été mis à jour aussi souvent qu’indiqué, envoyez un courriel au contact indiqué (dans la section 'Pour en savoir plus')."
-
-#: ckanext/ontario_theme/templates/home/help.html:192
-msgid ""
-"Q. How do I report errors/issues/provide feedback (for example, "
-"inaccurate, outdated data)?"
-msgstr "Q. Comment puis-je signaler des erreurs/problèmes ou fournir une rétroaction (par exemple, données inexactes ou caduques)?"
-
-#: ckanext/ontario_theme/templates/home/help.html:195
-msgid ""
-"A. Start by sending an email to the contact listed (in the \"For more information\" section)."
-msgstr "R. "
-"Commencez par envoyer un courriel au contact indiqué (dans la section \"Pour en savoir plus\")."  
-
-
-#: ckanext/ontario_theme/templates/home/help.html:203
-msgid "Q. Why isn't the data for a dataset available?"
-msgstr "Q. Pourquoi un ensemble de données n’est-il pas disponible?"
-
-#: ckanext/ontario_theme/templates/home/help.html:206
-msgid ""
-"A. There are two reasons why the data for a dataset might not be "
-"available:"
-msgstr "R. Il y a deux raisons pour lesquelles un ensemble de données pourrait ne pas être disponible:"
-
-#: ckanext/ontario_theme/templates/home/help.html:213
-msgid ""
-"The dataset is <strong>Under review</strong>. The government has not "
-"finished screening the files. The data will not be available in the "
-"short-term and may never actually be published in the case that screening"
-" determines it isn’t safe to share with the public. You can check back to"
-" see if the status changes."
-msgstr "L’ensemble de données est <strong>En examen</strong>. Le gouvernement n’a pas fini d’examiner les fichiers. Les données ne seront pas disponibles à courte échéance et pourraient même ne jamais être publiées, au cas où l’examen conclurait qu’il ne serait pas sûr de les rendre publiques. Vous pouvez vérifier par la suite si l’état de ces données a changé."
-
-#: ckanext/ontario_theme/templates/home/help.html:216
-msgid ""
-"The dataset is <strong>Restricted</strong>. The government has screened "
-"the files and determined that they are not safe to share with the public."
-msgstr "L’ensemble de données est <strong>Restreint</strong>. Le gouvernement a examiné les données et estimé qu’il n’était pas sûr de les rendre publiques."
-
-#: ckanext/ontario_theme/templates/home/help.html:224
-msgid ""
-"A. Yes, you can get data catalogue updates by RSS feed. RSS (Really "
-"Simple Syndication) lets you know when our data catalogue has been "
-"updated."
-msgstr "Pour être informé des mises à jour du catalogue de données par fil RSS. Le fil RSS (Really Simple Syndication) vous permet de savoir quand le catalogue de données a été mis à jour."
-
-#: ckanext/ontario_theme/templates/home/help.html:227
-msgid "To receive RSS updates:"
-msgstr "Pour recevoir les mises à jour via RSS:"
-
-#: ckanext/ontario_theme/templates/home/help.html:231
-msgid "Install an RSS reader on your device"
-msgstr "Installez un lecteur RSS sur votre appareil"
-
-#: ckanext/ontario_theme/templates/home/help.html:234
-msgid "Choose the updates you want to receive"
-msgstr "Choisissez les mises à jour que vous souhaitez recevoir"
-
-#: ckanext/ontario_theme/templates/home/help.html:238
-msgid "Available updates:"
-msgstr "Mises à jour disponibles:"
-
-#: ckanext/ontario_theme/templates/home/help.html:242
-msgid "Any dataset is updated or added to the catalogue"
-msgstr "Mise à jour de tout ensemble de données ou ajout au catalogue"
-
-#: ckanext/ontario_theme/templates/home/help.html:248
-msgid "A specific dataset is updated"
-msgstr "Mise à jour d’un ensemble de données particulier"
-
-#: ckanext/ontario_theme/templates/home/help.html:251
-msgid "name-of-specific-dataset"
-msgstr "nom-de-l’ensemble-de-données-particulier"
-
-#: ckanext/ontario_theme/templates/home/help.html:255
-#: ckanext/ontario_theme/templates/home/help.html:266
-#: ckanext/ontario_theme/templates/home/help.html:277
-#: ckanext/ontario_theme/templates/home/help.html:288
-msgid "Example"
-msgstr "Exemple"
-
-#: ckanext/ontario_theme/templates/home/help.html:259
-msgid "A dataset with a specific tag is updated or added"
-msgstr "Mise à jour ou ajout d’un ensemble de données comportant une balise particulière"
-
-#: ckanext/ontario_theme/templates/home/help.html:262
-msgid "name-of-tag"
-msgstr "nom-de-la-balise"
-
-#: ckanext/ontario_theme/templates/home/help.html:270
-msgid "A dataset based on your custom search term is updated or added"
-msgstr "Mise à jour ou ajout d’un ensemble de données en rapport avec les termes de votre recherche personnalisée"
-
-#: ckanext/ontario_theme/templates/home/help.html:273
-msgid "custom search term"
-msgstr "terme de recherche personnalisée"
-
-#: ckanext/ontario_theme/templates/home/help.html:281
-msgid "A specific ministry updates or adds a dataset"
-msgstr "Mises à jour ou ajouts d’un ensemble de données par un ministère particulier"
-
-#: ckanext/ontario_theme/templates/home/help.html:284
-msgid "name-of-specific-ministry"
-msgstr "nom du ministère particulier"
 
 #: ckanext/ontario_theme/templates/internal/home/about.html:16
 msgid "The Ontario government generates and maintains thousands of datasets. Since 2012, we have shared data with Ontarians via a data catalogue."
@@ -719,37 +318,35 @@ msgid ""
 "sub-sets of the dataset, different regions, language translations, or other "
 "breakdowns. You can select a file and either download it or preview it. Make "
 "sure to read the licence agreement to make sure you have permission to use it"
-" the way you want. </p> <p> <a href=\"%(help_url)s\">Read more about "
-"previewing data.</a> </p> <h5>Non-open data</h5> <p>A non-open dataset may be"
-" not available for many reasons.</p> <p> <a href=\"#other-data\">Read more "
+" the way you want. </p> <h5>Non-open data</h5> <p>A non-open dataset may be "
+"not available for many reasons.</p> <p> <a href=\"#other-data\">Read more "
 "about non-open data.</a> </p> <p> <a href=\"https://www.ontario.ca/document"
 "/open-data-guidebook-guide-open-data-directive-2015/data-"
 "inventory#section-1\"> Read more about restricted data. </a> </p> <p>Data "
 "that is non-open may still be subject to freedom of information requests.</p>"
 " <h4>Visualizing data</h4> <p> The catalogue has tools that enable all users "
 "to visualize the data in the catalogue without leaving the catalogue – no "
-"additional software needed. <a href=\"%(help_url)s\">Have a look at our walk-"
-"through of how to make a chart in the catalogue</a>. </p> <h4> <a name"
-"=\"features-notifications\"></a> Keeping updated </h4> <p> Get automatic "
-"notifications when datasets are updated. You can choose to get notifications "
-"for individual datasets, an organization’s datasets or the full catalogue. "
-"</p> <p> You don’t have to provide and personal information – just subscribe "
-"to our feeds using any feed reader you like using the corresponding "
-"notification web addresses. Copy those addresses and paste them into your "
-"reader. </p> <figure> <img src=\"%(image_path)sFeatures - Notifications "
-"-Adding a feed.jpg\" alt=\"A screenshot of the configuration screen of a RSS "
-"reader. The feed url for the data catalogue has been entered into the form "
-"field for the feed url.\" /> <figcaption>Figure 1 - Pasting the notification "
-"address for the full catalogue into the feed reader.</figcaption> </figure> "
-"<p>Your feed reader will let you know when the catalogue has been "
-"updated.</p> <figure> <img src=\"%(image_path)sFeatures - Notifications - "
-"Data catalogue feeds.jpg\" alt=\"A screenshot of an RSS reader displaying "
-"recently updated datasets from the data catalogue. The latest four datasets "
-"are listed.\" /> <figcaption>Figure 2 – Receiving notifications on the latest"
-" updates to the catalogue.</figcaption> </figure> <h3>File Types</h3> <p> The"
-" catalogue provides open data in several file formats (e.g., spreadsheets, "
-"geospatial data, etc). Learn about each format and how you can access and use"
-" the data each file contains. </p> <dl> <div class=\"format-item\"> <dt "
+"additional software needed. </p> <h4> <a name=\"features-notifications\"></a>"
+" Keeping updated </h4> <p> Get automatic notifications when datasets are "
+"updated. You can choose to get notifications for individual datasets, an "
+"organization’s datasets or the full catalogue. </p> <p> You don’t have to "
+"provide and personal information – just subscribe to our feeds using any feed"
+" reader you like using the corresponding notification web addresses. Copy "
+"those addresses and paste them into your reader. </p> <figure> <img "
+"src=\"%(image_path)sFeatures - Notifications -Adding a feed.jpg\" alt=\"A "
+"screenshot of the configuration screen of a RSS reader. The feed url for the "
+"data catalogue has been entered into the form field for the feed url.\" /> "
+"<figcaption>Figure 1 - Pasting the notification address for the full "
+"catalogue into the feed reader.</figcaption> </figure> <p>Your feed reader "
+"will let you know when the catalogue has been updated.</p> <figure> <img "
+"src=\"%(image_path)sFeatures - Notifications - Data catalogue feeds.jpg\" "
+"alt=\"A screenshot of an RSS reader displaying recently updated datasets from"
+" the data catalogue. The latest four datasets are listed.\" /> "
+"<figcaption>Figure 2 – Receiving notifications on the latest updates to the "
+"catalogue.</figcaption> </figure> <h3>File Types</h3> <p> The catalogue "
+"provides open data in several file formats (e.g., spreadsheets, geospatial "
+"data, etc). Learn about each format and how you can access and use the data "
+"each file contains. </p> <dl> <div class=\"format-item\"> <dt "
 "class=\"ontario-h4\">CSV - Comma Separated Values</dt> <dd> <p> A file that "
 "has a list of items and values separated by commas without formatting (e.g. "
 "colours, italics, etc.) or extra visual features. This format provides just "
@@ -1238,7 +835,7 @@ msgstr "\n"
 "  Un ensemble de données ouvertes peut contenir plusieurs fichiers de données. Ces fichiers peuvent représenter différentes périodes, différents sous-ensembles de l’ensemble de données, différentes régions, les traductions ou autres ventilations. Vous pouvez sélectionner un fichier et le télécharger ou le prévisualiser. Assurez-vous de lire le contrat de licence pour vous assurer que vous disposez des permissions pour l’utilisation que vous souhaitez en faire.  \n"
 "</p>\n"
 "<p>\n"
-"  <a href=\"%(help_url)s\">En savoir plus sur la prévisualisation des données</a> \n"
+" \n"
 "</p>\n"
 "<h5>\n"
 "  Données non ouvertes  \n"
@@ -1261,7 +858,7 @@ msgstr "\n"
 "  Visualisations \n"
 "</h4>\n"
 "  <p>\n"
-"    Le catalogue offre des outils permettant à tous les utilisateurs de visualiser les données du catalogue sans quitter le catalogue; autrement dit, aucun logiciel supplémentaire n’est nécessaire. <a href=\"%(help_url)s\">Regardez notre explication sur la manière de créer un graphique dans le catalogue</a>.\n"
+"    Le catalogue offre des outils permettant à tous les utilisateurs de visualiser les données du catalogue sans quitter le catalogue; autrement dit, aucun logiciel supplémentaire n’est nécessaire.\n"
 "</p>\n"
 "<h4><a name=\"features-notifications\"></a>\n"
 "  Notifications \n"
