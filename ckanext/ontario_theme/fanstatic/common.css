@@ -676,6 +676,37 @@ input[placeholder] {
   fill: #1080a6;
 }
 
+.ontario-alert--error ul {
+  margin-left: 1.25rem
+}
+
+.ontario-alert--error ul:last-of-type {
+  margin-bottom: .5rem
+}
+
+.ontario-alert--error {
+  border-color: #cd0000;
+  background-color: #fceff0
+}
+
+.ontario-alert--error svg {
+  fill: #cd0000
+}
+
+.ontario-alert--error a,
+.ontario-alert--error a:visited {
+  color: #cd0000
+}
+
+.ontario-alert--error a:hover,
+.ontario-alert--error a:focus {
+  color: #6b0000
+}
+
+.ontario-alert--error a:active {
+  color: #280000
+}
+
 /* ========================================================================
    Page Alerts - ODC
    ======================================================================== */

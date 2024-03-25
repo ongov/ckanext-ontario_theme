@@ -37,6 +37,9 @@ from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateVi
 from ckanext.ontario_theme.resource import CreateView as OntarioThemeResourceCreateView
 from ckan.views.resource import EditResourceViewView
 from ckanext.ontario_theme.organization import index as organization_index
+from ckanext.ontario_theme.datastore import DictionaryView
+
+from ckanext.validation.helpers import dump_json_value
 
 # For Image Uploader
 #from ckan.controllers.home import CACHE_PARAMETERS
@@ -49,8 +52,6 @@ import ckan.lib.helpers as h
 import logging
 log = logging.getLogger(__name__)
 
-# For ckanext-validation
-from .plugin_for_validation import get_datastore_info
 
 def image_uploader():
     '''View function that renders the image uploader form.
@@ -189,52 +190,15 @@ def resource_display_name(resource_dict):
 
 ckan.lib.helpers.resource_display_name = resource_display_name
 
-def trigger_ckanext_validation(resource_id, pkg_id):
-    ''' Calls ckanext-validation action function resource_validataion_run
-    to validate the CKAN UI dictionary of a resource, and passes in the 
-    reformatted Frictionless dictionary. Also pushes this dictionary 
-    to database so it can be retrieved by ckanext-validation when
-    an existing resource is updated.
-    
-    Redirects to the validation report page when done.
 
-    '''
-    # Get the UI dict
-    ui_dict = get_datastore_info(resource_id)
+def get_validation_report(resource_id):
+    validation = toolkit.get_action(u"resource_validation_show")(
+            {u'ignore_auth': True}, {u"resource_id": resource_id}
+        )
+    errors = validation['report']
+    errors = json.loads(errors)
+    return dump_json_value(errors)
 
-    # Get the fields from datastore_search and add the frictionless types from ui_dict
-    datastore_info=toolkit.get_action('datastore_search')(
-		data_dict={'id': resource_id,
-                           'limit': 0
-                          })
-
-
-    for row in datastore_info['fields']:
-        if 'info' in row:
-            col_name = row['id']
-            row['info']['frictionless_dict'] = [item for item in ui_dict['fields'] if item.get('name')==col_name]
-
-    # Push the updated datastore_info object to the database so that 
-    # ckanext-validation can retrieve the frictionless dictionary in 
-    # _run_sync_validation (logic.py)
-    # (Exclude the first row: {'id': '_id', 'type': 'int'})
-    toolkit.get_action('datastore_create')(None,
-              {
-                'resource_id': resource_id,
-                'force': True,
-                'fields': datastore_info.get('fields')[1:]
-                }
-            )
-
-    # Trigger ckanext-validation with the UI dict
-    job_id=toolkit.get_action(u'resource_validation_run')(
-                            {u'ignore_auth': True},
-                            {u'resource_id': resource_id,
-                             u'async': False,
-                             u'ui_dict': ui_dict})
-    # Return to validation report page defined in ckanext-validation/ckanext/validation/views.py
-    return h.url_for('validation_read',id=pkg_id,resource_id=resource_id)
-    
 
 def help():
     '''New help page for site.
@@ -1129,8 +1093,8 @@ type data_last_updated
                 'ontario_theme_abbr_localised_filesize': abbr_localised_filesize,
                 'ontario_theme_get_facet_options': get_facet_options,
                 'ontario_theme_site_title': site_title,
-                'ontario_theme_trigger_ckanext_validation': trigger_ckanext_validation,
-                'ontario_theme_get_current_year': get_current_year
+                'ontario_theme_get_current_year': get_current_year,
+                'ontario_theme_get_validation_report': get_validation_report
                 }
 
     # IBlueprint
@@ -1180,6 +1144,8 @@ type data_last_updated
         #     u'/dataset/<id>/resource/<resource_id>/edit', view_func=EditResourceViewView.as_view(str(u'edit_step2'))
         # )
         blueprint.add_url_rule(u'/organization', view_func=organization_index, strict_slashes=False)
+        blueprint.add_url_rule(u'/dataset/<id>/dictionary/<resource_id>',view_func=DictionaryView.as_view(str(u'dictionary'))
+)
         return blueprint
 
     # IUploader
