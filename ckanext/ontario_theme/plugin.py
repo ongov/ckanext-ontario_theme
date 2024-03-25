@@ -181,6 +181,7 @@ def resource_display_name(resource_dict):
 
 ckan.lib.helpers.resource_display_name = resource_display_name
 
+
 def csv_dump():
     '''
         This was rewritten to be compatible with python3.6/ckan2.9
