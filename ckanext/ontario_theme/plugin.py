@@ -181,11 +181,6 @@ def resource_display_name(resource_dict):
 
 ckan.lib.helpers.resource_display_name = resource_display_name
 
-def help():
-    '''New help page for site.
-    '''
-    return render_template('home/help.html')
-
 
 def csv_dump():
     '''
@@ -1098,7 +1093,6 @@ type data_last_updated
 
         # Add url rules to Blueprint object.
         rules = [
-            (u'/help', u'help', help),
             (u'/dataset/inventory', u'inventory', csv_dump)
         ]
 
