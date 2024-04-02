@@ -49,6 +49,8 @@ import os
 import ckan.lib.uploader as uploader
 import ckan.lib.helpers as h
 
+import ckanext.xloader.interfaces as xloader_interfaces
+
 import logging
 log = logging.getLogger(__name__)
 
@@ -953,6 +955,35 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.IPackageController)
     plugins.implements(plugins.IValidators)
     plugins.implements(plugins.IAuthFunctions)
+    plugins.implements(xloader_interfaces.IXloader)
+    
+    # IXloader
+    def after_upload(self, context, resource_dict, package_dict):
+        print("After_upload was called")
+        resource_id = resource_dict['id']
+        package_id = resource_dict['package_id']
+        task = plugins.toolkit.get_action('task_status_show')(context, {
+            'entity_id': resource_id,
+            'task_type': 'xloader',
+            'key': 'xloader'
+        })
+        print('Task status after upload was called: ', task['state'])
+        if task['state'] in ('complete', 'running_but_viewable'):
+            print('HEJ redirecting to: ', h.url_for('datastore.dictionary',
+                  id=package_id,
+                  resource_id=resource_id))
+            # return h.redirect_to('datastore.dictionary',
+            #       id=package_id,
+            #       resource_id=resource_id)
+            # return render_template("datastore/dictionary.html")
+            return toolkit.render('datastore/dictionary.html',
+            {'id': package_id, 'resource_id': resource_id}
+                          
+                              )
+
+    def can_upload(self, resource_id):
+        print('can upload was called')
+        return True
 
     # IConfigurer
 

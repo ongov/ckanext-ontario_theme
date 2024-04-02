@@ -135,6 +135,14 @@ class CreateView(MethodView):
             resource_id_array = [p['id'] for p in resource_dict]
             resource_id = resource_id_array[-1]
 
+            existing_task = plugins.toolkit.get_action('task_status_show')(context, {
+                'entity_id': resource_id,
+                'task_type': 'xloader',
+                'key': 'xloader'
+            })
+
+            print('HEJ xloader state in resource py: ', existing_task)
+
             return h.redirect_to(
                 u'validation_read', id=id, resource_id=resource_id
             )
