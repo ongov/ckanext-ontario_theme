@@ -937,6 +937,11 @@ ckanext.ontario_theme:schemas/ontario_theme_organization.json
 ckanext.ontario_theme:schemas/ontario_theme_group.json
 """
 
+def new_resource_publish(id, resource_id):
+    '''New page for submitting new resource for publication.
+    '''
+    pkg_dict = toolkit.get_action(u'package_show')(None, {u'id': id})
+    return render_template('/package/new_resource_publish.html', id=id, resource_id=resource_id, pkg_dict=pkg_dict)
 
 class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
@@ -1094,6 +1099,7 @@ type data_last_updated
 
     # IBlueprint
 
+
     def get_blueprint(self):
         '''Return a Flask Blueprint object to be registered by the app.
         '''
@@ -1118,15 +1124,16 @@ type data_last_updated
         # Add url rules to Blueprint object.
         rules = [
             (u'/help', u'help', help),
-            (u'/dataset/inventory', u'inventory', csv_dump)
+            (u'/dataset/inventory', u'inventory', csv_dump),
+            (u'/dataset/<id>/<resource_id>/new_resource_publish/', u'new_resource_publish', new_resource_publish)
         ]
 
         for rule in rules:
             blueprint.add_url_rule(*rule)
         blueprint.add_url_rule('/dataset/new', view_func=OntarioThemeCreateView.as_view(str(u'new')), defaults={u'package_type': u'dataset'})
         blueprint.add_url_rule(u'/organization', view_func=organization_index, strict_slashes=False)
-        blueprint.add_url_rule(u'/dataset/<id>/dictionary/<resource_id>',view_func=DictionaryView.as_view(str(u'dictionary'))
-)
+        blueprint.add_url_rule(u'/dataset/<id>/dictionary/<resource_id>',view_func=DictionaryView.as_view(str(u'dictionary')))
+
         return blueprint
 
     # IUploader
