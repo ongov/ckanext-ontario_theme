@@ -1090,7 +1090,7 @@ type data_last_updated
     def dataset_facets(self, facets_dict, package_type):
         '''Add new search facet dictionary for datasets.
         '''
-        reordered_dict = OrderedDict({
+        reordered_facet_dict = OrderedDict({
             'keywords_en': toolkit._('Topics'),
             'keywords_fr': toolkit._('Topics'),
             'organization': toolkit._('Ministries'),
@@ -1104,7 +1104,7 @@ type data_last_updated
             'organization_category': toolkit._('Category')
         })
 
-        return reordered_dict
+        return reordered_facet_dict
 
     def group_facets(self, facets_dict, group_type, package_type):
         u'''Modify and return the ``facets_dict`` for a group's page.
