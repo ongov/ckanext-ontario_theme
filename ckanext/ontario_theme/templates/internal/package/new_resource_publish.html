@@ -4,6 +4,35 @@
 
 {% block primary_content_inner %}
 
+
+<h1 class="ontario-h1">Step 4: Review and publish</h1>
+RESOURCE_ID: {{resource_id}}
+
+<div class="ontario-row">
+    <div class="ontario-columns ontario-small-7">
+        <h2 class="ontario-h2">Resource file and metadata</h2>
+    </div>
+    <div class="ontario-columns ontario-small-5">        
+        {% link_for _('Edit resource file and metadata'), named_route='resource.edit', 
+                                                          id=pkg.name,
+                                                          resource_id=resource_id
+        %}
+
+    </div>
+</div>
+
+
+
+<div class="ontario-column ontario-small-12">
+    <h3 class="ontario-h3">Resource file</h3>
+</div>
+
+<div class="ontario-column ontario-small-12">
+  <h3 class="ontario-h3">Metadata</h3>
+</div>
+
+<h2 class="ontario-h2">Data dictionary</h2>
+
     <p>package id: {{pkg['id']}}</p>
 
     <p>pkg: {{pkg}}</p>
