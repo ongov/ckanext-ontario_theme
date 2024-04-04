@@ -4,12 +4,14 @@
 
 {% block primary_content_inner %}
 
+    <p>package id: {{pkg['id']}}</p>
 
-    <p>Click to Submit {{pkg}}</p>
+    <p>pkg: {{pkg}}</p>
+
+    {% link_for _('Publish'), named_route='dataset.read', id=pkg.name, class_="ontario-button ontario-button--primary" %}
+{% endblock primary_content_inner %}
 
 
-
-{% endblock %}
 
 {% block secondary %}
 
