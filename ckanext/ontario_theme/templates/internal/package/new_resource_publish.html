@@ -31,7 +31,18 @@ RESOURCE_ID: {{resource_id}}
   <h3 class="ontario-h3">Metadata</h3>
 </div>
 
-<h2 class="ontario-h2">Data dictionary</h2>
+<div class="ontario-row">
+    <div class="ontario-columns ontario-small-4">
+        <h2 class="ontario-h2">Data dictionary</h2>
+    </div>
+    <div class="ontario-columns ontario-small-8">        
+        {% link_for _('Edit data dictionary'), named_route='datastore.dictionary', 
+                                                          id=pkg.name,
+                                                          resource_id=resource_id
+        %}
+
+    </div>
+</div>
 
     <p>package id: {{pkg['id']}}</p>
 
