@@ -40,12 +40,28 @@ RESOURCE_ID: {{resource_id}}
                                                           id=pkg.name,
                                                           resource_id=resource_id
         %}
+    </div>
+
+    <div class="ontario-column ontario-small-12">
+        {% set resource_num = pkg['resource_num'] %}
+        {% set fields = pkg['resources'][resource_num]['fields'] %}
+        <p>show fields {{fields}}</p>
+
+
+        {% for field in fields %}
+            {% snippet "datastore/snippets/dictionary_form.html", 
+            field=field, 
+            position=loop.index 
+            %}
+        {% endfor %}
 
     </div>
+
+
+
 </div>
 
     <p>package id: {{pkg['id']}}</p>
-
     <p>pkg: {{pkg}}</p>
 
     {% link_for _('Publish'), named_route='dataset.read', id=pkg.name, class_="ontario-button ontario-button--primary" %}
