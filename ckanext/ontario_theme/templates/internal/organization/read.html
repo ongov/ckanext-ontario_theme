@@ -62,10 +62,7 @@ Override CKAN's read.html to add some new facets.
 {% block organization_facets %}
   <div class="ministry-package-div secondary col-sm-3">
     <div class="filters">
-      <div>{{ h.snippet('snippets/ontario_theme_keywords_facet.html', extras={'id':c.group_dict.id}) }}</div>
       <div>
-        {# Flag facets to be ignored from standard loop that calls facets. #}
-        {% set single_option_facets = ["organization_jurisdiction", "organization_category"] %}
         {{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets, extras={'id':c.group_dict.id}) }}
       </div>
       <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
