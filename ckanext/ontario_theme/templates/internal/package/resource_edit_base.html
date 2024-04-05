@@ -9,7 +9,33 @@
   {% endif %}
 {% endblock breadcrumb_content %}
 
-{% block secondary_content %}
-  {% snippet "package/snippets/disclaimer.html" %}
-  {{ super() }}
-{% endblock secondary_content %}
+{% block secondary %}
+{% endblock secondary %}
+
+{% block primary %}
+  <div class="resource-margin ontario-columns ontario-small-12">
+    {% block primary_content %}
+      <article class="module">
+        {% block page_header %}
+          <header class="module-content page-header">
+            <ul class="nav nav-tabs">
+              {% block content_primary_nav %}
+                {{ super() }}
+              {% endblock content_primary_nav %}
+            </ul>
+          </header>
+        {% endblock page_header %}
+        <div class="module-content">
+          <h1>
+            {% block form_title %}
+              {{ super() }}
+            {% endblock form_title %}
+          </h1>
+          {% block primary_content_inner %}
+            {{ super() }}
+          {% endblock primary_content_inner %}
+        </div>
+      </article>
+    {% endblock primary_content %}
+  </div>
+{% endblock primary %}

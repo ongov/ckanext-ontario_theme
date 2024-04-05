@@ -2,7 +2,39 @@
 
 {% import 'macros/form.html' as form %}
 
-{% block subtitle %}{{ h.dataset_display_name(pkg) }} - {{ h.resource_display_name(res) }}{% endblock subtitle %}
+{% block subtitle %}
+  {{ h.dataset_display_name(pkg) }} - {{ h.resource_display_name(res) }}
+{% endblock subtitle %}
+
+{% block pre_primary %}
+  <div class="ontario-step-indicator">
+    <div class="ontario-columns ontario-small-12">
+      <div class="ontario-step-indicator--with-back-button">
+        <button class="ontario-button ontario-button--tertiary">
+          <svg class="ontario-icon"
+               alt=""
+               aria-hidden="true"
+               focusable="false"
+               sol:category="primary"
+               viewBox="0 0 24 24"
+               preserveAspectRatio="xMidYMid meet">
+            <use href="#ontario-icon-chevron-left"></use>
+          </svg>
+          Back
+        </button>
+        <span class="ontario-h4">Step&nbsp;2 of&nbsp;3</span>
+      </div>
+      <hr />
+    </div>
+  </div>
+{% endblock pre_primary %}
+
+{% block page_header %}
+{% endblock page_header %}
+
+{% block form_title %}
+  {{ _('Add data dictionary') }}
+{% endblock form_title %}
 
 {% block primary_content_inner %}
 
@@ -11,38 +43,48 @@
   {% if res.validation_status and res.validation_status == 'failure' %}
     <div class="ontario-alert ontario-alert--error">
       <div class="ontario-alert__header">
-          <div class="ontario-alert__header-icon">
-              <svg class="ontario-icon" alt="" aria-hidden="true" focusable="false" sol:category="primary" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
-                  <use href="#ontario-icon-alert-error"></use>
-              </svg>
-          </div>
-          <h2 class="ontario-alert__header-title ontario-h4">There is a problem</h2>
+        <div class="ontario-alert__header-icon">
+          <svg class="ontario-icon"
+               alt=""
+               aria-hidden="true"
+               focusable="false"
+               sol:category="primary"
+               viewBox="0 0 24 24"
+               preserveAspectRatio="xMidYMid meet">
+            <use href="#ontario-icon-alert-error"></use>
+          </svg>
+        </div>
+        <h2 class="ontario-alert__header-title ontario-h4">There is a problem</h2>
       </div>
       <div class="ontario-alert__body">
-          <p>Data dictionary didn’t match the uploaded resource file.
-          <a href="#validation-report" data-module="modal-dialog" data-module-div="validation-report-dialog">Show validation report modal </a></p>
-          <p>You can either:</p>
-          <ul>
-            <li>Edit the data dictionary information on this page or</li>
-            <li>Upload a corrected data resource file on Step 2</li>
-          </ul>
+        <p>
+          Data dictionary didn’t match the uploaded resource file.
+          <a href="#validation-report"
+             data-module="modal-dialog"
+             data-module-div="validation-report-dialog">Show validation report modal</a>
+        </p>
+        <p>You can either:</p>
+        <ul>
+          <li>Edit the data dictionary information on this page or</li>
+          <li>Upload a corrected data resource file on Step 2</li>
+        </ul>
       </div>
     </div>
     {% set validation_report = h.ontario_theme_get_validation_report(res.id) %}
     {% snippet 'validation/snippets/validation_report_dialog.html', validation_report=validation_report %}
   {% endif %}
 
-  <form method="post" action="{{ action }}" >
+  <form method="post" action="{{ action }}">
     {% block dictionary_form %}
       {% for field in fields %}
-          {% snippet "datastore/snippets/dictionary_form.html", 
-            field=field, 
-            position=loop.index 
-          %}
+        {% snippet "datastore/snippets/dictionary_form.html",
+        field=field,
+        position=loop.index
+        %}
       {% endfor %}
     {% endblock dictionary_form %}
-    <button class="ontario-button ontario-button--primary" name="save" type="submit">
-      {{ _('Run validator to continue') }}
-    </button>
+    <button class="ontario-button ontario-button--primary"
+            name="save"
+            type="submit">{{ _('Run validator to continue') }}</button>
   </form>
 {% endblock primary_content_inner %}

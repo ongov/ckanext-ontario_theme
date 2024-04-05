@@ -1,16 +1,38 @@
-{% extends "package/base.html" %}
+{% extends "package/resource_edit_base.html" %}
 
+{% block pre_primary %}
+  <div class="ontario-step-indicator">
+    <div class="ontario-columns ontario-small-12">
+      <div class="ontario-step-indicator--with-back-button">
+        <button class="ontario-button ontario-button--tertiary">
+          <svg class="ontario-icon"
+               alt=""
+               aria-hidden="true"
+               focusable="false"
+               sol:category="primary"
+               viewBox="0 0 24 24"
+               preserveAspectRatio="xMidYMid meet">
+            <use href="#ontario-icon-chevron-left"></use>
+          </svg>
+          Back
+        </button>
+        <span class="ontario-h4">Step&nbsp;3 of&nbsp;3</span>
+      </div>
+      <hr />
+    </div>
+  </div>
+{% endblock pre_primary %}
 
+{% block page_header %}
+{% endblock page_header %}
+
+{% block form_title %}
+  {{ _('Add data dictionary') }}
+{% endblock form_title %}
 
 {% block primary_content_inner %}
-
-
-    <p>Click to Submit {{pkg}}</p>
-
-
-
-{% endblock %}
+  <p>Click to Submit {{ pkg }}</p>
+{% endblock primary_content_inner %}
 
 {% block secondary %}
-
 {% endblock secondary %}
