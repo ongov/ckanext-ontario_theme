@@ -43,16 +43,25 @@ RESOURCE_ID: {{resource_id}}
     </div>
 
     <div class="ontario-column ontario-small-12">
-        {% set resource_num = pkg['resource_num'] %}
-        {% set fields = pkg['resources'][resource_num]['fields'] %}
+        {% set fields = h.datastore_dictionary(resource_id) %}
+
         <p>show fields {{fields}}</p>
 
 
         {% for field in fields %}
-            {% snippet "datastore/snippets/dictionary_form.html", 
-            field=field, 
-            position=loop.index 
-            %}
+            <div>
+                <h3 class="ontario-h3">Field {{ loop.index }}. {{ field.id }}</h3>
+                <b>Type</b>
+                <p>{{ field.type }}</p>
+                {% if field.info["label"] %}
+                    <b>Label</b>
+                    <p>{{ field.info["label"] }}</p>
+                {% endif %}
+                {% if field.info["notes"] %}
+                    <b>Description</b>
+                    <p>{{ field.info["notes"] }}</p>
+                {% endif %}
+          </div>
         {% endfor %}
 
     </div>
@@ -60,9 +69,6 @@ RESOURCE_ID: {{resource_id}}
 
 
 </div>
-
-    <p>package id: {{pkg['id']}}</p>
-    <p>pkg: {{pkg}}</p>
 
     {% link_for _('Publish'), named_route='dataset.read', id=pkg.name, class_="ontario-button ontario-button--primary" %}
 {% endblock primary_content_inner %}

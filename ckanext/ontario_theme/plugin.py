@@ -204,16 +204,7 @@ def new_resource_publish(id, resource_id):
     '''New page for submitting new resource for publication.
     '''
     pkg_dict = toolkit.get_action(u'package_show')(None, {u'id': id})
-    # Get data dictionary fields
-    datastore_search = toolkit.get_action('datastore_search')(None, {u'id': resource_id})
-    fields = [
-                    f for f in datastore_search[u'fields'] if not f[u'id'].startswith(u'_')
-                ]
-    resources = pkg_dict.get('resources')
-    resource_num = next((i for i, obj in enumerate(resources) if obj["id"] == resource_id), None)
-    # Append dictionary fields to the resource_id in pkg_dict
-    pkg_dict["resources"][resource_num]["fields"] = fields
-    pkg_dict["resource_num"] = resource_num
+
     return render_template('/package/new_resource_publish.html', id=id, resource_id=resource_id, pkg_dict=pkg_dict)
 
 
