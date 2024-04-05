@@ -4,9 +4,17 @@
 
 {% block primary_content_inner %}
 
+  {%- set exclude_fields = [
+    "url",
+    "format",
+    "schema",
+    "validation_options",
+    "validation_status",
+    "validation_timestamp"
+    ] 
+  -%}
 
 <h1 class="ontario-h1">Step 4: Review and publish</h1>
-RESOURCE_ID: {{resource_id}}
 
 <div class="ontario-row">
     <div class="ontario-columns ontario-small-7">
@@ -21,15 +29,40 @@ RESOURCE_ID: {{resource_id}}
     </div>
 </div>
 
-
-
 <div class="ontario-column ontario-small-12">
     <h3 class="ontario-h3">Resource file</h3>
+    <b>File</b>
+    <p>{{ res.url.split('download/')[-1] }}</p>
+    <b>File format</b>
+    <p>{{ res.format }}</p>
+
 </div>
 
-<div class="ontario-column ontario-small-12">
-  <h3 class="ontario-h3">Metadata</h3>
-</div>
+
+<h3 class="ontario-h3">Metadata</h3>
+{% set schema = h.scheming_get_dataset_schema(dataset_type) %}
+{%- for field in schema.resource_fields -%}
+    {%- if field.form_snippet is not none and field.field_name not in exclude_fields -%}
+    {% set pkg_field = field.field_name %}
+        <div>
+            <ul>
+                {% if res.get(pkg_field) is mapping %} 
+                    {% for key, value in res.get(pkg_field).items() %}
+                        <dt>{{ key.upper() }} {{ h.scheming_language_text(field.label) }}</dt>                
+                        <dd>{{ value }}</dd>
+                    {% endfor %} 
+                {% else %}
+                    <dt>{{ h.scheming_language_text(field.label) }} </dt>
+                    <dd>{{ res.get(pkg_field) }}</dd> 
+
+                {% endif %}
+
+            </ul>
+        </div>
+
+    {%- endif -%}
+{%- endfor -%}
+
 
 <div class="ontario-row">
     <div class="ontario-columns ontario-small-4">
