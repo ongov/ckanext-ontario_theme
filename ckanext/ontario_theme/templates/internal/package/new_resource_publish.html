@@ -44,15 +44,33 @@ RESOURCE_ID: {{resource_id}}
 
     <div class="ontario-column ontario-small-12">
         {% set fields = h.datastore_dictionary(resource_id) %}
+        {# Example of returned dictionary:
 
-        <p>show fields {{fields}}</p>
+            [{'id': 'rule', 
+              'type': 'text', 
+              'info': {'label': '', 
+                       'notes': '', 
+                       'type_override': '', 
+                       'frictionless_dict': [{'type': 'string', 'name': 'rule'}]}}, 
+            {'id': 'integercol', 
+             'type': 'int4', 
+              'info': {'label': '', 
+                       'notes': '', 
+                       'type_override': 'integer', 
+                       'frictionless_dict': [{'type': 'integer', 'name': 'integercol'}]}}]
 
+            "type" is not human-readable for non-text types (e.g. int4), so use 
+            field.info["type_override"] (e.g. integer) for these cases. Note we want to 
+            stick with the PostgreSQL type names (e.g. "text" not "string") so don't use 
+            field.info["frictionless_dict"]["type"]. 
+        #}
 
         {% for field in fields %}
             <div>
                 <h3 class="ontario-h3">Field {{ loop.index }}. {{ field.id }}</h3>
-                <b>Type</b>
-                <p>{{ field.type }}</p>
+                <b>Type</b>                
+                {% set field_type = field.type if field.info["type_override"] == '' else field.info["type_override"] %}
+                <p>{{ field_type }}</p>
                 {% if field.info["label"] %}
                     <b>Label</b>
                     <p>{{ field.info["label"] }}</p>
