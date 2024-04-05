@@ -110,10 +110,8 @@ in the core template for search.html.
 {% endblock primary %}
 
 {% block secondary %}
-  {% set single_option_facets = ["organization_jurisdiction", "organization_category"] %}
   <aside class="secondary ontario-columns ontario-small-3 filter-results">
     <div class="filters">
-      <div>{{ h.snippet('snippets/ontario_theme_keywords_facet.html') }}</div>
       <div>{{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets) }}</div>
       <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
     </div>

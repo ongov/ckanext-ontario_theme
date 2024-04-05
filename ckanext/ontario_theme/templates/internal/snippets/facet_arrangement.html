@@ -1,4 +1,13 @@
-{% set excluded_facets = ["keywords_en", "keywords_fr"] %}
+{% if h.lang() == 'en' %}
+  {% set keywords = "keywords_fr" %}
+{% elif h.lang() == 'fr' %}
+  {% set keywords = "keywords_en" %}
+{% endif %}
+{% set excluded_facets = [keywords] %}
+
+{# Flag facets to be ignored from standard loop that calls facets. #}
+{% set single_option_facets = ["organization_jurisdiction", "organization_category"] %}
+
 {% if single_option_facets %}
   {% for facet in single_option_facets %}
     {% set this_name = facet %}
@@ -8,8 +17,7 @@
     {% endif %}
   {% endfor %}
 {% endif %}
-{% set reordered_facet_titles = h.ontario_theme_order_package_facets(c.facet_titles) %}
-{% for facet in reordered_facet_titles %}
+{% for facet in c.facet_titles %}
   {% if facet == 'organization_jurisdiction' %}
     {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'jurisdiction')) %}
   {% endif %}
