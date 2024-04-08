@@ -11,14 +11,7 @@
 {% endblock secondary %}
 
 {% block pre_primary %}
-  <div class="ontario-step-indicator">
-    <div class="ontario-columns ontario-small-12">
-      <div class="ontario-step-indicator--without-back-button">
-        <span class="ontario-h4">Step&nbsp;1 of&nbsp;3</span>
-      </div>
-      <hr />
-    </div>
-  </div>
+  {% snippet "package/snippets/step_indicator.html", step=1 %}
 {% endblock pre_primary %}
 
 {% block form_title %}

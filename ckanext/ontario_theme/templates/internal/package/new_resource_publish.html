@@ -1,26 +1,8 @@
 {% extends "package/resource_edit_base.html" %}
 
 {% block pre_primary %}
-  <div class="ontario-step-indicator">
-    <div class="ontario-columns ontario-small-12">
-      <div class="ontario-step-indicator--with-back-button">
-        <button class="ontario-button ontario-button--tertiary">
-          <svg class="ontario-icon"
-               alt=""
-               aria-hidden="true"
-               focusable="false"
-               sol:category="primary"
-               viewBox="0 0 24 24"
-               preserveAspectRatio="xMidYMid meet">
-            <use href="#ontario-icon-chevron-left"></use>
-          </svg>
-          Back
-        </button>
-        <span class="ontario-h4">Step&nbsp;3 of&nbsp;3</span>
-      </div>
-      <hr />
-    </div>
-  </div>
+  {% set back_url = h.url_for('datastore.dictionary', id=pkg.name, resource_id=resource_id) %}
+  {% snippet "package/snippets/step_indicator.html", step=3, back_url=back_url %}
 {% endblock pre_primary %}
 
 {% block page_header %}
