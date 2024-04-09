@@ -132,7 +132,7 @@
         {% endfor %}
       </select>
     </div>
-    <div class="sort-by-modal-div">
+    <div id="sort-by-modal" class="sort-by-modal-div">
       <div class="sort-by">
         <div class="sort-by-modal-header">
           <span class="ontario-h5"><svg class="ontario-icon"
@@ -142,6 +142,13 @@
                 preserveAspectRatio="xMidYMid meet">
             <use xlink:href="#ontario-icon-sort"></use>
           </svg>{{ _('Sort') }}</span>
+            <span class="sort-by-close" role="button" tabindex="0"><svg class="ontario-icon hide-sort-by"
+                  focusable="false"
+                  sol:category="primary"
+                  viewBox="0 0 24 24"
+                  preserveAspectRatio="xMidYMid meet">
+              <use xlink:href="#ontario-icon-close"></use>
+            </svg></span>
         </div>
         <ul>
           {% for label, value in sorting %}

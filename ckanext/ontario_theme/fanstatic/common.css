@@ -402,10 +402,6 @@ input[type="reset"].ontario-search-reset:focus {
   padding-bottom: 16px;
 }
 
-.search-form .control-order-by {
-  display: none;
-}
-
 @media screen and (min-width: 40em) {
   .sort-by-modal-div {
     display: none;
@@ -492,6 +488,10 @@ input[type="reset"].ontario-search-reset:focus {
 }
 
 @media (max-width: 767px) {
+  .search-form .control-order-by {
+    display: none;
+  }
+
   .js body.sort-by-modal .sort-by-modal-div {
     display: block;
   }
@@ -578,8 +578,9 @@ input[type="reset"].ontario-search-reset:focus {
   }
 }
 
-.show-filters.btn {
-  margin-bottom: 10px;
+.show-filters,
+.show-sort-by {
+  margin-right: unset;
 }
 
 .module-content {
@@ -3404,7 +3405,7 @@ label::after {
 .sort-by-options {
   font-size: 19px;
   list-style: none;
-  margin: 8px 0;
+  margin: 8px 16px 8px 0;
 }
 
 .sort-by-options a {
@@ -3430,4 +3431,17 @@ label::after {
 
 .sort-by-options.selected {
   background-color: #666666;
+}
+
+.sort-by-modal-header {
+  justify-content: space-between;
+  display: flex;
+}
+
+.sort-by-modal-header .ontario-h5 {
+  margin-top: 10px;
+}
+
+.sort-by-close {
+  height: 24px;
 }
