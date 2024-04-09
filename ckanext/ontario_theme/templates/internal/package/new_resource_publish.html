@@ -1,83 +1,65 @@
-{% extends "package/base.html" %}
+{% extends "package/resource_edit_base.html" %}
 
-
+{% set res = resource %}
 
 {% block primary_content_inner %}
-
-  {%- set exclude_fields = [
-    "url",
-    "format",
-    "schema",
-    "validation_options",
-    "validation_status",
-    "validation_timestamp"
-    ] 
-  -%}
-
-<h1 class="ontario-h1">Step 4: Review and publish</h1>
-
-<div class="ontario-row">
+  {%- set exclude_fields = ["url", "format", "schema", "validation_options", "validation_status", "validation_timestamp"] -%}
+  <h1 class="ontario-h1">Step 4: Review and publish</h1>
+  <div class="ontario-row">
     <div class="ontario-columns ontario-small-7">
-        <h2 class="ontario-h2">Resource file and metadata</h2>
+      <h2 class="ontario-h2">Resource file and metadata</h2>
     </div>
-    <div class="ontario-columns ontario-small-5">        
-        {% link_for _('Edit resource file and metadata'), named_route='resource.edit', 
-                                                          id=pkg.name,
-                                                          resource_id=resource_id
-        %}
-
+    <div class="ontario-columns ontario-small-5">
+      {% link_for _('Edit resource file and metadata'), named_route='resource.edit',
+      id=pkg.name,
+      resource_id=resource_id
+      %}
     </div>
-</div>
-
-<div class="ontario-column ontario-small-12">
+  </div>
+  <div class="ontario-column ontario-small-12">
     <h3 class="ontario-h3">Resource file</h3>
     <b>File</b>
     <p>{{ res.url.split('download/')[-1] }}</p>
     <b>File format</b>
     <p>{{ res.format }}</p>
-
-</div>
-
-
-<h3 class="ontario-h3">Metadata</h3>
-{% set schema = h.scheming_get_dataset_schema(dataset_type) %}
-{%- for field in schema.resource_fields -%}
+  </div>
+  <h3 class="ontario-h3">Metadata</h3>
+  {% set schema = h.scheming_get_dataset_schema(dataset_type) %}
+  {%- for field in schema.resource_fields -%}
     {%- if field.form_snippet is not none and field.field_name not in exclude_fields -%}
-    {% set pkg_field = field.field_name %}
-        <div>
-            <ul>
-                {% if res.get(pkg_field) is mapping %} 
-                    {% for key, value in res.get(pkg_field).items() %}
-                        <dt>{{ key.upper() }} {{ h.scheming_language_text(field.label) }}</dt>                
-                        <dd>{{ value }}</dd>
-                    {% endfor %} 
-                {% else %}
-                    <dt>{{ h.scheming_language_text(field.label) }} </dt>
-                    <dd>{{ res.get(pkg_field) }}</dd> 
-
-                {% endif %}
-
-            </ul>
-        </div>
-
+      {% set pkg_field = field.field_name %}
+      <div>
+        <ul>
+          {% if res.get(pkg_field) is mapping %}
+            {% for key, value in res.get(pkg_field).items() %}
+              <dt>{{ key.upper() }} {{ h.scheming_language_text(field.label) }}</dt>
+              <dd>
+                {{ value }}
+              </dd>
+            {% endfor %}
+          {% else %}
+            <dt>{{ h.scheming_language_text(field.label) }}</dt>
+            <dd>
+              {{ res.get(pkg_field) }}
+            </dd>
+          {% endif %}
+        </ul>
+      </div>
     {%- endif -%}
-{%- endfor -%}
-
-
-<div class="ontario-row">
+  {%- endfor -%}
+  <div class="ontario-row">
     <div class="ontario-columns ontario-small-4">
-        <h2 class="ontario-h2">Data dictionary</h2>
+      <h2 class="ontario-h2">Data dictionary</h2>
     </div>
-    <div class="ontario-columns ontario-small-8">        
-        {% link_for _('Edit data dictionary'), named_route='datastore.dictionary', 
-                                                          id=pkg.name,
-                                                          resource_id=resource_id
-        %}
+    <div class="ontario-columns ontario-small-8">
+      {% link_for _('Edit data dictionary'), named_route='datastore.dictionary',
+      id=pkg.name,
+      resource_id=resource_id
+      %}
     </div>
-
     <div class="ontario-column ontario-small-12">
-        {% set fields = h.datastore_dictionary(resource_id) %}
-        {# Example of returned dictionary:
+      {% set fields = h.datastore_dictionary(resource_id) %}
+      {# Example of returned dictionary:
 
             [{'id': 'rule', 
               'type': 'text', 
@@ -97,35 +79,26 @@
             stick with the PostgreSQL type names (e.g. "text" not "string") so don't use 
             field.info["frictionless_dict"]["type"]. 
         #}
-
-        {% for field in fields %}
-            <div>
-                <h3 class="ontario-h3">Field {{ loop.index }}. {{ field.id }}</h3>
-                <b>Type</b>                
-                {% set field_type = field.type if field.info["type_override"] == '' else field.info["type_override"] %}
-                <p>{{ field_type }}</p>
-                {% if field.info["label"] %}
-                    <b>Label</b>
-                    <p>{{ field.info["label"] }}</p>
-                {% endif %}
-                {% if field.info["notes"] %}
-                    <b>Description</b>
-                    <p>{{ field.info["notes"] }}</p>
-                {% endif %}
-          </div>
-        {% endfor %}
-
+      {% for field in fields %}
+        <div>
+          <h3 class="ontario-h3">Field {{ loop.index }}. {{ field.id }}</h3>
+          <b>Type</b>
+          {% set field_type = field.type if field.info["type_override"] == '' else field.info["type_override"] %}
+          <p>{{ field_type }}</p>
+          {% if field.info["label"] %}
+            <b>Label</b>
+            <p>{{ field.info["label"] }}</p>
+          {% endif %}
+          {% if field.info["notes"] %}
+            <b>Description</b>
+            <p>{{ field.info["notes"] }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
     </div>
-
-
-
-</div>
-
-    {% link_for _('Publish'), named_route='dataset.read', id=pkg.name, class_="ontario-button ontario-button--primary" %}
+  </div>
+  {% link_for _('Publish'), named_route='dataset.read', id=pkg.name, class_="ontario-button ontario-button--primary" %}
 {% endblock primary_content_inner %}
 
-
-
 {% block secondary %}
-
 {% endblock secondary %}
