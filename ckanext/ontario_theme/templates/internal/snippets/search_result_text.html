@@ -17,13 +17,13 @@ Example:
   {% set text_no_query = ungettext('<strong>{number} dataset</strong> found', '<strong>{number} datasets</strong> found', count) %}
   {% set text_no_query_none = _('No datasets found') %}
 {% elif type == 'group' %}
-  {% set text_query = ungettext('<strong>{number} group</strong> found with the keyword(s) <strong>"{query}"</strong>', '<strong>{number} groups</strong> found with the keyword(s) <strong>"{query}"</strong>', count) %}
-  {% set text_query_none = _('No groups found with the keyword(s) <strong>"{query}"</strong>') %}
+  {% set text_query = ungettext('<strong>{number} group</strong> found with the search term <strong>"{query}"</strong>', '<strong>{number} groups</strong> found with the search term <strong>"{query}"</strong>', count) %}
+  {% set text_query_none = _('No groups found with the search term <strong>"{query}"</strong>') %}
   {% set text_no_query = ungettext('<strong>{number} group</strong> found', '<strong>{number} groups</strong> found', count) %}
   {% set text_no_query_none = _('No groups found') %}
 {% elif type == 'ministry' %}
-  {% set text_query = ungettext('<strong>{number} ministry</strong> found for <strong>"{query}"</strong>', '<strong>{number} ministries</strong> found with the keyword(s) <strong>"{query}"</strong>', count) %}
-  {% set text_query_none = _('No ministries found with the keyword(s) <strong>"{query}"</strong>') %}
+  {% set text_query = ungettext('<strong>{number} ministry</strong> found for <strong>"{query}"</strong>', '<strong>{number} ministries</strong> found with the search term <strong>"{query}"</strong>', count) %}
+  {% set text_query_none = _('No ministries found with the search term <strong>"{query}"</strong>') %}
   {% set text_no_query = ungettext('<strong>{number} ministry</strong> found', '<strong>{number} ministries</strong> found', count) %}
   {% set text_no_query_none = _('No ministries found') %}
 {% else %}
