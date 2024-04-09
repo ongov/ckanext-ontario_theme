@@ -62,11 +62,22 @@ Override CKAN's read.html to add some new facets.
 
 {% block organization_facets %}
   <div class="ministry-package-div secondary col-sm-3">
-    <div class="filters">
+    <div class="filters" id="filter-aside">
+      <span aria-label="{{ _('close') }}"
+            role="button"
+            tabindex="0"
+            class="close no-text hide-filters">
+        <svg class="ontario-icon hide-sort-by"
+             focusable="false"
+             sol:category="primary"
+             viewBox="0 0 24 24"
+             preserveAspectRatio="xMidYMid meet">
+          <use xlink:href="#ontario-icon-close"></use>
+        </svg>
+      </span>
       <div>
         {{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets, extras={'id':c.group_dict.id}) }}
       </div>
-      <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
     </div>
   </div>
 {% endblock organization_facets %}
