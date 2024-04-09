@@ -3,6 +3,7 @@
 {% set no_bottom_border = no_bottom_border if no_bottom_border else false %}
 {% set form_id = form_id if form_id else false %}
 {% set schema_dict = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
+{% set extras = extras if extras else none %}
 
 <form {% if form_id %}id="{{ form_id }}"{% endif %}
       class="search-form
@@ -99,15 +100,6 @@
             {% endfor %}
           {% endif %}
         </p>
-        <a class="show-filters ontario-button ontario-button--secondary">
-          <svg class="ontario-icon"
-               focusable="false"
-               sol:category="primary"
-               viewBox="0 0 24 24"
-               preserveAspectRatio="xMidYMid meet">
-            <use xlink:href="#ontario-icon-filter"></use>
-          </svg>
-        {{ _('Filters') }}</a>
       {% endif %}
     {% endblock search_facets %}
 
@@ -130,7 +122,9 @@
           {% for label, value in sorting %}
             {% if label and value %}
               <option value="{{ value }}"
-                      {% if sorting_selected == value %}selected="selected"{% endif %}>{{ label }}</option>
+                      {%- if sorting_selected == value %} selected="selected"{%- endif -%}>
+                      {{ label }}
+              </option>
             {% endif %}
           {% endfor %}
         </select>
@@ -147,7 +141,8 @@
                 <use xlink:href="#ontario-icon-sort"></use>
               </svg>
             {{ _('Sort') }}</span>
-            <span class="sort-by-close" role="button" tabindex="0">
+            <span aria-label="{{ _('close') }}" class="sort-by-close"
+                  role="button" tabindex="0">
               <svg class="ontario-icon hide-sort-by"
                    focusable="false"
                    sol:category="primary"
@@ -162,7 +157,7 @@
               {% set sort_in_params = true if request.params['sort'] %}
               {% if label and value %}
                 {% set selected = 'selected' if (sorting_selected == value) %}
-                {% set href = h.remove_url_param('sort', replace=value) if sort_in_params else h.add_url_param(new_params={'sort': value}) %}
+                {% set href = h.remove_url_param('sort', replace=value, extras=extras) if sort_in_params else h.add_url_param(new_params={'sort': value}, extras=extras) %}
                 <li class="sort-by-options {{ selected }}">
                   <a href="{{ href }}">{{ label }}</a>
                 </li>
@@ -171,6 +166,17 @@
           </ul>
         </div>
       </div>
+      {% if facets %}
+        <button class="show-filters ontario-button ontario-button--secondary">
+          <svg class="ontario-icon"
+               focusable="false"
+               sol:category="primary"
+               viewBox="0 0 24 24"
+               preserveAspectRatio="xMidYMid meet">
+            <use xlink:href="#ontario-icon-filter"></use>
+          </svg>
+        {{ _('Filters') }}</button>
+      {% endif %}
     {% endblock search_sortby %}
   </form>
 

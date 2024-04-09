@@ -42,7 +42,8 @@ Override CKAN's read.html to add some new facets.
       count=page.item_count,
       facets=facets,
       show_empty=request.params,
-      fields=fields %}
+      fields=fields,
+      extras={'id':c.group_dict.id} %}
     </form>
   {% endblock groups_search_form %}
 
