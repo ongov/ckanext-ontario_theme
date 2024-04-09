@@ -27,11 +27,11 @@ msgid "Other"
 msgstr ""
 
 #: ckanext/ontario_theme/plugin.py:396
-msgid "Access Level"
+msgid "Access level"
 msgstr ""
 
 #: ckanext/ontario_theme/plugin.py:397
-msgid "Update Frequency"
+msgid "Update frequency"
 msgstr ""
 
 #: ckanext/ontario_theme/plugin.py:398 ckanext/ontario_theme/plugin.py:399

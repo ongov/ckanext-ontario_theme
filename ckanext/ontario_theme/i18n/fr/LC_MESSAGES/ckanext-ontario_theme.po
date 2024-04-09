@@ -2029,15 +2029,15 @@ msgid "Licences"
 msgstr "Licences"
 
 #: ckanext/ontario_theme/templates/snippets/search_form.html:29
-msgid "Asset Type"
+msgid "Asset type"
 msgstr "Types d'actifs"
 
 #: ckanext/ontario_theme/templates/snippets/search_form.html:29
-msgid "Access Level"
+msgid "Access level"
 msgstr "Niveau d’accès"
 
 #: ckanext/ontario_theme/templates/snippets/search_form.html:29
-msgid "Update Frequency"
+msgid "Update frequency"
 msgstr "Fréquence de mise à jour"
 
 #: ckanext/ontario_theme/templates/snippets/search_form.html:29
