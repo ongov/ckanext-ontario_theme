@@ -207,6 +207,12 @@ def help():
     '''
     return render_template('home/help.html')
 
+def new_resource_publish(id, resource_id):
+    '''New page for submitting new resource for publication.
+    '''
+    pkg_dict = toolkit.get_action(u'package_show')(None, {u'id': id})
+    return render_template('/package/new_resource_publish.html', id=id, resource_id=resource_id, pkg_dict=pkg_dict)
+
 
 def csv_dump():
     '''
@@ -1130,6 +1136,7 @@ type data_last_updated
 
     # IBlueprint
 
+
     def get_blueprint(self):
         '''Return a Flask Blueprint object to be registered by the app.
         '''
@@ -1155,7 +1162,8 @@ type data_last_updated
         # Add url rules to Blueprint object.
         rules = [
             (u'/help', u'help', help),
-            (u'/dataset/inventory', u'inventory', csv_dump)
+            (u'/dataset/inventory', u'inventory', csv_dump),
+            (u'/dataset/<id>/<resource_id>/new_resource_publish/', u'new_resource_publish', new_resource_publish)
         ]
 
         for rule in rules:
@@ -1175,8 +1183,8 @@ type data_last_updated
         #     u'/dataset/<id>/resource/<resource_id>/edit', view_func=EditResourceViewView.as_view(str(u'edit_step2'))
         # )
         blueprint.add_url_rule(u'/organization', view_func=organization_index, strict_slashes=False)
-        blueprint.add_url_rule(u'/dataset/<id>/dictionary/<resource_id>',view_func=DictionaryView.as_view(str(u'dictionary'))
-)
+        blueprint.add_url_rule(u'/dataset/<id>/dictionary/<resource_id>',view_func=DictionaryView.as_view(str(u'dictionary')))
+
         return blueprint
 
     # IUploader

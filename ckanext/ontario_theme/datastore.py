@@ -126,4 +126,6 @@ class DictionaryView(MethodView):
                 None,
                 {"resource_id": resource_id, "ignore_hash": True}
             )
-        return h.redirect_to("datastore.dictionary", id=id, resource_id=resource_id)
+            return h.redirect_to("ontario_theme.new_resource_publish", id=id, resource_id=resource_id)
+        else:
+            return h.redirect_to("datastore.dictionary", id=id, resource_id=resource_id)
