@@ -3445,3 +3445,26 @@ label::after {
 .ontario-step-indicator p {
   max-width: 48rem
 }
+
+.resource-metadata-heading.ontario-h5 {
+  margin: unset;
+}
+
+.resource-metadata-dl div {
+  padding-left: unset;
+}
+
+.resource-metadata-dl dd {
+  margin-bottom: 16px;
+}
+
+.resource-metadata-edit-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+
+.resource-metadata-edit-row h2 {
+  margin-bottom: unset;
+}
