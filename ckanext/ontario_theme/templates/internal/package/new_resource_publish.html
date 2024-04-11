@@ -41,14 +41,16 @@
         {%- if field.form_snippet is not none and field.field_name not in exclude_fields -%}
           {% set pkg_field = field.field_name %}
           {% if res.get(pkg_field) is mapping %}
+            <div class="ontario-columns ontario-small-12">
             {% for key, value in res.get(pkg_field).items() %}
-              <div class="ontario-columns ontario-small-6">
+              <div class="ontario-small-12 ontario-medium-6">
                 <dt class="resource-metadata-heading ontario-h5">{{ key.upper() }} {{ h.scheming_language_text(field.label) }}:</dt>
                 <dd>
                   {{ value }}
                 </dd>
               </div>
             {% endfor %}
+            </div>
           {% else %}
             <dt class="resource-metadata-heading ontario-h5">{{ h.scheming_language_text(field.label) }}:</dt>
             <dd>
@@ -89,7 +91,7 @@
       <div>
         <h3 class="ontario-h3">Field {{ loop.index }}. {{ field.id }}</h3>
         <dl class="resource-metadata-dl">
-          <dt class="resource-metadata-heading ontario-h5">Type:</dt>
+          <dt class="resource-metadata-heading ontario-h5">Type override:</dt>
           {% set field_type = field.type if field.info["type_override"] == '' else field.info["type_override"] %}
           <dd>
             {{ field_type }}

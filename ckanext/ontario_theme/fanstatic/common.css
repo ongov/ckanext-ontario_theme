@@ -3450,8 +3450,9 @@ label::after {
   margin: unset;
 }
 
-.resource-metadata-dl div {
+.resource-metadata-dl > div {
   padding-left: unset;
+  display: flex;
 }
 
 .resource-metadata-dl dd {
