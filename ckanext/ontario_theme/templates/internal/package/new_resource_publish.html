@@ -2,6 +2,18 @@
 
 {% set res = resource %}
 
+{% block pre_primary %}
+  {% set back_url = h.url_for('datastore.dictionary', id=pkg.name, resource_id=res.id) %}
+  {% snippet "package/snippets/step_indicator.html", step=3, back_url=back_url %}
+{% endblock pre_primary %}
+
+{% block page_header %}
+{% endblock page_header %}
+
+{% block form_title %}
+  {{ _('Add data dictionary') }}
+{% endblock form_title %}
+
 {% block primary_content_inner %}
   {%- set exclude_fields = ["url", "format", "schema", "validation_options", "validation_status", "validation_timestamp"] -%}
   <h1 class="ontario-h1">Step 4: Review and publish</h1>
