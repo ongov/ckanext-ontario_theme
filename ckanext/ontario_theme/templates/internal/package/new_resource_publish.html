@@ -1,16 +1,20 @@
-{% extends "package/base.html" %}
+{% extends "package/resource_edit_base.html" %}
 
+{% block pre_primary %}
+  {% set back_url = h.url_for('datastore.dictionary', id=pkg.name, resource_id=resource_id) %}
+  {% snippet "package/snippets/step_indicator.html", step=3, back_url=back_url %}
+{% endblock pre_primary %}
 
+{% block page_header %}
+{% endblock page_header %}
+
+{% block form_title %}
+  {{ _('Add data dictionary') }}
+{% endblock form_title %}
 
 {% block primary_content_inner %}
-
-
-    <p>Click to Submit {{pkg}}</p>
-
-
-
-{% endblock %}
+  <p>Click to Submit {{ pkg }}</p>
+{% endblock primary_content_inner %}
 
 {% block secondary %}
-
 {% endblock secondary %}
