@@ -1,7 +1,7 @@
 {% extends "package/resource_edit_base.html" %}
 
 {% block pre_primary %}
-  {% set back_url = h.url_for('datastore.dictionary', id=pkg.name, resource_id=resource.id) %}
+  {% set back_url = h.url_for('datastore.dictionary', id=pkg.name, resource_id=resource_id) %}
   {% snippet "package/snippets/step_indicator.html", step=3, back_url=back_url %}
 {% endblock pre_primary %}
 
