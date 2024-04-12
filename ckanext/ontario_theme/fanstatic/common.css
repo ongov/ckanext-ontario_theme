@@ -3445,3 +3445,46 @@ label::after {
 .ontario-step-indicator p {
   max-width: 48rem
 }
+
+/* ========================================================================
+   New Resource Publish Page
+   ======================================================================== */
+
+.resource-metadata-heading.ontario-h5 {
+  margin: unset;
+}
+
+.resource-metadata-dl dd {
+  margin-bottom: 16px;
+}
+
+.resource-metadata-dl dd,
+.resource-metadata-dl dt {
+  padding-right: 16px;
+}
+
+.resource-metadata-dl > div,
+.resource-metadata-edit-row {
+  display: block;
+  padding-left: unset;
+}
+
+.resource-metadata-edit-row {
+  margin-bottom: 18px;
+}
+
+@media screen and (min-width: 40em) {
+  .resource-metadata-dl > div {
+    display: flex;
+  }
+
+  .resource-metadata-edit-row h2 {
+    margin-bottom: unset;
+  }
+
+  .resource-metadata-edit-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+  }
+}
