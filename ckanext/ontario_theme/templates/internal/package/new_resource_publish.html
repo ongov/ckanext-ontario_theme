@@ -40,14 +40,14 @@
           {% set pkg_field = field.field_name %}
           {% if resource.get(pkg_field) is mapping %}
             <div class="ontario-columns ontario-small-12">
-            {% for key, value in resource.get(pkg_field).items() %}
-              <div class="ontario-small-12 ontario-medium-6">
-                <dt class="resource-metadata-heading ontario-h5">{{ key.upper() }} {{ h.scheming_language_text(field.label) }}:</dt>
-                <dd>
-                  {{ value }}
-                </dd>
-              </div>
-            {% endfor %}
+              {% for key, value in resource.get(pkg_field).items() %}
+                <div class="ontario-small-12 ontario-medium-6">
+                  <dt class="resource-metadata-heading ontario-h5">{{ key.upper() }} {{ h.scheming_language_text(field.label) }}:</dt>
+                  <dd>
+                    {{ value }}
+                  </dd>
+                </div>
+              {% endfor %}
             </div>
           {% else %}
             <dt class="resource-metadata-heading ontario-h5">{{ h.scheming_language_text(field.label) }}:</dt>
