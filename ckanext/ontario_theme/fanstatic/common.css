@@ -3563,3 +3563,8 @@ input[type=radio] + label {
     width: 50%;
   }
 }
+
+.notes.embedded-content.dataset-font p a,
+.dataset-details.package-additional-info-td > a {
+  word-break: break-word;
+}
