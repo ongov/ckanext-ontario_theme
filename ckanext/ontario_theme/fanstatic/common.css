@@ -3446,26 +3446,41 @@ label::after {
   max-width: 48rem
 }
 
+/* ========================================================================
+   New Resource Publish Page
+   ======================================================================== */
+
 .resource-metadata-heading.ontario-h5 {
   margin: unset;
 }
 
-.resource-metadata-dl > div {
-  padding-left: unset;
-  display: flex;
-}
 
 .resource-metadata-dl dd {
   margin-bottom: 16px;
 }
 
+.resource-metadata-dl > div,
 .resource-metadata-edit-row {
-  display: inline-flex;
-  align-items: center;
-  gap: 20px;
+  display: block;
+  padding-left: unset;
+}
+
+.resource-metadata-edit-row {
   margin-bottom: 18px;
 }
 
-.resource-metadata-edit-row h2 {
-  margin-bottom: unset;
+@media screen and (min-width: 40em) {
+  .resource-metadata-dl > div {
+    display: flex;
+  }
+
+  .resource-metadata-edit-row h2 {
+    margin-bottom: unset;
+  }
+
+  .resource-metadata-edit-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+  }
 }

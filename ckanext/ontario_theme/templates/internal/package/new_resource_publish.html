@@ -1,9 +1,7 @@
 {% extends "package/resource_edit_base.html" %}
 
-{% set res = resource %}
-
 {% block pre_primary %}
-  {% set back_url = h.url_for('datastore.dictionary', id=pkg.name, resource_id=res.id) %}
+  {% set back_url = h.url_for('datastore.dictionary', id=pkg.name, resource_id=resource.id) %}
   {% snippet "package/snippets/step_indicator.html", step=3, back_url=back_url %}
 {% endblock pre_primary %}
 
@@ -24,12 +22,12 @@
     <h3 class="ontario-h3">Resource file</h3>
     <dl class="resource-metadata-dl">
       <dt class="resource-metadata-heading ontario-h5">File:</dt>
-      <dd>
-        {{ res.url.split('download/')[-1] }}
+      <dd class="break-word">
+        {{ resource.url.split('download/')[-1] }}
       </dd>
       <dt class="resource-metadata-heading ontario-h5">File format:</dt>
       <dd>
-        {{ res.format }}
+        {{ resource.format }}
       </dd>
     </dl>
   </div>
@@ -40,9 +38,9 @@
       {%- for field in schema.resource_fields -%}
         {%- if field.form_snippet is not none and field.field_name not in exclude_fields -%}
           {% set pkg_field = field.field_name %}
-          {% if res.get(pkg_field) is mapping %}
+          {% if resource.get(pkg_field) is mapping %}
             <div class="ontario-columns ontario-small-12">
-            {% for key, value in res.get(pkg_field).items() %}
+            {% for key, value in resource.get(pkg_field).items() %}
               <div class="ontario-small-12 ontario-medium-6">
                 <dt class="resource-metadata-heading ontario-h5">{{ key.upper() }} {{ h.scheming_language_text(field.label) }}:</dt>
                 <dd>
@@ -54,7 +52,11 @@
           {% else %}
             <dt class="resource-metadata-heading ontario-h5">{{ h.scheming_language_text(field.label) }}:</dt>
             <dd>
-              {{ res.get(pkg_field) }}
+              {%- if field.preset == "date" -%}
+                {{- h.render_datetime(resource[field.field_name]) -}}
+              {%- else -%}
+                {%- snippet "scheming/snippets/display_field.html", field=field, data=resource, entity_type='dataset', object_type=dataset_type -%}
+              {%- endif -%}
             </dd>
           {% endif %}
         {%- endif -%}
