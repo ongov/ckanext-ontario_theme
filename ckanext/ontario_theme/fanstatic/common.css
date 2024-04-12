@@ -3454,9 +3454,13 @@ label::after {
   margin: unset;
 }
 
-
 .resource-metadata-dl dd {
   margin-bottom: 16px;
+}
+
+.resource-metadata-dl dd,
+.resource-metadata-dl dt {
+  padding-right: 16px;
 }
 
 .resource-metadata-dl > div,
