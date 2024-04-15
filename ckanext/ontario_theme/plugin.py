@@ -1091,13 +1091,13 @@ type data_last_updated
 
     def dataset_facets(self, facets_dict, package_type):
         '''Add new search facet dictionary for datasets.
+        Not including access_level for radio buttons
         '''
         reordered_facet_dict = OrderedDict({
             'keywords_en': toolkit._('Topics'),
             'keywords_fr': toolkit._('Topics'),
             'organization': toolkit._('Ministries'),
             'res_format': toolkit._('Formats'),
-            'access_level': toolkit._('Access level'),
             'update_frequency': toolkit._('Update frequency'),
             'license_id': toolkit._('Licences'),
             'asset_type': toolkit._('Asset type'),
