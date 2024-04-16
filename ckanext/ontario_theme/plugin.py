@@ -1098,6 +1098,7 @@ type data_last_updated
             'keywords_fr': toolkit._('Topics'),
             'organization': toolkit._('Ministries'),
             'res_format': toolkit._('Formats'),
+            '{!ex=al}access_level': toolkit._('Formats'),
             'update_frequency': toolkit._('Update frequency'),
             'license_id': toolkit._('Licences'),
             'asset_type': toolkit._('Asset type'),
@@ -1135,27 +1136,29 @@ type data_last_updated
         access_level = 'access_level'
         fq = search_params.get('fq')
         facet_field = search_params.get('facet.field')
-        exclude = "{!ex=al}access_level"
         tag = "{!tag=al}access_level"
-        fq_list = []
 
-        if access_level not in request.params:
-            fq_list.append(tag + ":open")
-
-        if fq and access_level in request.params:
-            facet_al = re.findall('access_level:"\\w+"', fq)
+        # To show all access levels on dataset counts on
+        # the homepage and org/group pages
+        if 'fq' not in search_params:
+            fq_list = []
+        # Show default open datasets or other access level on org/group search
+        # pages
+        elif fq:
+            facet_al = re.findall('access_level:"[a-z_*]+"', fq)
+            if not facet_al:
+                fq += (" {!tag=al}access_level:open")
             fq_list = re.findall("(?:\".*?\"|\\S)+", fq)
             if facet_al and facet_field:
-                facet_tag = re.sub(access_level, tag, facet_al[0])
+                al_sub = re.sub(access_level, tag, facet_al[0])
+                facet_tag = re.sub("\"", "", al_sub)
                 for i in range(len(fq_list)):
                     if fq_list[i] == facet_al[0]:
                         fq_list[i] = facet_tag
-            search_params.pop('fq')
-
-        if facet_field and len(facet_field) >= 10:
-            facet_field[4] = exclude
+                search_params.pop('fq')
         else:
-            search_params.update({"facet.field": exclude})
+            fq_list = search_params.setdefault('fq_list', [tag + ":open"])
+
         if facet_field is not None:
             search_params.update({"fq_list": fq_list,
                                   "facet.field": facet_field})
