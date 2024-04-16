@@ -1091,14 +1091,14 @@ type data_last_updated
 
     def dataset_facets(self, facets_dict, package_type):
         '''Add new search facet dictionary for datasets.
-        Not including access_level for radio buttons
         '''
         reordered_facet_dict = OrderedDict({
             'keywords_en': toolkit._('Topics'),
             'keywords_fr': toolkit._('Topics'),
             'organization': toolkit._('Ministries'),
             'res_format': toolkit._('Formats'),
-            '{!ex=al}access_level': toolkit._('Formats'),
+            # exclusion tag necessary for displaying facet counts
+            '{!ex=al}access_level': toolkit._('Access level'),
             'update_frequency': toolkit._('Update frequency'),
             'license_id': toolkit._('Licences'),
             'asset_type': toolkit._('Asset type'),
@@ -1156,6 +1156,7 @@ type data_last_updated
                     if fq_list[i] == facet_al[0]:
                         fq_list[i] = facet_tag
                 search_params.pop('fq')
+        # Show default open datasets on dataset search page
         else:
             fq_list = search_params.setdefault('fq_list', [tag + ":open"])
 
