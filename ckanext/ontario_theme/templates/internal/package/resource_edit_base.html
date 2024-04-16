@@ -9,6 +9,10 @@
   {% endif %}
 {% endblock breadcrumb_content %}
 
+{% block pre_primary %}
+  {% snippet "package/snippets/step_indicator.html", step=1 %}
+{% endblock pre_primary %}
+
 {% block secondary %}
 {% endblock secondary %}
 
@@ -18,13 +22,6 @@
     {% block primary_content %}
       <article class="module">
         {% block page_header %}
-          <header class="module-content page-header">
-            <ul class="nav nav-tabs">
-              {% block content_primary_nav %}
-                {{ super() }}
-              {% endblock content_primary_nav %}
-            </ul>
-          </header>
         {% endblock page_header %}
         <div class="module-content">
           <h1>
