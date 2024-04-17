@@ -407,8 +407,6 @@ input[type="reset"].ontario-search-reset:focus {
   }
 
   .search-form .control-order-by {
-    order: 4;
-    /* Displays Order By menu below count text */
     display: flex;
     justify-content: end;
     padding-top: 33px;
@@ -434,17 +432,11 @@ input[type="reset"].ontario-search-reset:focus {
 
   .search-form .control-order-by .form-control {
     font-size: 16px;
-    height: 36px;
-    /* increase height to accommodate larger font size */
   }
 
   .search-form .control-order-by.search-page-select .ontario-label {
     width: unset;
     padding-top: 10px;
-  }
-
-  .search-form .control-order-by .form-control {
-    height: unset;
   }
 }
 
@@ -453,8 +445,6 @@ input[type="reset"].ontario-search-reset:focus {
   bottom margin in external/ontario_theme.css LINE 759
   */
 .search-form .control-order-by {
-  order: 5;
-  /* Displays Order By menu below count text */
   display: flex;
   justify-content: end;
   padding-top: 33px;
@@ -485,18 +475,11 @@ input[type="reset"].ontario-search-reset:focus {
 
 .search-form .control-order-by .form-control {
   font-size: 16px;
-  height: 36px;
+  height: unset;
   /* increase height to accommodate larger font size */
 }
 
-/* child div 3: access level radio buttons */
-.access-level {
-  order: 3;
-}
-
-/* child div 4: shows search keywords just below radio buttons */
 .filter-list {
-  order: 4;
   display: inline-grid;
   padding-bottom: 10px;
 }
@@ -555,6 +538,7 @@ input[type="reset"].ontario-search-reset:focus {
 }
 
 .search-form .filter-list {
+  margin: unset;
   color: #000;
   flex-wrap: wrap;
 }
@@ -611,9 +595,8 @@ a.pill {
     background-color: #fff;
   }
 
-  /* child div 4 in position 6: shows search keywords just below sort by dropdown */
+  /* child div 4: shows filters just below sort by dropdown */
   .filter-list {
-    order: 6;
     display: flex;
   }
 }
@@ -646,7 +629,8 @@ a.pill {
   margin-right: unset;
 }
 
-.show-sort-by.ontario-button {
+.show-sort-by.ontario-button,
+.show-filters.ontario-button {
   margin-bottom: 15px;
 }
 
@@ -3557,7 +3541,7 @@ input[type=radio] + label {
 @media screen and (max-width: 40em) {
   .access-level .ontario-radios {
     display: inline-block;
-    margin-bottom: 2.5rem;
+    margin-bottom: 25px;
   }
 }
 
