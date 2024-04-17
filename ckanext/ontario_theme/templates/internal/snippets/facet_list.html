@@ -10,7 +10,13 @@
 {% block facet_list_heading %}
   {% with items = items or h.get_facet_items_dict(name) %}
     <h4 class="ontario-h5">
-      <i class="fa fa-filter"></i>
+      <svg class="ontario-icon"
+            focusable="false"
+            sol:category="primary"
+            viewBox="0 0 24 24"
+            preserveAspectRatio="xMidYMid meet">
+        <use xlink:href="#ontario-icon-filter"></use>
+      </svg>
       {{ title }}
       {% set screen_reader_text = "No search filters applied for "+title+". Options are " %}
       {% if items %}

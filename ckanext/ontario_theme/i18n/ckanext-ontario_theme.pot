@@ -1319,7 +1319,7 @@ msgid "Remove"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:45
-msgid "Filter Results"
+msgid "Filters"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:111
