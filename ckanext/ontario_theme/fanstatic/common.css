@@ -3643,6 +3643,10 @@ input[type=radio] + label {
   padding: 10px;
 }
 
+.sort-by-options a:hover {
+  background-color: #d1d1d1;
+}
+
 .sort-by ul {
   padding: 0;
 }
