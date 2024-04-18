@@ -1,8 +1,9 @@
+{% set num_steps = 4 %}
 {% if step == 1 %}
   <div class="ontario-step-indicator">
     <div class="ontario-columns ontario-small-12">
       <div class="ontario-step-indicator--without-back-button">
-        <span class="ontario-h4">Step&nbsp;{{ step }} of&nbsp;3</span>
+        <span class="ontario-h4">Step&nbsp;{{ step }} of&nbsp;{{ num_steps }}</span>
       </div>
       <hr />
     </div>
@@ -25,7 +26,7 @@
           </svg>
           Back
         </button>
-        <span class="ontario-h4">Step&nbsp;{{ step }} of&nbsp;3</span>
+        <span class="ontario-h4">Step&nbsp;{{ step }} of&nbsp;{{ num_steps }}</span>
       </div>
       <hr />
     </div>
