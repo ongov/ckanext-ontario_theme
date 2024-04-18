@@ -1150,7 +1150,9 @@ type data_last_updated
                 fq += (" {!tag=al}access_level:open")
             fq_list = re.findall("(?:\".*?\"|\\S)+", fq)
             if facet_al and facet_field:
+                # Replaces access_level with {!tag=al}access_level
                 al_sub = re.sub(access_level, tag, facet_al[0])
+                # Removes quotes for solr querying
                 facet_tag = re.sub("\"", "", al_sub)
                 for i in range(len(fq_list)):
                     if fq_list[i] == facet_al[0]:
