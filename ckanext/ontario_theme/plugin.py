@@ -214,6 +214,19 @@ def new_resource_publish(id, resource_id):
     return render_template('/package/new_resource_publish.html', id=id, resource_id=resource_id, pkg_dict=pkg_dict)
 
 
+def new_resource_publish(id, resource_id):
+    '''New page for submitting new resource for publication.
+    '''
+    pkg_dict = toolkit.get_action(u'package_show')(None, {u'id': id})
+    res = toolkit.get_action(u'resource_show')(None, {u'id': resource_id})
+
+    return render_template('/package/new_resource_publish.html',
+                           id=id,
+                           resource_id=resource_id,
+                           pkg_dict=pkg_dict,
+                           resource=res)
+
+
 def csv_dump():
     '''
         This was rewritten to be compatible with python3.6/ckan2.9
@@ -949,7 +962,6 @@ ckanext.ontario_theme:schemas/ontario_theme_organization.json
         config_['scheming.group_schemas'] = """
 ckanext.ontario_theme:schemas/ontario_theme_group.json
 """
-
 
 class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
