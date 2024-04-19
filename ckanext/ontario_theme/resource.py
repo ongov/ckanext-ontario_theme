@@ -2,8 +2,7 @@ u'''
 Overrides ckan/views/resource.py
 '''
 
-from ckan.views.resource import CreateView as CreateView #as CKANMethodView
-#import ckan.views.resource 
+from ckan.views.resource import CreateView as CreateView
 from flask.views import MethodView
 import ckan.model as model
 import six
@@ -134,19 +133,9 @@ class CreateView(MethodView):
             resource_dict = pkg_dict.get('resources')
             resource_id_array = [p['id'] for p in resource_dict]
             resource_id = resource_id_array[-1]
-
-            existing_task = plugins.toolkit.get_action('task_status_show')(context, {
-                'entity_id': resource_id,
-                'task_type': 'xloader',
-                'key': 'xloader'
-            })
-
-            print('HEJ xloader state in resource py: ', existing_task)
-
             return h.redirect_to(
                 u'validation_read', id=id, resource_id=resource_id
             )
-
         else:
             # add more resources
             return h.redirect_to(
@@ -180,7 +169,6 @@ class CreateView(MethodView):
             )
 
         package_type = pkg_dict[u'type'] or package_type
-
         errors = errors or {}
         error_summary = error_summary or {}
         extra_vars = {

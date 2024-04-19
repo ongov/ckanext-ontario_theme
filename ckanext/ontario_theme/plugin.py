@@ -31,11 +31,7 @@ import functools
 
 from ckanext.ontario_theme.resource_upload import ResourceUpload
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
-#from ckanext.ontario_theme.resource import CreateView as OntarioThemeResourceCreateView
-#from ckanext.scheming import helpers, validation, logic, loader, views
-# from ckanext.ontario_theme import resource
 from ckanext.ontario_theme.resource import CreateView as OntarioThemeResourceCreateView
-from ckan.views.resource import EditResourceViewView
 from ckanext.ontario_theme.organization import index as organization_index
 from ckanext.ontario_theme.datastore import DictionaryView
 
@@ -48,8 +44,6 @@ import ckan.logic as logic
 import os
 import ckan.lib.uploader as uploader
 import ckan.lib.helpers as h
-
-import ckanext.xloader.interfaces as xloader_interfaces
 
 import logging
 log = logging.getLogger(__name__)
@@ -973,35 +967,6 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.IPackageController)
     plugins.implements(plugins.IValidators)
     plugins.implements(plugins.IAuthFunctions)
-    plugins.implements(xloader_interfaces.IXloader)
-    
-    # IXloader
-    def after_upload(self, context, resource_dict, package_dict):
-        print("After_upload was called")
-        resource_id = resource_dict['id']
-        package_id = resource_dict['package_id']
-        task = plugins.toolkit.get_action('task_status_show')(context, {
-            'entity_id': resource_id,
-            'task_type': 'xloader',
-            'key': 'xloader'
-        })
-        print('Task status after upload was called: ', task['state'])
-        if task['state'] in ('complete', 'running_but_viewable'):
-            print('HEJ redirecting to: ', h.url_for('datastore.dictionary',
-                  id=package_id,
-                  resource_id=resource_id))
-            # return h.redirect_to('datastore.dictionary',
-            #       id=package_id,
-            #       resource_id=resource_id)
-            # return render_template("datastore/dictionary.html")
-            return toolkit.render('datastore/dictionary.html',
-            {'id': package_id, 'resource_id': resource_id}
-                          
-                              )
-
-    def can_upload(self, resource_id):
-        print('can upload was called')
-        return True
 
     # IConfigurer
 
@@ -1155,7 +1120,6 @@ type data_last_updated
 
         blueprint = Blueprint(self.name, self.__module__)
         blueprint.template_folder = u'templates'
-        print('HEJ get blueprint!!')
 
         @blueprint.before_request
         def before_request():
@@ -1181,19 +1145,11 @@ type data_last_updated
         for rule in rules:
             blueprint.add_url_rule(*rule)
         blueprint.add_url_rule('/dataset/new', view_func=OntarioThemeCreateView.as_view(str(u'new')), defaults={u'package_type': u'dataset'})
-        
-        # blueprint.add_url_rule(u'/new', view_func=OntarioThemeResourceCreateView.as_view(str(u'new2')))
-        # blueprint.add_url_rule(
-        #     u'/new_resource/<id>', view_func=OntarioThemeResourceCreateView.as_view(str(u'new_resource'))
-        # )
         blueprint.add_url_rule(
             u'/dataset/<id>/resource/new', 
             view_func=OntarioThemeResourceCreateView.as_view(str(u'edit_step2')),
             defaults={u'package_type': u'dataset'}
         )
-        # blueprint.add_url_rule(
-        #     u'/dataset/<id>/resource/<resource_id>/edit', view_func=EditResourceViewView.as_view(str(u'edit_step2'))
-        # )
         blueprint.add_url_rule(u'/organization', view_func=organization_index, strict_slashes=False)
         blueprint.add_url_rule(u'/dataset/<id>/dictionary/<resource_id>',view_func=DictionaryView.as_view(str(u'dictionary')))
 
