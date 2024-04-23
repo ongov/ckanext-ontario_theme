@@ -93,8 +93,9 @@
         </div>
         <div class="ontario-columns ontario-small-6 ontario-application-header__lang-toggle">
           <a href="{{ h.url_for(h.current_url(), locale=toggle_to) }}"
-             class="ontario-header__language-toggler ontario-header-button ontario-header-button--without-outline">
-            <span>{{ 'Français' if current_lang =='en' else 'English' }}</span>
+             class="ontario-header__language-toggler ontario-header-button ontario-header-button--without-outline"
+             lang="{{ 'fr' if current_lang =='en' else 'en' }}">
+             {{ 'Français' if current_lang =='en' else 'English' }}
           </a>
         </div>
       </div>
