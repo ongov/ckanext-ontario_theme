@@ -18,3 +18,11 @@
     </div>
   {%- endfor -%}
 {% endblock basic_fields %}
+
+{# Empty again_button block to remove "Save & add another" button #}
+{% block again_button %}
+{% endblock %}
+
+{% block add_button %}
+  <button class="ontario-button ontario-button--primary" name="save" value="go-dataset-step2" type="submit">Run validator to continue</button>
+{% endblock %}

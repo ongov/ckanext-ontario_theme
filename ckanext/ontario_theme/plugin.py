@@ -31,6 +31,7 @@ import functools
 
 from ckanext.ontario_theme.resource_upload import ResourceUpload
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
+from ckanext.ontario_theme.resource import CreateView as OntarioThemeResourceCreateView
 from ckanext.ontario_theme.organization import index as organization_index
 from ckanext.ontario_theme.datastore import DictionaryView
 
@@ -1144,6 +1145,11 @@ type data_last_updated
         for rule in rules:
             blueprint.add_url_rule(*rule)
         blueprint.add_url_rule('/dataset/new', view_func=OntarioThemeCreateView.as_view(str(u'new')), defaults={u'package_type': u'dataset'})
+        blueprint.add_url_rule(
+            u'/dataset/<id>/resource/new', 
+            view_func=OntarioThemeResourceCreateView.as_view(str(u'edit_step2')),
+            defaults={u'package_type': u'dataset'}
+        )
         blueprint.add_url_rule(u'/organization', view_func=organization_index, strict_slashes=False)
         blueprint.add_url_rule(u'/dataset/<id>/dictionary/<resource_id>',view_func=DictionaryView.as_view(str(u'dictionary')))
 

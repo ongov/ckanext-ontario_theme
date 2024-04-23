@@ -8,7 +8,7 @@
 
 {% block pre_primary %}
   {% set back_url = h.url_for(pkg.type ~ '_resource.edit', id=pkg.name, resource_id=res.id) %}
-  {% snippet "package/snippets/step_indicator.html", step=2, back_url=back_url %}
+  {% snippet "package/snippets/step_indicator.html", step=3, back_url=back_url %}
 {% endblock pre_primary %}
 
 {% block page_header %}
