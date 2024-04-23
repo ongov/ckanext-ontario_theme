@@ -401,10 +401,6 @@ input[type="reset"].ontario-search-reset:focus {
   padding-bottom: 16px;
 }
 
-.search-form .order-by-dropdown {
-  justify-content: center;
-  padding-top: 12px;
-}
 
 @media screen and (max-width: 40em) {
   .access-level-status.ontario-small-8.ontario-columns { 
