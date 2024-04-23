@@ -2333,3 +2333,7 @@ msgstr "Historique"
 #: ckanext/ontario_theme/templates/internal/organization/read_base.html:22
 msgid "More information"
 msgstr "Informations complémentaires"
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:83
+msgid "Showing datasets with access level: "
+msgstr "Jeux de données avec niveau d’accès : "
