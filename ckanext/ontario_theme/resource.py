@@ -6,20 +6,17 @@ from ckan.views.resource import CreateView as CreateView
 from flask.views import MethodView
 import ckan.model as model
 import six
-import ckan.lib.datapreview as lib_datapreview
-import ckan.plugins as plugins
 import cgi
 
 from ckan.common import _, g, request
 from ckan.views.dataset import (
-    _get_pkg_template, _get_package_type, _setup_template_variables
+    _get_pkg_template
 )
 
 import ckan.lib.navl.dictization_functions as dict_fns
 import ckan.lib.base as base
 import ckan.logic as logic
 import ckan.lib.helpers as h
-from ckan.views.home import CACHE_PARAMETERS
 
 NotFound = logic.NotFound
 NotAuthorized = logic.NotAuthorized
