@@ -1163,8 +1163,7 @@ type data_last_updated
             fq_list = search_params.setdefault('fq_list', [tag + ":open"])
 
         if facet_field is not None:
-            search_params.update({"fq_list": fq_list,
-                                  "facet.field": facet_field})
+            search_params.update({"fq_list": fq_list})
 
         sort = search_params.get('sort')
         if sort and 'titles' in sort:
