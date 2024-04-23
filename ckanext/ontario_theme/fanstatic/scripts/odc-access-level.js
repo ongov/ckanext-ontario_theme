@@ -29,4 +29,28 @@
       }
   }
 
+  window.addEventListener('load', updateAccessLevelSentence)
+  function updateAccessLevelSentence() {
+    var sentenceContainer = document.querySelector(".access-level-status");
+    var selectedButton = document.querySelector('input[name="access_level"]:checked');
+    if (selectedButton) {
+      var display_name = selectedButton.nextElementSibling.textContent.trim();
+      var display_name_without_count = display_name.replace(/\s*\(\d+\)$/, '');
+      sentenceContainer.querySelector('#access-level-sentence-value').textContent = display_name_without_count;
+      var selectedValue = selectedButton.value;
+      var selectedColor = "#7B725C";
+      switch (selectedValue) {
+        case "under_review":
+          selectedColor = "#92278F";
+          break;
+        case "restricted":
+          selectedColor = "#D81A21";
+          break;
+        case "open":
+          selectedColor = "#367A76";
+          break;
+      }
+      sentenceContainer.style.borderLeftColor = selectedColor;
+    }
+  }
 })();

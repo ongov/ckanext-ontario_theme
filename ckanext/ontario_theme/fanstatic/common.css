@@ -401,6 +401,18 @@ input[type="reset"].ontario-search-reset:focus {
   padding-bottom: 16px;
 }
 
+.search-form .order-by-dropdown {
+  justify-content: center;
+  padding-top: 12px;
+}
+
+@media screen and (max-width: 40em) {
+  .access-level-status.ontario-small-8.ontario-columns { 
+    width: 90%;
+    margin-left: 1rem;
+  }
+}
+
 @media screen and (min-width: 40em) {
   .sort-by-modal-div {
     display: none;
@@ -409,13 +421,10 @@ input[type="reset"].ontario-search-reset:focus {
   .search-form .control-order-by {
     display: flex;
     justify-content: end;
-    padding-top: 33px;
-
     margin-bottom: 0;
     background-color: #fff;
-    padding-right: 1rem;
+    padding: 5px;
     margin-left: -20px;
-    margin-right: -1rem;
   }
 
   #group-datasets-search-form.search-form .control-order-by,
@@ -446,8 +455,6 @@ input[type="reset"].ontario-search-reset:focus {
   */
 .search-form .control-order-by {
   display: flex;
-  justify-content: end;
-  padding-top: 33px;
 }
 
 #group-datasets-search-form,
@@ -490,13 +497,27 @@ input[type="reset"].ontario-search-reset:focus {
   display: none;
 }
 
+.radio-buttons-status{
+  order: 5;
+  background-color: white;
+  margin: 0px -20px;
+  padding: 33px 0px;
+}
+
 @media (max-width: 767px) {
-  .search-form .control-order-by {
+  .search-form .order-by-dropdown {
     display: none;
   }
 
   .js body.sort-by-modal .sort-by-modal-div {
     display: block;
+  }
+
+  .radio-buttons-status {
+    order: 6;
+    background-color: white;
+    margin: 0px -20px;
+    padding: 33px 0px;
   }
 
   .sort-by-modal-div {
@@ -529,6 +550,22 @@ input[type="reset"].ontario-search-reset:focus {
   }
 }
 
+@media screen and (min-width: 32.5em) and (max-width: 73em) {
+  .search-form .order-by-dropdown {
+    margin-left: -3rem;
+    padding-right: 20px;
+  }
+
+  .access-level-status.ontario-small-8.ontario-columns { 
+    width: 55%;
+  }
+
+  .radio-buttons-status {
+  margin: 0px -20px;
+  padding: 33px 0px;
+  align-items: center;
+  }
+}
 
 .search-form .filter-list,
 .search-form .search-count {
@@ -541,6 +578,7 @@ input[type="reset"].ontario-search-reset:focus {
   margin: unset;
   color: #000;
   flex-wrap: wrap;
+  order: 5;
 }
 
 .search-form .filter-list a:hover.pill {
@@ -3416,6 +3454,22 @@ label::after {
   height: 36px;
   z-index: 1
 }
+
+.access-level-status {
+  border-left: solid 5px;
+  padding: 24px;
+  background-color: #f2f2f2;
+  display: flex;
+  margin-left: 0.25rem;
+}
+
+#access-level-sentence-id {
+  margin: 0;
+}
+
+#access-level-sentence-value {
+  font-weight: bold;
+} 
 
 @media screen and (max-width: 40em) {
   .ontario-radios__input {

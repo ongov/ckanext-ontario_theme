@@ -4,6 +4,7 @@
 {% set form_id = form_id if form_id else false %}
 {% set schema_dict = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
 {% set extras = extras if extras else none %}
+{% set current_url = h.current_url() %}
 
 <form {% if form_id %}id="{{ form_id }}"{% endif %}
       class="search-form
@@ -67,64 +68,77 @@
     {% if count != 0 %}
       <button class="show-sort-by ontario-button ontario-button--secondary">
         <svg class="ontario-icon"
-            focusable="false"
-            sol:category="primary"
-            viewBox="0 0 24 24"
-            preserveAspectRatio="xMidYMid meet">
+             focusable="false"
+             sol:category="primary"
+             viewBox="0 0 24 24"
+             preserveAspectRatio="xMidYMid meet">
           <use xlink:href="#ontario-icon-sort"></use>
         </svg>
         {{ _('Sort by') }}
       </button>
-      <div class="form-select form-group control-order-by search-page-select">
-        <label class="ontario-label" for="field-order-by">{{ _('Sort by') + _(':') }}</label>
-        <select id="field-order-by"
-                name="sort"
-                class="form-control ontario-input ontario-dropdown">
-          {% for label, value in sorting %}
-            {% if label and value %}
-              <option value="{{ value }}"
-                      {%- if sorting_selected == value %} selected="selected"{%- endif -%}>
-                      {{ label }}
-              </option>
-            {% endif %}
-          {% endfor %}
-        </select>
-      </div>
-      <div id="sort-by-modal" class="sort-by-modal-div">
-        <div class="sort-by">
-          <div class="sort-by-modal-header">
-            <span class="ontario-h5">
-              <svg class="ontario-icon"
-                  focusable="false"
-                  sol:category="primary"
-                  viewBox="0 0 24 24"
-                  preserveAspectRatio="xMidYMid meet">
-                <use xlink:href="#ontario-icon-sort"></use>
-              </svg>
-            {{ _('Sort') }}</span>
-            <span aria-label="{{ _('close') }}" class="sort-by-close"
-                  role="button" tabindex="0">
-              <svg class="ontario-icon hide-sort-by"
-                  focusable="false"
-                  sol:category="primary"
-                  viewBox="0 0 24 24"
-                  preserveAspectRatio="xMidYMid meet">
-                <use xlink:href="#ontario-icon-close"></use>
-              </svg>
-            </span>
+      <div class="radio-buttons-status">
+        {% if '/dataset/' in current_url %}
+          <div class="access-level-status ontario-small-8 ontario-columns">
+            <p id="access-level-sentence-id">
+              Showing datasets with access level: <span id="access-level-sentence-value"></span>
+            </p>
           </div>
-          <ul>
-            {% for label, value in sorting %}
-              {% set sort_in_params = true if request.params['sort'] %}
-              {% if label and value %}
-                {% set selected = 'selected' if (sorting_selected == value) %}
-                {% set href = h.remove_url_param('sort', replace=value, extras=extras) if sort_in_params else h.add_url_param(new_params={'sort': value}, extras=extras) %}
-                <li class="sort-by-options {{ selected }}">
-                  <a href="{{ href }}">{{ label }}</a>
-                </li>
-              {% endif %}
-            {% endfor %}
-          </ul>
+        {% endif %}
+        <div class="form-select form-group control-order-by search-page-select ontario-medium-4 ontario-columns">
+          <div class="order-by-dropdown">
+            <label class="ontario-label" for="field-order-by">{{ _('Sort by') + _(':') }}</label>
+            <select id="field-order-by"
+                    name="sort"
+                    class="form-control ontario-input ontario-dropdown">
+              {% for label, value in sorting %}
+                {% if label and value %}
+                  <option value="{{ value }}"
+                          {%- if sorting_selected == value %}
+                          selected="selected"
+                          {%- endif -%}>{{ label }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+          <div id="sort-by-modal" class="sort-by-modal-div">
+            <div class="sort-by">
+              <div class="sort-by-modal-header">
+                <span class="ontario-h5">
+                  <svg class="ontario-icon"
+                       focusable="false"
+                       sol:category="primary"
+                       viewBox="0 0 24 24"
+                       preserveAspectRatio="xMidYMid meet">
+                    <use xlink:href="#ontario-icon-sort"></use>
+                  </svg>
+                {{ _('Sort') }}</span>
+                <span aria-label="{{ _('close') }}"
+                      class="sort-by-close"
+                      role="button"
+                      tabindex="0">
+                  <svg class="ontario-icon hide-sort-by"
+                       focusable="false"
+                       sol:category="primary"
+                       viewBox="0 0 24 24"
+                       preserveAspectRatio="xMidYMid meet">
+                    <use xlink:href="#ontario-icon-close"></use>
+                  </svg>
+                </span>
+              </div>
+              <ul>
+                {% for label, value in sorting %}
+                  {% set sort_in_params = true if request.params['sort'] %}
+                  {% if label and value %}
+                    {% set selected = 'selected' if (sorting_selected == value) %}
+                    {% set href = h.remove_url_param('sort', replace=value, extras=extras) if sort_in_params else h.add_url_param(new_params={'sort': value}, extras=extras) %}
+                    <li class="sort-by-options {{ selected }}">
+                      <a href="{{ href }}">{{ label }}</a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     {% endif %}
@@ -133,13 +147,14 @@
   {% if facets and count != 0 %}
     <button class="show-filters ontario-button ontario-button--secondary">
       <svg class="ontario-icon"
-            focusable="false"
-            sol:category="primary"
-            viewBox="0 0 24 24"
-            preserveAspectRatio="xMidYMid meet">
+           focusable="false"
+           sol:category="primary"
+           viewBox="0 0 24 24"
+           preserveAspectRatio="xMidYMid meet">
         <use xlink:href="#ontario-icon-filter"></use>
       </svg>
-    {{ _('Filters') }}</button>
+      {{ _('Filters') }}
+    </button>
   {% endif %}
 
   <!-- block for package searches -->
@@ -167,15 +182,15 @@
                 {% set item = dict[0] if dict else ({'name': field_value, 'display_name': field_value }) %}
                 {{ h.snippet('snippets/translate_facets.html', fields=schema_dict, name=field, item=item) }}
                 <a href="{{ facets.remove_field(field, item.name) }}"
-                    class="filtered pill"
-                    title="{{ _('Remove') }}">
+                   class="filtered pill"
+                   title="{{ _('Remove') }}">
                   <span class="pill-contents">
                     {{ item.display_name }}
                     <svg class="ontario-icon"
-                          focusable="false"
-                          sol:category="primary"
-                          viewBox="0 0 24 24"
-                          preserveAspectRatio="xMidYMid meet">
+                         focusable="false"
+                         sol:category="primary"
+                         viewBox="0 0 24 24"
+                         preserveAspectRatio="xMidYMid meet">
                       <use xlink:href="#ontario-icon-close"></use>
                     </svg>
                   </span>
