@@ -402,13 +402,6 @@ input[type="reset"].ontario-search-reset:focus {
 }
 
 
-@media screen and (max-width: 40em) {
-  .access-level-status.ontario-small-8.ontario-columns { 
-    width: 90%;
-    margin-left: 1rem;
-  }
-}
-
 @media screen and (min-width: 40em) {
   .sort-by-modal-div {
     display: none;
