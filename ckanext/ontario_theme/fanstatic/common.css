@@ -3493,3 +3493,7 @@ label::after {
     gap: 20px;
   }
 }
+
+.form-actions {
+  overflow: unset;
+}
