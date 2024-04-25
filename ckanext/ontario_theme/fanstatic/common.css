@@ -401,11 +401,6 @@ input[type="reset"].ontario-search-reset:focus {
   padding-bottom: 16px;
 }
 
-#group-search-form .ontario-callout,
-#organization-search-form .ontario-callout {
-  display: none;
-}
-
 @media screen and (min-width: 40em) {
   .sort-by-modal-div {
     display: none;
@@ -495,6 +490,10 @@ input[type="reset"].ontario-search-reset:focus {
   padding: 33px 0;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+}
+
+.radio-buttons-status:has(.control-order-by){
   justify-content: end;
 }
 
