@@ -75,14 +75,56 @@
         </svg>
         {{ _('Sort by') }}
       </button>
+      <div id="sort-by-modal" class="sort-by-modal-div">
+        <div class="sort-by">
+          <div class="sort-by-modal-header">
+            <span class="ontario-h5">
+              <svg class="ontario-icon"
+                  focusable="false"
+                  sol:category="primary"
+                  viewBox="0 0 24 24"
+                  preserveAspectRatio="xMidYMid meet">
+                <use xlink:href="#ontario-icon-sort"></use>
+              </svg>
+            {{ _('Sort') }}</span>
+            <span aria-label="{{ _('close') }}"
+                  class="sort-by-close"
+                  role="button"
+                  tabindex="0">
+              <svg class="ontario-icon hide-sort-by"
+                  focusable="false"
+                  sol:category="primary"
+                  viewBox="0 0 24 24"
+                  preserveAspectRatio="xMidYMid meet">
+                <use xlink:href="#ontario-icon-close"></use>
+              </svg>
+            </span>
+          </div>
+          <ul>
+            {% for label, value in sorting %}
+              {% set sort_in_params = true if request.params['sort'] %}
+              {% if label and value %}
+                {% set selected = 'selected' if (sorting_selected == value) %}
+                {% set href = h.remove_url_param('sort', replace=value, extras=extras) if sort_in_params else h.add_url_param(new_params={'sort': value}, extras=extras) %}
+                <li class="sort-by-options {{ selected }}">
+                  <a href="{{ href }}">{{ label }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% endif %}
       <div class="radio-buttons-status">
+        {% if facets %}
           <div class="ontario-callout access-level-status ontario-small-12 ontario-medium-8">
             <p id="access-level-sentence-id">
               {{ _('Showing datasets with access level: ') }}<span id="access-level-sentence-value"></span>
             </p>
           </div>
-        <div class="form-select form-group control-order-by search-page-select ontario-medium-4 ontario-columns">
-          <div class="order-by-dropdown">
+        {% endif %}
+        {% if count != 0 %}
+          <div class="form-select form-group control-order-by search-page-select ontario-medium-4 ontario-columns">
             <label class="ontario-label" for="field-order-by">{{ _('Sort by') + _(':') }}</label>
             <select id="field-order-by"
                     name="sort"
@@ -97,48 +139,8 @@
               {% endfor %}
             </select>
           </div>
-          <div id="sort-by-modal" class="sort-by-modal-div">
-            <div class="sort-by">
-              <div class="sort-by-modal-header">
-                <span class="ontario-h5">
-                  <svg class="ontario-icon"
-                       focusable="false"
-                       sol:category="primary"
-                       viewBox="0 0 24 24"
-                       preserveAspectRatio="xMidYMid meet">
-                    <use xlink:href="#ontario-icon-sort"></use>
-                  </svg>
-                {{ _('Sort') }}</span>
-                <span aria-label="{{ _('close') }}"
-                      class="sort-by-close"
-                      role="button"
-                      tabindex="0">
-                  <svg class="ontario-icon hide-sort-by"
-                       focusable="false"
-                       sol:category="primary"
-                       viewBox="0 0 24 24"
-                       preserveAspectRatio="xMidYMid meet">
-                    <use xlink:href="#ontario-icon-close"></use>
-                  </svg>
-                </span>
-              </div>
-              <ul>
-                {% for label, value in sorting %}
-                  {% set sort_in_params = true if request.params['sort'] %}
-                  {% if label and value %}
-                    {% set selected = 'selected' if (sorting_selected == value) %}
-                    {% set href = h.remove_url_param('sort', replace=value, extras=extras) if sort_in_params else h.add_url_param(new_params={'sort': value}, extras=extras) %}
-                    <li class="sort-by-options {{ selected }}">
-                      <a href="{{ href }}">{{ label }}</a>
-                    </li>
-                  {% endif %}
-                {% endfor %}
-              </ul>
-            </div>
-          </div>
-        </div>
+        {% endif %}
       </div>
-    {% endif %}
   {% endblock search_sortby %}
 
   {% if facets and count != 0 %}
