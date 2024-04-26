@@ -35,7 +35,7 @@ from ckanext.ontario_theme.resource import CreateView as OntarioThemeResourceCre
 from ckanext.ontario_theme.organization import index as organization_index
 from ckanext.ontario_theme.datastore import DictionaryView
 
-from ckanext.validation.helpers import dump_json_value
+from ckanext.validation.helpers import dump_json_value, validation_extract_report_from_errors
 
 # For Image Uploader
 #from ckan.controllers.home import CACHE_PARAMETERS
@@ -1108,7 +1108,8 @@ type data_last_updated
                 'ontario_theme_get_facet_options': get_facet_options,
                 'ontario_theme_site_title': site_title,
                 'ontario_theme_get_current_year': get_current_year,
-                'ontario_theme_get_validation_report': get_validation_report
+                'ontario_theme_get_validation_report': get_validation_report,
+                'validation_extract_report_from_errors': validation_extract_report_from_errors
                 }
 
     # IBlueprint
