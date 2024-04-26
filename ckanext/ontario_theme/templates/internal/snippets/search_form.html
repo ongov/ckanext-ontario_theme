@@ -107,10 +107,10 @@
       {% if count != 0 %}
         <button class="show-sort-by ontario-button ontario-button--secondary">
           <svg class="ontario-icon"
-              focusable="false"
-              sol:category="primary"
-              viewBox="0 0 24 24"
-              preserveAspectRatio="xMidYMid meet">
+               focusable="false"
+               sol:category="primary"
+               viewBox="0 0 24 24"
+               preserveAspectRatio="xMidYMid meet">
             <use xlink:href="#ontario-icon-sort"></use>
           </svg>
           {{ _('Sort by') }}
@@ -123,9 +123,9 @@
             {% for label, value in sorting %}
               {% if label and value %}
                 <option value="{{ value }}"
-                        {%- if sorting_selected == value %} selected="selected"{%- endif -%}>
-                        {{ label }}
-                </option>
+                        {%- if sorting_selected == value %}
+                        selected="selected"
+                        {%- endif -%}>{{ label }}</option>
               {% endif %}
             {% endfor %}
           </select>
@@ -135,20 +135,22 @@
             <div class="sort-by-modal-header">
               <span class="ontario-h5">
                 <svg class="ontario-icon"
-                    focusable="false"
-                    sol:category="primary"
-                    viewBox="0 0 24 24"
-                    preserveAspectRatio="xMidYMid meet">
+                     focusable="false"
+                     sol:category="primary"
+                     viewBox="0 0 24 24"
+                     preserveAspectRatio="xMidYMid meet">
                   <use xlink:href="#ontario-icon-sort"></use>
                 </svg>
               {{ _('Sort') }}</span>
-              <span aria-label="{{ _('close') }}" class="sort-by-close"
-                    role="button" tabindex="0">
+              <span aria-label="{{ _('close') }}"
+                    class="sort-by-close"
+                    role="button"
+                    tabindex="0">
                 <svg class="ontario-icon hide-sort-by"
-                    focusable="false"
-                    sol:category="primary"
-                    viewBox="0 0 24 24"
-                    preserveAspectRatio="xMidYMid meet">
+                     focusable="false"
+                     sol:category="primary"
+                     viewBox="0 0 24 24"
+                     preserveAspectRatio="xMidYMid meet">
                   <use xlink:href="#ontario-icon-close"></use>
                 </svg>
               </span>
@@ -172,13 +174,14 @@
     {% if facets and count != 0 %}
       <button class="show-filters ontario-button ontario-button--secondary">
         <svg class="ontario-icon"
-              focusable="false"
-              sol:category="primary"
-              viewBox="0 0 24 24"
-              preserveAspectRatio="xMidYMid meet">
+             focusable="false"
+             sol:category="primary"
+             viewBox="0 0 24 24"
+             preserveAspectRatio="xMidYMid meet">
           <use xlink:href="#ontario-icon-filter"></use>
         </svg>
-      {{ _('Filters') }}</button>
+        {{ _('Filters') }}
+      </button>
     {% endif %}
   </form>
 

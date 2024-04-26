@@ -64,18 +64,18 @@ in the core template for search.html.
             data-module="select-switch"
             novalidate>
         {% snippet "snippets/search_form.html",
-          searchbar_title=searchbar_title,
-          form_id=form_id,
-          type=type,
-          query=query,
-          sorting=sorting,
-          sorting_selected=sort_order,
-          count=c.page.item_count,
-          placeholder=input_text,
-          facets=facets,
-          show_empty=request.params,
-          error=c.query_error,
-          fields=c.fields %}
+        searchbar_title=searchbar_title,
+        form_id=form_id,
+        type=type,
+        query=query,
+        sorting=sorting,
+        sorting_selected=sort_order,
+        count=c.page.item_count,
+        placeholder=input_text,
+        facets=facets,
+        show_empty=request.params,
+        error=c.query_error,
+        fields=c.fields %}
       </form>
     {% endblock form %}
   </div>
