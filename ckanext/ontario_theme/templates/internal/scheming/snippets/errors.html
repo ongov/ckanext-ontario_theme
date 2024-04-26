@@ -70,8 +70,7 @@
               {%- endfor -%}
             {%- else -%}
               {# Missing mandatory fields #}
-              <li data-field-label="{{ field.field_name }}">{{
-                h.scheming_language_text(field.label) }}:
+              <li data-field-label="{{ field.field_name }}">{{ h.scheming_language_text(field.label) }}:
                 {{ errors[0] }}</li>
             {%- endif -%}
           {%- endif -%}
