@@ -1109,7 +1109,6 @@ type data_last_updated
                 'ontario_theme_site_title': site_title,
                 'ontario_theme_get_current_year': get_current_year,
                 'ontario_theme_get_validation_report': get_validation_report,
-                'validation_extract_report_from_errors': validation_extract_report_from_errors
                 }
 
     # IBlueprint
