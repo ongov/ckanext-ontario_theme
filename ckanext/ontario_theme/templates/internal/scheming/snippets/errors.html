@@ -82,7 +82,7 @@
             <li data-field-label="{{ key }}">{{ _(key) }}: {{ errors[0] }}</li>
           {% endif %}
         {%- endfor -%}
-      {% endblock %}
+      {% endblock all_errors %}
     </ul>
 
     {% if validation_report %}
