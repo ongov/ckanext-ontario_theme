@@ -2,16 +2,17 @@
 
 {% block subtitle %}
   {{ _('More information') }} {{ g.template_title_delimiter }} {{ h.get_translated(c.group_dict,"title") }}
-{% endblock subtitle %} 
+{% endblock subtitle %}
+ 
 
 <div class="ontario-columns">
 
-{% block primary_content_inner %}
-  {% block organization_description %}
-    {% if h.get_translated(c.group_dict, "description") %}
-      {{ h.render_markdown(h.get_translated(c.group_dict, "description"), allow_html=true) }}
-    {% endif %}
-  {% endblock organization_description %}
-{% endblock primary_content_inner %}
+  {% block primary_content_inner %}
+    {% block organization_description %}
+      {% if h.get_translated(c.group_dict, "description") %}
+        {{ h.render_markdown(h.get_translated(c.group_dict, "description"), allow_html=true) }}
+      {% endif %}
+    {% endblock organization_description %}
+  {% endblock primary_content_inner %}
 
 </div>

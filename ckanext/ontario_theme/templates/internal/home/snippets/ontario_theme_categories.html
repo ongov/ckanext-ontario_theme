@@ -60,7 +60,7 @@
          class="hp_category">
         <i class="fa fa-{{ i['fa-icon'] }}"></i>
         <span>{{ i[label] }}</span></a>
-      <span class="category-count">({{ h.ontario_theme_get_keyword_count(_(i[label]), language) }}<span class="ontario-show-for-sr"> {{ _('datasets') }}</span>)</span>
+      <span class="category-count">({{ h.ontario_theme_get_keyword_count(_(i[label]), language) }}<span class="ontario-show-for-sr">{{ _('datasets') }}</span>)</span>
     </li>
   {% endfor %}
 </ul>

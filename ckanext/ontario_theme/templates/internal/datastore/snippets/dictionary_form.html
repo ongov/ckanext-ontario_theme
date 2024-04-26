@@ -9,27 +9,27 @@
 #}
 
 {{ form.select('info__' ~ position ~ '__type_override',
-  label=_('Type Override'), options=[
-  {'name': '', 'value': ''},
-  {'name': 'boolean', 'value': 'boolean'},
-  {'name': 'date', 'value': 'date'},
-  {'name': 'float', 'value': 'double precision'},
-  {'name': 'integer', 'value': 'integer'},
-  {'name': 'array', 'value': 'integer[]'},
-  {'name': 'interval', 'value': 'interval'},
-  {'name': 'money', 'value': 'money'},
-  {'name': 'numeric', 'value': 'numeric'},
-  {'name': 'array', 'value': 'numeric[]'},
-  {'name': 'text', 'value': 'text'},
-  {'name': 'array', 'value': 'text[]'},
-  {'name': 'time', 'value': 'time'},
-  {'name': 'timestamp', 'value': 'timestamp'},
-  ], selected=field.get('info', {}).get('type_override', '')) }}
+label=_('Type Override'), options=[
+{'name': '', 'value': ''},
+{'name': 'boolean', 'value': 'boolean'},
+{'name': 'date', 'value': 'date'},
+{'name': 'float', 'value': 'double precision'},
+{'name': 'integer', 'value': 'integer'},
+{'name': 'array', 'value': 'integer[]'},
+{'name': 'interval', 'value': 'interval'},
+{'name': 'money', 'value': 'money'},
+{'name': 'numeric', 'value': 'numeric'},
+{'name': 'array', 'value': 'numeric[]'},
+{'name': 'text', 'value': 'text'},
+{'name': 'array', 'value': 'text[]'},
+{'name': 'time', 'value': 'time'},
+{'name': 'timestamp', 'value': 'timestamp'},
+], selected=field.get('info', {}).get('type_override', '')) }}
 
 {{ form.input('info__' ~ position ~ '__label',
-  label=_('Label'), id='field-f' ~ position ~ 'label',
-  value=field.get('info', {}).get('label', ''), classes=['control-full']) }}
+label=_('Label'), id='field-f' ~ position ~ 'label',
+value=field.get('info', {}).get('label', ''), classes=['control-full']) }}
 
 {{ form.markdown('info__' ~ position ~ '__notes',
-  label=_('Description'), id='field-d' ~ position ~ 'notes',
-  value=field.get('info', {}).get('notes', '')) }}
+label=_('Description'), id='field-d' ~ position ~ 'notes',
+value=field.get('info', {}).get('notes', '')) }}
