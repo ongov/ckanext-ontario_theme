@@ -201,6 +201,7 @@ def help():
     '''
     return render_template('home/help.html')
 
+
 def new_resource_publish(id, resource_id):
     '''New page for submitting new resource for publication.
     '''
