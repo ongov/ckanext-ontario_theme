@@ -189,7 +189,6 @@ class CreateView(MethodView):
 
 class EditView(MethodView):
     def _prepare(self, id):
-        print('HEJ OMA EditView _prepare')
         context = {
             u'model': model,
             u'session': model.Session,
@@ -208,7 +207,6 @@ class EditView(MethodView):
         return context
 
     def post(self, package_type, id, resource_id):
-        print('HEJ OMA EditView post')
         context = self._prepare(id)
         data = clean_dict(
             dict_fns.unflatten(tuplize_dict(parse_params(request.form)))
@@ -236,8 +234,7 @@ class EditView(MethodView):
         except NotAuthorized:
             return base.abort(403, _(u'Unauthorized to edit this resource'))
         return h.redirect_to(
-            u'{}_resource.read'.format(package_type),
-            id=id, resource_id=resource_id
+            u'validation_read', id=id, resource_id=resource_id
         )
 
     def get(
@@ -249,7 +246,6 @@ class EditView(MethodView):
         errors=None,
         error_summary=None
     ):
-        print('HEJ OMA EditView get')
         context = self._prepare(id)
         pkg_dict = get_action(u'package_show')(context, {u'id': id})
 
