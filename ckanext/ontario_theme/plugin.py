@@ -32,6 +32,7 @@ import functools
 from ckanext.ontario_theme.resource_upload import ResourceUpload
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
 from ckanext.ontario_theme.resource import CreateView as OntarioThemeResourceCreateView
+from ckanext.ontario_theme.resource import EditView as OntarioThemeResourceEditView
 from ckanext.ontario_theme.organization import index as organization_index
 from ckanext.ontario_theme.datastore import DictionaryView
 
@@ -200,13 +201,6 @@ def help():
     '''New help page for site.
     '''
     return render_template('home/help.html')
-
-def new_resource_publish(id, resource_id):
-    '''New page for submitting new resource for publication.
-    '''
-    pkg_dict = toolkit.get_action(u'package_show')(None, {u'id': id})
-    return render_template('/package/new_resource_publish.html', id=id, resource_id=resource_id, pkg_dict=pkg_dict)
-
 
 def new_resource_publish(id, resource_id):
     '''New page for submitting new resource for publication.
@@ -1149,6 +1143,10 @@ type data_last_updated
             u'/dataset/<id>/resource/new', 
             view_func=OntarioThemeResourceCreateView.as_view(str(u'edit_step2')),
             defaults={u'package_type': u'dataset'}
+        )
+        blueprint.add_url_rule(
+            u'/<resource_id>/edit', 
+            view_func=OntarioThemeResourceEditView.as_view(str(u'edit'))
         )
         blueprint.add_url_rule(u'/organization', view_func=organization_index, strict_slashes=False)
         blueprint.add_url_rule(u'/dataset/<id>/dictionary/<resource_id>',view_func=DictionaryView.as_view(str(u'dictionary')))
