@@ -1,12 +1,6 @@
 {% ckan_extends %}
 
 {% block breadcrumb_content %}
-  {% snippet "package/snippets/package_base_breadcrumb.html", pkg=pkg, res=res %}
-  {% if res %}
-    <li>
-      {% link_for h.resource_display_name(res)|truncate(30), named_route=pkg.type ~ '_resource.read', id=pkg.name, resource_id=res.id %}
-    </li>
-  {% endif %}
 {% endblock breadcrumb_content %}
 
 {% block pre_primary %}
