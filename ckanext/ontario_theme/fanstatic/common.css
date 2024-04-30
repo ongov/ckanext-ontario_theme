@@ -2307,7 +2307,19 @@ screen and (min-width: 96em) {
 }
 
 .ontario-border-highlight--green {
-  border-color: #2b8737 !important
+  border-color: #2b8737 !important;
+}
+
+.ontario-border-highlight--teal {
+  border-color: #367a76 !important;
+}
+
+.ontario-border-highlight--taupe {
+  border-color: #7b725c !important;
+}
+
+.ontario-border-highlight--red {
+  border-color: #D81A21 !important;
 }
 
 /* ========================================================================
