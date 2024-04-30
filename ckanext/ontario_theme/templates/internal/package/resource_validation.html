@@ -1,0 +1,41 @@
+{% extends "package/resource_edit_base.html" %}
+
+{%- block subtitle -%}
+    {{ h.resource_display_name(resource) }}
+{%- endblock subtitle -%}
+
+{% block pre_primary %}
+  {% set back_url = h.url_for(pkg_dict.type ~ '_resource.edit', id=pkg_dict.id, resource_id=resource.id) %}
+  {% snippet "package/snippets/step_indicator.html", step=2, back_url=back_url %}
+{% endblock pre_primary %}
+
+{% block form_title %}
+  {{ h.resource_display_name(resource) }}
+  {% if validation.report %}{{ h.get_validation_badge(resource)|safe }}{% endif %}
+{% endblock form_title %}
+
+{% block primary_content_inner %}
+  {% if validation.report %}
+    {% set success_message = "Data validated successfully" %}
+    <div class="validation-details">
+      <div>{{ _('Validation timestamp') }}: {{ h.render_datetime(resource.validation_timestamp, with_hours=True) }}</div>
+      <div>{{ _('Duration') }}: {{ h.validation_dict(validation.report)["stats"]["seconds"] }}s</div>
+    </div>
+    {% snippet "package/snippets/successful_page_alert.html", success_message=success_message %}
+  {% else %}
+    {% set success_message = "Data uploaded successfully" %}
+    {% snippet "package/snippets/successful_page_alert.html", success_message=success_message %}
+  {% endif %}
+
+  {% set package_id = resource.get('package_id') %}
+  {% set resource_id = resource.get('id') %}
+  {% set action = h.url_for('datastore.dictionary',
+      id=package_id,
+      resource_id=resource.id) %}
+ 
+  <form method="get" action="{{ action }}">
+    <button class="ontario-button ontario-button--primary"
+            name="save"
+            type="submit">Continue</button>
+  </form>
+{% endblock primary_content_inner %}
