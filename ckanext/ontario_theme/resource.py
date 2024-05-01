@@ -131,7 +131,9 @@ class CreateView(MethodView):
             resource_id_array = [p['id'] for p in resource_dict]
             resource_id = resource_id_array[-1]
             return h.redirect_to(
-                u'validation_read', id=id, resource_id=resource_id
+                "ontario_theme.resource_validation",
+                id=id,
+                resource_id=resource_id
             )
         else:
             # add more resources

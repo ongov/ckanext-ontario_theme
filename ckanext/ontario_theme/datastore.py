@@ -28,10 +28,10 @@ datastore = Blueprint("datastore", __name__)
 class DictionaryView(MethodView):
 
     def _prepare(self, id, resource_id):
+        # resource_edit_base template uses these
+        pkg_dict = get_action("package_show")(None, {"id": id})
+        resource = get_action("resource_show")(None, {"id": resource_id})
         try:
-            # resource_edit_base template uses these
-            pkg_dict = get_action("package_show")(None, {"id": id})
-            resource = get_action("resource_show")(None, {"id": resource_id})
             rec = get_action("datastore_search")(
                 None, {"resource_id": resource_id, "limit": 0}
             )
@@ -41,7 +41,12 @@ class DictionaryView(MethodView):
                 "fields": [f for f in rec["fields"] if not f["id"].startswith("_")],
             }
 
-        except (ObjectNotFound, NotAuthorized):
+        except ObjectNotFound:
+            return {
+                "pkg_dict": pkg_dict,
+                "resource": resource,
+            }
+        except NotAuthorized:
             abort(404, _("Resource not found"))
 
     def get(self, id, resource_id):
@@ -125,6 +130,8 @@ class DictionaryView(MethodView):
                 None,
                 {"resource_id": resource_id, "ignore_hash": True}
             )
+            return h.redirect_to("ontario_theme.new_resource_publish", id=id, resource_id=resource_id)
+        elif not status:
             return h.redirect_to("ontario_theme.new_resource_publish", id=id, resource_id=resource_id)
         else:
             return h.redirect_to("datastore.dictionary", id=id, resource_id=resource_id)

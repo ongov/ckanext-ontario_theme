@@ -19,8 +19,12 @@
 {% endblock form_title %}
 
 {% block primary_content_inner %}
-
-  {% set action = h.url_for('datastore.dictionary', id=pkg.name, resource_id=res.id) %}
+  {% if fields %}
+    {% set action = h.url_for('datastore.dictionary', id=pkg.name, resource_id=res.id) %}
+    {% set method = "method=post" %}
+  {% else %}
+    {% set action = h.url_for('ontario_theme.new_resource_publish', id=pkg.name, resource_id=res.id) %}
+  {% endif %}
 
   {% if res.validation_status and res.validation_status == 'failure' %}
     <div class="ontario-alert ontario-alert--error">
@@ -56,17 +60,25 @@
     {% snippet 'validation/snippets/validation_report_dialog.html', validation_report=validation_report %}
   {% endif %}
 
-  <form method="post" action="{{ action }}">
-    {% block dictionary_form %}
-      {% for field in fields %}
-        {% snippet "datastore/snippets/dictionary_form.html",
-        field=field,
-        position=loop.index
-        %}
-      {% endfor %}
-    {% endblock dictionary_form %}
+  <form {{ method }} action="{{ action }}">
+    {% if fields %}
+      {% block dictionary_form %}
+        {% for field in fields %}
+          {% snippet "datastore/snippets/dictionary_form.html",
+          field=field,
+          position=loop.index
+          %}
+        {% endfor %}
+      {% endblock dictionary_form %}
+    {% else %}
+      <p>This resource does not need a data dictionary.</p>
+      <p>
+        Data dictionaries give users the information they need to understand the data they are looking at. The data dictionary is displayed alongside the data for easy reference.
+        Data dictionaries are only used for CSV files.
+      </p>
+    {% endif %}
     <button class="ontario-button ontario-button--primary"
             name="save"
-            type="submit">{{ _('Run validator to continue') }}</button>
+            type="submit">{{ _('Continue') }}</button>
   </form>
 {% endblock primary_content_inner %}

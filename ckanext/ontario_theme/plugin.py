@@ -215,6 +215,25 @@ def new_resource_publish(id, resource_id):
                            resource=res)
 
 
+def resource_validation(id, resource_id):
+    '''Intermediate page for resource validation (step 2)
+    '''
+    pkg_dict = toolkit.get_action(u'package_show')(None, {u'id': id})
+    res = toolkit.get_action(u'resource_show')(None, {u'id': resource_id})
+    try:
+        validation = toolkit.get_action(u'resource_validation_show')(
+            None,
+            {u'resource_id': resource_id})
+    except ckan.logic.NotFound:
+        validation = None
+
+    return render_template('/package/resource_validation.html',
+                           id=id,
+                           pkg_dict=pkg_dict,
+                           resource=res,
+                           validation=validation)
+
+
 def csv_dump():
     '''
         This was rewritten to be compatible with python3.6/ckan2.9
@@ -1133,7 +1152,8 @@ type data_last_updated
         rules = [
             (u'/help', u'help', help),
             (u'/dataset/inventory', u'inventory', csv_dump),
-            (u'/dataset/<id>/<resource_id>/new_resource_publish/', u'new_resource_publish', new_resource_publish)
+            (u'/dataset/<id>/<resource_id>/new_resource_publish/', u'new_resource_publish', new_resource_publish),
+            (u'/dataset/<id>/<resource_id>/resource_validation/', u'resource_validation', resource_validation)
         ]
 
         for rule in rules:
