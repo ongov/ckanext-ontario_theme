@@ -1558,3 +1558,7 @@ msgstr ""
 #: ckanext/ontario_theme/templates/internal/organization/read_base.html:22
 msgid "More information"
 msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:83
+msgid "Showing datasets with access level: "
+msgstr ""

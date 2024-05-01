@@ -407,15 +407,10 @@ input[type="reset"].ontario-search-reset:focus {
   }
 
   .search-form .control-order-by {
-    display: flex;
     justify-content: end;
-    padding-top: 33px;
-
     margin-bottom: 0;
     background-color: #fff;
     padding-right: 1rem;
-    margin-left: -20px;
-    margin-right: -1rem;
   }
 
   #group-datasets-search-form.search-form .control-order-by,
@@ -446,8 +441,6 @@ input[type="reset"].ontario-search-reset:focus {
   */
 .search-form .control-order-by {
   display: flex;
-  justify-content: end;
-  padding-top: 33px;
 }
 
 #group-datasets-search-form,
@@ -490,6 +483,26 @@ input[type="reset"].ontario-search-reset:focus {
   display: none;
 }
 
+.radio-buttons-status{
+  order: 2;
+  background-color: white;
+  margin: 0 -16px;
+  padding: 33px 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.radio-buttons-status:has(.control-order-by){
+  justify-content: end;
+}
+
+#group-datasets-search-form .radio-buttons-status,
+#organization-datasets-search-form .radio-buttons-status {
+  margin: 0 -20px;
+  padding: 20px 0;
+}
+
 @media (max-width: 767px) {
   .search-form .control-order-by {
     display: none;
@@ -497,6 +510,12 @@ input[type="reset"].ontario-search-reset:focus {
 
   .js body.sort-by-modal .sort-by-modal-div {
     display: block;
+  }
+
+  .radio-buttons-status {
+    order: 6;
+    margin: 0 -16px;
+    padding: 33px 16px 0;
   }
 
   .sort-by-modal-div {
@@ -541,6 +560,7 @@ input[type="reset"].ontario-search-reset:focus {
   margin: unset;
   color: #000;
   flex-wrap: wrap;
+  order: 5;
 }
 
 .search-form .filter-list a:hover.pill {
@@ -2282,12 +2302,25 @@ screen and (min-width: 96em) {
   margin-bottom: 1rem;
 }
 
+/* Note: The following rules are needed for ODC's theme. */
 .ontario-border-highlight--purple {
   border-color: #92278f !important;
 }
 
 .ontario-border-highlight--green {
-  border-color: #2b8737 !important
+  border-color: #2b8737 !important;
+}
+
+.ontario-border-highlight--teal {
+  border-color: #367a76 !important;
+}
+
+.ontario-border-highlight--taupe {
+  border-color: #7b725c !important;
+}
+
+.ontario-border-highlight--red {
+  border-color: #D81A21 !important;
 }
 
 /* ========================================================================
@@ -3416,6 +3449,18 @@ label::after {
   height: 36px;
   z-index: 1
 }
+
+.access-level-status {
+  margin: unset;
+}
+
+#access-level-sentence-id {
+  margin: 0;
+}
+
+#access-level-sentence-value {
+  font-weight: bold;
+} 
 
 @media screen and (max-width: 40em) {
   .ontario-radios__input {
