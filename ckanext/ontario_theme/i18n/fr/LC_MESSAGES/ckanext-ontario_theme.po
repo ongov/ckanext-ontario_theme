@@ -1662,7 +1662,7 @@ msgstr "Quoi de neuf?"
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:52
 msgid "Most popular datasets"
-msgstr "Ensembles de données les plus populaires"
+msgstr "Jeux de données les plus populaires"
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:52
 msgid "More popular datasets"
