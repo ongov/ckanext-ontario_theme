@@ -415,7 +415,7 @@ input[type="reset"].ontario-search-reset:focus {
 
   #group-datasets-search-form.search-form .control-order-by,
   #organization-datasets-search-form.search-form .control-order-by {
-    margin-right: -20px;
+    margin-left: unset;
     padding-right: 20px;
   }
 
@@ -483,7 +483,7 @@ input[type="reset"].ontario-search-reset:focus {
   display: none;
 }
 
-.radio-buttons-status{
+.radio-buttons-status {
   order: 2;
   background-color: white;
   margin: 0 -16px;
@@ -493,14 +493,20 @@ input[type="reset"].ontario-search-reset:focus {
   justify-content: flex-start;
 }
 
-.radio-buttons-status:has(.control-order-by){
-  justify-content: end;
+@media screen and (min-width: 767px) {
+  .radio-buttons-status:has(.control-order-by) {
+    justify-content: end;
+  }
+
+  #group-datasets-search-form .radio-buttons-status,
+  #organization-datasets-search-form .radio-buttons-status {
+    padding: 20px 0;
+  }
 }
 
 #group-datasets-search-form .radio-buttons-status,
 #organization-datasets-search-form .radio-buttons-status {
   margin: 0 -20px;
-  padding: 20px 0;
 }
 
 @media (max-width: 767px) {
@@ -3460,7 +3466,7 @@ label::after {
 
 #access-level-sentence-value {
   font-weight: bold;
-} 
+}
 
 @media screen and (max-width: 40em) {
   .ontario-radios__input {
