@@ -236,7 +236,9 @@ class EditView(MethodView):
         except NotAuthorized:
             return base.abort(403, _(u'Unauthorized to edit this resource'))
         return h.redirect_to(
-            u'validation_read', id=id, resource_id=resource_id
+            "ontario_theme.resource_validation",
+            id=id,
+            resource_id=resource_id
         )
 
     def get(
