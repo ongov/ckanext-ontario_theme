@@ -35,9 +35,8 @@
     var selectedButton = document.querySelector('input[name="access_level"]:checked');
     if (selectedButton) {
       var displayName = selectedButton.getAttribute('data-display-name').trim();
-      var display_name_without_count = displayName.replace(/\s*\(\d+\)$/, '');
       var calloutElement = document.querySelector('.access-level-status');
-      calloutElement.querySelector('#access-level-sentence-value').textContent = display_name_without_count;
+      calloutElement.querySelector('#access-level-sentence-value').textContent = displayName;
       var selectedColor = selectedButton.getAttribute('data-color')
       calloutElement.classList.add(`ontario-border-highlight--${selectedColor}`);
     }

@@ -31,15 +31,15 @@
         {% endwith %}
         {# Displaying the "All levels" radio button #}
         {% set total_count = h.get_facet_items_dict(name)|sum(attribute='count') %}
+        {% set display_name = _('All levels') %}
         {% if "*" == request.params[name] %}
           {% set checked = "checked" %}
-          {% set display_name = _('All levels') %}
           {% set all_levels_color = 'taupe' %}
         {% endif %}
         <div class="ontario-radios__item">
           <input class="ontario-radios__input" id="radio-button-option-all" name="access_level" type="radio" value="*" data-color="{{ all_levels_color }}" data-display-name="{{ display_name }}" {{ checked }}>
           <label class="ontario-label ontario-radios__label"
-                  for="radio-button-option-all">{{ _('All levels') }} ({{ h.localised_number(total_count) }})</label>
+                  for="radio-button-option-all">{{ display_name }} ({{ h.localised_number(total_count) }})</label>
         </div>
       </div>
     </fieldset>

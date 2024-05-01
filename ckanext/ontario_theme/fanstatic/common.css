@@ -2302,6 +2302,7 @@ screen and (min-width: 96em) {
   margin-bottom: 1rem;
 }
 
+/* Note: The following rules are needed for ODC's theme. */
 .ontario-border-highlight--purple {
   border-color: #92278f !important;
 }
