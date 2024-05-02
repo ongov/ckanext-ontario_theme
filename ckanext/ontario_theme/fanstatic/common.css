@@ -3497,3 +3497,20 @@ label::after {
 .form-actions {
   overflow: unset;
 }
+
+/* ========================================================================
+   Hint text - Design System
+   ======================================================================== */
+
+.ontario-hint {
+  color: #4d4d4d;
+  display: inline-block;
+  margin: 0 0 1rem 0;
+  width: 100%;
+  max-width: 48rem
+}
+
+/* form-column-name */
+.form-column-name {
+  font-weight: 700;
+}
