@@ -3,7 +3,7 @@
   {% set description = h.scheming_language_text(pkg['notes_translated'])|truncate(5000, true) %}
 {%- endif -%}
 {% block javascript %}
-<script type="application/ld+json">
+  <script type="application/ld+json">
   {
     "@context": "http://schema.org",
     "@type": "Dataset",
@@ -54,5 +54,5 @@
       ]
     {% endif %}
   }
-</script>
+  </script>
 {% endblock javascript %}

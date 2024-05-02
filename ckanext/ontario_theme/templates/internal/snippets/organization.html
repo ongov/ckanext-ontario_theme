@@ -4,9 +4,9 @@
   {% if has_context_title %}
     <div class="module module-narrow module-shallow context-info">
       <h2 class="ontario-h4">{{ _('Ministry') }}</h2>
-  {% else %}
-    <div class="no-context-title">
-  {% endif %}
+    {% else %}
+      <div class="no-context-title">
+      {% endif %}
       <section>
         {% block inner %}
           {% block image %}
@@ -58,4 +58,4 @@
         {% endblock follow %}
       </section>
     </div>
-{% endblock info %}
+  {% endblock info %}

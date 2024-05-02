@@ -41,7 +41,9 @@
   {% if h.check_access('package_update',{'id':pkg_dict.id}) %}
     <div class="package-additional-info-tr">
       <dt class="dataset-label package-additional-info-th">{{ _("State") }}</dt>
-      <dd class="dataset-details package-additional-info-td">{{ _(pkg_dict.state) }}</dd>
+      <dd class="dataset-details package-additional-info-td">
+        {{ _(pkg_dict.state) }}
+      </dd>
     </div>
   {% endif %}
 {% endblock package_additional_info %}
