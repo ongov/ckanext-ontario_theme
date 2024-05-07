@@ -5,7 +5,10 @@ resources:
       filters:
         - path: ref
           value: "refs/heads/develop"
-
+  repositories:  
+  - repository: ods-edc-qa-automation
+    type: git
+    name: "Ontario Data Catalogue/ods-edc-qa-automation"
 parameters: 
   - name: Environment
     displayName: Environment
@@ -25,6 +28,10 @@ parameters:
       - patch
       - reset
       - no
+  - name: Run_E2E_Tests
+    displayName: Run E2E Tests?
+    type: boolean
+    default: false
 
 trigger:
   batch: true
@@ -32,11 +39,6 @@ trigger:
     include:
       - main
       - develop
-  paths:
-    include:
-      - '*'
-    exclude:
-      - /setup.py
   tags:
     exclude:
     - '*'
@@ -122,7 +124,7 @@ stages:
          git config user.email "dev.ops@ontario.ca"
          git config user.name "ods-devops-automation"
          git add setup.py
-         git commit -m 'Version update by Build Id: $(Build.BuildNumber) on $(Agent.Id)'
+         git commit -m 'Version update by Build Id: $(Build.BuildNumber) on $(Agent.Id) ***NO_CI***'
          git tag "v$(Commit.VarKey)"
          git push origin HEAD:$(Build.SourceBranchName)
          git push --tags origin HEAD:$(Build.SourceBranchName)    
@@ -169,6 +171,44 @@ stages:
                sudo systemctl start supervisor && sudo systemctl start nginx && sudo systemctl status supervisor && sudo systemctl status nginx
                echo "#### DEPLOYMENT COMPLETE! ####"
              displayName: 'Deploying to IST'
+
+- stage: E2E_Testing
+  dependsOn: 
+    - Build
+    - IST_Deploy
+  condition: and(succeeded(), eq('${{ parameters.environment }}', 'ist'), eq('${{ parameters.Run_E2E_Tests }}', 'true'))
+  variables:
+    - group: ist-vars
+  jobs:
+    - job: RunE2ETests
+      displayName: Run E2E Tests
+      pool: 
+        vmImage: 'ubuntu-latest'
+      steps:
+        - checkout: ods-edc-qa-automation
+        - task: NodeTool@0
+          inputs:
+            versionSpec: '16.15.1'
+          displayName: 'Install Node.js'
+        - script: |
+            pip install wget unzip
+            wget "https://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip"
+            unzip BrowserStackLocal-linux-x64.zip -d /usr/local/bin/
+            chmod 755 /usr/local/bin/BrowserStackLocal
+            rm -f BrowserStackLocal-linux-x64.zip
+            rm package-lock.json
+            mkdir npm_cache
+            export npm_config_cache=./npm_cache/
+            npm install
+            BrowserStackLocal --daemon start
+            npm run test_on_vpn --loglevel verbose
+            BrowserStackLocal --daemon stop" | tee build.log
+          env:
+            PERCY_TOKEN: $(PERCY_TOKEN)
+            BROWSERSTACK_USER: $(BROWSERSTACK_USER)
+            BROWSERSTACK_ACCESS_KEY: $(BROWSERSTACK_ACCESS_KEY)
+            BROWSERSTACK_KEY: $(BROWSERSTACK_KEY)
+          displayName: 'Running Percy Tests'
              
 - stage: UAT_Deploy
   dependsOn: 
