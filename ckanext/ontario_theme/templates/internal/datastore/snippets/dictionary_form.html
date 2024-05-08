@@ -1,9 +1,11 @@
 {% import 'macros/form.html' as form %}
 
 <h2>{{ _( "Column {num}").format(num=position) }}</h2>
-<h3 class="ontario-h5">Column name</h3>
+<div class="column-name-div">
+  <label for="column_name">Column name:</label><input type="text" disabled value="{{ field.id }}" class="form-column-name">
+</div>
 <p class="ontario-hint">This can only be changed in the data file.</p>
-<p class="form-column-name">{{ field.id }}</p>
+
 
 {#
   Data Dictionary fields may be added this snippet. New fields following
