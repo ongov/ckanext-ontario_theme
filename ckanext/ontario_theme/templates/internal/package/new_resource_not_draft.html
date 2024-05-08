@@ -1,17 +1,22 @@
 {% ckan_extends %}
 
-{% block breadcrumb_content %}
-  {% snippet "package/snippets/package_base_breadcrumb.html", pkg=pkg %}
-  <li>
-    {% link_for h.dataset_display_name(pkg)|truncate(30), named_route=pkg.type ~ '.read', id=pkg.id if is_activity_archive else pkg.name %}
-  </li>
-{% endblock breadcrumb_content %}
+{% block breadcrumb %}
+{% endblock breadcrumb %}
 
-{% block secondary_content %}
-  {% snippet "package/snippets/disclaimer.html" %}
-  {{ super() }}
-{% endblock secondary_content %}
+{% block secondary %}
+{% endblock secondary %}
+
+{% block pre_primary %}
+  {% snippet "package/snippets/step_indicator.html", step=1 %}
+{% endblock pre_primary %}
+
+{% block form_title %}
+  {{ _('Add resource file and metadata') }}
+{% endblock form_title %}
 
 {% block form %}
   {% snippet resource_form_snippet, data=data, errors=errors, error_summary=error_summary, include_metadata=false, pkg_name=pkg_name, pkg_dict=pkg_dict, stage=stage, allow_upload=g.ofs_impl and logged_in, dataset_type=dataset_type %}
 {% endblock form %}
+
+{% block page_header %}
+{% endblock page_header %}

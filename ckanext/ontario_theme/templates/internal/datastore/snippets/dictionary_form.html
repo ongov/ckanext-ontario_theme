@@ -1,6 +1,11 @@
 {% import 'macros/form.html' as form %}
 
-<h3>{{ _( "Field {num}.").format(num=position) }} {{ field.id }} ({{ field.type }})</h3>
+<h2>{{ _( "Column {num}").format(num=position) }}</h2>
+<div class="column-name-div">
+  <label for="column_name">Column name:</label><input type="text" disabled value="{{ field.id }}" class="form-column-name">
+</div>
+<p class="ontario-hint">This can only be changed in the data file.</p>
+
 
 {#
   Data Dictionary fields may be added this snippet. New fields following
@@ -9,21 +14,18 @@
 #}
 
 {{ form.select('info__' ~ position ~ '__type_override',
-  label=_('Type Override'), options=[
-  {'name': '', 'value': ''},
-  {'name': 'boolean', 'value': 'boolean'},
-  {'name': 'date', 'value': 'date'},
-  {'name': 'integer', 'value': 'integer'},
-  {'name': 'numeric', 'value': 'numeric'},
-  {'name': 'text', 'value': 'text'},
-  {'name': 'time', 'value': 'time'},
-  {'name': 'timestamp', 'value': 'timestamp'},
-  ], selected=field.get('info', {}).get('type_override', '')) }}
-
-{{ form.input('info__' ~ position ~ '__label',
-  label=_('Label'), id='field-f' ~ position ~ 'label',
-  value=field.get('info', {}).get('label', ''), classes=['control-full']) }}
+label=_('Data type'), options=[
+{'text': 'Select', 'value': ''},
+{'text': 'Boolean', 'value': 'boolean'},
+{'text': 'Date', 'value': 'date'},
+{'text': 'Integer', 'value': 'integer'},
+{'text': 'Numeric', 'value': 'numeric'},
+{'text': 'Text', 'value': 'text'},
+{'text': 'Time', 'value': 'time'},
+{'text': 'Timestamp', 'value': 'timestamp'},
+], selected=field.get('info', {}).get('type_override', '')) }}
 
 {{ form.markdown('info__' ~ position ~ '__notes',
-  label=_('Description'), id='field-d' ~ position ~ 'notes',
-  value=field.get('info', {}).get('notes', '')) }}
+label=_('Description'), id='field-d' ~ position ~ 'notes',
+hint=_('Give a short summary of the data this column contains.'),
+value=field.get('info', {}).get('notes', '')) }}

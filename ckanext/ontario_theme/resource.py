@@ -2,25 +2,21 @@ u'''
 Overrides ckan/views/resource.py
 '''
 
-from ckan.views.resource import CreateView as CreateView #as CKANMethodView
-#import ckan.views.resource 
+from ckan.views.resource import CreateView as CreateView
 from flask.views import MethodView
 import ckan.model as model
 import six
-import ckan.lib.datapreview as lib_datapreview
-import ckan.plugins as plugins
 import cgi
 
 from ckan.common import _, g, request
 from ckan.views.dataset import (
-    _get_pkg_template, _get_package_type, _setup_template_variables
+    _get_pkg_template
 )
 
 import ckan.lib.navl.dictization_functions as dict_fns
 import ckan.lib.base as base
 import ckan.logic as logic
 import ckan.lib.helpers as h
-from ckan.views.home import CACHE_PARAMETERS
 
 NotFound = logic.NotFound
 NotAuthorized = logic.NotAuthorized
@@ -134,19 +130,11 @@ class CreateView(MethodView):
             resource_dict = pkg_dict.get('resources')
             resource_id_array = [p['id'] for p in resource_dict]
             resource_id = resource_id_array[-1]
-
-            existing_task = plugins.toolkit.get_action('task_status_show')(context, {
-                'entity_id': resource_id,
-                'task_type': 'xloader',
-                'key': 'xloader'
-            })
-
-            print('HEJ xloader state in resource py: ', existing_task)
-
             return h.redirect_to(
-                u'validation_read', id=id, resource_id=resource_id
+                "ontario_theme.resource_validation",
+                id=id,
+                resource_id=resource_id
             )
-
         else:
             # add more resources
             return h.redirect_to(
@@ -180,7 +168,6 @@ class CreateView(MethodView):
             )
 
         package_type = pkg_dict[u'type'] or package_type
-
         errors = errors or {}
         error_summary = error_summary or {}
         extra_vars = {

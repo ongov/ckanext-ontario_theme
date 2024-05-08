@@ -1,0 +1,34 @@
+{% set num_steps = 4 %}
+{% if step == 1 %}
+  <div class="ontario-step-indicator">
+    <div class="ontario-columns ontario-small-12">
+      <div class="ontario-step-indicator--without-back-button">
+        <span class="ontario-h4">Step&nbsp;{{ step }} of&nbsp;{{ num_steps }}</span>
+      </div>
+      <hr />
+    </div>
+  </div>
+{% else %}
+  <div class="ontario-step-indicator">
+    <div class="ontario-columns ontario-small-12">
+      <div class="ontario-step-indicator--with-back-button">
+        <button data-module="step-indicator"
+                data-module-url="{{ back_url }}"
+                class="ontario-button ontario-button--tertiary">
+          <svg class="ontario-icon"
+               alt=""
+               aria-hidden="true"
+               focusable="false"
+               sol:category="primary"
+               viewBox="0 0 24 24"
+               preserveAspectRatio="xMidYMid meet">
+            <use href="#ontario-icon-chevron-left"></use>
+          </svg>
+          Back
+        </button>
+        <span class="ontario-h4">Step&nbsp;{{ step }} of&nbsp;{{ num_steps }}</span>
+      </div>
+      <hr />
+    </div>
+  </div>
+{% endif %}

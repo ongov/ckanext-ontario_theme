@@ -31,11 +31,7 @@ import functools
 
 from ckanext.ontario_theme.resource_upload import ResourceUpload
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
-#from ckanext.ontario_theme.resource import CreateView as OntarioThemeResourceCreateView
-#from ckanext.scheming import helpers, validation, logic, loader, views
-# from ckanext.ontario_theme import resource
 from ckanext.ontario_theme.resource import CreateView as OntarioThemeResourceCreateView
-from ckan.views.resource import EditResourceViewView
 from ckanext.ontario_theme.organization import index as organization_index
 from ckanext.ontario_theme.datastore import DictionaryView
 
@@ -206,6 +202,38 @@ def help():
     '''New help page for site.
     '''
     return render_template('home/help.html')
+
+
+def new_resource_publish(id, resource_id):
+    '''New page for submitting new resource for publication.
+    '''
+    pkg_dict = toolkit.get_action(u'package_show')(None, {u'id': id})
+    res = toolkit.get_action(u'resource_show')(None, {u'id': resource_id})
+
+    return render_template('/package/new_resource_publish.html',
+                           id=id,
+                           resource_id=resource_id,
+                           pkg_dict=pkg_dict,
+                           resource=res)
+
+
+def resource_validation(id, resource_id):
+    '''Intermediate page for resource validation (step 2)
+    '''
+    pkg_dict = toolkit.get_action(u'package_show')(None, {u'id': id})
+    res = toolkit.get_action(u'resource_show')(None, {u'id': resource_id})
+    try:
+        validation = toolkit.get_action(u'resource_validation_show')(
+            None,
+            {u'resource_id': resource_id})
+    except ckan.logic.NotFound:
+        validation = None
+
+    return render_template('/package/resource_validation.html',
+                           id=id,
+                           pkg_dict=pkg_dict,
+                           resource=res,
+                           validation=validation)
 
 
 def csv_dump():
@@ -944,7 +972,6 @@ ckanext.ontario_theme:schemas/ontario_theme_organization.json
 ckanext.ontario_theme:schemas/ontario_theme_group.json
 """
 
-
 class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
     plugins.implements(plugins.IConfigurer)
@@ -1130,6 +1157,7 @@ type data_last_updated
 
     # IBlueprint
 
+
     def get_blueprint(self):
         '''Return a Flask Blueprint object to be registered by the app.
         '''
@@ -1155,28 +1183,22 @@ type data_last_updated
         # Add url rules to Blueprint object.
         rules = [
             (u'/help', u'help', help),
-            (u'/dataset/inventory', u'inventory', csv_dump)
+            (u'/dataset/inventory', u'inventory', csv_dump),
+            (u'/dataset/<id>/<resource_id>/new_resource_publish/', u'new_resource_publish', new_resource_publish),
+            (u'/dataset/<id>/<resource_id>/resource_validation/', u'resource_validation', resource_validation)
         ]
 
         for rule in rules:
             blueprint.add_url_rule(*rule)
         blueprint.add_url_rule('/dataset/new', view_func=OntarioThemeCreateView.as_view(str(u'new')), defaults={u'package_type': u'dataset'})
-        
-        # blueprint.add_url_rule(u'/new', view_func=OntarioThemeResourceCreateView.as_view(str(u'new2')))
-        # blueprint.add_url_rule(
-        #     u'/new_resource/<id>', view_func=OntarioThemeResourceCreateView.as_view(str(u'new_resource'))
-        # )
         blueprint.add_url_rule(
             u'/dataset/<id>/resource/new', 
             view_func=OntarioThemeResourceCreateView.as_view(str(u'edit_step2')),
             defaults={u'package_type': u'dataset'}
         )
-        # blueprint.add_url_rule(
-        #     u'/dataset/<id>/resource/<resource_id>/edit', view_func=EditResourceViewView.as_view(str(u'edit_step2'))
-        # )
         blueprint.add_url_rule(u'/organization', view_func=organization_index, strict_slashes=False)
-        blueprint.add_url_rule(u'/dataset/<id>/dictionary/<resource_id>',view_func=DictionaryView.as_view(str(u'dictionary'))
-)
+        blueprint.add_url_rule(u'/dataset/<id>/dictionary/<resource_id>',view_func=DictionaryView.as_view(str(u'dictionary')))
+
         return blueprint
 
     # IUploader
