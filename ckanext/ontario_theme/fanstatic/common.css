@@ -3512,5 +3512,11 @@ label::after {
 
 /* form-column-name */
 .form-column-name {
-  font-weight: 700;
+  border: none;
+}
+
+.column-name-div {
+  display: flex;
+  align-items: baseline;
+  column-gap: 10px;
 }
