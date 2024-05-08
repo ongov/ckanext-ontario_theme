@@ -191,6 +191,7 @@ stages:
             versionSpec: '16.15.1'
           displayName: 'Install Node.js'
         - script: |
+            set -xe
             pip install wget unzip
             wget "https://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip"
             unzip BrowserStackLocal-linux-x64.zip -d /usr/local/bin/
@@ -200,9 +201,9 @@ stages:
             mkdir npm_cache
             export npm_config_cache=./npm_cache/
             npm install
-            BrowserStackLocal --daemon start
+            BrowserStackLocal --key $(BROWSERSTACK_ACCESS_KEY) --daemon start
             npm run test_on_vpn --loglevel verbose
-            BrowserStackLocal --daemon stop" | tee build.log
+            BrowserStackLocal --key $(BROWSERSTACK_ACCESS_KEY) --daemon stop" | tee build.log
           env:
             PERCY_TOKEN: $(PERCY_TOKEN)
             BROWSERSTACK_USER: $(BROWSERSTACK_USER)
