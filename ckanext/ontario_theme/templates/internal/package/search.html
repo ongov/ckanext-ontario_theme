@@ -95,7 +95,6 @@ in the core template for search.html.
         <div class="module-content">
           {% block package_search_results_list %}
             {{ super() }}
-            {{ h.snippet('snippets/package_list.html', packages=packages) }}
           {% endblock package_search_results_list %}
         </div>
         {% block page_pagination %}
@@ -124,7 +123,7 @@ in the core template for search.html.
           <use xlink:href="#ontario-icon-close"></use>
         </svg>
       </span>
-      <div>{{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets) }}</div>
+      <div>{{ h.snippet('snippets/facet_arrangement.html') }}</div>
     </div>
   </aside>
 {% endblock secondary %}

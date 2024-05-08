@@ -4,6 +4,7 @@
   {% set keywords = "keywords_en" %}
 {% endif %}
 {% set excluded_facets = [keywords] %}
+{% set fields = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
 
 {# Flag facets to be ignored from standard loop that calls facets. #}
 {% set single_option_facets = ["organization_jurisdiction", "organization_category"] %}
@@ -18,11 +19,10 @@
   {% endfor %}
 {% endif %}
 {% for facet in c.facet_titles %}
-  {% if facet == 'organization_jurisdiction' %}
-    {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'jurisdiction')) %}
-  {% endif %}
-  {% if facet == 'organization_category' %}
-    {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'category')) %}
+  {% if facet == 'organization_jurisdiction' or facet == 'organization_category' %}
+    {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], facet[13:])) %}
+  {% else %}
+    {% set choices = h.scheming_field_by_name(fields, facet).choices or None %}
   {% endif %}
   {% if facet not in excluded_facets %}
     {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet, scheming_choices=choices, extras=extras) }}
