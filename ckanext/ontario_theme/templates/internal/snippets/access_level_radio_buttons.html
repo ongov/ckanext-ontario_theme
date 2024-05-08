@@ -30,7 +30,6 @@
           {% endfor %}
         {% endwith %}
         {# Displaying the "All levels" radio button #}
-        {% set total_count = h.get_facet_items_dict(name)|sum(attribute='count') %}
         {% set display_name = _('All levels') %}
         {% if "*" == request.params[name] %}
           {% set checked = "checked" %}

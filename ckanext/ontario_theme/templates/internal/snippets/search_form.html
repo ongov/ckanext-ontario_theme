@@ -4,6 +4,7 @@
 {% set form_id = form_id if form_id else false %}
 {% set schema_dict = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
 {% set extras = extras if extras else none %}
+{% set total_count = h.get_facet_items_dict('access_level')|sum(attribute='count') if facets else count %}
 
 <form {% if form_id %}id="{{ form_id }}"{% endif %}
       class="search-form
@@ -48,7 +49,6 @@
       </div>
     </div>
     {% if not error %}
-      {% set total_count = h.get_facet_items_dict('access_level')|sum(attribute='count') if facets else count %}
       <div role="status" class="search-count">
         {% snippet 'snippets/search_result_text.html', query=query, count=total_count, type=type %}
       </div>
@@ -65,7 +65,7 @@
 
   {% block search_title %}
     {% if facets %}
-      {% snippet 'snippets/access_level_radio_buttons.html', count=count %}
+      {% snippet 'snippets/access_level_radio_buttons.html', count=count, total_count=total_count %}
     {% endif %}
   {% endblock search_title %}
 
@@ -204,7 +204,7 @@
             </span>
           {% endif %}
         {% endfor %}
-        {% if facets.fields and not facets.fields['access_level'] or facets.fields|length > 1 %}
+        {% if c.fields|length >= 3 %}
           <button id="clear-filters-button"
                   class="ontario-button ontario-button--tertiary"
                   type="button">{{ _('Clear filters') }}</button>
