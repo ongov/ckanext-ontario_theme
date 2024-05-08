@@ -3513,6 +3513,7 @@ label::after {
 /* form-column-name */
 .form-column-name {
   border: none;
+  background-color: #fff;
 }
 
 .column-name-div {
