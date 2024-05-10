@@ -944,6 +944,23 @@ def home_block_link(block='one'):
         value = config.get('ckanext.ontario_theme.home_block_{}_link-fr'.format(block), '')
     return value
 
+def get_xloader_status(package_id, resource, pkg_dict, f=xloader_interfaces.IXloader.can_upload):
+    '''Helper to return a list of the top 3 keywords based on specified
+    language.
+
+    '''
+    ixloader_class = xloader_interfaces.IXloader()
+    cb = ixloader_class.after_upload({}, resource, pkg_dict)
+    resource_id = resource.get('id')
+
+    if cb.get('datastore_active') in ('complete', 'running_but_viewable'):
+        dictionary_url = h.url_for('datastore.dictionary',
+                  id=package_id,
+                  resource_id=resource_id)
+        return h.redirect_to(dictionary_url)
+    else:
+        return False
+
 
 class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
@@ -982,40 +999,38 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.IPackageController)
     plugins.implements(plugins.IValidators)
     plugins.implements(plugins.IAuthFunctions)
-    plugins.implements(xloader_interfaces.IXloader)
+    #plugins.implements(xloader_interfaces.IXloader)
     
-    # IXloader
-    def after_upload(self, context, resource_dict, package_dict):
-        print("HEJ IXloader: After_upload was called")
-        print("HEJ IXloader: resource_dict: ", resource_dict)
-        resource_id = resource_dict['id']
-        package_id = resource_dict['package_id']
+    # def after_upload(self, context, resource_dict, dataset_dict):
+    #     print("HEJ IXloader empty context: After_upload was called")
+    #     print("HEJ IXloader: resource_dict: ", resource_dict)
+    #     resource_id = resource_dict['id']
+    #     package_id = resource_dict['package_id']
 
-        dictionary_url = h.url_for('datastore.dictionary',
-                  id=package_id,
-                  resource_id=resource_id)
+    #     dictionary_url = h.url_for('datastore.dictionary',
+    #               id=package_id,
+    #               resource_id=resource_id)
 
-        task = plugins.toolkit.get_action('task_status_show')(context, {
-            'entity_id': resource_id,
-            'task_type': 'xloader',
-            'key': 'xloader'
-        })
-        print('HEJ IXloader:  Task status after upload was called: ', task['state'])
-        if task['state'] in ('complete', 'running_but_viewable'):
-            print('HEJ IXloader: redirecting to: ', dictionary_url)
-            # return h.redirect_to('datastore.dictionary',
-            #       id=package_id,
-            #       resource_id=resource_id)
-            # return render_template("datastore/dictionary.html")
-            return toolkit.render('datastore/dictionary.html',
-                {'id': package_id, 'resource_id': resource_id,
-                'pkg_dict': package_dict, 'resource':resource_dict
-                })
-            # return h.redirect_to(dictionary_url)
+    #     task = plugins.toolkit.get_action('task_status_show')(context, {
+    #         'entity_id': resource_id,
+    #         'task_type': 'xloader',
+    #         'key': 'xloader'
+    #     })
+        # if task['state'] in ('complete', 'running_but_viewable'):
+        #     print('HEJ IXloader: return True')
+        #     # return h.redirect_to('datastore.dictionary',
+        #     #       id=package_id,
+        #     #       resource_id=resource_id)
+        #     # return render_template("datastore/dictionary.html")
+        #     # return toolkit.render('datastore/dictionary.html',
+        #     #     {'id': package_id, 'resource_id': resource_id,
+        #     #     'pkg_dict': package_dict, 'resource':resource_dict
+        #     #     })
+        #     # return h.redirect_to(dictionary_url)
+        #     return True
+        # else:
+        #     return False
 
-    def can_upload(self, resource_id):
-        print('can upload was called')
-        return True
 
     # IConfigurer
 
@@ -1157,7 +1172,8 @@ type data_last_updated
                 'ontario_theme_get_facet_options': get_facet_options,
                 'ontario_theme_site_title': site_title,
                 'ontario_theme_get_current_year': get_current_year,
-                'ontario_theme_get_validation_report': get_validation_report
+                'ontario_theme_get_validation_report': get_validation_report,
+                'ontario_theme_get_xloader_status': get_xloader_status
                 }
 
     # IBlueprint

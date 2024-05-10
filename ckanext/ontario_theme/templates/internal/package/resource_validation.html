@@ -29,10 +29,11 @@
 
   {% set package_id = resource.get('package_id') %}
   {% set resource_id = resource.get('id') %}
-  {% set action = h.url_for('datastore.dictionary',
+  {% set action_orig = h.url_for('datastore.dictionary',
       id=package_id,
       resource_id=resource.id) %}
- 
+  {% set action = h.ontario_theme_get_xloader_status(package_id, resource, pkg_dict) %}
+  
   <form method="get" action="{{ action }}">
     <button class="ontario-button ontario-button--primary"
             name="save"
