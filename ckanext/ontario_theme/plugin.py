@@ -202,6 +202,7 @@ def help():
     '''
     return render_template('home/help.html')
 
+
 def new_resource_publish(id, resource_id):
     '''New page for submitting new resource for publication.
     '''
@@ -1160,12 +1161,12 @@ type data_last_updated
             blueprint.add_url_rule(*rule)
         blueprint.add_url_rule('/dataset/new', view_func=OntarioThemeCreateView.as_view(str(u'new')), defaults={u'package_type': u'dataset'})
         blueprint.add_url_rule(
-            u'/dataset/<id>/resource/new', 
+            u'/dataset/<id>/resource/new',
             view_func=OntarioThemeResourceCreateView.as_view(str(u'edit_step2')),
             defaults={u'package_type': u'dataset'}
         )
         blueprint.add_url_rule(
-            u'/dataset/<id>/resource/<resource_id>/edit', 
+            u'/dataset/<id>/resource/<resource_id>/edit',
             view_func=OntarioThemeResourceEditView.as_view(str(u'edit')), defaults={u'package_type': u'dataset'}
         )
         blueprint.add_url_rule(u'/organization', view_func=organization_index, strict_slashes=False)
