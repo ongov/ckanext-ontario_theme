@@ -3453,3 +3453,17 @@ label::after {
 .sort-by-close {
   height: 24px;
 }
+
+/* Error 404 page */
+.popular-datasets-404 {
+  padding: unset;
+  list-style: none;
+}
+
+.error-content {
+  margin-top: 60px;
+}
+
+.popular-datasets-404 li {
+  padding-bottom: 8px;
+}
