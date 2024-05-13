@@ -944,22 +944,32 @@ def home_block_link(block='one'):
         value = config.get('ckanext.ontario_theme.home_block_{}_link-fr'.format(block), '')
     return value
 
-def get_xloader_status(package_id, resource, pkg_dict, f=xloader_interfaces.IXloader.can_upload):
-    '''Helper to return a list of the top 3 keywords based on specified
-    language.
+def get_xloader_status(resource, pkg_dict, f=xloader_interfaces.IXloader.can_upload):
+    '''Returns the 'datastore_active' status from the resource dictionary updated
+    by xloader_hook.
+
+    '''
+    ixloader_class = xloader_interfaces.IXloader()
+    cb = ixloader_class.after_upload({}, resource, pkg_dict)
+
+    return cb.get('datastore_active')
+
+def poll_datastore(resource, pkg_dict, f=xloader_interfaces.IXloader.can_upload):
+    '''Gets the 'datastore_active' status from the resource dictionary updated
+    by xloader_hook and redirects accordingly.
 
     '''
     ixloader_class = xloader_interfaces.IXloader()
     cb = ixloader_class.after_upload({}, resource, pkg_dict)
     resource_id = resource.get('id')
-
-    if cb.get('datastore_active') in ('complete', 'running_but_viewable'):
-        dictionary_url = h.url_for('datastore.dictionary',
-                  id=package_id,
-                  resource_id=resource_id)
-        return h.redirect_to(dictionary_url)
+    if cb.get('datastore_active'):
+        return h.url_for('ontario_theme.new_resource_publish', 
+                          id=pkg_dict.name, 
+                          resource_id=resource_id)
     else:
-        return False
+        return h.url_for('datastore.dictionary',
+                        id=pkg_dict.get('id'),
+                        resource_id=resource_id)
 
 
 class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
@@ -1173,7 +1183,8 @@ type data_last_updated
                 'ontario_theme_site_title': site_title,
                 'ontario_theme_get_current_year': get_current_year,
                 'ontario_theme_get_validation_report': get_validation_report,
-                'ontario_theme_get_xloader_status': get_xloader_status
+                'ontario_theme_get_xloader_status': get_xloader_status,
+                'ontario_theme_poll_datastore': poll_datastore
                 }
 
     # IBlueprint

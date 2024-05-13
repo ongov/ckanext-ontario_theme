@@ -1,7 +1,7 @@
 {% extends "package/resource_edit_base.html" %}
 
 {%- block subtitle -%}
-    {{ h.resource_display_name(resource) }}
+  {{ h.resource_display_name(resource) }}
 {%- endblock subtitle -%}
 
 {% block pre_primary %}
@@ -29,11 +29,10 @@
 
   {% set package_id = resource.get('package_id') %}
   {% set resource_id = resource.get('id') %}
-  {% set action_orig = h.url_for('datastore.dictionary',
+  {% set action = h.url_for('datastore.dictionary',
       id=package_id,
-      resource_id=resource.id) %}
-  {% set action = h.ontario_theme_get_xloader_status(package_id, resource, pkg_dict) %}
-  
+    resource_id=resource.id) %}
+ 
   <form method="get" action="{{ action }}">
     <button class="ontario-button ontario-button--primary"
             name="save"

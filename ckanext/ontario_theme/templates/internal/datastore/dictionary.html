@@ -15,18 +15,76 @@
 {% endblock page_header %}
 
 {% block form_title %}
-  {{ _('Add data dictionary') }}
+  {% set in_datastore = h.ontario_theme_get_xloader_status(res, pkg) %}
+  {% if in_datastore %}{{ _('Add data dictionary') }}{% endif %}
 {% endblock form_title %}
 
 {% block primary_content_inner %}
-  {% if fields %}
-    {% set action = h.url_for('datastore.dictionary', id=pkg.name, resource_id=res.id) %}
-    {% set method = "method=post" %}
-  {% else %}
-    {% set action = h.url_for('ontario_theme.new_resource_publish', id=pkg.name, resource_id=res.id) %}
-  {% endif %}
+  {% set in_datastore = h.ontario_theme_get_xloader_status(res, pkg) %}
+  {% if in_datastore %}
+    {% if fields %}
+      {% set action = h.url_for('datastore.dictionary', id=pkg.name, resource_id=res.id) %}
+      {% set method = "method=post" %}
+    {% else %}
+      {% set action = h.url_for('ontario_theme.new_resource_publish', id=pkg.name, resource_id=res.id) %}
+    {% endif %}
 
-  {% if res.validation_status and res.validation_status == 'failure' %}
+    {% if res.validation_status and res.validation_status == 'failure' %}
+      <div class="ontario-alert ontario-alert--error">
+        <div class="ontario-alert__header">
+          <div class="ontario-alert__header-icon">
+            <svg class="ontario-icon"
+                 alt=""
+                 aria-hidden="true"
+                 focusable="false"
+                 sol:category="primary"
+                 viewBox="0 0 24 24"
+                 preserveAspectRatio="xMidYMid meet">
+              <use href="#ontario-icon-alert-error"></use>
+            </svg>
+          </div>
+          <h2 class="ontario-alert__header-title ontario-h4">There is a problem</h2>
+        </div>
+        <div class="ontario-alert__body">
+          <p>
+            Data dictionary didn’t match the uploaded resource file.
+            <a href="#validation-report"
+               data-module="modal-dialog"
+               data-module-div="validation-report-dialog">Show validation report modal</a>
+          </p>
+          <p>You can either:</p>
+          <ul>
+            <li>Edit the data dictionary information on this page or</li>
+            <li>Upload a corrected data resource file on Step 2</li>
+          </ul>
+        </div>
+      </div>
+      {% set validation_report = h.ontario_theme_get_validation_report(res.id) %}
+      {% snippet 'validation/snippets/validation_report_dialog.html', validation_report=validation_report %}
+    {% endif %}
+
+    <form {{ method }} action="{{ action }}">
+      {% if fields %}
+        {% block dictionary_form %}
+          {% for field in fields %}
+            {% snippet "datastore/snippets/dictionary_form.html",
+            field=field,
+            position=loop.index
+            %}
+          {% endfor %}
+        {% endblock dictionary_form %}
+      {% else %}
+        <p>This resource does not need a data dictionary.</p>
+        <p>
+          Data dictionaries give users the information they need to understand the data they are looking at. The data dictionary is displayed alongside the data for easy reference.
+          Data dictionaries are only used for CSV files.
+        </p>
+      {% endif %}
+      <button class="ontario-button ontario-button--primary"
+              name="save"
+              type="submit">{{ _('Continue') }}</button>
+    </form>
+  {% else %}
     <div class="ontario-alert ontario-alert--error">
       <div class="ontario-alert__header">
         <div class="ontario-alert__header-icon">
@@ -40,45 +98,22 @@
             <use href="#ontario-icon-alert-error"></use>
           </svg>
         </div>
-        <h2 class="ontario-alert__header-title ontario-h4">There is a problem</h2>
+        <h2 class="ontario-alert__header-title ontario-h4">Uploading...</h2>
       </div>
       <div class="ontario-alert__body">
+        <p>The resource file is not yet uploaded to the database. Please refresh.</p>
         <p>
-          Data dictionary didn’t match the uploaded resource file.
-          <a href="#validation-report"
-             data-module="modal-dialog"
-             data-module-div="validation-report-dialog">Show validation report modal</a>
+          If the resource file is large (> 100 MB) or your internet connection is
+          slow, this may take a few minutes.
         </p>
-        <p>You can either:</p>
-        <ul>
-          <li>Edit the data dictionary information on this page or</li>
-          <li>Upload a corrected data resource file on Step 2</li>
-        </ul>
       </div>
     </div>
-    {% set validation_report = h.ontario_theme_get_validation_report(res.id) %}
-    {% snippet 'validation/snippets/validation_report_dialog.html', validation_report=validation_report %}
-  {% endif %}
 
-  <form {{ method }} action="{{ action }}">
-    {% if fields %}
-      {% block dictionary_form %}
-        {% for field in fields %}
-          {% snippet "datastore/snippets/dictionary_form.html",
-          field=field,
-          position=loop.index
-          %}
-        {% endfor %}
-      {% endblock dictionary_form %}
-    {% else %}
-      <p>This resource does not need a data dictionary.</p>
-      <p>
-        Data dictionaries give users the information they need to understand the data they are looking at. The data dictionary is displayed alongside the data for easy reference.
-        Data dictionaries are only used for CSV files.
-      </p>
-    {% endif %}
-    <button class="ontario-button ontario-button--primary"
-            name="save"
-            type="submit">{{ _('Continue') }}</button>
-  </form>
+    {% set poll_datastore = h.ontario_theme_poll_datastore(res, pkg) %}
+    <form method="get" action="{{ poll_datastore }}">
+      <button class="ontario-button ontario-button--primary"
+              name="save"
+              type="submit">Refresh</button>
+    </form>
+  {% endif %}
 {% endblock primary_content_inner %}
