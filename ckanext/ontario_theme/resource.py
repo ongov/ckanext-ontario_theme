@@ -3,6 +3,7 @@ Overrides ckan/views/resource.py
 '''
 
 from ckan.views.resource import CreateView as CreateView
+from ckan.views.resource import EditView as EditView
 from flask.views import MethodView
 import ckan.model as model
 import six
@@ -187,3 +188,108 @@ class CreateView(MethodView):
             extra_vars[u'stage'] = ['complete', u'active']
             template = u'package/new_resource.html'
         return base.render(template, extra_vars)
+
+class EditView(MethodView):
+    def _prepare(self, id):
+        context = {
+            u'model': model,
+            u'session': model.Session,
+            u'api_version': 3,
+            u'for_edit': True,
+            u'user': g.user,
+            u'auth_user_obj': g.userobj
+        }
+        try:
+            check_access(u'package_update', context, {u'id': id})
+        except NotAuthorized:
+            return base.abort(
+                403,
+                _(u'User %r not authorized to edit %s') % (g.user, id)
+            )
+        return context
+
+    def post(self, package_type, id, resource_id):
+        context = self._prepare(id)
+        data = clean_dict(
+            dict_fns.unflatten(tuplize_dict(parse_params(request.form)))
+        )
+        data.update(clean_dict(
+            dict_fns.unflatten(tuplize_dict(parse_params(request.files)))
+        ))
+
+        # we don't want to include save as it is part of the form
+        del data[u'save']
+
+        data[u'package_id'] = id
+        try:
+            if resource_id:
+                data[u'id'] = resource_id
+                get_action(u'resource_update')(context, data)
+            else:
+                get_action(u'resource_create')(context, data)
+        except ValidationError as e:
+            errors = e.error_dict
+            error_summary = e.error_summary
+            return self.get(
+                package_type, id, resource_id, data, errors, error_summary
+            )
+        except NotAuthorized:
+            return base.abort(403, _(u'Unauthorized to edit this resource'))
+        return h.redirect_to(
+            "ontario_theme.resource_validation",
+            id=id,
+            resource_id=resource_id
+        )
+
+    def get(
+        self,
+        package_type,
+        id,
+        resource_id,
+        data=None,
+        errors=None,
+        error_summary=None
+    ):
+        context = self._prepare(id)
+        pkg_dict = get_action(u'package_show')(context, {u'id': id})
+
+        try:
+            resource_dict = get_action(u'resource_show')(
+                context, {
+                    u'id': resource_id
+                }
+            )
+        except NotFound:
+            return base.abort(404, _(u'Resource not found'))
+
+        if pkg_dict[u'state'].startswith(u'draft'):
+            return CreateView().get(package_type, id, data=resource_dict)
+
+        # resource is fully created
+        resource = resource_dict
+        # set the form action
+        form_action = h.url_for(
+            u'{}_resource.edit'.format(package_type),
+            resource_id=resource_id, id=id
+        )
+        if not data:
+            data = resource_dict
+
+        package_type = pkg_dict[u'type'] or package_type
+
+        errors = errors or {}
+        error_summary = error_summary or {}
+        extra_vars = {
+            u'data': data,
+            u'errors': errors,
+            u'error_summary': error_summary,
+            u'action': u'edit',
+            u'resource_form_snippet': _get_pkg_template(
+                u'resource_form', package_type
+            ),
+            u'dataset_type': package_type,
+            u'resource': resource,
+            u'pkg_dict': pkg_dict,
+            u'form_action': form_action
+        }
+        return base.render(u'package/resource_edit.html', extra_vars)
