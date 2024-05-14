@@ -945,7 +945,7 @@ def home_block_link(block='one'):
         value = config.get('ckanext.ontario_theme.home_block_{}_link-fr'.format(block), '')
     return value
 
-def get_xloader_status(resource, pkg_dict, f=xloader_interfaces.IXloader.can_upload):
+def get_xloader_status(resource, pkg_dict, f=xloader_interfaces.IXloader.after_upload):
     '''Returns the 'datastore_active' status from the resource dictionary updated
     by xloader_hook.
 
@@ -955,7 +955,7 @@ def get_xloader_status(resource, pkg_dict, f=xloader_interfaces.IXloader.can_upl
 
     return cb.get('datastore_active')
 
-def poll_datastore(resource, pkg_dict, f=xloader_interfaces.IXloader.can_upload):
+def poll_datastore(resource, pkg_dict, f=xloader_interfaces.IXloader.after_upload):
     '''Gets the 'datastore_active' status from the resource dictionary updated
     by xloader_hook and redirects accordingly.
 
