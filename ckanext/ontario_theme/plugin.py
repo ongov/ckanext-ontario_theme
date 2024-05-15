@@ -952,8 +952,16 @@ def get_xloader_status(resource, pkg_dict, f=xloader_interfaces.IXloader.after_u
     '''
     ixloader_class = xloader_interfaces.IXloader()
     cb = ixloader_class.after_upload({}, resource, pkg_dict)
+    this_format = cb.get('format')
+    in_datastore = cb.get('datastore_active')
 
-    return cb.get('datastore_active')
+    if this_format == 'CSV':
+        if in_datastore:
+            return "yes"
+        else: 
+            return "pending"
+    else:
+        return "not_csv"
 
 def poll_datastore(resource, pkg_dict, f=xloader_interfaces.IXloader.after_upload):
     '''Gets the 'datastore_active' status from the resource dictionary updated

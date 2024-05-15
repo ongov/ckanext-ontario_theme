@@ -16,12 +16,12 @@
 
 {% block form_title %}
   {% set in_datastore = h.ontario_theme_get_xloader_status(res, pkg) %}
-  {% if in_datastore %}{{ _('Add data dictionary') }}{% endif %}
+  {% if in_datastore in ("yes", "not_csv") %}{{ _('Add data dictionary') }}{% endif %}
 {% endblock form_title %}
 
 {% block primary_content_inner %}
   {% set in_datastore = h.ontario_theme_get_xloader_status(res, pkg) %}
-  {% if in_datastore %}
+  {% if in_datastore in ("yes", "not_csv") %}
     {% if fields %}
       {% set action = h.url_for('datastore.dictionary', id=pkg.name, resource_id=res.id) %}
       {% set method = "method=post" %}
@@ -84,7 +84,7 @@
               name="save"
               type="submit">{{ _('Continue') }}</button>
     </form>
-  {% else %}
+  {% elif in_datastore == "pending" %}
     <div class="ontario-alert ontario-alert--error">
       <div class="ontario-alert__header">
         <div class="ontario-alert__header-icon">
