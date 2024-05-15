@@ -1,0 +1,9 @@
+{% ckan_extends %}
+
+{% block primary %}
+  {% if code == 404 %}
+    {% snippet 'snippets/error_404.html' %}
+  {% else %}
+    {{ super() }}
+  {% endif %}
+{% endblock primary %}

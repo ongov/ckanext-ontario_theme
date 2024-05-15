@@ -2321,3 +2321,11 @@ msgstr "Historique"
 #: ckanext/ontario_theme/templates/internal/organization/read_base.html:22
 msgid "More information"
 msgstr "Informations complémentaires"
+
+#: ckanext/ontario_theme/templates/internal/snippets/error_404.html:3
+msgid "Sorry, we can’t find that page"
+msgstr "Nous sommes désolés, mais nous n’arrivons pas à trouver cette page"
+
+#: ckanext/ontario_theme/templates/internal/snippets/error_404.html:5
+msgid "<p>Check the URL for errors. You can try to find data using the search box above or by <a href=\"%(url)s\">browsing our homepage.</a></p>"
+msgstr "<p>Vérifiez que l’URL ne contient pas d’erreurs. Vous pouvez essayer de trouver les données en utilisant le champ de recherche ci-dessus, ou en <a href=\"%(url)s\">parcourant notre page d’accueil.</a></p>"
