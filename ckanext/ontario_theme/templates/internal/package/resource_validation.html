@@ -29,13 +29,67 @@
 
   {% set package_id = resource.get('package_id') %}
   {% set resource_id = resource.get('id') %}
-  {% set action = h.url_for('datastore.dictionary',
-      id=package_id,
-    resource_id=resource.id) %}
- 
-  <form method="get" action="{{ action }}">
-    <button class="ontario-button ontario-button--primary"
-            name="save"
-            type="submit">Continue</button>
-  </form>
+  
+ {% block javascript %}
+	    <script>
+        function poll_datastore() {
+          const resId = "{{ resource.id }}";
+          const pkgId = "{{ resource.package_id }}";
+          const status_ok = ('complete', 'running_but_viewable');
+          const xhr = new XMLHttpRequest();
+          const url = `/api/3/action/xloader_status?resource_id=${resId}`;
+
+          xhr.open("POST", url, true);
+
+          // Send the proper header information along with the request
+          xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+          xhr.send();
+
+          xhr.onreadystatechange = () => {                                
+            // Call a function when the state changes.
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+              let thisResponse = JSON.parse(xhr.response);
+              console.log('result status: ', thisResponse.result.status)
+
+              if (thisResponse.result.status !== "pending") { //thisResponse.result.status.includes(status_ok)
+                // Request finished. Do processing here.
+                thisURL = window.location.href;
+                //dataset/98bcae1b-1399-4210-a92c-2da3fb8e6318/dictionary/d1bb1fa5-1207-4935-bc7a-40fe54b7bd46
+                redirectURL = `${thisURL.split('dataset')[0]}dataset/${pkgId}/dictionary/${resId}`;
+                console.log('Request finished. Redirect to next step: ', redirectURL)
+
+                // Wait a few seconds before redirecting
+                const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+
+                const fixedDelay = async () => {
+                  console.log('sleeping')
+                  await sleep(2000)
+                  console.log("First")
+                  document.getElementById("onload").style.visibility = "visible";
+                  await sleep(5000)
+                  console.log("Second")
+                  window.location.href = redirectURL;
+                }
+                fixedDelay();
+
+              } else {
+              console.log('Request pending....set the timeout and retry...')
+              setTimeout(poll_datastore, 2000);
+              }
+            }
+          }
+        };
+        poll_datastore();
+
+      </script>
+    {% endblock javascript %}
+
+
+  <div>
+    <p>Uploading data file to database. Please wait...</p>
+  </div>
+  <div class="dynamic-text" visibility>
+    <p id="onload" style="visibility: hidden;">Data file uploaded. Redirecting to next step in a few seconds.</p>
+  </div>
+
 {% endblock primary_content_inner %}

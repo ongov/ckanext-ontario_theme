@@ -945,41 +945,6 @@ def home_block_link(block='one'):
         value = config.get('ckanext.ontario_theme.home_block_{}_link-fr'.format(block), '')
     return value
 
-def get_xloader_status(resource, pkg_dict, f=xloader_interfaces.IXloader.after_upload):
-    '''Returns the 'datastore_active' status from the resource dictionary updated
-    by xloader_hook.
-
-    '''
-    ixloader_class = xloader_interfaces.IXloader()
-    cb = ixloader_class.after_upload({}, resource, pkg_dict)
-    this_format = cb.get('format')
-    in_datastore = cb.get('datastore_active')
-
-    if this_format == 'CSV':
-        if in_datastore:
-            return "yes"
-        else: 
-            return "pending"
-    else:
-        return "not_csv"
-
-def poll_datastore(resource, pkg_dict, f=xloader_interfaces.IXloader.after_upload):
-    '''Gets the 'datastore_active' status from the resource dictionary updated
-    by xloader_hook and redirects accordingly.
-
-    '''
-    ixloader_class = xloader_interfaces.IXloader()
-    cb = ixloader_class.after_upload({}, resource, pkg_dict)
-    resource_id = resource.get('id')
-    if cb.get('datastore_active'):
-        return h.url_for('ontario_theme.new_resource_publish', 
-                          id=pkg_dict.name, 
-                          resource_id=resource_id)
-    else:
-        return h.url_for('datastore.dictionary',
-                        id=pkg_dict.get('id'),
-                        resource_id=resource_id)
-
 
 class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
@@ -1018,38 +983,6 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.IPackageController)
     plugins.implements(plugins.IValidators)
     plugins.implements(plugins.IAuthFunctions)
-    #plugins.implements(xloader_interfaces.IXloader)
-    
-    # def after_upload(self, context, resource_dict, dataset_dict):
-    #     print("HEJ IXloader empty context: After_upload was called")
-    #     print("HEJ IXloader: resource_dict: ", resource_dict)
-    #     resource_id = resource_dict['id']
-    #     package_id = resource_dict['package_id']
-
-    #     dictionary_url = h.url_for('datastore.dictionary',
-    #               id=package_id,
-    #               resource_id=resource_id)
-
-    #     task = plugins.toolkit.get_action('task_status_show')(context, {
-    #         'entity_id': resource_id,
-    #         'task_type': 'xloader',
-    #         'key': 'xloader'
-    #     })
-        # if task['state'] in ('complete', 'running_but_viewable'):
-        #     print('HEJ IXloader: return True')
-        #     # return h.redirect_to('datastore.dictionary',
-        #     #       id=package_id,
-        #     #       resource_id=resource_id)
-        #     # return render_template("datastore/dictionary.html")
-        #     # return toolkit.render('datastore/dictionary.html',
-        #     #     {'id': package_id, 'resource_id': resource_id,
-        #     #     'pkg_dict': package_dict, 'resource':resource_dict
-        #     #     })
-        #     # return h.redirect_to(dictionary_url)
-        #     return True
-        # else:
-        #     return False
-
 
     # IConfigurer
 
@@ -1191,9 +1124,7 @@ type data_last_updated
                 'ontario_theme_get_facet_options': get_facet_options,
                 'ontario_theme_site_title': site_title,
                 'ontario_theme_get_current_year': get_current_year,
-                'ontario_theme_get_validation_report': get_validation_report,
-                'ontario_theme_get_xloader_status': get_xloader_status,
-                'ontario_theme_poll_datastore': poll_datastore
+                'ontario_theme_get_validation_report': get_validation_report
                 }
 
     # IBlueprint
