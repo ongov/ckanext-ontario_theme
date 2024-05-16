@@ -29,8 +29,8 @@
 
   {% set package_id = resource.get('package_id') %}
   {% set resource_id = resource.get('id') %}
-  
- {% block javascript %}
+ 
+  {% block javascript %}
     <script>
       function poll_datastore() {
         const resId = "{{ resource.id }}";
@@ -58,8 +58,6 @@
               redirectURL = `${thisURL.split('dataset')[0]}dataset/${pkgId}/dictionary/${resId}`;
               console.log('Request finished. Redirect to next step: ', redirectURL)
 
-              document.getElementById("pendingTxt").style.visibility = "hidden";
-
               // Wait a few seconds before redirecting
               const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
@@ -67,8 +65,7 @@
                 console.log('sleeping')
                 await sleep(2000)
                 console.log("First")
-                document.getElementById("loadingSpinner").setAttribute("aria-hidden", "true");
-                document.getElementById("endTxt").style.visibility = "visible";
+                document.getElementById("pendingTxt").innerHTML = "Data file uploaded. Redirecting to next step in a few seconds.";
                 await sleep(4000)
                 console.log("Second")
                 console.log("Redirecting to dictionary page")
@@ -89,22 +86,22 @@
   {% endblock javascript %}
 
   <div class="ontario-small-12 ontario-row">
-
     <div class="ontario-small-12 ontario-columns">
-      <div id="loadingSpinner" class='ontario-loading-indicator__myoverlay' aria-hidden='false' role='alert' aria-live='assertive'>
-          <div class='ontario-loading-indicator'>
-              <svg class='ontario-loading-indicator__spinner-small' viewBox="25 25 50 50" xmlns='http://www.w3.org/2000/svg'>
-                  <circle cx="50" cy="50" r="20" fill="none" stroke-width="4" />
-              </svg>
-              <p class="spinner-small" id="pendingTxt">Uploading data file to database</p>
-          </div>
+      <div id="loadingSpinner"
+           aria-hidden='false'
+           role='alert'
+           aria-live='assertive'>
+        <div class='ontario-loading-indicator'>
+          <svg id="spinnerSVG"
+               class='ontario-loading-indicator__spinner-small'
+               viewBox="25 25 50 50"
+               xmlns='http://www.w3.org/2000/svg'>
+            <circle cx="50" cy="50" r="20" fill="none" stroke-width="4" />
+          </svg>
+          <p class="spinner-small" id="pendingTxt">Uploading data file to database</p>
+        </div>
       </div>
     </div>
-
-  </div>
-
-   <div class="dynamic-text" visibility>
-    <p id="endTxt" style="visibility: hidden;">Data file uploaded. Redirecting to next step in a few seconds.</p>
   </div>
 
 {% endblock primary_content_inner %}
