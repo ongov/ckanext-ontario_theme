@@ -321,7 +321,7 @@ options     - A list/tuple of fields to be used as <options>.
   #}
   {% macro input_block(for, label="", error="", classes=[], control_classes=[], extra_html="", is_required=false) %}
     <div class="form-group{{ " error" if error }}{{ " " ~ classes | join(' ') }}">
-      <label class="control-label" for="{{ for }}">
+      <label class="control-label form-control-label" for="{{ for }}">
         {% if is_required %}<span title="{{ _("This field is required") }}" class="control-required">*</span>{% endif %}
         {{ label or _('Custom') }}
       </label>
