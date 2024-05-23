@@ -16,7 +16,7 @@ Related projects, repositories, branches and CKAN plugins:
 | Fluent extension   | [open-data/ckanext-fluent](https://github.com/open-data/ckanext-fluent)     | master | `fluent`       | 
 | Validation extension   | [fork of frictionlessdata/ckanext-validation](https://github.com/ongov/ckanext-validation)     | develop | `validation`       | 
  
-
+***
 ## ckanext-validation Integration
 
 This branch contains a redesign of the workflow for adding and editing resources where
@@ -27,21 +27,31 @@ CSV files selected for upload are checked for header and table property errors b
 the ckanext-validation extension. Only files that pass all checks are pushed to datastore.
 ![Screenshot-step1](https://github.com/ongov/ckanext-ontario_theme/assets/1254764/f23f126e-3780-4b84-bc00-93670e2e521b)
 
+***
+
 ### Step 2: 
-Intermediate step: the user is notified that the validation was successful. Once XLoader has completed 
-pushing the CSV file into the database, the page will automatically redirect to Step 3: Data Dictionary.
+Intermediate step: the user is notified that the validation was successful while XLoader asynchronously pushes the CSV file to the database. A load indicator is displayed during the submission process, which could take seconds to minutes, depending on the file size:
+
 ![Screenshot-step2](https://github.com/ongov/ckanext-ontario_theme/assets/1254764/759fb6aa-0cdb-46f1-bae4-2cce15083507)
+
+When the XLoader job status is complete, a "Continue" button is displayed that redirects to the Data Dictionary page (Step 3):
+![Screenshot step2_continue](https://github.com/ongov/ckanext-ontario_theme/assets/1254764/1db57110-03d8-4692-8f7e-cbea27a14a01)
+
+***
 
 ### Step 3:
 Data Dictionary: the default CKAN data dictionary form is displayed to allow data type definitions. The validation plugin checks against the data types saved in the form.
 
-![Screenshot-step3](https://github.com/ongov/ckanext-ontario_theme/assets/1254764/9f933b30-5078-4f4e-88b4-a360ddb4abe0)
+![Screenshot step3](https://github.com/ongov/ckanext-ontario_theme/assets/1254764/42a9d176-a56e-4be6-97ad-603646aacbd9)
+
+***
 
 ### Step 4:
 Successful data type validation leads to the final page in the workflow where the user can review the metadata and data dictionary info and either link back to make changes or publish as is.
 
 ![Screenshot-step4](https://github.com/ongov/ckanext-ontario_theme/assets/1254764/672fbebc-59c8-4521-b578-02881ace8643)
 
+***
 
 ## Directory Structure
 
