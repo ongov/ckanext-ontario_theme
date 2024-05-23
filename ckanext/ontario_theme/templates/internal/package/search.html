@@ -110,8 +110,9 @@ in the core template for search.html.
 {% endblock primary %}
 
 {% block secondary %}
+  {%- asset "ontario_theme_scripts/ontario_theme_facet_checkboxes_js" -%}
   <aside class="secondary ontario-columns ontario-small-3 filter-results">
-    <div class="filters" id="filter-aside">
+    <div class="filters" id="filter-aside" data-module="facet_checkboxes">
       <span aria-label="{{ _('close') }}"
             role="button"
             tabindex="0"

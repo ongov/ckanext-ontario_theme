@@ -32,25 +32,23 @@
 {% block facet_list_items %}
   {% with items = items or h.get_facet_items_dict(name, limit=limit) %}
     {% if items %}
-      <nav>
-        <ul class="{{ nav_class or 'list-unstyled nav nav-simple nav-facet' }}">
-          {% for item in items %}
-            {{ h.snippet('snippets/translate_facets.html', fields=fields, name=name, item=item, scheming_choices=scheming_choices) }}
-            {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
-            {% set label = label_function(item) if label_function else item.display_name %}
-            {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
-            <li class="{{ nav_item_class or 'nav-item' }}
-                       {% if item.active %}active{% endif %}
-                       {% if loop.index > default %}facet-{{ name }} show-more-items{% endif %}">
+      <fieldset class="ontario-fieldset facet-fieldset">
+        <div class="ontario-checkboxes">
+            {% for item in items %}
+              <div class="ontario-checkboxes__item {% if loop.index > default %}facet-{{ name }} show-more-items{% endif %}">
+              {{ h.snippet('snippets/translate_facets.html', fields=fields, name=name, item=item, scheming_choices=scheming_choices) }}
+              {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
+              {% set label = label_function(item) if label_function else item.display_name %}
+              {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
               {% if item.active %}<span class="sr-only">Filtered on</span>{% endif %}
-              <a href="{{ href }}">
-                <span>{{ label }} {{ count }}</span>
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      </nav>
-
+              <input class="ontario-checkboxes__input" id="{{ item.name|replace(' ', '-') }}" name="{{ name }}" {% if item.active %}checked{% endif %} type="checkbox" value="{{ href }}">
+                <label class="ontario-checkboxes__label" for="{{ item.name|replace(' ', '-') }}">
+                    {{ label }} {{ count }}
+                </label>
+              </div>
+            {% endfor %}
+        </div>
+      </fieldset>
       <p class="module-footer">
         {% if h.get_param_int('_%s_limit' % name) %}
           {% if h.has_more_facets(name, c.search_facets) %}

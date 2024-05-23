@@ -3133,7 +3133,7 @@ label::after {
   font-size: 16px;
 }
 
-.nav > li.show-more-items {
+.show-more-items {
   display: none;
 }
 
@@ -3466,4 +3466,141 @@ label::after {
 
 .popular-datasets-404 li {
   padding-bottom: 8px;
+}
+
+/* ========================================================================
+  Checkboxes - Design System
+  ======================================================================== */
+
+.ontario-checkboxes {
+  margin-bottom: 2.5rem;
+  max-width: 48rem
+}
+
+.ontario-checkboxes__item {
+  position: relative;
+  margin: 0 0 1rem;
+  padding: 0 0 0 2rem;
+  min-height: 28px;
+  box-sizing: content-box
+}
+
+.ontario-checkboxes__item:last-of-type {
+  margin: 0
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-checkboxes__item {
+    padding: 0 0 0 2.5rem;
+    min-height: 32px
+  }
+}
+
+.ontario-checkboxes__input {
+  cursor: pointer;
+  margin: 0;
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  opacity: 0;
+  width: 36px;
+  height: 36px;
+  z-index: 1;
+  -webkit-tap-highlight-color: transparent
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-checkboxes__input {
+    width: 40px;
+    height: 40px
+  }
+}
+
+.ontario-checkboxes__label {
+  display: inline-block;
+  cursor: pointer;
+  line-height: 1.5;
+  margin: .25rem 0;
+  padding: 0 1rem;
+  width: auto;
+  white-space: normal
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-checkboxes__label {
+    margin: .33rem 0
+  }
+}
+
+.ontario-checkboxes__label:before {
+  content: "";
+  border: 2px solid #1a1a1a;
+  background-color: #fff;
+  border-radius: 4px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  transition: border .1s ease-in-out;
+  display: block
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-checkboxes__label:before {
+    width: 36px;
+    height: 36px
+  }
+}
+
+.ontario-checkboxes__label:after {
+  content: "";
+  background-image: url("/images/ontario-checkbox-background-no-width.svg");
+  background-repeat: no-repeat;
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  display: block
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-checkboxes__label:after {
+    height: 34px;
+    width: 34px
+  }
+}
+
+.ontario-checkboxes__input:focus + .ontario-checkboxes__label:before {
+  box-shadow: 0 0 0 4px #009adb;
+  outline: 4px solid transparent;
+  transition: all .1s ease-in-out
+}
+
+.ontario-checkboxes__input:checked + .ontario-checkboxes__label:after {
+  opacity: 1
+}
+
+.ontario-checkboxes__input:checked + .ontario-checkboxes__label:before {
+  background-color: #1a1a1a
+}
+
+/* ========================================================================
+   Checkboxes - Overrides
+   ======================================================================== */
+.facet-fieldset {
+  padding-left: 20px;
+}
+
+.facet-fieldset label {
+  font-weight: unset;
+  font-size: 16px;
+}
+
+.facet-fieldset .ontario-checkboxes {
+  margin-bottom: unset;
 }
