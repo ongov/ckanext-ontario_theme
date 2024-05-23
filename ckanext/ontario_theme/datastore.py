@@ -53,7 +53,6 @@ class DictionaryView(MethodView):
         """Data dictionary view: show field labels and descriptions"""
 
         data_dict = self._prepare(id, resource_id)
-        print('HEJ data dict: ', data_dict)
 
         # global variables for backward compatibility
         c.pkg_dict = data_dict["pkg_dict"]

@@ -1114,7 +1114,6 @@ type data_last_updated
 
         blueprint = Blueprint(self.name, self.__module__)
         blueprint.template_folder = u'templates'
-        print('HEJ get blueprint!!')
 
         @blueprint.before_request
         def before_request():
