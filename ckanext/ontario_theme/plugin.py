@@ -1129,14 +1129,10 @@ type data_last_updated
 
         # Add url rules to Blueprint object.
         rules = [
-<<<<<<< HEAD
             (u'/help', u'help', help),
             (u'/dataset/inventory', u'inventory', csv_dump),
             (u'/dataset/<id>/<resource_id>/new_resource_publish/', u'new_resource_publish', new_resource_publish),
             (u'/dataset/<id>/<resource_id>/resource_validation/', u'resource_validation', resource_validation)
-=======
-            (u'/dataset/inventory', u'inventory', csv_dump)
->>>>>>> develop
         ]
 
         for rule in rules:
