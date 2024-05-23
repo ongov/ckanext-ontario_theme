@@ -266,15 +266,15 @@ stages:
                sudo systemctl stop supervisor
                ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
                sudo systemctl status supervisor || true
-               sudo rm -rfv /var/lib/ckan/default/webassets/*
+               sudo rm -rf /var/lib/ckan/default/webassets/*
                echo "#### STOPPING NGINX & FLUSHING CACHE! ####"
                sudo systemctl stop nginx
                ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
                sudo systemctl status nginx || true
-               sudo rm -rfv /tmp/nginx_cache_default/*
-               sudo rm -rfv /tmp/nginx_cache_default
-               sudo rm -rfv /tmp/api_cache/*
-               sudo rm -rfv /tmp/api_cache
+               sudo rm -rf /tmp/nginx_cache_default/*
+               sudo rm -rf /tmp/nginx_cache_default
+               sudo rm -rf /tmp/api_cache/*
+               sudo rm -rf /tmp/api_cache
                echo "#### STARTING CKAN & NGINX! ####"
                sudo systemctl start supervisor
                sudo systemctl start nginx
@@ -324,15 +324,15 @@ stages:
                sudo systemctl stop supervisor
                ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
                sudo systemctl status supervisor || true
-               sudo rm -rfv /var/lib/ckan/default/webassets/*
+               sudo rm -rf /var/lib/ckan/default/webassets/*
                echo "#### STOPPING NGINX & FLUSHING CACHE! ####"
                sudo systemctl stop nginx
                ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
                sudo systemctl status nginx || true
-               sudo rm -rfv /tmp/nginx_cache_default/*
-               sudo rm -rfv /tmp/nginx_cache_default
-               sudo rm -rfv /tmp/api_cache/*
-               sudo rm -rfv /tmp/api_cache
+               sudo rm -rf /tmp/nginx_cache_default/*
+               sudo rm -rf /tmp/nginx_cache_default
+               sudo rm -rf /tmp/api_cache/*
+               sudo rm -rf /tmp/api_cache
                echo "#### STARTING CKAN & NGINX! ####"
                sudo systemctl start supervisor
                sudo systemctl start nginx
