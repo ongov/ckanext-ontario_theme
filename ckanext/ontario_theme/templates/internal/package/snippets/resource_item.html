@@ -7,7 +7,7 @@
 {% set url = h.url_for(url_action, id=pkg.id if is_activity_archive else pkg.name, resource_id=res.id, **({'activity_id': request.args['activity_id']} if 'activity_id' in request.args else {})) %}
 <li class="resource-item ontario-row
            {% if not can_edit -%}
-             resource-item-div{%- endif -%}"
+           resource-item-div{%- endif -%}"
     data-id="{{ res.id }}">
   <div class="resource-title-div">
     {% block resource_item_title %}
@@ -23,9 +23,12 @@
         </div>
       {% endif %}
       <div class="resource-info">
-        <a class="resource-item-title"
-           href="{{ url }}"
-           title="{{ res.name or res.description }}">{{ h.resource_display_name(res) }}</a>
+        {% if can_edit %}
+          <a class="resource-item-title"
+           href="{{ url }}">{{ h.resource_display_name(res) }}</a>
+        {% else %}
+          <span class="resource-item-title">{{ h.resource_display_name(res) }}</span>
+        {% endif %}
         {% if res.language %}
           <span class="label label-{{ res.language }}">
             {{ h.scheming_choices_label(
@@ -50,23 +53,26 @@
       {% endif %}
     {% endblock resource_item_description %}
   </div>
-  <div class="text-right">
     {% block resource_item_explore %}
       {% if not url_is_edit %}
-        <div class="resource-buttons">
+        <div class="resource-buttons text-right">
           {% block resource_item_explore_links %}
-            <a href="{{ url }}" class="ontario-button ontario-button--secondary">{{ _('Explore') }}</a>
-            {% set can_edit = h.check_access('package_update', {'id':pkg.id }) and h.check_access('resource_update', res) %}
             {% if can_edit %}
+              <a href="{{ url }}" class="ontario-button ontario-button--secondary">{{ _('Explore') }}</a>
               <a href="{{ h.url_for(pkg.type ~ '_resource.edit', id=pkg.name, resource_id=res.id) }}"
-                 class="ontario-button ontario-button--tertiary">
+                class="ontario-button ontario-button--tertiary">
                 <i class="fa fa-pencil-square-o">&nbsp;</i>{{ _('Edit') }}
               </a>
+            {% else %}
+              <span class="ontario-button ontario-button--secondary">{{ _('Explore') }}</span>
             {% endif %}
           {% endblock resource_item_explore_links %}
-        </div>
       {% endif %}
     {% endblock resource_item_explore %}
   </div>
-  {% if not can_edit %}<a href="{{ url }}" class="anchor-div"></a>{% endif %}
+  {% if not can_edit %}
+    <a href="{{ url }}"
+       class="anchor-div"
+       aria-label="{{ _('Explore') }} {{ h.resource_display_name(res) }}"></a>
+  {% endif %}
 </li>
