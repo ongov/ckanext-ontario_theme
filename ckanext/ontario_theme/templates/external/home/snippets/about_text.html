@@ -1,6 +1,6 @@
 <div id="about">
   {% trans image_path=h.url_for_static('/images/external/about/'), url=h.url_for('home.index'), directive_url=_("https://www.ontario.ca/page/ontarios-digital-and-data-directive-2021"),
-    dataset_url=h.url_for('dataset.search'), help_url=h.url_for('ontario_theme.help', _anchor='what-does-the-preview-button-do') %}
+    dataset_url=h.url_for('dataset.search') %}
     <h2 class="ontario-small">On this page</h2>
     <ol class="table-of-contents">
       <li>
@@ -172,9 +172,6 @@
       You can select a file and either download it or preview it.
       Make sure to read the licence agreement to make sure you have permission to use it the way you want.
     </p>
-    <p>
-      <a href="{{ help_url }}">Read more about previewing data.</a>
-    </p>
     <h5>Non-open data</h5>
     <p>A non-open dataset may be not available for many reasons.</p>
     <p>
@@ -189,7 +186,6 @@
     <h4>Visualizing data</h4>
     <p>
       The catalogue has tools that enable all users to visualize the data in the catalogue without leaving the catalogue – no additional software needed.
-      <a href="{{ help_url }}">Have a look at our walk-through of how to make a chart in the catalogue</a>.
     </p>
     <h4>
       <a name="features-notifications"></a>
@@ -827,16 +823,6 @@
         <p>
           Work with us directly by testing the catalogue in our offices. If you are interested in doing this,
           <a href="https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269">contact us</a>.
-        </p>
-      </li>
-      <li>
-        <strong>Stay in the loop.</strong>
-        <p>
-          We’ll be highlighting new features and project milestones, so subscribe to either the
-          <a href="https://medium.com/ontariodigital">Ontario Digital Service Medium blog</a> or our
-          <a href="https://mailchi.mp/43387219d995/openonnewsletter"
-             target="_blank"
-             rel="noopener noreferrer">Open Government Newsletter</a>.
         </p>
       </li>
       <li>

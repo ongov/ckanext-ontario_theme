@@ -32,6 +32,7 @@ import functools
 from ckanext.ontario_theme.resource_upload import ResourceUpload
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
 from ckanext.ontario_theme.resource import CreateView as OntarioThemeResourceCreateView
+from ckanext.ontario_theme.resource import EditView as OntarioThemeResourceEditView
 from ckanext.ontario_theme.organization import index as organization_index
 from ckanext.ontario_theme.datastore import DictionaryView
 
@@ -652,27 +653,6 @@ def get_license(license_id):
     '''
     return Package.get_license_register().get(license_id)
 
-def order_package_facets(orig_ordered_dict):
-    ''' Returns an OrderedDict of package facets in the order
-    that they should appear in the left panel of the Datasets
-    page.
-
-    '''
-    # Order that facets should appear in left panel
-    facet_order = ['organization', 'res_format', 'access_level', 'update_frequency', 'license_id',
-                   'asset_type', 'groups',
-                   'organization_jurisdiction', 'organization_category',
-                   'keywords_en', 'keywords_fr',
-                  ]
-
-    facet_titles_reorg = list()
-    for facet in facet_order:
-        for idx in range(len(orig_ordered_dict)):
-            if list(orig_ordered_dict)[idx]==facet:
-                facet_titles_reorg.append((facet, orig_ordered_dict[facet]))
-
-    return OrderedDict(facet_titles_reorg)
-
 
 def get_current_year():
     return datetime.datetime.today().strftime('%Y')
@@ -1102,7 +1082,6 @@ type data_last_updated
     def get_helpers(self):
         return {'ontario_theme_get_license': get_license,
                 'ontario_theme_extract_package_name': extract_package_name,
-                'ontario_theme_order_package_facets': order_package_facets,
                 'ontario_theme_get_translated_lang': get_translated_lang,
                 'ontario_theme_get_popular_datasets': get_popular_datasets,
                 'ontario_theme_get_group': get_group,
@@ -1160,9 +1139,13 @@ type data_last_updated
             blueprint.add_url_rule(*rule)
         blueprint.add_url_rule('/dataset/new', view_func=OntarioThemeCreateView.as_view(str(u'new')), defaults={u'package_type': u'dataset'})
         blueprint.add_url_rule(
-            u'/dataset/<id>/resource/new', 
+            u'/dataset/<id>/resource/new',
             view_func=OntarioThemeResourceCreateView.as_view(str(u'edit_step2')),
             defaults={u'package_type': u'dataset'}
+        )
+        blueprint.add_url_rule(
+            u'/dataset/<id>/resource/<resource_id>/edit',
+            view_func=OntarioThemeResourceEditView.as_view(str(u'edit')), defaults={u'package_type': u'dataset'}
         )
         blueprint.add_url_rule(u'/organization', view_func=organization_index, strict_slashes=False)
         blueprint.add_url_rule(u'/dataset/<id>/dictionary/<resource_id>',view_func=DictionaryView.as_view(str(u'dictionary')))
@@ -1177,19 +1160,23 @@ type data_last_updated
     # IFacets
 
     def dataset_facets(self, facets_dict, package_type):
-        '''Add new search facet (filter) for datasets.
+        '''Add new search facet dictionary for datasets.
         '''
-        facets_dict['access_level'] = toolkit._('Access Level')
-        facets_dict['asset_type'] = toolkit._('Asset Type')
-        facets_dict['update_frequency'] = toolkit._('Update Frequency')
-        facets_dict['keywords_en'] = toolkit._('Topics')
-        facets_dict['keywords_fr'] = toolkit._('Topics')
-        facets_dict['license_id'] = toolkit._('Licences')
-        facets_dict['organization'] = toolkit._('Ministries')
-        facets_dict.pop('tags', None) # Remove tags in favor of keywords
-        facets_dict['organization_jurisdiction'] = toolkit._('Jurisdiction')
-        facets_dict['organization_category'] = toolkit._('Category')
-        return facets_dict
+        reordered_facet_dict = OrderedDict({
+            'keywords_en': toolkit._('Topics'),
+            'keywords_fr': toolkit._('Topics'),
+            'organization': toolkit._('Ministries'),
+            'res_format': toolkit._('Formats'),
+            'access_level': toolkit._('Access level'),
+            'update_frequency': toolkit._('Update frequency'),
+            'license_id': toolkit._('Licences'),
+            'asset_type': toolkit._('Asset type'),
+            'groups': toolkit._('Groups'),
+            'organization_jurisdiction': toolkit._('Jurisdiction'),
+            'organization_category': toolkit._('Category')
+        })
+
+        return reordered_facet_dict
 
     def group_facets(self, facets_dict, group_type, package_type):
         u'''Modify and return the ``facets_dict`` for a group's page.

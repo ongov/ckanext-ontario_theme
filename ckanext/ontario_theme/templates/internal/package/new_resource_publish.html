@@ -70,17 +70,14 @@
   <div class="ontario-small-12">
     {% set fields = h.datastore_dictionary(resource_id) %}
     {#- Example of returned dictionary:
-
           [{'id': 'rule',
             'type': 'text',
-            'info': {'label': '',
-                      'notes': '',
+            'info': { 'notes': '',
                       'type_override': '',
                       'frictionless_dict': [{'type': 'string', 'name': 'rule'}]}},
           {'id': 'integercol',
             'type': 'int4',
-            'info': {'label': '',
-                      'notes': '',
+            'info': { 'notes': '',
                       'type_override': 'integer',
                       'frictionless_dict': [{'type': 'integer', 'name': 'integercol'}]}}]
 
@@ -88,19 +85,19 @@
           field.info["type_override"] (e.g. integer) for these cases. Note we want to
           stick with the PostgreSQL type names (e.g. "text" not "string") so don't use
           field.info["frictionless_dict"]["type"].
-      -#}
+    -#}
     {% for field in fields %}
       <div>
-        <h3 class="ontario-h3">Field {{ loop.index }}. {{ field.id }}</h3>
+        <h3 class="ontario-h3">Column {{ loop.index }}</h3>
         <dl class="resource-metadata-dl">
-          <dt class="resource-metadata-heading ontario-h5">Type override:</dt>
+          <dt class="resource-metadata-heading ontario-h5">Column name:</dt>
+          <dd>
+            {{ field.id }}
+          </dd>
+          <dt class="resource-metadata-heading ontario-h5">Data type:</dt>
           {% set field_type = field.type if field.info["type_override"] == '' else field.info["type_override"] %}
           <dd>
             {{ field_type }}
-          </dd>
-          <dt class="resource-metadata-heading ontario-h5">Label:</dt>
-          <dd>
-            {{ field.info["label"] }}
           </dd>
           <dt class="resource-metadata-heading ontario-h5">Description:</dt>
           <dd>
