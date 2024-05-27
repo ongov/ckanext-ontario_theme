@@ -21,6 +21,46 @@
       id=package_id,
     resource_id=resource.id) %}
   {% set is_csv = "True" %}
+  <p>validation report: {{validation.report}}</p>
+  <p>validation: {{validation}}</p>
+
+    <script>
+      function poll_validation() {
+        const resId = "{{ resource.id }}";
+        const xhr = new XMLHttpRequest();
+        const url = `/api/3/action/resource_validation_show?resource_id=${resId}`;
+        const fruits = ["created", "running"];
+
+
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send();
+        console.log('xhr: ', xhr)
+               
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status !== 404) {
+          xhr.onreadystatechange = () => {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+              let thisResponse = JSON.parse(xhr.response);
+              console.log('thisResponse: ', thisResponse)
+              console.log('thisResponse.result: ', thisResponse.result)
+              console.log('thisResponse.result.status: ', thisResponse.result.status)
+
+              if (thisResponse.result.status !== "running") { //thisResponse.result.status.includes(status_ok)
+                console.log('not running: ', thisResponse.result.status)
+
+              } else if (fruits.includes(thisResponse.result.status)) {
+                console.log('Validation running....set the timeout and retry...')
+                setTimeout(poll_validation, 1000);
+              }           
+            }
+          }
+        } else {
+          console.log('Not a CSV file')
+        }
+      };
+      poll_validation();
+    </script>
+
 
   {% if validation.report %}
     {% set success_message = "Data validated successfully" %}
