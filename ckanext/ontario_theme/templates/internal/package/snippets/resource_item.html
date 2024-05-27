@@ -53,23 +53,23 @@
       {% endif %}
     {% endblock resource_item_description %}
   </div>
-    {% block resource_item_explore %}
-      {% if not url_is_edit %}
-        <div class="resource-buttons text-right">
-          {% block resource_item_explore_links %}
-            {% if can_edit %}
-              <a href="{{ url }}" class="ontario-button ontario-button--secondary">{{ _('Explore') }}</a>
-              <a href="{{ h.url_for(pkg.type ~ '_resource.edit', id=pkg.name, resource_id=res.id) }}"
-                class="ontario-button ontario-button--tertiary">
-                <i class="fa fa-pencil-square-o">&nbsp;</i>{{ _('Edit') }}
-              </a>
-            {% else %}
-              <span class="ontario-button ontario-button--secondary">{{ _('Explore') }}</span>
-            {% endif %}
-          {% endblock resource_item_explore_links %}
-      {% endif %}
-    {% endblock resource_item_explore %}
-  </div>
+  {% block resource_item_explore %}
+    {% if not url_is_edit %}
+      <div class="resource-buttons text-right">
+        {% block resource_item_explore_links %}
+          {% if can_edit %}
+            <a href="{{ url }}" class="ontario-button ontario-button--secondary">{{ _('Explore') }}</a>
+            <a href="{{ h.url_for(pkg.type ~ '_resource.edit', id=pkg.name, resource_id=res.id) }}"
+              class="ontario-button ontario-button--tertiary">
+              <i class="fa fa-pencil-square-o">&nbsp;</i>{{ _('Edit') }}
+            </a>
+          {% else %}
+            <span class="ontario-button ontario-button--secondary">{{ _('Explore') }}</span>
+          {% endif %}
+        {% endblock resource_item_explore_links %}
+      </div>
+    {% endif %}
+  {% endblock resource_item_explore %}
   {% if not can_edit %}
     <a href="{{ url }}"
        class="anchor-div"
