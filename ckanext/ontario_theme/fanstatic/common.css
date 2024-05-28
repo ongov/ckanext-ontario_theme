@@ -1687,6 +1687,7 @@ via submission form. Copied from DS.*/
 .resource-list {
   overflow: hidden;
   padding-bottom: 10px;
+  padding-top: 16px;
 }
 
 .resource-item {
