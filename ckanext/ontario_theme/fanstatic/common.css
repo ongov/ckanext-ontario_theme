@@ -1998,7 +1998,7 @@ section#dataset-resources > h2 {
    ======================================================================== */
 a.heading:hover,
 ul.nav-tabs li a:hover,
-.table-of-contents a:hover {
+.ontario-page-navigation-list a:hover {
   text-decoration: underline;
 }
 
@@ -2009,7 +2009,7 @@ a.btn-primary,
 a.heading,
 a.tag,
 ul.nav-tabs li a,
-.table-of-contents a,
+.ontario-page-navigation-list a,
 .nav-item a {
   text-decoration: none;
 }
@@ -2449,25 +2449,24 @@ screen and (min-width: 96em) {
 /* ========================================================================
    About and Help page - On this page
    ======================================================================== */
-ol.table-of-contents {
+ol.ontario-page-navigation-list {
   list-style-position: outside;
   margin-left: 1.5em;
   padding-left: 0;
+  list-style-type: disc;
 }
 
-ul.table-of-contents {
+ul.ontario-page-navigation-list {
   list-style-type: none;
   margin-left: 0;
   padding: 0;
 }
 
-.table-of-contents {
+.ontario-page-navigation-list {
   margin-bottom: 1.25rem;
-  columns: 2 21rem;
-  column-gap: 2.5rem;
 }
 
-.table-of-contents li {
+.ontario-page-navigation-list li {
   break-inside: avoid;
   padding: 0 0 0.75rem 0.25rem;
 }

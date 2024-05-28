@@ -1,31 +1,39 @@
 <div id="about">
   {% trans image_path=h.url_for_static('/images/external/about/'), url=h.url_for('home.index'), directive_url=_("https://www.ontario.ca/page/ontarios-digital-and-data-directive-2021"),
     dataset_url=h.url_for('dataset.search') %}
-    <h2 class="ontario-small">On this page</h2>
-    <ol class="table-of-contents">
-      <li>
-        <a href="#open-data">Open Data</a>
-      </li>
-      <li>
-        <a href="#other-data">Other data</a>
-      </li>
-      <li>
-        <a href="#licensing">Data licences and use</a>
-      </li>
-      <li>
-        <a href="#developers">Developer resources</a>
-      </li>
-      <li>
-        <a href="#training-materials">Training materials</a>
-      </li>
-      <li>
-        <a href="#metadata">What do we tell you about data (metadata)?</a>
-      </li>
-      <li>
-        <a href="#engagement">Engagement</a>
-      </li>
-    </ol>
-    <hr class="toc-hr" />
+    <nav>
+      <div class="ontario-page-navigation--full">
+        <div class="ontario-page-navigation-content--full">
+          <h2 class="ontario-small">On this page</h2>
+          <a class="ontario-show-on-focus" href="#skip-to-main">Skip this page navigation</a>
+          <ol class="ontario-page-navigation-list" role="navigation">
+            <li class="ontario-page-navigation-list__item">
+              <a class="ontario-page-navigation-item__link" href="#open-data">Open Data</a>
+            </li>
+            <li class="ontario-page-navigation-list__item">
+              <a class="ontario-page-navigation-item__link" href="#other-data">Other data</a>
+            </li>
+            <li class="ontario-page-navigation-list__item">
+              <a class="ontario-page-navigation-item__link" href="#licensing">Data licences and use</a>
+            </li>
+            <li class="ontario-page-navigation-list__item">
+              <a class="ontario-page-navigation-item__link" href="#developers">Developer resources</a>
+            </li>
+            <li class="ontario-page-navigation-list__item">
+              <a class="ontario-page-navigation-item__link" href="#training-materials">Training materials</a>
+            </li>
+            <li class="ontario-page-navigation-list__item">
+              <a class="ontario-page-navigation-item__link" href="#metadata">What do we tell you about data (metadata)?</a>
+            </li>
+            <li class="ontario-page-navigation-list__item">
+              <a class="ontario-page-navigation-item__link" href="#engagement">Engagement</a>
+            </li>
+          </ol>
+          <hr class="toc-hr" />
+        </div>
+      </div>
+    </nav>
+    <div id="skip-to-main"></div>
     <h2 id="open-data" class="first-h2">Open Data</h2>
     <p>
       Open data is data that is shared with the public. <a href="https://www.ontario.ca/page/sharing-government-data">
