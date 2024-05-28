@@ -20,9 +20,10 @@
   {% set action = h.url_for('datastore.dictionary',
       id=package_id,
     resource_id=resource.id) %}
-  {% set is_csv = "True" %}
+  {% set format = resource.format %}
   <p>validation report: {{validation.report}}</p>
   <p>validation: {{validation}}</p>
+  <p>format: {{format}}</p>
 
     <script>
       function poll_validation() {
@@ -69,19 +70,9 @@
       <div>{{ _('Duration') }}: {{ h.validation_dict(validation.report)["stats"]["seconds"] }}s</div>
     </div>
     {% snippet "package/snippets/successful_page_alert.html", success_message=success_message %}
-  {% else %}
-    {% set is_csv = "False" %}
-    {% set success_message = "Data uploaded successfully" %}
-    {% snippet "package/snippets/successful_page_alert.html", success_message=success_message %}
-    <a href="{{ action }}">
-      <button id="nextBtn"
-              class="ontario-button ontario-button--primary"
-              name="save"
-              type="submit">Continue</button>
-    </a>
   {% endif %}
 
-  {% if is_csv == "True" %}
+  {% if format == "CSV" %}
     <script>
       function poll_datastore() {
         const resId = "{{ resource.id }}";
@@ -142,6 +133,15 @@
               style="visibility: hidden;
                      margin-top: 40px;
                      margin-left: 36px"
+              class="ontario-button ontario-button--primary"
+              name="save"
+              type="submit">Continue</button>
+    </a>
+  {% else %}
+    {% set success_message = "Data uploaded successfully" %}
+    {% snippet "package/snippets/successful_page_alert.html", success_message=success_message %}
+    <a href="{{ action }}">
+      <button id="nextBtn"
               class="ontario-button ontario-button--primary"
               name="save"
               type="submit">Continue</button>
