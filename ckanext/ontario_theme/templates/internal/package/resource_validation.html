@@ -21,61 +21,54 @@
       id=package_id,
     resource_id=resource.id) %}
   {% set format = resource.format %}
-  <p>validation report: {{validation.report}}</p>
-  <p>validation: {{validation}}</p>
-  <p>format: {{format}}</p>
 
-    <script>
-      function poll_validation() {
-        const resId = "{{ resource.id }}";
-        const xhr = new XMLHttpRequest();
-        const url = `/api/3/action/resource_validation_show?resource_id=${resId}`;
-        const fruits = ["created", "running"];
-
-
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.send();
-        console.log('xhr: ', xhr)
-               
-        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status !== 404) {
-          xhr.onreadystatechange = () => {
-            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-              let thisResponse = JSON.parse(xhr.response);
-              console.log('thisResponse: ', thisResponse)
-              console.log('thisResponse.result: ', thisResponse.result)
-              console.log('thisResponse.result.status: ', thisResponse.result.status)
-
-              if (thisResponse.result.status !== "running") { //thisResponse.result.status.includes(status_ok)
-                console.log('not running: ', thisResponse.result.status)
-
-              } else if (fruits.includes(thisResponse.result.status)) {
-                console.log('Validation running....set the timeout and retry...')
-                setTimeout(poll_validation, 1000);
-              }           
-            }
-          }
-        } else {
-          console.log('Not a CSV file')
-        }
-      };
-      poll_validation();
-    </script>
-
-
-  {% if validation.report %}
-    {% set success_message = "Data validated successfully" %}
-    <div class="validation-details">
-      <div>{{ _('Validation timestamp') }}: {{ h.render_datetime(resource.validation_timestamp, with_hours=True) }}</div>
-      <div>{{ _('Duration') }}: {{ h.validation_dict(validation.report)["stats"]["seconds"] }}s</div>
-    </div>
+  {% set success_message = "Data validated successfully" %}
+  <div id="alert_outer" style="visibility: hidden;" class="validation-details">
     {% snippet "package/snippets/successful_page_alert.html", success_message=success_message %}
-  {% endif %}
+  </div>
+
+  <div id="alert_fail">
+    <p>div alert_fail</p>
+  {% if validation.report %}
+    <p>there is a validation report</p>
+    {% set validation_report = h.ontario_theme_get_validation_report(res.id) %}
+    <p>validation_report: {{ validation_report }}</p>
+
+      <div id="alert_invalid" class="ontario-alert ontario-alert--error">
+        <div class="ontario-alert__header">
+          <div class="ontario-alert__header-icon">
+            <svg class="ontario-icon"
+                alt=""
+                aria-hidden="true"
+                focusable="false"
+                sol:category="primary"
+                viewBox="0 0 24 24"
+                preserveAspectRatio="xMidYMid meet">
+              <use href="#ontario-icon-alert-error"></use>
+            </svg>
+          </div>
+          <h2 class="ontario-alert__header-title ontario-h4">There is a problem</h2>
+        </div>
+        <div class="ontario-alert__body">
+          <p>
+            <a href="#validation-report"
+              data-module="modal-dialog"
+              data-module-div="validation-report-dialog">Show validation report modal</a>
+          </p>
+        </div>
+      </div>
+   
+      {% snippet 'validation/snippets/validation_report_dialog.html', validation_report=validation_report %}
+    {% endif %}
+  </div>
+ 
+
 
   {% if format == "CSV" %}
-    <script>
+    <script>      
+      const resId = "{{ resource.id }}";
+
       function poll_datastore() {
-        const resId = "{{ resource.id }}";
         const status_ok = ('complete', 'running_but_viewable');
         const xhr = new XMLHttpRequest();
         const url = `/api/3/action/xloader_status?resource_id=${resId}`;
@@ -83,14 +76,15 @@
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.send();
+        console.log('poll_datastore xhr: ', xhr)
 
-        xhr.onreadystatechange = () => {                                
+        xhr.onreadystatechange = () => {
           if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             let thisResponse = JSON.parse(xhr.response);
 
             if (thisResponse.result.status !== "pending") { //thisResponse.result.status.includes(status_ok)
               const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-         
+        
               const fixedDelay = async () => {
                 await sleep(2000)
                 document.getElementById("pendingTxt").innerHTML = "Data file uploaded. Please click Continue.";
@@ -106,12 +100,70 @@
           }
         }
       };
-      poll_datastore();
+
+      function poll_validation() {
+        const xhr = new XMLHttpRequest();
+        const url = `/api/3/action/resource_validation_show?resource_id=${resId}`;
+        const validationStatus = ["created", "running"];
+
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send();
+        console.log('poll_validation xhr: ', xhr)
+            
+        xhr.onreadystatechange = () => {
+          if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            let thisResponse = JSON.parse(xhr.response);
+            console.log('thisResponse: ', thisResponse)
+            console.log('thisResponse.result: ', thisResponse.result)
+            console.log('thisResponse.result.status: ', thisResponse.result.status)
+
+            if (!validationStatus.includes(thisResponse.result.status)) {
+              console.log('not running anymore: ', thisResponse.result.status)
+              if (thisResponse.result.status == "failure") {
+                failureMsg = "There is a problem with your data source. Please review the validation report to resolve the issues and try uploading again."
+                console.log('validation failed, build error alert')
+                //build alert box
+                // document.getElementById("alert_inner").className = "ontario-alert--error"
+                // document.getElementById("alert_inner_msg").innerHTML = "There is a problem";
+
+                // ul = document.getElementById("alert_inner");
+                // li = document.createElement("li");
+                // li.appendChild(document.createTextNode(failureMsg));
+                // ul.appendChild(li);
+                // document.getElementById("alert_outer").style.visibility = "visible";
+
+                thisURL = window.location.href;
+                $("#alert_fail").load(`${thisURL} #alert_invalid`);
+
+
+
+              } else if (thisResponse.result.status == "success") {
+                console.log('validation success, upload to datastore')
+                document.getElementById("alert_outer").style.visibility = "visible";
+                
+                poll_datastore();
+                document.getElementById("loadingSpinner").style.visibility = "visible";
+              }
+
+            } else if (validationStatus.includes(thisResponse.result.status)) {
+              console.log('Validation running....set the timeout and retry...')
+              setTimeout(poll_validation, 1000);
+            }
+          }
+        }
+      };
+
+      poll_validation();
+
+
     </script>
+
 
     <div class="ontario-small-12 ontario-row">
       <div class="ontario-small-12 ontario-columns">
         <div id="loadingSpinner"
+             style="visibility: hidden;"
              aria-hidden='false'
              role='alert'
              aria-live='assertive'>
