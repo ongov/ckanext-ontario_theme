@@ -26,20 +26,31 @@ ckan.module('conditional_field', function ($) {
     options : {
       trigger_values: null,
       field_options: null,
+      not_applicable: null,
 		},
     initialize: function () {
       this.trigger_values = (this.options.conditional_option).split(",");
-      this.field_options = (this.el.find('option'))
+      this.not_applicable = (this.el.find(`option[value="${this.options.trigger_option}"]`));
+      this.field_options = (this.el.find(`option[value!="${this.options.trigger_option}"]`));
       $(this.options.trigger_field).on('change', jQuery.proxy(this._onChange, this));
+      var init_option = $(this.options.trigger_field).find(":selected").val();
+      if ($.inArray(init_option, this.trigger_values) != -1) {
+        $(this.field_options).remove()
+      } else {
+        $(this.not_applicable).remove()
+      }
     },
     _onChange: function (event) {
       var option_selected = event.target.value
       let id = $(this.el).attr('id');
       if ($.inArray(option_selected, this.trigger_values) != -1) {
+        $(`#${id}`).append(this.not_applicable)
         $(`#${id}`).val(this.options.trigger_option).change();
-        $(`#${id}`).find(':not(:selected)').remove();
+        $(`#${id}`).find(this.field_options).remove();
       } else {
         $(`#${id}`).append(this.field_options)
+        $(`#${id}`).val('').change();
+        $(`#${id}`).find(this.not_applicable).remove();
       }
     }
   }
