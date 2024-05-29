@@ -40,6 +40,9 @@
       {% set sorting = [
               (_('Name Ascending'), 'name asc'),
             (_('Name Descending'), 'name desc') ] %}
+      {% if not sort_by_selected %}
+        {% set sort_by_selected = "name asc" %}
+      {% endif %}
       <form id="{{ form_id }}"
             class="search-form"
             method="get"
@@ -51,7 +54,7 @@
           type=type,
           query=query,
           sorting=sorting,
-          sorting_selected=c.sort_by_selected,
+          sorting_selected=sort_by_selected,
           count=c.page.item_count,
           sr_submit_text=sr_submit_text,
           facets=facets,

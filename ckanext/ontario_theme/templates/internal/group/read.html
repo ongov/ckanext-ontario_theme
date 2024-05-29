@@ -42,7 +42,8 @@ block. super() will end up calling the facets twice.
       count=page.item_count,
       facets=facets,
       show_empty=request.params,
-      fields=fields
+      fields=fields,
+      extras={'id':c.group_dict.id}
       %}
     </form>
   {% endblock groups_search_form %}
@@ -68,17 +69,22 @@ block. super() will end up calling the facets twice.
 
   {% block secondary_content %}
     <div class="ministry-package-div secondary col-sm-3">
-      <div class="filters">
+      <div class="filters" id="filter-aside">
+        <span aria-label="{{ _('close') }}"
+              role="button"
+              tabindex="0"
+              class="close no-text hide-filters">
+          <svg class="ontario-icon hide-sort-by"
+              focusable="false"
+              sol:category="primary"
+              viewBox="0 0 24 24"
+              preserveAspectRatio="xMidYMid meet">
+            <use xlink:href="#ontario-icon-close"></use>
+          </svg>
+        </span>
         <div>
-          {{ h.snippet('snippets/ontario_theme_keywords_facet.html',
-          extras={'id':c.group_dict.id}) }}
-        </div>
-        <div>
-          {# Flag facets to be ignored from standard loop that calls facets.#}
-          {% set single_option_facets = ["organization_jurisdiction", "organization_category"] %}
           {{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets, extras={'id':c.group_dict.id}) }}
         </div>
-        <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
       </div>
     </div>
   {% endblock secondary_content %}

@@ -2,7 +2,13 @@ resources:
   webhooks:
     - webhook: ckan_ontario_theme_Webhook
       connection: ckan_ontario_theme_Webhook_SC
-
+      filters:
+        - path: ref
+          value: "refs/heads/develop"
+  repositories:  
+  - repository: ods-edc-qa-automation
+    type: git
+    name: "Ontario Data Catalogue/ods-edc-qa-automation"
 parameters: 
   - name: Environment
     displayName: Environment
@@ -22,20 +28,22 @@ parameters:
       - patch
       - reset
       - no
+  - name: Run_E2E_Tests
+    displayName: Run E2E Tests?
+    type: boolean
+    default: false
 
 trigger:
+  batch: true
   branches:
     include:
       - main
       - develop
+  tags:
     exclude:
-    - 'refs/tags/*'
-  paths:
-    include:
-      - '*'
-    exclude:
-      - /setup.py
+    - '*'
 pr: none
+
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -66,42 +74,37 @@ stages:
      - ${{ if eq(parameters.Increment_Version, 'major') }}:
        - script: |
            set -e
-           export APP_VERSION=`bump -M setup.py`
+           APP_VERSION=`bump -M setup.py`
            echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
-           git tag "v$APP_VERSION"
          displayName: 'Incrementing Major Version'
          name: Commit
      - ${{ elseif eq(parameters.Increment_Version, 'minor') }}:
        - script: |
            set -e
-           export APP_VERSION=`bump -m setup.py`
+           APP_VERSION=`bump -m setup.py`
            echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
-           git tag "v$APP_VERSION"
          displayName: 'Incrementing Minor Version'
          name: Commit
      - ${{ elseif eq(parameters.Increment_Version, 'reset') }}:
        - script: |
            set -e
-           export APP_VERSION=`bump -r setup.py`
+           APP_VERSION=`bump -r setup.py`
            echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
-           git tag "v$APP_VERSION"
          displayName: 'Application Version Reset'
          name: Commit
      - ${{ elseif eq(parameters.Increment_Version, 'patch')  }}:
        - script: |
            set -e
-           export APP_VERSION=`bump -p setup.py`
+           APP_VERSION=`bump -p setup.py`
            echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
-           git tag "v$APP_VERSION"
          displayName: 'Incrementing Patch Version'
          name: Commit
      - ${{ else  }}:
        - script: |
            set -e
            export PYTHONWARNINGS="ignore"
-           export APP_VERSION=`python3 setup.py --version`
+           APP_VERSION=`python3 setup.py --version`
            echo "##vso[task.setvariable variable=VarKey;isOutput=true]$APP_VERSION"
-           git tag "v$APP_VERSION"
          displayName: 'Incrementing Patch Version'
          name: Commit
      - script: |
@@ -121,7 +124,8 @@ stages:
          git config user.email "dev.ops@ontario.ca"
          git config user.name "ods-devops-automation"
          git add setup.py
-         git commit -m 'Version update by Build Id: $(Build.BuildNumber) on $(Agent.Id)'
+         git commit -m 'Version update by Build Id: $(Build.BuildNumber) on $(Agent.Id) ***NO_CI***'
+         git tag "v$(Commit.VarKey)"
          git push origin HEAD:$(Build.SourceBranchName)
          git push --tags origin HEAD:$(Build.SourceBranchName)    
        displayName: "Commiting Final Changes"
@@ -160,13 +164,65 @@ stages:
                echo "#### NEW PACKAGE INFORMATION. ####"
                pip list --path $(application_folder)
                echo "#### STOPPING CKAN & FLUSHING WEBASSETS CACHE! ####"
-               sudo systemctl stop supervisor && sudo systemctl status supervisor && sudo rm -rf /var/lib/ckan/default/webassets/*
+               sudo systemctl stop supervisor
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status supervisor || true
+               sudo rm -rf /var/lib/ckan/default/webassets/*
                echo "#### STOPPING NGINX & FLUSHING CACHE! ####"
-               sudo systemctl stop nginx && sudo systemctl status nginx && sudo rm -rf /tmp/nginx_cache_default/* && sudo rm -rf /tmp/nginx_cache_default && sudo rm -rf /tmp/api_cache/* && sudo rm -rf /tmp/api_cache
+               sudo systemctl stop nginx
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status nginx || true
+               sudo rm -rf /tmp/nginx_cache_default/*
+               sudo rm -rf /tmp/nginx_cache_default
+               sudo rm -rf /tmp/api_cache/*
+               sudo rm -rf /tmp/api_cache
                echo "#### STARTING CKAN & NGINX! ####"
-               sudo systemctl start supervisor && sudo systemctl start nginx && sudo systemctl status supervisor && sudo systemctl status nginx
+               sudo systemctl start supervisor
+               sudo systemctl start nginx
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status supervisor || true
+               sudo systemctl status nginx || true
                echo "#### DEPLOYMENT COMPLETE! ####"
              displayName: 'Deploying to IST'
+
+- stage: E2E_Testing
+  dependsOn: 
+    - Build
+    - IST_Deploy
+  condition: and(succeeded(), eq('${{ parameters.environment }}', 'ist'), eq('${{ parameters.Run_E2E_Tests }}', 'true'))
+  variables:
+    - group: ist-vars
+  jobs:
+    - job: RunE2ETests
+      displayName: Run E2E Tests
+      pool: 
+        vmImage: 'ubuntu-latest'
+      steps:
+        - checkout: ods-edc-qa-automation
+        - task: NodeTool@0
+          inputs:
+            versionSpec: '16.15.1'
+          displayName: 'Install Node.js'
+        - script: |
+            set -xe
+            pip install wget unzip
+            wget "https://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip"
+            unzip BrowserStackLocal-linux-x64.zip -d /usr/local/bin/
+            chmod 755 /usr/local/bin/BrowserStackLocal
+            rm -f BrowserStackLocal-linux-x64.zip
+            rm package-lock.json
+            mkdir npm_cache
+            export npm_config_cache=./npm_cache/
+            npm install
+            BrowserStackLocal --key $(BROWSERSTACK_ACCESS_KEY) --daemon start
+            npm run test_on_vpn --loglevel verbose
+            BrowserStackLocal --key $(BROWSERSTACK_ACCESS_KEY) --daemon stop" | tee build.log
+          env:
+            PERCY_TOKEN: $(PERCY_TOKEN)
+            BROWSERSTACK_USER: $(BROWSERSTACK_USER)
+            BROWSERSTACK_ACCESS_KEY: $(BROWSERSTACK_ACCESS_KEY)
+            BROWSERSTACK_KEY: $(BROWSERSTACK_KEY)
+          displayName: 'Running Percy Tests'
              
 - stage: UAT_Deploy
   dependsOn: 
@@ -204,11 +260,24 @@ stages:
                echo "#### NEW PACKAGE INFORMATION. ####"
                pip list --path $(application_folder)
                echo "#### STOPPING CKAN & FLUSHING WEBASSETS CACHE! ####"
-               sudo systemctl stop supervisor && sudo systemctl status supervisor && sudo rm -rf /var/lib/ckan/default/webassets/*
+               sudo systemctl stop supervisor
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status supervisor || true
+               sudo rm -rf /var/lib/ckan/default/webassets/*
                echo "#### STOPPING NGINX & FLUSHING CACHE! ####"
-               sudo systemctl stop nginx && sudo systemctl status nginx && sudo rm -rf /tmp/nginx_cache_default/* && sudo rm -rf /tmp/nginx_cache_default && sudo rm -rf /tmp/api_cache/* && sudo rm -rf /tmp/api_cache
+               sudo systemctl stop nginx
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status nginx || true
+               sudo rm -rf /tmp/nginx_cache_default/*
+               sudo rm -rf /tmp/nginx_cache_default
+               sudo rm -rf /tmp/api_cache/*
+               sudo rm -rf /tmp/api_cache
                echo "#### STARTING CKAN & NGINX! ####"
-               sudo systemctl start supervisor && sudo systemctl start nginx && sudo systemctl status supervisor && sudo systemctl status nginx
+               sudo systemctl start supervisor
+               sudo systemctl start nginx
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status supervisor || true
+               sudo systemctl status nginx || true
                echo "#### DEPLOYMENT COMPLETE! ####"
              displayName: 'Deploying to UAT'
              
@@ -217,7 +286,7 @@ stages:
     - Build
     - IST_Deploy
     - UAT_Deploy
-  condition: and(succeeded(), eq('${{ parameters.environment }}', 'prd'))
+  condition: succeeded()
   variables:
     - name: app_version
       value: $[ stageDependencies.Build.Build.outputs['Commit.VarKey'] ]
@@ -249,10 +318,23 @@ stages:
                echo "#### NEW PACKAGE INFORMATION. ####"
                pip list --path $(application_folder)
                echo "#### STOPPING CKAN & FLUSHING WEBASSETS CACHE! ####"
-               sudo systemctl stop supervisor && sudo systemctl status supervisor && sudo rm -rf /var/lib/ckan/default/webassets/*
+               sudo systemctl stop supervisor
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status supervisor || true
+               sudo rm -rf /var/lib/ckan/default/webassets/*
                echo "#### STOPPING NGINX & FLUSHING CACHE! ####"
-               sudo systemctl stop nginx && sudo systemctl status nginx && sudo rm -rf /tmp/nginx_cache_default/* && sudo rm -rf /tmp/nginx_cache_default && sudo rm -rf /tmp/api_cache/* && sudo rm -rf /tmp/api_cache
+               sudo systemctl stop nginx
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status nginx || true
+               sudo rm -rf /tmp/nginx_cache_default/*
+               sudo rm -rf /tmp/nginx_cache_default
+               sudo rm -rf /tmp/api_cache/*
+               sudo rm -rf /tmp/api_cache
                echo "#### STARTING CKAN & NGINX! ####"
-               sudo systemctl start supervisor && sudo systemctl start nginx && sudo systemctl status supervisor && sudo systemctl status nginx
+               sudo systemctl start supervisor
+               sudo systemctl start nginx
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status supervisor || true
+               sudo systemctl status nginx || true
                echo "#### DEPLOYMENT COMPLETE! ####"
              displayName: 'Deploying to PRD'

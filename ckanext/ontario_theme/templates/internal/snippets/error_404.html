@@ -1,0 +1,20 @@
+<article class="ontario-column">
+  <div class="module-content">
+    <h1>{{ _('Sorry, we can’t find that page') }}</h1>
+    {% trans url=h.url_for('home.index') %}
+      <p>Check the URL for errors. You can try to find data using the search box above or by <a href="{{ url }}">browsing our homepage.</a></p>
+    {% endtrans %}
+    {% set popular_datasets = h.ontario_theme_get_popular_datasets() %}
+    <div class="error-content">
+      <h2>{{ _('Most popular datasets') }}</h2>
+      <ul class="popular-datasets-404">
+      {% for dataset in popular_datasets %}
+        <li>
+          <a href="{%- url_for 'dataset.read', id=dataset.name -%}"
+             class="hp_popular">{{ h.get_translated(dataset, "title") }}</a>
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+</article>
