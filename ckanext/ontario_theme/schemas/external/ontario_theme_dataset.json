@@ -532,6 +532,7 @@
         "data-module-trigger_field": "#field-access_level",
         "data-module-conditional_option": "restricted,under_review",
         "data-module-trigger_option": "other-closed",
+        "data-module-default": "OGL-ON-1.0",
         "style": "width: 100%;"
       },
       "classes": ["col-md-12","form-group"]

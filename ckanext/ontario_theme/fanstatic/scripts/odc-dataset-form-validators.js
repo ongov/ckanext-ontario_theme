@@ -32,13 +32,16 @@ ckan.module('conditional_field', function ($) {
       this.trigger_values = (this.options.conditional_option).split(",");
       this.not_applicable = (this.el.find(`option[value="${this.options.trigger_option}"]`));
       this.field_options = (this.el.find(`option[value!="${this.options.trigger_option}"]`));
-      $(this.options.trigger_field).on('change', jQuery.proxy(this._onChange, this));
+      // Finds selected access level on page load and removes any options not
+      // associated with the access level
       var init_option = $(this.options.trigger_field).find(":selected").val();
       if ($.inArray(init_option, this.trigger_values) != -1) {
         $(this.field_options).remove()
       } else {
         $(this.not_applicable).remove()
       }
+
+      $(this.options.trigger_field).on('change', jQuery.proxy(this._onChange, this));
     },
     _onChange: function (event) {
       var option_selected = event.target.value
@@ -49,7 +52,7 @@ ckan.module('conditional_field', function ($) {
         $(`#${id}`).find(this.field_options).remove();
       } else {
         $(`#${id}`).append(this.field_options)
-        $(`#${id}`).val('').change();
+        $(`#${id}`).val(this.options.default).change();
         $(`#${id}`).find(this.not_applicable).remove();
       }
     }
