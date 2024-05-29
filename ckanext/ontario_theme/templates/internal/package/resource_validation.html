@@ -22,43 +22,81 @@
     resource_id=resource.id) %}
   {% set format = resource.format %}
 
+  {# Spinner for validation #}
+  <div id="div-vspinner" class="ontario-small-12 ontario-row">
+    <div class="ontario-small-12 ontario-columns">
+      <div id="loadingVSpinner"           
+           aria-hidden='false'
+           role='alert'
+           aria-live='assertive'>
+        <div class='ontario-loading-indicator'>
+          <svg id="vspinnerSVG"
+               class='ontario-loading-indicator__spinner-small'
+               viewBox="25 25 50 50"
+               xmlns='http://www.w3.org/2000/svg'>
+            <circle cx="50" cy="50" r="20" fill="none" stroke-width="4" />
+          </svg>
+          <p class="spinner-small" id="pendingVTxt">Validating table structure</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   {% set success_message = "Data validated successfully" %}
-  <div id="alert_outer" style="visibility: hidden;" class="validation-details">
+  <div id="alert-outer" style="visibility: hidden;" class="validation-details">
+    <p>validation.report: {{validation.report}}</p>
     {% snippet "package/snippets/successful_page_alert.html", success_message=success_message %}
   </div>
 
-  <div id="alert_fail">
-    <p>div alert_fail</p>
+  <div id="alert_fail">    
   {% if validation.report %}
-    <p>there is a validation report</p>
-    {% set validation_report = h.ontario_theme_get_validation_report(res.id) %}
-    <p>validation_report: {{ validation_report }}</p>
-
-      <div id="alert_invalid" class="ontario-alert ontario-alert--error">
-        <div class="ontario-alert__header">
-          <div class="ontario-alert__header-icon">
-            <svg class="ontario-icon"
-                alt=""
-                aria-hidden="true"
-                focusable="false"
-                sol:category="primary"
-                viewBox="0 0 24 24"
-                preserveAspectRatio="xMidYMid meet">
-              <use href="#ontario-icon-alert-error"></use>
-            </svg>
+    {% if not validation.report.valid  %}
+    <p>validation.report: {{validation.report}}</p>
+        <div id="alert-invalid" class="ontario-alert ontario-alert--error">
+          <div class="ontario-alert__header">
+            <div class="ontario-alert__header-icon">
+              <svg class="ontario-icon"
+                  alt=""
+                  aria-hidden="true"
+                  focusable="false"
+                  sol:category="primary"
+                  viewBox="0 0 24 24"
+                  preserveAspectRatio="xMidYMid meet">
+                <use href="#ontario-icon-alert-error"></use>
+              </svg>
+            </div>
+            <h2 class="ontario-alert__header-title ontario-h4">There is a problem</h2>
           </div>
-          <h2 class="ontario-alert__header-title ontario-h4">There is a problem</h2>
+          <div class="ontario-alert__body">
+            <p>
+              <a href="#validation-report"
+                data-module="modal-dialog"
+                data-module-div="validation-report-dialog">Show validation report.</a>
+            </p>
+            <p>Please go back to Step 1 and upload a corrected file.</p>
+          </div>
+          {# class="modal fade" #}
+          <div id="validation-report-dialog" style="display: block;">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                    <h3>
+                      {{ _('Data Validation Report') }}
+                      <button class="close" data-dismiss="modal">×</button>
+                    </h3>
+                </div>
+                <div class="modal-body">
+
+                  <div id="report" data-module="validation-report" data-module-report="{{ validation.report }}"></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="ontario-alert__body">
-          <p>
-            <a href="#validation-report"
-              data-module="modal-dialog"
-              data-module-div="validation-report-dialog">Show validation report modal</a>
-          </p>
-        </div>
-      </div>
-   
-      {% snippet 'validation/snippets/validation_report_dialog.html', validation_report=validation_report %}
+
+        {% set validation_report = h.ontario_theme_get_validation_report(resource.id) %}
+        {% snippet 'validation/snippets/validation_report_dialog.html', validation_report=validation_report %}
+      {% endif %}
     {% endif %}
   </div>
  
@@ -121,26 +159,24 @@
             if (!validationStatus.includes(thisResponse.result.status)) {
               console.log('not running anymore: ', thisResponse.result.status)
               if (thisResponse.result.status == "failure") {
-                failureMsg = "There is a problem with your data source. Please review the validation report to resolve the issues and try uploading again."
-                console.log('validation failed, build error alert')
-                //build alert box
-                // document.getElementById("alert_inner").className = "ontario-alert--error"
-                // document.getElementById("alert_inner_msg").innerHTML = "There is a problem";
+                console.log('validation failed, show error alert for: ', thisURL)
 
-                // ul = document.getElementById("alert_inner");
-                // li = document.createElement("li");
-                // li.appendChild(document.createTextNode(failureMsg));
-                // ul.appendChild(li);
-                // document.getElementById("alert_outer").style.visibility = "visible";
+                const element = document.getElementById("div-vspinner");
+                element.remove();
+                const elementSuccess = document.getElementById("alert-outer");
+                elementSuccess.remove();
 
                 thisURL = window.location.href;
-                $("#alert_fail").load(`${thisURL} #alert_invalid`);
-
+                
+                $("#alert_fail").load(`${thisURL} #alert-invalid`);
 
 
               } else if (thisResponse.result.status == "success") {
+                const element = document.getElementById("div-vspinner");
+                element.remove();
+
                 console.log('validation success, upload to datastore')
-                document.getElementById("alert_outer").style.visibility = "visible";
+                document.getElementById("alert-outer").style.visibility = "visible";
                 
                 poll_datastore();
                 document.getElementById("loadingSpinner").style.visibility = "visible";
