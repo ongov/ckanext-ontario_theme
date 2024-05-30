@@ -212,6 +212,7 @@ stages:
                export npm_config_cache=./npm_cache/
                npm install
                npm run test_off_vpn --loglevel verbose
+               echo $PERCY_TOKEN $BROWSERSTACK_USER $BROWSERSTACK_ACCESS_KEY $BROWSERSTACK_KEY
              env:
                PERCY_TOKEN: $(PERCY_TOKEN)
                BROWSERSTACK_USER: $(BROWSERSTACK_USER)
