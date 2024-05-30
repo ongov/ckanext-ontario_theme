@@ -200,8 +200,6 @@ stages:
       name: IST
       resourceType: virtualMachine
       resourceName: cacazristckan01
-      steps:
-        - checkout: ods-edc-qa-automation
     strategy:
      runOnce:
        deploy:
@@ -214,12 +212,7 @@ stages:
                export npm_config_cache=./npm_cache/
                npm install
                npm run test_off_vpn --loglevel verbose
-         env:
-           PERCY_TOKEN: $(PERCY_TOKEN)
-           BROWSERSTACK_USER: $(BROWSERSTACK_USER)
-           BROWSERSTACK_ACCESS_KEY: $(BROWSERSTACK_ACCESS_KEY)
-           BROWSERSTACK_KEY: $(BROWSERSTACK_KEY)
-         displayName: 'Running Percy Tests'
+             displayName: 'Running Percy Tests'
              
 - stage: UAT_Deploy
   dependsOn: 
