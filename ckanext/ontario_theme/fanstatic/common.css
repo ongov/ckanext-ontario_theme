@@ -1776,6 +1776,11 @@ via submission form. Copied from DS.*/
   float: right;
 }
 
+.resource-main h1 {
+  margin-top: unset;
+  overflow-wrap: break-word
+}
+
 @media screen and (max-width: 73em) {
   .right-col {
     clear: left;
@@ -1805,12 +1810,20 @@ via submission form. Copied from DS.*/
     padding-bottom: 0;
     margin: 40px 0 0;
   }
+
+  .right-col .module-narrow.data-api,
+  .right-col .module-narrow:last-child {
+    margin: 40px 0 0 0;
+  }
 }
 
 .resource-aside .module-narrow:first-child {
   margin: 0 0 40px 0;
 }
 
+.resource-aside .module-narrow:only-child {
+  margin: 0;
+}
 
 .module-narrow {
   background: #f2f2f2;
@@ -1827,6 +1840,11 @@ via submission form. Copied from DS.*/
 
   .resource-info {
     display: flow-root;
+  }
+
+  .dataset-main .page-header {
+    margin-top: 0;
+    margin-bottom: 20px;
   }
 }
 
@@ -2064,6 +2082,12 @@ a.ontario-button.ontario-button--tertiary:hover {
 .datafile-p {
   font-size: 16px;
   line-height: 27.24px;
+}
+
+@media screen and (max-width: 40em) {
+  .break-all {
+    word-break: break-all;
+  }
 }
 
 /* Make API help panel wide enough to fit all elements */
@@ -3392,7 +3416,7 @@ label::after {
 .res-additional-info-th,
 .res-additional-info-td {
   display: table-cell;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .dataset-label.package-additional-info-th,
@@ -3433,7 +3457,7 @@ label::after {
 
   .dataset-details.package-additional-info-td,
   .res-additional-info-td {
-    padding: 5px 0;
+    padding: 5px 5px;
   }
 
   .dataset-label.package-additional-info-th,
