@@ -558,6 +558,11 @@ a.pill {
   text-decoration: none;
 }
 
+.pill-contents {
+  display: flex;
+  align-items: center;
+}
+
 .pill-contents svg {
   margin-left: 10px;
   margin-bottom: unset;
@@ -592,10 +597,6 @@ a.pill {
   .filter-list {
     display: flex;
   }
-
-  .pill-contents svg {
-    margin-left: 5px;
-  }
 }
 
 .facet {
@@ -614,11 +615,6 @@ a.pill {
 
   #clear-filters-button {
     margin-top: 10px;
-  }
-
-  .pill-contents {
-    display: flex;
-    align-items: center;
   }
 }
 
