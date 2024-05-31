@@ -69,22 +69,20 @@ block. super() will end up calling the facets twice.
 
   {% block secondary_content %}
     <div class="ministry-package-div secondary col-sm-3">
-      <div class="filters" id="filter-aside">
+      <div class="filters" id="filter-aside" data-module="facet_checkboxes">
         <span aria-label="{{ _('close') }}"
               role="button"
               tabindex="0"
               class="close no-text hide-filters">
           <svg class="ontario-icon hide-sort-by"
-              focusable="false"
-              sol:category="primary"
-              viewBox="0 0 24 24"
-              preserveAspectRatio="xMidYMid meet">
+               focusable="false"
+               sol:category="primary"
+               viewBox="0 0 24 24"
+               preserveAspectRatio="xMidYMid meet">
             <use xlink:href="#ontario-icon-close"></use>
           </svg>
         </span>
-        <div>
-          {{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets, extras={'id':c.group_dict.id}) }}
-        </div>
+        <div>{{ h.snippet('snippets/facet_arrangement.html', extras={'id':c.group_dict.id}) }}</div>
       </div>
     </div>
   {% endblock secondary_content %}
