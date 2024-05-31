@@ -87,17 +87,29 @@
                   {% set dict = h.get_facet_items_dict(field)|selectattr("name", "equalto", field_value)|list if h.get_facet_items_dict(field) %}
                   {% set item = dict[0] if dict else ({'name': field_value, 'display_name': field_value }) %}
                   {{ h.snippet('snippets/translate_facets.html', fields=schema_dict, name=field, item=item) }}
-                  <span class="filtered pill">
+                  {% set item_count = h.localised_number(item['count']) if item['count'] else 0 %}
+                  <a href="{{ facets.remove_field(field, item.name) }}"
+                    class="filtered pill"
+                    title="{{ _('Remove') }}">
                     <span class="pill-contents">
-                      {{ item.display_name }}
-                      <a href="{{ facets.remove_field(field, item.name) }}"
-                         class="remove"
-                         title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
+                      {{ item.display_name }} ({{ item_count }})
+                      <svg class="ontario-icon"
+                          focusable="false"
+                          sol:category="primary"
+                          viewBox="0 0 24 24"
+                          preserveAspectRatio="xMidYMid meet">
+                        <use xlink:href="#ontario-icon-close"></use>
+                      </svg>
                     </span>
-                  </span>
+                  </a>
                 {% endfor %}
               </span>
             {% endfor %}
+            {% if c.fields|length >= 2 %}
+              <button id="clear-filters-button"
+                      class="ontario-button ontario-button--tertiary"
+                      type="button">{{ _('Clear filters') }}</button>
+            {% endif %}
           {% endif %}
         </p>
       {% endif %}
