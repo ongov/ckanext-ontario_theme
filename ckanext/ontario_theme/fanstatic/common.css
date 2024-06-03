@@ -2472,92 +2472,111 @@ screen and (min-width: 96em) {
 /* ========================================================================
    In-page navigation - Design System
    ======================================================================== */
-.ontario-page-navigation-header{
-    font-style:normal;
-    font-weight:700;
-    text-rendering:optimizeLegibility;
-    margin-bottom:1rem;
-    font-feature-settings:normal;
-    font-family:"Raleway","Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif
+.ontario-page-navigation-header {
+  font-style: normal;
+  font-weight: 700;
+  text-rendering: optimizeLegibility;
+  margin-bottom: 1rem;
+  font-feature-settings: normal;
+  font-family: "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
 }
-.ontario-page-navigation-header{
-    font-size:1.4375rem;
-    letter-spacing:.02rem;
-    line-height:1.39;
-    margin:0 0 .75rem 0;
-    max-width:48rem;
+
+.ontario-page-navigation-header {
+  font-size: 1.4375rem;
+  letter-spacing: .02rem;
+  line-height: 1.39;
+  margin: 0 0 .75rem 0;
+  max-width: 48rem;
 }
-@media screen and (min-width: 40em){
-    .ontario-page-navigation-header{
-        font-size:1.75rem;
-        letter-spacing:.02rem;
-        line-height:1.43;
-    }
+
+@media screen and (min-width: 40em) {
+  .ontario-page-navigation-header {
+    font-size: 1.75rem;
+    letter-spacing: .02rem;
+    line-height: 1.43;
+  }
 }
-.ontario-page-navigation{
-    border-top:3px solid #1a1a1a;
-    padding:0;
-    max-width:46rem;
+
+.ontario-page-navigation {
+  border-top: 3px solid #1a1a1a;
+  padding: 0;
+  max-width: 46rem;
 }
-.ontario-page-navigation--no-top-border{
-    border-top:none;
+
+.ontario-page-navigation--no-top-border {
+  border-top: none;
 }
-.ontario-page-navigation--full{
-    border-top:3px solid #1a1a1a;
-    max-width:100%;
+
+.ontario-page-navigation--full {
+  border-top: 3px solid #1a1a1a;
+  max-width: 100%;
 }
-.ontario-page-navigation-content{
-    padding:2.5rem 0;
-    max-width:46rem;
+
+.ontario-page-navigation-content {
+  padding: 2.5rem 0;
+  max-width: 46rem;
 }
-.ontario-page-navigation-content--full{
-    padding-top:2.5rem;
-    max-width:100%;
+
+.ontario-page-navigation-content--full {
+  padding-top: 2.5rem;
+  max-width: 100%;
 }
-.ontario-page-navigation-header{
-    margin-bottom:0
+
+.ontario-page-navigation-header {
+  margin-bottom: 0
 }
-.ontario-page-navigation-list{
-    padding:0;
-    padding-left:1.25rem;
-    margin:0;
-    margin-top:1rem;
-    list-style-type:disc
+
+.ontario-page-navigation-list {
+  padding: 0;
+  padding-left: 1.25rem;
+  margin: 0;
+  margin-top: 1rem;
+  list-style-type: disc
 }
-.ontario-page-navigation-list__item{
-    padding-bottom:1.25rem;
-    padding-left:0;
+
+.ontario-page-navigation-list__item {
+  padding-bottom: 1.25rem;
+  padding-left: 0;
 }
-.ontario-page-navigation-list__item>a.ontario-page-navigation-item__link{
-    font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size:1.125rem;
-    line-height:1.6rem;
-    font-weight:600;
-    font-style:normal;
-    margin-left:0;
-    text-decoration:none;
+
+.ontario-page-navigation-list__item > a.ontario-page-navigation-item__link {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.6rem;
+  font-weight: 600;
+  font-style: normal;
+  margin-left: 0;
+  text-decoration: none;
 }
-.ontario-page-navigation-list__item>a.ontario-page-navigation-item__link:hover{
-    text-decoration:underline
+
+.ontario-page-navigation-list__item > a.ontario-page-navigation-item__link:hover {
+  text-decoration: underline
 }
-.ontario-page-navigation-columns{
-    display:flex;
-    flex-direction:row
+
+.ontario-page-navigation-columns {
+  display: flex;
+  flex-direction: row
 }
-@media screen and (max-width: 40em){
-    .ontario-page-navigation-columns{
-        flex-direction:column;
-    }
+
+@media screen and (max-width: 40em) {
+  .ontario-page-navigation-columns {
+    flex-direction: column;
+  }
 }
-.ontario-page-navigation-col{
-    flex:1
+
+.ontario-page-navigation-col {
+  flex: 1
 }
+
+/* ========================================================================
+   Misc - About page
+   ======================================================================== */
 
 .metadata-item:last-of-type {
   border-bottom: unset;
   margin-bottom: 0;
   padding-bottom: 0;
-} 
+}
 
 #about h2[id],
 .article-container h2[id] {
@@ -2566,7 +2585,7 @@ screen and (min-width: 96em) {
   max-width: 100%;
   padding-top: 2.5rem;
   margin-top: 2.5rem;
-} 
+}
 
 .module h1 {
   margin: 0 0 1.5rem 0;
