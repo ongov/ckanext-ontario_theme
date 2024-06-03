@@ -1812,6 +1812,11 @@ via submission form. Copied from DS.*/
   float: right;
 }
 
+.resource-main h1 {
+  margin-top: unset;
+  overflow-wrap: break-word
+}
+
 @media screen and (max-width: 73em) {
   .right-col {
     clear: left;
@@ -1841,12 +1846,20 @@ via submission form. Copied from DS.*/
     padding-bottom: 0;
     margin: 40px 0 0;
   }
+
+  .right-col .module-narrow.data-api,
+  .right-col .module-narrow:last-child {
+    margin: 40px 0 0 0;
+  }
 }
 
 .resource-aside .module-narrow:first-child {
   margin: 0 0 40px 0;
 }
 
+.resource-aside .module-narrow:only-child {
+  margin: 0;
+}
 
 .module-narrow {
   background: #f2f2f2;
@@ -1863,6 +1876,11 @@ via submission form. Copied from DS.*/
 
   .resource-info {
     display: flow-root;
+  }
+
+  .dataset-main .page-header {
+    margin-top: 0;
+    margin-bottom: 20px;
   }
 }
 
@@ -2034,8 +2052,7 @@ section#dataset-resources > h2 {
    Custom overrides - links
    ======================================================================== */
 a.heading:hover,
-ul.nav-tabs li a:hover,
-.table-of-contents a:hover {
+ul.nav-tabs li a:hover {
   text-decoration: underline;
 }
 
@@ -2046,7 +2063,6 @@ a.btn-primary,
 a.heading,
 a.tag,
 ul.nav-tabs li a,
-.table-of-contents a,
 .nav-item a {
   text-decoration: none;
 }
@@ -2102,6 +2118,12 @@ a.ontario-button.ontario-button--tertiary:hover {
 .datafile-p {
   font-size: 16px;
   line-height: 27.24px;
+}
+
+@media screen and (max-width: 40em) {
+  .break-all {
+    word-break: break-all;
+  }
 }
 
 /* Make API help panel wide enough to fit all elements */
@@ -2484,44 +2506,112 @@ screen and (min-width: 96em) {
 }
 
 /* ========================================================================
-   About and Help page - On this page
+   In-page navigation - Design System
    ======================================================================== */
-ol.table-of-contents {
-  list-style-position: outside;
-  margin-left: 1.5em;
+.ontario-page-navigation-header {
+  font-style: normal;
+  font-weight: 700;
+  text-rendering: optimizeLegibility;
+  margin-bottom: 1rem;
+  font-feature-settings: normal;
+  font-family: "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.ontario-page-navigation-header {
+  font-size: 1.4375rem;
+  letter-spacing: .02rem;
+  line-height: 1.39;
+  margin: 0 0 .75rem 0;
+  max-width: 48rem;
+}
+
+@media screen and (min-width: 40em) {
+  .ontario-page-navigation-header {
+    font-size: 1.75rem;
+    letter-spacing: .02rem;
+    line-height: 1.43;
+  }
+}
+
+.ontario-page-navigation {
+  border-top: 3px solid #1a1a1a;
+  padding: 0;
+  max-width: 46rem;
+}
+
+.ontario-page-navigation--no-top-border {
+  border-top: none;
+}
+
+.ontario-page-navigation--full {
+  border-top: 3px solid #1a1a1a;
+  max-width: 100%;
+}
+
+.ontario-page-navigation-content {
+  padding: 2.5rem 0;
+  max-width: 46rem;
+}
+
+.ontario-page-navigation-content--full {
+  padding-top: 2.5rem;
+  max-width: 100%;
+}
+
+.ontario-page-navigation-header {
+  margin-bottom: 0
+}
+
+.ontario-page-navigation-list {
+  padding: 0;
+  padding-left: 1.25rem;
+  margin: 0;
+  margin-top: 1rem;
+  list-style-type: disc
+}
+
+.ontario-page-navigation-list__item {
+  padding-bottom: 1.25rem;
   padding-left: 0;
 }
 
-ul.table-of-contents {
-  list-style-type: none;
+.ontario-page-navigation-list__item > a.ontario-page-navigation-item__link {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.6rem;
+  font-weight: 600;
+  font-style: normal;
   margin-left: 0;
-  padding: 0;
+  text-decoration: none;
 }
 
-.table-of-contents {
-  margin-bottom: 1.25rem;
-  columns: 2 21rem;
-  column-gap: 2.5rem;
+.ontario-page-navigation-list__item > a.ontario-page-navigation-item__link:hover {
+  text-decoration: underline
 }
 
-.table-of-contents li {
-  break-inside: avoid;
-  padding: 0 0 0.75rem 0.25rem;
+.ontario-page-navigation-columns {
+  display: flex;
+  flex-direction: row
 }
 
-h2.ontario-small {
-  font-size: 1.25rem;
+@media screen and (max-width: 40em) {
+  .ontario-page-navigation-columns {
+    flex-direction: column;
+  }
 }
 
-.article-intro {
-  margin: 0 auto 1.5rem auto;
-  border-bottom: 4px solid #1a1a1a;
-  text-align: left;
+.ontario-page-navigation-col {
+  flex: 1
 }
 
-.toc-hr {
-  margin: 1rem 0;
-  border-bottom: 4px solid #d9d9d9;
+/* ========================================================================
+   Misc - About page
+   ======================================================================== */
+
+.metadata-item:last-of-type {
+  border-bottom: unset;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 #about h2[id],
@@ -2531,12 +2621,6 @@ h2.ontario-small {
   max-width: 100%;
   padding-top: 2.5rem;
   margin-top: 2.5rem;
-}
-
-#about h2[id].first-h2,
-.article-container h2[id].first-h2 {
-  border-top: 0;
-  padding-top: 0;
 }
 
 .module h1 {
@@ -3387,7 +3471,7 @@ label::after {
 .res-additional-info-th,
 .res-additional-info-td {
   display: table-cell;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .dataset-label.package-additional-info-th,
@@ -3428,7 +3512,7 @@ label::after {
 
   .dataset-details.package-additional-info-td,
   .res-additional-info-td {
-    padding: 5px 0;
+    padding: 5px 5px;
   }
 
   .dataset-label.package-additional-info-th,

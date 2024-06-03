@@ -8,6 +8,7 @@ ontario_theme_js:
     - odc-active-page.js
     - odc-search-modal.js
     - odc-clear-filters.js
+    - odc-toc-smooth-scroll.js
 
 ontario_theme_form_validators_js:
   filters: rjsmin
