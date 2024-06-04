@@ -1330,8 +1330,8 @@ msgid "Please try another search or <a href=\"mailto:opendata@ontario.ca\">reach
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:15
-msgid "<strong>{number} dataset</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
-msgid_plural "<strong>{number} datasets</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
+msgid "<strong>{number} dataset</strong> found with the search term <strong>\"{query}\"</strong>"
+msgid_plural "<strong>{number} datasets</strong> found with the search term <strong>\"{query}\"</strong>"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -1342,7 +1342,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:16
-msgid "No datasets found with the keyword(s) <strong>\"{query}\"</strong>"
+msgid "No datasets found with the search term <strong>\"{query}\"</strong>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:18
@@ -1350,13 +1350,13 @@ msgid "No datasets found"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:21
-msgid "<strong>{number} group</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
-msgid_plural "<strong>{number} groups</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
+msgid "<strong>{number} group</strong> found with the search term <strong>\"{query}\"</strong>"
+msgid_plural "<strong>{number} groups</strong> found with the search term <strong>\"{query}\"</strong>"
 msgstr[0] ""
 msgstr[1] ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:22
-msgid "No groups found with the keyword(s) <strong>\"{query}\"</strong>"
+msgid "No groups found with the search term <strong>\"{query}\"</strong>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:23
@@ -1371,12 +1371,12 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:27
 msgid "<strong>{number} ministry</strong> found for <strong>\"{query}\"</strong>"
-msgid_plural "<strong>{number} ministries</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
+msgid_plural "<strong>{number} ministries</strong> found with the search term <strong>\"{query}\"</strong>"
 msgstr[0] ""
 msgstr[1] ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:28
-msgid "No ministries found with the keyword(s) <strong>\"{query}\"</strong>"
+msgid "No ministries found with the search term <strong>\"{query}\"</strong>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:29
