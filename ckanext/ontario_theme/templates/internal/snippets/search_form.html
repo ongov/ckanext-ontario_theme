@@ -47,6 +47,13 @@
         </button>
       </div>
     </div>
+    {% if not error %}
+      <div role="status" class="search-count">
+        {% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}
+      </div>
+    {% else %}
+      <div>Error</div>
+    {% endif %}
   {% endblock search_input %}
 
   {% block search_search_fields %}
@@ -55,12 +62,8 @@
   {% endblock search_search_fields %}
 
   {% block search_title %}
-    {% if not error %}
-      <div role="status" class="search-count">
-        {% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}
-      </div>
-    {% else %}
-      <div>Error</div>
+    {% if facets %}
+      {% snippet 'snippets/access_level_checkboxes.html', count=count, total_count=total_count %}
     {% endif %}
   {% endblock search_title %}
 

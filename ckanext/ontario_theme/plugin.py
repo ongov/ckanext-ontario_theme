@@ -1101,7 +1101,8 @@ type data_last_updated
             'asset_type': toolkit._('Asset type'),
             'groups': toolkit._('Groups'),
             'organization_jurisdiction': toolkit._('Jurisdiction'),
-            'organization_category': toolkit._('Category')
+            'organization_category': toolkit._('Category'),
+            'access_level': toolkit._('Access level')
         })
 
         return facets_dict

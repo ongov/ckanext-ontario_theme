@@ -3689,3 +3689,66 @@ label::after {
 .facet-fieldset .ontario-checkboxes {
   margin-bottom: unset;
 }
+
+/* ========================================================================
+  Fieldsets - Design System
+  ======================================================================== */
+
+@media screen and (max-width: 40em) {
+  .ontario-fieldset__legend {
+    font-size: 1.125rem;
+    line-height: 1.56
+  }
+}
+
+.ontario-fieldset__legend {
+  color: #1a1a1a;
+  font-family: Raleway, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.1875rem;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0 0 1rem 0;
+  max-width: 38.75em;
+  white-space: normal;
+  width: 100%
+}
+
+/* ========================================================================
+  Access level - Overrides
+  ======================================================================== */
+
+.ontario-fieldset legend {
+  border-bottom: unset;
+}
+
+.access-level .ontario-checkboxes {
+  display: inline-flex;
+  margin-bottom: unset;
+  max-width: unset;
+}
+
+@media screen and (max-width: 40em) {
+  .access-level .ontario-checkboxes {
+    display: inline-block;
+    margin-bottom: 25px;
+  }
+}
+
+@media screen and (min-width: 40em) {
+  .access-level .ontario-fieldset__legend {
+    float: left;
+    width: unset;
+    margin-right: 1rem;
+  }
+}
+
+.access-level .ontario-label.ontario-checkboxes__label {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: unset;
+  /*margin-right: 16px;*/
+}
+
+.access-level .ontario-checkboxes__input:checked + .ontario-checkboxes__label {
+  font-weight: 700;
+}
