@@ -49,16 +49,17 @@
             {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
             {% set label = label_function(translate, "title") if (label_function and translate) else item.display_name %}
             {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
+            {% set item_name = item.name|replace(' ', '-') %}
             <div class="ontario-checkboxes__item
-                        {% if loop.index > default %}facet-{{ name }} show-more-items{% endif %}">
+                        {% if loop.index > default and not item.active %}facet-{{ name }} show-more-items{% endif %}">
               <input class="ontario-checkboxes__input"
-                     id="{{ item.name|replace(' ', '-') }}"
+                     id="{{ item_name }}"
                      name="{{ name }}"
                      {% if item.active %}checked{% endif %}
                      type="checkbox"
                      value="{{ href }}">
               <label class="ontario-checkboxes__label"
-                     for="{{ item.name|replace(' ', '-') }}">{{ label }} {{ count }}</label>
+                     for="{{ item_name }}">{{ label }} {{ count }}</label>
             </div>
           {% endfor %}
         </div>
