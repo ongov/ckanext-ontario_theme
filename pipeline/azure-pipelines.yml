@@ -164,13 +164,24 @@ stages:
                echo "#### NEW PACKAGE INFORMATION. ####"
                pip list --path $(application_folder)
                echo "#### STOPPING CKAN & FLUSHING WEBASSETS CACHE! ####"
-               sudo systemctl stop supervisor && sudo systemctl status supervisor
+               sudo systemctl stop supervisor
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status supervisor || true
                sudo rm -rf /var/lib/ckan/default/webassets/*
                echo "#### STOPPING NGINX & FLUSHING CACHE! ####"
-               sudo systemctl stop nginx && sudo systemctl status nginx
-               sudo rm -rf /tmp/nginx_cache_default/* && sudo rm -rf /tmp/nginx_cache_default && sudo rm -rf /tmp/api_cache/* && sudo rm -rf /tmp/api_cache
+               sudo systemctl stop nginx
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status nginx || true
+               sudo rm -rf /tmp/nginx_cache_default/*
+               sudo rm -rf /tmp/nginx_cache_default
+               sudo rm -rf /tmp/api_cache/*
+               sudo rm -rf /tmp/api_cache
                echo "#### STARTING CKAN & NGINX! ####"
-               sudo systemctl start supervisor && sudo systemctl start nginx && sudo systemctl status supervisor && sudo systemctl status nginx
+               sudo systemctl start supervisor
+               sudo systemctl start nginx
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status supervisor || true
+               sudo systemctl status nginx || true
                echo "#### DEPLOYMENT COMPLETE! ####"
              displayName: 'Deploying to IST'
 
@@ -249,13 +260,24 @@ stages:
                echo "#### NEW PACKAGE INFORMATION. ####"
                pip list --path $(application_folder)
                echo "#### STOPPING CKAN & FLUSHING WEBASSETS CACHE! ####"
-               sudo systemctl stop supervisor && sudo systemctl status supervisor
+               sudo systemctl stop supervisor
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status supervisor || true
                sudo rm -rf /var/lib/ckan/default/webassets/*
                echo "#### STOPPING NGINX & FLUSHING CACHE! ####"
-               sudo systemctl stop nginx && sudo systemctl status nginx
-               sudo rm -rf /tmp/nginx_cache_default/* && sudo rm -rf /tmp/nginx_cache_default && sudo rm -rf /tmp/api_cache/* && sudo rm -rf /tmp/api_cache
+               sudo systemctl stop nginx
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status nginx || true
+               sudo rm -rf /tmp/nginx_cache_default/*
+               sudo rm -rf /tmp/nginx_cache_default
+               sudo rm -rf /tmp/api_cache/*
+               sudo rm -rf /tmp/api_cache
                echo "#### STARTING CKAN & NGINX! ####"
-               sudo systemctl start supervisor && sudo systemctl start nginx && sudo systemctl status supervisor && sudo systemctl status nginx
+               sudo systemctl start supervisor
+               sudo systemctl start nginx
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status supervisor || true
+               sudo systemctl status nginx || true
                echo "#### DEPLOYMENT COMPLETE! ####"
              displayName: 'Deploying to UAT'
              
@@ -296,12 +318,23 @@ stages:
                echo "#### NEW PACKAGE INFORMATION. ####"
                pip list --path $(application_folder)
                echo "#### STOPPING CKAN & FLUSHING WEBASSETS CACHE! ####"
-               sudo systemctl stop supervisor && sudo systemctl status supervisor
+               sudo systemctl stop supervisor
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status supervisor || true
                sudo rm -rf /var/lib/ckan/default/webassets/*
                echo "#### STOPPING NGINX & FLUSHING CACHE! ####"
-               sudo systemctl stop nginx && sudo systemctl status nginx
-               sudo rm -rf /tmp/nginx_cache_default/* && sudo rm -rf /tmp/nginx_cache_default && sudo rm -rf /tmp/api_cache/* && sudo rm -rf /tmp/api_cache
+               sudo systemctl stop nginx
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status nginx || true
+               sudo rm -rf /tmp/nginx_cache_default/*
+               sudo rm -rf /tmp/nginx_cache_default
+               sudo rm -rf /tmp/api_cache/*
+               sudo rm -rf /tmp/api_cache
                echo "#### STARTING CKAN & NGINX! ####"
-               sudo systemctl start supervisor && sudo systemctl start nginx && sudo systemctl status supervisor && sudo systemctl status nginx
+               sudo systemctl start supervisor
+               sudo systemctl start nginx
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status supervisor || true
+               sudo systemctl status nginx || true
                echo "#### DEPLOYMENT COMPLETE! ####"
              displayName: 'Deploying to PRD'
