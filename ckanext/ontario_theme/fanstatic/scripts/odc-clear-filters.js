@@ -3,7 +3,7 @@
     var facetsSelected = document.querySelectorAll(".filtered.pill");
 
     if (facetsSelected.length >= 2) {
-        clearFiltersButton.style.display = "block";
+        clearFiltersButton.style.display = "inline-block";
         clearFiltersButton.addEventListener('click', clearFilters);
     }
     function clearFilters() {

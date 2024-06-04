@@ -80,29 +80,31 @@
               <span class="facet-row">
                 {% set search_facets_items = facets.search.get(field)['items'] %}
                 <span class="facet">
-                  {% if (not query and not loop.index0==0) or query %}<span class="sr-only">and</span>{% endif %}
-                  {{ facets.titles.get(field) + _(':') if facets.titles.get(field) is not none }}
+                  <span class="nowrap">
+                    {% if (not query and not loop.index0==0) or query %}<span class="sr-only">and</span>{% endif %}
+                    {{ facets.titles.get(field) + _(':') if facets.titles.get(field) is not none }}
+                    {% for field_value in facets.fields[field] %}
+                      {% set dict = h.get_facet_items_dict(field)|selectattr("name", "equalto", field_value)|list if h.get_facet_items_dict(field) %}
+                      {% set item = dict[0] if dict else ({'name': field_value, 'display_name': field_value }) %}
+                      {{ h.snippet('snippets/translate_facets.html', fields=schema_dict, name=field, item=item) }}
+                      {% set item_count = h.localised_number(item['count']) if item['count'] else 0 %}
+                      <a href="{{ facets.remove_field(field, item.name) }}"
+                        class="filtered pill"
+                        title="{{ _('Remove') }}">
+                        <span class="pill-contents">
+                          {{ item.display_name }} ({{ item_count }})
+                          <svg class="ontario-icon"
+                              focusable="false"
+                              sol:category="primary"
+                              viewBox="0 0 24 24"
+                              preserveAspectRatio="xMidYMid meet">
+                            <use xlink:href="#ontario-icon-close"></use>
+                          </svg>
+                        </span>
+                      </a>
+                      {%- if loop.index == 1 -%}</span>{%- endif -%}
+                    {% endfor %}
                 </span>
-                {% for field_value in facets.fields[field] %}
-                  {% set dict = h.get_facet_items_dict(field)|selectattr("name", "equalto", field_value)|list if h.get_facet_items_dict(field) %}
-                  {% set item = dict[0] if dict else ({'name': field_value, 'display_name': field_value }) %}
-                  {{ h.snippet('snippets/translate_facets.html', fields=schema_dict, name=field, item=item) }}
-                  {% set item_count = h.localised_number(item['count']) if item['count'] else 0 %}
-                  <a href="{{ facets.remove_field(field, item.name) }}"
-                    class="filtered pill"
-                    title="{{ _('Remove') }}">
-                    <span class="pill-contents">
-                      {{ item.display_name }} ({{ item_count }})
-                      <svg class="ontario-icon"
-                          focusable="false"
-                          sol:category="primary"
-                          viewBox="0 0 24 24"
-                          preserveAspectRatio="xMidYMid meet">
-                        <use xlink:href="#ontario-icon-close"></use>
-                      </svg>
-                    </span>
-                  </a>
-                {% endfor %}
               </span>
             {% endfor %}
             {% if c.fields|length >= 2 %}

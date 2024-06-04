@@ -574,7 +574,7 @@ a.pill {
   background-color: #fff;
   border: solid 1px #666666;
   color: #4d4d4d;
-  margin-right: 14px;
+  margin-right: 10px;
   padding: 6px 15px;
   text-align: left;
   margin-bottom: 5px;
@@ -589,18 +589,22 @@ a.pill {
   .search-form .filter-list {
     font-size: 20px;
     margin: 0 -20px;
-    padding: 0 20px;
+    padding: 10px 20px;
     background-color: #fff;
   }
 
   /* child div 4: shows filters just below sort by dropdown */
   .filter-list {
-    display: flex;
+    display: unset;
   }
-}
 
-.facet {
-  padding-right: 5px;
+  #clear-filters-button {
+    margin: unset;
+  }
+
+  .search-form .filter-list .nowrap {
+    white-space: nowrap;
+  }
 }
 
 @media screen and (max-width: 39.9375em) {
