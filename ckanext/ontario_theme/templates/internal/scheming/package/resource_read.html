@@ -5,7 +5,7 @@
 {% extends "package/resource_read.html" %}
 
 {% block wrapper_class -%}
-  resource-main
+  resource-main break-all-parent
 {%- endblock wrapper_class %}
 
 {%- block head_extras -%}
@@ -19,6 +19,7 @@
 {%- set schema = h.scheming_get_dataset_schema(dataset_type) -%}
 {% set license = h.ontario_theme_get_license(pkg.license_id) %}
 {% set is_admin = h.check_access('package_update', {'id':pkg.id }) %}
+{% set name = "Name" if h.lang() == "en" else "Nom" %}
 {% block breadcrumb_content %}
   {% set is_open = (pkg.access_level == 'open') %}
   {% if is_open or is_admin %}{{ super() }}{% endif %}
@@ -258,11 +259,12 @@
                     </div>
                   {%- endblock resource_license -%}
                   {%- block resource_fields -%}
+                    {% set breakall = "break-all" if "https://" in h.resource_display_name(res) %}
                     {%- for field in schema.resource_fields -%}
                       {%- if field.field_name not in exclude_fields and res[field.field_name] and (res[field.field_name] != {'fr': '', 'en': ''}) -%}
                         <div class="res-additional-info-tr">
                           <dt class="res-additional-info-th">{{- h.scheming_language_text(field.label) -}}</dt>
-                          <dd class="res-additional-info-td">
+                          <dd class="res-additional-info-td {% if breakall and h.scheming_language_text(field.label) == name -%}break-all{%- endif -%}">
                             {%- if field.preset == "date" -%}
                               {{- h.render_datetime(res[field.field_name]) -}}
                             {%- else -%}
