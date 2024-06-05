@@ -1483,6 +1483,14 @@ msgstr ""
 msgid "Sort by"
 msgstr ""
 
+#: 
+msgid "All levels"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:83
+msgid "Showing datasets with access level"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/package/read.html:7
 msgid "Artificial Intelligence (<abbr>AI</abbr>)"
 msgstr ""

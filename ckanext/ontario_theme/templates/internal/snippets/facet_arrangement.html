@@ -3,7 +3,7 @@
 {% elif h.lang() == 'fr' %}
   {% set keywords = "keywords_en" %}
 {% endif %}
-{% set excluded_facets = [keywords] %}
+{% set excluded_facets = [keywords, "access_level"] %}
 {% set fields = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
 
 {# Flag facets to be ignored from standard loop that calls facets. #}

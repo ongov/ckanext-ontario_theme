@@ -407,22 +407,15 @@ input[type="reset"].ontario-search-reset:focus {
   }
 
   .search-form .control-order-by {
-    order: 4;
-    /* Displays Order By menu below count text */
-    display: flex;
     justify-content: end;
-    padding-top: 33px;
-
     margin-bottom: 0;
     background-color: #fff;
     padding-right: 1rem;
-    margin-left: -20px;
-    margin-right: -1rem;
   }
 
   #group-datasets-search-form.search-form .control-order-by,
   #organization-datasets-search-form.search-form .control-order-by {
-    margin-right: -20px;
+    margin-left: unset;
     padding-right: 20px;
   }
 
@@ -434,25 +427,17 @@ input[type="reset"].ontario-search-reset:focus {
 
   .search-form .control-order-by .form-control {
     font-size: 16px;
-    height: 36px;
-    /* increase height to accommodate larger font size */
   }
 
   .search-form .control-order-by.search-page-select .ontario-label {
     width: unset;
     padding-top: 10px;
   }
-
-  .search-form .control-order-by .form-control {
-    height: unset;
-  }
 }
 
-/* child div 2: shows Order By dropdown menu.
-  Note: clearance for menu below the gray box controlled by
-  bottom margin in external/ontario_theme.css LINE 759
-  */
-
+.search-form .control-order-by {
+  display: flex;
+}
 
 #group-datasets-search-form,
 #organization-datasets-search-form {
@@ -471,11 +456,12 @@ input[type="reset"].ontario-search-reset:focus {
   padding-bottom: 0;
 }
 
-/* child div 3: shows search keywords just below searchbar */
+#dataset-search-form {
+  margin-bottom: unset;
+}
+
 .filter-list {
-  order: 3;
-  display: flex;
-  justify-content: end;
+  display: inline-grid;
   padding-bottom: 10px;
   /* needed to avoid being squished in mobile mode*/
 }
@@ -486,6 +472,36 @@ input[type="reset"].ontario-search-reset:focus {
   display: none;
 }
 
+.search-form .control-order-by .form-control {
+  font-size: 16px;
+  height: unset;
+}
+
+.radio-buttons-status {
+  order: 2;
+  background-color: white;
+  margin: 0 -16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@media screen and (min-width: 767px) {
+  .radio-buttons-status:has(.control-order-by) {
+    justify-content: end;
+  }
+
+  #group-datasets-search-form .radio-buttons-status,
+  #organization-datasets-search-form .radio-buttons-status {
+    padding: 20px 0;
+  }
+}
+
+#group-datasets-search-form .radio-buttons-status,
+#organization-datasets-search-form .radio-buttons-status {
+  margin: 0 -20px;
+}
+
 @media (max-width: 767px) {
   .search-form .control-order-by {
     display: none;
@@ -493,6 +509,12 @@ input[type="reset"].ontario-search-reset:focus {
 
   .js body.sort-by-modal .sort-by-modal-div {
     display: block;
+  }
+
+  .radio-buttons-status {
+    order: 6;
+    margin: 0 -16px;
+    padding: 0 16px;
   }
 
   .sort-by-modal-div {
@@ -535,7 +557,7 @@ input[type="reset"].ontario-search-reset:focus {
 
 .search-form .filter-list {
   color: #000;
-  margin-right: -14px;
+  margin-right: unset;
   margin-top: 0;
   flex-wrap: wrap;
 }
@@ -3716,6 +3738,9 @@ label::after {
 /* ========================================================================
   Access level - Overrides
   ======================================================================== */
+#access-level-radio-buttons {
+  margin-bottom: unset;
+}
 
 .ontario-fieldset legend {
   border-bottom: unset;
@@ -3727,6 +3752,10 @@ label::after {
   max-width: unset;
 }
 
+.access-level .ontario-checkboxes__item {
+  margin: 0 1.25rem 1rem 0;
+}
+
 @media screen and (max-width: 40em) {
   .access-level .ontario-checkboxes {
     display: inline-block;
@@ -3734,11 +3763,11 @@ label::after {
   }
 }
 
-@media screen and (min-width: 40em) {
+@media screen and (min-width: 40.0625em) {
   .access-level .ontario-fieldset__legend {
     float: left;
     width: unset;
-    margin-right: 1rem;
+    margin-right: 1.5rem;
   }
 }
 

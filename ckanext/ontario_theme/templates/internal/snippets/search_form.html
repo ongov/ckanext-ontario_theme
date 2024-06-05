@@ -59,146 +59,157 @@
   {% block search_search_fields %}
     {%- asset "ontario_theme_scripts/ontario_theme_facet_checkboxes_js" -%}
     {% if fields -%}<span>{{ form.hidden_from_list(fields=fields) }}</span>{%- endif %}
-  {% endblock search_search_fields %}
+    {% endblock search_search_fields %}
 
-  {% block search_title %}
-    {% if facets %}
-      {% snippet 'snippets/access_level_checkboxes.html', count=count, total_count=total_count %}
-    {% endif %}
-  {% endblock search_title %}
+    {% block search_title %}
+      {% if facets %}
+        {% snippet 'snippets/access_level_checkboxes.html', count=count, total_count=total_count %}
+      {% endif %}
+    {% endblock search_title %}
 
-  <!-- block for package searches -->
-  {% block search_facets %}
-    {% if facets %}
-      <p class="filter-list">
-        {% if query %}
-          {#
+    <!-- block for package searches -->
+    {% block search_facets %}
+      {% if facets %}
+        <p class="filter-list">
+          {% if query %}
+            {#
         Groups/Organizations don't have facets set or the
         remove_field() function in their index() action. 
         Only show when facets and a query are available to avoid
         missing attribute error.
         #}
-        {% endif %}
-        {% if facets %}
+          {% endif %}
           {% for field in facets.fields %}
-            <span class="facet-row">
-              {% set search_facets_items = facets.search.get(field)['items'] %}
-              <span class="facet">
-                {% if (not query and not loop.index0==0) or query %}<span class="sr-only">and</span>{% endif %}
-                {{ facets.titles.get(field) + _(':') if facets.titles.get(field) is not none }}
-              </span>
-              {% for field_value in facets.fields[field] %}
-                {% set dict = h.get_facet_items_dict(field)|selectattr("name", "equalto", field_value)|list if h.get_facet_items_dict(field) %}
-                {% set item = dict[0] if dict else ({'name': field_value, 'display_name': field_value }) %}
-                {{ h.snippet('snippets/translate_facets.html', fields=schema_dict, name=field, item=item) }}
-                <span class="filtered pill">
-                  <span class="pill-contents">
-                    {{ item.display_name }}
-                    <a href="{{ facets.remove_field(field, item.name) }}"
-                       class="remove"
-                       title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
-                  </span>
+            {% if field != 'access_level' %}
+              <span class="facet-row">
+                {% set search_facets_items = facets.search.get(field)['items'] %}
+                <span class="facet">
+                  {% if (not query and not loop.index0==0) or query %}<span class="sr-only">and</span>{% endif %}
+                  {{ facets.titles.get(field) + _(':') if facets.titles.get(field) is not none }}
                 </span>
-              {% endfor %}
-            </span>
+                {% for field_value in facets.fields[field] %}
+                  {% set dict = h.get_facet_items_dict(field)|selectattr("name", "equalto", field_value)|list if h.get_facet_items_dict(field) %}
+                  {% set item = dict[0] if dict else ({'name': field_value, 'display_name': field_value }) %}
+                  {{ h.snippet('snippets/translate_facets.html', fields=schema_dict, name=field, item=item) }}
+                  <span class="filtered pill">
+                    <span class="pill-contents">
+                      {{ item.display_name }}
+                      <a href="{{ facets.remove_field(field, item.name) }}"
+                         class="remove"
+                         title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
+                    </span>
+                  </span>
+                {% endfor %}
+              </span>
+            {% endif %}
           {% endfor %}
-        {% endif %}
-      </p>
-    {% endif %}
-  {% endblock search_facets %}
+        </p>
+      {% endif %}
+    {% endblock search_facets %}
 
-  {% block search_sortby %}
-    {% if count != 0 %}
-      <button class="show-sort-by ontario-button ontario-button--secondary">
+    {% block search_sortby %}
+      {% if count != 0 %}
+        <button class="show-sort-by ontario-button ontario-button--secondary">
+          <svg class="ontario-icon"
+               focusable="false"
+               sol:category="primary"
+               viewBox="0 0 24 24"
+               preserveAspectRatio="xMidYMid meet">
+            <use xlink:href="#ontario-icon-sort"></use>
+          </svg>
+          {{ _('Sort by') }}
+        </button>
+        <div id="sort-by-modal" class="sort-by-modal-div">
+          <div class="sort-by">
+            <div class="sort-by-modal-header">
+              <span class="ontario-h5">
+                <svg class="ontario-icon"
+                     focusable="false"
+                     sol:category="primary"
+                     viewBox="0 0 24 24"
+                     preserveAspectRatio="xMidYMid meet">
+                  <use xlink:href="#ontario-icon-sort"></use>
+                </svg>
+              {{ _('Sort') }}</span>
+              <span aria-label="{{ _('close') }}"
+                    class="sort-by-close"
+                    role="button"
+                    tabindex="0">
+                <svg class="ontario-icon hide-sort-by"
+                     focusable="false"
+                     sol:category="primary"
+                     viewBox="0 0 24 24"
+                     preserveAspectRatio="xMidYMid meet">
+                  <use xlink:href="#ontario-icon-close"></use>
+                </svg>
+              </span>
+            </div>
+            <ul>
+              {% for label, value in sorting %}
+                {% set sort_in_params = true if request.params['sort'] %}
+                {% if label and value %}
+                  {% set selected = 'selected' if (sorting_selected == value) %}
+                  {% set href = h.remove_url_param('sort', replace=value, extras=extras) if sort_in_params else h.add_url_param(new_params={'sort': value}, extras=extras) %}
+                  <li class="sort-by-options {{ selected }}">
+                    <a href="{{ href }}">{{ label }}</a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      {% endif %}
+      <div class="radio-buttons-status">
+        {% if facets %}
+          <div class="ontario-callout access-level-status ontario-small-12 ontario-large-7">
+            <p id="access-level-sentence-id">
+              {{ _('Showing datasets with access level: ') }}<span id="access-level-sentence-value"></span>
+            </p>
+          </div>
+        {% endif %}
+        {% if count != 0 %}
+          <div class="form-select form-group control-order-by search-page-select ontario-large-5 ontario-columns">
+            <label class="ontario-label" for="field-order-by">{{ _('Sort by') + _(':') }}</label>
+            <select id="field-order-by"
+                    name="sort"
+                    class="form-control ontario-input ontario-dropdown">
+              {% for label, value in sorting %}
+                {% if label and value %}
+                  <option value="{{ value }}"
+                          {%- if sorting_selected == value %}
+                          selected="selected"
+                          {%- endif -%}>{{ label }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+        {% endif %}
+      </div>
+    {% endblock search_sortby %}
+    {% if facets and count != 0 %}
+      <button class="show-filters ontario-button ontario-button--secondary">
         <svg class="ontario-icon"
              focusable="false"
              sol:category="primary"
              viewBox="0 0 24 24"
              preserveAspectRatio="xMidYMid meet">
-          <use xlink:href="#ontario-icon-sort"></use>
+          <use xlink:href="#ontario-icon-filter"></use>
         </svg>
-        {{ _('Sort by') }}
+        {{ _('Filters') }}
       </button>
-      <div class="form-select form-group control-order-by search-page-select">
-        <label class="ontario-label" for="field-order-by">{{ _('Sort by') + _(':') }}</label>
-        <select id="field-order-by"
-                name="sort"
-                class="form-control ontario-input ontario-dropdown">
-          {% for label, value in sorting %}
-            {% if label and value %}
-              <option value="{{ value }}"
-                      {%- if sorting_selected == value %}
-                      selected="selected"
-                      {%- endif -%}>{{ label }}</option>
-            {% endif %}
-          {% endfor %}
-        </select>
-      </div>
-      <div id="sort-by-modal" class="sort-by-modal-div">
-        <div class="sort-by">
-          <div class="sort-by-modal-header">
-            <span class="ontario-h5">
-              <svg class="ontario-icon"
-                   focusable="false"
-                   sol:category="primary"
-                   viewBox="0 0 24 24"
-                   preserveAspectRatio="xMidYMid meet">
-                <use xlink:href="#ontario-icon-sort"></use>
-              </svg>
-            {{ _('Sort by') }}</span>
-            <span aria-label="{{ _('close') }}"
-                  class="sort-by-close"
-                  role="button"
-                  tabindex="0">
-              <svg class="ontario-icon hide-sort-by"
-                   focusable="false"
-                   sol:category="primary"
-                   viewBox="0 0 24 24"
-                   preserveAspectRatio="xMidYMid meet">
-                <use xlink:href="#ontario-icon-close"></use>
-              </svg>
-            </span>
-          </div>
-          <ul>
-            {% for label, value in sorting %}
-              {% set sort_in_params = true if request.params['sort'] %}
-              {% if label and value %}
-                {% set selected = 'selected' if (sorting_selected == value) %}
-                {% set href = h.remove_url_param('sort', replace=value, extras=extras) if sort_in_params else h.add_url_param(new_params={'sort': value}, extras=extras) %}
-                <li class="sort-by-options {{ selected }}">
-                  <a href="{{ href }}">{{ label }}</a>
-                </li>
-              {% endif %}
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
     {% endif %}
-  {% endblock search_sortby %}
-  {% if facets and count != 0 %}
-    <button class="show-filters ontario-button ontario-button--secondary">
-      <svg class="ontario-icon"
-           focusable="false"
-           sol:category="primary"
-           viewBox="0 0 24 24"
-           preserveAspectRatio="xMidYMid meet">
-        <use xlink:href="#ontario-icon-filter"></use>
-      </svg>
-      {{ _('Filters') }}
-    </button>
-  {% endif %}
-</form>
+  </form>
 
-{% if show_empty and count == 0 and not error %}
-  <p class="ontario-column">
-    {{ _('Please try another search or <a href="mailto:opendata@ontario.ca">reach out to us if you think data is missing.</a>') }}
-  </p>
-{% endif %}
-
-{% if error %}
-  {% trans %}
-    <p id="search-error">
-      <strong>There was an error while searching.</strong> Please try again.
+  {% if show_empty and count == 0 and not error %}
+    <p class="ontario-column">
+      {{ _('Please try another search or <a href="mailto:opendata@ontario.ca">reach out to us if you think data is missing.</a>') }}
     </p>
-  {% endtrans %}
-{% endif %}
+  {% endif %}
+
+  {% if error %}
+    {% trans %}
+      <p id="search-error">
+        <strong>There was an error while searching.</strong> Please try again.
+      </p>
+    {% endtrans %}
+  {% endif %}

@@ -9,23 +9,19 @@
         {% with access_levels = h.scheming_field_by_name(schema_dict, name).choices %}
           {% for levels in access_levels %}
             {% set value = levels.get('value') %}
-            {% set colors = {
-              'open': 'teal',
-              'under_review': 'purple',
-              'restricted': 'red' } %}
             {% set count = h.get_facet_items_dict(name)|selectattr('name', '==', value)|map(attribute='count')|list %}
             {% set display_name = h.scheming_choices_label(access_levels, value) %}
-            {% if value == request.params[name] %}
-              {% set checked = "checked" %}
-              {% set disabled = "disabled" %}
-            {% endif %}
             {% set level_count = count[0] if count else '0' %}
             <div class="ontario-checkboxes__item">
-              <input class="ontario-checkboxes__input" id="radio-button-option-{{ value }}" name="access_level" type="checkbox" value="{{ value }}" data-color="{{ colors[value] }}" data-display-name="{{ display_name }}" {{ disabled }} {{ checked }}>
+              <input class="ontario-checkboxes__input"
+                     id="radio-button-option-{{ value }}"
+                     name="access_level"
+                     type="checkbox"
+                     value="{{ value }}"
+                     data-display-name="{{ display_name }}"
+                     autocomplete="off">
               <label class="ontario-label ontario-checkboxes__label"
-                    for="radio-button-option-{{ value }}">
-                {{ display_name }} ({{ level_count }})
-              </label>
+                     for="radio-button-option-{{ value }}">{{ display_name }} ({{ level_count }})</label>
             </div>
           {% endfor %}
         {% endwith %}
