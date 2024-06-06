@@ -18,6 +18,7 @@ from flask import Blueprint, make_response
 from flask import render_template, render_template_string
 
 import json
+import re
 import ckan.lib.helpers as helpers
 import ckan.lib.formatters as formatters
 from ckan.lib.helpers import core_helper
@@ -752,6 +753,34 @@ def get_facet_options():
     return {'limit': limit, 'default': default}
 
 
+_term_pattern = (
+    r"(^|(?<=\s))"  # begining of the line or space after facet
+    r"{field}:"  # fixed field name(must be replaced)
+    r"(?P<quote>\'|\")?"  # optional open-quote
+    r"(?P<term>.+?)"  # facet value
+    r"(?(quote)(?P=quote))"  # optional closing quote
+    r"(?=\s|$)"  # end of the line or space before facet
+)
+
+
+def _get_default_ors():
+    return toolkit.aslist(toolkit.config.get('ckanext.or_facet.optional'))
+
+
+def _split_fq(fq: str, field: str):
+    exp = re.compile(_term_pattern.format(field=field))
+    fqs = [m.group(0).strip() for m in exp.finditer(fq)]
+
+    if not fqs:
+        return None, fq
+    fq = exp.sub("", fq).strip()
+    extracted = "{{!bool tag=orFq{} {}}}".format(
+        field,
+        " ".join("should='{}'".format(item.replace("'", r"\'")) for item in fqs),
+    )
+    return extracted, fq
+
+
 def default_locale():
     '''Wrap the ckan default locale in a helper function to access
     in templates.
@@ -1125,6 +1154,28 @@ type data_last_updated
         u'''Extensions will receive a dictionary with the query parameters,
         and should return a modified (or not) version of it.
         '''
+        fl = search_params.setdefault("facet.field", [])
+        fq = search_params.get("fq", "")
+        default_open = '{!bool tag=orFqaccess_level should=\'access_level:"open"\'}'
+
+        ors = set(_get_default_ors())
+        if ('fq' not in search_params) or (fq and not fl):
+            fq_list = search_params.setdefault('fq_list', [])
+        elif fq:
+            fq_list = search_params.setdefault('fq_list', [default_open])
+            for field in ors:
+                extracted, fq = _split_fq(fq, field)
+                if extracted:
+                    fq_list.remove(default_open)
+                    fq_list.append(extracted)
+        else:
+            fq_list = search_params.setdefault('fq_list', [default_open])
+        search_params["facet.field"] = [
+            "{!edismax ex=orFq%s}" % field + field if field in ors else field
+            for field in fl
+        ]
+        search_params["fq"] = fq
+
         sort = search_params.get('sort')
         if sort and 'titles' in sort:
             title_sorted = 'fr' if h.lang() == 'fr' else 'en'

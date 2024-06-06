@@ -477,28 +477,29 @@ input[type="reset"].ontario-search-reset:focus {
   height: unset;
 }
 
-.radio-buttons-status {
+.checkbox-status {
   order: 2;
   background-color: white;
   margin: 0 -16px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end;
+  padding-top: 16px;
+}
+
+form[id*='dataset-search-form'] .checkbox-status,
+form[id*='datasets-search-form'] .checkbox-status {
+  padding-top: unset;
 }
 
 @media screen and (min-width: 767px) {
-  .radio-buttons-status:has(.control-order-by) {
+  .checkox-status:has(.control-order-by) {
     justify-content: end;
-  }
-
-  #group-datasets-search-form .radio-buttons-status,
-  #organization-datasets-search-form .radio-buttons-status {
-    padding: 20px 0;
   }
 }
 
-#group-datasets-search-form .radio-buttons-status,
-#organization-datasets-search-form .radio-buttons-status {
+#group-datasets-search-form .checkbox-status,
+#organization-datasets-search-form .checkbox-status {
   margin: 0 -20px;
 }
 
@@ -511,7 +512,7 @@ input[type="reset"].ontario-search-reset:focus {
     display: block;
   }
 
-  .radio-buttons-status {
+  .checkbox-status {
     order: 6;
     margin: 0 -16px;
     padding: 0 16px;
@@ -2304,6 +2305,7 @@ screen and (min-width: 96em) {
   border-color: #2b8737 !important
 }
 
+
 /* ========================================================================
    Search Page - Package Items
    ======================================================================== */
@@ -3743,7 +3745,7 @@ label::after {
 }
 
 /* ========================================================================
-  Access level - Overrides
+  Access level - Customizations
   ======================================================================== */
 #access-level-radio-buttons {
   margin-bottom: unset;
@@ -3785,6 +3787,16 @@ label::after {
   /*margin-right: 16px;*/
 }
 
-.access-level .ontario-checkboxes__input:checked + .ontario-checkboxes__label {
+.access-level .ontario-checkboxes__input:checked + .ontario-checkboxes__label,
+#access-level-sentence-value {
   font-weight: 700;
+}
+
+/* custom color */
+.ontario-border-highlight--dark-blue {
+  border-color: #0369ac;
+}
+
+.ontario-border-highlight--dark-taupe {
+  border-color: #7B725C;
 }

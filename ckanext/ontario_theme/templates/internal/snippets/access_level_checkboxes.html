@@ -14,14 +14,14 @@
             {% set level_count = count[0] if count else '0' %}
             <div class="ontario-checkboxes__item">
               <input class="ontario-checkboxes__input"
-                     id="radio-button-option-{{ value }}"
+                     id="checkbox-option-{{ value }}"
                      name="access_level"
                      type="checkbox"
                      value="{{ value }}"
                      data-display-name="{{ display_name }}"
                      autocomplete="off">
               <label class="ontario-label ontario-checkboxes__label"
-                     for="radio-button-option-{{ value }}">{{ display_name }} ({{ level_count }})</label>
+                     for="checkbox-option-{{ value }}">{{ display_name }} ({{ level_count }})</label>
             </div>
           {% endfor %}
         {% endwith %}
