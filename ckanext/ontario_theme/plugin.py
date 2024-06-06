@@ -1166,7 +1166,8 @@ type data_last_updated
             for field in ors:
                 extracted, fq = _split_fq(fq, field)
                 if extracted:
-                    fq_list.remove(default_open)
+                    if default_open in fq_list:
+                        fq_list.remove(default_open)
                     fq_list.append(extracted)
         else:
             fq_list = search_params.setdefault('fq_list', [default_open])
@@ -1175,7 +1176,6 @@ type data_last_updated
             for field in fl
         ]
         search_params["fq"] = fq
-
         sort = search_params.get('sort')
         if sort and 'titles' in sort:
             title_sorted = 'fr' if h.lang() == 'fr' else 'en'
