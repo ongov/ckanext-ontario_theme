@@ -27,11 +27,10 @@
             params.append(this.name, openCheckbox.value)
         }
         if (this.checked) {
-          if (params.has('page')) {
-            params.delete('page');
-          } else {
+            if (params.has('page')) {
+                params.delete('page');
+            }
             params.append(this.name, this.value);
-          }
         } else {
             if (params.has(this.name, this.value)) {
                 params.delete(this.name, this.value);
