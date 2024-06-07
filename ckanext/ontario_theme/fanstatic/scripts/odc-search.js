@@ -48,7 +48,8 @@ inputIds.forEach(input => {
 });
 
 function searchReset(resetId, textId) {
-    resetId.addEventListener("click", () => {
+    resetId.addEventListener("click", (e) => {
+        e.preventDefault();
         textId.defaultValue = "";
         textId.focus();
     });
