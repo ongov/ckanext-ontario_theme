@@ -1163,12 +1163,16 @@ type data_last_updated
             fq_list = search_params.setdefault('fq_list', [])
         elif fq:
             fq_list = search_params.setdefault('fq_list', [default_open])
+            facet_al = default_open
+            if "access_level" in fq:
+                facet_al = ""
             for field in ors:
                 extracted, fq = _split_fq(fq, field)
                 if extracted:
                     if default_open in fq_list:
                         fq_list.remove(default_open)
                     fq_list.append(extracted)
+            fq_list.append(facet_al)
         else:
             fq_list = search_params.setdefault('fq_list', [default_open])
         search_params["facet.field"] = [
