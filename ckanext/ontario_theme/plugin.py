@@ -752,7 +752,7 @@ def get_facet_options():
     limit = config.get('search.facets.limit', 50)
     return {'limit': limit, 'default': default}
 
-
+# Patterns taken from ckanext-or_facet
 _term_pattern = (
     r"(^|(?<=\s))"  # begining of the line or space after facet
     r"{field}:"  # fixed field name(must be replaced)
@@ -764,10 +764,13 @@ _term_pattern = (
 
 
 def _get_default_ors():
+    ''' Gets logical OR facets from config
+    TODO: Get list of all facets instead '''
     return toolkit.aslist(toolkit.config.get('ckanext.or_facet.optional'))
 
-
 def _split_fq(fq: str, field: str):
+    ''' Function from ckanext-or_facet
+    Returns logical OR facets in the format solr requires for query'''
     exp = re.compile(_term_pattern.format(field=field))
     fqs = [m.group(0).strip() for m in exp.finditer(fq)]
 
@@ -1153,14 +1156,19 @@ type data_last_updated
     def before_search(self, search_params):
         u'''Extensions will receive a dictionary with the query parameters,
         and should return a modified (or not) version of it.
+        Sets default access level to open
         '''
         fl = search_params.setdefault("facet.field", [])
         fq = search_params.get("fq", "")
         default_open = '{!bool tag=orFqaccess_level should=\'access_level:"open"\'}'
 
         ors = set(_get_default_ors())
+        # To show all access levels on dataset counts on
+        # the homepage and org/group pages
         if ('fq' not in search_params) or (fq and not fl):
             fq_list = search_params.setdefault('fq_list', [])
+        # Show default open datasets or other access level on org/group search
+        # pages
         elif fq:
             fq_list = search_params.setdefault('fq_list', [default_open])
             facet_al = default_open
@@ -1173,8 +1181,10 @@ type data_last_updated
                         fq_list.remove(default_open)
                     fq_list.append(extracted)
             fq_list.append(facet_al)
+        # Show default open datasets on dataset search page
         else:
             fq_list = search_params.setdefault('fq_list', [default_open])
+        # Adds excluded fields to facet.field
         search_params["facet.field"] = [
             "{!edismax ex=orFq%s}" % field + field if field in ors else field
             for field in fl

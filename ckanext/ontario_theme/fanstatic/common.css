@@ -3747,11 +3747,11 @@ label::after {
 /* ========================================================================
   Access level - Customizations
   ======================================================================== */
-#access-level-radio-buttons {
+#access-level-checkboxes {
   margin-bottom: unset;
 }
 
-.ontario-fieldset legend {
+.access-level .ontario-fieldset legend {
   border-bottom: unset;
 }
 
@@ -3784,7 +3784,6 @@ label::after {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   font-weight: unset;
-  /*margin-right: 16px;*/
 }
 
 .access-level .ontario-checkboxes__input:checked + .ontario-checkboxes__label,
@@ -3792,7 +3791,7 @@ label::after {
   font-weight: 700;
 }
 
-/* custom color */
+/* custom colors */
 .ontario-border-highlight--dark-blue {
   border-color: #0369ac;
 }

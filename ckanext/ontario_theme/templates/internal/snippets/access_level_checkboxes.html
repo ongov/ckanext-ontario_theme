@@ -4,8 +4,8 @@
   <div class="access-level ontario-form-group">
     <fieldset class="ontario-fieldset">
       <legend class="ontario-fieldset__legend">{{ _('Access level') }}{{ _(':') }}</legend>
-      <div id="access-level-radio-buttons" class="ontario-checkboxes">
-        {# Checking selected radio buttons #}
+      <div id="access-level-checkboxes" class="ontario-checkboxes" data-value="{{ _('All levels') }}">
+        {# Checking selected checkboxes #}
         {% with access_levels = h.scheming_field_by_name(schema_dict, name).choices %}
           {% for levels in access_levels %}
             {% set value = levels.get('value') %}

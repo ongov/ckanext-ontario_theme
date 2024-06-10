@@ -1,6 +1,6 @@
 /*
  * Function for changing URL parameters when an access level
- * radio button is clicked.
+ * checkbox is clicked.
  *
  */
 
@@ -44,8 +44,10 @@
     function updateAccessLevelSentence() {
         var selectedBox = document.querySelectorAll('input[name="access_level"]:checked');
         let displayName = "";
+        let allLevels = document.getElementById('access-level-checkboxes');
+        var calloutElement = document.getElementById('access-level-sentence-value');
         if (selectedBox.length == accessLevelBoxes.length) {
-            displayName = "All levels";
+            displayName = allLevels.dataset.value;
         } else if (selectedBox.length == 1) {
             displayName = selectedBox[0].getAttribute('data-display-name');
         } else {
@@ -53,11 +55,10 @@
                 if (Object.is(selectedBox.length - 1, key)) {
                     displayName += box.getAttribute('data-display-name');
                 } else {
-                    displayName += box.getAttribute('data-display-name') + " and "
+                    displayName += box.getAttribute('data-display-name') + calloutElement.dataset.and
                 }
             })
         }
-        var calloutElement = document.querySelector('#access-level-sentence-value');
         if (calloutElement) {
             calloutElement.textContent = displayName;
         }

@@ -166,7 +166,7 @@
         {% set border_highlight = "ontario-border-highlight--dark-blue" if count !=0 else "ontario-border-highlight--dark-taupe" %}
         <div class="ontario-callout {{ border_highlight }} access-level-status ontario-small-12 ontario-large-7">
           <p id="access-level-sentence-id">
-            {{ _('Showing datasets with access level: ') }}<span id="access-level-sentence-value"></span>
+            {{ _('Showing datasets with access level') }}{{ _(':') }} <span id="access-level-sentence-value" data-and="{{ _(' and ') }}"></span>
           </p>
         </div>
       {% endif %}
