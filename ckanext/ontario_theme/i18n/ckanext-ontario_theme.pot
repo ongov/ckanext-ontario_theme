@@ -1483,6 +1483,10 @@ msgstr ""
 msgid "Sort by"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:111
+msgid "Clear filters"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/package/read.html:7
 msgid "Artificial Intelligence (<abbr>AI</abbr>)"
 msgstr ""
