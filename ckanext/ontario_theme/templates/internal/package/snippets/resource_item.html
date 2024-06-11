@@ -5,6 +5,7 @@
 #}
 {% set url_action = pkg.type ~ ('_resource.edit' if url_is_edit and can_edit else '_resource.read') %}
 {% set url = h.url_for(url_action, id=pkg.id if is_activity_archive else pkg.name, resource_id=res.id, **({'activity_id': request.args['activity_id']} if 'activity_id' in request.args else {})) %}
+{% set breakall = "break-all" if "https://" in h.resource_display_name(res) %}
 <li class="resource-item ontario-row
            {% if not can_edit -%}
            resource-item-div{%- endif -%}"
@@ -27,7 +28,7 @@
           <a class="resource-item-title"
            href="{{ url }}">{{ h.resource_display_name(res) }}</a>
         {% else %}
-          <span class="resource-item-title">{{ h.resource_display_name(res) }}</span>
+          <span class="{{ breakall }} resource-item-title">{{ h.resource_display_name(res) }}</span>
         {% endif %}
         {% if res.language %}
           <span class="label label-{{ res.language }}">
