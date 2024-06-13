@@ -456,14 +456,15 @@ input[type="reset"].ontario-search-reset:focus {
   padding-bottom: 0;
 }
 
-#dataset-search-form {
-  margin-bottom: unset;
+.search-form .control-order-by label {
+  font-size: 19px;
+  padding-top: 5px;
+  /* used to centre label beside menu box */
 }
 
 .filter-list {
   display: inline-grid;
   padding-bottom: 10px;
-  /* needed to avoid being squished in mobile mode*/
 }
 
 .show-filters.ontario-button,
@@ -557,57 +558,106 @@ form[id*='datasets-search-form'] .checkbox-status {
 }
 
 .search-form .filter-list {
+  margin: unset;
   color: #000;
-  margin-right: unset;
   margin-top: 0;
   flex-wrap: wrap;
+  order: 5;
 }
 
-.pill a.remove {
-  font-size: 20px;
+.search-form .filter-list a:hover.pill {
+  color: #000;
+  background-color: #d8d8d8;
+  border: solid 1px #000;
 }
 
-.pill a:visited {
+a:visited.pill {
   color: unset;
 }
 
-.pill a {
+
+a.pill {
   margin: auto;
-  margin-left: 5px;
+  text-decoration: none;
 }
 
 .pill-contents {
   display: flex;
-  padding: 0 10px;
+  align-items: center;
+}
+
+.pill-contents svg {
+  margin-left: 10px;
+  margin-bottom: unset;
+  height: 22px;
+  width: 22px;
 }
 
 .search-form .filter-list .pill {
-  line-height: 25.6px;
-  background-color: #666666;
-  margin-right: 14px;
-  padding: 5px 10px;
+  background-color: #fff;
+  border: solid 1px #666666;
+  color: #4d4d4d;
+  margin-right: 10px;
+  padding: 6px 15px;
   text-align: left;
   margin-bottom: 5px;
-  border-radius: 52px;
 }
 
-.facet-row {
-  text-align: right;
+@media screen and (min-width: 39.9375em) {
+  .facet-row {
+    margin-bottom: 10px;
+    margin-top: 5px;
+  }
+
+  .search-form .filter-list {
+    font-size: 20px;
+    background-color: #fff;
+    padding: 0 20px;
+  }
+
+  #dataset-search-form .filter-list {
+    margin: 0 -16px;
+  }
+
+  form[id*='datasets-search-form'] .filter-list {
+    margin: 0 -20px;
+  }
+
+  #dataset-search-form .access-level {
+    padding: 4px;
+  }
+
+  /* child div 4: shows filters just below sort by dropdown */
+  .filter-list {
+    display: unset;
+  }
+
+  #clear-filters-button {
+    margin: unset;
+  }
+
+  .search-form .filter-list .nowrap {
+    white-space: nowrap;
+  }
 }
 
 @media screen and (max-width: 39.9375em) {
-  .facet-row {
-    display: block;
-    float: right;
-  }
-
-  .facet {
-    padding-right: 5px;
-  }
-
   .search-form .filter-list .pill {
     margin-right: unset;
+    margin-top: 10px;
+    background-color: #f2f2f2;
+    border: solid 1px #000;
+    color: #000;
+    line-height: 25.6px;
   }
+
+  #clear-filters-button {
+    margin-top: 10px;
+  }
+}
+
+#clear-filters-button {
+  display: none;
 }
 
 .show-filters,
@@ -615,7 +665,8 @@ form[id*='datasets-search-form'] .checkbox-status {
   margin-right: unset;
 }
 
-.show-sort-by.ontario-button {
+.show-sort-by.ontario-button,
+.show-filters.ontario-button {
   margin-bottom: 15px;
 }
 
@@ -3537,6 +3588,10 @@ label::after {
   color: #000;
   display: block;
   padding: 10px;
+}
+
+.sort-by-options a:hover {
+  background-color: #d1d1d1;
 }
 
 .sort-by ul {

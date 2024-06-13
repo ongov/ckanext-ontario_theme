@@ -1489,10 +1489,14 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:169
 msgid "and"
-msgstr "et"
+msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:83
 msgid "Showing datasets with access level"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:111
+msgid "Clear filters"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/package/read.html:7
