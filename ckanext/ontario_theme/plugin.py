@@ -752,6 +752,7 @@ def get_facet_options():
     limit = config.get('search.facets.limit', 50)
     return {'limit': limit, 'default': default}
 
+
 # Patterns taken from ckanext-or_facet
 _term_pattern = (
     r"(^|(?<=\s))"  # begining of the line or space after facet
@@ -767,6 +768,7 @@ def _get_default_ors():
     ''' Gets logical OR facets from config
     TODO: Get list of all facets instead '''
     return toolkit.aslist(toolkit.config.get('ckanext.or_facet.optional'))
+
 
 def _split_fq(fq: str, field: str):
     ''' Function from ckanext-or_facet
@@ -1171,9 +1173,7 @@ type data_last_updated
         # pages
         elif fq:
             fq_list = search_params.setdefault('fq_list', [default_open])
-            facet_al = default_open
-            if "access_level" in fq:
-                facet_al = ""
+            facet_al = default_open if "access_level" not in fq else ""
             for field in ors:
                 extracted, fq = _split_fq(fq, field)
                 if extracted:

@@ -12,7 +12,7 @@
         let array = Array.from(params);
         for (const field of array) {
             const [key, value] = field;
-            if ((key != 'q')) {
+            if ((key != 'q') && (key != 'access_level')) {
                 params.delete(key);
             }
         }

@@ -23,17 +23,21 @@
 
     function showAccessLevel() {
         let params = new URLSearchParams(document.location.search);
-        if (openCheckbox.checked && !params.has(this.name)) {
-            params.append(this.name, openCheckbox.value)
+        const isChecked = this.checked;
+        const paramName = this.name;
+        const paramValue = this.value;
+        if (openCheckbox.checked && !params.has(paramName)) {
+            params.append(paramName, openCheckbox.value)
         }
-        if (this.checked) {
+    
+        if (isChecked) {
             if (params.has('page')) {
                 params.delete('page');
             }
-            params.append(this.name, this.value);
+            params.append(paramName, paramValue);
         } else {
-            if (params.has(this.name, this.value)) {
-                params.delete(this.name, this.value);
+            if (params.has(paramName, paramValue)) {
+                params.delete(paramName, paramValue);
             }
         }
         window.location.search = params;
@@ -42,25 +46,28 @@
     window.addEventListener('load', updateAccessLevelSentence)
   
     function updateAccessLevelSentence() {
-        var selectedBox = document.querySelectorAll('input[name="access_level"]:checked');
+        const selectedBoxes = document.querySelectorAll('input[name="access_level"]:checked');
+        const allLevels = document.getElementById('access-level-checkboxes');
+        const calloutElement = document.getElementById('access-level-sentence-value');
+    
         let displayName = "";
-        let allLevels = document.getElementById('access-level-checkboxes');
-        var calloutElement = document.getElementById('access-level-sentence-value');
-        if (selectedBox.length == accessLevelBoxes.length) {
+    
+        if (selectedBoxes.length === accessLevelBoxes.length) {
             displayName = allLevels.dataset.value;
-        } else if (selectedBox.length == 1) {
-            displayName = selectedBox[0].getAttribute('data-display-name');
+        } else if (selectedBoxes.length === 1) {
+            displayName = selectedBoxes[0].getAttribute('data-display-name');
         } else {
-            selectedBox.forEach((box, key, selectedBox) => {
-                if (Object.is(selectedBox.length - 1, key)) {
-                    displayName += box.getAttribute('data-display-name');
-                } else {
-                    displayName += box.getAttribute('data-display-name') + calloutElement.dataset.and
+            selectedBoxes.forEach((box, index) => {
+                displayName += box.getAttribute('data-display-name');
+                if (index < selectedBoxes.length - 1) {
+                    displayName += calloutElement.dataset.and;
                 }
-            })
+            });
         }
+    
         if (calloutElement) {
             calloutElement.textContent = displayName;
         }
     }
+    
   })();
