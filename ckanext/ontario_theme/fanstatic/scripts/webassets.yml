@@ -9,7 +9,6 @@ ontario_theme_js:
     - odc-search-modal.js
     - odc-clear-filters.js
     - odc-toc-smooth-scroll.js
-    - odc-access-level.js
 
 ontario_theme_form_validators_js:
   filters: rjsmin
@@ -24,6 +23,15 @@ ontario_theme_facet_checkboxes_js:
   filters: rjsmin
   contents: odc-facet-checkboxes.js
   output: ontario_theme_scripts/%(version)s_odc-facet-checkboxes.js
+  extra:
+    preload:
+      - vendor/jquery
+      - base/main
+
+ontario_theme_access_level_js:
+  filters: rjsmin
+  contents: odc-access-level.js
+  output: ontario_theme_scripts/%(version)s_odc-access-level.js
   extra:
     preload:
       - vendor/jquery

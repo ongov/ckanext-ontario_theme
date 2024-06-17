@@ -1,9 +1,10 @@
 {% set schema_dict = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
 {% set name = "access_level" %}
-<div class="access-level ontario-form-group">
+{%- asset "ontario_theme_scripts/ontario_theme_access_level_js" -%}
+<div class="access-level ontario-form-group" data-module="access_level_checkboxes">
   <fieldset class="ontario-fieldset">
     <legend class="ontario-fieldset__legend">{{ _('Access level') }}{{ _(':') }}</legend>
-    <div id="access-level-checkboxes" class="ontario-checkboxes" data-value="{{ _('All levels') }}">
+    <div id="access-level-checkboxes" class="ontario-checkboxes">
       {# Checking selected checkboxes #}
       {% with access_levels = h.scheming_field_by_name(schema_dict, name).choices %}
         {% for levels in access_levels %}

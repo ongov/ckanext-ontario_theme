@@ -1483,12 +1483,12 @@ msgstr ""
 msgid "Sort by"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/snippets/access_level_checkboxes.html:7
-msgid "All levels"
+#: ckanext/ontario_theme/fanstatic/scripts/odc-access.js:72
+msgid " and "
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:169
-msgid "and"
+#: ckanext/ontario_theme/fanstatic/scripts/odc-access.js:73
+msgid "All levels"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:83

@@ -2069,11 +2069,11 @@ msgstr "Juridiction"
 msgid "Showing datasets with access level"
 msgstr "Jeux de données avec niveau d’accès"
 
-#: ckanext/ontario_theme/templates/internal/snippets/access_level_checkboxes.html:7
+#: ckanext/ontario_theme/fanstatic/scripts/odc-access.js:73
 msgid "All levels"
 msgstr "Tous les niveaux"
 
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:169
+#: ckanext/ontario_theme/fanstatic/scripts/odc-access.js:87
 msgid " and "
 msgstr " et "
 
