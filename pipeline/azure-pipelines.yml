@@ -205,6 +205,12 @@ stages:
        deploy:
          steps:
            - checkout: ods-edc-qa-automation
+           - task: AzureKeyVault@2
+             inputs:
+               azureSubscription: 'EDC-IST-MGMT-RG'
+               KeyVaultName: 'edc0000ist0109mgt'
+               SecretsFilter: 'PERCY-TOKEN,BROWSERSTACK-USER,BROWSERSTACK-KEY,BROWSERSTACK-ACCESS-KEY'
+               RunAsPreJob: false
            - script: |
                set -xe
                rm package-lock.json
@@ -213,10 +219,10 @@ stages:
                npm install
                npm run test_off_vpn --loglevel verbose
              env:
-               PERCY_TOKEN: $(PERCY_TOKEN)
-               BROWSERSTACK_USER: $(BROWSERSTACK_USER)
-               BROWSERSTACK_ACCESS_KEY: $(BROWSERSTACK_ACCESS_KEY)
-               BROWSERSTACK_KEY: $(BROWSERSTACK_KEY)
+               PERCY_TOKEN: $(PERCY-TOKEN)
+               BROWSERSTACK_USER: $(BROWSERSTACK-USER)
+               BROWSERSTACK_ACCESS_KEY: $(BROWSERSTACK-ACCESS-KEY)
+               BROWSERSTACK_KEY: $(BROWSERSTACK-KEY)
              displayName: 'Running Percy Tests'
              
 - stage: UAT_Deploy
