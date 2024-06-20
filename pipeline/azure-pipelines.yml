@@ -204,7 +204,7 @@ stages:
      runOnce:
        deploy:
          steps:
-           - checkout: ods-edc-qa-automation@DATA-1508
+           - checkout: "git://Ontario Data Catalogue/ods-edc-qa-automation@DATA-1508"
            - task: AzureKeyVault@2
              inputs:
                azureSubscription: 'EDC-IST-MGMT-RG'
