@@ -19,7 +19,7 @@ Related projects, repositories, branches and CKAN plugins:
 ***
 ## ckanext-validation Integration
 
-This branch contains a redesign of the workflow for adding and editing resources where
+This code contains a redesign of the workflow for adding and editing resources where
 users are guided by a four-step wizard process. _Note: this is still a work-in-progress._
 
 ### Step 1: 
