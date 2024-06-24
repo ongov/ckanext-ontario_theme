@@ -1124,10 +1124,10 @@ type data_last_updated
     def dataset_facets(self, facets_dict, package_type):
         '''Add new search facet dictionary for datasets.
         '''
-        lang = request.environ['CKAN_LANG']
         facets_dict.clear()
         facets_dict = OrderedDict({
-            'keywords_' + lang: toolkit._('Topics'),
+            'keywords_en': toolkit._('Topics'),
+            'keywords_fr': toolkit._('Topics'),
             'organization': toolkit._('Ministries'),
             'res_format': toolkit._('Formats'),
             'update_frequency': toolkit._('Update frequency'),

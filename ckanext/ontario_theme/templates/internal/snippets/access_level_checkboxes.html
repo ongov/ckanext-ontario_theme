@@ -11,7 +11,7 @@
           {% set value = levels.get('value') %}
           {% set count = h.get_facet_items_dict(name)|selectattr('name', '==', value)|map(attribute='count')|list %}
           {% set display_name = h.scheming_choices_label(access_levels, value) %}
-          {% set level_count = count[0] if count else '0' %}
+          {% set level_count = h.localised_number(count[0]) if count else '0' %}
           <div class="ontario-checkboxes__item">
             <input class="ontario-checkboxes__input"
                     id="checkbox-option-{{ value }}"
