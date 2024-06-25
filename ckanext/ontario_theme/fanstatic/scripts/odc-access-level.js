@@ -23,6 +23,8 @@ ckan.module('access_level_checkboxes', function ($) {
             this.accessLevelBoxes = $('input[name="access_level"][type="checkbox"]');
             var params = new URLSearchParams(document.location.search);
             this.openCheckbox = $("#checkbox-option-open");
+            // "Open" checkbox checked by default
+            // else get access_level params and check the appropriate boxes
             if (!params.has("access_level") && this.openCheckbox) {
                 this.openCheckbox.prop('checked', true);
             } else if (params.has("access_level")) {
@@ -31,6 +33,7 @@ ckan.module('access_level_checkboxes', function ($) {
                     $(`#checkbox-option-${e}`).prop('checked', true);
                 });
             }
+            // Update checkboxes and callout
             $(this.accessLevelBoxes).on('change', jQuery.proxy(this._onChange, this));
             $(document).ready(jQuery.proxy(this._updateAccessLevelSentence, this));
         },
@@ -41,6 +44,7 @@ ckan.module('access_level_checkboxes', function ($) {
             var paramValue = $(target).val();
             var params = new URLSearchParams(document.location.search);
 
+            // Add "access_level=open" to queries by default
             if (this.openCheckbox.is(':checked') && !params.has(paramName)) {
                 params.append(paramName, this.openCheckbox.val());
             }
@@ -57,7 +61,7 @@ ckan.module('access_level_checkboxes', function ($) {
             }
             window.location.search = params;
         },
-        _updateAccessLevelSentence: function (event) {
+        _updateAccessLevelSentence: function () {
             var selectedBoxes = $('input[name="access_level"]:checked');
             var calloutElement = $('#access-level-sentence-value');
             const and = this._(' and ');
@@ -65,6 +69,7 @@ ckan.module('access_level_checkboxes', function ($) {
 
             var displayName = "";
 
+            // Update callout based on number of checkboxes checked and the value
             if (selectedBoxes.length === this.accessLevelBoxes.length) {
                 displayName = all_levels;
             } else if (selectedBoxes.length === 1) {
@@ -77,7 +82,7 @@ ckan.module('access_level_checkboxes', function ($) {
                     }
                 });
             }
-            if (calloutElement.length > 0) {
+            if (calloutElement) {
                 calloutElement.text(displayName);
             }
         }
