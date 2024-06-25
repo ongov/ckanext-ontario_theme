@@ -765,9 +765,13 @@ _term_pattern = (
 
 
 def _get_default_ors():
-    ''' Gets logical OR facets from config
+    ''' Returns list of logical OR facets
     TODO: Get list of all facets instead '''
-    return toolkit.aslist(toolkit.config.get('ckanext.or_facet.optional'))
+    facet_list = ["access_level", "asset_type", "update_frequency",
+                  "keywords_en", "keywords_fr", "res_format", "organization",
+                  "license_id", "groups", "organization_jurisdiction",
+                  "organization_category"]
+    return facet_list
 
 
 def _split_fq(fq: str, field: str):

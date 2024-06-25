@@ -53,13 +53,13 @@
             <div class="ontario-checkboxes__item
                         {% if loop.index > default and not item.active %}facet-{{ name }} show-more-items{% endif %}">
               <input class="ontario-checkboxes__input"
-                     id="{{ item_name }}"
+                     id="{{ name }}-{{ item_name }}"
                      name="{{ name }}"
                      {% if item.active %}checked{% endif %}
                      type="checkbox"
                      value="{{ href }}">
               <label class="ontario-checkboxes__label"
-                     for="{{ item_name }}">{{ label }} {{ count }}</label>
+                     for="{{ name }}-{{ item_name }}">{{ label }} {{ count }}</label>
             </div>
           {% endfor %}
         </div>
