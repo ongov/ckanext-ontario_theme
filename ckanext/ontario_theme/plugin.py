@@ -753,17 +753,6 @@ def get_facet_options():
     return {'limit': limit, 'default': default}
 
 
-# Patterns taken from ckanext-or_facet
-_term_pattern = (
-    r"(^|(?<=\s))"  # begining of the line or space after facet
-    r"{field}:"  # fixed field name(must be replaced)
-    r"(?P<quote>\'|\")?"  # optional open-quote
-    r"(?P<term>.+?)"  # facet value
-    r"(?(quote)(?P=quote))"  # optional closing quote
-    r"(?=\s|$)"  # end of the line or space before facet
-)
-
-
 def _get_default_ors():
     ''' Gets list of all facets for logical OR querying
     '''
@@ -777,6 +766,16 @@ def _get_default_ors():
 def _split_fq(fq: str, field: str):
     ''' Function from ckanext-or_facet
     Returns logical OR facets in the format solr requires for query'''
+    # Patterns taken from ckanext-or_facet
+    _term_pattern = (
+        r"(^|(?<=\s))"  # begining of the line or space after facet
+        r"{field}:"  # fixed field name(must be replaced)
+        r"(?P<quote>\'|\")?"  # optional open-quote
+        r"(?P<term>.+?)"  # facet value
+        r"(?(quote)(?P=quote))"  # optional closing quote
+        r"(?=\s|$)"  # end of the line or space before facet
+    )
+
     exp = re.compile(_term_pattern.format(field=field))
     fqs = [m.group(0).strip() for m in exp.finditer(fq)]
 
