@@ -765,12 +765,12 @@ _term_pattern = (
 
 
 def _get_default_ors():
-    ''' Returns list of logical OR facets
-    TODO: Get list of all facets instead '''
-    facet_list = ["access_level", "asset_type", "update_frequency",
-                  "keywords_en", "keywords_fr", "res_format", "organization",
-                  "license_id", "groups", "organization_jurisdiction",
-                  "organization_category"]
+    ''' Gets list of all facets for logical OR querying
+    '''
+    facets = h.facets()
+    for plugin in plugins.PluginImplementations(plugins.IFacets):
+        facets = plugin.dataset_facets(facets, "dataset")
+    facet_list = list(facets.keys())
     return facet_list
 
 
