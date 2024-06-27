@@ -95,7 +95,6 @@ in the core template for search.html.
         <div class="module-content">
           {% block package_search_results_list %}
             {{ super() }}
-            {{ h.snippet('snippets/package_list.html', packages=packages) }}
           {% endblock package_search_results_list %}
         </div>
         {% block page_pagination %}
@@ -111,7 +110,7 @@ in the core template for search.html.
 
 {% block secondary %}
   <aside class="secondary ontario-columns ontario-small-3 filter-results">
-    <div class="filters" id="filter-aside">
+    <div class="filters" id="filter-aside" data-module="facet_checkboxes">
       <span aria-label="{{ _('close') }}"
             role="button"
             tabindex="0"
@@ -124,7 +123,7 @@ in the core template for search.html.
           <use xlink:href="#ontario-icon-close"></use>
         </svg>
       </span>
-      <div>{{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets) }}</div>
+      <div>{{ h.snippet('snippets/facet_arrangement.html') }}</div>
     </div>
   </aside>
 {% endblock secondary %}
