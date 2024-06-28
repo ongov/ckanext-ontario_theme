@@ -45,9 +45,8 @@
     <script>
       function poll_datastore() {
         const resId = "{{ resource.id }}";
-        const status_ok = ('complete', 'running_but_viewable');
         const xhr = new XMLHttpRequest();
-        const url = `/api/3/action/xloader_status?resource_id=${resId}`;
+        const url = `/api/3/action/resource_show?id=${resId}`
 
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -57,7 +56,7 @@
           if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             let thisResponse = JSON.parse(xhr.response);
 
-            if (thisResponse.result.status !== "pending") { //thisResponse.result.status.includes(status_ok)
+            if (thisResponse.result.datastore_active) {
               const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
          
               const fixedDelay = async () => {
@@ -69,7 +68,6 @@
               fixedDelay();
 
             } else {
-            console.log('Request pending....set the timeout and retry...')
             setTimeout(poll_datastore, 1000);
             }
           }
