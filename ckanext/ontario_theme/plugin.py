@@ -46,8 +46,6 @@ import os
 import ckan.lib.uploader as uploader
 import ckan.lib.helpers as h
 
-import ckanext.xloader.interfaces as xloader_interfaces
-
 import logging
 log = logging.getLogger(__name__)
 
