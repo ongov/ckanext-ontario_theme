@@ -5,7 +5,7 @@
 {%- endblock subtitle -%}
 
 {% block pre_primary %}
-  {% set back_url = h.url_for(pkg_dict.type ~ '_resource.edit', id=pkg_dict.id, resource_id=resource.id) %}
+  {% set back_url = h.url_for(pkg_dict.type ~ '_resource.edit', id=id, resource_id=resource.id) %}
   {% snippet "package/snippets/step_indicator.html", step=2, back_url=back_url %}
 {% endblock pre_primary %}
 
@@ -15,11 +15,9 @@
 {% endblock form_title %}
 
 {% block primary_content_inner %}
-  {% set package_id = resource.get('package_id') %}
-  {% set resource_id = resource.get('id') %}
   {% set action = h.url_for('datastore.dictionary',
-      id=package_id,
-    resource_id=resource.id) %}
+      id=id,
+      resource_id=resource.id) %}
   {% set is_csv = "True" %}
 
   {% if validation.report %}
@@ -79,14 +77,13 @@
     <div class="ontario-small-12 ontario-row">
       <div class="ontario-small-12 ontario-columns">
         <div id="loadingSpinner"
-             aria-hidden='false'
-             role='alert'
-             aria-live='assertive'>
-          <div class='ontario-loading-indicator'>
+             aria-hidden="false"
+             role="alert">
+          <div class="ontario-loading-indicator">
             <svg id="spinnerSVG"
-                 class='ontario-loading-indicator__spinner-small'
+                 class="ontario-loading-indicator__spinner-small"
                  viewBox="25 25 50 50"
-                 xmlns='http://www.w3.org/2000/svg'>
+                 xmlns="http://www.w3.org/2000/svg">
               <circle cx="50" cy="50" r="20" fill="none" stroke-width="4" />
             </svg>
             <p class="spinner-small" id="pendingTxt">Uploading data file to database</p>
