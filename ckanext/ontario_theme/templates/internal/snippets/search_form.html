@@ -57,7 +57,7 @@
   {% endblock search_input %}
 
   {% block search_search_fields %}
-    {%- asset "ontario_theme_scripts/ontario_theme_facet_checkboxes_js" -%}
+    {# {%- asset "ontario_theme_scripts/ontario_theme_facet_checkboxes_js" -%} #}
     {% if fields -%}
       <span>{{ form.hidden_from_list(fields=fields, except_names=['access_level']) }}</span>
     {%- endif -%}

@@ -51,7 +51,11 @@
             {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
             {% set item_name = item.name|replace(' ', '-') %}
             <div class="ontario-checkboxes__item
-                        {% if loop.index > default and not item.active %}facet-{{ name }} show-more-items{% endif %}">
+                        {% if loop.index > default and not item.active %}facet-{{ name }} show-more-items{% endif %}"
+                 hx-get="{{ href }}"
+                 hx-replace-url="true"
+                 hx-target="#content"
+                 >
               <input class="ontario-checkboxes__input"
                      id="{{ name }}-{{ item_name }}"
                      name="{{ name }}"
