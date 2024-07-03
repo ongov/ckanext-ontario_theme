@@ -82,7 +82,7 @@ class DictionaryView(MethodView):
             ]
         }
         has_override = True if [x for x in dict_fields['fields'] if len(x['info']['type_override'])>0] else False
-        if has_override:            
+        if has_override:
             # Reformat dictionary into structure used by ckanext-validation and
             # replace PostgreSQL data types with Frictionless equivalents
             ui_dict_fields = copy.deepcopy(dict_fields)
@@ -126,4 +126,3 @@ class DictionaryView(MethodView):
                 return h.redirect_to("datastore.dictionary", id=id, resource_id=resource_id)
         else:
             return h.redirect_to("ontario_theme.new_resource_publish", id=id, resource_id=resource_id)
-
