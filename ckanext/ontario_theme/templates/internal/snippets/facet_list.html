@@ -54,7 +54,7 @@
                         {% if loop.index > default and not item.active %}facet-{{ name }} show-more-items{% endif %}"
                  hx-get="{{ href }}"
                  hx-replace-url="true"
-                 hx-target="#content"
+                 hx-target="body"
                  >
               <input class="ontario-checkboxes__input"
                      id="{{ name }}-{{ item_name }}"
