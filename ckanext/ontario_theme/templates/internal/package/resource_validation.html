@@ -60,8 +60,8 @@
               const fixedDelay = async () => {
                 await sleep(2000)
                 document.getElementById("pendingTxt").innerHTML = "Data file uploaded. Please click Continue.";
-                document.getElementById("spinnerSVG").style.visibility = "hidden";
-                document.getElementById("step2Btn").style.visibility = "visible";
+                document.getElementById("spinnerSVG").style.display = "none";
+                document.getElementById("step2Btn").style.display = "block";
               }
               fixedDelay();
 
@@ -92,9 +92,8 @@
 
     <form "method=post" action="{{ action }}">
       <button id="step2Btn"
-              style="visibility: hidden;
-                     margin-top: 40px;
-                     margin-left: 36px"
+              style="display: none;
+                     margin-top: 40px;"
               class="ontario-button ontario-button--primary"
               name="save"
               type="submit">{{ _('Continue') }}</button>
