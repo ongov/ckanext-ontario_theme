@@ -780,6 +780,11 @@ input[placeholder] {
 }
 
 /* indicator */
+#step2Btn {
+  display: none;
+  margin-top: 40px;
+}
+
 .ontario-loading-indicator {
   display: flex;
   /*flex-direction: column;*/

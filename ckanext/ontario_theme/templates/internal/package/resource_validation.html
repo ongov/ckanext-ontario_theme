@@ -18,28 +18,16 @@
   {% set action = h.url_for('datastore.dictionary',
       id=id,
     resource_id=resource.id) %}
-  {% set is_csv = "True" %}
 
   {% if validation.report %}
+    {% set button_id = "step2Btn" %}
     {% set success_message = "Data validated successfully" %}
     <div class="validation-details">
       <div>{{ _('Validation timestamp') }}: {{ h.render_datetime(resource.validation_timestamp, with_hours=True) }}</div>
       <div>{{ _('Duration') }}: {{ h.validation_dict(validation.report)["stats"]["seconds"] }}s</div>
     </div>
     {% snippet "package/snippets/successful_page_alert.html", success_message=success_message %}
-  {% else %}
-    {% set is_csv = "False" %}
-    {% set success_message = "Data uploaded successfully" %}
-    {% snippet "package/snippets/successful_page_alert.html", success_message=success_message %}
-    <form "method=post" action="{{ action }}">
-      <button id="nextBtn"
-              class="ontario-button ontario-button--primary"
-              name="save"
-              type="submit">{{ _('Continue') }}</button>
-    </form>
-  {% endif %}
 
-  {% if is_csv == "True" %}
     <script>
       function poll_datastore() {
         const resId = "{{ resource.id }}";
@@ -90,13 +78,17 @@
       </div>
     </div>
 
-    <form "method=post" action="{{ action }}">
-      <button id="step2Btn"
-              style="display: none;
-                     margin-top: 40px;"
-              class="ontario-button ontario-button--primary"
-              name="save"
-              type="submit">{{ _('Continue') }}</button>
-    </form>
+  {% else %}
+    {% set button_id = "nextBtn" %}
+    {% set success_message = "Data uploaded successfully" %}
+    {% snippet "package/snippets/successful_page_alert.html", success_message=success_message %}
   {% endif %}
+
+  <form "method=post" action="{{ action }}">
+    <button id="{{ button_id }}"
+            class="ontario-button ontario-button--primary"
+            name="save"
+            type="submit">{{ _('Continue') }}</button>
+  </form>
+
 {% endblock primary_content_inner %}
