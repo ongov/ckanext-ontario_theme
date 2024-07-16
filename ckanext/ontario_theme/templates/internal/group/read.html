@@ -27,11 +27,6 @@ block. super() will end up calling the facets twice.
       {% set sort_by_selected = "score desc, metadata_modified desc" %}
     {% endif %}
     {% set form_id = "group-datasets-search-form" %}
-    <form id="{{ form_id }}"
-          class="search-form"
-          method="get"
-          data-module="select-switch"
-          novalidate>
       {% snippet 'snippets/search_form.html',
       searchbar_title= _('Search datasets') + _(':'),
       form_id=form_id,
@@ -45,7 +40,6 @@ block. super() will end up calling the facets twice.
       fields=fields,
       extras={'id':c.group_dict.id}
       %}
-    </form>
   {% endblock groups_search_form %}
 
   {% block packages_list %}

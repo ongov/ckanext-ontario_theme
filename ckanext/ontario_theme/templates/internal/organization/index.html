@@ -43,11 +43,6 @@
       {% if not sort_by_selected %}
         {% set sort_by_selected = "name asc" %}
       {% endif %}
-      <form id="{{ form_id }}"
-            class="search-form"
-            method="get"
-            data-module="select-switch"
-            novalidate>
         {% snippet 'snippets/search_form.html',
           searchbar_title=searchbar_title,
           form_id=form_id,
@@ -62,7 +57,6 @@
           error=c.query_error,
           fields=c.fields
           %}
-      </form>
     {% endblock organizations_search_form %}
   </div>
 {% endblock ontario_theme_search_form %}

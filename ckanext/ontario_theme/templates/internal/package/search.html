@@ -58,11 +58,6 @@ in the core template for search.html.
       {% else %}
         {% set sort_order = "score desc, metadata_modified desc" %}
       {% endif %}
-      <form id="{{ form_id }}"
-            class="search-form"
-            method="get"
-            data-module="select-switch"
-            novalidate>
         {% snippet "snippets/search_form.html",
           searchbar_title=searchbar_title,
           form_id=form_id,
@@ -76,7 +71,6 @@ in the core template for search.html.
           show_empty=request.params,
           error=c.query_error,
           fields=c.fields %}
-      </form>
     {% endblock form %}
   </div>
 {% endblock ontario_theme_search_form %}

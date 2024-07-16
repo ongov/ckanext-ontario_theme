@@ -10,7 +10,8 @@ ckan.module('facet_checkboxes', function ($) {
           $(":checkbox").on('click', jQuery.proxy(this._onChange, this));
     },
       _onChange: function (event) {
-          window.location.href = event.target.value;
+        let spinner = document.getElementById("spinner");
+        spinner.setAttribute('aria-hidden', 'false');
     }
   }
 });
