@@ -3253,10 +3253,6 @@ label::after {
   padding-right: unset;
 }
 
-.group-packages .filters .module-narrow .module-footer {
-  padding-left: 12px;
-}
-
 @media screen and (min-width: 64em) {
   .filters .module-narrow .nav-item > a {
     padding-left: 46px;
@@ -3287,8 +3283,8 @@ label::after {
   padding-right: unset;
 }
 
-.filters .module-footer {
-  border-top: none;
+.filters .show-more-div {
+  margin-top: 10px;
 }
 
 .fa.fa-filter {
@@ -3806,7 +3802,7 @@ label::after {
   margin-bottom: unset;
 }
 
-.access-level .ontario-fieldset legend {
+.ontario-fieldset legend {
   border-bottom: unset;
 }
 

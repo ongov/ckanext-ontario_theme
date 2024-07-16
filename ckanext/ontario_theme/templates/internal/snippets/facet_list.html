@@ -9,77 +9,79 @@
 {% else %}
   {% set scheming_choices = scheming_choices or none %}
 {% endif %}
-{% block facet_list_heading %}
-  {% with items = items or h.get_facet_items_dict(name) %}
-    <h4 class="ontario-h5">
-      <svg class="ontario-icon"
-           focusable="false"
-           sol:category="primary"
-           viewBox="0 0 24 24"
-           preserveAspectRatio="xMidYMid meet">
-        <use xlink:href="#ontario-icon-filter"></use>
-      </svg>
-      {{ title }}
-      {% set screen_reader_text = "No search filters applied for "+title+". Options are " %}
-      {% if items %}
-        {% if (items|selectattr("active")|list|length) > 0 %}
-          {% set screen_reader_text = "Search filters are applied for "+title+"." %}
-        {% endif %}
-      {% endif %}
-    </h4>
-    <span class="sr-only">{{ screen_reader_text }}</span>
-  {% endwith %}
-{% endblock facet_list_heading %}
+{% block facet_list_item %}
+  <section class="{{ wrapper_class or 'module module-narrow module-shallow' }}">
+    <fieldset class="ontario-fieldset facet-fieldset">
+      {% block facet_list_heading %}
+        {% with items = items or h.get_facet_items_dict(name) %}
+          <legend class="ontario-fieldset__legend">
+            <svg class="ontario-icon"
+                 focusable="false"
+                 sol:category="primary"
+                 viewBox="0 0 24 24"
+                 preserveAspectRatio="xMidYMid meet">
+              <use xlink:href="#ontario-icon-filter"></use>
+            </svg>
+            {{ title }}
+            {% set screen_reader_text = "No search filters applied for "+title+". Options are " %}
+            {% if items %}
+              {% if (items|selectattr("active")|list|length) > 0 %}
+                {% set screen_reader_text = "Search filters are applied for "+title+"." %}
+              {% endif %}
+            {% endif %}
+          </legend>
+          <span class="sr-only">{{ screen_reader_text }}</span>
+        {% endwith %}
+      {% endblock facet_list_heading %}
 
-{% block facet_list_items %}
-  {% with items = items or h.get_facet_items_dict(name, limit=limit) %}
-    {% if items %}
-      <fieldset class="ontario-fieldset facet-fieldset">
-        <div class="ontario-checkboxes">
-          {% for item in items %}
-            {%- if name == "license_id" %}
-              {% set translate = h.ontario_theme_get_license(item.name)._data %}
-            {% elif name == "organization" %}
-              {% set translate = h.get_organization(item.name) %}
-            {% elif name == "groups" %}
-              {% set translate = h.ontario_theme_get_group(item.name) %}
-            {% else %}
-              {% do item.update({'display_name': h.scheming_choices_label(scheming_choices, item.display_name)}) if scheming_choices %}
-            {% endif -%}
-            {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
-            {% set label = label_function(translate, "title") if (label_function and translate) else item.display_name %}
-            {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
-            {% set item_name = item.name|replace(' ', '-') %}
-            <div class="ontario-checkboxes__item
-                        {% if loop.index > default and not item.active %}facet-{{ name }} show-more-items{% endif %}">
-              <input class="ontario-checkboxes__input"
-                     id="{{ name }}-{{ item_name }}"
-                     name="{{ name }}"
-                     {% if item.active %}checked{% endif %}
-                     type="checkbox"
-                     value="{{ href }}">
-              <label class="ontario-checkboxes__label"
-                     for="{{ name }}-{{ item_name }}">{{ label }} {{ count }}</label>
+      {% block facet_list_items %}
+        {% with items = items or h.get_facet_items_dict(name, limit=limit) %}
+          {% if items %}
+            <div class="ontario-checkboxes">
+              {% for item in items %}
+                {%- if name == "license_id" %}
+                  {% set translate = h.ontario_theme_get_license(item.name)._data %}
+                {% elif name == "organization" %}
+                  {% set translate = h.get_organization(item.name) %}
+                {% elif name == "groups" %}
+                  {% set translate = h.ontario_theme_get_group(item.name) %}
+                {% else %}
+                  {% do item.update({'display_name': h.scheming_choices_label(scheming_choices, item.display_name)}) if scheming_choices %}
+                {% endif -%}
+                {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
+                {% set label = label_function(translate, "title") if (label_function and translate) else item.display_name %}
+                {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
+                {% set item_name = item.name|replace(' ', '-') %}
+                <div class="ontario-checkboxes__item
+                            {% if loop.index > default and not item.active %}facet-{{ name }} show-more-items{% endif %}">
+                  <input class="ontario-checkboxes__input"
+                         id="{{ name }}-{{ item_name }}"
+                         name="{{ name }}"
+                         {% if item.active %}checked{% endif %}
+                         type="checkbox"
+                         value="{{ href }}">
+                  <label class="ontario-checkboxes__label" for="{{ name }}-{{ item_name }}">{{ label }} {{ count }}</label>
+                </div>
+              {% endfor %}
             </div>
-          {% endfor %}
-        </div>
-      </fieldset>
-
-      <p class="module-footer">
-        {% if h.get_param_int('_%s_limit' % name) %}
-          {% if h.has_more_facets(name, c.search_facets) %}
-            <button id="more-{{ name }}"
-                    data-toggle-less="{{ _('Show less') }}"
-                    data-toggle-more="{{ _('Show more') }}"
-                    class="facets-show-more ontario-button ontario-button--tertiary"
-                    type="button">{{ _('Show more') }}</button>
+            <div class="show-more-div">
+              {% if h.get_param_int('_%s_limit' % name) %}
+                {% if h.has_more_facets(name, c.search_facets) %}
+                  <button id="more-{{ name }}"
+                          data-toggle-less="{{ _('Show less') }}"
+                          data-toggle-more="{{ _('Show more') }}"
+                          class="facets-show-more ontario-button ontario-button--tertiary"
+                          type="button">{{ _('Show more') }}</button>
+                {% endif %}
+              {% endif %}
+            </div>
+          {% else %}
+            <p class="module-content empty">
+              {{ _('There are no {facet_type} that match this search').format(facet_type=title) }}
+            </p>
           {% endif %}
-        {% endif %}
-      </p>
-    {% else %}
-      <p class="module-content empty">
-        {{ _('There are no {facet_type} that match this search').format(facet_type=title) }}
-      </p>
-    {% endif %}
-  {% endwith %}
-{% endblock facet_list_items %}
+        {% endwith %}
+      {% endblock facet_list_items %}
+    </fieldset>
+  </section>
+{% endblock facet_list_item %}
