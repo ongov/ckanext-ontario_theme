@@ -3283,8 +3283,8 @@ label::after {
   padding-right: unset;
 }
 
-.filters .show-more-div {
-  margin-top: 10px;
+.facet-fieldset .show-more-div {
+  margin: 10px 20px;
 }
 
 .fa.fa-filter {
@@ -3759,7 +3759,8 @@ label::after {
 /* ========================================================================
    Checkboxes - Overrides
    ======================================================================== */
-.facet-fieldset {
+.facet-fieldset .ontario-checkboxes,
+.facet-fieldset .ontario-fieldset__legend {
   padding-left: 20px;
 }
 
