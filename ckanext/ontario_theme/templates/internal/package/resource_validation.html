@@ -84,7 +84,7 @@
     {% snippet "package/snippets/successful_page_alert.html", success_message=success_message %}
   {% endif %}
 
-  <form "method=post" action="{{ action }}">
+  <form method="get" action="{{ action }}">
     <button id="{{ button_id }}"
             class="ontario-button ontario-button--primary"
             name="save"
