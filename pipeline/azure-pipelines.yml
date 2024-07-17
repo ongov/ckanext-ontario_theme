@@ -31,7 +31,7 @@ parameters:
   - name: Run_E2E_Tests
     displayName: Run E2E Tests?
     type: boolean
-    default: false
+    default: true
 
 trigger:
   batch: true
@@ -193,36 +193,38 @@ stages:
   variables:
     - group: ist-vars
   jobs:
-    - job: RunE2ETests
-      displayName: Run E2E Tests
-      pool: 
-        vmImage: 'ubuntu-latest'
-      steps:
-        - checkout: ods-edc-qa-automation
-        - task: NodeTool@0
-          inputs:
-            versionSpec: '16.15.1'
-          displayName: 'Install Node.js'
-        - script: |
-            set -xe
-            pip install wget unzip
-            wget "https://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip"
-            unzip BrowserStackLocal-linux-x64.zip -d /usr/local/bin/
-            chmod 755 /usr/local/bin/BrowserStackLocal
-            rm -f BrowserStackLocal-linux-x64.zip
-            rm package-lock.json
-            mkdir npm_cache
-            export npm_config_cache=./npm_cache/
-            npm install
-            BrowserStackLocal --key $(BROWSERSTACK_ACCESS_KEY) --daemon start
-            npm run test_on_vpn --loglevel verbose
-            BrowserStackLocal --key $(BROWSERSTACK_ACCESS_KEY) --daemon stop" | tee build.log
-          env:
-            PERCY_TOKEN: $(PERCY_TOKEN)
-            BROWSERSTACK_USER: $(BROWSERSTACK_USER)
-            BROWSERSTACK_ACCESS_KEY: $(BROWSERSTACK_ACCESS_KEY)
-            BROWSERSTACK_KEY: $(BROWSERSTACK_KEY)
-          displayName: 'Running Percy Tests'
+  - deployment:
+    displayName: Run E2E Tests
+    environment: 
+      name: IST
+      resourceType: virtualMachine
+      resourceName: cacazristckan01
+    strategy:
+     runOnce:
+       deploy:
+         steps:
+           - checkout: "git://Ontario Data Catalogue/ods-edc-qa-automation"
+           - task: AzureKeyVault@2
+             inputs:
+               azureSubscription: 'EDC-IST-MGMT-RG'
+               KeyVaultName: 'edc0000ist0109mgt'
+               SecretsFilter: 'PERCY-TOKEN,BROWSERSTACK-USER,BROWSERSTACK-KEY,BROWSERSTACK-ACCESS-KEY'
+               RunAsPreJob: false
+           - script: |
+               set -xe
+               rm package-lock.json
+               mkdir npm_cache
+               export npm_config_cache=./npm_cache/
+               npm install
+               BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon start 
+               npm run test_off_vpn --loglevel verbose
+               BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon stop 
+             env:
+               PERCY_TOKEN: $(PERCY-TOKEN)
+               BROWSERSTACK_USER: $(BROWSERSTACK-USER)
+               BROWSERSTACK_ACCESS_KEY: $(BROWSERSTACK-ACCESS-KEY)
+               BROWSERSTACK_KEY: $(BROWSERSTACK-KEY)
+             displayName: 'Running Percy Tests'
              
 - stage: UAT_Deploy
   dependsOn: 
