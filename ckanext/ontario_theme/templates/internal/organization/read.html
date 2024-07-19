@@ -27,18 +27,18 @@ Override CKAN's read.html to add some new facets.
     {% set searchbar_text = gettext('Search %(ministry)s datasets', ministry=ministry) %}
     {% set searchbar_title = searchbar_text + _(':') %}
     {% set form_id = "organization-datasets-search-form" %}
-      {% snippet 'snippets/search_form.html',
-      searchbar_title=searchbar_title,
-      form_id=form_id,
-      type='dataset',
-      query=q,
-      sorting=sorting,
-      sorting_selected=sort_by_selected,
-      count=page.item_count,
-      facets=facets,
-      show_empty=request.params,
-      fields=fields,
-      extras={'id':c.group_dict.id} %}
+    {% snippet 'snippets/search_form.html',
+    searchbar_title=searchbar_title,
+    form_id=form_id,
+    type='dataset',
+    query=q,
+    sorting=sorting,
+    sorting_selected=sort_by_selected,
+    count=page.item_count,
+    facets=facets,
+    show_empty=request.params,
+    fields=fields,
+    extras={'id':c.group_dict.id} %}
   {% endblock groups_search_form %}
 
   {% block packages_list %}
@@ -69,7 +69,7 @@ Override CKAN's read.html to add some new facets.
           <use xlink:href="#ontario-icon-close"></use>
         </svg>
       </span>
-      <div>{{ h.snippet('snippets/facet_arrangement.html', extras={'id':c.group_dict.id}) }}</div>
+      <div>{{ h.snippet('snippets/facet_arrangement.html', extras={'id':c.group_dict.id}, single_option_facet="organization") }}</div>
     </div>
   </div>
 {% endblock organization_facets %}

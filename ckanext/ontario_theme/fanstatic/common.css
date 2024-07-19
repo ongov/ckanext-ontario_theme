@@ -488,6 +488,14 @@ input[type="reset"].ontario-search-reset:focus {
   padding-top: 16px;
 }
 
+.checkbox-status .search-page-select {
+  margin-top: 2rem;
+}
+
+.checkbox-status:has(> .ontario-callout) .search-page-select {
+  margin-top: 0;
+}
+
 form[id*='dataset-search-form'] .checkbox-status,
 form[id*='datasets-search-form'] .checkbox-status {
   padding-top: unset;
