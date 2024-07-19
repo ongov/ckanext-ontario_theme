@@ -59,7 +59,8 @@
                          name="{{ name }}"
                          {% if item.active %}checked{% endif %}
                          type="checkbox"
-                         value="{{ href }}">
+                         value="{{ href }}"
+                         autocomplete="off">
                   <label class="ontario-checkboxes__label" for="{{ name }}-{{ item_name }}">{{ label }} {{ count }}</label>
                 </div>
               {% endfor %}
