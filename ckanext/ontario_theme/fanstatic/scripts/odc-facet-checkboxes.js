@@ -7,7 +7,7 @@
 ckan.module('facet_checkboxes', function ($) {
   return {
     initialize: function () {
-          $(":checkbox").on('click', jQuery.proxy(this._onChange, this));
+          $(".facet-fieldset :checkbox").on('click', jQuery.proxy(this._onChange, this));
     },
       _onChange: function (event) {
           window.location.href = event.target.value;

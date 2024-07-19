@@ -37,29 +37,9 @@ ckan.module('access_level_checkboxes', function ($) {
             $(this.accessLevelBoxes).on('change', jQuery.proxy(this._onChange, this));
             $(document).ready(jQuery.proxy(this._updateAccessLevelSentence, this));
         },
-        _onChange: function (event) {
-            var target = event.target;
-            var isChecked = $(target).prop('checked');
-            const paramName = $(target).attr('name');
-            var paramValue = $(target).val();
-            var params = new URLSearchParams(document.location.search);
-
-            // Add "access_level=open" to queries by default
-            if (this.openCheckbox.is(':checked') && !params.has(paramName)) {
-                params.append(paramName, this.openCheckbox.val());
-            }
-
-            if (isChecked) {
-                if (params.has('page')) {
-                    params.delete('page');
-                }
-                params.append(paramName, paramValue);
-            } else {
-                if (params.has(paramName, paramValue)) {
-                    params.delete(paramName, paramValue);
-                }
-            }
-            window.location.search = params;
+        _onChange: function () {
+            var form = $('form.search-form');
+            form.submit();
         },
         _updateAccessLevelSentence: function () {
             var selectedBoxes = $('input[name="access_level"]:checked');
