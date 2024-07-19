@@ -27,11 +27,6 @@ Override CKAN's read.html to add some new facets.
     {% set searchbar_text = gettext('Search %(ministry)s datasets', ministry=ministry) %}
     {% set searchbar_title = searchbar_text + _(':') %}
     {% set form_id = "organization-datasets-search-form" %}
-    <form id="{{ form_id }}"
-          class="search-form col-xs-12"
-          method="get"
-          data-module="select-switch"
-          novalidate>
       {% snippet 'snippets/search_form.html',
       searchbar_title=searchbar_title,
       form_id=form_id,
@@ -44,7 +39,6 @@ Override CKAN's read.html to add some new facets.
       show_empty=request.params,
       fields=fields,
       extras={'id':c.group_dict.id} %}
-    </form>
   {% endblock groups_search_form %}
 
   {% block packages_list %}

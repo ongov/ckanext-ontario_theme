@@ -4,12 +4,14 @@
 {% set form_id = form_id if form_id else false %}
 {% set schema_dict = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
 {% set extras = extras if extras else none %}
+{% set total_count = h.get_facet_items_dict('access_level')|sum(attribute='count') if facets else count %}
 
 <form {% if form_id %}id="{{ form_id }}"{% endif %}
       class="search-form
              {% if no_bottom_border %}no-bottom-border{% endif %}"
       method="get"
-      data-module="select-switch">
+      data-module="select-switch"
+      novalidate>
   {% block search_input %}
     {#
       Design System search bar. Arguments:
@@ -49,7 +51,7 @@
     </div>
     {% if not error %}
       <div role="status" class="search-count">
-        {% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}
+        {% snippet 'snippets/search_result_text.html', query=query, count=total_count, type=type %}
       </div>
     {% else %}
       <div>Error</div>
@@ -65,7 +67,14 @@
 
   {% block search_title %}
     {% if facets %}
-      {% snippet 'snippets/access_level_checkboxes.html', count=count, total_count=total_count %}
+      <div class="access-level ontario-form-group" data-module="access_level_checkboxes">
+        <fieldset class="ontario-fieldset">
+          <legend class="ontario-fieldset__legend">{{ _('Access level') }}{{ _(':') }}</legend>
+          <div id="access-level-checkboxes" class="ontario-checkboxes">
+            {% snippet 'snippets/access_level_checkboxes.html', checkboxes=true %}
+          </div>
+        </fieldset>
+      </div>
     {% endif %}
   {% endblock search_title %}
 
@@ -178,9 +187,18 @@
     <div class="checkbox-status">
       {% if facets %}
         {% set border_highlight = "ontario-border-highlight--dark-blue" if count !=0 else "ontario-border-highlight--dark-taupe" %}
+        {% if count and query %}
+          {% set callout_text = _('Showing datasets found with search term "{query}" and access level').format(query=query|escape) %}
+        {% elif not count and query %}
+          {% set callout_text = _('No datasets found with search term "{query}" and access level').format(query=query|escape) %}
+        {% elif count %}
+          {% set callout_text = _("Showing datasets with access level") %}
+        {% else %}
+          {% set callout_text = _("No datasets with access level") %}
+        {% endif %}
         <div class="ontario-callout {{ border_highlight }} access-level-status ontario-small-12 ontario-large-7 ontario-columns">
           <p id="access-level-sentence-id">
-            {{ _('Showing datasets with access level') }}{{ _(':') }} <span id="access-level-sentence-value"></span>
+            {{ callout_text }}{{ _(':') }} <span id="access-level-sentence-value"></span>
           </p>
         </div>
       {% endif %}
@@ -215,7 +233,13 @@
   {% endif %}
 </form>
 
-{% if show_empty and count == 0 and not error %}
+{% if count == 0 and not error %}
+  {% if total_count != 0 %}
+    <p class="ontario-column">We also found{{ _(":") }}
+    <ul>
+      {% snippet 'snippets/access_level_checkboxes.html', extras=extras %}
+    </ul></p>
+  {% endif %}
   <p class="ontario-column">
     {{ _('Please try another search or <a href="mailto:opendata@ontario.ca">reach out to us if you think data is missing.</a>') }}
   </p>

@@ -1,30 +1,31 @@
 {% set schema_dict = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
 {% set name = "access_level" %}
 {%- asset "ontario_theme_scripts/ontario_theme_access_level_js" -%}
-<div class="access-level ontario-form-group" data-module="access_level_checkboxes">
-  <fieldset class="ontario-fieldset">
-    <legend class="ontario-fieldset__legend">{{ _('Access level') }}{{ _(':') }}</legend>
-    <div id="access-level-checkboxes" class="ontario-checkboxes">
-      {# Checking selected checkboxes #}
-      {% with access_levels = h.scheming_field_by_name(schema_dict, name).choices %}
-        {% for levels in access_levels %}
-          {% set value = levels.get('value') %}
-          {% set count = h.get_facet_items_dict(name)|selectattr('name', '==', value)|map(attribute='count')|list %}
-          {% set display_name = h.scheming_choices_label(access_levels, value) %}
-          {% set level_count = h.localised_number(count[0]) if count else '0' %}
-          <div class="ontario-checkboxes__item">
-            <input class="ontario-checkboxes__input"
-                    id="checkbox-option-{{ value }}"
-                    name="access_level"
-                    type="checkbox"
-                    value="{{ value }}"
-                    data-display-name="{{ display_name }}"
-                    autocomplete="off">
-            <label class="ontario-label ontario-checkboxes__label"
-                    for="checkbox-option-{{ value }}">{{ display_name }} ({{ level_count }})</label>
-          </div>
-        {% endfor %}
-      {% endwith %}
-    </div>
-  </fieldset>
-</div>
+{% with access_levels = h.scheming_field_by_name(schema_dict, name).choices %}
+  {% for levels in access_levels %}
+    {% set value = levels.get('value') %}
+    {% set count = h.get_facet_items_dict(name)|selectattr('name', '==', value)|map(attribute='count')|list %}
+    {% set display_name = h.scheming_choices_label(access_levels, value) %}
+    {% if checkboxes %}
+      {% set level_count = h.localised_number(count[0]) if count else '0' %}
+      <div class="ontario-checkboxes__item">
+        <input class="ontario-checkboxes__input"
+                id="checkbox-option-{{ value }}"
+                name="access_level"
+                type="checkbox"
+                value="{{ value }}"
+                data-display-name="{{ display_name }}"
+                autocomplete="off">
+        <label class="ontario-label ontario-checkboxes__label"
+                for="checkbox-option-{{ value }}">{{ display_name }} ({{ level_count }})</label>
+      </div>
+    {% else %}
+      {% if count %}
+        {% set href = h.add_url_param(new_params={'access_level': value}, extras=extras) %}
+        {% set level_count = h.localised_number(count[0])|int %}
+        {% set alt_results = ungettext('{level_count} dataset with access level', '{level_count} datasets with access level', level_count) %}
+        <li>{{ alt_results.format(level_count=level_count) }} <a href="{{ href }}">{{ display_name }}</a></li>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endwith %}

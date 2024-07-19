@@ -3851,3 +3851,7 @@ label::after {
 .ontario-border-highlight--dark-taupe {
   border-color: #7B725C;
 }
+
+.wrapper {
+  min-height: unset;
+}

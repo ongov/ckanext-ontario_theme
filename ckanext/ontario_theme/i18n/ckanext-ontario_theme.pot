@@ -1389,6 +1389,12 @@ msgstr[1] ""
 msgid "No ministries found"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/snippets/access_level_checkboxes.html:26
+msgid "{level_count} dataset with access level"
+msgid_plural "{level_count} datasets with access level"
+msgstr[0] ""
+msgstr[1] ""
+
 #: ckanext/ontario_theme/templates/internal/user/dashboard.html:6
 msgid "Edit settings"
 msgstr ""

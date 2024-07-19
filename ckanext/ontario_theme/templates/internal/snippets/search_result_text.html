@@ -40,9 +40,9 @@ Example:
 {%- endif -%}
 {% if query %}
   {%- if count -%}
-    {{ text_query.format(number=h.localised_number(count), query=query, type=type)|safe }}
+    {{ text_query.format(number=h.localised_number(count), query=query|escape, type=type)|safe }}
   {%- else -%}
-    {{ text_query_none.format(query=query, type=type)|safe }}
+    {{ text_query_none.format(query=query|escape, type=type)|safe }}
   {%- endif -%}
 {%- else -%}
   {%- if count -%}
