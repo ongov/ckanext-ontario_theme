@@ -1,21 +1,24 @@
-(function () {
-    var clearFiltersButton = document.getElementById("clear-filters-button");
-    var facetsSelected = document.querySelectorAll(".filtered.pill");
+// Enable JavaScript's strict mode. Strict mode catches some common
+// programming errors and throws exceptions, prevents some unsafe actions from
+// being taken, and disables some confusing and bad JavaScript features.
 
-    if (facetsSelected.length >= 2) {
-        clearFiltersButton.style.display = "inline-block";
-        clearFiltersButton.addEventListener('click', clearFilters);
+"use strict";
+
+ckan.module('clear_filters', function ($) {
+  return {
+      initialize: function () {
+          var clearFiltersButton = $("#clear-filters-button");
+          var facetsSelected = $(".filtered.pill");
+          if (facetsSelected.length >= 2) {
+              clearFiltersButton.css({ display: "inline-block" });
+              clearFiltersButton.on('click', jQuery.proxy(this._onChange, this));
+          }
+    },
+    _onChange: function (event) {
+        $(('#fields')).empty();
+
+      var form = $('form.search-form');
+      form.submit();
     }
-    function clearFilters() {
-        const url = window.location.href.split('?')[0];
-        let params = new URLSearchParams(document.location.search);
-        let array = Array.from(params);
-        for (const field of array) {
-            const [key, value] = field;
-            if ((key != 'q') && (key != 'access_level')) {
-                params.delete(key);
-            }
-        }
-        window.location.href = `${url}?${params}`;
-    }
-})();
+  }
+});

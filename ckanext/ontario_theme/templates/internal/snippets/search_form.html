@@ -127,6 +127,7 @@
         {% endfor %}
         {% if c.fields|length >= 2 %}
           <button id="clear-filters-button"
+                  data-module="clear_filters"
                   class="ontario-button ontario-button--tertiary"
                   type="button">{{ _('Clear filters') }}</button>
         {% endif %}

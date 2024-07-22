@@ -7,7 +7,6 @@ ontario_theme_js:
     - odc-show-more.js
     - odc-active-page.js
     - odc-search-modal.js
-    - odc-clear-filters.js
     - odc-toc-smooth-scroll.js
 
 ontario_theme_form_validators_js:
@@ -21,7 +20,9 @@ ontario_theme_form_validators_js:
 
 ontario_theme_facet_checkboxes_js:
   filters: rjsmin
-  contents: odc-facet-checkboxes.js
+  contents:
+    - odc-facet-checkboxes.js
+    - odc-clear-filters.js
   output: ontario_theme_scripts/%(version)s_odc-facet-checkboxes.js
   extra:
     preload:
