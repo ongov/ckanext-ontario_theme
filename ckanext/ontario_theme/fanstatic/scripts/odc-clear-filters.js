@@ -2,23 +2,26 @@
 // programming errors and throws exceptions, prevents some unsafe actions from
 // being taken, and disables some confusing and bad JavaScript features.
 
+/*
+ * CKAN module function for submitting form with empty facets once the clear
+ * filters button is clicked
+ */
+
 "use strict";
 
 ckan.module('clear_filters', function ($) {
   return {
       initialize: function () {
-          var clearFiltersButton = $("#clear-filters-button");
           var facetsSelected = $(".filtered.pill");
           if (facetsSelected.length >= 2) {
-              clearFiltersButton.css({ display: "inline-block" });
-              clearFiltersButton.on('click', jQuery.proxy(this._onChange, this));
+              this.el.css({ display: "inline-block" });
+              this.el.on('click', jQuery.proxy(this._onClick, this));
           }
     },
-    _onChange: function (event) {
+    _onClick: function (event) {
         $(('#fields')).empty();
-
-      var form = $('form.search-form');
-      form.submit();
+        var form = $('form.search-form');
+        form.submit();
     }
   }
 });
