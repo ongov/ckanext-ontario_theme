@@ -60,9 +60,11 @@
 
   {% block search_search_fields %}
     {%- asset "ontario_theme_scripts/ontario_theme_facet_checkboxes_js" -%}
+    <span id="fields">
     {% if fields -%}
-      <span>{{ form.hidden_from_list(fields=fields, except_names=['access_level']) }}</span>
+      {{ form.hidden_from_list(fields=fields, except_names=['access_level']) }}
     {%- endif -%}
+    </span>
   {% endblock search_search_fields %}
 
   {% block search_title %}
@@ -188,9 +190,9 @@
       {% if facets %}
         {% set border_highlight = "ontario-border-highlight--dark-blue" if count !=0 else "ontario-border-highlight--dark-taupe" %}
         {% if count and query %}
-          {% set callout_text = _('Showing datasets found with search term "{query}" and access level').format(query=query|escape) %}
+          {% set callout_text = _('Showing datasets found with search term <strong>"{query}"</strong> and access level') %}
         {% elif not count and query %}
-          {% set callout_text = _('No datasets found with search term "{query}" and access level').format(query=query|escape) %}
+          {% set callout_text = _('No datasets found with search term <strong>"{query}"</strong> and access level') %}
         {% elif count %}
           {% set callout_text = _("Showing datasets with access level") %}
         {% else %}
@@ -198,7 +200,7 @@
         {% endif %}
         <div class="ontario-callout {{ border_highlight }} access-level-status ontario-small-12 ontario-large-7 ontario-columns">
           <p id="access-level-sentence-id">
-            {{ callout_text }}{{ _(':') }} <span id="access-level-sentence-value"></span>
+            {{ callout_text.format(query=query|escape)|safe }}{{ _(':') }} <span id="access-level-sentence-value"></span>
           </p>
         </div>
       {% endif %}

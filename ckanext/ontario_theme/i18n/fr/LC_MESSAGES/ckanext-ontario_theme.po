@@ -2069,6 +2069,19 @@ msgstr "Juridiction"
 msgid "Showing datasets with access level"
 msgstr "Jeux de données avec niveau d’accès"
 
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:199
+msgid "No datasets with access level"
+msgstr "Aucun jeux de données avec niveau d’accès"
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:195
+msgid "No datasets found with search term <strong>\"{query}\"</strong> and access level"
+msgstr "Aucun jeux de données trouvés avec le terme de recherche «<strong>{query}</strong>» et niveau d’accès"
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:193
+msgid "Showing datasets found with search term <strong>\"{query}\"</strong> and access level"
+msgstr "Jeux de données trouvés avec le terme de recherche «<strong>{query}</strong>» et niveau d’accès"
+
+
 #: ckanext/ontario_theme/fanstatic/scripts/odc-access.js:73
 msgid "All levels"
 msgstr "Tous les niveaux"

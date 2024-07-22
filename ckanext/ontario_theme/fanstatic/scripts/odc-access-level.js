@@ -3,7 +3,7 @@
 // being taken, and disables some confusing and bad JavaScript features.
 
 /*
- * CKAN module function for changing URL parameters on checkbox selection and
+ * CKAN module function for submitting form on checkbox selection and
  * updating callout
  *
  * accessLevelBoxes
