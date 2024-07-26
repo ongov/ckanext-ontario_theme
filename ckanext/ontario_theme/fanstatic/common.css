@@ -4290,59 +4290,39 @@ label::after {
     align-items: baseline;
     column-gap: 10px;
   }
-
-/* ========================================================================
- Activity History Design
- ========================================================================= */
-
-.activity-stream-list { 
-  margin: 0;
-  padding: 0; 
-  list-style: none; 
-} 
- 
-.activity-stream-row {
-  display: grid;
-  grid-template-columns: 180px minmax(0, 1fr);
-  column-gap: 16px;
-  align-items: start;
-  margin-bottom: 20px;
-  color: #1a1a1a;
-  font-size: 16px;
-}
-
 .activity-stream-timestamp {
-  white-space: nowrap;
+    left: 0;
+    min-width: 18ch;
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
 }
 
-.activity-stream-content { 
-  min-width: 0; 
+.activity .item {
+  margin: 0 0 20px 0;
+    padding-left: calc(18ch + 1rem);
+    position: relative;
 }
 
-.activity-stream-description {
-  min-width: 0;
-}
-
-.activity-stream-description img { 
-  display: none; 
-}
-
-.activity-stream-actions { 
-  margin-top: 4px; 
-  font-size: 14px; 
-} 
-
-.activity-stream-action-separator { 
-  margin: 0 8px;
+.activity {
+  background: none;
 }
 
 @media screen and (max-width: 40em) {
-  .activity-stream-row {
-    grid-template-columns: 1fr;
-    row-gap: 4px;
+  .activity {
+    margin-top: 16px;
   }
 
-  .activity-stream-timestamp {
-    white-space: normal;
+    .activity-stream-timestamp {
+      display: block;
+      min-width: 0;
+      margin-bottom: 0.25rem;
+      position: static;
+      top: auto;
+      left: auto;
+    }
+
+    .activity .item {
+      padding-left: 0;
+    }
   }
-}
