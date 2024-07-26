@@ -778,36 +778,6 @@
       ]
     }, 
     {
-      "field_name": "contains_geographic_markers",
-      "label": {
-        "en": "Contains geographic markers",
-        "fr": "Avec des informations géographiques"
-      },
-      "help_inline" : true,
-      "help_text": {
-        "en": "Does this resource have mappable information (e.g., latitude and longitude coordinates, mappable shape information)?"
-      }, 
-      "classes": ["form-group","col-md-12"],
-      "preset": "select",
-      "validators": "boolean_validator",
-      "choices": [
-        {
-          "value": "true",
-          "label": {
-            "en": "True",
-            "fr": "Vrai"
-          }
-        },
-        {
-          "value": "false",
-          "label": {
-            "en": "False",
-            "fr": "Faux"
-          }
-        }
-      ]
-    },
-    {
       "field_name": "publically_available_date",
       "label": {
         "en": "Data made public date",
@@ -866,28 +836,6 @@
       "preset": "date",
       "validators": "ignore_missing isodate convert_to_json_if_date",
       "form_placeholder": "yyyy-mm-dd"
-    },
-    {
-      "field_name": "data_birth_date",
-      "label": {
-        "en": "Data birth date",
-        "fr": "La date à laquelle les données ont été créées"
-      },
-      "help_inline" : true,
-      "help_text": {
-        "en": "The date this resource was first created (outside of any system)"
-      }, 
-      "classes": ["form-group","col-md-12"],
-      "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date",
-      "form_placeholder": "yyyy-mm-dd"
-    },
-    {
-      "field_name": "version",
-      "label": "Version",
-      "form_placeholder": "1.0",
-      "validators": "ignore_missing unicode package_version_validator",
-      "classes": ["form-group","col-md-12"]
     }
   ]
 }
