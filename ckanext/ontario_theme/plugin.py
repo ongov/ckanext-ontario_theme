@@ -802,6 +802,16 @@ def sort_accented_characters(french_dict, primary_key, secondary_key=None,
     return sorted_list
 
 
+def get_dict_from_id(id, action, alt_title):
+    lang = request.environ['CKAN_LANG']
+    field = 'title'
+    try:
+        data_dict = toolkit.get_action(action)(None, {'id': id})
+    except ckan.logic.NotFound:
+        return alt_title
+    return get_translated_lang(data_dict, field, lang)
+
+
 def num_resources_filter_scrub(search_params):
     u'''Remove any quotes around num_resources value to enable prober filter
     query.
@@ -1043,7 +1053,8 @@ type data_last_updated
                 'ontario_theme_abbr_localised_filesize': abbr_localised_filesize,
                 'ontario_theme_get_facet_options': get_facet_options,
                 'ontario_theme_site_title': site_title,
-                'ontario_theme_get_current_year': get_current_year
+                'ontario_theme_get_current_year': get_current_year,
+                'ontario_theme_get_dict_from_id': get_dict_from_id
                 }
 
     # IBlueprint

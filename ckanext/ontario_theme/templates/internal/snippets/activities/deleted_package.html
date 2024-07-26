@@ -1,0 +1,14 @@
+{% set package = activity.data.package %}
+{% do package.update({
+  "title": h.ontario_theme_get_dict_from_id(
+    id=activity.object_id,
+    action="package_show",
+    alt_title=package.title) }) %}
+<li class="item {{ activity.activity_type|replace(' ', '-')|lower }}">
+  <span class="activity-stream-timestamp">
+    {{ h.render_datetime(activity.timestamp) }}
+  </span>
+  {{ _('{dataset} dataset was deleted').format(
+    dataset=ah.dataset(activity)
+  )|safe }}
+</li>

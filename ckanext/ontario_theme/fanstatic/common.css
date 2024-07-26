@@ -3603,3 +3603,21 @@ label::after {
 .popular-datasets-404 li {
   padding-bottom: 8px;
 }
+
+.activity-stream-timestamp {
+  margin-right: 1rem;
+}
+
+.activity .item {
+  margin: 0 0 20px 0;
+}
+
+.activity {
+  background: none;
+}
+
+@media screen and (max-width: 40em) {
+  .activity {
+    margin-top: 16px;
+  }
+}
