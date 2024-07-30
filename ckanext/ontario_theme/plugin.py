@@ -807,7 +807,7 @@ def get_dict_from_id(id, action, alt_title):
     field = 'title'
     try:
         data_dict = toolkit.get_action(action)(None, {'id': id})
-    except ckan.logic.NotFound:
+    except (ckan.logic.NotFound, ckan.logic.NotAuthorized):
         return alt_title
     return get_translated_lang(data_dict, field, lang)
 
