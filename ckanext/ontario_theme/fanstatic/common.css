@@ -407,9 +407,6 @@ input[type="reset"].ontario-search-reset:focus {
   }
 
   .search-form .control-order-by {
-    order: 4;
-    /* Displays Order By menu below count text */
-    display: flex;
     justify-content: end;
     padding-top: 33px;
 
@@ -418,6 +415,7 @@ input[type="reset"].ontario-search-reset:focus {
     padding-right: 1rem;
     margin-left: -20px;
     margin-right: -1rem;
+    padding-bottom: 16px;
   }
 
   #group-datasets-search-form.search-form .control-order-by,
@@ -434,25 +432,21 @@ input[type="reset"].ontario-search-reset:focus {
 
   .search-form .control-order-by .form-control {
     font-size: 16px;
-    height: 36px;
-    /* increase height to accommodate larger font size */
   }
 
   .search-form .control-order-by.search-page-select .ontario-label {
     width: unset;
     padding-top: 10px;
   }
-
-  .search-form .control-order-by .form-control {
-    height: unset;
-  }
 }
 
 /* child div 2: shows Order By dropdown menu.
-  Note: clearance for menu below the gray box controlled by
-  bottom margin in external/ontario_theme.css LINE 759
-  */
-
+    Note: clearance for menu below the gray box controlled by
+    bottom margin in external/ontario_theme.css LINE 759
+    */
+.search-form .control-order-by {
+  display: flex;
+}
 
 #group-datasets-search-form,
 #organization-datasets-search-form {
@@ -471,13 +465,21 @@ input[type="reset"].ontario-search-reset:focus {
   padding-bottom: 0;
 }
 
-/* child div 3: shows search keywords just below searchbar */
+.search-form .control-order-by label {
+  font-size: 19px;
+  padding-top: 5px;
+  /* used to centre label beside menu box */
+}
+
+.search-form .control-order-by .form-control {
+  font-size: 16px;
+  height: unset;
+  /* increase height to accommodate larger font size */
+}
+
 .filter-list {
-  order: 3;
-  display: flex;
-  justify-content: end;
+  display: inline-grid;
   padding-bottom: 10px;
-  /* needed to avoid being squished in mobile mode*/
 }
 
 .show-filters.ontario-button,
@@ -534,57 +536,94 @@ input[type="reset"].ontario-search-reset:focus {
 }
 
 .search-form .filter-list {
+  margin: unset;
   color: #000;
-  margin-right: -14px;
-  margin-top: 0;
   flex-wrap: wrap;
+  order: 5;
 }
 
-.pill a.remove {
-  font-size: 20px;
+.search-form .filter-list a:hover.pill {
+  color: #000;
+  background-color: #d8d8d8;
+  border: solid 1px #000;
 }
 
-.pill a:visited {
+a:visited.pill {
   color: unset;
 }
 
-.pill a {
+
+a.pill {
   margin: auto;
-  margin-left: 5px;
+  text-decoration: none;
 }
 
 .pill-contents {
   display: flex;
-  padding: 0 10px;
+  align-items: center;
+}
+
+.pill-contents svg {
+  margin-left: 10px;
+  margin-bottom: unset;
+  height: 22px;
+  width: 22px;
 }
 
 .search-form .filter-list .pill {
-  line-height: 25.6px;
-  background-color: #666666;
-  margin-right: 14px;
-  padding: 5px 10px;
+  background-color: #fff;
+  border: solid 1px #666666;
+  color: #4d4d4d;
+  margin-right: 10px;
+  padding: 6px 15px;
   text-align: left;
   margin-bottom: 5px;
-  border-radius: 52px;
 }
 
-.facet-row {
-  text-align: right;
+@media screen and (min-width: 39.9375em) {
+  .facet-row {
+    margin-bottom: 10px;
+    margin-top: 5px;
+  }
+
+  .search-form .filter-list {
+    font-size: 20px;
+    margin: 0 -20px;
+    padding: 10px 20px;
+    background-color: #fff;
+  }
+
+  /* child div 4: shows filters just below sort by dropdown */
+  .filter-list {
+    display: unset;
+  }
+
+  #clear-filters-button {
+    margin: unset;
+  }
+
+  .search-form .filter-list .nowrap {
+    white-space: nowrap;
+  }
 }
 
 @media screen and (max-width: 39.9375em) {
-  .facet-row {
-    display: block;
-    float: right;
-  }
-
-  .facet {
-    padding-right: 5px;
-  }
-
   .search-form .filter-list .pill {
     margin-right: unset;
+    margin-top: 10px;
+    background-color: #f2f2f2;
+    border: solid 1px #000;
+    color: #000;
+    line-height: 25.6px;
   }
+
+  #clear-filters-button {
+    margin-top: 10px;
+  }
+}
+
+#clear-filters-button {
+  display: none;
 }
 
 .show-filters,
@@ -592,7 +631,8 @@ input[type="reset"].ontario-search-reset:focus {
   margin-right: unset;
 }
 
-.show-sort-by.ontario-button {
+.show-sort-by.ontario-button,
+.show-filters.ontario-button {
   margin-bottom: 15px;
 }
 
@@ -1893,6 +1933,11 @@ via submission form. Copied from DS.*/
   float: right;
 }
 
+.resource-main h1 {
+  margin-top: unset;
+  overflow-wrap: break-word
+}
+
 @media screen and (max-width: 73em) {
   .right-col {
     clear: left;
@@ -1922,12 +1967,20 @@ via submission form. Copied from DS.*/
     padding-bottom: 0;
     margin: 40px 0 0;
   }
+
+  .right-col .module-narrow.data-api,
+  .right-col .module-narrow:last-child {
+    margin: 40px 0 0 0;
+  }
 }
 
 .resource-aside .module-narrow:first-child {
   margin: 0 0 40px 0;
 }
 
+.resource-aside .module-narrow:only-child {
+  margin: 0;
+}
 
 .module-narrow {
   background: #f2f2f2;
@@ -1944,6 +1997,11 @@ via submission form. Copied from DS.*/
 
   .resource-info {
     display: flow-root;
+  }
+
+  .dataset-main .page-header {
+    margin-top: 0;
+    margin-bottom: 20px;
   }
 }
 
@@ -2115,8 +2173,7 @@ section#dataset-resources > h2 {
    Custom overrides - links
    ======================================================================== */
 a.heading:hover,
-ul.nav-tabs li a:hover,
-.table-of-contents a:hover {
+ul.nav-tabs li a:hover {
   text-decoration: underline;
 }
 
@@ -2127,7 +2184,6 @@ a.btn-primary,
 a.heading,
 a.tag,
 ul.nav-tabs li a,
-.table-of-contents a,
 .nav-item a {
   text-decoration: none;
 }
@@ -2183,6 +2239,19 @@ a.ontario-button.ontario-button--tertiary:hover {
 .datafile-p {
   font-size: 16px;
   line-height: 27.24px;
+}
+
+@media screen and (max-width: 73.063em) {
+  .break-all {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-word;
+  }
+
+  .break-all-parent {
+    width: 100vw !important;
+  }
 }
 
 /* Make API help panel wide enough to fit all elements */
@@ -2565,44 +2634,112 @@ screen and (min-width: 96em) {
 }
 
 /* ========================================================================
-   About and Help page - On this page
+   In-page navigation - Design System
    ======================================================================== */
-ol.table-of-contents {
-  list-style-position: outside;
-  margin-left: 1.5em;
+.ontario-page-navigation-header {
+  font-style: normal;
+  font-weight: 700;
+  text-rendering: optimizeLegibility;
+  margin-bottom: 1rem;
+  font-feature-settings: normal;
+  font-family: "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.ontario-page-navigation-header {
+  font-size: 1.4375rem;
+  letter-spacing: .02rem;
+  line-height: 1.39;
+  margin: 0 0 .75rem 0;
+  max-width: 48rem;
+}
+
+@media screen and (min-width: 40em) {
+  .ontario-page-navigation-header {
+    font-size: 1.75rem;
+    letter-spacing: .02rem;
+    line-height: 1.43;
+  }
+}
+
+.ontario-page-navigation {
+  border-top: 3px solid #1a1a1a;
+  padding: 0;
+  max-width: 46rem;
+}
+
+.ontario-page-navigation--no-top-border {
+  border-top: none;
+}
+
+.ontario-page-navigation--full {
+  border-top: 3px solid #1a1a1a;
+  max-width: 100%;
+}
+
+.ontario-page-navigation-content {
+  padding: 2.5rem 0;
+  max-width: 46rem;
+}
+
+.ontario-page-navigation-content--full {
+  padding-top: 2.5rem;
+  max-width: 100%;
+}
+
+.ontario-page-navigation-header {
+  margin-bottom: 0
+}
+
+.ontario-page-navigation-list {
+  padding: 0;
+  padding-left: 1.25rem;
+  margin: 0;
+  margin-top: 1rem;
+  list-style-type: disc
+}
+
+.ontario-page-navigation-list__item {
+  padding-bottom: 1.25rem;
   padding-left: 0;
 }
 
-ul.table-of-contents {
-  list-style-type: none;
+.ontario-page-navigation-list__item > a.ontario-page-navigation-item__link {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.6rem;
+  font-weight: 600;
+  font-style: normal;
   margin-left: 0;
-  padding: 0;
+  text-decoration: none;
 }
 
-.table-of-contents {
-  margin-bottom: 1.25rem;
-  columns: 2 21rem;
-  column-gap: 2.5rem;
+.ontario-page-navigation-list__item > a.ontario-page-navigation-item__link:hover {
+  text-decoration: underline
 }
 
-.table-of-contents li {
-  break-inside: avoid;
-  padding: 0 0 0.75rem 0.25rem;
+.ontario-page-navigation-columns {
+  display: flex;
+  flex-direction: row
 }
 
-h2.ontario-small {
-  font-size: 1.25rem;
+@media screen and (max-width: 40em) {
+  .ontario-page-navigation-columns {
+    flex-direction: column;
+  }
 }
 
-.article-intro {
-  margin: 0 auto 1.5rem auto;
-  border-bottom: 4px solid #1a1a1a;
-  text-align: left;
+.ontario-page-navigation-col {
+  flex: 1
 }
 
-.toc-hr {
-  margin: 1rem 0;
-  border-bottom: 4px solid #d9d9d9;
+/* ========================================================================
+   Misc - About page
+   ======================================================================== */
+
+.metadata-item:last-of-type {
+  border-bottom: unset;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 #about h2[id],
@@ -2612,12 +2749,6 @@ h2.ontario-small {
   max-width: 100%;
   padding-top: 2.5rem;
   margin-top: 2.5rem;
-}
-
-#about h2[id].first-h2,
-.article-container h2[id].first-h2 {
-  border-top: 0;
-  padding-top: 0;
 }
 
 .module h1 {
@@ -3475,7 +3606,7 @@ label::after {
 .res-additional-info-th,
 .res-additional-info-td {
   display: table-cell;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .dataset-label.package-additional-info-th,
@@ -3516,7 +3647,7 @@ label::after {
 
   .dataset-details.package-additional-info-td,
   .res-additional-info-td {
-    padding: 5px 0;
+    padding: 5px 5px;
   }
 
   .dataset-label.package-additional-info-th,
@@ -3529,6 +3660,72 @@ label::after {
 .notes.embedded-content.dataset-font p a,
 .dataset-details.package-additional-info-td > a {
   word-break: break-word;
+}
+
+/* ========================================================================
+   Sort by - modal and button
+   ======================================================================== */
+
+.sort-by-options {
+  font-size: 18px;
+  list-style: none;
+  margin: 8px 16px 8px 0;
+}
+
+.sort-by-options a {
+  text-decoration: none;
+  color: #000;
+  display: block;
+  padding: 10px;
+}
+
+.sort-by-options a:hover {
+  background-color: #d1d1d1;
+}
+
+.sort-by ul {
+  padding: 0;
+}
+
+.sort-by {
+  padding: 16px;
+  background-color: #f2f2f2;
+}
+
+.sort-by-options.selected a {
+  color: #fff;
+  font-weight: 700;
+}
+
+.sort-by-options.selected {
+  background-color: #666666;
+}
+
+.sort-by-modal-header {
+  justify-content: space-between;
+  display: flex;
+}
+
+.sort-by-modal-header .ontario-h5 {
+  margin-top: 10px;
+}
+
+.sort-by-close {
+  height: 24px;
+}
+
+/* Error 404 page */
+.popular-datasets-404 {
+  padding: unset;
+  list-style: none;
+}
+
+.error-content {
+  margin-top: 60px;
+}
+
+.popular-datasets-404 li {
+  padding-bottom: 8px;
 }
 
 /* ========================================================================
@@ -3660,61 +3857,4 @@ label::after {
   display: flex;
   align-items: baseline;
   column-gap: 10px;
-
-  Sort by - modal and button========================================================================*/ .sort-by-options {
-    font-size: 18px;
-    list-style: none;
-    margin: 8px 16px 8px 0;
-  }
-
-  .sort-by-options a {
-    text-decoration: none;
-    color: #000;
-    display: block;
-    padding: 10px;
-  }
-
-  .sort-by ul {
-    padding: 0;
-  }
-
-  .sort-by {
-    padding: 16px;
-    background-color: #f2f2f2;
-  }
-
-  .sort-by-options.selected a {
-    color: #fff;
-    font-weight: 700;
-  }
-
-  .sort-by-options.selected {
-    background-color: #666666;
-  }
-
-  .sort-by-modal-header {
-    justify-content: space-between;
-    display: flex;
-  }
-
-  .sort-by-modal-header .ontario-h5 {
-    margin-top: 10px;
-  }
-
-  .sort-by-close {
-    height: 24px;
-  }
-
-  /* Error 404 page */
-  .popular-datasets-404 {
-    padding: unset;
-    list-style: none;
-  }
-
-  .error-content {
-    margin-top: 60px;
-  }
-
-  .popular-datasets-404 li {
-    padding-bottom: 8px;
-  }
+}
