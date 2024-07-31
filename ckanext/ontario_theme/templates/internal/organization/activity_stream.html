@@ -1,0 +1,11 @@
+{% ckan_extends %}
+
+{% block subtitle %}
+  {{ _('History') }} {{ g.template_title_delimiter }} {{ h.get_translated(c.group_dict,"title") }} - {{ _('Ministries') }}
+{% endblock subtitle %} 
+
+{% block primary_content_inner %}
+  <div class="ontario-columns">
+    {% snippet 'snippets/activity_stream.html', activity_stream=activity_stream, id=id, object_type='organization' %}
+  </div>
+{% endblock primary_content_inner %}

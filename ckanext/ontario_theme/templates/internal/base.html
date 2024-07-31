@@ -1,5 +1,22 @@
 {% ckan_extends %}
 
+{%- block title -%}
+  {%- block subtitle %}
+  {% endblock -%}
+  {%- if self.subtitle()|trim %} {{ g.template_title_delimiter }}
+  {% endif -%}
+  {{ h.ontario_theme_site_title() }}
+{%- endblock -%}
+
+{%- block meta -%}
+  {{ super() }}
+  {% block meta_description -%}
+    {% set description = _("Find public data and explore {count} datasets published by the Government of Ontario.") %}
+    <meta name="description"
+          content="{{ description.format(count=h.get_site_statistics().dataset_count) }}">
+  {% endblock meta_description -%}
+{%- endblock -%}
+
 {%- block links -%}
   {{ super() }}
   {% asset "ontario_theme/msappproxy_js" %}

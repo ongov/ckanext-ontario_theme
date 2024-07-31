@@ -639,11 +639,6 @@ div.card p {
   background: #FCAF17;
 }
 
-.c-small-text {
-  padding-top: 0.5rem;
-  font-weight: 400;
-}
-
 .circle-container {
   font-size: 14px;
   font-weight: bold;
@@ -655,7 +650,6 @@ div#topics {
 }
 
 div#topics a {
-  color: #1A1A1A;
   text-decoration: none;
 }
 
@@ -694,13 +688,6 @@ div#topics div.row {
 #about .metadata-item h3 {
   font-size: 1.5rem;
   margin-bottom: 0px;
-}
-
-figure {
-  background-color: #eee;
-  width: 80%;
-  margin: 50px 10%;
-  padding: 10px;
 }
 
 figure img,
@@ -751,16 +738,6 @@ body,
 .ie7 .main {
   background-image: none;
   background-color: #fff;
-}
-
-@media (min-width: 768px) {
-
-  [role=main],
-  .main {
-    padding-top: 10px;
-    background-image: none;
-    background-color: transparent;
-  }
 }
 
 div.add-dataset {
@@ -832,12 +809,6 @@ li.resource-item div.btn-wrapper {
   line-height: 1rem;
 }
 
-.learn-more {
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 26px;
-}
-
 .fill-sky {
   fill: #00B2E3;
 }
@@ -879,35 +850,6 @@ li.resource-item div.btn-wrapper {
 /* =====================================================
    Layout changes
    ===================================================== */
-.wrapper {
-  background-image: none;
-  border: none;
-  box-shadow: none;
-}
-
-.wrapper header.page-header {
-  border: none;
-  background: none;
-}
-
-.wrapper header.page-header ul.nav.nav-tabs {
-  width: 100%;
-}
-
-.wrapper header.page-header ul.nav.nav-tabs li a {
-  color: #666666;
-  border: none;
-}
-
-.wrapper header.page-header ul.nav.nav-tabs li a:hover {
-  border: none;
-}
-
-.wrapper header.page-header ul.nav.nav-tabs li.active a {
-  border: none;
-  border-bottom: solid 2px #1080A6;
-  color: #1080A6;
-}
 
 .module-heading {
   border-top: none;
@@ -953,23 +895,9 @@ li.resource-item div.btn-wrapper {
   font-size: 2.2rem;
 }
 
-#news {
-  color: #000000;
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
 
 #news img {
   width: 100%;
-}
-
-#news ul a {
-  color: #000000;
-  text-decoration: none;
-}
-
-#news ul a:hover {
-  text-decoration: underline;
 }
 
 #news .dataset-list h2 {
@@ -1011,15 +939,6 @@ section.additional-info table.table tbody tr td {
 
 .media-grid {
   border: none;
-}
-
-.banner-datasets {
-  padding-left: 25px;
-}
-
-.banner-section {
-  background: #F2F2F2;
-  width: 100%;
 }
 
 .banner-section a {
@@ -1219,10 +1138,6 @@ footer.site-footer div.footer-swoosh--right {
 
 footer.site-footer .ckan-footer-logo {
   background: url(/base/images/ckan-logo-footer_dark.png) no-repeat top left;
-}
-
-#resources_and_information {
-  margin-top: 51px;
 }
 
 #resources_and_information h2 {

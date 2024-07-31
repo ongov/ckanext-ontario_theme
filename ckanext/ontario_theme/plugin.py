@@ -2,6 +2,7 @@
 
 import ckan.plugins as plugins
 from ckanext.ontario_theme import validators
+from ckanext.ontario_theme import page
 import ckan.plugins.toolkit as toolkit
 from ckan.lib.plugins import DefaultTranslation
 
@@ -21,6 +22,8 @@ import ckan.lib.helpers as helpers
 import ckan.lib.formatters as formatters
 from ckan.lib.helpers import core_helper
 
+from natsort import humansorted
+
 from ckan.model import Package
 import ckan.model as model
 import locale
@@ -28,6 +31,7 @@ import functools
 
 from ckanext.ontario_theme.resource_upload import ResourceUpload
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
+from ckanext.ontario_theme.organization import index as organization_index
 
 # For Image Uploader
 #from ckan.controllers.home import CACHE_PARAMETERS
@@ -176,11 +180,6 @@ def resource_display_name(resource_dict):
         return helpers._("Supporting file")
 
 ckan.lib.helpers.resource_display_name = resource_display_name
-
-def help():
-    '''New help page for site.
-    '''
-    return render_template('home/help.html')
 
 
 def csv_dump():
@@ -373,12 +372,12 @@ def get_group(group_id):
     return group_dict
 
 def get_group_datasets(group_id):
-    '''Helper to return 10 of the most popular datasets in the desired group
+    '''Helper to return 3 of the most popular datasets in the desired group
     '''
     group_id = 'groups:{}'.format(group_id)
     group_datasets = toolkit.get_action('package_search')(
         data_dict={ 'fq': group_id,
-                    'rows': 10,
+                    'rows': 3,
                     'sort': 'views_recent desc'})
     return group_datasets['results']
 
@@ -540,85 +539,45 @@ def get_all_packages(**kwargs):
 
     return package_search['results']
 
-def get_all_organizations(**kwargs):
-    '''Helper function to returns the full list of organizations 
-    output from a keyword search (or all organizations in the 
-    case of no search). In the search page, only the paginated 
-    number of organizations for the current page is available, 
-    which prohibits application of any custom sorting since that 
-    needs the full list.
-
-    collection_names
-        An array of short-hand (hyphenated) organization names 
-        (e.g. 'attorney-general') for all items returned from the 
-        search. If no search performed, includes all items.
-        Passed from c.page.collection.
-
-    '''
-    collection_names=kwargs['collection_names']    
-
-    # Get the id of all organizations in the catalogue.
-    all_organization_names = toolkit.get_action('organization_list')(data_dict={})
-    
-    # When there are no organizations in the catalogue (e.g. when application is 
-    # first installed and database not yet indexed), the below try will fail and
-    # and empty array will be returned, preventing the template from calling 
-    # the sort method on organizations.
-    try:
-        this_name = all_organization_names[0]
-        if toolkit.get_action('organization_show')(data_dict={'id':this_name}):
-            # Filter only those organizations whose names matching those in 
-            # collection_names. Then use helper function h.get_organization() 
-            # to extract the full details for each organization, matching on 'id'.
-            org_array = []
-            for name in collection_names:
-                for idx in range(len(all_organization_names)):
-                    if name == all_organization_names[idx]:
-                        organization_obj = toolkit.get_action('organization_show')(data_dict={'id':name})
-                        organization_id = organization_obj['id']
-                        org_array.append(h.get_organization(organization_id))
-    except:
-        org_array = []
-
-    return org_array
 
 def sort_by_title_translated(item_list, **kwargs):
-    '''Helper function to sort an array of items by the 
-    'title_translated' dict according to the current language. 
-    If this dict does not exist, 'title' is used to sort since 
+    '''Helper function to sort an array of items by the
+    'title_translated' dict according to the current language.
+    If this dict does not exist, 'title' is used to sort since
     'title' always exists.
 
     item_list
         List of items to be sorted.
 
     current_page
-        Current page in the pagination. Passed through c.page.page. 
-    
+        Current page in the pagination. Passed through c.page.page.
+
     items_per_page
         Max number of items per page. Defined in ckan/controllers/package.py
-        as int(config.get('ckan.datasets_per_page', 20)). 
+        as int(config.get('ckan.datasets_per_page', 20)).
         Passed through c.page.items_per_page.
 
     lang
         Current language. Pass through request.environ.CKAN_LANG.
 
     reverse
-        Sort direction. Determined through `asc` or `desc` in request.params['sort']. 
+        Sort direction. Determined through `asc` or `desc` in
+        request.params['sort'].
 
     '''
     field = 'title_translated'
-    current_page=kwargs['current_page']
-    items_per_page=kwargs['items_per_page']
+    current_page = kwargs['current_page']
+    items_per_page = kwargs['items_per_page']
     lang = kwargs['lang']
     reverse = kwargs['reverse']
 
     # Sort item_list by translated title
-    sorted_items = sorted(item_list, 
-                             key=lambda x: x[field][lang].strip() if (field in x and lang in x[field]) else x['title'], 
-                             reverse=reverse)
+    sorted_items = sort_accented_characters(item_list, field, lang, 'title',
+                                            reverse)
 
     # Return subset of sorted_items as per the current pagination page
     return paginate_items(sorted_items, current_page, items_per_page)
+
 
 def get_popular_datasets():
     '''Helper to return most popular datasets, based on ckan core tracking feature
@@ -641,26 +600,10 @@ def get_license(license_id):
     '''
     return Package.get_license_register().get(license_id)
 
-def order_package_facets(orig_ordered_dict):
-    ''' Returns an OrderedDict of package facets in the order
-    that they should appear in the left panel of the Datasets
-    page.
 
-    '''
-    # Order that facets should appear in left panel
-    facet_order = ['organization', 'res_format', 'access_level', 'update_frequency', 'license_id',
-                   'asset_type', 'groups',
-                   'organization_jurisdiction', 'organization_category',
-                   'keywords_en', 'keywords_fr',
-                  ]
+def get_current_year():
+    return datetime.datetime.today().strftime('%Y')
 
-    facet_titles_reorg = list()
-    for facet in facet_order:
-        for idx in range(len(orig_ordered_dict)):
-            if list(orig_ordered_dict)[idx]==facet:
-                facet_titles_reorg.append((facet, orig_ordered_dict[facet]))
-
-    return OrderedDict(facet_titles_reorg)
 
 def extract_package_name(url):
     ''' Returns the package name or gets resource name if url is for
@@ -790,6 +733,25 @@ def get_date_range(date_start, date_end):
 
     return date_range
 
+
+def get_facet_options():
+    '''Gets config search facet options.
+    default
+        search.facets.default
+        config option for default number of facets shown in search results
+        Returns '10' by default.
+    limit
+        search.facets.limit
+        config option that sets the default number of searched facets
+        returned in a query
+        Returns '50' by default.
+    :rtype: dict
+    '''
+    default = config.get('search.facets.default', 10)
+    limit = config.get('search.facets.limit', 50)
+    return {'limit': limit, 'default': default}
+
+
 def default_locale():
     '''Wrap the ckan default locale in a helper function to access
     in templates.
@@ -799,12 +761,46 @@ def default_locale():
     value = config.get('ckan.locale_default', 'en')
     return value
 
-def sort_accented_characters(french_list, primary_key=None):
+
+def sort_accented_characters(french_dict, primary_key, secondary_key=None,
+                             tertiary_option=None, reverse=False):
+    '''Sorts a dict containing accented and different cased letters
+
+    french_dict
+        Dict in French containing accented characters and different
+        cased letters.
+    primary_key
+        Key of key:value pair, where the string containing accented
+        characters is the value.
+        (E.g. {"label_fr": "Justice et sécurité publique"})
+    secondary_key
+        Key of nested dictionary key:value pair, where
+        the string containing accented characters is the value.
+        (E.g. {'title_translated': {'en': 'Justice and Public Safety',
+                                    'fr': 'Justice et sécurité publique'}})
+    tertiary_option
+        Optional key for cases where a secondary key value is missing
+        from the nested dictionary. The optional key should be used
+        in place of primary_key and secondary_key.
+        (E.g. {'title': 'Justice and Public Safety',
+               'title_translated': {'en': 'Justice and Public Safety',
+                                    'fr': ''}})
+    reverse
+        Direction of sort, ascending or descending. Set to False (asc)
+        by default.
+    '''
     locale.setlocale(locale.LC_ALL, "")
-    def compare_keys(item1, item2):
-        return locale.strcoll(item1[primary_key], item2[primary_key])
-    sorted_list = sorted(french_list, key=functools.cmp_to_key(compare_keys))
+
+    def get_key(item):
+        if secondary_key and tertiary_option:
+            return item[primary_key][secondary_key].strip()if (primary_key in item and secondary_key in item[primary_key]) else item[tertiary_option]
+        elif secondary_key:
+            return item[primary_key][secondary_key]
+        else:
+            return item[primary_key]
+    sorted_list = humansorted(french_dict, key=get_key, reverse=reverse)
     return sorted_list
+
 
 def num_resources_filter_scrub(search_params):
     u'''Remove any quotes around num_resources value to enable prober filter
@@ -831,6 +827,16 @@ def num_resources_filter_scrub(search_params):
 
     return search_params
 
+
+def site_title():
+    '''Helper to make the new site title configuration available to templates.
+    Returns the ckan English site title and our custom French site title.
+    '''
+    if config.get('ckanext.ontario_theme.site_title_fr') and h.lang() == 'fr':
+        value = config.get('ckanext.ontario_theme.site_title_fr')
+    else:
+        value = config.get('ckan.site_title')
+    return value
 
 def home_block(block='one'):
     '''Helper to make the new configuration available to templates.
@@ -942,6 +948,9 @@ type data_last_updated
         remove_whitespace = toolkit.get_converter('remove_whitespace')
 
         schema.update({
+            'ckanext.ontario_theme.site_title_fr':          [ignore_missing,
+                                                             ignore_not_sysadmin,
+                                                             unicode_safe],
             # Custom configuration options for home page content.
             'ckanext.ontario_theme.home_block_one-en':      [ignore_missing,
                                                              ignore_not_sysadmin,
@@ -1017,7 +1026,6 @@ type data_last_updated
     def get_helpers(self):
         return {'ontario_theme_get_license': get_license,
                 'ontario_theme_extract_package_name': extract_package_name,
-                'ontario_theme_order_package_facets': order_package_facets,
                 'ontario_theme_get_translated_lang': get_translated_lang,
                 'ontario_theme_get_popular_datasets': get_popular_datasets,
                 'ontario_theme_get_group': get_group,
@@ -1030,10 +1038,12 @@ type data_last_updated
                 'ontario_theme_get_group_datasets': get_group_datasets,
                 'ontario_theme_get_keyword_count': get_keyword_count,
                 'ontario_theme_get_all_packages': get_all_packages,
-                'ontario_theme_get_all_organizations': get_all_organizations,
                 'ontario_theme_sort_by_title_translated': sort_by_title_translated,
                 'ontario_theme_sort_accented_characters': sort_accented_characters,
-                'ontario_theme_abbr_localised_filesize': abbr_localised_filesize
+                'ontario_theme_abbr_localised_filesize': abbr_localised_filesize,
+                'ontario_theme_get_facet_options': get_facet_options,
+                'ontario_theme_site_title': site_title,
+                'ontario_theme_get_current_year': get_current_year
                 }
 
     # IBlueprint
@@ -1061,13 +1071,13 @@ type data_last_updated
 
         # Add url rules to Blueprint object.
         rules = [
-            (u'/help', u'help', help),
             (u'/dataset/inventory', u'inventory', csv_dump)
         ]
 
         for rule in rules:
             blueprint.add_url_rule(*rule)
         blueprint.add_url_rule('/dataset/new', view_func=OntarioThemeCreateView.as_view(str(u'new')), defaults={u'package_type': u'dataset'})
+        blueprint.add_url_rule(u'/organization', view_func=organization_index, strict_slashes=False)
         return blueprint
 
     # IUploader
@@ -1078,19 +1088,23 @@ type data_last_updated
     # IFacets
 
     def dataset_facets(self, facets_dict, package_type):
-        '''Add new search facet (filter) for datasets.
+        '''Add new search facet dictionary for datasets.
         '''
-        facets_dict['access_level'] = toolkit._('Access Level')
-        facets_dict['asset_type'] = toolkit._('Asset Type')
-        facets_dict['update_frequency'] = toolkit._('Update Frequency')
-        facets_dict['keywords_en'] = toolkit._('Topics')
-        facets_dict['keywords_fr'] = toolkit._('Topics')
-        facets_dict['license_id'] = toolkit._('Licences')
-        facets_dict['organization'] = toolkit._('Ministries')
-        facets_dict.pop('tags', None) # Remove tags in favor of keywords
-        facets_dict['organization_jurisdiction'] = toolkit._('Jurisdiction')
-        facets_dict['organization_category'] = toolkit._('Category')
-        return facets_dict
+        reordered_facet_dict = OrderedDict({
+            'keywords_en': toolkit._('Topics'),
+            'keywords_fr': toolkit._('Topics'),
+            'organization': toolkit._('Ministries'),
+            'res_format': toolkit._('Formats'),
+            'access_level': toolkit._('Access level'),
+            'update_frequency': toolkit._('Update frequency'),
+            'license_id': toolkit._('Licences'),
+            'asset_type': toolkit._('Asset type'),
+            'groups': toolkit._('Groups'),
+            'organization_jurisdiction': toolkit._('Jurisdiction'),
+            'organization_category': toolkit._('Category')
+        })
+
+        return reordered_facet_dict
 
     def group_facets(self, facets_dict, group_type, package_type):
         u'''Modify and return the ``facets_dict`` for a group's page.
@@ -1110,6 +1124,11 @@ type data_last_updated
         u'''Extensions will receive a dictionary with the query parameters,
         and should return a modified (or not) version of it.
         '''
+        sort = search_params.get('sort')
+        if sort and 'titles' in sort:
+            title_sorted = 'fr' if h.lang() == 'fr' else 'en'
+            new_sort = sort.replace('titles', 'title_{}'.format(title_sorted))
+            search_params.update({"sort": new_sort})
         return num_resources_filter_scrub(search_params)
 
     def after_search(self, search_results, search_params):
@@ -1119,6 +1138,10 @@ type data_last_updated
         kw = json.loads(pkg_dict.get('extras_keywords', '{}'))
         pkg_dict['keywords_en'] = kw.get('en', [])
         pkg_dict['keywords_fr'] = kw.get('fr', [])
+
+        title = json.loads(pkg_dict.get('title_translated', '{}'))
+        pkg_dict['title_fr'] = title.get('fr', '')
+        pkg_dict['title_en'] = title.get('en', '')
 
         # Index some organization extras fields from fluent/scheming.
         organization_dict = toolkit.get_action('organization_show')(data_dict={'id': pkg_dict['organization']})
@@ -1159,5 +1182,6 @@ type data_last_updated
        return {
             'lock_if_odc': validators.lock_if_odc,
             'ontario_theme_copy_fluent_keywords_to_tags': validators.ontario_theme_copy_fluent_keywords_to_tags,
-            'ontario_tag_name_validator': validators.tag_name_validator
+            'ontario_tag_name_validator': validators.tag_name_validator,
+            'ontario_strip_fluent_value': validators.strip_fluent_value
        }

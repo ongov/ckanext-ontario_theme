@@ -17,10 +17,7 @@
     {% endblock heading_private %}
 
     {% block heading_title %}
-      {% link_for h.truncate(h.get_translated(package, 'title'), truncate_title),named_route=('%s.read' % package.type), id=package.name %}
-      {% if package.get("asset_type") == "algorithm" %}
-        <div class="label label-info">{{ _('Algorithm/AI') }}</div>
-      {% endif %}
+      {% link_for h.get_translated(package, 'title'), named_route=('%s.read' % package.type), id=package.name %}
       {% if package.get("harvester", False) == 'ontario-data-catalogue' %}
         <div class="badge badge-harvest pull-right" data-harvest={{ package['harvester'] }}>
           {{ _('ON External') }}
@@ -75,11 +72,11 @@
     <p class="empty">{{ _("This dataset has no description") }}</p>
   {% else %}
     <div class="restricted_under_review_packages">
-      <p class="packages_not_available">{{ _('Not available to the public') + _(':') }}</p>
+      <span class="packages_not_available">{{ _('Not available to the public') + _(':') }}</span>
       {% if is_restricted %}
-        <p class="packages_access_level">{{ _('Access to this dataset is restricted') }}</p>
+        <span class="packages_access_level">{{ _('Access to this dataset is restricted') }}</span>
       {% else %}
-        <p class="packages_access_level">{{ _('This dataset is currently under review') }}</p>
+        <span class="packages_access_level">{{ _('This dataset is currently under review') }}</span>
       {% endif %}
     </div>
   {% endif %}

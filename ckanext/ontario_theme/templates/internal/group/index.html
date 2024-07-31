@@ -1,7 +1,16 @@
 {% ckan_extends %}
 
+{% set lead_statement = _("Browse datasets and resources organized by a specific theme or topic.") %}
+
+{% block meta_description -%}
+  <meta name="description" content="{{ lead_statement }}">
+{% endblock meta_description -%}
+
 {% block page_primary_action %}
 {% endblock page_primary_action %}
+
+{% block breadcrumb_content %}
+{% endblock breadcrumb_content %}
 
 {% block pre_primary %}
   <div class="page_primary_action">
@@ -14,11 +23,7 @@
   {% block page_heading %}
     <div class="search-page-heading">
       <h1>{{ _('Groups') }}</h1>
-      <p class="ontario-lead-statement">
-        {% trans %}
-          Browse datasets and resources organized by a specific theme or topic.
-        {% endtrans %}
-      </p>
+      <p class="ontario-lead-statement">{{ lead_statement }}</p>
     </div>
   {% endblock page_heading %}
  
@@ -30,28 +35,30 @@
     {% set form_id = "group-search-form" %}
     {% set type = "group" %}
     {% set searchbar_title = input_text + _(':') %}
+    {% if not sort_by_selected %}
+      {% set sort_by_selected = "name asc" %}
+    {% endif %}
     <form id="{{ form_id }}"
           class="search-form"
           method="get"
           data-module="select-switch"
           novalidate>
       {% snippet 'snippets/search_form.html',
-        searchbar_title=searchbar_title,
-        form_id=form_id,
-        type=type,
-        query=query,
-        sorting_selected=c.sort_by_selected,
-        count=c.page.item_count,
-        placeholder=input_text,
-        show_empty=request.params,
-        no_bottom_border=true if c.page.items, sorting = [(_('Name Ascending'), 'name asc'), (_('Name Descending'), 'name desc')]
-        %}
+      searchbar_title=searchbar_title,
+      form_id=form_id,
+      type=type,
+      query=query,
+      sorting_selected=sort_by_selected,
+      count=c.page.item_count,
+      show_empty=request.params,
+      no_bottom_border=true if c.page.items, sorting = [(_('Name Ascending'), 'name asc'), (_('Name Descending'), 'name desc')]
+      %}
     </form>
   {% endblock groups_search_form %}
 {% endblock pre_primary %}
 
 {% block primary %}
-  <div class="col-sm-9 col-xs-12" role="main">
+  <div class="ontario-column ontario-small-12 ontario-large-9">
     {% block primary_content %}
       <article class="module">
         {% block primary_content_inner %}
@@ -76,6 +83,9 @@
         {% endblock primary_content_inner %}
       </article>
     {% endblock primary_content %}
+  </div>
+  <div class="ontario-column">
+    <div class="ontario-small-12">{% snippet "home/snippets/ontario_theme_contact_us.html" %}</div>
   </div>
 {% endblock primary %}
 

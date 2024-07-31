@@ -21,7 +21,8 @@
       "required": "true",
       "fieldset": 1,
       "fieldset_name": "Describing the resource",
-      "form_snippet": "extrafields_fluent_title.html"
+      "form_snippet": "extrafields_fluent_title.html",
+      "validators": "fluent_text ontario_strip_fluent_value"
     },
     {
       "field_name": "name",
@@ -68,10 +69,10 @@
           }
         },
         {
-          "value": "algorithm",
+          "value": "ai",
           "label": {
-            "en": "Algorithm",
-            "fr": "Algorithme"
+            "en": "Artificial intelligence",
+            "fr": "Intelligence artificielle"
           }
         }
       ]
@@ -113,7 +114,8 @@
       },
       "classes": ["col-md-12","form-group"],      
       "preset": "fluent_text",
-      "form_placeholder": "e.g., Ontario"
+      "form_placeholder": "e.g., Ontario",
+      "display_itemprop": "spatialCoverage"
     },
     {
       "field_name": "geographic_granularity",
@@ -256,6 +258,7 @@
       },
       "preset" : "fluent_core_translated",
       "form_placeholder": "e.g., Joe Bloggs",
+      "display_itemprop": "maintainer",
       "display_property": "dc:contributor",
       "preset": "fluent_text",
       "classes": ["col-md-12","form-group"]
@@ -272,6 +275,7 @@
       },
       "form_placeholder": "e.g., joe@example.com",
       "display_property": "dc:contributor",
+      "display_itemprop": "maintainer",
       "display_snippet": "email.html",
       "display_email_name_field": "maintainer",
       "validators": "ignore_missing email_validator",
@@ -288,6 +292,7 @@
         "en": "Name of a person or organization that originally created the resource. If not known, it will default to your name."
       },
       "form_placeholder": "e.g., Joe Bloggs",
+      "display_itemprop": "creator",
       "display_property": "dc:creator",
       "classes": ["col-md-12","form-group"]
     },
@@ -472,20 +477,6 @@
       "form_placeholder": "e.g., Users will need to register with the website to recieve a login and provide an email address. Visit http://www.example.com/register."
     },
     {
-      "field_name": "license_id",
-      "label": {
-        "en": "Licence",
-        "fr": "Licence"
-      },
-      "form_snippet": "license.html",
-      "default": "OGL-ON-1.0",
-      "help_text": {
-        "en": "Are you releasing this under a licence?",
-        "fr": "Licence s’appliquant au jeu de données"
-      },
-      "classes": ["col-md-12","form-group"]
-    },
-    {
       "field_name": "access_level",
       "label": {
         "en": "Access level",
@@ -494,12 +485,9 @@
       "required": true,
       "form_include_blank_choice": true,
       "help_inline" : true,
-      "fieldset": 6,
-      "fieldset_name": "Open Data Catalogue",
-      "fieldset_subtitle": "If the process to assess this dataset for its appropriateness for the Open Data Catalogue (ontario.ca/data) has started, please fill out these fields. If the process hasn't been started, skip this section.",
       "help_text": {
         "en": "Who can access these resources?"
-      }, 
+      },
       "classes": ["form-group","col-md-12"],
       "preset": "select",
       "validators": "scheming_choices scheming_required",
@@ -528,11 +516,36 @@
       ]
     },
     {
+      "field_name": "license_id",
+      "label": {
+        "en": "Licence",
+        "fr": "Licence"
+      },
+      "form_snippet": "license.html",
+      "default": "OGL-ON-1.0",
+      "help_text": {
+        "en": "All Open datasets need to be released under a licence. Restricted datasets and datasets that are Under review won’t be given a licence.",
+        "fr": "All Open datasets need to be released under a licence. Restricted datasets and datasets that are Under review won’t be given a licence."
+      },
+      "form_attrs": {
+        "data-module": "conditional_field",
+        "data-module-trigger_field": "#field-access_level",
+        "data-module-conditional_option": "restricted,under_review",
+        "data-module-trigger_option": "other-closed",
+        "data-module-default": "OGL-ON-1.0",
+        "style": "width: 100%;"
+      },
+      "classes": ["col-md-12","form-group"]
+    },
+    {
       "field_name": "opened_date",
       "label": {
         "en": "Date Opened",
         "fr": "Date d'ouverture"
       },
+      "fieldset": 6,
+      "fieldset_name": "Open Data Catalogue",
+      "fieldset_subtitle": "If the process to assess this dataset for its appropriateness for the Open Data Catalogue (ontario.ca/data) has started, please fill out these fields. If the process hasn't been started, skip this section.",
       "help_inline" : true,
       "help_text": {
         "en": "When the first resource initially (the actual files) was added to the public-facing Open Data Catalogue."
@@ -768,36 +781,6 @@
       ]
     }, 
     {
-      "field_name": "contains_geographic_markers",
-      "label": {
-        "en": "Contains geographic markers",
-        "fr": "Avec des informations géographiques"
-      },
-      "help_inline" : true,
-      "help_text": {
-        "en": "Does this resource have mappable information (e.g., latitude and longitude coordinates, mappable shape information)?"
-      }, 
-      "classes": ["form-group","col-md-12"],
-      "preset": "select",
-      "validators": "boolean_validator",
-      "choices": [
-        {
-          "value": "true",
-          "label": {
-            "en": "True",
-            "fr": "Vrai"
-          }
-        },
-        {
-          "value": "false",
-          "label": {
-            "en": "False",
-            "fr": "Faux"
-          }
-        }
-      ]
-    },
-    {
       "field_name": "publically_available_date",
       "label": {
         "en": "Data made public date",
@@ -856,28 +839,6 @@
       "preset": "date",
       "validators": "ignore_missing isodate convert_to_json_if_date",
       "form_placeholder": "yyyy-mm-dd"
-    },
-    {
-      "field_name": "data_birth_date",
-      "label": {
-        "en": "Data birth date",
-        "fr": "La date à laquelle les données ont été créées"
-      },
-      "help_inline" : true,
-      "help_text": {
-        "en": "The date this resource was first created (outside of any system)"
-      }, 
-      "classes": ["form-group","col-md-12"],
-      "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date",
-      "form_placeholder": "yyyy-mm-dd"
-    },
-    {
-      "field_name": "version",
-      "label": "Version",
-      "form_placeholder": "1.0",
-      "validators": "ignore_missing unicode package_version_validator",
-      "classes": ["form-group","col-md-12"]
     }
   ]
 }

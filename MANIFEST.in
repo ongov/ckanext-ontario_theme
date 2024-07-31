@@ -1,4 +1,12 @@
 include README.rst
 include LICENSE
-include requirements.txt
-recursive-include ckanext/ontario_theme *.html *.json *.js *.less *.css *.mo
+recursive-exclude ckanext/ontario_theme .gitignore
+recursive-include ./ requirements.txt
+recursive-include ckanext/ontario_theme *.html
+recursive-include ckanext/ontario_theme *.json
+recursive-include ckanext/ontario_theme *.js
+recursive-include ckanext/ontario_theme *.less
+recursive-include ckanext/ontario_theme *.css
+recursive-include ckanext/ontario_theme *.mo
+recursive-include ckanext/ontario_theme *.yml
+recursive-include ckanext/ontario_theme/public *

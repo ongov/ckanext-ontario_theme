@@ -5,8 +5,12 @@
 #}
 {% set url_action = pkg.type ~ ('_resource.edit' if url_is_edit and can_edit else '_resource.read') %}
 {% set url = h.url_for(url_action, id=pkg.id if is_activity_archive else pkg.name, resource_id=res.id, **({'activity_id': request.args['activity_id']} if 'activity_id' in request.args else {})) %}
-<li class="resource-item ontario-row" data-id="{{ res.id }}">
-  <div class="ontario-columns ontario-large-7 ontario-small-12">
+{% set breakall = "break-all" if "https://" in h.resource_display_name(res) %}
+<li class="resource-item ontario-row
+           {% if not can_edit -%}
+           resource-item-div{%- endif -%}"
+    data-id="{{ res.id }}">
+  <div class="resource-title-div">
     {% block resource_item_title %}
       {% if res.format in h.dict_list_reduce(pkg.resources, 'format') and res.format %}
         <div class="label-div">
@@ -20,11 +24,12 @@
         </div>
       {% endif %}
       <div class="resource-info">
-        <a class="resource-item-title"
-          href="{{ url }}"
-          title="{{ res.name or res.description }}">
-          {{ h.resource_display_name(res) | truncate(50) }}
-        </a>
+        {% if can_edit %}
+          <a class="resource-item-title"
+           href="{{ url }}">{{ h.resource_display_name(res) }}</a>
+        {% else %}
+          <span class="{{ breakall }} resource-item-title">{{ h.resource_display_name(res) }}</span>
+        {% endif %}
         {% if res.language %}
           <span class="label label-{{ res.language }}">
             {{ h.scheming_choices_label(
@@ -32,18 +37,14 @@
           </span>
         {% endif %}
         {% if res.size %}
-          <span class="filesize">
-            [{{ h.ontario_theme_abbr_localised_filesize(res.size)|safe }}]
-          </span>
+          <span class="filesize">[{{ h.ontario_theme_abbr_localised_filesize(res.size)|safe }}]</span>
         {% endif %}
       </div>
     {% endblock resource_item_title %}
 
     {% block resource_item_description %}
       {% if res.data_last_updated %}
-        <p class="description details">
-          {{ _("Last Updated") }}: {{ h.render_datetime(res.data_last_updated) }}
-        </p>
+        <p class="description details">{{ _("Last Updated") }}: {{ h.render_datetime(res.data_last_updated) }}</p>
       {% endif %}
       {% if res.description %}
         <p class="description resource-item-description">
@@ -52,56 +53,26 @@
       {% endif %}
     {% endblock resource_item_description %}
   </div>
-  <div class="ontario-columns ontario-large-5 ontario-small-12 text-right">
-    {% block resource_item_explore %}
-      {% if not url_is_edit %}
-        <div class="resource-buttons">
-          {% block resource_item_explore_links %}
-            <a href="{{ url }}"
-               class="resource-button-primary ontario-button ontario-button--primary">
-              <span class="resource-button-text">
-                {% if res.format == "CSV" %}
-                  <i class="fa fa-bar-chart-o"></i>
-                  {{ _('Preview') }}
-                {% else %}
-                  <i class="fa fa-info-circle"></i>
-                  {{ _('About') }}
-                {% endif %}
-              </span>
+  {% block resource_item_explore %}
+    {% if not url_is_edit %}
+      <div class="resource-buttons text-right">
+        {% block resource_item_explore_links %}
+          {% if can_edit %}
+            <a href="{{ url }}" class="ontario-button ontario-button--secondary">{{ _('Explore') }}</a>
+            <a href="{{ h.url_for(pkg.type ~ '_resource.edit', id=pkg.name, resource_id=res.id) }}"
+              class="ontario-button ontario-button--tertiary">
+              <i class="fa fa-pencil-square-o">&nbsp;</i>{{ _('Edit') }}
             </a>
-            {% if res.url and h.is_url(res.url) %}
-              {% asset 'ontario_theme/ontario_theme_download_tracker_js' %}
-              {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
-              {% if pkg.groups %}
-                {% set this_group = pkg.groups[0]['name'] %}
-              {% else %}
-                {% set this_group = "" %}
-              {% endif %}
-              <a href="{{ res.url }}"
-                 class="resource-button-secondary resource-url-analytics ontario-button ontario-button--secondary dataset-download-link"
-                 onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">
-                <span class="resource-button-text">
-                  {% if res.has_views or res.url_type == 'upload' %}
-                    <i class="fa fa-arrow-circle-o-down"></i>
-                    {{ _('Download') }}
-                  {% else %}
-                    <i class="fa fa-external-link"></i>
-                    {{ _('Open') }}
-                  {% endif %}
-                </span>
-              </a>
-            {% endif %}
-            {% set can_edit = h.check_access('package_update', {'id':pkg.id }) and h.check_access('resource_update', res) %}
-            {% if can_edit %}
-              <a href="{{ h.url_for(pkg.type ~ '_resource.edit', id=pkg.name, resource_id=res.id) }}"
-                 class="resource-button-tertiary ontario-button ontario-button--tertiary">
-                <i class="fa fa-pencil-square-o"></i>
-                {{ _('Edit') }}
-              </a>
-            {% endif %}
-          {% endblock resource_item_explore_links %}
-        </div>
-      {% endif %}
-    {% endblock resource_item_explore %}
-  </div>
+          {% else %}
+            <span class="ontario-button ontario-button--secondary">{{ _('Explore') }}</span>
+          {% endif %}
+        {% endblock resource_item_explore_links %}
+      </div>
+    {% endif %}
+  {% endblock resource_item_explore %}
+  {% if not can_edit %}
+    <a href="{{ url }}"
+       class="anchor-div"
+       aria-label="{{ _('Explore') }} {{ h.resource_display_name(res) }}"></a>
+  {% endif %}
 </li>

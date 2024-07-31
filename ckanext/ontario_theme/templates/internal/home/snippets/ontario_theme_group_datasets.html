@@ -1,0 +1,26 @@
+{#
+
+Renders a list of the top 3 most popular datasets in a specified group
+
+group_id: the id of the group
+
+group_title: the name of the group
+#}
+{% set group_datasets = h.ontario_theme_get_group_datasets(group_id) %}
+<div class="ontario-row">
+  <div class="ontario-small-12">
+    <ul class="banner-datasets">
+      {% for dataset in group_datasets %}
+        <li class="c-small-text">
+          <a href="{%- url_for 'dataset.read', id=dataset.name -%}"
+             class="hp_covid">{{ h.get_translated(dataset, "title") }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<div class="show-more">
+  {% trans url=h.url_for('group.read', id=group_id), group_title=group_title %}
+    <a href="{{ url }}">More {{ group_title }}</a>
+  {% endtrans %}
+</div>

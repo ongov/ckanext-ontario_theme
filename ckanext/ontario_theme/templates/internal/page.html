@@ -7,9 +7,11 @@
 
 {%- block content %}
   {% block maintag %}
+    {%- block schema_tag_attr -%}
+    {%- endblock schema_tag_attr %}
     <div class="ontario-row">
-  {% endblock maintag %}
-    <div id="content" class="ontario-small-12 ontario-columns">
+    {% endblock maintag %}
+    <div id="content" class="ontario-small-12 ontario-columns" role="main">
       {% block main_content %}
         {% block flash %}
           {{ super() }}
@@ -18,13 +20,13 @@
         {% block toolbar %}
           <div class="toolbar" role="navigation" aria-label="{{ _('Breadcrumb') }}">
             {% block breadcrumb %}
-              {% if self.breadcrumb_content() | trim %}
-                <ol class="breadcrumb">
-                  {% snippet "snippets/home_breadcrumb_item.html" %}
+              <ol class="breadcrumb">
+                {% snippet "snippets/home_breadcrumb_item.html" %}
+                {% if self.breadcrumb_content() | trim %}
                   {% block breadcrumb_content %}
                   {% endblock breadcrumb_content %}
-                </ol>
-              {% endif %}
+                {% endif %}
+              </ol>
             {% endblock breadcrumb %}
           </div>
         {% endblock toolbar %}
@@ -33,7 +35,7 @@
           {# Custom block for search form. #}
         {% endblock ontario_theme_search_form %}
 
-        <div class="row wrapper
+        <div class="wrapper ontario-row
                     {% block wrapper_class %}
                     {% endblock wrapper_class %}
                     {% if self.secondary()|trim == '' or c.action=='resource_read' %}no-nav{% endif %}">

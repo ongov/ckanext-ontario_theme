@@ -8,8 +8,14 @@ in the core template for search.html.
 #}
 {% ckan_extends %}
 
+{% set lead_statement = _("Search for specific datasets or use filters to explore our data.") %}
+
+{% block meta_description -%}
+  <meta name="description" content="{{ lead_statement }}">
+{% endblock meta_description -%}
+
 {% block ontario_theme_search_form %}
-  <div class="row no-padding">
+  <div class="ontario-row no-padding">
     {# Lifting these block above main content. #}
     {% block page_primary_action %}
       {{ super() }}
@@ -21,6 +27,7 @@ in the core template for search.html.
           {{ _(dataset_type + 's') |capitalize }}
         {% endblock page_heading %}
       </h1>
+      <p class="ontario-lead-statement">{{ lead_statement }}</p>
     </div>
     {% block form %}
       {% set facets = {
@@ -31,11 +38,10 @@ in the core template for search.html.
             'remove_field': c.remove_field } %}
       {% set sorting = [
               (_('Relevance'), 'score desc, metadata_modified desc'),
-              (_('Name Ascending'), 'name asc'),
-              (_('Name Descending'), 'name desc'),
+              (_('Name Ascending'), 'titles asc'),
+              (_('Name Descending'), 'titles desc'),
               (_('Last Modified'), 'metadata_modified desc'),
               (_('Recently Created'), 'dataset_published_date desc'),
-              (_('Datasets With Data'), 'num_resources desc, metadata_modified desc'),
             (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ] %}
       <!-- arguments for DS search bar -->
       {% set input_text = _('Search ' + dataset_type + 's') %}
@@ -78,8 +84,11 @@ in the core template for search.html.
 {% block pre_primary %}
 {% endblock pre_primary %}
 
+{% block breadcrumb_content %}
+{% endblock breadcrumb_content %}
+
 {% block primary %}
-  <div class="primary ontario-columns ontario-small-9 packages" role="main">
+  <div class="primary ontario-columns ontario-small-9 packages">
     {% block primary_content %}
       {# Overriding block to remove page_primary_action and form. #}
       <section class="module">
@@ -101,12 +110,21 @@ in the core template for search.html.
 {% endblock primary %}
 
 {% block secondary %}
-  {% set single_option_facets = ["organization_jurisdiction", "organization_category"] %}
   <aside class="secondary ontario-columns ontario-small-3 filter-results">
-    <div class="filters">
-      <div>{{ h.snippet('snippets/ontario_theme_keywords_facet.html') }}</div>
+    <div class="filters" id="filter-aside">
+      <span aria-label="{{ _('close') }}"
+            role="button"
+            tabindex="0"
+            class="close no-text hide-filters">
+        <svg class="ontario-icon hide-sort-by"
+             focusable="false"
+             sol:category="primary"
+             viewBox="0 0 24 24"
+             preserveAspectRatio="xMidYMid meet">
+          <use xlink:href="#ontario-icon-close"></use>
+        </svg>
+      </span>
       <div>{{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets) }}</div>
-      <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
     </div>
   </aside>
 {% endblock secondary %}

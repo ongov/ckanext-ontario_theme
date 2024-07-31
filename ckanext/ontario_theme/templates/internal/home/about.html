@@ -1,10 +1,27 @@
 {% ckan_extends %}
 
-{% block about %}
-  {% if g.site_about %}
-    {{ h.render_markdown(g.site_about, False, True) }}
-  {% else %}
-    <h1 class="col-xs-12">{{ _('About') }}</h1>
-    <div class="col-xs-12">{% snippet "home/snippets/about_text.html" %}</div>
-  {% endif %}
-{% endblock about %}
+{% set lead_statement = _("The Ontario government generates and maintains thousands of datasets. Since 2012, we have shared data with Ontarians via a data catalogue.") %}
+{% block breadcrumb_content %}
+{% endblock breadcrumb_content %}
+
+{% block meta_description -%}
+  <meta name="description" content="{{ lead_statement }}">
+{% endblock meta_description -%}
+
+{% block primary %}
+  <article class="module">
+    <div class="ontario-column ontario-small-12 module-content">
+      {% block about %}
+        {% if g.site_about %}
+          {{ h.render_markdown(g.site_about, False, True) }}
+        {% else %}
+          <div class="article-intro">
+            <h1>{{ _('About') }}</h1>
+            <p class="ontario-lead-statement">{{ lead_statement }}</p>
+          </div>
+          {% snippet "home/snippets/about_text.html" %}
+        {% endif %}
+      {% endblock about %}
+    </div>
+  </article>
+{% endblock primary %}

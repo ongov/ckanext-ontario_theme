@@ -1,19 +1,18 @@
 {% extends "page.html" %}
 
+{% set lead_statement = _("Find data published by each of Ontario's Ministries.") %}
+
+{% block meta_description -%}
+  <meta name="description" content="{{ lead_statement }}">
+{% endblock meta_description -%}
+
 {% block subtitle %}
   {{ _('Ministries') }}
 {% endblock subtitle %}
 
-{% block breadcrumb_content %}
-  <li class="active">{% link_for _('Ministries'), named_route=group_type+'.index' %}</li>
-{% endblock breadcrumb_content %}
-
-{% block page_primary_action %}
-{% endblock page_primary_action %}
-
 {% block ontario_theme_search_form %}
   {# Custom block for search form. #}
-  <div class="row no-padding">
+  <div class="ontario-row no-padding">
     <div class="page_primary_action">
       <div class="add-organization">
         {% if h.check_access('organization_create') %}
@@ -27,11 +26,7 @@
           {{ _('Ministries') }}
         {% endblock page_heading %}
       </h1>
-      <p class="ontario-lead-statement">
-        {% trans %}
-          Find data published by each of Ontario's Ministries.
-        {% endtrans %}
-      </p>
+      <p class="ontario-lead-statement">{{ lead_statement }}</p>
     </div>
     {% block organizations_search_form %}
       <!-- arguments for DS search bar -->
@@ -45,6 +40,9 @@
       {% set sorting = [
               (_('Name Ascending'), 'name asc'),
             (_('Name Descending'), 'name desc') ] %}
+      {% if not sort_by_selected %}
+        {% set sort_by_selected = "name asc" %}
+      {% endif %}
       <form id="{{ form_id }}"
             class="search-form"
             method="get"
@@ -56,9 +54,8 @@
           type=type,
           query=query,
           sorting=sorting,
-          sorting_selected=c.sort_by_selected,
+          sorting_selected=sort_by_selected,
           count=c.page.item_count,
-          placeholder=input_text,
           sr_submit_text=sr_submit_text,
           facets=facets,
           show_empty=request.params,
@@ -74,26 +71,19 @@
 {% endblock pre_primary %}
 
 {% block primary %}
-  <div class="col-sm-9 col-xs-12" role="main">
+  <div class="ontario-column ontario-small-12 ontario-medium-9">
     {% block primary_content_inner %}
       {% block organizations_list %}
         {% if c.page.items or request.params %}
           {% if c.page.items %}
-            {# Custom sort by language for name ascending and descending #}
-            {# Get all organization returned by query #}
-            {% set org_list = h.ontario_theme_get_all_organizations(collection_names=c.page.collection) %}
-            {# Prevent any organization sorting when there are no organizations #}
-            {% if org_list | length > 0 %}
-              {# Sort org_list by title_translated as per current language #}
-              {% set current_lang = request.environ.CKAN_LANG %}
-              {% set reverse = True if 'desc' in request.params['sort'] else False %}
-              {% set sorted_org = h.ontario_theme_sort_by_title_translated(org_list,
+            {% set current_lang = request.environ.CKAN_LANG %}
+            {% set reverse = True if 'desc' in request.params['sort'] else False %}
+            {% set sorted_org = h.ontario_theme_sort_by_title_translated(c.page.items,
                               current_page=c.page.page,
                               items_per_page=c.page.items_per_page,
                               lang=current_lang,
                             reverse=reverse) %}
-              {% snippet "organization/snippets/organization_list.html", organizations=sorted_org %}
-            {% endif %}
+            {% snippet "organization/snippets/organization_list.html", organizations=sorted_org %}
           {% endif %}
         {% else %}
           <p class="empty">
@@ -104,17 +94,9 @@
           </p>
         {% endif %}
       {% endblock organizations_list %}
-
-      {% block page_pagination %}
-        {{ c.page.pager(q=c.q or '', sort=c.sort_by_selected or '') }}
-      {% endblock page_pagination %}
     {% endblock primary_content_inner %}
   </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12">{% snippet 'home/snippets/ontario_theme_contact_us.html' %}</div>
-    </div>
-  </div>
+  <div class="ontario-columns ontario-small-12">{% snippet 'home/snippets/ontario_theme_contact_us.html' %}</div>
 {% endblock primary %}
 
 {% block secondary %}

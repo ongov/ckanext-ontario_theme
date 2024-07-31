@@ -4,14 +4,22 @@
 #}
 {% extends "package/resource_read.html" %}
 
-{% block wrapper_class %}
-  resource-main
-{% endblock wrapper_class %}
+{% block wrapper_class -%}
+  resource-main break-all-parent
+{%- endblock wrapper_class %}
+
+{%- block head_extras -%}
+{%- endblock head_extras -%}
+
+{% block meta -%}
+  {{ super() }}
+{% endblock meta -%}
 
 {%- set exclude_fields = ["data_last_updated", "name", "description_translated", "url", "format"] -%}
 {%- set schema = h.scheming_get_dataset_schema(dataset_type) -%}
 {% set license = h.ontario_theme_get_license(pkg.license_id) %}
 {% set is_admin = h.check_access('package_update', {'id':pkg.id }) %}
+{% set name = "Name" if h.lang() == "en" else "Nom" %}
 {% block breadcrumb_content %}
   {% set is_open = (pkg.access_level == 'open') %}
   {% if is_open or is_admin %}{{ super() }}{% endif %}
@@ -28,7 +36,7 @@
             {% block resource_actions %}
               {% block resource_actions_inner %}
                 {% if is_admin %}
-                  <header class="col-xs-12 page-header">
+                  <header class="ontario-small-12 page-header">
                     <div class="content_action">
                       {% link_for _('Edit'), named_route=pkg.type + '_resource.edit', id=pkg.name, resource_id=res.id, class_='btn btn-default content_action', icon='wrench' %}
                     </div>
@@ -40,9 +48,11 @@
         {% endblock resource_inner %}
       </section>
       {% block resource_content %}
-        <div class="col-lg-8 col-xs-12">
+        <div class="ontario-columns ontario-small-12 ontario-large-8">
           {% block resource_read_title %}
-            <h1>{{ h.resource_display_name(res) }}</h1>
+            <h1 {% if "https://" in h.resource_display_name(res) -%}
+                class="break-all"
+                {%- endif -%}>{{ h.resource_display_name(res) }}</h1>
           {% endblock resource_read_title %}
 
           <div class="datafile-p" property="rdfs:label">
@@ -59,7 +69,11 @@
               {% endif %}
             {% endblock resource_read_url %}
 
-            {% if res.description %}{{ h.render_markdown(h.get_translated(res, "description")) }}{% endif %}
+            {% if res.description %}
+              <div>
+                {{ h.render_markdown(h.get_translated(res, "description")) }}
+              </div>
+            {% endif %}
             {% if not res.description and c.package.notes %}
               {% if res.datastore_active %}
                 {{ h.render_markdown(h.get_translated(c.package, 'notes')) }}
@@ -80,7 +94,7 @@
       {% endblock resource_content %}
 
       {% asset "ontario_theme/ontario_theme_download_tracker_js" %}
-      <div class="secondary col-xs-12 col-lg-4 right-col dataset-font resource-aside">
+      <div class="secondary ontario-small-12 ontario-large-4 right-col dataset-font resource-aside">
         {% if res.url and h.is_url(res.url) %}
           {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
           {% if pkg.groups %}
@@ -92,6 +106,8 @@
             <h2 class="ontario-h4">
               {% if res.datastore_active %}
                 {{ _('Download data') }}
+              {% elif pkg.get("asset_type") == "ai" %}
+                {{ _('Access <abbr title="Artificial Intelligence">AI</abbr>') }}
               {% else %}
                 {{ _('Access data') }}
               {% endif %}
@@ -134,7 +150,7 @@
         {% endif %}
         {% if res.datastore_active %}
           {% block data_api_button %}
-            <div class="module module-narrow module-shallow context-info">
+            <div class="module module-narrow module-shallow context-info data-api">
               <h2 class="ontario-h4">{{ _('Use the data API') }}</h2>
               {% set loading_text = _('Loading...') %}
               {% set api_info_url = h.url_for(controller='api', action='snippet', ver=1, snippet_path='api_info.html', resource_id=res.id) %}
@@ -156,7 +172,7 @@
           </div>
         {% endif %}
       </div>
-      <div class="col-xs-12">
+      <div class="ontario-column ontario-small-12">
         {% block data_preview %}
           {% if res.format == "CSV" %}
             {% block resource_view_nav %}
@@ -179,7 +195,7 @@
       </div>
       {# if dataset is not open and user is not admin, show msg #}
     {% else %}
-      <h1 class="col-xs-12">{{ _('Data Not Available') }}</h1>
+      <h1 class="ontario-column ontario-small-12">{{ _('Data Not Available') }}</h1>
     {% endif %}
   {% endblock resource %}
 {% endblock pre_primary %}
@@ -188,83 +204,84 @@
   {# only display resource page content if open dataset or admin user #}
   {% set is_open = (pkg.access_level == 'open') %}
   {% if is_open or is_admin %}
-    <div class="col-xs-12">{% snippet 'package/snippets/report_an_error.html' %}</div>
+    <div class="ontario-column ontario-small-12">{% snippet 'package/snippets/report_an_error.html' %}</div>
     {% block primary_content %}
       {% block resource_additional_information %}
         {% if res %}
           {% block resource_additional_information_inner %}
-            <div class="col-sm-9 col-xs-12">
+            <div class="ontario-column ontario-small-12 ontario-medium-9">
               <h2>{{ _('Additional information') }}</h2>
-              <table class="ontario-margin-top-40 additional-info-table datafile-p table table-striped table-bordered table-condensed"
-                     data-module="table-toggle-more">
-                <thead>
-                  <tr>
-                    <th scope="col">{{ _('Field') }}</th>
-                    <th scope="col">{{ _('Value') }}</th>
-                  </tr>
-                </thead>
-                <tbody>
+              <div class="ontario-margin-top-40 res-additional-info-table table table-striped table-bordered table-condensed"
+                   data-module="table-toggle-more">
+                <dl class="res-additional-info-tbody">
                   {%- block resource_last_updated -%}
-                    <tr>
-                      <th scope="row">{{ _('Last updated') }}</th>
-                      <td>
+                    <div class="res-additional-info-tr">
+                      <dt class="res-additional-info-th">{{ _('Last updated') }}</dt>
+                      <dd class="res-additional-info-td">
                         {{ h.render_datetime(res.data_last_updated) or h.render_datetime(res.last_modified) or h.render_datetime(res.revision_timestamp) or h.render_datetime(res.created) or _('unknown') }}
-                      </td>
-                    </tr>
-                      {%- endblock resource_last_updated -%}
-                      {%- block resource_created -%}
-                        <tr>
-                          <th scope="row">{{ _('Created') }}</th>
-                          <td>{{ h.render_datetime(res.created) or _('unknown') }}</td>
-                        </tr>
-                      {%- endblock resource_created -%}
-                      {%- block resource_format -%}
-                        <tr>
-                          <th scope="row">{{ _('Format') }}</th>
-                          <td>{{ res.mimetype_inner or res.mimetype or res.format or _('unknown') }}</td>
-                        </tr>
-                        {# Add resource size if known. This extends scheming's template. #}
-                        {% if not res.mimetype and not res.size %}
-                          {% set exclude_fields = exclude_fields.append('size') %}
-                        {% else %}
-                          <tr>
-                            <th scope="row">{{ _('File size') }}</th>
-                            <td>{{ h.ontario_theme_abbr_localised_filesize(res.size)|safe if res.size else _('unknown size') }}</td>
-                          </tr>
-                        {% endif %}
-                      {%- endblock resource_format -%}
-                      {%- block resource_license -%}
-                        {% set license = h.ontario_theme_get_license(pkg.license_id) %}
-                        <tr>
-                          <th scope="row">{{ _('Licence') }}</th>
-                          <td>{{ h.get_translated(license, 'title') }}</td>
-                        </tr>
-                      {%- endblock resource_license -%}
-                      {%- block resource_fields -%}
-                        {%- for field in schema.resource_fields -%}
-                          {%- if field.field_name not in exclude_fields and res[field.field_name] and (res[field.field_name] != {'fr': '', 'en': ''}) -%}
-                            <tr>
-                              <th scope="row">{{- h.scheming_language_text(field.label) -}}</th>
-                              <td>
-                                {%- if field.preset == "date" -%}
-                                  {{- h.render_datetime(res[field.field_name]) -}}
-                                {%- else -%}
-                                  {%- snippet "scheming/snippets/display_field.html", field=field, data=res, entity_type='dataset', object_type=dataset_type -%}
-                                {%- endif -%}
-                              </td>
-                            </tr>
-                          {%- endif -%}
-                        {%- endfor -%}
-                      {%- endblock resource_fields -%}
-                    </tbody>
-                  </table>
-                </div>
-              {% endblock resource_additional_information_inner %}
-          {% endif %}
-        {% endblock resource_additional_information %}
-      {% endblock primary_content %}
-    <div class="col-xs-12">
-      {% snippet 'home/snippets/ontario_theme_contact_us.html' %}
-    </div>
+                      </dd>
+                    </div>
+                  {%- endblock resource_last_updated -%}
+                  {%- block resource_created -%}
+                    <div class="res-additional-info-tr">
+                      <dt class="res-additional-info-th">{{ _('Created') }}</dt>
+                      <dd class="res-additional-info-td">
+                        {{ h.render_datetime(res.created) or _('unknown') }}
+                      </dd>
+                    </div>
+                  {%- endblock resource_created -%}
+                  {%- block resource_format -%}
+                    <div class="res-additional-info-tr">
+                      <dt class="res-additional-info-th">{{ _('Format') }}</dt>
+                      <dd class="res-additional-info-td">
+                        {{ res.mimetype_inner or res.mimetype or res.format or _('unknown') }}
+                      </dd>
+                    </div>
+                    {# Add resource size if known. This extends scheming's template. #}
+                    {% if not res.mimetype and not res.size %}
+                      {% set exclude_fields = exclude_fields.append('size') %}
+                    {% else %}
+                      <div class="res-additional-info-tr">
+                        <dt class="res-additional-info-th">{{ _('File size') }}</dt>
+                        <dd class="res-additional-info-td">
+                          {{ h.ontario_theme_abbr_localised_filesize(res.size)|safe if res.size else _('unknown size') }}
+                        </dd>
+                      </div>
+                    {% endif %}
+                  {%- endblock resource_format -%}
+                  {%- block resource_license -%}
+                    {% set license = h.ontario_theme_get_license(pkg.license_id) %}
+                    <div class="res-additional-info-tr">
+                      <dt class="res-additional-info-th">{{ _('Licence') }}</dt>
+                      <dd class="res-additional-info-td">
+                        {{ h.get_translated(license._data, 'title') }}
+                      </dd>
+                    </div>
+                  {%- endblock resource_license -%}
+                  {%- block resource_fields -%}
+                    {% set breakall = "break-all" if "https://" in h.resource_display_name(res) %}
+                    {%- for field in schema.resource_fields -%}
+                      {%- if field.field_name not in exclude_fields and res[field.field_name] and (res[field.field_name] != {'fr': '', 'en': ''}) -%}
+                        <div class="res-additional-info-tr">
+                          <dt class="res-additional-info-th">{{- h.scheming_language_text(field.label) -}}</dt>
+                          <dd class="res-additional-info-td {% if breakall and h.scheming_language_text(field.label) == name -%}break-all{%- endif -%}">
+                            {%- if field.preset == "date" -%}
+                              {{- h.render_datetime(res[field.field_name]) -}}
+                            {%- else -%}
+                              {%- snippet "scheming/snippets/display_field.html", field=field, data=res, entity_type='dataset', object_type=dataset_type -%}
+                            {%- endif -%}
+                          </dd>
+                        </div>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endblock resource_fields -%}
+                </dl>
+              </div>
+            </div>
+          {% endblock resource_additional_information_inner %}
+        {% endif %}
+      {% endblock resource_additional_information %}
+    {% endblock primary_content %}
+    <div class="ontario-column ontario-small-12">{% snippet 'home/snippets/ontario_theme_contact_us.html' %}</div>
   {% endif %}
 {% endblock primary %}
