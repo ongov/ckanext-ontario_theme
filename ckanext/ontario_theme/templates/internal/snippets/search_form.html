@@ -172,6 +172,12 @@
                 {% set sort_in_params = true if request.params['sort'] %}
                 {% if label and value %}
                   {% set selected = 'selected' if (sorting_selected == value) %}
+                  {% if 'organization' in c.page.items[0] %}
+                    {% set org_id = c.page.items[0]['organization']['id'] %}
+                    {% set org_type = c.page.items[0]['organization']['type'] %}
+                    {% set is_org = c.page.items[0]['organization']['is_organization'] %}
+                    {% set extras = {'id': org_id,'group_type': org_type,'is_organization': is_org} %}
+                  {% endif %}
                   {% set href = h.remove_url_param('sort', replace=value, extras=extras) if sort_in_params else h.add_url_param(new_params={'sort': value}, extras=extras) %}
                   <li class="sort-by-options {{ selected }}">
                     <a href="{{ href }}">{{ label }}</a>
