@@ -4,7 +4,7 @@ resources:
       connection: ckan_ontario_theme_Webhook_SC
       filters:
         - path: ref
-          value: "refs/heads/develop"
+          value: "refs/heads/DATA-1543"
   repositories:  
   - repository: ods-edc-qa-automation
     type: git
@@ -39,6 +39,7 @@ trigger:
     include:
       - main
       - develop
+      - DATA-1543
   tags:
     exclude:
     - '*'
@@ -238,6 +239,7 @@ stages:
                BROWSERSTACK_USER: $(BROWSERSTACK-USER)
                BROWSERSTACK_ACCESS_KEY: $(BROWSERSTACK-ACCESS-KEY)
                BROWSERSTACK_KEY: $(BROWSERSTACK-KEY)
+               ODC_TEST_USER_PASSWORD: $(ODC_TEST_USER_PASSWORD)
              displayName: 'RUNNING ON VPN TESTING'
              
 - stage: UAT_Deploy
