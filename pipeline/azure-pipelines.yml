@@ -238,6 +238,7 @@ stages:
                BROWSERSTACK_USER: $(BROWSERSTACK-USER)
                BROWSERSTACK_ACCESS_KEY: $(BROWSERSTACK-ACCESS-KEY)
                BROWSERSTACK_KEY: $(BROWSERSTACK-KEY)
+               ODC_TEST_USER_PASSWORD: $(ODC_TEST_USER_PASSWORD)
              displayName: 'RUNNING ON VPN TESTING'
              
 - stage: UAT_Deploy
