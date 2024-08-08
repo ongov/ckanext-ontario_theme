@@ -50,13 +50,9 @@
       {% block resource_content %}
         <div class="ontario-columns ontario-small-12 ontario-large-8">
           {% block resource_read_title %}
-<<<<<<< HEAD
-            <h1>{{ h.resource_display_name(res) }}{{ h.get_validation_badge(res, in_listing=True)|safe }}</h1>
-=======
             <h1 {% if "https://" in h.resource_display_name(res) -%}
                 class="break-all"
-                {%- endif -%}>{{ h.resource_display_name(res) }}</h1>
->>>>>>> develop
+                {%- endif -%}>{{ h.resource_display_name(res) }}{{ h.get_validation_badge(res, in_listing=True)|safe }}</h1>
           {% endblock resource_read_title %}
 
           <div class="datafile-p" property="rdfs:label">
