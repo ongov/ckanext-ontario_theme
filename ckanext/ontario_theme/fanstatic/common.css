@@ -1014,7 +1014,7 @@ a:focus {
   .wrapper header.page-header ul.nav.nav-tabs {
     display: flex;
     border-bottom: solid 1px #cccccc;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 
   .wrapper div.page-header ul.nav.nav-tabs li a,
@@ -1833,10 +1833,6 @@ via submission form. Copied from DS.*/
   .dataset-main,
   .resource-main {
     display: grid;
-  }
-
-  .dataset-aside {
-    order: 2;
   }
 
   .resource-aside {

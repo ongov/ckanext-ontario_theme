@@ -6,14 +6,14 @@
 
 {% block primary %}
   <article class="module package-z-index">
+    {% block content_action %}
+      {% if h.check_access('package_update', {'id':pkg.id }) %}
+        <div class="ontario-columns ontario-small-12 content_action">
+          {% link_for _('Edit'), named_route='dataset.edit', id=pkg.name, class_='btn btn-secondary pull-right', icon='wrench' %}
+        </div>
+      {% endif %}
+    {% endblock content_action %}
     <header class="page-header ontario-columns ontario-small-12 ontario-large-8">
-      {% block content_action %}
-        {% if h.check_access('package_update', {'id':pkg.id }) %}
-          <div class="content_action">
-            {% link_for _('Edit'), named_route='dataset.edit', id=pkg.name, class_='btn btn-secondary', icon='wrench' %}
-          </div>
-        {% endif %}
-      {% endblock content_action %}
       {% block page_heading %}
         <h1>
           {{ h.dataset_display_name(pkg) }}
@@ -31,6 +31,9 @@
         </ul>
       {% endblock content_primary_nav %}
     </header>
+    <aside class="ontario-show-for-large dataset-aside secondary ontario-large-4 right-col dataset-font">
+      {% snippet "package/snippets/package_aside.html", pkg=pkg %}
+    </aside>
     {% block primary_content_inner %}
       <div class="ontario-columns ontario-small-12 ontario-large-8">
         {% if pkg.get("asset_type") == "ai" %}
@@ -93,5 +96,8 @@
         <div class="ontario-small-12">{% snippet "home/snippets/ontario_theme_contact_us.html" %}</div>
       </div>
     {% endblock primary_content_inner %}
+    <aside class="ontario-hide-for-large dataset-aside secondary right-col dataset-font">
+      {% snippet "package/snippets/package_aside.html", pkg=pkg %}
+    </aside>
   </article>
 {% endblock primary %}
