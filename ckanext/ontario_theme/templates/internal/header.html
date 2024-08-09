@@ -136,8 +136,8 @@
                         action="{%- url_for 'dataset.search' -%}"
                         class="ontario-header__search-container ontario-columns"
                         novalidate>
-                    <label class="ontario-label ontario-show-for-sr"
-                           for="ontario-search-input-field">{{ sr_input_text }}</label>
+                    <label aria-label="{{ sr_input_text }}"
+                           for="ontario-search-input-field"></label>
                     <input class="ontario-search-input ontario-input header-search"
                            type="text"
                            id="ontario-search-input-field"
@@ -152,8 +152,8 @@
                            aria-label="{{ _('Clear field') }}"/>
                     <button class="ontario-search-submit header-search"
                             id="ontario-header-search-submit"
-                            type="submit">
-                      <span class="ontario-show-for-sr">{{ sr_submit_text }}</span>
+                            type="submit"
+                            aria-label="{{ sr_submit_text }}">
                       <svg class="ontario-icon search header-search"
                            focusable="false"
                            sol:category="primary"
