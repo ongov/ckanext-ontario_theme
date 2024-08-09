@@ -7,22 +7,29 @@
 {% block primary %}
   <article class="module package-z-index">
     <header class="page-header ontario-columns ontario-small-12 ontario-large-8">
-      <div class="content_action">
-        {% block content_action %}
-          {% if h.check_access('package_update', {'id':pkg.id }) %}
+      {% block content_action %}
+        {% if h.check_access('package_update', {'id':pkg.id }) %}
+          <div class="content_action">
             {% link_for _('Edit'), named_route='dataset.edit', id=pkg.name, class_='btn btn-secondary', icon='wrench' %}
-          {% endif %}
-        {% endblock content_action %}
-      </div>
+          </div>
+        {% endif %}
+      {% endblock content_action %}
+      {% block page_heading %}
+        <h1>
+          {{ h.dataset_display_name(pkg) }}
+          {% if pkg.state.startswith('draft') %}[{{ _('Draft') }}]{% endif %}
+          {% if pkg.state == 'deleted' %}[{{ _('Deleted') }}]{% endif %}
+        </h1>
+      {% endblock page_heading %}
       {# Override CKAN: Do not pass any icons to nav bar menu items #}
-      <ul class="nav nav-tabs">
-        {% block content_primary_nav %}
+      {% block content_primary_nav %}
+        <ul class="nav nav-tabs">
           {{ h.build_nav_icon(dataset_type ~ '.read', _('Asset'), id=pkg.id if is_activity_archive else pkg.name) }}
           {{ h.build_nav_icon(dataset_type ~ '.groups', _('Groups'), id=pkg.id if is_activity_archive else pkg.name) }}
           {{ h.build_nav_icon(dataset_type ~ '.activity', _('History'), id=pkg.id if is_activity_archive else
           pkg.name) }}
-        {% endblock content_primary_nav %}
-      </ul>
+        </ul>
+      {% endblock content_primary_nav %}
     </header>
     {% block primary_content_inner %}
       <div class="ontario-columns ontario-small-12 ontario-large-8">
@@ -57,14 +64,6 @@
               </div>
             {% endif %}
           {% endblock package_archive_notice %}
-
-          <h1>
-            {% block page_heading %}
-              {{ h.dataset_display_name(pkg) }}
-              {% if pkg.state.startswith('draft') %}[{{ _('Draft') }}]{% endif %}
-              {% if pkg.state == 'deleted' %}[{{ _('Deleted') }}]{% endif %}
-            {% endblock page_heading %}
-          </h1>
           {% snippet "package/snippets/ontario_theme_access_level.html", pkg=pkg, dataset_type=dataset_type, schema=schema, resources=resources %}
           {% block package_notes %}
             {% if pkg.notes %}

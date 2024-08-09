@@ -914,6 +914,7 @@ a:focus {
 .wrapper header.page-header {
   border: none;
   background: none;
+  margin-top: 0;
 }
 
 .wrapper div.page-header ul.nav.nav-tabs,
