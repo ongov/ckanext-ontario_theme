@@ -216,15 +216,30 @@ stages:
                mkdir npm_cache
                export npm_config_cache=./npm_cache/
                npm install
+               echo "#################  RUNNING OFF VPN TESTING  #################"
                BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon start 
-               npm run test_off_vpn --loglevel verbose
+               npm run test_off_vpn
+               BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon stop
+             env:
+               PERCY_TOKEN: $(PERCY-TOKEN)
+               BROWSERSTACK_USER: $(BROWSERSTACK-USER)
+               BROWSERSTACK_ACCESS_KEY: $(BROWSERSTACK-ACCESS-KEY)
+               BROWSERSTACK_KEY: $(BROWSERSTACK-KEY)
+             displayName: 'RUNNING OFF VPN TESTING'
+             continueOnError: true
+           - script: |
+               set -xe
+               echo "#################  RUNNING ON VPN TESTING  #################"
+               BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon start 
+               npm run test_on_vpn
                BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon stop 
              env:
                PERCY_TOKEN: $(PERCY-TOKEN)
                BROWSERSTACK_USER: $(BROWSERSTACK-USER)
                BROWSERSTACK_ACCESS_KEY: $(BROWSERSTACK-ACCESS-KEY)
                BROWSERSTACK_KEY: $(BROWSERSTACK-KEY)
-             displayName: 'Running Percy Tests'
+               ODC_TEST_USER_PASSWORD: $(ODC_TEST_USER_PASSWORD)
+             displayName: 'RUNNING ON VPN TESTING'
              
 - stage: UAT_Deploy
   dependsOn: 
