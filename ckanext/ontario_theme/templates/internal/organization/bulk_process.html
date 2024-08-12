@@ -9,7 +9,7 @@
   {% set sorting = [
       (_('Name Ascending'), 'titles asc'),
       (_('Name Descending'), 'titles desc'),
-      (_('Last Modified'), 'data_modified desc'),
+      (_('Last Modified'), 'metadata_modified desc'),
       (_('Relevance'), 'score desc, metadata_modified desc'), ] %}
   {% set extras = {'id': group_dict.id} %}
   {% snippet 'snippets/search_form.html', form_id='organization-datasets-search-form',
