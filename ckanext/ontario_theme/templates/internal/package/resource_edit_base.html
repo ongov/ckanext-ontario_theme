@@ -18,11 +18,31 @@
         {% block page_header %}
         {% endblock page_header %}
         <div class="module-content">
-          <h1>
-            {% block form_title %}
-              {{ super() }}
-            {% endblock form_title %}
-          </h1>
+          <div class="ontario-row">
+            <div class="ontario-small-7 ontario-columns">
+              <h1>
+                {% block form_title %}
+                  {{ super() }}
+                {% endblock form_title %}
+              </h1>
+            </div>
+            <div id="delbtn" class="ontario-small-5 ontario-columns">
+              {% block delete_button %}
+                {% if data %}
+                  {% if data.id %}
+                    {% if h.check_access('resource_delete', {'id': data.id}) %}
+                      <a class="btn btn-danger pull-right ontario-button ontario-button--secondary"
+                         href="{% url_for dataset_type ~ '_resource.delete', resource_id=data.id, id=pkg.name %}"
+                         data-module="confirm-action"
+                         data-module-content="{{ _('Are you sure you want to delete this resource?') }}">
+                        {% block delete_button_text %}Delete dataset resource{% endblock %}
+                      </a>
+                    {% endif %}
+                  {% endif %}
+                {% endif %}
+              {% endblock delete_button %}
+            </div>
+          </div>
           {% block primary_content_inner %}
             {{ super() }}
           {% endblock primary_content_inner %}
