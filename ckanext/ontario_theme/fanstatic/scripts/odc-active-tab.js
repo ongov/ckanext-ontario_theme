@@ -1,6 +1,7 @@
 /*
- * Function for adding aria-current = "page" to the current active page in the header
- * Current page state is added to active item in each screen size (i.e. mobile, medium, desktop)
+ * Function for adding role = "tab" to all tabs
+ * Selected state is added to active tab to alert screen reader users the tab
+ * they are currently viewing.
  */
 
 (function () {

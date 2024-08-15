@@ -4,7 +4,7 @@
   {% snippet "package/snippets/schema_markup.html", pkg=pkg, resources=pkg.resources, schema=schema %}
 {% endblock schema_tag_attr %}
 
-{% block primary %}
+{% block pre_primary %}
   {% block content_action %}
     {% if h.check_access('package_update', {'id':pkg.id }) %}
       <div class="ontario-columns ontario-small-12 content_action">
@@ -12,9 +12,9 @@
       </div>
     {% endif %}
   {% endblock content_action %}
-  <aside class="ontario-show-for-large dataset-aside secondary ontario-large-4 right-col dataset-font">
-    {% snippet "package/snippets/package_aside.html", pkg=pkg %}
-  </aside>
+{% endblock pre_primary %}
+
+{% block primary %}
   <article class="module package-z-index">
     {% block page_heading %}
       <h1 class="ontario-columns ontario-large-8">
