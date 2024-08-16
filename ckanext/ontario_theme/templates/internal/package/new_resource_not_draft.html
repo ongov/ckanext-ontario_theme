@@ -1,5 +1,9 @@
 {% ckan_extends %}
 
+{% block subtitle %}
+  {{ _('Add or edit') }} {{ g.template_title_delimiter }} {{ h.dataset_display_name(pkg) }}
+{% endblock %}
+
 {% block breadcrumb %}
 {% endblock breadcrumb %}
 
@@ -11,7 +15,7 @@
 {% endblock pre_primary %}
 
 {% block form_title %}
-  Add or edit data resource
+  {{ _('Add or edit data resource') }}
 {% endblock form_title %}
 
 {% block form %}
