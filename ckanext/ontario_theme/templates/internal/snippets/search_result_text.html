@@ -12,9 +12,9 @@ Example:
 
 #}
 {% if type == 'dataset' %}
-  {% set text_query = ungettext('<strong>{number} dataset</strong> found with the search term <strong>"{query}"</strong>', '<strong>{number} datasets</strong> found with the search term <strong>"{query}"</strong>', count) %}
+  {% set text_query = ungettext('<strong>{number} total dataset</strong> found with the search term <strong>"{query}"</strong>', '<strong>{number} total datasets</strong> found with the search term <strong>"{query}"</strong>', count) %}
   {% set text_query_none = _('No datasets found with the search term <strong>"{query}"</strong>') %}
-  {% set text_no_query = ungettext('<strong>{number} dataset</strong> found', '<strong>{number} datasets</strong> found', count) %}
+  {% set text_no_query = ungettext('<strong>{number} total dataset</strong> found', '<strong>{number} total datasets</strong> found', count) %}
   {% set text_no_query_none = _('No datasets found') %}
 {% elif type == 'group' %}
   {% set text_query = ungettext('<strong>{number} group</strong> found with the search term <strong>"{query}"</strong>', '<strong>{number} groups</strong> found with the search term <strong>"{query}"</strong>', count) %}

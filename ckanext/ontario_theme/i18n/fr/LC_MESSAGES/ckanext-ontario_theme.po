@@ -108,10 +108,10 @@ msgstr[1] "{number} jeux de données"
 
 #: OVERRIDE: ckan/templates/snippets/search_result_text.html
 #: Datasets
-msgid "<strong>{number} dataset</strong> found with the search term <strong>\"{query}\"</strong>"
-msgid_plural "<strong>{number} datasets</strong> found with the search term <strong>\"{query}\"</strong>"
-msgstr[0] "<strong>{number} jeu  de données</strong> trouvé avec le terme de recherche <strong>« {query} »</strong>"
-msgstr[1] "<strong>{number} jeux de données</strong> trouvés avec le terme de recherche <strong>« {query} »</strong>"
+msgid "<strong>{number} total dataset</strong> found with the search term <strong>\"{query}\"</strong>"
+msgid_plural "<strong>{number} total datasets</strong> found with the search term <strong>\"{query}\"</strong>"
+msgstr[0] "<strong>{number} total de jeu  de données</strong> trouvé avec le terme de recherche <strong>« {query} »</strong>"
+msgstr[1] "<strong>{number} total des jeux de données</strong> trouvés avec le terme de recherche <strong>« {query} »</strong>"
 
 #: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html
 msgid "Learn more about "
@@ -132,10 +132,10 @@ msgid "Show less"
 msgstr "Afficher moins"
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:17
-msgid "<strong>{number} dataset</strong> found"
-msgid_plural "<strong>{number} datasets</strong> found"
-msgstr[0] "<strong>{number} jeu  de données</strong> trouvé"
-msgstr[1] "<strong>{number} jeux de données</strong> trouvés"
+msgid "<strong>{number} total dataset</strong> found"
+msgid_plural "<strong>{number} total datasets</strong> found"
+msgstr[0] "<strong>{number} total de jeu  de données</strong> trouvé"
+msgstr[1] "<strong>{number} total des jeux de données</strong> trouvés"
 
 #: Ministries
 msgid "<strong>{number} ministry</strong> found for <strong>\"{query}\"</strong>"
@@ -2019,7 +2019,7 @@ msgstr "Juridiction"
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:83
 msgid "Showing datasets with access level"
-msgstr "Jeux de données avec niveau d’accès"
+msgstr "Afficher les jeux de données avec niveau d’accès"
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:199
 msgid "No datasets with access level"
@@ -2031,7 +2031,7 @@ msgstr "Aucun jeux de données trouvés avec le terme de recherche «<strong>{qu
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:193
 msgid "Showing datasets found with search term <strong>\"{query}\"</strong> and access level"
-msgstr "Jeux de données trouvés avec le terme de recherche «<strong>{query}</strong>» et niveau d’accès"
+msgstr "Afficher les jeux de données trouvés avec le terme de recherche «<strong>{query}</strong>» et niveau d’accès"
 
 
 #: ckanext/ontario_theme/fanstatic/scripts/odc-access.js:73
@@ -2330,3 +2330,7 @@ msgid "{level_count} dataset with access level"
 msgid_plural "{level_count} datasets with access level"
 msgstr[0] "{level_count} jeu de données avec niveau d’accès"
 msgstr[1] "{level_count} jeux de données avec niveau d’accès"
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:242
+msgid "We also found"
+msgstr "Nous avons également trouvé"

@@ -238,10 +238,12 @@
 
 {% if count == 0 and not error %}
   {% if total_count != 0 %}
-    <p class="ontario-column">We also found{{ _(":") }}
-    <ul>
-      {% snippet 'snippets/access_level_checkboxes.html', extras=extras %}
-    </ul></p>
+    <p class="ontario-column">
+      {{ _('We also found') }}{{ _(":") }}
+      <ul>
+        {% snippet 'snippets/access_level_checkboxes.html', extras=extras %}
+      </ul>
+    </p>
   {% endif %}
   <p class="ontario-column">
     {{ _('Please try another search or <a href="mailto:opendata@ontario.ca">reach out to us if you think data is missing.</a>') }}
