@@ -5,9 +5,12 @@
 {% block schema_tag_attr %}
 {% endblock schema_tag_attr %}
 
+{% block subtitle %}
+  {{ _('Groups') }} {{ g.template_title_delimiter }} {{ super() }}
+{% endblock subtitle %}
+
 {% block primary_content_inner %}
-  <h2 class="hide-heading">{{ _('Groups') }}</h2>
-  <div class="col-sm-8 col-xs-12">
+  <div class="ontario-columns ontario-small-12 ontario-large-8" role="tabpanel">
     {% if c.group_dropdown %}
       <form class="add-to-group" method="post">
         <select id="field-add_group" name="group_added" data-module="autocomplete">
