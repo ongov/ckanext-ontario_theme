@@ -6,6 +6,7 @@ ontario_theme_js:
     - ontario-back-to-top.js
     - odc-show-more.js
     - odc-active-page.js
+    - odc-active-tab.js
     - odc-search-modal.js
     - odc-toc-smooth-scroll.js
 
