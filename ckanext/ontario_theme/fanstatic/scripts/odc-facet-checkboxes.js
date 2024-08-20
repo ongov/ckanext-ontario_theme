@@ -12,16 +12,19 @@
 ckan.module('facet_checkboxes', function ($) {
   return {
     initialize: function () {
-          $(".facet-fieldset :checkbox").on('click', jQuery.proxy(this._onChange, this));
+      $(".facet-fieldset :checkbox").on('click', jQuery.proxy(this._onChange, this));
     },
     _onChange: function (event) {
       const hiddenFields = $(('#fields'));
-      $('<input>').attr({
-        type: 'hidden',
-        name: event.target.name,
-        value: event.target.value
-      }).appendTo(hiddenFields);
-
+      if (event.target.checked) {
+        $('<input>').attr({
+          type: 'hidden',
+          name: event.target.name,
+          value: event.target.value
+        }).appendTo(hiddenFields);
+      } else {
+        $(`input[name='${event.target.name}'][value='${event.target.value}']`).remove();
+      }
       var form = $('form.search-form');
       form.submit();
     }
