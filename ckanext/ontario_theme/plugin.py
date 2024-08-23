@@ -1147,7 +1147,6 @@ type data_last_updated
             u'/dataset/<id>/resource/<resource_id>/edit',
             view_func=OntarioThemeResourceEditView.as_view(str(u'edit')), defaults={u'package_type': u'dataset'}
         )
-        blueprint.add_url_rule(u'/organization', view_func=organization_index, strict_slashes=False)
         blueprint.add_url_rule(u'/dataset/<id>/dictionary/<resource_id>',view_func=DictionaryView.as_view(str(u'dictionary')))
 
         return blueprint
