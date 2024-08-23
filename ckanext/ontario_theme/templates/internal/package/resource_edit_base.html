@@ -35,7 +35,7 @@
                          href="{% url_for dataset_type ~ '_resource.delete', resource_id=data.id, id=pkg.name %}"
                          data-module="confirm-action"
                          data-module-content="{{ _('Are you sure you want to delete this resource?') }}">
-                        {% block delete_button_text %}Delete dataset resource{% endblock %}
+                        {% block delete_button_text %}Delete dataset resource{% endblock delete_button_text %}
                       </a>
                     {% endif %}
                   {% endif %}
