@@ -1175,7 +1175,10 @@ type data_last_updated
         # pages
         elif fq:
             fq_list = search_params.setdefault('fq_list', [default_open])
-            facet_al = default_open if "access_level" not in fq else ""
+            if (fq.count("access_level") == 1 and 'access_level:"open"' in fq) or "access_level" not in fq:
+                facet_al = default_open
+            else:
+                facet_al = None
             for field in ors:
                 extracted, fq = _split_fq(fq, field)
                 if extracted:
