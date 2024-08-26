@@ -1185,7 +1185,8 @@ type data_last_updated
                     if default_open in fq_list:
                         fq_list.remove(default_open)
                     fq_list.append(extracted)
-            fq_list.append(facet_al)
+            if facet_al:
+                fq_list.append(facet_al)
         # Show default open datasets on dataset search page
         else:
             fq_list = search_params.setdefault('fq_list', [default_open])
