@@ -49,7 +49,6 @@ class Page(pagination.Page):
         if page == self.page:
             anchor.set_attribute("aria-current", "page")
             anchor.set_attribute("aria-label", "page {}".format(page))
-            anchor.delete_attribute("href")
         elif text == Page.symbol_previous:
             anchor.set_attribute("aria-label", _("Go to previous page"))
             anchor.set_attribute("class", "pagination_symbols")
