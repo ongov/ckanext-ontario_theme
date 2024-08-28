@@ -1180,10 +1180,8 @@ type data_last_updated
                 extracted, fq = _split_fq(fq, field)
                 if extracted:
                     if access_level_count and default_open in fq_list:
-                        print(default_open)
                         fq_list.remove(default_open)
                     fq_list.append(extracted)
-            print(fq_list)
         # Show default open datasets on dataset search page
         else:
             fq_list = search_params.setdefault('fq_list', [default_open])
