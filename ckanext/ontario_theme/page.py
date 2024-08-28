@@ -26,11 +26,10 @@ class Page(pagination.Page):
                 <use href="#ontario-icon-chevron-left"></use></svg>'
 
     def pager(self, *args, **kwargs):
-        with tags.div(cls="pagination-wrapper") as wrapper:
+        with tags.div(cls="pagination-wrapper", role="navigation") as wrapper:
             tags.ul(
                 "$link_previous ~2~ $link_next",
                 cls="pagination",
-                role="navigation",
                 aria_label="pagination",
             )
         params = dict(
