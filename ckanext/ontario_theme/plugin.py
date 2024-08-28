@@ -1175,18 +1175,15 @@ type data_last_updated
         # pages
         elif fq:
             fq_list = search_params.setdefault('fq_list', [default_open])
-            if (fq.count("access_level") == 1 and 'access_level:"open"' in fq) or "access_level" not in fq:
-                facet_al = default_open
-            else:
-                facet_al = None
+            access_level_count = True if fq.count("access_level") > 1 else None
             for field in ors:
                 extracted, fq = _split_fq(fq, field)
                 if extracted:
-                    if default_open in fq_list:
+                    if access_level_count and default_open in fq_list:
+                        print(default_open)
                         fq_list.remove(default_open)
                     fq_list.append(extracted)
-            if facet_al:
-                fq_list.append(facet_al)
+            print(fq_list)
         # Show default open datasets on dataset search page
         else:
             fq_list = search_params.setdefault('fq_list', [default_open])
