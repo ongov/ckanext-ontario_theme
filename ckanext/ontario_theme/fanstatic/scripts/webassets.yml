@@ -38,3 +38,12 @@ ontario_theme_access_level_js:
     preload:
       - vendor/jquery
       - base/main
+
+ontario_theme_select_options_js:
+  filters: rjsmin
+  contents: select-options.js
+  output: ontario_theme_scripts/%(version)s_select-options.js
+  extra:
+    preload:
+      - vendor/jquery
+      - base/main

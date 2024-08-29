@@ -7,6 +7,7 @@
 {% set total_count = h.get_facet_items_dict('access_level')|sum(attribute='count') if facets else count %}
 {% set limit = h.ontario_theme_get_facet_options()['limit']|int %}
 
+{% asset "ontario_theme_scripts/ontario_theme_select_options_js" %}
 <form {% if form_id %}id="{{ form_id }}"{% endif %}
       class="search-form
              {% if no_bottom_border %}no-bottom-border{% endif %}"
