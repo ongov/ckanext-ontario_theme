@@ -26,11 +26,10 @@ class Page(pagination.Page):
                 <use href="#ontario-icon-chevron-left"></use></svg>'
 
     def pager(self, *args, **kwargs):
-        with tags.div(cls="pagination-wrapper") as wrapper:
+        with tags.div(cls="pagination-wrapper", role="navigation") as wrapper:
             tags.ul(
                 "$link_previous ~2~ $link_next",
                 cls="pagination",
-                role="navigation",
                 aria_label="pagination",
             )
         params = dict(
@@ -49,7 +48,6 @@ class Page(pagination.Page):
         if page == self.page:
             anchor.set_attribute("aria-current", "page")
             anchor.set_attribute("aria-label", "page {}".format(page))
-            anchor.delete_attribute("href")
         elif text == Page.symbol_previous:
             anchor.set_attribute("aria-label", _("Go to previous page"))
             anchor.set_attribute("class", "pagination_symbols")

@@ -710,6 +710,10 @@ input[placeholder] {
   color: #999999;
 }
 
+.ontario-label.nav-sr {
+  color: #fff;
+}
+
 /* ========================================================================
    Page Alerts - Design System
    ======================================================================== */
@@ -914,6 +918,7 @@ a:focus {
 .wrapper header.page-header {
   border: none;
   background: none;
+  margin-top: 0;
 }
 
 .wrapper div.page-header ul.nav.nav-tabs,
@@ -1013,7 +1018,7 @@ a:focus {
   .wrapper header.page-header ul.nav.nav-tabs {
     display: flex;
     border-bottom: solid 1px #cccccc;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 
   .wrapper div.page-header ul.nav.nav-tabs li a,
@@ -1834,16 +1839,8 @@ via submission form. Copied from DS.*/
     display: grid;
   }
 
-  .dataset-aside {
-    order: 2;
-  }
-
   .resource-aside {
     order: 7;
-  }
-
-  .package-z-index {
-    order: 1;
   }
 
   .page-header {

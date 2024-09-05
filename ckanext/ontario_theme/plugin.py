@@ -1088,7 +1088,6 @@ type data_last_updated
         for rule in rules:
             blueprint.add_url_rule(*rule)
         blueprint.add_url_rule('/dataset/new', view_func=OntarioThemeCreateView.as_view(str(u'new')), defaults={u'package_type': u'dataset'})
-        blueprint.add_url_rule(u'/organization', view_func=organization_index, strict_slashes=False)
         return blueprint
 
     # IUploader
