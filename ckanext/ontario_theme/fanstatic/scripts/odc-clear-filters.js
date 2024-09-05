@@ -12,15 +12,15 @@
 ckan.module('clear_filters', function ($) {
   return {
       initialize: function () {
-          var facetsSelected = $(".filtered.pill");
+          const facetsSelected = $(".filtered.pill");
           if (facetsSelected.length >= 2) {
               this.el.css({ display: "inline-block" });
               this.el.on('click', jQuery.proxy(this._onClick, this));
           }
     },
     _onClick: function (event) {
-        $(('#fields')).empty();
-        var form = $('form.search-form');
+        $('#fields').empty();
+        let form = $('form.search-form');
         form.submit();
     }
   }
