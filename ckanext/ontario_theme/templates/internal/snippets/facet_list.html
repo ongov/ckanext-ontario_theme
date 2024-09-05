@@ -17,10 +17,10 @@
           {% with items = items or h.get_facet_items_dict(name) %}
             <legend class="ontario-fieldset__legend">
               <svg class="ontario-icon"
-                  focusable="false"
-                  sol:category="primary"
-                  viewBox="0 0 24 24"
-                  preserveAspectRatio="xMidYMid meet">
+                   focusable="false"
+                   sol:category="primary"
+                   viewBox="0 0 24 24"
+                   preserveAspectRatio="xMidYMid meet">
                 <use xlink:href="#ontario-icon-filter"></use>
               </svg>
               {{ title }}
@@ -55,12 +55,12 @@
                   <div class="ontario-checkboxes__item
                               {% if loop.index > default and not item.active %}facet-{{ name }} show-more-items{% endif %}">
                     <input class="ontario-checkboxes__input"
-                          id="{{ name }}-{{ item_name }}"
-                          name="{{ name }}"
-                          {% if item.active %}checked{% endif %}
-                          type="checkbox"
-                          value="{{ item.name }}"
-                          autocomplete="off">
+                           id="{{ name }}-{{ item_name }}"
+                           name="{{ name }}"
+                           {% if item.active %}checked{% endif %}
+                           type="checkbox"
+                           value="{{ item.name }}"
+                           autocomplete="off">
                     <label class="ontario-checkboxes__label" for="{{ name }}-{{ item_name }}">{{ label }} {{ count }}</label>
                   </div>
                 {% endfor %}
