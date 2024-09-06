@@ -21,7 +21,7 @@
       </div>
     {% else %}
       {% if count %}
-        {% set href = h.remove_url_param('access_level', replace=value, extras=extras) %}
+        {% set href = h.remove_url_param(name, replace=value, extras=extras) %}
         {% set level_count = h.localised_number(count[0])|int %}
         {% set alt_results = ungettext('{level_count} dataset with access level', '{level_count} datasets with access level', level_count) %}
         <li>
