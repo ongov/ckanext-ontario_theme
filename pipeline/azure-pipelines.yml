@@ -4,7 +4,7 @@ resources:
       connection: ckan_ontario_theme_Webhook_SC
       filters:
         - path: ref
-          value: "refs/heads/develop"
+          value: "refs/heads/ckanext_validation_develop"
   repositories:  
   - repository: ods-edc-qa-automation
     type: git
@@ -31,7 +31,7 @@ parameters:
   - name: Run_E2E_Tests
     displayName: Run E2E Tests?
     type: boolean
-    default: true
+    default: false
 
 trigger:
   batch: true
@@ -39,6 +39,7 @@ trigger:
     include:
       - main
       - develop
+      - ckanext_validation_develop
   tags:
     exclude:
     - '*'
