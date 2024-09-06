@@ -8,8 +8,12 @@
     {% set display_name = h.scheming_choices_label(access_levels, value) %}
     {% if checkboxes %}
       {% set level_count = h.localised_number(count[0]) if count else '0' %}
+      {% set url = h.remove_url_param(name, value=value, extras=extras) if value in request.params.getlist('access_level') else "" %}
       <div class="ontario-checkboxes__item">
-        <input class="ontario-checkboxes__input"
+        <input hx-get="{{ url }}"
+               hx-target="body"
+               hx-push-url="true"
+               class="ontario-checkboxes__input"
                id="checkbox-option-{{ value }}"
                name="access_level"
                type="checkbox"

@@ -24,8 +24,6 @@ ckan.module('facet_checkboxes', function ($) {
         }).appendTo(hiddenFields);
       } else {
         $(`input[name='${event.target.name}'][value='${event.target.value}']`).remove();
-        //var form = $('form.search-form');
-        //form.submit();  
       }
       let spinner = document.getElementById("spinner");
       spinner.setAttribute('aria-hidden', 'false');

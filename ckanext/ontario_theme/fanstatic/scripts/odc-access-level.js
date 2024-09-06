@@ -38,8 +38,8 @@ ckan.module('access_level_checkboxes', function ($) {
             $(document).ready(jQuery.proxy(this._updateAccessLevelSentence, this));
         },
         _onChange: function () {
-            let form = $('form.search-form');
-            form.submit();
+            let spinner = document.getElementById("spinner");
+            spinner.setAttribute('aria-hidden', 'false');
         },
         _updateAccessLevelSentence: function () {
             const selectedBoxes = $('input[name="access_level"]:checked');
