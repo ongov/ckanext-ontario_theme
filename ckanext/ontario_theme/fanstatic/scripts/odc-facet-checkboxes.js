@@ -15,7 +15,7 @@ ckan.module('facet_checkboxes', function ($) {
       $(".facet-fieldset :checkbox").on('click', jQuery.proxy(this._onChange, this));
     },
     _onChange: function (event) {
-      const hiddenFields = $(('#fields'));
+      const hiddenFields = $('#fields');
       if (event.target.checked) {
         $('<input>').attr({
           type: 'hidden',
@@ -25,7 +25,7 @@ ckan.module('facet_checkboxes', function ($) {
       } else {
         $(`input[name='${event.target.name}'][value='${event.target.value}']`).remove();
       }
-      var form = $('form.search-form');
+      let form = $('form.search-form');
       form.submit();
     }
   }

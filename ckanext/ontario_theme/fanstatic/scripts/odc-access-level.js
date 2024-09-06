@@ -38,12 +38,12 @@ ckan.module('access_level_checkboxes', function ($) {
             $(document).ready(jQuery.proxy(this._updateAccessLevelSentence, this));
         },
         _onChange: function () {
-            var form = $('form.search-form');
+            let form = $('form.search-form');
             form.submit();
         },
         _updateAccessLevelSentence: function () {
-            var selectedBoxes = $('input[name="access_level"]:checked');
-            var calloutElement = $('#access-level-sentence-value');
+            const selectedBoxes = $('input[name="access_level"]:checked');
+            const calloutElement = $('#access-level-sentence-value');
             const and = this._(' and ');
             const all_levels = this._('All levels');
 

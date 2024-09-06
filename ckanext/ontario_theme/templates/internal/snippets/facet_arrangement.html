@@ -5,7 +5,7 @@
 {% endif %}
 {% set excluded_facets = [keywords, "access_level"] %}
 {% set fields = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
-
+ 
 {# Flag facets to be ignored from standard loop that calls facets. #}
 {% set single_option_facets = ["organization_jurisdiction", "organization_category"] %}
 {% do excluded_facets.append(single_option_facet) if single_option_facet else none %}

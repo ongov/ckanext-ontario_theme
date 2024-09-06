@@ -69,7 +69,9 @@ Override CKAN's read.html to add some new facets.
           <use xlink:href="#ontario-icon-close"></use>
         </svg>
       </span>
-      <div>{{ h.snippet('snippets/facet_arrangement.html', extras={'id':c.group_dict.id}, single_option_facet="organization") }}</div>
+      <div>
+        {{ h.snippet('snippets/facet_arrangement.html', extras={'id':c.group_dict.id}, single_option_facet="organization") }}
+      </div>
     </div>
   </div>
 {% endblock organization_facets %}
