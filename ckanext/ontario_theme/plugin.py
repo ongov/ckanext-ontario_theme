@@ -1175,8 +1175,8 @@ type data_last_updated
         # pages
         elif fq:
             fq_list = search_params.setdefault('fq_list', [default_open])
-            access_level_count = True if fq.count("access_level") > 1\
-                or (fq.count("access_level") == 1 and 'access_level:"open"' not in fq) else None
+            access_level_count = True if fq.count("access_level") >= 1 and\
+                'access_level:"open"' not in fq else None
             for field in ors:
                 extracted, fq = _split_fq(fq, field)
                 if extracted:
