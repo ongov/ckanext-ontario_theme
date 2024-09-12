@@ -1640,8 +1640,16 @@ screen and (min-width: 40em) {
   }
 }
 
+@media screen and (min-width: 46em) {
+  .ontario-header__search-close-container {
+    margin-right: 6px;
+  }
+
+}
+
 @media screen and (min-width: 40em) and (max-width: 46em) {
-  .ontario-header__search-close {
+
+  .ontario-header__search-close-container {
     margin-left: 3rem;
   }
 }
