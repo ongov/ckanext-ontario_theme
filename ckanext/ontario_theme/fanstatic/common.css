@@ -484,12 +484,16 @@ input[type="reset"].ontario-search-reset:focus {
   margin: 0 -16px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   padding-top: 16px;
 }
 
 .checkbox-status .search-page-select {
   margin-top: 2rem;
+}
+
+.checkbox-status:has(.search-page-select) {
+  justify-content: flex-end;
 }
 
 .checkbox-status:has(> .ontario-callout) .search-page-select {

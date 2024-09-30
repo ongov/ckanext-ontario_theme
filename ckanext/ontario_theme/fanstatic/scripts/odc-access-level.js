@@ -21,7 +21,7 @@ ckan.module('access_level_checkboxes', function ($) {
 		},
         initialize: function () {
             this.accessLevelBoxes = $('input[name="access_level"][type="checkbox"]');
-            var params = new URLSearchParams(document.location.search);
+            const params = new URLSearchParams(document.location.search);
             this.openCheckbox = $("#checkbox-option-open");
             // "Open" checkbox checked by default
             // else get access_level params and check the appropriate boxes
