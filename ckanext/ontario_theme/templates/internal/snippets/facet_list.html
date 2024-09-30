@@ -4,7 +4,7 @@
 {% set limit = h.ontario_theme_get_facet_options()['limit']|int %}
 {% set default = h.ontario_theme_get_facet_options()['default']|int %}
 {# use label_function to get translated titles of specific facets #}
-{% if name == "license_id" or name == "organization" or name == "groups" %}
+{% if name in ["license_id", "organization", "groups"] %}
   {% set label_function = h.get_translated %}
 {% else %}
   {% set scheming_choices = scheming_choices or none %}
