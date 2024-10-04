@@ -35,10 +35,20 @@ const inputIds = [{
 inputIds.forEach(input => {
     const textId = document.getElementById(input.textId);
     const resetId = document.getElementById(input.resetId);
-    if(textId && textId.value != ""){
-        searchReset(resetId,textId);
-    }
-    if(textId){
+    var typedText = "";
+
+    if (textId && resetId) {
+        textId.addEventListener("input", function(e) {
+            typedText = e.target.value; // Update typedText with current input value
+        });
+
+        resetId.addEventListener("click", function (e) {
+            e.preventDefault();
+            textId.value = "";
+            typedText = "";
+            textId.focus();
+        });
+
         textId.addEventListener("keyup", function (e) {
             if (e.key === "Escape" || e.keyCode === KEYCODE.ESCAPE) {
                 resetId.click();
@@ -46,11 +56,4 @@ inputIds.forEach(input => {
         });
     }
 });
-
-function searchReset(resetId, textId) {
-    resetId.addEventListener("click", () => {
-        textId.defaultValue = "";
-        textId.focus();
-    });
-}
 })();
