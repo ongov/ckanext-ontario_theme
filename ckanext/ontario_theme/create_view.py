@@ -1,10 +1,14 @@
 import ckan.logic as logic
 import ckan.lib.base as base
-from ckan.common import _, config, g, request
+from ckan.common import request
+from ckan.views.dataset import (
+    _get_pkg_template
+)
 import ckan.lib.navl.dictization_functions as dict_fns
 from ckan.views.dataset import CreateView as CKANCreateView
 from ckan.lib.search import SearchError, SearchQueryError, SearchIndexError
 import ckan.lib.helpers as h
+from six import text_type
 
 NotFound = logic.NotFound
 NotAuthorized = logic.NotAuthorized
@@ -87,11 +91,36 @@ class CreateView(CKANCreateView):
 
             elif ckan_phase:
                 # redirect to add dataset resources
+                print('HEJ createviewpy def post redirect to add dataset resources 2nd one!!!')
                 url = h.url_for(
                     u'{}_resource.new'.format(package_type),
                     id=pkg_dict[u'name']
                 )
-                return h.redirect_to(url)
+                print('HEJ createviewpy def post redirect to add dataset resources 2nd one, url: ', url)
+                print('HEJ createviewpy def post redirect to add dataset resources 2nd one, pkg_dict: ', pkg_dict)
+                
+                template = u'package/new_resource_not_draft.html'
+                package_type = pkg_dict[u'type'] or package_type
+                errors = None # errors or {}
+                error_summary = {} # error_summary or {}
+                extra_vars = {
+                    u'data': None,
+                    u'errors': errors,
+                    u'error_summary': error_summary,
+                    u'action': u'new',
+                    u'resource_form_snippet': _get_pkg_template(
+                        u'resource_form', package_type
+                    ),
+                    u'dataset_type': package_type,
+                    u'pkg_name': id,
+                    u'pkg_dict': pkg_dict
+                }
+                if pkg_dict[u'state'].startswith(u'draft'):
+                    extra_vars[u'stage'] = ['complete', u'active']
+                    #template = u'package/new_resource.html'
+                    print('HEJ createviewpy def post pkg state starts with draft: ', pkg_dict['state'])
+                return base.render(template, extra_vars)
+                #return h.redirect_to(url)
 
             return _form_save_redirect(
                 pkg_dict[u'name'], u'new', package_type=package_type

@@ -187,6 +187,9 @@ class CreateView(MethodView):
         if pkg_dict[u'state'].startswith(u'draft'):
             extra_vars[u'stage'] = ['complete', u'active']
             template = u'package/new_resource.html'
+            print('HEJ resourcepy template if state starts with draft: ', template)
+        print('HEJ resourcepy template: ', template)
+        print('HEJ resourcepy return base.render, extra_vars: ', extra_vars)
         return base.render(template, extra_vars)
 
 class EditView(MethodView):

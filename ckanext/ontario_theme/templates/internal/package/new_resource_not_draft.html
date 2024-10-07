@@ -19,7 +19,13 @@
 {% endblock form_title %}
 
 {% block form %}
-  {% snippet resource_form_snippet, data=data, errors=errors, error_summary=error_summary, include_metadata=false, pkg_name=pkg_name, pkg_dict=pkg_dict, stage=stage, allow_upload=g.ofs_impl and logged_in, dataset_type=dataset_type %}
+<p>new_resource_not_draft.html</p>
+<p>errors: {{errors}}</p>
+<p>error_summary: {{error_summary}}</p>
+<p>pkg_name: {{pkg_name}}</p>
+<p>pkg_dict: {{pkg_dict}}</p>
+<p>dataset_type: {{dataset_type}}</p>
+  {% snippet resource_form_snippet, data=data, errors=errors, error_summary=error_summary, include_metadata=false, pkg_name=pkg_dict['name'], pkg_dict=pkg_dict, stage=stage, allow_upload=g.ofs_impl and logged_in, dataset_type=dataset_type %}
 {% endblock form %}
 
 {% block page_header %}
