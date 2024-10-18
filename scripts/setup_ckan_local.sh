@@ -32,7 +32,11 @@ echo $SUDOPASS | sudo -S -k chown `whoami` /usr/lib/ckan/default
 python3 -m venv /usr/lib/ckan/default
 . /usr/lib/ckan/default/bin/activate
 
-# install tools and ckan
+# install ckanext-ontario_theme pre-requsities
+pip3 install -r requirements.txt
+pip3 install -r dev-requirements.txt
+
+#tools and ckan
 pip3 install setuptools==45 wheel==0.37.1
 pip3 install -e 'git+https://github.com/ckan/ckan.git@ckan-2.9.7#egg=ckan[requirements]'
 
@@ -146,7 +150,6 @@ cd $CKAN_EXT_ROOT
 git clone https://github.com/ongov/ckanext-ontario_theme.git
 cd ckanext-ontario_theme
 python3 setup.py develop
-pip3 install -r dev-requirements.txt
 
 # copy google tag manager (placeholder) files
 cp $CKAN_ONT_THEME_ROOT/config/gtm/* $GTM_PATH/
@@ -175,7 +178,7 @@ echo $SUDOPASS | sudo -S -k cp $CKAN_ONT_THEME_ROOT/config/supervisor/ckan-uwsgi
 echo $SUDOPASS | sudo -S -k cp $CKAN_ONT_THEME_ROOT/config/supervisor/ckan-worker.conf /etc/supervisor/conf.d/ckan-worker.conf
 
 # install and configure nginx
-echo $SUDOPASS | sudo -S -k apt-get -y install nginx=1.18.0*
+echo $SUDOPASS | sudo -S -k apt-get -y install nginx=1.17.10*
 echo $SUDOPASS | sudo -S -k cp $CKAN_ONT_THEME_ROOT/config/nginx/local_ckan_ssl /etc/nginx/sites-available/
 echo $SUDOPASS | sudo -S -k ln -s /etc/nginx/sites-available/local_ckan_ssl /etc/nginx/sites-enabled/
 
