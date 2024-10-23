@@ -39,7 +39,6 @@ trigger:
     include:
       - main
       - develop
-      - ckanext_validation_develop
   tags:
     exclude:
     - '*'
