@@ -1,37 +1,75 @@
 <script>
-    window.dataLayer = window.dataLayer || [];
+    const thisOrigin = window.location.origin;
+    const thisPath = window.location.pathname;
+    const excludedPaths = ["/view/", "/edit/", "/members/",
+                           "/dataset/resources/", "/dataset/new?group=",
+                           "/bulk_process/", `${thisOrigin}/user`, "/dashboard", 
+                           "/ckan-admin/", "/resource_data/", 
+                           "/dictionary/", "/views", "/dataset/new", 
+                           "/resource_validation/",
+                           "/new_resource_publish/", "/organization/new",
+                           "/group/new"
+    ];
+      
+    let toTrack = true;
 
-    // Only resource views have a resourceName
-    if ('{{this_res}}'.length > 0) {
-        // Even if a resource exists, it might not have a name.
-        // In this case, default to name "Data".
-        resourceName = '{{this_res.name}}' ? '{{this_res.name}}' : 'Data';
-    }
-    // No resourceName for dataset page views
-    else {
-        resourceName = '';
+    /* Check if current location matches any of the excluded paths
+       Case 1: edit resource page, url has the format
+       "/resource/7c38e44f-c32f-4243-978d-4c2b4c193c53/edit"
+    */
+    const pathSplit = window.location.pathname.split('/');
+    if (pathSplit[1] === "dataset" && pathSplit[3] === "resource" && pathSplit[5] === "edit") {
+        toTrack = false;
     }
 
-    // Pushed when a dataset page or a resource page is viewed
-    if ('{{this_pkg_title}}'.length > 0) {
-        window.dataLayer.push({
-            'event': 'Pageview',
-            'ministryTag': '{{this_org}}',
-            'group': '{{this_group}}',
-            'dataAvailability': '{{this_pkg_access_level}}',
-            'datasetName': '{{this_pkg_title}}',
-            'resourceName': resourceName
+    /* Case 2: url matches any of the excluded urls
+    */
+    if (toTrack) {
+        excludedPaths.forEach(function (x) {
+            if (toTrack) {
+                if (thisPath.indexOf(x) >= 0) {
+                    toTrack = false;
+                }
+            }
         });
     }
-    // Pushed when any other page is viewed
-    else {
-        window.dataLayer.push({
-            'event': 'Pageview',
-            'ministryTag': '',
-            'group': '',
-            'dataAvailability': '',
-            'datasetName': '',
-            'resourceName': ''
-        });
+
+    // Send snippet to GA only if toTrack is true
+    if (toTrack) {
+        window.dataLayer = window.dataLayer || [];
+
+        // Only resource views have a resourceName
+        if ('{{this_res}}'.length > 0) {
+            // Even if a resource exists, it might not have a name.
+            // In this case, default to name "Data".
+            resourceName = '{{this_res.name}}' ? '{{this_res.name}}' : 'Data';
+        }
+        // No resourceName for dataset page views
+        else {
+            resourceName = '';
+        }
+
+        // Pushed when a dataset page or a resource page is viewed
+        if ('{{this_pkg_title}}'.length > 0) {
+            window.dataLayer.push({
+                'event': 'Pageview',
+                'ministryTag': '{{this_org}}',
+                'group': '{{this_group}}',
+                'dataAvailability': '{{this_pkg_access_level}}',
+                'datasetName': '{{this_pkg_title}}',
+                'resourceName': resourceName
+            });
+        }
+        // Pushed when any other page is viewed
+        else {
+            window.dataLayer.push({
+                'event': 'Pageview',
+                'ministryTag': '',
+                'group': '',
+                'dataAvailability': '',
+                'datasetName': '',
+                'resourceName': ''
+            });
+        }
     }
 </script>
