@@ -215,6 +215,25 @@ def new_resource_publish(id, resource_id):
                            pkg_dict=pkg_dict,
                            resource=res)
 
+def validation_publish_action(id, resource):
+    '''Redirects to dataset page but first deletes resource from
+       database if it is hosted remotely.
+    '''
+    print('HEJ resource url_type: ', resource.get('url_type'))
+    if resource.get('url_type') != 'upload':
+        try:
+            toolkit.get_action("datastore_delete")(
+                    None,
+                    {
+                        "resource_id": resource.get('resource_id'),
+                        "force": True
+                    }
+                )
+        except Exception as e:
+            log.error(e)
+
+    return h.url_for('dataset.read', id=id)
+
 
 def resource_validation(id, resource_id):
     '''Intermediate page for resource validation (step 2)
@@ -1100,7 +1119,8 @@ type data_last_updated
                 'ontario_theme_get_facet_options': get_facet_options,
                 'ontario_theme_site_title': site_title,
                 'ontario_theme_get_current_year': get_current_year,
-                'ontario_theme_get_validation_report': get_validation_report
+                'ontario_theme_get_validation_report': get_validation_report,
+                'ontario_theme_validation_publish_action': validation_publish_action
                 }
 
     # IBlueprint

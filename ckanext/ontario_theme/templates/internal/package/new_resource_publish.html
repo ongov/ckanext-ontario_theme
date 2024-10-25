@@ -117,7 +117,13 @@
       </div>
     {% endfor %}
   </div>
-  {% link_for _('Publish'), named_route='dataset.read', id=pkg.name, class_="ontario-button ontario-button--primary" %}
+  {% set action = h.ontario_theme_validation_publish_action(id=pkg.name, resource=resource) %}
+  <form method="get" action="{{ action }}">
+    <button id="step4Btn"
+            class="ontario-button ontario-button--primary"
+            name="save"
+            type="submit">{{ _('Publish') }}</button>
+  </form>
 {% endblock primary_content_inner %}
 
 {% block secondary %}
