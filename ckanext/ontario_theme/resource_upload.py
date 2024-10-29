@@ -171,7 +171,6 @@ class ResourceUpload(DefaultResourceUpload):
 
             # Determine mimetype with python-magic
             _check_file_mimetype(self)
-            upload_mimetype = _check_file_mimetype(self)
                       
         elif self.clear:
             resource['url_type'] = ''
