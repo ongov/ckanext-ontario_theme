@@ -33,8 +33,8 @@ python3 -m venv /usr/lib/ckan/default
 . /usr/lib/ckan/default/bin/activate
 
 # install ckanext-ontario_theme pre-requsities
-pip3 install -r requirements.txt
-pip3 install -r dev-requirements.txt
+pip3 install -r ../requirements.txt
+pip3 install -r ../dev-requirements.txt
 
 #tools and ckan
 pip3 install setuptools==45 wheel==0.37.1
@@ -121,8 +121,7 @@ XLOADER_URI="ckanext.xloader.jobs_db.uri = postgresql://ckan_default:pass@localh
 XLOADER_URI_REPLACEMENT="ckanext.xloader.jobs_db.uri = postgresql://$CKANUSER:$CKANPASS@$POSTGRESSERVERURL:$POSTGRESSERVERPORT/$CKANDB?sslmode=require"
 replace_str_in_ckan_ini "$XLOADER_URI" "$XLOADER_URI_REPLACEMENT"
 # clone and install
-cd /usr/lib/ckan/default/src
-
+cd $CKAN_EXT_ROOT
 git clone --depth 1 --branch $XLOADER_REQ_VER https://github.com/ckan/ckanext-xloader.git
 cd ckanext-xloader
 python3 setup.py develop
@@ -137,9 +136,11 @@ else
 fi
 
 # install ckan scheming
-pip3 install -e "git+https://github.com/ckan/ckanext-scheming.git#egg=ckanext-scheming"
+cd $CKAN_EXT_ROOT
+pip3 install -e "git+https://github.com/ckan/ckanext-scheming.git@release-3.0.0#egg=ckanext-scheming"
 
 # install fluent
+cd $CKAN_EXT_ROOT
 git clone https://github.com/ckan/ckanext-fluent.git
 cd ckanext-fluent
 python3 setup.py develop
@@ -168,7 +169,7 @@ echo $SUDOPASS | sudo -S -k chmod -R 777 /tmp/default/*
 # uwsgi script & server
 echo $SUDOPASS | sudo -S -k cp /usr/lib/ckan/default/src/ckan/wsgi.py /etc/ckan/default/
 echo $SUDOPASS | sudo -S -k chown www-data /etc/ckan/default/wsgi.py
-. /usr/lib/ckan/default/bin/activate
+c
 pip3 install -Iv uwsgi==2.0.20
 echo $SUDOPASS | sudo -S -k cp /usr/lib/ckan/default/src/ckan/ckan-uwsgi.ini /etc/ckan/default/
 
