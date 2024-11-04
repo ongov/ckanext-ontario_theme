@@ -169,7 +169,7 @@ echo $SUDOPASS | sudo -S -k chmod -R 777 /tmp/default/*
 # uwsgi script & server
 echo $SUDOPASS | sudo -S -k cp /usr/lib/ckan/default/src/ckan/wsgi.py /etc/ckan/default/
 echo $SUDOPASS | sudo -S -k chown www-data /etc/ckan/default/wsgi.py
-c
+. /usr/lib/ckan/default/bin/activate
 pip3 install -Iv uwsgi==2.0.20
 echo $SUDOPASS | sudo -S -k cp /usr/lib/ckan/default/src/ckan/ckan-uwsgi.ini /etc/ckan/default/
 
