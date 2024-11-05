@@ -174,6 +174,11 @@ Activate your CKAN virtualenv and run:
 
 We use the djLint pre-commit hook to lint our code.
 
+To format staged code manually, run the following in your CKAN virtualenv:
+::
+  pre-commit run --hook-stage manual format
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Adding ODC recommended settings to your vscode
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -183,6 +188,17 @@ For our CSS formatting, we are using the vscode CSS formatter.
 2. Copy contents of ``settings.json.default`` into the ``settings.json``
    file. Save.
 
+We have recommendations for vscode extensions in the ``extensions.json`` file of the ``.vscode`` folder.
+On start up, a pop up will appear asking if you would like to install the extensions.
+The extensions are to make development easier within this repo, they are:
+::
+  1. Better Jinja, syntax highlighting for Jinja2
+  2. Flake8, Python linter
+  3. GitLens
+  4. Diff, diff comparison
+  5. NGINX Configuration Language Support
+
+-----------------
 Translations
 ------------
 
