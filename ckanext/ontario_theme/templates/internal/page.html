@@ -50,7 +50,36 @@
           {% endblock secondary %}
 
           {% block primary %}
-            {{ super() }}
+            <div class="primary ontario-columns ontario-medium-9 ontario-small-12">
+              {% block primary_content %}
+                <article class="module">
+                  {% block page_header %}
+                    <header class="module-content page-header">
+                      {% if self.content_action() | trim %}
+                        <div class="content_action">
+                          {% block content_action %}
+                          {% endblock content_action %}
+                        </div>
+                      {% endif %}
+                      <ul class="nav nav-tabs">
+                        {% block content_primary_nav %}
+                        {% endblock content_primary_nav %}
+                      </ul>
+                    </header>
+                  {% endblock page_header %}
+                  <div class="module-content">
+                    {% if self.page_primary_action() | trim %}
+                      <div class="page_primary_action">
+                        {% block page_primary_action %}
+                        {% endblock page_primary_action %}
+                      </div>
+                    {% endif %}
+                    {% block primary_content_inner %}
+                    {% endblock primary_content_inner %}
+                  </div>
+                </article>
+              {% endblock primary_content %}
+            </div>
           {% endblock primary %}
         </div>
       {% endblock main_content %}

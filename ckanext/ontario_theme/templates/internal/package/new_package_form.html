@@ -5,7 +5,11 @@
     <button class="btn btn-primary"
             type="submit"
             name="save"
-            value="save-and-finish">{{ _('Save and finish') }}</button>
+            value="save-and-finish">{{ _('Publish Dataset') }}</button>
+  {% else %}
+    <button class="btn btn-primary" type="submit" name="save">
+      {% block save_button_text %}{{ _('Update Dataset') }}{% endblock %}
+    </button>
   {% endif %}
-  {{ super() }}
+
 {% endblock save_button %}

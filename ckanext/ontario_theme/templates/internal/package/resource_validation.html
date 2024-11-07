@@ -1,0 +1,94 @@
+{% extends "package/resource_edit_base.html" %}
+
+{%- block subtitle -%}
+  {{ h.resource_display_name(resource) }}
+{%- endblock subtitle -%}
+
+{% block pre_primary %}
+  {% set back_url = h.url_for(pkg_dict.type ~ '_resource.edit', id=id, resource_id=resource.id) %}
+  {% snippet "package/snippets/step_indicator.html", step=2, back_url=back_url %}
+{% endblock pre_primary %}
+
+{% block form_title %}
+  {{ h.resource_display_name(resource) }}
+  {% if validation.report %}{{ h.get_validation_badge(resource)|safe }}{% endif %}
+{% endblock form_title %}
+
+{% block primary_content_inner %}
+  {% set action = h.url_for('datastore.dictionary',
+      id=id,
+    resource_id=resource.id) %}
+
+  {% if validation.report %}
+    {% set button_id = "step2Btn" %}
+    {% set success_message = "Data validated successfully" %}
+    <div class="validation-details">
+      <div>{{ _('Validation timestamp') }}: {{ h.render_datetime(resource.validation_timestamp, with_hours=True) }}</div>
+      <div>{{ _('Duration') }}: {{ h.validation_dict(validation.report)["stats"]["seconds"] }}s</div>
+    </div>
+    {% snippet "package/snippets/successful_page_alert.html", success_message=success_message %}
+
+    <script>
+      function poll_datastore() {
+        const resId = "{{ resource.id }}";
+        const xhr = new XMLHttpRequest();
+        const url = `/api/3/action/resource_show?id=${resId}`
+
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send();
+
+        xhr.onreadystatechange = () => {                                
+          if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            let thisResponse = JSON.parse(xhr.response);
+
+            if (thisResponse.result.datastore_active) {
+              const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+         
+              const fixedDelay = async () => {
+                await sleep(2000)
+                document.getElementById("pendingTxt").innerHTML = "Data file uploaded. Please click Continue.";
+                document.getElementById("spinnerSVG").style.display = "none";
+                document.getElementById("step2Btn").style.display = "block";
+              }
+              fixedDelay();
+
+            } else {
+            setTimeout(poll_datastore, 1000);
+            }
+          }
+        }
+      };
+      poll_datastore();
+    </script>
+
+    <div class="ontario-small-12 ontario-row">
+      <div class="ontario-small-12 ontario-columns">
+        <div id="loadingSpinner" aria-hidden="false" role="alert">
+          <div class="ontario-loading-indicator">
+            <svg id="spinnerSVG"
+                 class="ontario-loading-indicator__spinner-small"
+                 viewBox="25 25 50 50"
+                 xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="20" fill="none" stroke-width="4" />
+            </svg>
+            <p class="spinner-small" id="pendingTxt">Uploading data file to database</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  {% else %}
+    {% set button_id = "nextBtn" %}
+    {% set success_message = "Data uploaded successfully" %}
+    {% snippet "package/snippets/successful_page_alert.html", success_message=success_message %}
+  {% endif %}
+
+  <form method="get" action="{{ action }}">
+    <button id="{{ button_id }}"
+            class="ontario-button ontario-button--primary"
+            name="save"
+            type="submit">{{ _('Continue') }}</button>
+  </form>
+
+{% endblock primary_content_inner %}

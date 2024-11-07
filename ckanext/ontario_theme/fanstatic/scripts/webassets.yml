@@ -19,3 +19,12 @@ ontario_theme_form_validators_js:
     preload:
       - vendor/jquery
       - base/main
+
+ontario_theme_step_indicator:
+  filters: rjsmin
+  contents: odc-step-indicator.js
+  output: ontario_theme_scripts/%(version)s_odc-step-indicator.js
+  extra:
+    preload:
+      - vendor/jquery
+      - base/main

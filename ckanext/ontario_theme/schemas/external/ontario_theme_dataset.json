@@ -640,6 +640,7 @@
     }
   ],
   "resource_fields": [
+
     {
       "field_name": "url",
       "label": {
@@ -837,5 +838,27 @@
       "validators": "ignore_missing isodate convert_to_json_if_date",
       "form_placeholder": "yyyy-mm-dd"
     }
+    ,
+    {
+      "field_name": "schema",
+      "label": "Schema",
+      "preset": "hidden_in_form"
+    },
+    {
+      "field_name": "validation_options",
+      "label": "Validation options",
+      "preset": "hidden_in_form"
+    },
+    {
+      "field_name": "validation_status",
+      "label": "Validation status",
+      "preset": "hidden_in_form"
+    },
+    {
+      "field_name": "validation_timestamp",
+      "label": "Validation timestamp",
+      "preset": "hidden_in_form"
+    }
+
   ]
 }
