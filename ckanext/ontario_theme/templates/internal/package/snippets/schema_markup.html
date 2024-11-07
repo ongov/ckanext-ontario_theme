@@ -31,6 +31,7 @@
       "url": "{{ pkg.license_url }}"
     },
     "dateModified": "{{ pkg.metadata_modified }}",
+    "temporal": "{{ pkg.current_as_of }}",
     "keywords": "{%- for keyword in pkg.keywords[h.lang()] -%}{{ keyword }}{%- if not loop.last -%},{%- endif -%}{%- endfor -%}",
     {% if pkg.access_level == 'open' -%}
       "distribution": [
