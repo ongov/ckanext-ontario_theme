@@ -58,6 +58,9 @@
           <div class="datafile-p" property="rdfs:label">
             {% block resource_read_url %}
               {% if res.url and h.is_url(res.url) %}
+                  {% if res['validation_status'] == 'failure' %}
+                    <p> {{_('This dataset contains data quality issues and is in the process of being updated. Please check back soon.')}}</p>
+                  {% endif %}
                 <p>
                   {{ _('URL:') }}
                   <a class="resource-url-analytics"
@@ -65,6 +68,7 @@
                      title="{{ res.url }}">{{ res.url }}</a>
                 </p>
               {% elif res.url %}
+              <p> res.url {{res.url}}</p>
                 <p>{{ _('URL:') }} {{ res.url }}</p>
               {% endif %}
             {% endblock resource_read_url %}
@@ -104,7 +108,7 @@
           {% endif %}
           <div class="module module-narrow module-shallow context-info">
             <h2 class="ontario-h4">
-              {% if res.datastore_active %}
+              {% if res.datastore_active and res['validation_status'] == 'success' %}
                 {{ _('Download data') }}
               {% elif pkg.get("asset_type") == "ai" %}
                 {{ _('Access <abbr title="Artificial Intelligence">AI</abbr>') }}
@@ -112,7 +116,8 @@
                 {{ _('Access data') }}
               {% endif %}
             </h2>
-            {% if not res.datastore_active %}
+            <p>{{res['validation_status']}}</p>
+            {% if not res.datastore_active and res['validation_status'] == 'success' %}
               <a class="dataset-download-link resource-url-analytics resource-type-{{ res.resource_type }}"
                  href="{{ res.url }}"
                  onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">

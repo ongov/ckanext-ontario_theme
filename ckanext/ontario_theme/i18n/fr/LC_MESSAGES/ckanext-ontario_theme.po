@@ -2152,6 +2152,10 @@ msgid "Use the Data Visualizer below to display this dataset as a table, graph o
 msgstr "Servez-vous du visualiseur de données plus bas pour afficher ce jeu de données sous forme de tableau, de graphique ou de carte."
 
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:27
+msgid "This dataset contains data quality issues and is in the process of being updated. Please check back soon."
+msgstr "Ce jeu de données a des problèmes du qualité qui sont en train d'être resolus. Veuillez patienter."
+
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:27
 msgid "From the dataset abstract"
 msgstr "Issu du résumé du jeu de données"
 
