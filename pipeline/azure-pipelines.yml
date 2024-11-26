@@ -4,7 +4,7 @@ resources:
       connection: ckan_ontario_theme_Webhook_SC
       filters:
         - path: ref
-          value: "refs/heads/ckanext_validation_develop"
+          value: "refs/heads/$(Build.SourceBranchName)"
   repositories:  
   - repository: ods-edc-qa-automation
     type: git

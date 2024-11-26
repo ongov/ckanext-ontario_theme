@@ -133,7 +133,8 @@
           <label class="ontario-label" for="field-order-by">{{ _('Sort by') + _(':') }}</label>
           <select id="field-order-by"
                   name="sort"
-                  class="form-control ontario-input ontario-dropdown">
+                  class="form-control ontario-input ontario-dropdown"
+                  autocomplete="off">
             {% for label, value in sorting %}
               {% if label and value %}
                 <option value="{{ value }}"
