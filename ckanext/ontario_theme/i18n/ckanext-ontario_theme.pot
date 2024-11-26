@@ -1188,10 +1188,6 @@ msgstr ""
 msgid "Save Ministry"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:61
-msgid "This dataset contains data quality issues and is in the process of being updated. Please check back soon."
-msgstr ""
-
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:27
 msgid "From the dataset abstract"
 msgstr ""
