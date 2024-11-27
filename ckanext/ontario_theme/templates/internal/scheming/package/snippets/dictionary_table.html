@@ -1,0 +1,14 @@
+<tr>
+  <td>{{ field.id }}</td>
+  <td>
+    {% if field.type == 'text' %}
+      {{ field.type }}
+    {% else %}
+      {{ field.info.type_override }}
+    {% endif %}
+  </td>
+  <td>
+    {{ h.render_markdown(
+    h.get_translated(field.get('info', {}), 'notes')) }}
+  </td>
+</tr>

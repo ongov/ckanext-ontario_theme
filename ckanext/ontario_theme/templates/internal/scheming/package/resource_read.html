@@ -52,7 +52,9 @@
           {% block resource_read_title %}
             <h1 {% if "https://" in h.resource_display_name(res) -%}
                 class="break-all"
-                {%- endif -%}>{{ h.resource_display_name(res) }}{{ h.get_validation_badge(res, in_listing=True)|safe }}</h1>
+                {%- endif -%}>
+              {{ h.resource_display_name(res) }}{{ h.get_validation_badge(res, in_listing=True)|safe }}
+            </h1>
           {% endblock resource_read_title %}
 
           <div class="datafile-p" property="rdfs:label">
@@ -69,11 +71,7 @@
               {% endif %}
             {% endblock resource_read_url %}
 
-            {% if res.description %}
-              <div>
-                {{ h.render_markdown(h.get_translated(res, "description")) }}
-              </div>
-            {% endif %}
+            {% if res.description %}<div>{{ h.render_markdown(h.get_translated(res, "description")) }}</div>{% endif %}
             {% if not res.description and c.package.notes %}
               {% if res.datastore_active %}
                 {{ h.render_markdown(h.get_translated(c.package, 'notes')) }}
@@ -210,6 +208,27 @@
         {% if res %}
           {% block resource_additional_information_inner %}
             <div class="ontario-column ontario-small-12 ontario-medium-9">
+              <h2>{{ _('Data dictionary') }}</h2>
+              <table class="table table-striped table-bordered table-condensed"
+                     data-module="table-toggle-more">
+                <thead>
+                  {% block resouce_data_dictionary_headers %}
+                    <tr>
+                      <th scope="col">{{ _('Column') }}</th>
+                      <th scope="col">{{ _('Type') }}</th>
+                      <th scope="col">{{ _('Description') }}</th>
+                    </tr>
+                  {% endblock %}
+                </thead>
+                {% block resource_data_dictionary_data %}
+                  {% set dict = h.datastore_dictionary(res.id) %}
+                  {% for field in dict %}
+                    {% snippet "scheming/package/snippets/dictionary_table.html", field=field %}
+                  {% endfor %}
+                {% endblock %}
+              </table>
+            </div>
+            <div class="ontario-column ontario-small-12 ontario-medium-9">
               <h2>{{ _('Additional information') }}</h2>
               <div class="ontario-margin-top-40 res-additional-info-table table table-striped table-bordered table-condensed"
                    data-module="table-toggle-more">
@@ -264,7 +283,9 @@
                       {%- if field.field_name not in exclude_fields and res[field.field_name] and (res[field.field_name] != {'fr': '', 'en': ''}) -%}
                         <div class="res-additional-info-tr">
                           <dt class="res-additional-info-th">{{- h.scheming_language_text(field.label) -}}</dt>
-                          <dd class="res-additional-info-td {% if breakall and h.scheming_language_text(field.label) == name -%}break-all{%- endif -%}">
+                          <dd class="res-additional-info-td
+                                     {% if breakall and h.scheming_language_text(field.label) == name -%}
+                                       break-all{%- endif -%}">
                             {%- if field.preset == "date" -%}
                               {{- h.render_datetime(res[field.field_name]) -}}
                             {%- else -%}
