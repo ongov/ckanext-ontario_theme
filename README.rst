@@ -1,5 +1,6 @@
+=============
 ckanext-ontario_theme
-=====================
+=============
 
 Theme for Ontario ckan including:
 
@@ -8,6 +9,7 @@ Theme for Ontario ckan including:
 -  templates and design
 -  validation for CSV resources
 
+------------
 Requirements
 ------------
 
@@ -37,10 +39,9 @@ Requirements
 
 
 
---------------
-
+------------
 Directory Structure
--------------------
+------------
 
 Four directories compose this repository
 
@@ -51,13 +52,15 @@ Four directories compose this repository
 -  **bin:** contains CI scripts that are no longer being used. This
    directory is pending deletion/cleanup
 
+------------
 Plugins in this Extension:
---------------------------
+------------
 
 -  ``ontario_theme`` base and internal-facing Ontario data catalogue
 -  ``ontario_theme_external`` customizations for external facing Ontario
    data catalogue (requires ``ontario_theme``)
 
+------------
 Installation
 ------------
 
@@ -95,25 +98,26 @@ setting is in the ``plugin.py`` already.
 Create a sysadmin user, login and set the HomePage layout under Admin ->
 Config to the third option. Our homepage uses this layout as its base.
 
-
+------------
 ckanext-validation Integration
-------------------------------
+------------
 
 This code contains a redesign of the workflow for adding and editing
 resources where users are guided by a four-step wizard process. *Note:
 this is still a work-in-progress.*
 
+
+^^^^^^^
 Step 1:
-~~~~~~~
+^^^^^^^
 
 CSV files selected for upload are checked for header and table property
 errors by the ckanext-validation extension. Only files that pass all
 checks are pushed to datastore. |Screenshot-step1|
 
---------------
-
+^^^^^^^
 Step 2:
-~~~~~~~
+^^^^^^^
 
 Intermediate step: the user is notified that the validation was
 successful while XLoader asynchronously pushes the CSV file to the
@@ -129,10 +133,9 @@ When the XLoader job status is complete, a “Continue” button is
 displayed that redirects to the Data Dictionary page (Step 3):
 |Screenshot step2_continue|
 
---------------
-
+^^^^^^^
 Step 3:
-~~~~~~~
+^^^^^^^
 
 Data Dictionary: the default CKAN data dictionary form is displayed to
 allow data type definitions. The validation plugin checks against the
@@ -142,10 +145,9 @@ data types saved in the form.
    :alt: Screenshot step3
 
 
---------------
-
+^^^^^^^
 Step 4:
-~~~~~~~
+^^^^^^^
 
 Successful data type validation leads to the final page in the workflow
 where the user can review the metadata and data dictionary info and
@@ -155,15 +157,17 @@ either link back to make changes or publish as is.
    :alt: Screenshot-step4
 
 
-
+-----------------
 Development
------------
+-----------------
 
 Follow the `CKAN style
 rules <http://docs.ckan.org/en/latest/contributing/css.html#formatting>`__.
 
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Installing dev-tools and pre-commit hooks for development
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Activate your CKAN virtualenv and run:
 
@@ -178,9 +182,10 @@ To format staged code manually, run the following in your CKAN virtualenv:
 ::
   pre-commit run --hook-stage manual format
 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Adding ODC recommended settings to your vscode
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 For our CSS formatting, we are using the vscode CSS formatter.
 
@@ -198,8 +203,10 @@ The extensions are to make development easier within this repo, they are:
   4. Diff, diff comparison
   5. NGINX Configuration Language Support
 
+
+-----------------
 Translations
-------------
+-----------------
 
 Current Process:
 
@@ -238,6 +245,7 @@ Additional Info:
    that change rarely. More dynamic content should be handled elsewhere
    (e.g. see ckanext-fluent)
 
+-----------------
 Running the Tests
 -----------------
 
@@ -273,8 +281,9 @@ You can then find the coverage reports in a generated htmlcov folder.
 
 Our custom config settings are in ``./test.ini``.
 
+-----------------
 Running a single test
-~~~~~~~~~~~~~~~~~~~~~
+-----------------
 
 *Single Test class*:
 
