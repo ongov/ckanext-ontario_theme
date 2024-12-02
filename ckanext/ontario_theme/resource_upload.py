@@ -1,4 +1,6 @@
 # encoding: utf-8
+from ckan import plugins as p
+import ckan.lib.helpers as h
 import ckan.logic as logic
 from ckan.plugins.toolkit import Invalid
 from werkzeug.utils import secure_filename
@@ -146,7 +148,8 @@ class ResourceUpload(DefaultResourceUpload):
         if url and config_mimetype_guess == 'file_ext':
             self.mimetype = mimetypes.guess_type(url)[0]
             try:
-                this_format = accepted_resource_formats()[0][accepted_resource_formats()[1].index(mimetypes.guess_type(url)[0])]                
+                # always upper case
+                this_format = accepted_resource_formats()[0][accepted_resource_formats()[1].index(mimetypes.guess_type(url)[0])]
             except:
                 log.error("Format cannot be guessed")
 
@@ -182,8 +185,8 @@ class ResourceUpload(DefaultResourceUpload):
 
         # For uploaded resources, use the specified format unless it does
         # not agree with the format derived from the guessed mime type
-        if resource.get('url_type') == 'upload' and resource.get('format'):
-            if this_format and resource.get('format').lower() != this_format:
+        if not h.is_url(resource.get('url')) and resource.get('format'):
+            if this_format.lower() and resource.get('format').lower() != this_format.lower():
                 resource['format'] = this_format
             else:
                 resource['format'] = resource.get('format').upper()
