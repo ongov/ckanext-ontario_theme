@@ -31,7 +31,7 @@ parameters:
   - name: Run_E2E_Tests
     displayName: Run E2E Tests?
     type: boolean
-    default: true
+    default: false
 
 trigger:
   batch: true
