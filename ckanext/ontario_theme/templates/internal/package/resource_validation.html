@@ -29,20 +29,67 @@
     {% snippet "package/snippets/successful_page_alert.html", success_message=success_message %}
 
     <script>
-      function poll_datastore() {
+      console.log("In script")
+      const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+      const waitForXloader = async () => {
+        console.log("Waiting 10s...")
+        await sleep(10000)
+        console.log("10s are up. Check xloader status:")
+
         const resId = "{{ resource.id }}";
         const xhr = new XMLHttpRequest();
-        const url = `/api/3/action/resource_show?id=${resId}`
+        const url = `/api/3/action/xloader_status?resource_id=${resId}`;
+        //const url = `/api/3/action/resource_show?id=${resId}`;
 
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.send();
 
-        xhr.onreadystatechange = () => {                                
+        xhr.onreadystatechange = () => {
+
+          console.log('xhr: ', xhr)
+          console.log('xhr.response: ', xhr.response)
+          let thisResponse = JSON.parse(xhr.response);
+          console.log('xloader status: ', thisResponse)
+
+          if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+              let thisResponse = JSON.parse(xhr.response);
+              console.log('xloader status: ', thisResponse.result.status)
+
+              if (thisResponse.result.status === 'error') {
+                console.log('xloader error')
+              } else if (thisResponse.result.status === 'complete') {
+                console.log('xloader complete, move on')
+                document.getElementById("pendingTxt").innerHTML = "Data file uploaded. Please click Continue.";
+                document.getElementById("spinnerSVG").style.display = "none";
+                document.getElementById("step2Btn").style.display = "block";
+
+              } else {
+                console.log('Call poll_datastore:')
+                poll_datastore();
+              }
+             }
+            }
+          }
+        waitForXloader();
+        
+
+      function poll_datastore() {
+        console.log('in fn poll_datastore')
+        const resId = "{{ resource.id }}";
+        const xhr = new XMLHttpRequest();
+        const url = `/api/3/action/resource_show?id=${resId}`;
+        //const url = `/api/3/action/xloader_status?resource_id=${resId}`;
+
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send();
+
+        xhr.onreadystatechange = () => {
           if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             let thisResponse = JSON.parse(xhr.response);
 
-            if (thisResponse.result.datastore_active) {
+            if (thisResponse.result.status !== 'complete') {
               const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
          
               const fixedDelay = async () => {
@@ -59,7 +106,7 @@
           }
         }
       };
-      poll_datastore();
+      //poll_datastore();
     </script>
 
     <div class="ontario-small-12 ontario-row">
