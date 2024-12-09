@@ -3863,6 +3863,10 @@ label::after {
 .form-column-name {
   border: none;
   background-color: #fff;
+  display: inline-block;
+  margin: 0 0 1rem 0;
+  width: 100%;
+  max-width: 48rem
 }
 
 .column-name-div {

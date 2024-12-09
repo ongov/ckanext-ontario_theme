@@ -71,11 +71,23 @@
         {% endfor %}
       {% endblock dictionary_form %}
     {% else %}
-      <p>This resource does not need a data dictionary.</p>
-      <p>
-        Data dictionaries give users the information they need to understand the data they are looking at. The data dictionary is displayed alongside the data for easy reference.
-        Data dictionaries are only used for CSV files.
-      </p>
+      {% if res['mimetype'] != 'text/csv' %}
+        <p>This resource does not need a data dictionary.</p>
+        <p>
+          Data dictionaries give users the information they need to understand the data they are 
+          looking at. The data dictionary is displayed alongside the data for easy reference.
+          Data dictionaries are only used for CSV files.
+        </p>
+      {% else %}
+        {% if res['mimetype'] == 'text/csv' %}
+          <p>Data dictionaries can only be defined here for uploaded CSV files, not for CSV files 
+          hosted on external sites.</p>
+          <p>
+            Data dictionaries give users the information they need to understand the data they are 
+            looking at. Please upload a separate file containing the data dictionary.
+          </p>
+        {% endif %}
+      {% endif %}
     {% endif %}
     <button class="ontario-button ontario-button--primary"
             name="save"
