@@ -1197,6 +1197,10 @@ msgstr ""
 msgid "Source: <a href=\"%(url)s\">%(dataset)s</a>"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:211
+msgid "Data dictionary"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:36
 msgid "Additional information"
 msgstr ""
