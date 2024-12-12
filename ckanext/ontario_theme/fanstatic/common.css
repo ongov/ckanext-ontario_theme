@@ -2219,6 +2219,199 @@ a.ontario-button.ontario-button--tertiary:hover {
   padding: 12px;
 }
 
+/* DS */
+.ontario-table-container {
+  position: relative;
+  margin: 0.5rem 0 2.5rem 0;
+}
+
+.ontario-table-container table:not(.ontario-table--no-zebra-stripes) tbody tr:first-child:nth-last-child(n + 6):nth-child(even),
+.ontario-table-container table:not(.ontario-table--no-zebra-stripes) tbody tr:first-child:nth-last-child(n + 6) ~ tr:nth-child(even) {
+  background-color: #0000000d;
+}
+
+.ontario-table-div {
+  overflow-x: auto;
+  background: linear-gradient(to right, #fff 30%, rgba(255, 255, 255, 0)), linear-gradient(to right, rgba(255, 255, 255, 0), #fff 70%) 0 100%, linear-gradient(to right, rgba(0, 0, 0, 0.2) 0%, rgba(252, 0, 0, 0) 100.01%), linear-gradient(to left, rgba(0, 0, 0, 0.2) 0%, rgba(252, 0, 0, 0) 100.01%);
+  background-repeat: no-repeat;
+  background-size: 2.5rem 100%, 2.5rem 100%, 0.875rem 100%, 0.875rem 100%;
+  background-position: 0 0, 100%, 0 0, 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-table-div {
+    overflow-x: scroll;
+  }
+}
+
+.ontario-table-scroll--wrapper {
+  height: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: block;
+}
+
+.ontario-table-div table {
+  border-collapse: collapse;
+  font-size: 1.0625rem;
+  display: table;
+  line-height: 1.625rem;
+  font-weight: normal;
+}
+
+table.ontario-table--full-container-width {
+  display: table;
+  width: 100% !important;
+}
+
+@media screen and (max-width: 40em) {
+  table {
+    font-size: 1rem;
+  }
+}
+
+
+tbody {
+  font-size: 1rem;
+  vertical-align: top;
+}
+
+tbody tr {
+  border: solid;
+  border-width: .0625rem 0;
+  border-color: #0000004d;
+}
+
+tbody tr:last-child {
+  border-width: 0.1875rem 0;
+  border-top-width: 0;
+  border-color: #1a1a1a;
+}
+
+tbody tr.ontario-table-row--highlight {
+  background-color: #e19100 3c !important;
+}
+
+tbody tr.ontario-table-row--highlight th {
+  padding-left: 1.5rem;
+  display: flex;
+  position: relative;
+}
+
+tbody tr.ontario-table-row--highlight th img.ontario-table--highlight-indicator {
+  width: 0.5rem;
+  position: absolute;
+  top: 1.5rem;
+  left: 0;
+}
+
+thead {
+  border: solid;
+  border-width: .1875rem 0;
+  border-color: #1a1a1a;
+  vertical-align: top;
+}
+
+thead th {
+  text-align: left;
+  padding: 1.75rem 1rem 1.75rem 1.5rem;
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+}
+
+@media screen and (max-width: 40em) {
+  thead th {
+    font-size: 1rem;
+    line-height: 1.3125rem;
+    padding: 1.53125rem 0.5rem 1.53125rem 1rem;
+  }
+}
+
+tbody th,
+tfoot th {
+  padding: 1.1875rem 1rem 1.1875rem 1.5rem;
+  text-align: left;
+  letter-spacing: 0.025rem;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 40em) {
+
+  tbody th,
+  tfoot th {
+    font-size: 1rem;
+    line-height: 1.625rem;
+    padding: 1.1875rem 0.5rem 1.1875rem 1rem;
+  }
+}
+
+td {
+  padding: 1.1875rem 1rem 1.1875rem 1.5rem;
+  text-align: left;
+  letter-spacing: 0.025rem;
+}
+
+/* END DS */
+
+/*
+.ontario-table table {
+  border-collapse: collapse;
+  font-size: 1.0625;
+  display: table;
+  line-height: 1.625;
+  font-weight: normal;
+}
+
+.ontario-table table.ontario-table--full-container-width {
+  display: table;
+  width: 100% !important;
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-table table {
+    font-size: 1;
+  }
+}
+
+.ontario-table .table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #fff;
+}
+
+.ontario-table .table-striped tbody tr:nth-child(even) td,
+.ontario-table .table-striped tbody tr:nth-child(even) th {
+  background-color: #0000000d;
+}
+
+.ontario-table thead {
+  border: solid;
+  border-width: 0.1875 0;
+  border-color: #1a1a1a;
+  vertical-align: top;
+}
+
+.ontario-table thead th {
+  text-align: left;
+  padding: 1.75 1 1.75 1.5;
+  margin: 0;
+  font-size: 1.125;
+  line-height: 1.5;
+  text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+}
+
+@media screen and (max-width: 0.875rem) {
+  .ontario-table thead th {
+    font-size: 1;
+    line-height: 1.3125;
+    padding: 1.53125 0.5 1.53125 1;
+  }
+}
+*/
+
 .module-resource {
   border-bottom: unset;
   z-index: 1;
