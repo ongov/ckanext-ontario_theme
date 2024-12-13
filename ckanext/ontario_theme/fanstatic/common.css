@@ -2355,6 +2355,71 @@ td {
   letter-spacing: 0.025rem;
 }
 
+/*condensed*/
+table.ontario-table--condensed td {
+  padding: 0.75rem 1rem 0.75rem 1.5rem;
+  text-align: left;
+}
+
+table.ontario-table--condensed td.ontario-table-cell--numeric {
+  padding: 0.75rem 1.5rem 0.75rem 1rem;
+  font-size: 1.0625rem;
+  text-align: right;
+}
+
+table.ontario-table--condensed tbody th,
+table.ontario-table--condensed tfoot th {
+  padding: 0.75rem 1rem 0.75rem 1.5rem;
+}
+
+table.ontario-table--condensed tr.ontario-table-row--highlight th img.ontario-table--highlight-indicator {
+  top: 1.0625rem;
+}
+
+table.ontario-table--condensed tr.ontario-table-row--subtotal th,
+table.ontario-table--condensed tfoot tr th,
+table.ontario-table--condensed tr.ontario-table-row--subtotal td,
+table.ontario-table--condensed tfoot tr td {
+  padding: 1rem 1rem 1rem 1.5rem;
+}
+
+table.ontario-table--condensed tr.ontario-table-row--subtotal td.ontario-table-cell--numeric,
+table.ontario-table--condensed tfoot tr td.ontario-table-cell--numeric {
+  text-align: right;
+  padding: 1rem 1.5rem 1rem 1rem;
+}
+
+@media screen and (max-width: 40em) {
+  table.ontario-table--condensed td {
+    padding: 0.75rem 0.5rem 0.75rem 1rem;
+    font-size: 1rem;
+  }
+
+  table.ontario-table--condensed td.ontario-table-cell--numeric {
+    padding: 0.75rem 1rem 0.75rem 0.5rem;
+  }
+
+  table.ontario-table--condensed tbody th {
+    padding: 0.75rem 0.5rem 0.75rem 1rem;
+  }
+
+  table.ontario-table--condensed tr.ontario-table-row--subtotal th,
+  table.ontario-table--condensed tfoot tr th,
+  table.ontario-table--condensed tr.ontario-table-row--subtotal td,
+  table.ontario-table--condensed tfoot tr td {
+    padding: 1rem 0.5rem 1rem 1rem;
+  }
+
+  table.ontario-table--condensed tr.ontario-table-row--subtotal td.ontario-table-cell--numeric,
+  table.ontario-table--condensed tfoot tr td.ontario-table-cell--numeric {
+    text-align: right;
+    padding: 1rem 1rem 1rem 0.5rem;
+  }
+}
+
+/*endcondensed*/
+
+
 /* END DS */
 
 /*
