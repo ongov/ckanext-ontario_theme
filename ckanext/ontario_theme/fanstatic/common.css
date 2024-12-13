@@ -2219,7 +2219,7 @@ a.ontario-button.ontario-button--tertiary:hover {
   padding: 12px;
 }
 
-/* DS */
+/* Design System Table */
 .ontario-table-container {
   position: relative;
   margin: 0.5rem 0 2.5rem 0;
@@ -2270,7 +2270,6 @@ table.ontario-table--full-container-width {
     font-size: 1rem;
   }
 }
-
 
 tbody {
   font-size: 1rem;
@@ -2331,8 +2330,7 @@ thead th {
   }
 }
 
-tbody th,
-tfoot th {
+tbody th {
   padding: 1.1875rem 1rem 1.1875rem 1.5rem;
   text-align: left;
   letter-spacing: 0.025rem;
@@ -2355,20 +2353,13 @@ td {
   letter-spacing: 0.025rem;
 }
 
-/*condensed*/
+/* condensed */
 table.ontario-table--condensed td {
   padding: 0.75rem 1rem 0.75rem 1.5rem;
   text-align: left;
 }
 
-table.ontario-table--condensed td.ontario-table-cell--numeric {
-  padding: 0.75rem 1.5rem 0.75rem 1rem;
-  font-size: 1.0625rem;
-  text-align: right;
-}
-
-table.ontario-table--condensed tbody th,
-table.ontario-table--condensed tfoot th {
+table.ontario-table--condensed tbody th {
   padding: 0.75rem 1rem 0.75rem 1.5rem;
 }
 
@@ -2383,99 +2374,19 @@ table.ontario-table--condensed tfoot tr td {
   padding: 1rem 1rem 1rem 1.5rem;
 }
 
-table.ontario-table--condensed tr.ontario-table-row--subtotal td.ontario-table-cell--numeric,
-table.ontario-table--condensed tfoot tr td.ontario-table-cell--numeric {
-  text-align: right;
-  padding: 1rem 1.5rem 1rem 1rem;
-}
-
 @media screen and (max-width: 40em) {
   table.ontario-table--condensed td {
     padding: 0.75rem 0.5rem 0.75rem 1rem;
     font-size: 1rem;
   }
 
-  table.ontario-table--condensed td.ontario-table-cell--numeric {
-    padding: 0.75rem 1rem 0.75rem 0.5rem;
-  }
-
   table.ontario-table--condensed tbody th {
     padding: 0.75rem 0.5rem 0.75rem 1rem;
   }
-
-  table.ontario-table--condensed tr.ontario-table-row--subtotal th,
-  table.ontario-table--condensed tfoot tr th,
-  table.ontario-table--condensed tr.ontario-table-row--subtotal td,
-  table.ontario-table--condensed tfoot tr td {
-    padding: 1rem 0.5rem 1rem 1rem;
-  }
-
-  table.ontario-table--condensed tr.ontario-table-row--subtotal td.ontario-table-cell--numeric,
-  table.ontario-table--condensed tfoot tr td.ontario-table-cell--numeric {
-    text-align: right;
-    padding: 1rem 1rem 1rem 0.5rem;
-  }
 }
 
-/*endcondensed*/
+/* END Design System Table */
 
-
-/* END DS */
-
-/*
-.ontario-table table {
-  border-collapse: collapse;
-  font-size: 1.0625;
-  display: table;
-  line-height: 1.625;
-  font-weight: normal;
-}
-
-.ontario-table table.ontario-table--full-container-width {
-  display: table;
-  width: 100% !important;
-}
-
-@media screen and (max-width: 40em) {
-  .ontario-table table {
-    font-size: 1;
-  }
-}
-
-.ontario-table .table-striped > tbody > tr:nth-of-type(odd) {
-  background-color: #fff;
-}
-
-.ontario-table .table-striped tbody tr:nth-child(even) td,
-.ontario-table .table-striped tbody tr:nth-child(even) th {
-  background-color: #0000000d;
-}
-
-.ontario-table thead {
-  border: solid;
-  border-width: 0.1875 0;
-  border-color: #1a1a1a;
-  vertical-align: top;
-}
-
-.ontario-table thead th {
-  text-align: left;
-  padding: 1.75 1 1.75 1.5;
-  margin: 0;
-  font-size: 1.125;
-  line-height: 1.5;
-  text-size-adjust: none;
-  -webkit-text-size-adjust: none;
-}
-
-@media screen and (max-width: 0.875rem) {
-  .ontario-table thead th {
-    font-size: 1;
-    line-height: 1.3125;
-    padding: 1.53125 0.5 1.53125 1;
-  }
-}
-*/
 
 .module-resource {
   border-bottom: unset;
