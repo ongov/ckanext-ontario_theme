@@ -2,9 +2,9 @@
   <th scope="row">{{ field.id }}</th>
   <td>
     {% if field.type == 'text' %}
-      {{ field.type }}
+      {{ field.type.capitalize() }}
     {% else %}
-      {{ field.info.type_override }}
+      {{ field.info.type_override.capitalize() }}
     {% endif %}
   </td>
   <td>
