@@ -207,7 +207,7 @@
       {% block resource_additional_information %}
         {% if res %}
           {% block resource_additional_information_inner %}
-            {% if res.url_type == 'upload' %}
+            {% if res.url_type == 'upload' and res.datastore_active %}
               <div class="ontario-table-container ontario-column ontario-small-12 ontario-medium-9">
                 <h2>{{ _('Data dictionary') }}</h2>
                 <div class="ontario-table-scroll--wrapper">
