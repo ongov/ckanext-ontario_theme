@@ -1,11 +1,16 @@
 <tr>
   <th scope="row">{{ field.id }}</th>
   <td>
-    {% if field.type == 'text' %}
-      {{ field.type.capitalize() }}
+    {% if 'info' in field %}
+      {% if field.info.type_override %}
+        {% set this_type = field.info.type_override.capitalize() %}
+      {% else %}
+        {% set this_type = field.type.capitalize() %}
+      {% endif %}
     {% else %}
-      {{ field.info.type_override.capitalize() }}
+      {% set this_type = field.type.capitalize() %}
     {% endif %}
+    {{ this_type }}
   </td>
   <td>
     {{ h.render_markdown(
