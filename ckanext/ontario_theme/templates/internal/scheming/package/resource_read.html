@@ -207,32 +207,35 @@
       {% block resource_additional_information %}
         {% if res %}
           {% block resource_additional_information_inner %}
-            <div class="ontario-table-container ontario-column ontario-small-12 ontario-medium-9">
-              <h2>{{ _('Data dictionary') }}</h2>
-              <div class="ontario-table-scroll--wrapper">
-                <div class="ontario-table-scroll--div"></div>
-              </div>
-              <div class="ontario-table-div" >
-                <table class="ontario-table-container ontario-table--condensed ontario-table--full-container-width" tabindex="0"
-                      data-module="table-toggle-more">
-                  <thead>
-                    {% block resouce_data_dictionary_headers %}
-                      <tr>
-                        <th scope="col">{{ _('Column') }}</th>
-                        <th scope="col">{{ _('Type') }}</th>
-                        <th scope="col">{{ _('Description') }}</th>
-                      </tr>
+            {% if res.url_type == 'upload' %}
+              <div class="ontario-table-container ontario-column ontario-small-12 ontario-medium-9">
+                <h2>{{ _('Data dictionary') }}</h2>
+                <div class="ontario-table-scroll--wrapper">
+                  <div class="ontario-table-scroll--div"></div>
+                </div>
+                <div class="ontario-table-div">
+                  <table class="ontario-table-container ontario-table--condensed ontario-table--full-container-width"
+                         tabindex="0"
+                         data-module="table-toggle-more">
+                    <thead>
+                      {% block resouce_data_dictionary_headers %}
+                        <tr>
+                          <th scope="col">{{ _('Column') }}</th>
+                          <th scope="col">{{ _('Type') }}</th>
+                          <th scope="col">{{ _('Description') }}</th>
+                        </tr>
+                      {% endblock %}
+                    </thead>
+                    {% block resource_data_dictionary_data %}
+                      {% set dict = h.datastore_dictionary(res.id) %}
+                      {% for field in dict %}
+                        {% snippet "scheming/package/snippets/dictionary_table.html", field=field %}
+                      {% endfor %}
                     {% endblock %}
-                  </thead>
-                  {% block resource_data_dictionary_data %}
-                    {% set dict = h.datastore_dictionary(res.id) %}
-                    {% for field in dict %}
-                      {% snippet "scheming/package/snippets/dictionary_table.html", field=field %}
-                    {% endfor %}
-                  {% endblock %}
-                </table>
+                  </table>
+                </div>
               </div>
-            </div>
+            {% endif %}
             <div class="ontario-column ontario-small-12 ontario-medium-9">
               <h2>{{ _('Additional information') }}</h2>
               <div class="ontario-margin-top-40 res-additional-info-table table table-striped table-bordered table-condensed"
