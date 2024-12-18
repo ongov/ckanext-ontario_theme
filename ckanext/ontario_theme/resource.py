@@ -19,6 +19,9 @@ import ckan.lib.base as base
 import ckan.logic as logic
 import ckan.lib.helpers as h
 
+import logging
+log = logging.getLogger(__name__)
+
 NotFound = logic.NotFound
 NotAuthorized = logic.NotAuthorized
 ValidationError = logic.ValidationError
@@ -146,6 +149,7 @@ class CreateView(MethodView):
     def get(
         self, package_type, id, data=None, errors=None, error_summary=None
     ):
+        print('HEJ resourcepy def get of CreateView')
         # get resources for sidebar
         context = {
             u'model': model,
@@ -217,14 +221,27 @@ class EditView(MethodView):
             dict_fns.unflatten(tuplize_dict(parse_params(request.files)))
         ))
 
+        print('HEJ resourcepy def post of EditView')
+
         # we don't want to include save as it is part of the form
         del data[u'save']
 
         data[u'package_id'] = id
         try:
             if resource_id:
-                data[u'id'] = resource_id
-                get_action(u'resource_update')(context, data)
+                try:
+                    info=get_action('datastore_search')(
+                                        data_dict={'id': resource_id})
+                    print('HEJ resourcepy info: ', info)
+                    data[u'id'] = resource_id
+                    get_action(u'resource_update')(context, data)
+                # except:
+                #     print('HEJ resourcepy datastore search failed for ', resource_id)
+                #     get_action(u'resource_create')(context, data)
+                except Exception as e:
+                    print('HEJ resourcepy datastore search failed for ', resource_id)
+                    get_action(u'resource_create')(context, data)
+                    log.error(e)
             else:
                 get_action(u'resource_create')(context, data)
         except ValidationError as e:
