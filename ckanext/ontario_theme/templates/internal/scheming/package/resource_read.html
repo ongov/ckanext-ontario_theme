@@ -102,7 +102,7 @@
           {% endif %}
           <div class="module module-narrow module-shallow context-info">
             <h2 class="ontario-h4">
-              {% if res.datastore_active %}
+              {% if res.datastore_active and res.url_type is not none %}
                 {% if not res['validation_status'] or res['validation_status'] == 'success' %}
                   {{ _('Download data') }}
                 {% else %}
@@ -116,7 +116,7 @@
                 {% endif %}
               {% endif %}
             </h2>
-            {% if not res.datastore_active or res['validation_status'] == 'failure' %}
+            {% if not res.datastore_active or res['validation_status'] == 'failure' or res.url_type is none %}
               <a class="dataset-download-link resource-url-analytics resource-type-{{ res.resource_type }}"
                  href="{{ res.url }}"
                  onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">
@@ -125,7 +125,7 @@
             {% endif %}
             {% block download_resource_button %}
               {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
-              {% if res.datastore_active %}
+              {% if res.datastore_active and res.url_type is not none %}
                 {% if not res['validation_status'] or res['validation_status'] == 'success' %}
  
                   <ul>
@@ -155,7 +155,7 @@
             {% endblock download_resource_button %}
           </div>
         {% endif %}
-        {% if res.datastore_active %}
+        {% if res.datastore_active and res.url_type is not none %}
           {% if not res['validation_status'] or res['validation_status'] == 'success' %}
             {% block data_api_button %}
               <div class="module module-narrow module-shallow context-info data-api">

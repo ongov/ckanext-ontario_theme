@@ -217,6 +217,8 @@ class EditView(MethodView):
             dict_fns.unflatten(tuplize_dict(parse_params(request.files)))
         ))
 
+        resource = get_action('resource_show')(None, {"id": resource_id})
+
         # we don't want to include save as it is part of the form
         del data[u'save']
 
@@ -224,9 +226,11 @@ class EditView(MethodView):
         try:
             if resource_id:
                 data[u'id'] = resource_id
-                get_action(u'resource_update')(context, data)
+                if 'validation_status' in resource:
+                    get_action(u'resource_update')(context, data)
             else:
                 get_action(u'resource_create')(context, data)
+
         except ValidationError as e:
             errors = e.error_dict
             error_summary = e.error_summary

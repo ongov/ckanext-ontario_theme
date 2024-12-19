@@ -64,58 +64,60 @@
     </dl>
   </div>
   <div class="resource-metadata-edit-row">
-    <h2 class="ontario-h2">Data dictionary</h2>
-    {% link_for _('Edit data dictionary'), named_route='datastore.dictionary', id=pkg.name, resource_id=resource_id %}
-  </div>
-  <div class="ontario-small-12">
-    {% set fields = h.datastore_dictionary(resource_id) %}
-    {#- Example of returned dictionary with type override:
-          [{'id': 'rule',
-            'type': 'text',
-            'info': { 'notes': '',
-                      'type_override': '',
-                      'frictionless_dict': [{'type': 'string', 'name': 'rule'}]}},
-          {'id': 'integercol',
-            'type': 'int4',
-            'info': { 'notes': '',
-                      'type_override': 'integer',
-                      'frictionless_dict': [{'type': 'integer', 'name': 'integercol'}]}}]
+    {% if res.datastore_active %}
+      <h2 class="ontario-h2">Data dictionary</h2>
+      {% link_for _('Edit data dictionary'), named_route='datastore.dictionary', id=pkg.name, resource_id=resource_id %}
+    </div>
+    <div class="ontario-small-12">
+      {% set fields = h.datastore_dictionary(resource_id) %}
+      {#- Example of returned dictionary with type override:
+            [{'id': 'rule',
+              'type': 'text',
+              'info': { 'notes': '',
+                        'type_override': '',
+                        'frictionless_dict': [{'type': 'string', 'name': 'rule'}]}},
+            {'id': 'integercol',
+              'type': 'int4',
+              'info': { 'notes': '',
+                        'type_override': 'integer',
+                        'frictionless_dict': [{'type': 'integer', 'name': 'integercol'}]}}]
 
-          "type" is not human-readable for non-text types (e.g. int4), so use
-          field.info["type_override"] (e.g. integer) for these cases. Note we want to
-          stick with the PostgreSQL type names (e.g. "text" not "string") so don't use
-          field.info["frictionless_dict"]["type"].
+            "type" is not human-readable for non-text types (e.g. int4), so use
+            field.info["type_override"] (e.g. integer) for these cases. Note we want to
+            stick with the PostgreSQL type names (e.g. "text" not "string") so don't use
+            field.info["frictionless_dict"]["type"].
 
-        A returned dictionary without any type overrides looks like:
-          [{'id': 'rule', 'type': 'text'},
-           {'id': 'integercol', 'type': 'text'}]
-    -#}
-    {% for field in fields %}
-      <div>
-        <h3 class="ontario-h3">Column {{ loop.index }}</h3>
-        {% if field.info %}
-          {% set field_type = field.type if field.info["type_override"] == '' else field.info["type_override"] %}
-          {% set field_notes = field.info["notes"] %}
-        {% else %}
-          {% set field_type = field.type %}
-          {% set field_notes = "" %}
-        {% endif %}
-        <dl class="resource-metadata-dl">
-          <dt class="resource-metadata-heading ontario-h5">Column name:</dt>
-          <dd>
-            {{ field.id }}
-          </dd>
-          <dt class="resource-metadata-heading ontario-h5">Data type:</dt>
-          <dd>
-            {{ field_type }}
-          </dd>
-          <dt class="resource-metadata-heading ontario-h5">Description:</dt>
-          <dd>
-            {{ field_notes }}
-          </dd>
-        </dl>
-      </div>
-    {% endfor %}
+          A returned dictionary without any type overrides looks like:
+            [{'id': 'rule', 'type': 'text'},
+            {'id': 'integercol', 'type': 'text'}]
+      -#}
+      {% for field in fields %}
+        <div>
+          <h3 class="ontario-h3">Column {{ loop.index }}</h3>
+          {% if field.info %}
+            {% set field_type = field.type if field.info["type_override"] == '' else field.info["type_override"] %}
+            {% set field_notes = field.info["notes"] %}
+          {% else %}
+            {% set field_type = field.type %}
+            {% set field_notes = "" %}
+          {% endif %}
+          <dl class="resource-metadata-dl">
+            <dt class="resource-metadata-heading ontario-h5">Column name:</dt>
+            <dd>
+              {{ field.id }}
+            </dd>
+            <dt class="resource-metadata-heading ontario-h5">Data type:</dt>
+            <dd>
+              {{ field_type }}
+            </dd>
+            <dt class="resource-metadata-heading ontario-h5">Description:</dt>
+            <dd>
+              {{ field_notes }}
+            </dd>
+          </dl>
+        </div>
+      {% endfor %}
+    {% endif %}
   </div>
   {% link_for _('Publish'), named_route='dataset.read', id=pkg.name, class_="ontario-button ontario-button--primary" %}
 {% endblock primary_content_inner %}
