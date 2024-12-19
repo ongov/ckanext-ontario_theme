@@ -172,8 +172,5 @@ class ResourceUpload(DefaultResourceUpload):
         elif self.clear:
             resource['url_type'] = ''
 
-        # if url and not (resource.get('url_type') == 'upload') and not resource.get('format'):
-        #     resource['format'] = 'WEB'
-
         if resource.get('format'):
             resource['format'] = resource.get('format').upper()

@@ -19,9 +19,6 @@ import ckan.lib.base as base
 import ckan.logic as logic
 import ckan.lib.helpers as h
 
-import logging
-log = logging.getLogger(__name__)
-
 NotFound = logic.NotFound
 NotAuthorized = logic.NotAuthorized
 ValidationError = logic.ValidationError
