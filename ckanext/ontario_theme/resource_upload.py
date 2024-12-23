@@ -144,14 +144,8 @@ class ResourceUpload(DefaultResourceUpload):
         upload_field_storage = resource.pop('upload', None)
         self.clear = resource.pop('clear_upload', None)
 
-        this_format = None
         if url and config_mimetype_guess == 'file_ext':
             self.mimetype = mimetypes.guess_type(url)[0]
-            try:
-                # always upper case
-                this_format = accepted_resource_formats()[0][accepted_resource_formats()[1].index(mimetypes.guess_type(url)[0])]
-            except:
-                log.error("Format cannot be guessed")
 
         if bool(upload_field_storage) and \
                 isinstance(upload_field_storage, ALLOWED_UPLOAD_TYPES):
@@ -177,16 +171,6 @@ class ResourceUpload(DefaultResourceUpload):
                       
         elif self.clear:
             resource['url_type'] = ''
-        
-        # Format should be WEB for all remote resources regardless of
-        # the actual type
-        if url and not (resource.get('url_type') == 'upload'):
-            resource['format'] = 'WEB'
 
-        # For uploaded resources, use the specified format unless it does
-        # not agree with the format derived from the guessed mime type
-        if not h.is_url(resource.get('url')) and resource.get('format'):
-            if this_format.lower() and resource.get('format').lower() != this_format.lower():
-                resource['format'] = this_format
-            else:
-                resource['format'] = resource.get('format').upper()
+        if resource.get('format'):
+            resource['format'] = resource.get('format').upper()

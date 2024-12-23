@@ -227,6 +227,7 @@ class EditView(MethodView):
                 get_action(u'resource_update')(context, data)
             else:
                 get_action(u'resource_create')(context, data)
+
         except ValidationError as e:
             errors = e.error_dict
             error_summary = e.error_summary
