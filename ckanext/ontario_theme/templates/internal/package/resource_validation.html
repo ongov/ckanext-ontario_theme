@@ -80,7 +80,11 @@
 
   {% else %}
     {% set button_id = "nextBtn" %}
-    {% set success_message = "Data uploaded successfully" %}
+    {% if resource.url_type %}
+      {% set success_message = "Data uploaded successfully" %}
+    {% else %}
+      {% set success_message = "Data linked successfully" %}
+    {% endif %}
     {% snippet "package/snippets/successful_page_alert.html", success_message=success_message %}
   {% endif %}
 
