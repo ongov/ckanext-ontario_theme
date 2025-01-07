@@ -3,6 +3,7 @@ import ckan.lib.base as base
 from ckan.common import _, config, g, request
 import ckan.lib.navl.dictization_functions as dict_fns
 from ckan.views.dataset import CreateView as CKANCreateView
+from ckan.views.dataset import _tag_string_to_list
 from ckan.lib.search import SearchError, SearchQueryError, SearchIndexError
 import ckan.lib.helpers as h
 
