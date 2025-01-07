@@ -74,17 +74,19 @@
   <div class="ontario-column ontario-small-12 ontario-medium-9">
     {% block primary_content_inner %}
       {% block organizations_list %}
-        {% if c.page.items or request.params %}
-          {% if c.page.items %}
-            {% set current_lang = request.environ.CKAN_LANG %}
-            {% set reverse = True if 'desc' in request.params['sort'] else False %}
-            {% set sorted_org = h.ontario_theme_sort_by_title_translated(c.page.items,
+        {% if c.page.items %}
+          {% set current_lang = request.environ.CKAN_LANG %}
+          {% if request.args.get('sort') %}
+            {% set reverse = True if 'desc' in request.args.get('sort') else False %}
+          {% else %}
+            {% set reverse = False %}
+          {% endif %}
+          {% set sorted_org = h.ontario_theme_sort_by_title_translated(c.page.items,
                               current_page=c.page.page,
                               items_per_page=c.page.items_per_page,
                               lang=current_lang,
                             reverse=reverse) %}
-            {% snippet "organization/snippets/organization_list.html", organizations=sorted_org %}
-          {% endif %}
+          {% snippet "organization/snippets/organization_list.html", organizations=sorted_org %}
         {% else %}
           <p class="empty">
             {{ _('There are currently no ministries for this site') }}.
