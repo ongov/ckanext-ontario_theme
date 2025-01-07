@@ -1119,7 +1119,7 @@ type data_last_updated
 
     # IPackageController
 
-    def before_search(self, search_params):
+    def before_dataset_search(self, search_params):
         u'''Extensions will receive a dictionary with the query parameters,
         and should return a modified (or not) version of it.
         '''
@@ -1130,10 +1130,10 @@ type data_last_updated
             search_params.update({"sort": new_sort})
         return num_resources_filter_scrub(search_params)
 
-    def after_search(self, search_results, search_params):
+    def after_dataset_search(self, search_results, search_params):
         return search_results
 
-    def before_index(self, pkg_dict):
+    def before_dataset_index(self, pkg_dict):
         kw = json.loads(pkg_dict.get('extras_keywords', '{}'))
         pkg_dict['keywords_en'] = kw.get('en', [])
         pkg_dict['keywords_fr'] = kw.get('fr', [])
@@ -1148,7 +1148,7 @@ type data_last_updated
         pkg_dict['organization_category'] = organization_dict.get('category', '')
         return pkg_dict
 
-    def before_view(self, pkg_dict):
+    def before_dataset_view(self, pkg_dict):
         return pkg_dict
 
     def read(self, entity):
@@ -1163,16 +1163,16 @@ type data_last_updated
     def delete(self, entity):
         return entity
 
-    def after_create(self, context, pkg_dict):
+    def after_dataset_create(self, context, pkg_dict):
         return pkg_dict
 
-    def after_update(self, context, pkg_dict):
+    def after_dataset_update(self, context, pkg_dict):
         return pkg_dict
 
-    def after_delete(self, context, pkg_dict):
+    def after_dataset_delete(self, context, pkg_dict):
         return pkg_dict
 
-    def after_show(self, context, pkg_dict):
+    def after_dataset_show(self, context, pkg_dict):
         return pkg_dict
 
     # IValidators
