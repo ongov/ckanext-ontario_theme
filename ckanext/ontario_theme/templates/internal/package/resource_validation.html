@@ -19,7 +19,7 @@
       id=id,
     resource_id=resource.id) %}
 
-  {% if validation.report %}
+  {% if validation.report and resource.url_type %}
     {% set button_id = "step2Btn" %}
     {% set success_message = "Data validated successfully" %}
     <div class="validation-details">
