@@ -61,7 +61,7 @@
   {% endif %}
 
   <form {{ method }} action="{{ action }}">
-    {% if fields %}
+    {% if fields and res.url_type %}
       {% block dictionary_form %}
         {% for field in fields %}
           {% snippet "datastore/snippets/dictionary_form.html",
@@ -71,12 +71,16 @@
         {% endfor %}
       {% endblock dictionary_form %}
     {% else %}
+      {% if not fields %}
         <p>This resource does not need a data dictionary.</p>
         <p>
           Data dictionaries give users the information they need to understand the data they are 
           looking at. The data dictionary is displayed alongside the data for easy reference.
           Data dictionaries are only used for CSV files.
         </p>
+      {% else %}
+        <p>Data dictionaries cannot be defined for remote CSV files.</p>
+      {% endif %}
     {% endif %}
     <button class="ontario-button ontario-button--primary"
             name="save"
