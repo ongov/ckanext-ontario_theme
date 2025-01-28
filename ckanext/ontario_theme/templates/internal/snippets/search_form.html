@@ -170,7 +170,12 @@
             </div>
             <ul>
               {% for label, value in sorting %}
-                {% set sort_in_params = true if request.params['sort'] %}
+                {# % set sort_in_params = true if request.params['sort'] % #}
+                {% set sort_in_params = true if request.args.get('sort') %}
+
+                request.args.get('key', '')
+
+
                 {% if label and value %}
                   {% set selected = 'selected' if (sorting_selected == value) %}
                   {% set href = h.remove_url_param('sort', replace=value, extras=extras) if sort_in_params else h.add_url_param(new_params={'sort': value}, extras=extras) %}

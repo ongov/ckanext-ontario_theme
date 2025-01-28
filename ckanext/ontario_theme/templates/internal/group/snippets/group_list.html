@@ -16,7 +16,7 @@
                 a dataset page (there is no Order By dropdown menu there).
             #}
       {% set current_lang = request.environ.CKAN_LANG %}
-      {% set reverse = True if 'desc' in request.params['sort'] else False %}
+      {% set reverse = True if 'desc' in request.args.get('sort') else False %}
       {% if c.page %}
         {% set groups = h.ontario_theme_sort_by_title_translated(groups,
                   current_page=c.page.page,

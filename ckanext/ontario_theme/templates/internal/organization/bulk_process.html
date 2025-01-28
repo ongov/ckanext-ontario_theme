@@ -2,7 +2,7 @@
 
 {% block search_form %}
   {% if request['params'] and 'sort' in request['params'] %}
-    {% set sort_by_selected = request.params['sort'] %}
+    {% set sort_by_selected = request.args.get('sort') %}
   {% else %}
     {% set sort_by_selected = "score desc, metadata_modified desc" %}
   {% endif %}

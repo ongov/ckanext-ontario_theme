@@ -54,7 +54,7 @@ in the core template for search.html.
          the Order By dropdown menu, use 'score desc, metadata_modified desc' (Relevance).
       #}
       {% if request['params'] and 'sort' in request['params'] %}
-        {% set sort_order = request.params['sort'] %}
+        {% set sort_order = request.args.get('sort') %}
       {% else %}
         {% set sort_order = "score desc, metadata_modified desc" %}
       {% endif %}
