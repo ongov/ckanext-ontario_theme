@@ -3,8 +3,11 @@ import ckan.lib.base as base
 import ckan.lib.helpers as h
 import ckan.model as model
 from ckan.common import g, request, _
-from ckan.views.group import _check_access, _action, _get_group_template, set_org
+from ckan.views.group import _get_group_template
+import ckan.logic as logic
 
+check_access = logic.check_access
+get_action = logic.get_action
 
 def index(group_type='organization', is_organization=True):
     '''Function from ckan.views.group modified to remove pagination
@@ -12,20 +15,26 @@ def index(group_type='organization', is_organization=True):
     Specifically for organizations but can be reworked for both
     groups and organizations.'''
     extra_vars = {}
-    set_org(is_organization)
     page = h.get_page_number(request.params) or 1
 
-    context = {
-        u'model': model,
-        u'session': model.Session,
-        u'user': g.user,
+    # context = {
+    #     u'model': model,
+    #     u'session': model.Session,
+    #     u'user': g.user,
+    #     u'for_view': True,
+    #     u'with_private': False
+    # }
+
+    # This is the new context from ckan/views/groups.py
+    context: Context = {
+        u'user': current_user.name,
         u'for_view': True,
-        u'with_private': False
+        u'with_private': False,
     }
 
     try:
-        _check_access(u'site_read', context)
-        _check_access(u'group_list', context)
+        action_name = 'organization_list' if is_organization else 'group_list'
+        check_access(action_name, context)
     except NotAuthorized:
         base.abort(403, _(u'Not authorized to see this page'))
 
@@ -43,9 +52,13 @@ def index(group_type='organization', is_organization=True):
 
     # pass user info to context as needed to view private datasets of
     # orgs correctly
-    if g.userobj:
-        context['user_id'] = g.userobj.id
-        context['user_is_admin'] = g.userobj.sysadmin
+    # if g.userobj:
+    #     context['user_id'] = g.userobj.id
+    #     context['user_is_admin'] = g.userobj.sysadmin
+    # This is the new check from ckan/views/groups.py
+    if current_user.is_authenticated:
+        context['user_id'] = current_user.id
+        context['user_is_admin'] = current_user.sysadmin  # type: ignore
 
     try:
         data_dict_global_results = {
@@ -55,8 +68,10 @@ def index(group_type='organization', is_organization=True):
             u'type': group_type or u'group',
             u'include_extras': True,
         }
-        global_results = _action(u'group_list')(context,
-                                                data_dict_global_results)
+        
+        action_name = 'organization_list' if is_organization else 'group_list'
+        global_results = get_action(action_name)(context,
+                                                 data_dict_global_results)
     except ValidationError as e:
         if e.error_dict and e.error_dict.get(u'message'):
             msg = e.error_dict['message']
