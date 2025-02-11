@@ -64,7 +64,7 @@
     </dl>
   </div>
   <div class="resource-metadata-edit-row">
-    {% if res.datastore_active %}
+    {% if res.datastore_active and res.url_type %}
       <h2 class="ontario-h2">Data dictionary</h2>
       {% link_for _('Edit data dictionary'), named_route='datastore.dictionary', id=pkg.name, resource_id=resource_id %}
     </div>
