@@ -13,7 +13,7 @@
   {% block meta_description -%}
     {% set description = _("Find public data and explore {count} datasets published by the Government of Ontario.") %}
     <meta name="description"
-          content="{{ description.format(count=h.get_site_statistics().dataset_count) }}">
+          content="{{ description.format(count=h.ontario_theme_get_site_statistics().dataset_count) }}">
   {% endblock meta_description -%}
 {%- endblock -%}
 

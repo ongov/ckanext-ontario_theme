@@ -414,6 +414,15 @@ def get_keyword_count(keyword_lang, language):
 
     return keyword_count_by_lang
 
+def get_site_statistics() -> dict[str, int]:
+    stats = {}
+    stats['dataset_count'] = logic.get_action('package_search')(
+        {}, {"rows": 1})['count']
+    stats['group_count'] = len(logic.get_action('group_list')({}, {}))
+    stats['organization_count'] = len(
+        logic.get_action('organization_list')({}, {}))
+    return stats
+
 def paginate_items(all_items, current_page, items_per_page):
     '''Returns a slice of an array of items for pagination
     based on the current page and the max number of items
@@ -1037,6 +1046,7 @@ type data_last_updated
                 'ontario_theme_home_block_link': home_block_link,
                 'ontario_theme_get_group_datasets': get_group_datasets,
                 'ontario_theme_get_keyword_count': get_keyword_count,
+                'ontario_theme_get_site_statistics': get_site_statistics,
                 'ontario_theme_get_all_packages': get_all_packages,
                 'ontario_theme_sort_by_title_translated': sort_by_title_translated,
                 'ontario_theme_sort_accented_characters': sort_accented_characters,

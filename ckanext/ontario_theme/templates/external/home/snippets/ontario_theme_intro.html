@@ -3,7 +3,7 @@
 Renders a hard coded site description/introduction.
 
 #}
-{% set stats = h.get_site_statistics() %}
+{% set stats = h.ontario_theme_get_site_statistics() %}
 {% set lead_statement = _("Find public data and explore {count} datasets published by the Government of Ontario.") %}
 <div>
   <h1>{{ h.ontario_theme_site_title() }}</h1>
