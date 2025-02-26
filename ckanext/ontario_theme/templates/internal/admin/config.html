@@ -3,6 +3,7 @@
 
 {% import "macros/form.html" as form %}
 {% block admin_form %}
+  {{ h.csrf_input() }}
   <div class="row">
     {{ form.input('ckan.site_title',
       id='field-ckan-site-title',
