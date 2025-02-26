@@ -22,7 +22,7 @@
 
 {% block secondary_content %}
   {% if organization %}
-    {% snippet 'snippets/organization.html', organization=organization, has_context_title=true %}
+    {% snippet 'organization/snippets/info.html', organization=organization, has_context_title=true %}
   {% else %}
     {{ super() }}
   {% endif %}
