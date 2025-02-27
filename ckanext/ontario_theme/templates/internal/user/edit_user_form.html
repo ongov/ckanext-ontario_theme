@@ -4,6 +4,7 @@
       method="post"
       action="{{ action }}"
       enctype="multipart/form-data">
+  {{ h.csrf_input() }}
   {{ form.errors(error_summary) }}
   <fieldset>
     <legend>{{ _('Change details') }}</legend>

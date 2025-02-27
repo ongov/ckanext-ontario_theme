@@ -8,6 +8,7 @@
       method="post"
       data-module="basic-form"
       enctype="multipart/form-data">
+  {{ h.csrf_input() }}
   {%- set schema = h.scheming_get_group_schema(c.group_type) -%}
   {%- for field in schema['fields'] -%}
     <div class="controls row">

@@ -16,6 +16,7 @@ then itself be extended to add/remove blocks of functionality. #}
       action="{{ action }}"
       data-module="basic-form"
       novalidate>
+  {{ h.csrf_input() }}
   {% block stages %}
     {{ h.snippet('package/snippets/stages.html', stages=stage) }}
   {% endblock stages %}
