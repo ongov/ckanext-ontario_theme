@@ -30,7 +30,7 @@
   {% block groups_search_form %}
     <!-- arguments for DS search bar -->
     {% set input_text = _("Search groups") %}
-    {% set query = c.q %}
+    {% set query = q %}
     <!-- arguments for search form -->
     {% set form_id = "group-search-form" %}
     {% set type = "group" %}
@@ -49,9 +49,9 @@
       type=type,
       query=query,
       sorting_selected=sort_by_selected,
-      count=c.page.item_count,
+      count=page.item_count,
       show_empty=request.params,
-      no_bottom_border=true if c.page.items, sorting = [(_('Name Ascending'), 'name asc'), (_('Name Descending'), 'name desc')]
+      no_bottom_border=true if page.items, sorting = [(_('Name Ascending'), 'name asc'), (_('Name Descending'), 'name desc')]
       %}
     </form>
   {% endblock groups_search_form %}
@@ -63,9 +63,9 @@
       <article class="module">
         {% block primary_content_inner %}
           {% block groups_list %}
-            {% if c.page.items or request.params %}
-              {% if c.page.items %}
-                {% snippet "group/snippets/group_list.html", groups=c.page.items %}
+            {% if page.items or request.params %}
+              {% if page.items %}
+                {% snippet "group/snippets/group_list.html", groups=page.items %}
               {% endif %}
             {% else %}
               <p class="empty">
@@ -78,7 +78,7 @@
           {% endblock groups_list %}
 
           {% block page_pagination %}
-            {{ c.page.pager(q=c.q or '', sort=c.sort_by_selected or '') }}
+            {{ page.pager(q=q or '', sort=sort_by_selected or '') }}
           {% endblock page_pagination %}
         {% endblock primary_content_inner %}
       </article>

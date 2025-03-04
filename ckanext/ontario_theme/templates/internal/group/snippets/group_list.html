@@ -17,10 +17,10 @@
             #}
       {% set current_lang = request.environ.CKAN_LANG %}
       {% set reverse = True if 'desc' in request.args.get('sort') else False %}
-      {% if c.page %}
+      {% if page %}
         {% set groups = h.ontario_theme_sort_by_title_translated(groups,
-                  current_page=c.page.page,
-                  items_per_page=c.page.items_per_page,
+                  current_page=page.page,
+                  items_per_page=page.items_per_page,
                   lang=current_lang,
                 reverse=reverse) %}
       {% endif %}

@@ -31,11 +31,11 @@ in the core template for search.html.
     </div>
     {% block form %}
       {% set facets = {
-              'fields': c.fields_grouped,
-              'search': c.search_facets,
-              'titles': c.facet_titles,
-              'translated_fields': c.translated_fields,
-            'remove_field': c.remove_field } %}
+              'fields': fields_grouped,
+              'search': search_facets,
+              'titles': facet_titles,
+              'translated_fields': translated_fields,
+            'remove_field': remove_field } %}
       {% set sorting = [
               (_('Relevance'), 'score desc, metadata_modified desc'),
               (_('Name Ascending'), 'titles asc'),
@@ -45,7 +45,7 @@ in the core template for search.html.
             (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ] %}
       <!-- arguments for DS search bar -->
       {% set input_text = _('Search ' + dataset_type + 's') %}
-      {% set query = c.q %}
+      {% set query = q %}
       <!-- arguments for search form -->
       {% set form_id = "dataset-search-form" %}
       {% set type = dataset_type %}
@@ -70,12 +70,12 @@ in the core template for search.html.
           query=query,
           sorting=sorting,
           sorting_selected=sort_order,
-          count=c.page.item_count,
+          count=page.item_count,
           placeholder=input_text,
           facets=facets,
           show_empty=request.params,
-          error=c.query_error,
-          fields=c.fields %}
+          error=query_error,
+          fields=fields %}
       </form>
     {% endblock form %}
   </div>

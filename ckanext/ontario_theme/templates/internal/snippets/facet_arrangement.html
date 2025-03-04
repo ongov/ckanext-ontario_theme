@@ -1,30 +1,47 @@
+<p>h.lang: {{h.lang()}}</p>
 {% if h.lang() == 'en' %}
   {% set keywords = "keywords_fr" %}
 {% elif h.lang() == 'fr' %}
   {% set keywords = "keywords_en" %}
 {% endif %}
 {% set excluded_facets = [keywords] %}
+<p>excluded_facets INIT: {{excluded_facets}}</p>
 
 {# Flag facets to be ignored from standard loop that calls facets. #}
 {% set single_option_facets = ["organization_jurisdiction", "organization_category"] %}
-
+<p>single_option_facets: {{single_option_facets}}</p>
 {% if single_option_facets %}
   {% for facet in single_option_facets %}
     {% set this_name = facet %}
+    <p>this_name: {{this_name}}</p>
     {# If an exempted facet has only one option and it is not currently active, add it to the excluded facet list #}
     {% if not (h.get_facet_items_dict(this_name)|length > 1) and not request.args.get(this_name) %}
-      {% set excluded_facets = excluded_facets.append(this_name) %}
+    <p>h.facet_items_dict: {{ h.get_facet_items_dict(this_name) }}</p>     
+    <p>length: {{ h.get_facet_items_dict(this_name)|length }}</p> 
+    <p>request.args(this_name): {{ request.args.get(this_name) }}</p>
+    {% set excluded_facets = excluded_facets.append(this_name) %}
     {% endif %}
   {% endfor %}
 {% endif %}
-{% for facet in c.facet_titles %}
+{% for facet in facet_titles %}
+<p>facet is in facet_titles!</p>
   {% if facet == 'organization_jurisdiction' %}
+    {# % set choices = [{'value': 'provincial', 'label': {'en': 'Provincial', 'fr': 'Provinciale'}}, {'value': 'federal', 'label': {'en': 'Federal', 'fr': 'Fédérale'}}, {'value': 'municipal', 'label': {'en': 'Municipal', 'fr': 'Municipale'}}] % #}
     {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'jurisdiction')) %}
-  {% endif %}
+    <p> choices for facet='organization_jurisdiction': {{choices}}</p> 
+    {% endif %}
   {% if facet == 'organization_category' %}
+    {# % set choices = [{'value': 'ministry', 'label': {'en': 'Ministry', 'fr': 'Ministère'}}, {'value': 'agency', 'label': {'en': 'Agency', 'fr': 'Agence'}}, {'value': 'crown_corporation', 'label': {'en': 'Crown Corporation', 'fr': "Société d'État"}}] % #}
     {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'category')) %}
+    <p> choices for facet='organization_category': {{choices}}</p>   
   {% endif %}
+ 
+  
+  <p>excluded_facets: {{excluded_facets}}</p>
   {% if facet not in excluded_facets %}
-    {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet, scheming_choices=choices, extras=extras) }}
-  {% endif %}
+    <p>facet: {{facet}}</p>
+    <p>choices: {{choices}}</p>
+    {{ h.snippet('snippets/facet_list.html', title=facet_titles[facet], name=facet, scheming_choices=choices, extras=extras) }}
+    {% endif %}
+ 
 {% endfor %}

@@ -53,7 +53,7 @@
 
       <p class="module-footer">
         {% if h.get_param_int('_%s_limit' % name) %}
-          {% if h.has_more_facets(name, c.search_facets) %}
+          {% if h.has_more_facets(name, search_facets) %}
             <button id="more-{{ name }}"
                     data-toggle-less="{{ _('Show less') }}"
                     data-toggle-more="{{ _('Show more') }}"

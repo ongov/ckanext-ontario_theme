@@ -31,7 +31,7 @@
     {% block organizations_search_form %}
       <!-- arguments for DS search bar -->
       {% set input_text = _('Search ministries') %}
-      {% set query = c.q %}
+      {% set query = q %}
       {% set sr_submit_text = _('Search') %}
       {% set searchbar_title = input_text + _(':') %}
       <!-- arguments for seach form -->
@@ -55,12 +55,12 @@
           query=query,
           sorting=sorting,
           sorting_selected=sort_by_selected,
-          count=c.page.item_count,
+          count=page.item_count,
           sr_submit_text=sr_submit_text,
           facets=facets,
           show_empty=request.params,
-          error=c.query_error,
-          fields=c.fields
+          error=query_error,
+          fields=fields
           %}
       </form>
     {% endblock organizations_search_form %}
@@ -74,16 +74,16 @@
   <div class="ontario-column ontario-small-12 ontario-medium-9">
     {% block primary_content_inner %}
       {% block organizations_list %}
-        {% if c.page.items %}
+        {% if page.items %}
           {% set current_lang = request.environ.CKAN_LANG %}
           {% if request.args.get('sort') %}
             {% set reverse = True if 'desc' in request.args.get('sort') else False %}
           {% else %}
             {% set reverse = False %}
           {% endif %}
-          {% set sorted_org = h.ontario_theme_sort_by_title_translated(c.page.items,
-                              current_page=c.page.page,
-                              items_per_page=c.page.items_per_page,
+          {% set sorted_org = h.ontario_theme_sort_by_title_translated(page.items,
+                              current_page=page.page,
+                              items_per_page=page.items_per_page,
                               lang=current_lang,
                             reverse=reverse) %}
           {% snippet "organization/snippets/organization_list.html", organizations=sorted_org %}

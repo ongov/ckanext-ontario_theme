@@ -1,12 +1,12 @@
 {% ckan_extends %}
 
 {% block subtitle %}
-  {{ _('Edit') }} - {{ c.group_dict.display_name }} - {{ _('Groups') }}
+  {{ _('Edit') }} - {{ group_dict.display_name }} - {{ _('Groups') }}
 {% endblock subtitle %}
 
 {% block breadcrumb_content_inner %}
   <li>
-    {% link_for h.get_translated(c.group_dict,"title")|truncate(35), named_route='group.read', id=group.name, named_route=group_type + '.read' %}
+    {% link_for h.get_translated(group_dict,"title")|truncate(35), named_route='group.read', id=group.name, named_route=group_type + '.read' %}
   </li>
 {% endblock breadcrumb_content_inner %}
 

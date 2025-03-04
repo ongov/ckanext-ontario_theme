@@ -43,7 +43,7 @@ block. super() will end up calling the facets twice.
       facets=facets,
       show_empty=request.params,
       fields=fields,
-      extras={'id':c.group_dict.id}
+      extras={'id':group_dict.id}
       %}
     </form>
   {% endblock groups_search_form %}
@@ -55,7 +55,7 @@ block. super() will end up calling the facets twice.
         To be used as a facet query param in get_all_packages()
         helper function.
       #}
-        {% set this_group_name = c.group_dict['name'] %}
+        {% set this_group_name = group_dict['name'] %}
         {{ h.snippet('snippets/package_list.html',
         packages=page.items,
         this_group_name=this_group_name)
@@ -83,7 +83,7 @@ block. super() will end up calling the facets twice.
           </svg>
         </span>
         <div>
-          {{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets, extras={'id':c.group_dict.id}) }}
+          {{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets, extras={'id':group_dict.id}) }}
         </div>
       </div>
     </div>

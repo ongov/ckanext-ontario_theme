@@ -1,9 +1,9 @@
 {% ckan_extends %}
 
 {% block meta_description -%}
-  {% if h.get_translated(c.group_dict,"description") %}
+  {% if h.get_translated(group_dict,"description") %}
     <meta name="description"
-          content="{{ h.markdown_extract(h.get_translated(c.group_dict,'description')) }}">
+          content="{{ h.markdown_extract(h.get_translated(group_dict,'description')) }}">
   {% endif %}
 {% endblock meta_description -%}
 
@@ -15,8 +15,8 @@
           <div class="ontario-columns page-header ontario-small-12 ministry-page-header">
             <div class="content_action">
               {% block content_action %}
-                {% if h.check_access('organization_update', {'id': c.group_dict.id}) %}
-                  {% link_for _('Edit'), named_route='organization.edit', id=c.group_dict.name, class_='btn btn-default btn-secondary', icon='wrench' %}
+                {% if h.check_access('organization_update', {'id': group_dict.id}) %}
+                  {% link_for _('Edit'), named_route='organization.edit', id=group_dict.name, class_='btn btn-default btn-secondary', icon='wrench' %}
                 {% endif %}
               {% endblock content_action %}
             </div>
@@ -52,7 +52,7 @@
 {% endblock primary %}
 
 {% block subtitle %}
-  {{ h.get_translated(c.group_dict,"title") }} - {{ _('Ministries') }}
+  {{ h.get_translated(group_dict,"title") }} - {{ _('Ministries') }}
 {% endblock subtitle %}
 
 {% block breadcrumb_content %}

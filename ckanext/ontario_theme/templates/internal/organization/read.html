@@ -5,7 +5,8 @@ Override CKAN's read.html to add some new facets.
 #}
 {% ckan_extends %}
 
-{% set ministry = h.get_translated(c.group_dict, "title") or c.group_dict.name %}
+{% set ministry = h.get_translated(group_dict, "title") or group_dict.name %}
+{# % set ministry = 'PLACEHOLDER MINISTRY NAME UNTIL FLUENT IS FIXED' % #}
 {% block primary_content_inner %}
   {% block groups_search_form %}
     {% set facets = {
@@ -43,14 +44,14 @@ Override CKAN's read.html to add some new facets.
       facets=facets,
       show_empty=request.params,
       fields=fields,
-      extras={'id':c.group_dict.id} %}
+      extras={'id':group_dict.id} %}
     </form>
   {% endblock groups_search_form %}
 
   {% block packages_list %}
     <div class="ministry-packages col-sm-9 col-xs-12">
       {% if page.items %}
-        {% set this_org_name = c.search_facets['organization']['items'][0]['name'] %}
+        {% set this_org_name = search_facets['organization']['items'][0]['name'] %}
         {{ h.snippet('snippets/package_list.html', packages=page.items, this_org_name=this_org_name) }}
       {% endif %}
       {% block page_pagination %}
@@ -76,7 +77,7 @@ Override CKAN's read.html to add some new facets.
         </svg>
       </span>
       <div>
-        {{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets, extras={'id':c.group_dict.id}) }}
+        {{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets, extras={'id':group_dict.id}) }}
       </div>
     </div>
   </div>
