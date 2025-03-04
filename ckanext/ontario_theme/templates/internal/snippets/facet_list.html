@@ -4,68 +4,57 @@
 {% ckan_extends %}
 
 {% set hide_empty = true %}
-{% set fields = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
-{% set limit = h.ontario_theme_get_facet_options()['limit']|int %}
-{% set default = h.ontario_theme_get_facet_options()['default']|int %}
-{% block facet_list_heading %}
-  {% with items = items or h.get_facet_items_dict(name) %}
-    <h4 class="ontario-h5">
-      <svg class="ontario-icon"
-            focusable="false"
-            sol:category="primary"
-            viewBox="0 0 24 24"
-            preserveAspectRatio="xMidYMid meet">
-        <use xlink:href="#ontario-icon-filter"></use>
-      </svg>
-      {{ title }}
-      {% set screen_reader_text = "No search filters applied for "+title+". Options are " %}
-      {% if items %}
-        {% if (items|selectattr("active")|list|length) > 0 %}
-          {% set screen_reader_text = "Search filters are applied for "+title+"." %}
-        {% endif %}
-      {% endif %}
-    </h4>
-    <span class="sr-only">{{ screen_reader_text }}</span>
-  {% endwith %}
-{% endblock facet_list_heading %}
+{% block facet_list %}
+    {% set hide_empty = hide_empty or false %}
+    {% with items = items or h.get_facet_items_dict(name, search_facets) %}
+	{% if items or not hide_empty %}
+	    {% block facet_list_item %}
+		<section class="module module-narrow module-shallow">
+		    {% block facet_list_heading %}
+			<h2 class="module-heading">
+			    <i class="fa fa-filter"></i>
+			    {{ title }}
+			</h2>
+		    {% endblock %}
+		    {% block facet_list_items %}
+			{% with items = items or h.get_facet_items_dict(name, search_facets) %}
+			    {% if items %}
+				<nav aria-label="{{ title }}">
+				    <ul class="list-unstyled nav nav-simple nav-facet">
+					{% for item in items %}
+					    {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
+					    {% set label = label_function(item) if label_function else item.display_name %}
+					    {% set label_truncated = label|truncate(22) if not label_function else label %}
+					    {% set count = count_label(item['count']) if count_label else ('%d' % item['count']) %}
+					    <li class="nav-item {% if item.active %} active{% endif %}">
+						<a href="{{ href }}" title="{{ label if label != label_truncated else '' }}">
+						    <span class="item-label">{{ label_truncated }}</span>
+						    <span class="hidden separator"> - </span>
+						    <span class="item-count badge">{{ count }}</span>
 
-{% block facet_list_items %}
-  {% with items = items or h.get_facet_items_dict(name, limit=limit) %}
-    {% if items %}
-      <nav>
-        <ul class="{{ nav_class or 'list-unstyled nav nav-simple nav-facet' }}">
-          {% for item in items %}
-            {{ h.snippet('snippets/translate_facets.html', fields=fields, name=name, item=item, scheming_choices=scheming_choices) }}
-            {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
-            {% set label = label_function(item) if label_function else item.display_name %}
-            {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
-            <li class="{{ nav_item_class or 'nav-item' }}
-                       {% if item.active %}active{% endif %}
-                       {% if loop.index > default %}facet-{{ name }} show-more-items{% endif %}">
-              {% if item.active %}<span class="sr-only">Filtered on</span>{% endif %}
-              <a href="{{ href }}">
-                <span>{{ label }} {{ count }}</span>
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      </nav>
+							{% if item.active %}<span class="facet-close"> <i class="fa fa-solid fa-circle-xmark"></i></span>{% endif %}
+						</a>
+					    </li>
+					{% endfor %}
+				    </ul>
+				</nav>
 
-      <p class="module-footer">
-        {% if h.get_param_int('_%s_limit' % name) %}
-          {% if h.has_more_facets(name, search_facets) %}
-            <button id="more-{{ name }}"
-                    data-toggle-less="{{ _('Show less') }}"
-                    data-toggle-more="{{ _('Show more') }}"
-                    class="facets-show-more ontario-button ontario-button--tertiary"
-                    type="button">{{ _('Show more') }}</button>
-          {% endif %}
-        {% endif %}
-      </p>
-    {% else %}
-      <p class="module-content empty">
-        {{ _('There are no {facet_type} that match this search').format(facet_type=title) }}
-      </p>
-    {% endif %}
-  {% endwith %}
-{% endblock facet_list_items %}
+				<p class="module-footer">
+				    {% if h.get_param_int('_%s_limit' % name) %}
+					{% if h.has_more_facets(name, search_facets) %}
+					    <a href="{{ h.remove_url_param('_%s_limit' % name, replace=0, extras=extras, alternative_url=alternative_url) }}" class="read-more">{{ _('Show More {facet_type}').format(facet_type=title) }}</a>
+					{% endif %}
+				    {% else %}
+					<a href="{{ h.remove_url_param('_%s_limit' % name, extras=extras, alternative_url=alternative_url) }}" class="read-more">{{ _('Show Only Popular {facet_type}').format(facet_type=title) }}</a>
+				    {% endif %}
+				</p>
+			    {% else %}
+				<p class="module-content empty">{{ _('There are no {facet_type} that match this search').format(facet_type=title) }}</p>
+			    {% endif %}
+			{% endwith %}
+		    {% endblock %}
+		</section>
+	    {% endblock %}
+	{% endif %}
+    {% endwith %}
+{% endblock %}

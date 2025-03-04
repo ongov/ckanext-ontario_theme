@@ -109,6 +109,7 @@ in the core template for search.html.
   </div>
 {% endblock primary %}
 
+{# 
 {% block secondary %}
   <aside class="secondary ontario-columns ontario-small-3 filter-results">
     <div class="filters" id="filter-aside">
@@ -124,7 +125,30 @@ in the core template for search.html.
           <use xlink:href="#ontario-icon-close"></use>
         </svg>
       </span>
+      <!--
       <div>{{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets) }}</div>
+      -->
+      <p>facet: {{facet}}</p>
+      <p>facet_titles[facet]: {{facet_titles[facet]}}</p>
+      <div>{{ h.snippet('snippets/facet_list.html', title=facet_titles[facet], name=facet, search_facets=search_facets) }}</div>
     </div>
   </aside>
+{% endblock secondary %}
+#}
+
+{% block secondary %}
+<aside class="secondary ontario-columns ontario-small-3 filter-results"></aside>
+
+  {% block secondary_content %}
+    <div class="filters" id="filter-aside">
+      <div>
+        {% for facet in facet_titles %}
+          {% snippet 'snippets/facet_list.html', title=facet_titles[facet], name=facet, search_facets=search_facets %}
+        {% endfor %}
+      </div>
+      <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
+    </div>
+  {% endblock secondary_content %}
+
+</aside>
 {% endblock secondary %}
