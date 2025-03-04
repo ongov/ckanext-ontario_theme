@@ -46,7 +46,11 @@
           {% endblock pre_primary %}
 
           {% block secondary %}
-            {{ super() }}
+            <aside class="secondary ontario-columns ontario-small-3 filter-results">
+              {% block secondary_content %}
+                {{ super() }}
+              {% endblock secondary_content %}
+            </aside>
           {% endblock secondary %}
 
           {% block primary %}
