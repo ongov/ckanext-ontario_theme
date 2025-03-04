@@ -6,7 +6,6 @@ Override CKAN's read.html to add some new facets.
 {% ckan_extends %}
 
 {% set ministry = h.get_translated(group_dict, "title") or group_dict.name %}
-{# % set ministry = 'PLACEHOLDER MINISTRY NAME UNTIL FLUENT IS FIXED' % #}
 {% block primary_content_inner %}
   {% block groups_search_form %}
     {% set facets = {
