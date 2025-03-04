@@ -17,8 +17,7 @@ FYI - Fluent's template is an override of schemings already.
           </li>
         {% else %}
           <li>
-            <a class="tag" href="{%- url_for 'dataset.search', keywords_fr=tag -%}">{{ label|truncate(22) }}</a>
-            <span class="ontario-hide">{{ tag }}</span>
+            <a class="tag" href="{%- url_for 'dataset.search', keywords_fr=tag -%}">{{ tag|truncate(22) }}</a>
           </li>
         {% endif %}
       {% endfor %}
