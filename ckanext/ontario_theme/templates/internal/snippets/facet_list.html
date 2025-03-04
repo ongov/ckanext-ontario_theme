@@ -11,10 +11,23 @@
 	    {% block facet_list_item %}
 		<section class="module module-narrow module-shallow">
 		    {% block facet_list_heading %}
-			<h2 class="module-heading">
-			    <i class="fa fa-filter"></i>
-			    {{ title }}
-			</h2>
+        <h4 class="ontario-h5">
+          <svg class="ontario-icon"
+                focusable="false"
+                sol:category="primary"
+                viewBox="0 0 24 24"
+                preserveAspectRatio="xMidYMid meet">
+            <use xlink:href="#ontario-icon-filter"></use>
+          </svg>
+          {{ title }}
+          {% set screen_reader_text = "No search filters applied for "+title+". Options are " %}
+          {% if items %}
+            {% if (items|selectattr("active")|list|length) > 0 %}
+              {% set screen_reader_text = "Search filters are applied for "+title+"." %}
+            {% endif %}
+          {% endif %}
+        </h4>
+        <span class="sr-only">{{ screen_reader_text }}</span>
 		    {% endblock %}
 		    {% block facet_list_items %}
 			{% with items = items or h.get_facet_items_dict(name, search_facets) %}

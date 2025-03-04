@@ -76,7 +76,13 @@ Override CKAN's read.html to add some new facets.
         </svg>
       </span>
       <div>
+        <!--
         {{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets, extras={'id':group_dict.id}) }}
+        -->
+        {% for facet in facet_titles %}
+          {% snippet 'snippets/facet_list.html', title=facet_titles[facet], name=facet, extras={'id':group_dict.id}, search_facets=search_facets %}
+        {% endfor %}
+      </div>      
       </div>
     </div>
   </div>
