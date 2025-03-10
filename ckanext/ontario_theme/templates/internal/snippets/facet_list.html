@@ -4,19 +4,27 @@
 {% ckan_extends %}
 
 {% set hide_empty = true %}
+{% set excluded_facets = [h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'jurisdiction')['label'][h.lang()], 
+                          h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'category')['label'][h.lang()]
+                          ] 
+%}
+
 {% block facet_list %}
   {% set hide_empty = hide_empty or false %}
-  {% if h.lang() == 'en' %}
+  {% if h.lang() == "en" %}
     {% set keywords = "keywords_fr" %}
-  {% elif h.lang() == 'fr' %}
+  {% elif h.lang() == "fr" %}
     {% set keywords = "keywords_en" %}
   {% endif %}
   {# Store translated topics so they can be excluded from display #}
   {% set topics_translated = search_facets[keywords]['items']|map(attribute='name')|list %}
+ 
   {% with items = items or h.get_facet_items_dict(name, search_facets) %}
+    {% if title not in excluded_facets %}
     {% if topics_translated[0] not in items|map(attribute='name')|list %}
       {% if items or not hide_empty %}
-          {% block facet_list_item %}
+
+              {% block facet_list_item %}
         <section class="module module-narrow module-shallow">
             {% block facet_list_heading %}
             <h4 class="ontario-h5">
@@ -77,6 +85,7 @@
         </section>
           {% endblock %}
       {% endif %}
+    {% endif %}
     {% endif %}
   {% endwith %}
 {% endblock %}
