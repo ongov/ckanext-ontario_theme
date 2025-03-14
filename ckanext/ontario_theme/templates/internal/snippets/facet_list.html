@@ -20,7 +20,7 @@
   {% set topics_translated = search_facets[keywords]['items']|map(attribute='name')|list %}
  
   {% with items = items or h.get_facet_items_dict(name, search_facets) %}
-    {% if title not in excluded_facets %}
+    {% if title not in excluded_facets or (title in excluded_facets and items|length > 1) %}
       {% if topics_translated[0] not in items|map(attribute='name')|list %}
         {% if items or not hide_empty %}
           {% block facet_list_item %}
