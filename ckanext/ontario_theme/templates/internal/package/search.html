@@ -130,7 +130,7 @@ in the core template for search.html.
       -->
       <p>facet: {{facet}}</p>
       <p>facet_titles[facet]: {{facet_titles[facet]}}</p>
-      <div>{{ h.snippet('snippets/facet_list.html', title=facet_titles[facet], name=facet, search_facets=search_facets) }}</div>
+      <div>{{ h.snippet('snippets/facet_list.html', title=facet_titles[facet], name=facet, search_facets=search_facets, scheming_choices=choices, extras=extras) }}</div>
     </div>
   </aside>
 {% endblock secondary %}
