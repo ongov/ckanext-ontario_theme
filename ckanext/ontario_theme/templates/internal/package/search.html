@@ -139,6 +139,18 @@ in the core template for search.html.
 
 {% block secondary_content %}
   <div class="filters" id="filter-aside">
+    <span aria-label="{{ _('close') }}"
+            role="button"
+            tabindex="0"
+            class="close no-text hide-filters">
+        <svg class="ontario-icon hide-sort-by"
+             focusable="false"
+             sol:category="primary"
+             viewBox="0 0 24 24"
+             preserveAspectRatio="xMidYMid meet">
+          <use xlink:href="#ontario-icon-close"></use>
+        </svg>
+      </span>
     <div>
       {% for facet in facet_titles %}
         {% snippet 'snippets/facet_list.html', title=facet_titles[facet], name=facet, search_facets=search_facets %}
