@@ -56,7 +56,7 @@
                             {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
                             {% set label = label_function(item) if label_function else item.display_name %}
                             {% set count = count_label(item['count']) if count_label else ('%d' % item['count']) %}
-                            <li class="{{ nav_item_class or 'nav-item' }}
+                            <li class="{{ nav_item_class or 'ontario_facet nav-item' }}
                                       {% if item.active %}active{% endif %}
                                       {% if loop.index > default %}facet-{{ name }} show-more-items{% endif %}">
                               {% if item.active %}<span class="sr-only">Filtered on</span>{% endif %}

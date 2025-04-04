@@ -1347,7 +1347,7 @@ section.additional-info table.table tbody tr td.dataset-details {
   color: #666666;
 }
 
-.nav-item.active > a,
+.ontario_facet.nav-item.active > a,
 .nav-aside li.active a {
   background-color: #1080A6;
 }
