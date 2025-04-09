@@ -1347,11 +1347,6 @@ section.additional-info table.table tbody tr td.dataset-details {
   color: #666666;
 }
 
-.ontario_facet.nav-item.active > a,
-.nav-aside li.active a {
-  background-color: #1080A6;
-}
-
 /* =====================================================
    Sub page left panel border removal
    ===================================================== */
