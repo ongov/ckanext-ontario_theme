@@ -118,7 +118,7 @@ class DictionaryView(MethodView):
                 if status['status'] == 'success':
                     get_action("xloader_submit")(
                         None,
-                        {"resource_id": resource_id, "ignore_hash": True}
+                        {"resource_id": resource_id, "ignore_hash": False}
                     )
                     return h.redirect_to("ontario_theme.new_resource_publish", id=id, resource_id=resource_id)
                 elif not status:
