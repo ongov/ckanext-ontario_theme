@@ -99,6 +99,14 @@
                 });
                 </script>
             </div>
+          {% elif pkg.name == 'parquet-files' %}
+            <div style="border: 1px solid grey;padding:20px;margin-bottom:30px">
+              <h2>New York City Taxi & Limousine Trip Data</h2>
+              <p class="dataset-font">The interactive table below allows to query trip data for yellow taxi trips.</p>            
+                <div id="observablehq-dvStyles-c7346615"></div>
+                <iframe width="100%" height="492" frameborder="0"
+              src="https://observablehq.com/embed/4a9b58ce98997787?cells=itable_yellowtrips"></iframe>            
+            </div>
           {% endif %}
         {% endblock package_description %}
 
