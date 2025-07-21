@@ -99,6 +99,30 @@
                 });
                 </script>
             </div>
+          {% elif pkg.name == 'parquet-duckdb-observable-itable' %}
+            <div style="border: 1px solid grey;padding:20px;margin-bottom:30px">
+              <h2>Schools Lookup Table</h2>
+              <p class="dataset-font">This interactive lookup table allows to search and filter
+              7,631,696 rows of data.</p>
+
+              <div id="observablehq-viewof-yearFilter_degrees-dd820e47"></div>
+              <div id="observablehq-viewof-searchTerm_degrees-dd820e47"></div>
+              <div id="observablehq-viewof-myDataTable_degrees-dd820e47"></div>
+              <br><p>Credit: <a href="https://observablehq.com/d/1f176402dda7bfd8@910">iTable from Parquet file</a></p></br<
+
+              <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@observablehq/inspector@5/dist/inspector.css">
+              <script type="module">
+              import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js";
+              import define from "https://api.observablehq.com/d/1f176402dda7bfd8@910.js?v=4";
+              new Runtime().module(define, name => {
+                if (name === "viewof yearFilter_degrees") return new Inspector(document.querySelector("#observablehq-viewof-yearFilter_degrees-dd820e47"));
+                if (name === "viewof searchTerm_degrees") return new Inspector(document.querySelector("#observablehq-viewof-searchTerm_degrees-dd820e47"));
+                if (name === "viewof myDataTable_degrees") return new Inspector(document.querySelector("#observablehq-viewof-myDataTable_degrees-dd820e47"));
+                return ["paginatedTableData_degrees"].includes(name);
+              });
+              </script>
+            
+            </div>
           {% endif %}
         {% endblock package_description %}
 
