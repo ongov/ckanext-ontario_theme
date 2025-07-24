@@ -199,6 +199,32 @@
             {% block resource_view_content %}
               {{ super() }}
             {% endblock resource_view_content %}
+          {% elif res.name == 'Schools dataset' %}
+         
+            <h2>Schools Lookup Table</h2>
+                <p class="dataset-font">This interactive lookup table allows to search and filter
+                7,631,696 rows of data.</p>
+
+                <div id="observablehq-viewof-t-fe46b49d"></div>
+                <div id="observablehq-viewof-yearRange_filter-fe46b49d"></div>
+                <div id="observablehq-viewof-gender_filter-fe46b49d"></div>
+                <div id="observablehq-schools_lookupTable-fe46b49d"></div>
+                <div id="observablehq-viewof-recordCount-fe46b49d"></div>
+                <p>Credit: <a href="https://observablehq.com/d/1f176402dda7bfd8@1436">Lookup Table from local Parquet file using DuckDB client</a></p>
+
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@observablehq/inspector@5/dist/inspector.css">
+                <script type="module">
+                import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js";
+                import define from "https://api.observablehq.com/d/1f176402dda7bfd8@1436.js?v=4";
+                new Runtime().module(define, name => {
+                  if (name === "viewof t") return new Inspector(document.querySelector("#observablehq-viewof-t-fe46b49d"));
+                  if (name === "viewof yearRange_filter") return new Inspector(document.querySelector("#observablehq-viewof-yearRange_filter-fe46b49d"));
+                  if (name === "viewof gender_filter") return new Inspector(document.querySelector("#observablehq-viewof-gender_filter-fe46b49d"));
+                  if (name === "schools_lookupTable") return new Inspector(document.querySelector("#observablehq-schools_lookupTable-fe46b49d"));
+                  if (name === "viewof recordCount") return new Inspector(document.querySelector("#observablehq-viewof-recordCount-fe46b49d"));
+                  return ["viewof selected_schools","schools_lookupData","selected_school_id_array"].includes(name);
+                });
+                </script>
           {% endif %}
         {% endblock data_preview %}
       </div>
