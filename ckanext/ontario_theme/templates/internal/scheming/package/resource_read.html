@@ -205,26 +205,55 @@
                 <p class="dataset-font">This interactive lookup table allows to search and filter
                 7,631,696 rows of data.</p>
 
-                <div id="observablehq-viewof-t-c169184b"></div>
-                <div id="observablehq-viewof-selected_schools-c169184b"></div>
-                <div id="observablehq-viewof-yearRange_filter-c169184b"></div>
-                <div id="observablehq-viewof-gender_filter-c169184b"></div>
-                <div id="observablehq-schools_lookupTable-c169184b"></div>
-                <div id="observablehq-viewof-recordCount-c169184b"></div>
-                <p>Credit: <a href="https://observablehq.com/d/1f176402dda7bfd8@1532">Create Lookup Table from local Parquet file &amp; DuckDB client</a></p>
+                <div id="observablehq-viewof-t-02c6807c"></div>
+                <div id="observablehq-viewof-selected_schools-02c6807c"></div>
+                <div id="observablehq-viewof-yearRange_filter-02c6807c"></div>
+                <div id="observablehq-viewof-gender_filter-02c6807c"></div>
+                <div id="observablehq-schools_lookupTable-02c6807c"></div>
+                <div id="observablehq-viewof-recordCount-02c6807c"></div>
+                <p>Credit: <a href="https://observablehq.com/d/1f176402dda7bfd8@1551">Create Lookup Table from local Parquet file &amp; DuckDB client</a></p>
 
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@observablehq/inspector@5/dist/inspector.css">
                 <script type="module">
                 import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js";
-                import define from "https://api.observablehq.com/d/1f176402dda7bfd8@1532.js?v=4";
+                import define from "https://api.observablehq.com/d/1f176402dda7bfd8@1551.js?v=4";
                 new Runtime().module(define, name => {
-                  if (name === "viewof t") return new Inspector(document.querySelector("#observablehq-viewof-t-c169184b"));
-                  if (name === "viewof selected_schools") return new Inspector(document.querySelector("#observablehq-viewof-selected_schools-c169184b"));
-                  if (name === "viewof yearRange_filter") return new Inspector(document.querySelector("#observablehq-viewof-yearRange_filter-c169184b"));
-                  if (name === "viewof gender_filter") return new Inspector(document.querySelector("#observablehq-viewof-gender_filter-c169184b"));
-                  if (name === "schools_lookupTable") return new Inspector(document.querySelector("#observablehq-schools_lookupTable-c169184b"));
-                  if (name === "viewof recordCount") return new Inspector(document.querySelector("#observablehq-viewof-recordCount-c169184b"));
-                  return ["schools_lookupData","selected_school_id_array"].includes(name);
+                  if (name === "viewof t") return new Inspector(document.querySelector("#observablehq-viewof-t-02c6807c"));
+                  if (name === "viewof selected_schools") return new Inspector(document.querySelector("#observablehq-viewof-selected_schools-02c6807c"));
+                  if (name === "viewof yearRange_filter") return new Inspector(document.querySelector("#observablehq-viewof-yearRange_filter-02c6807c"));
+                  if (name === "viewof gender_filter") return new Inspector(document.querySelector("#observablehq-viewof-gender_filter-02c6807c"));
+                  if (name === "schools_lookupTable") return new Inspector(document.querySelector("#observablehq-schools_lookupTable-02c6807c"));
+                  if (name === "viewof recordCount") return new Inspector(document.querySelector("#observablehq-viewof-recordCount-02c6807c"));
+                  return ["selected_school_id_array","schools_lookupData","viewof schools_summary_stats"].includes(name);
+                });
+                </script>
+
+            {% elif res.name == 'Schools dataset summary statistics' %}
+        
+            <h2>Schools Lookup Table - Summary Statistics</h2>
+                <p class="dataset-font">Summary statistics for each column in the schools dataset of
+                7,631,696 rows. Select filters to explore the data further.</p>
+
+                <div id="observablehq-viewof-t-8e406c9c"></div>
+                <div id="observablehq-viewof-selected_schools-8e406c9c"></div>
+                <div id="observablehq-viewof-yearRange_filter-8e406c9c"></div>
+                <div id="observablehq-viewof-gender_filter-8e406c9c"></div>
+                <div id="observablehq-viewof-recordCount-8e406c9c"></div>
+                <div id="observablehq-viewof-schools_summary_stats-8e406c9c"></div>
+                <p>Credit: <a href="https://observablehq.com/d/1f176402dda7bfd8@1551">Create Lookup Table from local Parquet file &amp; DuckDB client</a></p>
+
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@observablehq/inspector@5/dist/inspector.css">
+                <script type="module">
+                import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js";
+                import define from "https://api.observablehq.com/d/1f176402dda7bfd8@1551.js?v=4";
+                new Runtime().module(define, name => {
+                  if (name === "viewof t") return new Inspector(document.querySelector("#observablehq-viewof-t-8e406c9c"));
+                  if (name === "viewof selected_schools") return new Inspector(document.querySelector("#observablehq-viewof-selected_schools-8e406c9c"));
+                  if (name === "viewof yearRange_filter") return new Inspector(document.querySelector("#observablehq-viewof-yearRange_filter-8e406c9c"));
+                  if (name === "viewof gender_filter") return new Inspector(document.querySelector("#observablehq-viewof-gender_filter-8e406c9c"));
+                  if (name === "viewof recordCount") return new Inspector(document.querySelector("#observablehq-viewof-recordCount-8e406c9c"));
+                  if (name === "viewof schools_summary_stats") return new Inspector(document.querySelector("#observablehq-viewof-schools_summary_stats-8e406c9c"));
+                  return ["selected_school_id_array","schools_lookupData","schools_lookupTable"].includes(name);
                 });
                 </script>
 
