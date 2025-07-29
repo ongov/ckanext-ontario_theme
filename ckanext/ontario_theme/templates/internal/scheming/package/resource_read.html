@@ -269,6 +269,33 @@
                 });
                 </script>
 
+          {% elif res.name == 'Schools 360' %}
+
+                  <div id="observablehq-viewof-state_filter-287f6d6b"></div>
+                  <div id="observablehq-viewof-t-287f6d6b"></div>
+                  <div id="observablehq-viewof-selected_schools-287f6d6b"></div>
+                  <div id="observablehq-viewof-yearRange_filter-287f6d6b"></div>
+                  <div id="observablehq-viewof-gender_filter-287f6d6b"></div>
+                  <div id="observablehq-viewof-recordCount-287f6d6b"></div>
+                  <div id="observablehq-numDegrees_timeSeries-287f6d6b"></div>
+                  <p>Credit: <a href="https://observablehq.com/d/1f176402dda7bfd8@1804">Create Lookup Table from local Parquet file &amp; DuckDB client</a></p>
+
+                  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@observablehq/inspector@5/dist/inspector.css">
+                  <script type="module">
+                  import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js";
+                  import define from "https://api.observablehq.com/d/1f176402dda7bfd8@1804.js?v=4";
+                  new Runtime().module(define, name => {
+                    if (name === "viewof state_filter") return new Inspector(document.querySelector("#observablehq-viewof-state_filter-287f6d6b"));
+                    if (name === "viewof t") return new Inspector(document.querySelector("#observablehq-viewof-t-287f6d6b"));
+                    if (name === "viewof selected_schools") return new Inspector(document.querySelector("#observablehq-viewof-selected_schools-287f6d6b"));
+                    if (name === "viewof yearRange_filter") return new Inspector(document.querySelector("#observablehq-viewof-yearRange_filter-287f6d6b"));
+                    if (name === "viewof gender_filter") return new Inspector(document.querySelector("#observablehq-viewof-gender_filter-287f6d6b"));
+                    if (name === "viewof recordCount") return new Inspector(document.querySelector("#observablehq-viewof-recordCount-287f6d6b"));
+                    if (name === "numDegrees_timeSeries") return new Inspector(document.querySelector("#observablehq-numDegrees_timeSeries-287f6d6b"));
+                    return ["all_inst_filters","schools_lookupData","viewof possible_schools","schools_lookupTable","viewof schools_summary_stats"].includes(name);
+                  });
+</script>
+
           {% endif %}
         {% endblock data_preview %}
       </div>
