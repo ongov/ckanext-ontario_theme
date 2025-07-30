@@ -19,7 +19,7 @@
       id=id,
     resource_id=resource.id) %}
 
-  {% if validation.report %}
+  {% if validation.report and resource.url_type %}
     {% set button_id = "step2Btn" %}
     {% set success_message = "Data validated successfully" %}
     <div class="validation-details">
@@ -80,7 +80,11 @@
 
   {% else %}
     {% set button_id = "nextBtn" %}
-    {% set success_message = "Data uploaded successfully" %}
+    {% if resource.url_type %}
+      {% set success_message = "Data uploaded successfully" %}
+    {% else %}
+      {% set success_message = "Data linked successfully" %}
+    {% endif %}
     {% snippet "package/snippets/successful_page_alert.html", success_message=success_message %}
   {% endif %}
 
