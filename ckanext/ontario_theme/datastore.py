@@ -82,6 +82,7 @@ class DictionaryView(MethodView):
             ]
         }
         try:
+            # Check if any data types have been defined in dictionary form
             has_override = True if [x for x in dict_fields['fields'] if len(x['info']['type_override'])>0] else False
             if has_override:
                 # Reformat dictionary into structure used by ckanext-validation and
@@ -125,5 +126,8 @@ class DictionaryView(MethodView):
                     return h.redirect_to("ontario_theme.new_resource_publish", id=id, resource_id=resource_id)
                 else:
                     return h.redirect_to("datastore.dictionary", id=id, resource_id=resource_id)
+            else:
+                # Dictionary data type fields all left blank, nothing to xloader so continue
+                return h.redirect_to("ontario_theme.new_resource_publish", id=id, resource_id=resource_id)
         except:
             return h.redirect_to("ontario_theme.new_resource_publish", id=id, resource_id=resource_id)
