@@ -32,7 +32,12 @@ import functools
 
 from ckanext.ontario_theme.resource_upload import ResourceUpload
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
+from ckanext.ontario_theme.resource import CreateView as OntarioThemeResourceCreateView
+from ckanext.ontario_theme.resource import EditView as OntarioThemeResourceEditView
 from ckanext.ontario_theme.organization import index as organization_index
+from ckanext.ontario_theme.datastore import DictionaryView
+
+from ckanext.validation.helpers import dump_json_value
 
 # For Image Uploader
 #from ckan.controllers.home import CACHE_PARAMETERS
@@ -44,6 +49,7 @@ import ckan.lib.helpers as h
 
 import logging
 log = logging.getLogger(__name__)
+
 
 def image_uploader():
     '''View function that renders the image uploader form.
@@ -181,6 +187,46 @@ def resource_display_name(resource_dict):
         return helpers._("Supporting file")
 
 ckan.lib.helpers.resource_display_name = resource_display_name
+
+
+def get_validation_report(resource_id):
+    validation = toolkit.get_action(u"resource_validation_show")(
+            {u'ignore_auth': True}, {u"resource_id": resource_id}
+        )
+    errors = validation['report']
+    errors = json.loads(errors)
+    return dump_json_value(errors)
+
+def new_resource_publish(id, resource_id):
+    '''New page for submitting new resource for publication.
+    '''
+    pkg_dict = toolkit.get_action(u'package_show')(None, {u'id': id})
+    res = toolkit.get_action(u'resource_show')(None, {u'id': resource_id})
+
+    return render_template('/package/new_resource_publish.html',
+                           id=id,
+                           resource_id=resource_id,
+                           pkg_dict=pkg_dict,
+                           resource=res)
+
+
+def resource_validation(id, resource_id):
+    '''Intermediate page for resource validation (step 2)
+    '''
+    pkg_dict = toolkit.get_action(u'package_show')(None, {u'id': id})
+    res = toolkit.get_action(u'resource_show')(None, {u'id': resource_id})
+    try:
+        validation = toolkit.get_action(u'resource_validation_show')(
+            None,
+            {u'resource_id': resource_id})
+    except ckan.logic.NotFound:
+        validation = None
+
+    return render_template('/package/resource_validation.html',
+                           id=id,
+                           pkg_dict=pkg_dict,
+                           resource=res,
+                           validation=validation)
 
 
 def csv_dump():
@@ -919,11 +965,13 @@ class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
         toolkit.add_resource('fanstatic/external', 'ontario_theme_external')
 
         config_['scheming.dataset_schemas'] = """
+ckanext.validation.examples:ckan_default_schema.json
 ckanext.ontario_theme:schemas/external/ontario_theme_dataset.json
 """
         config_['scheming.presets'] = """
 ckanext.scheming:presets.json
 ckanext.fluent:presets.json
+ckanext.validation:presets.json
 """
         config_['scheming.organization_schemas'] = """
 ckanext.ontario_theme:schemas/ontario_theme_organization.json
@@ -931,7 +979,6 @@ ckanext.ontario_theme:schemas/ontario_theme_organization.json
         config_['scheming.group_schemas'] = """
 ckanext.ontario_theme:schemas/ontario_theme_group.json
 """
-
 
 class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.ITranslation)
@@ -956,11 +1003,13 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
 
         if 'scheming.dataset_schemas' not in config_:
             config_['scheming.dataset_schemas'] = """
+ckanext.validation.examples:ckan_default_schema.json
 ckanext.ontario_theme:schemas/internal/ontario_theme_dataset.json
 """
         config_['scheming.presets'] = """
 ckanext.scheming:presets.json
 ckanext.fluent:presets.json
+ckanext.validation:presets.json
 """
 
         config_['scheming.organization_schemas'] = """
@@ -1080,10 +1129,12 @@ type data_last_updated
                 'ontario_theme_abbr_localised_filesize': abbr_localised_filesize,
                 'ontario_theme_get_facet_options': get_facet_options,
                 'ontario_theme_site_title': site_title,
-                'ontario_theme_get_current_year': get_current_year
+                'ontario_theme_get_current_year': get_current_year,
+                'ontario_theme_get_validation_report': get_validation_report
                 }
 
     # IBlueprint
+
 
     def get_blueprint(self):
         '''Return a Flask Blueprint object to be registered by the app.
@@ -1108,12 +1159,25 @@ type data_last_updated
 
         # Add url rules to Blueprint object.
         rules = [
-            (u'/dataset/inventory', u'inventory', csv_dump)
+            (u'/dataset/inventory', u'inventory', csv_dump),
+            (u'/dataset/<id>/<resource_id>/new_resource_publish/', u'new_resource_publish', new_resource_publish),
+            (u'/dataset/<id>/<resource_id>/resource_validation/', u'resource_validation', resource_validation)
         ]
 
         for rule in rules:
             blueprint.add_url_rule(*rule)
         blueprint.add_url_rule('/dataset/new', view_func=OntarioThemeCreateView.as_view(str(u'new')), defaults={u'package_type': u'dataset'})
+        blueprint.add_url_rule(
+            u'/dataset/<id>/resource/new',
+            view_func=OntarioThemeResourceCreateView.as_view(str(u'edit_step2')),
+            defaults={u'package_type': u'dataset'}
+        )
+        blueprint.add_url_rule(
+            u'/dataset/<id>/resource/<resource_id>/edit',
+            view_func=OntarioThemeResourceEditView.as_view(str(u'edit')), defaults={u'package_type': u'dataset'}
+        )
+        blueprint.add_url_rule(u'/dataset/<id>/dictionary/<resource_id>',view_func=DictionaryView.as_view(str(u'dictionary')))
+
         return blueprint
 
     # IUploader

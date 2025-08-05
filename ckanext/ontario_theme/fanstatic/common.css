@@ -833,6 +833,123 @@ input[placeholder] {
   fill: #1080a6;
 }
 
+.ontario-alert--error ul {
+  margin-left: 1.25rem;
+}
+
+.ontario-alert--error ul:last-of-type {
+  margin-bottom: .5rem;
+}
+
+.ontario-alert--error {
+  border-color: #cd0000;
+  background-color: #fceff0;
+}
+
+.ontario-alert--success {
+  border-color: #118847;
+  background-color: #e5f0e9;
+}
+
+.ontario-alert--error svg {
+  fill: #cd0000;
+}
+
+.ontario-alert--error a,
+.ontario-alert--error a:visited {
+  color: #cd0000;
+}
+
+.ontario-alert--error a:hover,
+.ontario-alert--error a:focus {
+  color: #6b0000;
+}
+
+.ontario-alert--error a:active {
+  color: #280000;
+}
+
+/* indicator */
+#step2Btn {
+  display: none;
+  margin-top: 40px;
+}
+
+.ontario-loading-indicator {
+  display: flex;
+  /*flex-direction: column;*/
+  /* align-items: center;
+  justify-content: center; */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 100%;
+}
+
+.ontario-loading-indicator p {
+  color: #4d4d4d;
+  font-family: "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 700;
+  word-spacing: 0.025rem;
+  margin: 0.75rem 0 0;
+}
+
+.ontario-loading-indicator p.spinner-small {
+  margin: unset;
+}
+
+.ontario-loading-indicator__spinner {
+  animation: rotator 1.5s linear infinite;
+  width: 3rem;
+  height: 3rem;
+  overflow: visible;
+}
+
+.ontario-loading-indicator__spinner-small {
+  animation: rotator 1.5s linear infinite;
+  width: 1.5rem;
+  height: 1.5rem;
+  overflow: visible;
+  margin-right: 12px;
+}
+
+.ontario-loading-indicator__spinner circle,
+.ontario-loading-indicator__spinner-small circle {
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  stroke: #4d4d4d;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes rotator {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+
+/* end indicator */
+
 /* ========================================================================
    Page Alerts - ODC
    ======================================================================== */
@@ -890,6 +1007,13 @@ input[placeholder] {
 
 .search-page-heading h1 {
   margin-top: 0;
+}
+
+/* ========================================================================
+   New UI Workflow
+   ======================================================================== */
+#delbtn a {
+  margin-right: 0;
 }
 
 /* ========================================================================
@@ -2141,6 +2265,175 @@ a.ontario-button.ontario-button--tertiary:hover {
   padding: 12px;
 }
 
+/* Design System Table */
+.ontario-table-container {
+  position: relative;
+  margin: 0.5rem 0 2.5rem 0;
+}
+
+.ontario-table-container table:not(.ontario-table--no-zebra-stripes) tbody tr:first-child:nth-last-child(n + 6):nth-child(even),
+.ontario-table-container table:not(.ontario-table--no-zebra-stripes) tbody tr:first-child:nth-last-child(n + 6) ~ tr:nth-child(even) {
+  background-color: #0000000d;
+}
+
+.ontario-table-div {
+  overflow-x: auto;
+  background: linear-gradient(to right, #fff 30%, rgba(255, 255, 255, 0)), linear-gradient(to right, rgba(255, 255, 255, 0), #fff 70%) 0 100%, linear-gradient(to right, rgba(0, 0, 0, 0.2) 0%, rgba(252, 0, 0, 0) 100.01%), linear-gradient(to left, rgba(0, 0, 0, 0.2) 0%, rgba(252, 0, 0, 0) 100.01%);
+  background-repeat: no-repeat;
+  background-size: 2.5rem 100%, 2.5rem 100%, 0.875rem 100%, 0.875rem 100%;
+  background-position: 0 0, 100%, 0 0, 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-table-div {
+    overflow-x: scroll;
+  }
+}
+
+.ontario-table-scroll--wrapper {
+  height: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: block;
+}
+
+.ontario-table-div table {
+  border-collapse: collapse;
+  font-size: 1.0625rem;
+  display: table;
+  line-height: 1.625rem;
+  font-weight: normal;
+}
+
+table.ontario-table--full-container-width {
+  display: table;
+  width: 100% !important;
+}
+
+@media screen and (max-width: 40em) {
+  table {
+    font-size: 1rem;
+  }
+}
+
+tbody {
+  font-size: 1rem;
+  vertical-align: top;
+}
+
+tbody tr {
+  border: solid;
+  border-width: .0625rem 0;
+  border-color: #0000004d;
+}
+
+tbody tr:last-child {
+  border-width: 0.1875rem 0;
+  border-top-width: 0;
+  border-color: #1a1a1a;
+}
+
+tbody tr.ontario-table-row--highlight {
+  background-color: #e19100 3c !important;
+}
+
+tbody tr.ontario-table-row--highlight th {
+  padding-left: 1.5rem;
+  display: flex;
+  position: relative;
+}
+
+tbody tr.ontario-table-row--highlight th img.ontario-table--highlight-indicator {
+  width: 0.5rem;
+  position: absolute;
+  top: 1.5rem;
+  left: 0;
+}
+
+thead {
+  border: solid;
+  border-width: .1875rem 0;
+  border-color: #1a1a1a;
+  vertical-align: top;
+}
+
+thead th {
+  text-align: left;
+  padding: 1.75rem 1rem 1.75rem 1.5rem;
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+}
+
+@media screen and (max-width: 40em) {
+  thead th {
+    font-size: 1rem;
+    line-height: 1.3125rem;
+    padding: 1.53125rem 0.5rem 1.53125rem 1rem;
+  }
+}
+
+tbody th {
+  padding: 1.1875rem 1rem 1.1875rem 1.5rem;
+  text-align: left;
+  letter-spacing: 0.025rem;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 40em) {
+
+  tbody th,
+  tfoot th {
+    font-size: 1rem;
+    line-height: 1.625rem;
+    padding: 1.1875rem 0.5rem 1.1875rem 1rem;
+  }
+}
+
+td {
+  padding: 1.1875rem 1rem 1.1875rem 1.5rem;
+  text-align: left;
+  letter-spacing: 0.025rem;
+}
+
+/* condensed */
+table.ontario-table--condensed td {
+  padding: 0.75rem 1rem 0.75rem 1.5rem;
+  text-align: left;
+}
+
+table.ontario-table--condensed tbody th {
+  padding: 0.75rem 1rem 0.75rem 1.5rem;
+}
+
+table.ontario-table--condensed tr.ontario-table-row--highlight th img.ontario-table--highlight-indicator {
+  top: 1.0625rem;
+}
+
+table.ontario-table--condensed tr.ontario-table-row--subtotal th,
+table.ontario-table--condensed tfoot tr th,
+table.ontario-table--condensed tr.ontario-table-row--subtotal td,
+table.ontario-table--condensed tfoot tr td {
+  padding: 1rem 1rem 1rem 1.5rem;
+}
+
+@media screen and (max-width: 40em) {
+  table.ontario-table--condensed td {
+    padding: 0.75rem 0.5rem 0.75rem 1rem;
+    font-size: 1rem;
+  }
+
+  table.ontario-table--condensed tbody th {
+    padding: 0.75rem 0.5rem 0.75rem 1rem;
+  }
+}
+
+/* END Design System Table */
+
+
 .module-resource {
   border-bottom: unset;
   z-index: 1;
@@ -2792,12 +3085,11 @@ figure {
   padding-right: 10px;
 }
 
-#news hr,
-#resources_and_information hr {
+hr {
   border: 0;
   padding: 0;
-  margin: 0 0 2.5rem;
-  border-bottom: 2px solid #f2f2f2;
+  margin: 2.5rem 0;
+  border-bottom: 4px solid #ccc;
 }
 
 #news {
@@ -2812,6 +3104,10 @@ body {
   .resource-view .actions {
     display: contents;
   }
+}
+
+.resource-margin {
+  margin-top: 1rem;
 }
 
 .resource-view .actions {
@@ -2998,6 +3294,10 @@ label::after {
 
 .search-page-select select::-ms-expand {
   display: none;
+}
+
+.form-control-label {
+  font-size: 16px;
 }
 
 /* ========================================================================
@@ -3871,4 +4171,134 @@ label::after {
 
 .wrapper {
   min-height: unset;
-}
+
+  Step Indicator - Design System========================================================================*/ .ontario-step-indicator .ontario-step-indicator--without-back-button,
+  .ontario-step-indicator .ontario-step-indicator--with-back-button {
+    display: flex;
+    align-items: center
+  }
+
+  .ontario-step-indicator .ontario-step-indicator--without-back-button {
+    justify-content: flex-end
+  }
+
+  .ontario-step-indicator .ontario-step-indicator--with-back-button {
+    justify-content: space-between
+  }
+
+  .ontario-step-indicator .ontario-h4 {
+    margin: 1.125rem 0
+  }
+
+  @media screen and (max-width: 40em) {
+    .ontario-step-indicator .ontario-h4 {
+      margin: 1rem 0;
+      text-align: right
+    }
+  }
+
+  .ontario-step-indicator .ontario-button.ontario-button--tertiary {
+    display: flex;
+    align-items: center;
+    margin: .75rem 0;
+    padding-left: .5rem;
+    padding-right: 1rem;
+    min-width: 3rem
+  }
+
+  @media screen and (max-width: 40em) {
+    .ontario-step-indicator .ontario-button.ontario-button--tertiary {
+      width: unset
+    }
+  }
+
+  .ontario-step-indicator .ontario-button.ontario-button--tertiary .ontario-icon {
+    margin: 0 .375rem 0 0;
+    padding: 0;
+    min-width: 24px;
+    min-height: 24px
+  }
+
+  .ontario-step-indicator hr {
+    padding: 0;
+    margin: 0
+  }
+
+  .ontario-step-indicator p {
+    max-width: 48rem
+  }
+
+  /* ========================================================================
+   New Resource Publish Page
+   ======================================================================== */
+
+  .resource-metadata-heading.ontario-h5 {
+    margin: unset;
+  }
+
+  .resource-metadata-dl dd {
+    margin-bottom: 16px;
+  }
+
+  .resource-metadata-dl dd,
+  .resource-metadata-dl dt {
+    padding-right: 16px;
+  }
+
+  .resource-metadata-dl > div,
+  .resource-metadata-edit-row {
+    display: block;
+    padding-left: unset;
+  }
+
+  .resource-metadata-edit-row {
+    margin-bottom: 18px;
+  }
+
+  @media screen and (min-width: 40em) {
+    .resource-metadata-dl > div {
+      display: flex;
+    }
+
+    .resource-metadata-edit-row h2 {
+      margin-bottom: unset;
+    }
+
+    .resource-metadata-edit-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+    }
+  }
+
+  .form-actions {
+    overflow: unset;
+  }
+
+  /* ========================================================================
+   Hint text - Design System
+   ======================================================================== */
+
+  .ontario-hint {
+    color: #4d4d4d;
+    display: inline-block;
+    margin: 0 0 1rem 0;
+    width: 100%;
+    max-width: 48rem
+  }
+
+  /* form-column-name */
+  .form-column-name {
+    border: none;
+    background-color: #fff;
+    display: inline-block;
+    margin: 0 0 1rem 0;
+    width: 100%;
+    max-width: 48rem
+  }
+
+  .column-name-div {
+    display: flex;
+    align-items: baseline;
+    column-gap: 10px;
+  }

@@ -2132,6 +2132,10 @@ msgstr "Éditer les réglages"
 msgid "Settings"
 msgstr "Réglages"
 
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:211
+msgid "Data dictionary"
+msgstr "Dictionnaire de données"
+
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:36
 msgid "Additional information"
 msgstr "Informations additionnelles"
