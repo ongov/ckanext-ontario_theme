@@ -46,7 +46,7 @@ pr: none
 
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'ubuntu-22.04'
 
 stages: 
 - stage: Build
@@ -59,7 +59,7 @@ stages:
      - checkout: self
        persistCredentials: true
      - script: |
-         pip install twine wheel flake8 pytest pytest-azurepipelines bump
+         pip install twine==6.1.0 wheel flake8 pytest pytest-azurepipelines bump
        displayName: 'Installing Pipeline Tools Required to Build Project' 
      - script: |
          set -e
