@@ -82,8 +82,11 @@ class DictionaryView(MethodView):
             ]
         }
         try:
+            # Check if any data types have been defined in dictionary form
             has_override = True if [x for x in dict_fields['fields'] if len(x['info']['type_override'])>0] else False
-            if has_override:
+            # Check if any descriptions have been added in dictionary form
+            has_notes = True if [x for x in dict_fields['fields'] if len(x['info']['notes'])>0] else False
+            if has_override or has_notes:
                 # Reformat dictionary into structure used by ckanext-validation and
                 # replace PostgreSQL data types with Frictionless equivalents
                 ui_dict_fields = copy.deepcopy(dict_fields)
@@ -125,5 +128,8 @@ class DictionaryView(MethodView):
                     return h.redirect_to("ontario_theme.new_resource_publish", id=id, resource_id=resource_id)
                 else:
                     return h.redirect_to("datastore.dictionary", id=id, resource_id=resource_id)
+            else:
+                # Dictionary form fields all left blank, nothing to xloader so continue
+                return h.redirect_to("ontario_theme.new_resource_publish", id=id, resource_id=resource_id)
         except:
             return h.redirect_to("ontario_theme.new_resource_publish", id=id, resource_id=resource_id)
