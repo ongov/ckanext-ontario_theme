@@ -922,16 +922,6 @@ input[placeholder] {
   border: 1px solid #92278F;
 }
 
-.odc-alert-algorithm {
-  background-color: #DBE9F5;
-  border: 1px solid #3193CC;
-}
-
-.odc-alert-under_review p,
-.odc-alert-algorithm p:last-child {
-  margin-bottom: 0;
-}
-
 /* ===============================
    Custom overrides - page alerts
    =============================== */
@@ -3085,14 +3075,6 @@ body {
 li.media-item.ministry-item {
   margin-left: unset;
   padding: 15px;
-}
-
-.new-alert.alert-huge > p {
-  margin-bottom: 0;
-}
-
-.new-alert.alert-huge {
-  padding-bottom: 40px;
 }
 
 [role="main"] {

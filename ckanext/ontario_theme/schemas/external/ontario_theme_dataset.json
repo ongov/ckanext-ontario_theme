@@ -67,13 +67,6 @@
             "en": "Dataset",
             "fr": "Jeu de données"
           }
-        },
-        {
-          "value": "ai",
-          "label": {
-            "en": "Artificial intelligence",
-            "fr": "Intelligence artificielle"
-          }
         }
       ]
     },
