@@ -34,10 +34,9 @@
   </h3>
   {# Get the org to get all extras then get the schema for choices/labels of values #}
   {% set organization = h.get_organization(package['owner_org']) %}
-  {%- set schema = h.scheming_get_organization_schema('organization') -%}
+  {% set scheming_choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'category')) %}
   <p class="package-item-category">
-    {%- snippet 'scheming/snippets/display_field.html', field=h.scheming_field_by_name(schema.fields, 'category'), data=organization, schema=schema -%}
-    {{ _(':') }} {{ h.get_translated(organization, 'title') }}
+    {{ h.scheming_choices_label(scheming_choices, organization['category']) }}{{ _(':') }} {{ h.get_translated(organization, 'title') }}
   </p>
 {% endblock heading %}
 
