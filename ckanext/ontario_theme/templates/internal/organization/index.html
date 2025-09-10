@@ -43,26 +43,20 @@
       {% if not sort_by_selected %}
         {% set sort_by_selected = "name asc" %}
       {% endif %}
-      <form id="{{ form_id }}"
-            class="search-form"
-            method="get"
-            data-module="select-switch"
-            novalidate>
-        {% snippet 'snippets/search_form.html',
-          searchbar_title=searchbar_title,
-          form_id=form_id,
-          type=type,
-          query=query,
-          sorting=sorting,
-          sorting_selected=sort_by_selected,
-          count=c.page.item_count,
-          sr_submit_text=sr_submit_text,
-          facets=facets,
-          show_empty=request.params,
-          error=c.query_error,
-          fields=c.fields
-          %}
-      </form>
+      {% snippet 'snippets/search_form.html',
+      searchbar_title=searchbar_title,
+      form_id=form_id,
+      type=type,
+      query=query,
+      sorting=sorting,
+      sorting_selected=sort_by_selected,
+      count=c.page.item_count,
+      sr_submit_text=sr_submit_text,
+      facets=facets,
+      show_empty=request.params,
+      error=c.query_error,
+      fields=c.fields
+      %}
     {% endblock organizations_search_form %}
   </div>
 {% endblock ontario_theme_search_form %}
@@ -79,10 +73,10 @@
             {% set current_lang = request.environ.CKAN_LANG %}
             {% set reverse = True if 'desc' in request.params['sort'] else False %}
             {% set sorted_org = h.ontario_theme_sort_by_title_translated(c.page.items,
-                              current_page=c.page.page,
-                              items_per_page=c.page.items_per_page,
-                              lang=current_lang,
-                            reverse=reverse) %}
+                          current_page=c.page.page,
+                          items_per_page=c.page.items_per_page,
+                          lang=current_lang,
+                        reverse=reverse) %}
             {% snippet "organization/snippets/organization_list.html", organizations=sorted_org %}
           {% endif %}
         {% else %}

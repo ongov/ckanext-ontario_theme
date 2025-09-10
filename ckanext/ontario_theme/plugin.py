@@ -18,6 +18,7 @@ from flask import Blueprint, make_response
 from flask import render_template, render_template_string
 
 import json
+import re
 import ckan.lib.helpers as helpers
 import ckan.lib.formatters as formatters
 from ckan.lib.helpers import core_helper
@@ -798,6 +799,42 @@ def get_facet_options():
     return {'limit': limit, 'default': default}
 
 
+def _get_default_ors():
+    ''' Gets list of all facets for logical OR querying
+    '''
+    facets = h.facets()
+    for plugin in plugins.PluginImplementations(plugins.IFacets):
+        facets = plugin.dataset_facets(facets, "dataset")
+    facet_list = list(facets.keys())
+    return facet_list
+
+
+def _split_fq(fq: str, field: str):
+    ''' Function from ckanext-or_facet
+    Returns logical OR facets in the format solr requires for query'''
+    # Patterns taken from ckanext-or_facet
+    _term_pattern = (
+        r"(^|(?<=\s))"  # begining of the line or space after facet
+        r"{field}:"  # fixed field name(must be replaced)
+        r"(?P<quote>\'|\")?"  # optional open-quote
+        r"(?P<term>.+?)"  # facet value
+        r"(?(quote)(?P=quote))"  # optional closing quote
+        r"(?=\s|$)"  # end of the line or space before facet
+    )
+
+    exp = re.compile(_term_pattern.format(field=field))
+    fqs = [m.group(0).strip() for m in exp.finditer(fq)]
+
+    if not fqs:
+        return None, fq
+    fq = exp.sub("", fq).strip()
+    extracted = "{{!bool tag=orFq{} {}}}".format(
+        field,
+        " ".join("should='{}'".format(item.replace("'", r"\'")) for item in fqs),
+    )
+    return extracted, fq
+
+
 def default_locale():
     '''Wrap the ckan default locale in a helper function to access
     in templates.
@@ -1153,21 +1190,22 @@ type data_last_updated
     def dataset_facets(self, facets_dict, package_type):
         '''Add new search facet dictionary for datasets.
         '''
-        reordered_facet_dict = OrderedDict({
+        facets_dict.clear()
+        facets_dict = OrderedDict({
             'keywords_en': toolkit._('Topics'),
             'keywords_fr': toolkit._('Topics'),
             'organization': toolkit._('Ministries'),
             'res_format': toolkit._('Formats'),
-            'access_level': toolkit._('Access level'),
             'update_frequency': toolkit._('Update frequency'),
             'license_id': toolkit._('Licences'),
             'asset_type': toolkit._('Asset type'),
             'groups': toolkit._('Groups'),
             'organization_jurisdiction': toolkit._('Jurisdiction'),
-            'organization_category': toolkit._('Category')
+            'organization_category': toolkit._('Category'),
+            'access_level': toolkit._('Access level')
         })
 
-        return reordered_facet_dict
+        return facets_dict
 
     def group_facets(self, facets_dict, group_type, package_type):
         u'''Modify and return the ``facets_dict`` for a group's page.
@@ -1186,7 +1224,38 @@ type data_last_updated
     def before_search(self, search_params):
         u'''Extensions will receive a dictionary with the query parameters,
         and should return a modified (or not) version of it.
+        Sets default access level to open
         '''
+        fl = search_params.setdefault("facet.field", [])
+        fq = search_params.get("fq", "")
+        default_open = '{!bool tag=orFqaccess_level should=\'access_level:"open"\'}'
+
+        ors = set(_get_default_ors())
+        # To show all access levels on dataset counts on
+        # the homepage and org/group pages
+        if ('fq' not in search_params) or (fq and not fl):
+            fq_list = search_params.setdefault('fq_list', [])
+        # Show default open datasets or other access level on org/group search
+        # pages
+        elif fq:
+            fq_list = search_params.setdefault('fq_list', [default_open])
+            access_level_count = True if fq.count("access_level") > 1\
+                or (fq.count("access_level") == 1 and 'access_level:"open"' not in fq) else None
+            for field in ors:
+                extracted, fq = _split_fq(fq, field)
+                if extracted:
+                    if access_level_count and default_open in fq_list:
+                        fq_list.remove(default_open)
+                    fq_list.append(extracted)
+        # Show default open datasets on dataset search page
+        else:
+            fq_list = search_params.setdefault('fq_list', [default_open])
+        # Adds excluded fields to facet.field
+        search_params["facet.field"] = [
+            "{!edismax ex=orFq%s}" % field + field if field in ors else field
+            for field in fl
+        ]
+        search_params["fq"] = fq
         sort = search_params.get('sort')
         if sort and 'titles' in sort:
             title_sorted = 'fr' if h.lang() == 'fr' else 'en'
