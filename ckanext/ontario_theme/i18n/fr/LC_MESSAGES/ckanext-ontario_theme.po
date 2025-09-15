@@ -182,20 +182,8 @@ msgid "https://www.ontario.ca/form/survey-open-data-catalogue"
 msgstr "https://www.ontario.ca/fr/forme/enquete-catalogue-de-donnees-de-lontario"
 
 #: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
-msgid "Tell us what you want to know about <a href=\"%(url)s\">artificial intelligence (<abbr>AI</abbr>) assets</a> published to the Catalogue."
-msgstr "Dites-nous ce que vous aimeriez savoir au sujet des <a href=\"%(url)s\">biens d’intelligence artificielle (<abbr>IA<abbr>)</a> publiés au catalogue"
-
-#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
-msgid "Artificial intelligence (<abbr>AI</abbr>) on the Catalogue"
-msgstr "L’intelligence artificielle (<abbr>IA<abbr>) figurant au catalogue"
-
-#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
 msgid "Help us improve"
 msgstr "Aidez-nous à nous améliorer"
-
-#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
-msgid "Fill out our <abbr title=\"artificial intelligence\">AI</abbr> inventory survey"
-msgstr "Remplissez notre sondage sur <abbr title=\"l'intelligence artificielle\">l’AI</abbr>"
 
 #: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
 msgid "Give us feedback about the Catalogue"
@@ -1589,15 +1577,6 @@ msgstr "Données de COVID-19"
 msgid "Get data on COVID-19 activity in Ontario."
 msgstr "Obtenir des données sur l’activité de la COVID-19 en Ontario."
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:25
-msgid "Alpha AI Guidance"
-msgstr "Conseils sur l'IA «alpha»"
-
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:29
-msgid ""
-"Ontario is committed to ensuring that government use of artificial intelligence and similar technologies has a strong, clear framework for transparent and appropriate use. Let us know what you think."
-msgstr "L’Ontario est déterminé à s’assurer que l’utilisation que fait le gouvernement de l’intelligence artificielle et de technologies semblables respecte un cadre solide et clair pour une utilisation transparente et appropriée. Nous faire part de vos commentaires."
-
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:36
 msgid "Open Data, Open Source"
 msgstr "Données ouvertes, source ouverte"
@@ -1648,14 +1627,6 @@ msgstr "Jeux de données sur la COVID-19"
 msgid "COVID-19 datasets "
 msgstr "de jeux de données sur la COVID-19"
 
-#: ckanext/ontario_theme/templates/internal/home/layout3.html:56
-msgid "Artificial Intelligence (<abbr>AI</abbr>) assets"
-msgstr "Actifs d’intelligence artificielle (<abbr>IA</abbr>)"
-
-#: ckanext/ontario_theme/templates/internal/home/layout3.html:26
-msgid "<abbr title=\"Artificial Intelligence\">AI</abbr> assets"
-msgstr "d’actifs d’<abbr title=\"intelligence artificielle\">IA</abbr>"
-
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:9
 msgid "Welcome to the Ontario Data catalogue!"
 msgstr "Bienvenue à la catalogue de données de l’Ontario!"
@@ -1701,10 +1672,6 @@ msgstr "<a href=\"%(url)s?%(params)s\">Faites-nous part de vos commentaires</a> 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:21
 msgid "https://www.ontario.ca/form/provide-feedback-ontario-data-catalogue"
 msgstr "https://www.ontario.ca/fr/forme/fournir-un-retour-dinformation-catalogue-de-donnees-de-lontario"
-
-#: ckanext/ontario_theme/templates/external/home/snippets/ai_recruitment_banner.html:2
-msgid "https://www.ontario.ca/form/tell-us-what-you-think-about-our-artificial-intelligence-ai-inventory"
-msgstr "https://www.ontario.ca/fr/forme/dites-nous-ce-que-vous-pensez-de-notre-inventaire-de-lintelligence-artificielle-ia"
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:9
 msgid "Ontario Data Catalogue"
@@ -1788,22 +1755,6 @@ msgstr "Restez informé"
 #: ckanext/ontario_theme/templates/internal/package/read.html:14
 msgid "Subscribe to updates to this dataset using RSS."
 msgstr "Inscrivez-vous aux mises à jour pour cet ensemble de données à l’aide du fil RSS."
-
-#: ckanext/ontario_theme/templates/internal/package/read.html:7
-msgid "Artificial Intelligence (<abbr>AI</abbr>)"
-msgstr "Intelligence artificielle (<abbr>IA</abbr>)"
-
-#: ckanext/ontario_theme/templates/internal/package/read.html:34
-msgid "Learn more about how Ontario uses <abbr title=\"Artificial Intelligence\">AI</abbr> in government."
-msgstr "Renseignez-vous sur la façon dont l’Ontario utilise l’<abbr title=\"intelligence artificielle\">IA<abbr> au sein du gouvernement."
-
-#: ckanext/ontario_theme/templates/internal/package/read.html:31
-msgid "This record describes an <abbr title=\"Artificial Intelligence\">AI</abbr> asset. It does not describe a dataset."
-msgstr "Cet enregistrement décrit un actif d’intelligence artificielle. Il ne s’agit pas d’un jeu de données."
-
-#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:10
-msgid "Algorithm/AI"
-msgstr "Algorithme/IA"
 
 #: ckanext/ontario_theme/templates/internal/snippets/package_item.html:10
 msgid "ON Geohub"
@@ -2159,10 +2110,6 @@ msgstr "Visualisez les données"
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:68
 msgid "Access data"
 msgstr "Accédez aux données"
-
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:68
-msgid "Access <abbr title=\"Artificial Intelligence\">AI</abbr>"
-msgstr "Accédez à l’<abbr title =\"intelligence artificielle\">IA</abbr>"
 
 #: ckanext/ontario_theme/templates/internal/package/snippets/resource_views_list_item.html:3
 msgid "Data Visualizer"

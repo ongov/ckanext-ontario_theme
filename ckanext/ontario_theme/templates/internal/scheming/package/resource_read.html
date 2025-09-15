@@ -109,11 +109,7 @@
                   {{ _('Access data') }}
                 {% endif %}
               {% else %}
-                {% if pkg.get("asset_type") == "ai" %}
-                  {{ _('Access <abbr title="Artificial Intelligence">AI</abbr>') }}
-                {% else %}
-                  {{ _('Access data') }}
-                {% endif %}
+                {{ _('Access data') }}
               {% endif %}
             </h2>
             {% if not res.datastore_active or res['validation_status'] == 'failure' or res.url_type is none %}
