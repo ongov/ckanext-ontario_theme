@@ -60,10 +60,12 @@
           <div class="datafile-p" property="rdfs:label">
             {% block resource_read_url %}
               {% if res.url and h.is_url(res.url) %}
+                {% set _filename = res.url.split('?')[0].rstrip('/').split('/')[-1] %}
                 <p>
                   {{ _('URL:') }}
                   <a class="resource-url-analytics"
                      href="{{ res.url }}"
+                     download="{{ _filename }}"
                      title="{{ res.url }}">{{ res.url }}</a>
                 </p>
               {% elif res.url %}
@@ -113,8 +115,10 @@
               {% endif %}
             </h2>
             {% if not res.datastore_active or res['validation_status'] == 'failure' or res.url_type is none %}
+              {% set _filename = res.url.split('?')[0].rstrip('/').split('/')[-1] %}
               <a class="dataset-download-link resource-url-analytics resource-type-{{ res.resource_type }}"
                  href="{{ res.url }}"
+                 download="{{ _filename }}"
                  onclick="trackDownload('{{ res.url }}', '{{ this_org }}', '{{ pkg.title }}', '{{ this_group }}');return true;">
                 {{ h.resource_display_name(res) }}
               </a>
