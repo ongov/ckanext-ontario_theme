@@ -34,19 +34,6 @@
     </header>
     {% block primary_content_inner %}
       <div class="ontario-columns ontario-small-12 ontario-large-8" role="tabpanel">
-        {% if pkg.get("asset_type") == "ai" %}
-          <div class="odc-alert odc-alert-algorithm">
-            <p class="ontario-h5">
-              {{ _("Artificial Intelligence (<abbr>AI</abbr>)") }}
-            </p>
-            <p>
-              {{ _('This record describes an <abbr title="Artificial Intelligence">AI</abbr> asset. It does not describe a dataset.') }}
-              <a href="{{ h.url_for('group.about', id='artificial-intelligence') }}">
-                {{ _('Learn more about how Ontario uses <abbr title="Artificial Intelligence">AI</abbr> in government.') }}
-              </a>
-            </p>
-          </div>
-        {% endif %}
         {{ super() }}
         {% block package_description %}
           {% if pkg.private %}

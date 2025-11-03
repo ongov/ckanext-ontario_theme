@@ -27,24 +27,18 @@ Override CKAN's read.html to add some new facets.
     {% set searchbar_text = gettext('Search %(ministry)s datasets', ministry=ministry) %}
     {% set searchbar_title = searchbar_text + _(':') %}
     {% set form_id = "organization-datasets-search-form" %}
-    <form id="{{ form_id }}"
-          class="search-form col-xs-12"
-          method="get"
-          data-module="select-switch"
-          novalidate>
-      {% snippet 'snippets/search_form.html',
-      searchbar_title=searchbar_title,
-      form_id=form_id,
-      type='dataset',
-      query=q,
-      sorting=sorting,
-      sorting_selected=sort_by_selected,
-      count=page.item_count,
-      facets=facets,
-      show_empty=request.params,
-      fields=fields,
-      extras={'id':group_dict.id} %}
-    </form>
+    {% snippet 'snippets/search_form.html',
+    searchbar_title=searchbar_title,
+    form_id=form_id,
+    type='dataset',
+    query=q,
+    sorting=sorting,
+    sorting_selected=sort_by_selected,
+    count=page.item_count,
+    facets=facets,
+    show_empty=request.params,
+    fields=fields,
+    extras={'id':c.group_dict.id} %}
   {% endblock groups_search_form %}
 
   {% block packages_list %}
@@ -62,7 +56,7 @@ Override CKAN's read.html to add some new facets.
 
 {% block organization_facets %}
   <div class="ministry-package-div secondary col-sm-3">
-    <div class="filters" id="filter-aside">
+    <div class="filters" id="filter-aside" data-module="facet_checkboxes">
       <span aria-label="{{ _('close') }}"
             role="button"
             tabindex="0"
@@ -76,13 +70,7 @@ Override CKAN's read.html to add some new facets.
         </svg>
       </span>
       <div>
-        <!--
-        {{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets, extras={'id':group_dict.id}) }}
-        -->
-        {% for facet in facet_titles %}
-          {% snippet 'snippets/facet_list.html', title=facet_titles[facet], name=facet, extras={'id':group_dict.id}, search_facets=search_facets %}
-        {% endfor %}
-      </div>      
+        {{ h.snippet('snippets/facet_arrangement.html', extras={'id':c.group_dict.id}, single_option_facet="organization") }}
       </div>
     </div>
   </div>

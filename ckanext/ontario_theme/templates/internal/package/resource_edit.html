@@ -1,0 +1,5 @@
+{% ckan_extends %}
+
+{% block subtitle %}
+  {{ _('Add or edit') }} {{ g.template_title_delimiter }} {{ h.resource_display_name(res) }} {{ g.template_title_delimiter }} {{ h.dataset_display_name(pkg) }}
+{% endblock subtitle %}

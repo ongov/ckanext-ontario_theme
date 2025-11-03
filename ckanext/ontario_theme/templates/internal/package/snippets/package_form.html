@@ -60,11 +60,6 @@ then itself be extended to add/remove blocks of functionality. #}
       {% endblock delete_button %}
 
       {% block save_button %}
-        <button class="btn btn-primary" type="submit" name="save">
-          {% block save_button_text %}
-            {{ _('Save and Add Data') }}
-          {% endblock save_button_text %}
-        </button>
       {% endblock save_button %}
       {{ form.required_message() }}
     </div>

@@ -408,19 +408,14 @@ input[type="reset"].ontario-search-reset:focus {
 
   .search-form .control-order-by {
     justify-content: end;
-    padding-top: 33px;
-
     margin-bottom: 0;
     background-color: #fff;
     padding-right: 1rem;
-    margin-left: -20px;
-    margin-right: -1rem;
-    padding-bottom: 16px;
   }
 
   #group-datasets-search-form.search-form .control-order-by,
   #organization-datasets-search-form.search-form .control-order-by {
-    margin-right: -20px;
+    margin-left: unset;
     padding-right: 20px;
   }
 
@@ -440,10 +435,6 @@ input[type="reset"].ontario-search-reset:focus {
   }
 }
 
-/* child div 2: shows Order By dropdown menu.
-    Note: clearance for menu below the gray box controlled by
-    bottom margin in external/ontario_theme.css LINE 759
-    */
 .search-form .control-order-by {
   display: flex;
 }
@@ -471,12 +462,6 @@ input[type="reset"].ontario-search-reset:focus {
   /* used to centre label beside menu box */
 }
 
-.search-form .control-order-by .form-control {
-  font-size: 16px;
-  height: unset;
-  /* increase height to accommodate larger font size */
-}
-
 .filter-list {
   display: inline-grid;
   padding-bottom: 10px;
@@ -488,6 +473,49 @@ input[type="reset"].ontario-search-reset:focus {
   display: none;
 }
 
+.search-form .control-order-by .form-control {
+  font-size: 16px;
+  height: unset;
+}
+
+.checkbox-status {
+  order: 2;
+  background-color: white;
+  margin: 0 -16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 16px;
+}
+
+.checkbox-status .search-page-select {
+  margin-top: 2rem;
+}
+
+.checkbox-status:has(.search-page-select) {
+  justify-content: flex-end;
+}
+
+.checkbox-status:has(> .ontario-callout) .search-page-select {
+  margin-top: 0;
+}
+
+form[id*='dataset-search-form'] .checkbox-status,
+form[id*='datasets-search-form'] .checkbox-status {
+  padding-top: unset;
+}
+
+@media screen and (min-width: 767px) {
+  .checkox-status:has(.control-order-by) {
+    justify-content: end;
+  }
+}
+
+#group-datasets-search-form .checkbox-status,
+#organization-datasets-search-form .checkbox-status {
+  margin: 0 -20px;
+}
+
 @media (max-width: 767px) {
   .search-form .control-order-by {
     display: none;
@@ -495,6 +523,12 @@ input[type="reset"].ontario-search-reset:focus {
 
   .js body.sort-by-modal .sort-by-modal-div {
     display: block;
+  }
+
+  .checkbox-status {
+    order: 6;
+    margin: 0 -16px;
+    padding: 0 16px;
   }
 
   .sort-by-modal-div {
@@ -538,6 +572,7 @@ input[type="reset"].ontario-search-reset:focus {
 .search-form .filter-list {
   margin: unset;
   color: #000;
+  margin-top: 0;
   flex-wrap: wrap;
   order: 5;
 }
@@ -588,9 +623,20 @@ a.pill {
 
   .search-form .filter-list {
     font-size: 20px;
-    margin: 0 -20px;
-    padding: 10px 20px;
     background-color: #fff;
+    padding: 0 20px;
+  }
+
+  #dataset-search-form .filter-list {
+    margin: 0 -16px;
+  }
+
+  form[id*='datasets-search-form'] .filter-list {
+    margin: 0 -20px;
+  }
+
+  #dataset-search-form .access-level {
+    padding: 4px;
   }
 
   /* child div 4: shows filters just below sort by dropdown */
@@ -787,6 +833,123 @@ input[placeholder] {
   fill: #1080a6;
 }
 
+.ontario-alert--error ul {
+  margin-left: 1.25rem;
+}
+
+.ontario-alert--error ul:last-of-type {
+  margin-bottom: .5rem;
+}
+
+.ontario-alert--error {
+  border-color: #cd0000;
+  background-color: #fceff0;
+}
+
+.ontario-alert--success {
+  border-color: #118847;
+  background-color: #e5f0e9;
+}
+
+.ontario-alert--error svg {
+  fill: #cd0000;
+}
+
+.ontario-alert--error a,
+.ontario-alert--error a:visited {
+  color: #cd0000;
+}
+
+.ontario-alert--error a:hover,
+.ontario-alert--error a:focus {
+  color: #6b0000;
+}
+
+.ontario-alert--error a:active {
+  color: #280000;
+}
+
+/* indicator */
+#step2Btn {
+  display: none;
+  margin-top: 40px;
+}
+
+.ontario-loading-indicator {
+  display: flex;
+  /*flex-direction: column;*/
+  /* align-items: center;
+  justify-content: center; */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 100%;
+}
+
+.ontario-loading-indicator p {
+  color: #4d4d4d;
+  font-family: "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 700;
+  word-spacing: 0.025rem;
+  margin: 0.75rem 0 0;
+}
+
+.ontario-loading-indicator p.spinner-small {
+  margin: unset;
+}
+
+.ontario-loading-indicator__spinner {
+  animation: rotator 1.5s linear infinite;
+  width: 3rem;
+  height: 3rem;
+  overflow: visible;
+}
+
+.ontario-loading-indicator__spinner-small {
+  animation: rotator 1.5s linear infinite;
+  width: 1.5rem;
+  height: 1.5rem;
+  overflow: visible;
+  margin-right: 12px;
+}
+
+.ontario-loading-indicator__spinner circle,
+.ontario-loading-indicator__spinner-small circle {
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  stroke: #4d4d4d;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes rotator {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+
+/* end indicator */
+
 /* ========================================================================
    Page Alerts - ODC
    ======================================================================== */
@@ -803,16 +966,6 @@ input[placeholder] {
 .odc-alert-under_review {
   background-color: #f1e3f2;
   border: 1px solid #92278F;
-}
-
-.odc-alert-algorithm {
-  background-color: #DBE9F5;
-  border: 1px solid #3193CC;
-}
-
-.odc-alert-under_review p,
-.odc-alert-algorithm p:last-child {
-  margin-bottom: 0;
 }
 
 /* ===============================
@@ -844,6 +997,13 @@ input[placeholder] {
 
 .search-page-heading h1 {
   margin-top: 0;
+}
+
+/* ========================================================================
+   New UI Workflow
+   ======================================================================== */
+#delbtn a {
+  margin-right: 0;
 }
 
 /* ========================================================================
@@ -2095,6 +2255,175 @@ a.ontario-button.ontario-button--tertiary:hover {
   padding: 12px;
 }
 
+/* Design System Table */
+.ontario-table-container {
+  position: relative;
+  margin: 0.5rem 0 2.5rem 0;
+}
+
+.ontario-table-container table:not(.ontario-table--no-zebra-stripes) tbody tr:first-child:nth-last-child(n + 6):nth-child(even),
+.ontario-table-container table:not(.ontario-table--no-zebra-stripes) tbody tr:first-child:nth-last-child(n + 6) ~ tr:nth-child(even) {
+  background-color: #0000000d;
+}
+
+.ontario-table-div {
+  overflow-x: auto;
+  background: linear-gradient(to right, #fff 30%, rgba(255, 255, 255, 0)), linear-gradient(to right, rgba(255, 255, 255, 0), #fff 70%) 0 100%, linear-gradient(to right, rgba(0, 0, 0, 0.2) 0%, rgba(252, 0, 0, 0) 100.01%), linear-gradient(to left, rgba(0, 0, 0, 0.2) 0%, rgba(252, 0, 0, 0) 100.01%);
+  background-repeat: no-repeat;
+  background-size: 2.5rem 100%, 2.5rem 100%, 0.875rem 100%, 0.875rem 100%;
+  background-position: 0 0, 100%, 0 0, 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-table-div {
+    overflow-x: scroll;
+  }
+}
+
+.ontario-table-scroll--wrapper {
+  height: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: block;
+}
+
+.ontario-table-div table {
+  border-collapse: collapse;
+  font-size: 1.0625rem;
+  display: table;
+  line-height: 1.625rem;
+  font-weight: normal;
+}
+
+table.ontario-table--full-container-width {
+  display: table;
+  width: 100% !important;
+}
+
+@media screen and (max-width: 40em) {
+  table {
+    font-size: 1rem;
+  }
+}
+
+tbody {
+  font-size: 1rem;
+  vertical-align: top;
+}
+
+tbody tr {
+  border: solid;
+  border-width: .0625rem 0;
+  border-color: #0000004d;
+}
+
+tbody tr:last-child {
+  border-width: 0.1875rem 0;
+  border-top-width: 0;
+  border-color: #1a1a1a;
+}
+
+tbody tr.ontario-table-row--highlight {
+  background-color: #e19100 3c !important;
+}
+
+tbody tr.ontario-table-row--highlight th {
+  padding-left: 1.5rem;
+  display: flex;
+  position: relative;
+}
+
+tbody tr.ontario-table-row--highlight th img.ontario-table--highlight-indicator {
+  width: 0.5rem;
+  position: absolute;
+  top: 1.5rem;
+  left: 0;
+}
+
+thead {
+  border: solid;
+  border-width: .1875rem 0;
+  border-color: #1a1a1a;
+  vertical-align: top;
+}
+
+thead th {
+  text-align: left;
+  padding: 1.75rem 1rem 1.75rem 1.5rem;
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+}
+
+@media screen and (max-width: 40em) {
+  thead th {
+    font-size: 1rem;
+    line-height: 1.3125rem;
+    padding: 1.53125rem 0.5rem 1.53125rem 1rem;
+  }
+}
+
+tbody th {
+  padding: 1.1875rem 1rem 1.1875rem 1.5rem;
+  text-align: left;
+  letter-spacing: 0.025rem;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 40em) {
+
+  tbody th,
+  tfoot th {
+    font-size: 1rem;
+    line-height: 1.625rem;
+    padding: 1.1875rem 0.5rem 1.1875rem 1rem;
+  }
+}
+
+td {
+  padding: 1.1875rem 1rem 1.1875rem 1.5rem;
+  text-align: left;
+  letter-spacing: 0.025rem;
+}
+
+/* condensed */
+table.ontario-table--condensed td {
+  padding: 0.75rem 1rem 0.75rem 1.5rem;
+  text-align: left;
+}
+
+table.ontario-table--condensed tbody th {
+  padding: 0.75rem 1rem 0.75rem 1.5rem;
+}
+
+table.ontario-table--condensed tr.ontario-table-row--highlight th img.ontario-table--highlight-indicator {
+  top: 1.0625rem;
+}
+
+table.ontario-table--condensed tr.ontario-table-row--subtotal th,
+table.ontario-table--condensed tfoot tr th,
+table.ontario-table--condensed tr.ontario-table-row--subtotal td,
+table.ontario-table--condensed tfoot tr td {
+  padding: 1rem 1rem 1rem 1.5rem;
+}
+
+@media screen and (max-width: 40em) {
+  table.ontario-table--condensed td {
+    padding: 0.75rem 0.5rem 0.75rem 1rem;
+    font-size: 1rem;
+  }
+
+  table.ontario-table--condensed tbody th {
+    padding: 0.75rem 0.5rem 0.75rem 1rem;
+  }
+}
+
+/* END Design System Table */
+
+
 .module-resource {
   border-bottom: unset;
   z-index: 1;
@@ -2326,6 +2655,7 @@ screen and (min-width: 96em) {
 .ontario-border-highlight--green {
   border-color: #2b8737 !important
 }
+
 
 /* ========================================================================
    Search Page - Package Items
@@ -2745,12 +3075,11 @@ figure {
   padding-right: 10px;
 }
 
-#news hr,
-#resources_and_information hr {
+hr {
   border: 0;
   padding: 0;
-  margin: 0 0 2.5rem;
-  border-bottom: 2px solid #f2f2f2;
+  margin: 2.5rem 0;
+  border-bottom: 4px solid #ccc;
 }
 
 #news {
@@ -2765,6 +3094,10 @@ body {
   .resource-view .actions {
     display: contents;
   }
+}
+
+.resource-margin {
+  margin-top: 1rem;
 }
 
 .resource-view .actions {
@@ -2789,14 +3122,6 @@ body {
 li.media-item.ministry-item {
   margin-left: unset;
   padding: 15px;
-}
-
-.new-alert.alert-huge > p {
-  margin-bottom: 0;
-}
-
-.new-alert.alert-huge {
-  padding-bottom: 40px;
 }
 
 [role="main"] {
@@ -2951,6 +3276,10 @@ label::after {
 
 .search-page-select select::-ms-expand {
   display: none;
+}
+
+.form-control-label {
+  font-size: 16px;
 }
 
 /* ========================================================================
@@ -3223,10 +3552,6 @@ label::after {
   padding-right: unset;
 }
 
-.group-packages .filters .module-narrow .module-footer {
-  padding-left: 12px;
-}
-
 @media screen and (min-width: 64em) {
   .filters .module-narrow .nav-item > a {
     padding-left: 46px;
@@ -3257,8 +3582,8 @@ label::after {
   padding-right: unset;
 }
 
-.filters .module-footer {
-  border-top: none;
+.facet-fieldset .show-more-div {
+  margin: 10px 20px;
 }
 
 .fa.fa-filter {
@@ -3270,7 +3595,7 @@ label::after {
   font-size: 16px;
 }
 
-.nav > li.show-more-items {
+.show-more-items {
   display: none;
 }
 
@@ -3608,3 +3933,354 @@ label::after {
 .popular-datasets-404 li {
   padding-bottom: 8px;
 }
+
+/* ========================================================================
+  Checkboxes - Design System
+  ======================================================================== */
+
+.ontario-checkboxes {
+  margin-bottom: 2.5rem;
+  max-width: 48rem
+}
+
+.ontario-checkboxes__item {
+  position: relative;
+  margin: 0 0 1rem;
+  padding: 0 0 0 2rem;
+  min-height: 28px;
+  box-sizing: content-box
+}
+
+.ontario-checkboxes__item:last-of-type {
+  margin: 0
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-checkboxes__item {
+    padding: 0 0 0 2.5rem;
+    min-height: 32px
+  }
+}
+
+.ontario-checkboxes__input {
+  cursor: pointer;
+  margin: 0;
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  opacity: 0;
+  width: 36px;
+  height: 36px;
+  z-index: 1;
+  -webkit-tap-highlight-color: transparent
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-checkboxes__input {
+    width: 40px;
+    height: 40px
+  }
+}
+
+.ontario-checkboxes__label {
+  display: inline-block;
+  cursor: pointer;
+  line-height: 1.5;
+  margin: .25rem 0;
+  padding: 0 1rem;
+  width: auto;
+  white-space: normal
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-checkboxes__label {
+    margin: .33rem 0
+  }
+}
+
+.ontario-checkboxes__label:before {
+  content: "";
+  border: 2px solid #1a1a1a;
+  background-color: #fff;
+  border-radius: 4px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  transition: border .1s ease-in-out;
+  display: block
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-checkboxes__label:before {
+    width: 36px;
+    height: 36px
+  }
+}
+
+.ontario-checkboxes__label:after {
+  content: "";
+  background-image: url("/images/ontario-checkbox-background-no-width.svg");
+  background-repeat: no-repeat;
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  display: block
+}
+
+@media screen and (max-width: 40em) {
+  .ontario-checkboxes__label:after {
+    height: 34px;
+    width: 34px
+  }
+}
+
+.ontario-checkboxes__input:focus + .ontario-checkboxes__label:before {
+  box-shadow: 0 0 0 4px #009adb;
+  outline: 4px solid transparent;
+  transition: all .1s ease-in-out
+}
+
+.ontario-checkboxes__input:checked + .ontario-checkboxes__label:after {
+  opacity: 1
+}
+
+.ontario-checkboxes__input:checked + .ontario-checkboxes__label:before {
+  background-color: #1a1a1a
+}
+
+/* ========================================================================
+   Checkboxes - Overrides
+   ======================================================================== */
+.facet-fieldset .ontario-checkboxes,
+.facet-fieldset .ontario-fieldset__legend {
+  padding-left: 20px;
+}
+
+.facet-fieldset label {
+  font-weight: unset;
+  font-size: 16px;
+}
+
+.facet-fieldset .ontario-checkboxes {
+  margin-bottom: unset;
+}
+
+/* ========================================================================
+  Fieldsets - Design System
+  ======================================================================== */
+
+@media screen and (max-width: 40em) {
+  .ontario-fieldset__legend {
+    font-size: 1.125rem;
+    line-height: 1.56
+  }
+}
+
+.ontario-fieldset__legend {
+  color: #1a1a1a;
+  font-family: Raleway, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.1875rem;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0 0 1rem 0;
+  max-width: 38.75em;
+  white-space: normal;
+  width: 100%
+}
+
+/* ========================================================================
+  Access level - Customizations
+  ======================================================================== */
+#access-level-checkboxes {
+  margin-bottom: unset;
+}
+
+.ontario-fieldset legend {
+  border-bottom: unset;
+}
+
+.access-level .ontario-checkboxes {
+  display: inline-flex;
+  margin-bottom: unset;
+  max-width: unset;
+}
+
+.access-level .ontario-checkboxes__item {
+  margin: 0 1.25rem 1rem 0;
+}
+
+@media screen and (max-width: 40em) {
+  .access-level .ontario-checkboxes {
+    display: inline-block;
+    margin-bottom: 25px;
+  }
+}
+
+@media screen and (min-width: 40.0625em) {
+  .access-level .ontario-fieldset__legend {
+    float: left;
+    width: unset;
+    margin-right: 1.5rem;
+  }
+}
+
+.access-level .ontario-label.ontario-checkboxes__label {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: unset;
+}
+
+.access-level .ontario-checkboxes__input:checked + .ontario-checkboxes__label,
+#access-level-sentence-value {
+  font-weight: 700;
+}
+
+/* custom colors */
+.ontario-border-highlight--dark-blue {
+  border-color: #0369ac;
+}
+
+.ontario-border-highlight--dark-taupe {
+  border-color: #7B725C;
+}
+
+.wrapper {
+  min-height: unset;
+
+  Step Indicator - Design System========================================================================*/ .ontario-step-indicator .ontario-step-indicator--without-back-button,
+  .ontario-step-indicator .ontario-step-indicator--with-back-button {
+    display: flex;
+    align-items: center
+  }
+
+  .ontario-step-indicator .ontario-step-indicator--without-back-button {
+    justify-content: flex-end
+  }
+
+  .ontario-step-indicator .ontario-step-indicator--with-back-button {
+    justify-content: space-between
+  }
+
+  .ontario-step-indicator .ontario-h4 {
+    margin: 1.125rem 0
+  }
+
+  @media screen and (max-width: 40em) {
+    .ontario-step-indicator .ontario-h4 {
+      margin: 1rem 0;
+      text-align: right
+    }
+  }
+
+  .ontario-step-indicator .ontario-button.ontario-button--tertiary {
+    display: flex;
+    align-items: center;
+    margin: .75rem 0;
+    padding-left: .5rem;
+    padding-right: 1rem;
+    min-width: 3rem
+  }
+
+  @media screen and (max-width: 40em) {
+    .ontario-step-indicator .ontario-button.ontario-button--tertiary {
+      width: unset
+    }
+  }
+
+  .ontario-step-indicator .ontario-button.ontario-button--tertiary .ontario-icon {
+    margin: 0 .375rem 0 0;
+    padding: 0;
+    min-width: 24px;
+    min-height: 24px
+  }
+
+  .ontario-step-indicator hr {
+    padding: 0;
+    margin: 0
+  }
+
+  .ontario-step-indicator p {
+    max-width: 48rem
+  }
+
+  /* ========================================================================
+   New Resource Publish Page
+   ======================================================================== */
+
+  .resource-metadata-heading.ontario-h5 {
+    margin: unset;
+  }
+
+  .resource-metadata-dl dd {
+    margin-bottom: 16px;
+  }
+
+  .resource-metadata-dl dd,
+  .resource-metadata-dl dt {
+    padding-right: 16px;
+  }
+
+  .resource-metadata-dl > div,
+  .resource-metadata-edit-row {
+    display: block;
+    padding-left: unset;
+  }
+
+  .resource-metadata-edit-row {
+    margin-bottom: 18px;
+  }
+
+  @media screen and (min-width: 40em) {
+    .resource-metadata-dl > div {
+      display: flex;
+    }
+
+    .resource-metadata-edit-row h2 {
+      margin-bottom: unset;
+    }
+
+    .resource-metadata-edit-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+    }
+  }
+
+  .form-actions {
+    overflow: unset;
+  }
+
+  /* ========================================================================
+   Hint text - Design System
+   ======================================================================== */
+
+  .ontario-hint {
+    color: #4d4d4d;
+    display: inline-block;
+    margin: 0 0 1rem 0;
+    width: 100%;
+    max-width: 48rem
+  }
+
+  /* form-column-name */
+  .form-column-name {
+    border: none;
+    background-color: #fff;
+    display: inline-block;
+    margin: 0 0 1rem 0;
+    width: 100%;
+    max-width: 48rem
+  }
+
+  .column-name-div {
+    display: flex;
+    align-items: baseline;
+    column-gap: 10px;
+  }

@@ -27,25 +27,19 @@ block. super() will end up calling the facets twice.
       {% set sort_by_selected = "score desc, metadata_modified desc" %}
     {% endif %}
     {% set form_id = "group-datasets-search-form" %}
-    <form id="{{ form_id }}"
-          class="search-form"
-          method="get"
-          data-module="select-switch"
-          novalidate>
-      {% snippet 'snippets/search_form.html',
-      searchbar_title= _('Search datasets') + _(':'),
-      form_id=form_id,
-      type='dataset',
-      query=q,
-      sorting=sorting,
-      sorting_selected=sort_by_selected,
-      count=page.item_count,
-      facets=facets,
-      show_empty=request.params,
-      fields=fields,
-      extras={'id':group_dict.id}
-      %}
-    </form>
+    {% snippet 'snippets/search_form.html',
+    searchbar_title= _('Search datasets') + _(':'),
+    form_id=form_id,
+    type='dataset',
+    query=q,
+    sorting=sorting,
+    sorting_selected=sort_by_selected,
+    count=page.item_count,
+    facets=facets,
+    show_empty=request.params,
+    fields=fields,
+    extras={'id':c.group_dict.id}
+    %}
   {% endblock groups_search_form %}
 
   {% block packages_list %}
@@ -69,22 +63,20 @@ block. super() will end up calling the facets twice.
 
   {% block secondary_content %}
     <div class="ministry-package-div secondary col-sm-3">
-      <div class="filters" id="filter-aside">
+      <div class="filters" id="filter-aside" data-module="facet_checkboxes">
         <span aria-label="{{ _('close') }}"
               role="button"
               tabindex="0"
               class="close no-text hide-filters">
           <svg class="ontario-icon hide-sort-by"
-              focusable="false"
-              sol:category="primary"
-              viewBox="0 0 24 24"
-              preserveAspectRatio="xMidYMid meet">
+               focusable="false"
+               sol:category="primary"
+               viewBox="0 0 24 24"
+               preserveAspectRatio="xMidYMid meet">
             <use xlink:href="#ontario-icon-close"></use>
           </svg>
         </span>
-        <div>
-          {{ h.snippet('snippets/facet_arrangement.html', single_option_facets=single_option_facets, extras={'id':group_dict.id}) }}
-        </div>
+        <div>{{ h.snippet('snippets/facet_arrangement.html', extras={'id':c.group_dict.id}) }}</div>
       </div>
     </div>
   {% endblock secondary_content %}

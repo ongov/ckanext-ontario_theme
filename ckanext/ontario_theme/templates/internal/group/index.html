@@ -38,22 +38,16 @@
     {% if not sort_by_selected %}
       {% set sort_by_selected = "name asc" %}
     {% endif %}
-    <form id="{{ form_id }}"
-          class="search-form"
-          method="get"
-          data-module="select-switch"
-          novalidate>
-      {% snippet 'snippets/search_form.html',
-      searchbar_title=searchbar_title,
-      form_id=form_id,
-      type=type,
-      query=query,
-      sorting_selected=sort_by_selected,
-      count=page.item_count,
-      show_empty=request.params,
-      no_bottom_border=true if page.items, sorting = [(_('Name Ascending'), 'name asc'), (_('Name Descending'), 'name desc')]
-      %}
-    </form>
+    {% snippet 'snippets/search_form.html',
+    searchbar_title=searchbar_title,
+    form_id=form_id,
+    type=type,
+    query=query,
+    sorting_selected=sort_by_selected,
+    count=c.page.item_count,
+    show_empty=request.params,
+    no_bottom_border=true if c.page.items, sorting = [(_('Name Ascending'), 'name asc'), (_('Name Descending'), 'name desc')]
+    %}
   {% endblock groups_search_form %}
 {% endblock pre_primary %}
 

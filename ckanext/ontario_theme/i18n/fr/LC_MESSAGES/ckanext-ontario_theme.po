@@ -108,10 +108,10 @@ msgstr[1] "{number} jeux de données"
 
 #: OVERRIDE: ckan/templates/snippets/search_result_text.html
 #: Datasets
-msgid "<strong>{number} dataset</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
-msgid_plural "<strong>{number} datasets</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
-msgstr[0] "<strong>{number} jeu  de données</strong> trouvé avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
-msgstr[1] "<strong>{number} jeux de données</strong> trouvés avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
+msgid "<strong>{number} total dataset</strong> found with the search term <strong>\"{query}\"</strong>"
+msgid_plural "<strong>{number} total datasets</strong> found with the search term <strong>\"{query}\"</strong>"
+msgstr[0] "<strong>{number} jeu  de données total</strong> trouvé avec le terme de recherche <strong>« {query} »</strong>"
+msgstr[1] "<strong>{number} total des jeux de données</strong> trouvés avec le terme de recherche <strong>« {query} »</strong>"
 
 #: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html
 msgid "Learn more about "
@@ -120,8 +120,8 @@ msgid "accessing data using different formats."
 msgstr "l’accès aux données à l’aide de différents types de formats."
 
 #: ckan/templates/snippets/search_result_text.html:16
-msgid "No datasets found with the keyword(s) <strong>\"{query}\"</strong>"
-msgstr "Aucun jeu de données trouvé avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
+msgid "No datasets found with the search term <strong>\"{query}\"</strong>"
+msgstr "Aucun jeu de données trouvé avec le terme de recherche <strong>« {query} »</strong>"
 
 #: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:54
 msgid "Show more"
@@ -132,20 +132,20 @@ msgid "Show less"
 msgstr "Afficher moins"
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:17
-msgid "<strong>{number} dataset</strong> found"
-msgid_plural "<strong>{number} datasets</strong> found"
-msgstr[0] "<strong>{number} jeu  de données</strong> trouvé"
-msgstr[1] "<strong>{number} jeux de données</strong> trouvés"
+msgid "<strong>{number} total dataset</strong> found"
+msgid_plural "<strong>{number} total datasets</strong> found"
+msgstr[0] "<strong>{number} jeu  de données total</strong> trouvé"
+msgstr[1] "<strong>{number} total des jeux de données</strong> trouvés"
 
 #: Ministries
 msgid "<strong>{number} ministry</strong> found for <strong>\"{query}\"</strong>"
-msgid_plural "<strong>{number} ministries</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
-msgstr[0] "<strong>{number} ministère</strong> trouvé avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
-msgstr[1] "<strong>{number} ministères</strong> trouvés avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
+msgid_plural "<strong>{number} ministries</strong> found with the search term <strong>\"{query}\"</strong>"
+msgstr[0] "<strong>{number} ministère</strong> trouvé avec le terme de recherche <strong>« {query} »</strong>"
+msgstr[1] "<strong>{number} ministères</strong> trouvés avec le terme de recherche <strong>« {query} »</strong>"
 
 #: OVERRIDE: ckan/templates/snippets/search_result_text.html:28
-msgid "No ministries found with the keyword(s) <strong>\"{query}\"</strong>"
-msgstr "Aucun ministère trouvé avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
+msgid "No ministries found with the search term <strong>\"{query}\"</strong>"
+msgstr "Aucun ministère trouvé avec le terme de recherche <strong>« {query} »</strong>"
 
 #: OVERRIDE: ckan/templates/snippets/search_result_text.html:29
 msgid "<strong>{number} ministry</strong> found"
@@ -158,14 +158,14 @@ msgid "No ministries found"
 msgstr "Aucun ministère trouvé"
 
 #: Groups
-msgid "<strong>{number} group</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
-msgid_plural "<strong>{number} groups</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
-msgstr[0] "<strong>{number} groupe</strong> trouvé avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
-msgstr[1] "<strong>{number} groupes</strong> trouvés avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
+msgid "<strong>{number} group</strong> found with the search term <strong>\"{query}\"</strong>"
+msgid_plural "<strong>{number} groups</strong> found with the search term <strong>\"{query}\"</strong>"
+msgstr[0] "<strong>{number} groupe</strong> trouvé avec le terme de recherche <strong>« {query} »</strong>"
+msgstr[1] "<strong>{number} groupes</strong> trouvés avec le terme de recherche <strong>« {query} »</strong>"
 
 #: ckan/templates/snippets/search_result_text.html:22
-msgid "No groups found with the keyword(s) <strong>\"{query}\"</strong>"
-msgstr "Aucun groupe trouvé avec le(s) mot(s) clé(s) <strong>« {query} »</strong>"
+msgid "No groups found with the search term <strong>\"{query}\"</strong>"
+msgstr "Aucun groupe trouvé avec le terme de recherche <strong>« {query} »</strong>"
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:23
 msgid "<strong>{number} group</strong> found"
@@ -182,20 +182,8 @@ msgid "https://www.ontario.ca/form/survey-open-data-catalogue"
 msgstr "https://www.ontario.ca/fr/forme/enquete-catalogue-de-donnees-de-lontario"
 
 #: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
-msgid "Tell us what you want to know about <a href=\"%(url)s\">artificial intelligence (<abbr>AI</abbr>) assets</a> published to the Catalogue."
-msgstr "Dites-nous ce que vous aimeriez savoir au sujet des <a href=\"%(url)s\">biens d’intelligence artificielle (<abbr>IA<abbr>)</a> publiés au catalogue"
-
-#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
-msgid "Artificial intelligence (<abbr>AI</abbr>) on the Catalogue"
-msgstr "L’intelligence artificielle (<abbr>IA<abbr>) figurant au catalogue"
-
-#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
 msgid "Help us improve"
 msgstr "Aidez-nous à nous améliorer"
-
-#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
-msgid "Fill out our <abbr title=\"artificial intelligence\">AI</abbr> inventory survey"
-msgstr "Remplissez notre sondage sur <abbr title=\"l'intelligence artificielle\">l’AI</abbr>"
 
 #: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
 msgid "Give us feedback about the Catalogue"
@@ -1589,15 +1577,6 @@ msgstr "Données de COVID-19"
 msgid "Get data on COVID-19 activity in Ontario."
 msgstr "Obtenir des données sur l’activité de la COVID-19 en Ontario."
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:25
-msgid "Alpha AI Guidance"
-msgstr "Conseils sur l'IA «alpha»"
-
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:29
-msgid ""
-"Ontario is committed to ensuring that government use of artificial intelligence and similar technologies has a strong, clear framework for transparent and appropriate use. Let us know what you think."
-msgstr "L’Ontario est déterminé à s’assurer que l’utilisation que fait le gouvernement de l’intelligence artificielle et de technologies semblables respecte un cadre solide et clair pour une utilisation transparente et appropriée. Nous faire part de vos commentaires."
-
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:36
 msgid "Open Data, Open Source"
 msgstr "Données ouvertes, source ouverte"
@@ -1648,14 +1627,6 @@ msgstr "Jeux de données sur la COVID-19"
 msgid "COVID-19 datasets "
 msgstr "de jeux de données sur la COVID-19"
 
-#: ckanext/ontario_theme/templates/internal/home/layout3.html:56
-msgid "Artificial Intelligence (<abbr>AI</abbr>) assets"
-msgstr "Actifs d’intelligence artificielle (<abbr>IA</abbr>)"
-
-#: ckanext/ontario_theme/templates/internal/home/layout3.html:26
-msgid "<abbr title=\"Artificial Intelligence\">AI</abbr> assets"
-msgstr "d’actifs d’<abbr title=\"intelligence artificielle\">IA</abbr>"
-
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:9
 msgid "Welcome to the Ontario Data catalogue!"
 msgstr "Bienvenue à la catalogue de données de l’Ontario!"
@@ -1701,10 +1672,6 @@ msgstr "<a href=\"%(url)s?%(params)s\">Faites-nous part de vos commentaires</a> 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:21
 msgid "https://www.ontario.ca/form/provide-feedback-ontario-data-catalogue"
 msgstr "https://www.ontario.ca/fr/forme/fournir-un-retour-dinformation-catalogue-de-donnees-de-lontario"
-
-#: ckanext/ontario_theme/templates/external/home/snippets/ai_recruitment_banner.html:2
-msgid "https://www.ontario.ca/form/tell-us-what-you-think-about-our-artificial-intelligence-ai-inventory"
-msgstr "https://www.ontario.ca/fr/forme/dites-nous-ce-que-vous-pensez-de-notre-inventaire-de-lintelligence-artificielle-ia"
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:9
 msgid "Ontario Data Catalogue"
@@ -1788,22 +1755,6 @@ msgstr "Restez informé"
 #: ckanext/ontario_theme/templates/internal/package/read.html:14
 msgid "Subscribe to updates to this dataset using RSS."
 msgstr "Inscrivez-vous aux mises à jour pour cet ensemble de données à l’aide du fil RSS."
-
-#: ckanext/ontario_theme/templates/internal/package/read.html:7
-msgid "Artificial Intelligence (<abbr>AI</abbr>)"
-msgstr "Intelligence artificielle (<abbr>IA</abbr>)"
-
-#: ckanext/ontario_theme/templates/internal/package/read.html:34
-msgid "Learn more about how Ontario uses <abbr title=\"Artificial Intelligence\">AI</abbr> in government."
-msgstr "Renseignez-vous sur la façon dont l’Ontario utilise l’<abbr title=\"intelligence artificielle\">IA<abbr> au sein du gouvernement."
-
-#: ckanext/ontario_theme/templates/internal/package/read.html:31
-msgid "This record describes an <abbr title=\"Artificial Intelligence\">AI</abbr> asset. It does not describe a dataset."
-msgstr "Cet enregistrement décrit un actif d’intelligence artificielle. Il ne s’agit pas d’un jeu de données."
-
-#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:10
-msgid "Algorithm/AI"
-msgstr "Algorithme/IA"
 
 #: ckanext/ontario_theme/templates/internal/snippets/package_item.html:10
 msgid "ON Geohub"
@@ -2020,6 +1971,31 @@ msgstr "Catégorie"
 msgid "Jurisdiction"
 msgstr "Juridiction"
 
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:83
+msgid "Showing datasets with access level"
+msgstr "Afficher les jeux de données avec niveau d’accès"
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:199
+msgid "No datasets with access level"
+msgstr "Aucun jeux de données avec niveau d’accès"
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:195
+msgid "No datasets found with search term <strong>\"{query}\"</strong> and access level"
+msgstr "Aucun jeu de données trouvé avec le terme de recherche «<strong>{query}</strong>» et niveau d’accès"
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:193
+msgid "Showing datasets found with search term <strong>\"{query}\"</strong> and access level"
+msgstr "Afficher les jeux de données trouvés avec le terme de recherche «<strong>{query}</strong>» et niveau d’accès"
+
+
+#: ckanext/ontario_theme/fanstatic/scripts/odc-access.js:73
+msgid "All levels"
+msgstr "Tous les niveaux"
+
+#: ckanext/ontario_theme/fanstatic/scripts/odc-access.js:87
+msgid " and "
+msgstr " et "
+
 #: ckanext/ontario_theme/templates/home/snippets/ontario_theme_intro.html:14
 #: ckanext/ontario_theme/templates/internal/header.html:170
 msgid "Search"
@@ -2107,6 +2083,10 @@ msgstr "Éditer les réglages"
 msgid "Settings"
 msgstr "Réglages"
 
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:211
+msgid "Data dictionary"
+msgstr "Dictionnaire de données"
+
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:36
 msgid "Additional information"
 msgstr "Informations additionnelles"
@@ -2130,10 +2110,6 @@ msgstr "Visualisez les données"
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:68
 msgid "Access data"
 msgstr "Accédez aux données"
-
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:68
-msgid "Access <abbr title=\"Artificial Intelligence\">AI</abbr>"
-msgstr "Accédez à l’<abbr title =\"intelligence artificielle\">IA</abbr>"
 
 #: ckanext/ontario_theme/templates/internal/package/snippets/resource_views_list_item.html:3
 msgid "Data Visualizer"
@@ -2200,7 +2176,7 @@ msgstr "Effacer les filtres"
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:123
 msgid "Please try another search or <a href=\"mailto:opendata@ontario.ca\">reach out to us if you think data is missing.</a>"
-msgstr "Veuillez essayer une autre recherche ou <a href=\"mailto:opendata@ontario.ca\">communiquer avec nous si vous pensez que des données sont manquantes.</a>"
+msgstr "Veuillez effectuer une autre recherche ou <a href=\"mailto:opendata@ontario.ca\">communiquer avec nous si vous pensez que des données sont manquantes.</a>"
 
 #: ckanext/ontario_theme/plugin.py:729
 msgid "{bytes} <abbr title=\"bytes\">B</abbr>"
@@ -2302,3 +2278,13 @@ msgstr "Nous sommes désolés, mais nous n’arrivons pas à trouver cette page"
 #: ckanext/ontario_theme/templates/internal/snippets/error_404.html:5
 msgid "<p>Check the URL for errors. You can try to find data using the search box above or by <a href=\"%(url)s\">browsing our homepage.</a></p>"
 msgstr "<p>Vérifiez que l’URL ne contient pas d’erreurs. Vous pouvez essayer de trouver les données en utilisant le champ de recherche ci-dessus, ou en <a href=\"%(url)s\">parcourant notre page d’accueil.</a></p>"
+
+#: ckanext/ontario_theme/templates/internal/snippets/access_level_checkboxes.html:26
+msgid "{level_count} dataset with access level"
+msgid_plural "{level_count} datasets with access level"
+msgstr[0] "{level_count} jeu de données avec niveau d’accès"
+msgstr[1] "{level_count} jeux de données avec niveau d’accès"
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:242
+msgid "We also found"
+msgstr "Nous avons également trouvé"
