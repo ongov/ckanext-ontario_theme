@@ -654,7 +654,90 @@ def get_recently_updated_datasets():
 def get_license(license_id):
     '''Helper to return license based on id.
     '''
-    return Package.get_license_register().get(license_id)
+    #return Package.get_license_register().get(license_id)    
+    lic = model.Package.get_license_register().get(license_id)
+    if not lic:
+        return None
+
+    # Safely read translations if they exist on the object or in _data
+    data = getattr(lic, '_data', {}) or {}
+    title_translated = getattr(lic, 'title_translated', None) or data.get('title_translated')
+    url_translated = getattr(lic, 'url_translated', None) or data.get('url_translated')
+    description_translated = getattr(lic, 'description_translated', None) or data.get('description_translated')
+
+    # Build a dict that Jinja can use with h.get_translated()
+    entry = {
+        'id': getattr(lic, 'id', None),
+        'title': getattr(lic, 'title', None),
+        'url': getattr(lic, 'url', None),
+        'description': getattr(lic, 'description', None),
+        'title_translated': title_translated,
+        'url_translated': url_translated,
+        'description_translated': description_translated,
+    }
+
+    # isopen() is a method; call defensively
+    try:
+        entry['isopen'] = lic.isopen()
+    except Exception:
+        entry['isopen'] = False
+
+    return entry
+
+import ckan.model as model
+
+def get_license_entry(license_id):
+    """
+    Return a plain dict for the license register entry so templates can call
+    h.get_translated(entry, 'title') safely. Returns None if not found.
+    """
+    lic = model.Package.get_license_register().get(license_id)
+    if not lic:
+        return None
+
+    # Build a small dict with keys get_translated() can use
+    entry = {
+        'id': getattr(lic, 'id', None),
+        'title': getattr(lic, 'title', None),
+        'url': getattr(lic, 'url', None),
+        # translations (present in your JSON)
+        'title_translated': getattr(lic, 'title_translated', None),
+        'url_translated': getattr(lic, 'url_translated', None),
+        'description': getattr(lic, 'description', None),
+        'description_translated': getattr(lic, 'description_translated', None),
+    }
+
+    # isopen is a method on the License object in CKAN
+    try:
+        entry['isopen'] = lic.isopen()
+    except Exception:
+        entry['isopen'] = False
+
+    return entry
+
+
+def license_localized(license_id, field='title'):
+    """
+    Return the localized license field (eg, 'title' or 'description') for the
+    current UI language, falling back sensibly.
+    """
+    if not license_id:
+        return None
+
+    lic = model.Package.get_license_register().get(license_id)
+    if not lic:
+        return None
+
+    # Read raw values from the license register entry
+    base_value = getattr(lic, field, None)
+    translations = getattr(lic, f'{field}_translated', None)
+
+    lang = h.lang() or 'en'          # eg 'fr' or 'fr-CA'
+    lang_short = lang.split('-')[0]  # normalize 'fr-CA' -> 'fr'
+
+    if isinstance(translations, dict):
+        return translations.get(lang) or translations.get(lang_short) or base_value
+    return base_value
 
 
 def get_current_year():
@@ -1120,6 +1203,8 @@ type data_last_updated
 
     def get_helpers(self):
         return {'ontario_theme_get_license': get_license,
+                'ontario_theme_ontario_theme_get_license_entry': get_license_entry,
+                'ontario_theme_license_localized': license_localized,
                 'ontario_theme_extract_package_name': extract_package_name,
                 'ontario_theme_get_translated_lang': get_translated_lang,
                 'ontario_theme_get_popular_datasets': get_popular_datasets,

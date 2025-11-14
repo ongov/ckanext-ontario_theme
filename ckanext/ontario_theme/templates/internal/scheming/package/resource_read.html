@@ -17,7 +17,9 @@
 
 {%- set exclude_fields = ["data_last_updated", "name", "description_translated", "url", "format"] -%}
 {%- set schema = h.scheming_get_dataset_schema(dataset_type) -%}
-{% set license = h.ontario_theme_get_license(pkg.license_id) %}
+{% set license = h.ontario_theme_get_license(pkg_dict.license_id) %}
+{% set license_title = (h.get_translated(license, 'title') if license
+                        else pkg_dict.license_title) %}
 {% set is_admin = h.check_access('package_update', {'id':pkg.id }) %}
 {% set name = "Name" if h.lang() == "en" else "Nom" %}
 {% block breadcrumb_content %}
@@ -285,13 +287,25 @@
                         </dd>
                       </div>
                     {% endif %}
-                  {%- endblock resource_format -%}
-                  {%- block resource_license -%}
-                    {% set license = h.ontario_theme_get_license(pkg.license_id) %}
+                  {%- endblock resource_format -%}                  
+                  {%- block resource_license -%}                                        
+                  {% set pkg_dict = pkg_dict if pkg_dict is defined else (pkg if pkg is defined else c.pkg_dict) %}
+                    {% set localized_title = h.ontario_theme_license_localized(pkg_dict.license_id, 'title')
+                                            or pkg_dict.license_title or _('No License Provided') %}
+                    {% set localized_desc  = h.ontario_theme_license_localized(pkg_dict.license_id, 'description') %}
+                    {% set license_url     = pkg_dict.license_url %}
+
                     <div class="res-additional-info-tr">
                       <dt class="res-additional-info-th">{{ _('Licence') }}</dt>
                       <dd class="res-additional-info-td">
-                        {{ h.get_translated(license._data, 'title') }}
+                        {% if license_url %}
+                          {{ license_url }}{{ localized_title }}</a>
+                        {% else %}
+                          <span property="dc:rights">{{ localized_title }}</span>
+                        {% endif %}
+
+                        {# If you want to show the description too, uncomment: #}
+                        {# {% if localized_desc %}<div class="license-desc">{{ localized_desc }}</div>{% endif %} #}
                       </dd>
                     </div>
                   {%- endblock resource_license -%}

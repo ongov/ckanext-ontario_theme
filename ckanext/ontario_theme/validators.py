@@ -8,6 +8,7 @@ from ckanext.fluent.validators import fluent_text_output
 from ckantoolkit import Invalid
 from ckan.authz import is_sysadmin
 import json
+from ckan.lib.navl.dictization_functions import missing
 
 
 def tag_name_validator(value, context):
@@ -169,9 +170,38 @@ def lock_if_odc(key, data, errors, context):
 
 def strip_fluent_value(key, data, errors, context):
     '''Trims the Whitespace of fluent field'''
-    value = json.loads(data[key])
-    for lang, text in value.items():
+    # value = json.loads(data[key])
+    # for lang, text in value.items():
+    #     if isinstance(text, str):
+    #         value[lang] = text.strip()
+    # data[key] = json.dumps(value)
+    # return
+    
+    v = data.get(key, missing)
+
+    # 1) Skip if field not submitted / empty
+    if v is missing or v is None or (isinstance(v, str) and not v.strip()):
+        return
+
+    # 2) Normalize to a dict (accept either already-parsed dict or JSON string)
+    if isinstance(v, dict):
+        obj = v
+    elif isinstance(v, str):
+        try:
+            obj = json.loads(v)
+        except (ValueError, TypeError):
+            # Not JSON: leave unchanged; this validator only handles fluent JSON fields
+            return
+    else:
+        # Unknown type (eg list, Missing, etc) -> do nothing
+        return
+
+    # 3) Strip whitespace in each language value
+    for lang, text in list(obj.items()):
         if isinstance(text, str):
-            value[lang] = text.strip()
-    data[key] = json.dumps(value)
-    return
+            obj[lang] = text.strip()
+
+    # 4) IMPORTANT: assign back a JSON STRING so extras insert succeeds
+    data[key] = json.dumps(obj, ensure_ascii=False)
+
+

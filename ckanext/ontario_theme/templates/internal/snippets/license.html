@@ -16,6 +16,9 @@
 {% endmacro %}
 
 {% set license = h.ontario_theme_get_license(pkg_dict.license_id) %}
+{# compute a safe title without using ._data which is not supported in 2.11 #}
+{% set license_title = (license.title if license and license.title
+                        else pkg_dict.license_title) %}
 <!-- This block is for the license section in the sidebar on
      the dataset page, not the table on the resource page -->
 {% block license_title %}
@@ -23,10 +26,18 @@
 {% endblock license_title %}
 
 {% block license_content %}
+  {% set fallback_title = pkg_dict.license_title %}
   {% if license %}
     <p>
-      {% block license_content_inner %}
-        {{ license_string_from_license(license._data) }}
+      {% block license_content_inner %}        
+        {% set license_url   = h.get_translated(license, 'url')   if license else pkg_dict.license_url %}
+        {% set license_title = h.get_translated(license, 'title') if license else fallback_title %}
+        {% if license_url %}
+          <a href="{{ license_url }}"
+            rel="dc:rights">{{ license_title }}</a>
+        {% else %}
+          <span property="dc:rights">{{ license_title }}</span>
+        {% endif %}
         {% if pkg_dict.isopen %}
           <a href="https://opendefinition.org/okd/"
              title="{{ _('This dataset satisfies the Open Definition.') }}">
@@ -36,9 +47,10 @@
           </a>
         {% endif %}
       {% endblock license_content_inner %}
-    </p>
-    <p>
-      {% if h.get_translated(license._data, 'description') %}{{ h.get_translated(license._data, 'description') }}{% endif %}
-    </p>
+    </p>  
+    {% set desc = h.get_translated(license, 'description') if license else None %}
+    {% if desc %}
+      <p>{{ desc }}</p>
+    {% endif %}   
   {% endif %}
 {% endblock license_content %}
