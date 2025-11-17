@@ -17,14 +17,6 @@ def index(group_type='organization', is_organization=True):
     extra_vars = {}
     page = h.get_page_number(request.params) or 1
 
-    # context = {
-    #     u'model': model,
-    #     u'session': model.Session,
-    #     u'user': g.user,
-    #     u'for_view': True,
-    #     u'with_private': False
-    # }
-
     # This is the new context from ckan/views/groups.py
     context: Context = {
         u'user': current_user.name,
@@ -52,9 +44,6 @@ def index(group_type='organization', is_organization=True):
 
     # pass user info to context as needed to view private datasets of
     # orgs correctly
-    # if g.userobj:
-    #     context['user_id'] = g.userobj.id
-    #     context['user_is_admin'] = g.userobj.sysadmin
     # This is the new check from ckan/views/groups.py
     if current_user.is_authenticated:
         context['user_id'] = current_user.id
