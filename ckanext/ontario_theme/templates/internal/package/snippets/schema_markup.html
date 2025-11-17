@@ -1,8 +1,15 @@
 {%- set license = license if license is defined else h.ontario_theme_get_license(pkg.license_id) -%}
 {# CKAN 2.11 updates for license and keywords to handle when they are null #}
 {# lic might be None; guard it and prefer translated text if present #}
-{% set lic_descr = (h.get_translated(license or {}, 'description')
-                   or (license.description if license is defined and license and 'description' in license else '')) %}
+{% set lic_obj = license if license is not none else None %}
+{% set lic_dict = lic_obj.license_dictize() if lic_obj else {} %}
+
+{# Prefer translated description/title if available, else raw fields, else empty #}
+{% set lic_descr = (
+  (h.get_translated(lic_dict, 'description') if lic_dict.get('description_translated') else lic_dict.get('description'))
+  or (h.get_translated(lic_dict, 'title') if lic_dict.get('title_translated') else lic_dict.get('title'))
+  or ''
+) %}
 
 # Get the current-language list from keywords_translated #}
 {% set kw = h.get_translated(pkg, 'keywords') 
