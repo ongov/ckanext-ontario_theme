@@ -5,7 +5,11 @@ tags=tags changes to keywords_en=tag).
 FYI - Fluent's template is an override of schemings already.
 
 #}
-{%- set value = h.scheming_language_text(data[field.field_name]) -%}
+{# Directly fetch keyword of the current language. 
+  h.scheming_language_text() will fetch keywords of the other language if
+  current language keywords are blank.
+#}
+{%- set value = data[field.field_name].get(h.lang(), []) -%}
 <section class="tags">
   {% block tag_list %}
     <ul class="tag-list">
