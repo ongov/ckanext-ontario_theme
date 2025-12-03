@@ -1,0 +1,32 @@
+{
+  "name": "ckanext-ontario_theme",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ongov/ckanext-ontario_theme.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ongov/ckanext-ontario_theme/issues"
+  },
+  "homepage": "https://github.com/ongov/ckanext-ontario_theme#readme",
+  "dependencies": {
+    "@portaljs/components": "^1.2.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "vite": "^7.2.4"
+  },
+  "devDependencies": {
+    "babel-loader": "^10.0.0",
+    "webpack": "^5.103.0",
+    "webpack-cli": "^6.0.1"
+  }
+}

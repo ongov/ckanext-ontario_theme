@@ -34,6 +34,7 @@ ontario_theme_access_level_js:
   filters: rjsmin
   contents: odc-access-level.js
   output: ontario_theme_scripts/%(version)s_odc-access-level.js
+
 ontario_theme_step_indicator:
   filters: rjsmin
   contents: odc-step-indicator.js
@@ -41,4 +42,24 @@ ontario_theme_step_indicator:
   extra:
     preload:
       - vendor/jquery
+      - base/main
+
+portaljs_table_bundle_js:
+  contents:
+    - portaljs_table.bundle.js
+  output: ontario_theme_scripts/%(version)s_portaljs_table.bundle.js
+  extra:
+    preload:
+      - base/main
+
+
+portaljs_table_bundle_js:
+  contents:
+    - portaljs_table/react.production.min.js
+    - portaljs_table/react-dom.production.min.js
+    - portaljs_table/portaljs-components.min.js
+    - portaljs_table/portaljs_table_init.js
+  output: ontario_theme_scripts/%(version)s_portaljs_table.bundle.js
+  extra:
+    preload:
       - base/main

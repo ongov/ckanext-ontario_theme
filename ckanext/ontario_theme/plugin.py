@@ -972,6 +972,13 @@ class OntarioThemeExternalPlugin(plugins.SingletonPlugin, DefaultTranslation):
         toolkit.add_template_directory(config_, 'templates/external')
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic/external', 'ontario_theme_external')
+        # PortalJS
+        toolkit.add_template_directory(config_, 'templates/internal')
+        toolkit.add_resource('fanstatic/internal', 'ontario_theme_internal')
+
+        # (Optional) if you have a scripts library:
+        # toolkit.add_resource('fanstatic/scripts', 'ontario_theme_scripts')
+
 
         config_['scheming.dataset_schemas'] = """
 ckanext.validation.examples:ckan_default_schema.json
@@ -1166,6 +1173,14 @@ type data_last_updated
                     logic.check_access(u'sysadmin', context)
                 except logic.NotAuthorized:
                     toolkit.abort(403, _(u'Need to be system administrator to administer'))
+
+
+        @blueprint.route('/portaljs/table', methods=['GET'])
+        def portaljs_table_view():
+            csv_url = request.args.get('csv_url', '')
+            return toolkit.render('portaljs_table/table.html',
+                                extra_vars={'csv_url': csv_url})
+
 
         # Add url rules to Blueprint object.
         rules = [
