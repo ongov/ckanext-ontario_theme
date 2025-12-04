@@ -73,7 +73,7 @@
       {% else %}
         {% set message = "<p>Data dictionaries cannot be defined for remote CSV files.</p>" %}
       {% endif %}
-      {{ message }}
+      {{ message|safe }}
       <button class="ontario-button ontario-button--primary" name="save" type="submit">
         {{ _('Continue') }}
       </button>
