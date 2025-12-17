@@ -1,4 +1,24 @@
-{%- set license = h.ontario_theme_get_license(pkg.license_id) -%}
+{%- set license = license if license is defined else h.ontario_theme_get_license(pkg.license_id) -%}
+{# CKAN 2.11 updates for license and keywords to handle when they are null #}
+{# lic might be None; guard it and prefer translated text if present #}
+{% set lic_obj = license if license is not none else None %}
+{% set lic_dict = lic_obj.license_dictize() if lic_obj else {} %}
+
+{# Prefer translated description/title if available, else raw fields, else empty #}
+{% set lic_descr = (
+  (h.get_translated(lic_dict, 'description') if lic_dict.get('description_translated') else lic_dict.get('description'))
+  or (h.get_translated(lic_dict, 'title') if lic_dict.get('title_translated') else lic_dict.get('title'))
+  or ''
+) %}
+
+# Get the current-language list from keywords_translated #}
+{% set kw = h.get_translated(pkg, 'keywords') 
+              or h.get_translated(pkg, 'keywords_translated') 
+              or [] %}
+
+{# Ensure it's a list, not a string #}
+{% if kw is string %}{% set kw = [kw] %}{% endif %}
+
 {%- if h.scheming_field_by_name(schema.dataset_fields, 'notes_translated') and pkg.notes %}
   {% set description = h.scheming_language_text(pkg['notes_translated'])|truncate(5000, true) %}
 {%- endif -%}
@@ -27,12 +47,12 @@
     "license": {
       "@type": "CreativeWork",
       "name": "{{ pkg.license_title }}",
-      "text": "{{ h.get_translated(license._data, 'description') }}",
+      "text": "{{ lic_descr|e }}",
       "url": "{{ pkg.license_url }}"
     },
     "dateModified": "{{ pkg.metadata_modified }}",
     "temporal": "{{ pkg.current_as_of }}",
-    "keywords": "{%- for keyword in pkg.keywords[h.lang()] -%}{{ keyword }}{%- if not loop.last -%},{%- endif -%}{%- endfor -%}",
+    "keywords": "{{ kw | join(',') }}",
     {% if pkg.access_level == 'open' -%}
       "distribution": [
         {% for res in resources -%}
