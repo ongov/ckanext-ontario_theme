@@ -11,7 +11,7 @@
   or ''
 ) %}
 
-# Get the current-language list from keywords_translated #}
+{# Get the current-language list from keywords_translated #}
 {% set kw = h.get_translated(pkg, 'keywords') 
               or h.get_translated(pkg, 'keywords_translated') 
               or [] %}

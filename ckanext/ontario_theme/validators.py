@@ -58,13 +58,15 @@ def ontario_theme_copy_fluent_keywords_to_tags(field, schema):
         "validators": "fluent_tags ontario_theme_copy_fluent_keywords_to_tags",
         """
 
+        # Initialize tags if missing
+        if ('tags',) not in data:
+            data[('tags',)] = []
         fluent_tags = fluent_text_output(data[key])
-        data[('tags'),] = []
-        for key, value in fluent_tags.items():
-            for tag in value:
-                data[('tags'),].append(
-                    {'name': tag}
-                )
+        # Copy only non-empty tags
+        for lang, tags in fluent_tags.items():
+            if tags:  # skip empty lists
+                for tag in tags:
+                    data[('tags'),].append({'name': tag})
 
     return validator
 
