@@ -7,12 +7,17 @@
     </div>
     <div>
       {% snippet "home/snippets/ontario_theme_sub_intro.html" %}
-      <div id="topics">
-        <div class="ontario-small-12">
-          <h2>{{ _("Topics") }}</h2>
-          {% snippet "home/snippets/ontario_theme_categories.html" %}
+      {# Conditionally show Topics: hide on intra.data.ontario.ca #}
+      {% if request and request.host and request.host.split(':')[0] == 'intra.data.ontario.ca' %}
+        {# Hidden on IDC #}
+      {% else %}
+        <div id="topics">
+          <div class="ontario-small-12">
+            <h2>{{ _("Topics") }}</h2>
+            {% snippet "home/snippets/ontario_theme_categories.html" %}
+          </div>
         </div>
-      </div>
+      {% endif %}
       <div class="banner-section">
         <div id="news">
           <hr />
