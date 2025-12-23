@@ -1,5 +1,9 @@
-ontario_theme_common:
-  contents: 
-    - common.css
-    - fonts_ds.css
-    - 12col-grid.css
+bundles:
+  ontario_theme_common:
+    filters: cssmin            # optional; in dev CKAN usually won’t minify
+    output: ontario_theme_common.min.css
+    contents:
+      - common.css
+      - fonts_ds.css
+      - 12col-grid.css
+      - tables.css

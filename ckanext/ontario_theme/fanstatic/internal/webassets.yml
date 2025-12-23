@@ -8,6 +8,7 @@ ontario_theme_common:
     - common.css
     - fonts_ds.css
     - 12col-grid.css
+    - tables.css
 
 msappproxy_js:
   filters: rjsmin
