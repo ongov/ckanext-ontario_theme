@@ -8,6 +8,7 @@ from ckanext.fluent.validators import fluent_text_output
 from ckantoolkit import Invalid
 from ckan.authz import is_sysadmin
 import json
+from ckan.lib.navl.dictization_functions import missing, Missing
 
 
 def tag_name_validator(value, context):
@@ -170,10 +171,39 @@ def lock_if_odc(key, data, errors, context):
 
 
 def strip_fluent_value(key, data, errors, context):
-    '''Trims the Whitespace of fluent field'''
-    value = json.loads(data[key])
-    for lang, text in value.items():
-        if isinstance(text, str):
-            value[lang] = text.strip()
-    data[key] = json.dumps(value)
-    return
+    '''
+    Trims the Whitespace of fluent field.
+    Expects a JSON string for multilingual (fluent) values.
+    If value is Missing/None/empty, do nothing.
+    If it's a JSON string, parse and normalize; otherwise, add a validation error.
+    '''
+    val = data.get(key)
+
+    # 1) Ignore absent values (NAVL Missing sentinel) and None/empty strings
+    if val is missing or isinstance(val, Missing) or val is None or (isinstance(val, str) and not val.strip()):
+        return  # leave as-is; upstream ignore_missing / scheming will handle defaults
+
+    # 2) If value is not a string/bytes, treat it as already structured or invalid
+    if not isinstance(val, (str, bytes, bytearray)):
+        # Either trust structured values (if you allow them), or raise an error
+        # Here we err on the side of caution:
+        errors[key].append(u'Invalid JSON type')
+        return
+
+    # 3) Parse JSON safely
+    try:
+        payload = json.loads(val)
+    except Exception:
+        errors[key].append(u'Invalid JSON')
+        return
+
+    # 4) Normalize payload (strip whitespace, remove empty entries, etc.)
+    # Example: strip values per language:
+    if isinstance(payload, dict):
+        normalized = {lang: (text or '').strip() for lang, text in payload.items() if (text or '').strip()}
+    else:
+        normalized = payload
+
+    # 5) Save back as a canonical JSON string or structured dict depending on your schema
+    data[key] = json.dumps(normalized, ensure_ascii=False)
+
