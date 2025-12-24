@@ -28,7 +28,11 @@
 {% endblock resource_read_url %}
 
 {% block data_preview %}
-  {% if res.format == "CSV" %}{{ super() }}{% endif %}
+  {% if res.format == "CSV" %}
+    {{ super() }}
+    {# Add header extras after the DataTables HTML has been written #}
+    {% snippet "datastore/datatables_header_extras.html" %}
+  {% endif %}
 {% endblock data_preview %}
 
 {% block secondary %}

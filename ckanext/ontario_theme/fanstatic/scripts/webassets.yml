@@ -42,3 +42,14 @@ ontario_theme_step_indicator:
     preload:
       - vendor/jquery
       - base/main
+
+ontario_theme_datatables_histograms_js:
+  filters: rjsmin
+  contents:
+    - vendor/d3.v7.min.js
+    - odc-datatables-histograms.js
+  output: ontario_theme_scripts/%(version)s_odc-datatables-histograms.js
+  extra:
+    preload:
+      - vendor/jquery
+      - base/main

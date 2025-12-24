@@ -1,0 +1,52 @@
+
+{# Adds a 2nd header row for inputs + svg placeholders after the DataTables table is on the page #}
+{# Expects the main table element to have data-module attribute (CKAN datatables_view) #}
+<script>
+  (function () {
+    // Wait until the CKAN DataTables widget is on the page
+    // Target CKAN's DataTables table by data-module attribute
+    var tableEl = document.querySelector('table[data-module="datatables_view"]');
+    if (!tableEl) return;
+
+    var thead = tableEl.querySelector('thead');
+    if (!thead) return;
+
+    // If we already added it, skip
+    if (thead.querySelector('tr.odc-dt-filters-row')) return;
+
+    // Clone header row (known DataTables pattern)
+    var firstRow = thead.querySelector('tr');
+    if (!firstRow) return;
+    var filtersRow = firstRow.cloneNode(true);
+    filtersRow.classList.add('odc-dt-filters-row');
+
+    // Clear each cloned <th> and insert our tools
+    filtersRow.querySelectorAll('th').forEach(function (th, i) {
+      th.innerHTML = '';
+      th.classList.add('odc-dt-filter-cell');
+
+      var wrapper = document.createElement('div');
+      wrapper.className = 'odc-dt-header-tool';
+
+      // Numeric: will use SVG + brush (JS decides)
+      var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('width', '100%');
+      svg.setAttribute('height', '28');
+      svg.classList.add('odc-dt-col-hist');
+
+      // Non-numeric: text input filter
+      var input = document.createElement('input');
+      input.type = 'search';
+      input.className = 'ontario-input odc-dt-col-search';
+      input.placeholder = 'Filter…';
+      input.setAttribute('aria-label', 'Filter column');
+
+      wrapper.appendChild(svg);
+      wrapper.appendChild(input);
+      th.appendChild(wrapper);
+      th.dataset.colIndex = i;
+    });
+
+    thead.appendChild(filtersRow);
+  })();
+</script>
