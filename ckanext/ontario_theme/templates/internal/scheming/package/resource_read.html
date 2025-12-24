@@ -291,7 +291,7 @@
                     <div class="res-additional-info-tr">
                       <dt class="res-additional-info-th">{{ _('Licence') }}</dt>
                       <dd class="res-additional-info-td">
-                        {{ h.get_translated(license._data, 'title') }}
+                        {{ h.get_translated(license, 'title') or pkg.license_title }}
                       </dd>
                     </div>
                   {%- endblock resource_license -%}

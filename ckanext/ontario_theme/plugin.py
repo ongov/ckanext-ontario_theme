@@ -654,7 +654,30 @@ def get_recently_updated_datasets():
 def get_license(license_id):
     '''Helper to return license based on id.
     '''
-    return Package.get_license_register().get(license_id)
+    
+def get_license(license_id: str) -> dict:
+    """
+    Return a dict for the given license_id; never None.
+    Compatible with h.get_translated(dict, 'field').
+    """
+    lic_obj = Package.get_license_register().get(license_id)
+    if not lic_obj:
+        return {}  # <<< avoid None
+
+    # If legacy objects expose a _data dict, unwrap it:
+    if hasattr(lic_obj, '_data') and isinstance(lic_obj._data, dict):
+        return lic_obj._data
+
+    # Otherwise, build a dict explicitly (adapt fields to your schema)
+    lic_dict = {
+        'id': getattr(lic_obj, 'id', None),
+        'title': getattr(lic_obj, 'title', None),
+        'title_translated': getattr(lic_obj, 'title_translated', {}) or {},
+        'description': getattr(lic_obj, 'description', None),
+        'description_translated': getattr(lic_obj, 'description_translated', {}) or {},
+        'url': getattr(lic_obj, 'url', None),
+    }
+    return {k: v for k, v in lic_dict.items() if v is not None}
 
 
 def get_current_year():
