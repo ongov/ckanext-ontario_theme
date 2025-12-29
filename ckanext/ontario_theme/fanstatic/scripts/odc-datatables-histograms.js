@@ -1,3 +1,4 @@
+
 /* odc-datatables-histograms.js
  * Adds per-column header filters and numeric histograms with D3 brush
  * Depends on: jQuery, DataTables, D3 v7
@@ -27,7 +28,8 @@
       if (!th) return null;
       var t = (th.getAttribute('data-type') || '').toLowerCase();
       if (!t) return null;
-      return /int|numeric|float|real|double|decimal|smallint|bigint/.test(t);
+      // Proper alternation regex (fixes previous newline-based pattern)
+      return /(int|numeric|float|real|double|decimal|smallint|bigint)/.test(t);
     } catch (e) {
       return null;
     }
@@ -37,14 +39,12 @@
   function addFiltersRow(tableEl) {
     var thead = tableEl.querySelector('thead');
     if (!thead) { log('no thead'); return; }
-
     // If the theme already provides a second <tr> with header inputs, skip injection
     var existingFilterInputs = thead.querySelectorAll('tr input[type="search"], tr .fhead input');
     if (existingFilterInputs.length > 0) {
       log('filters row already provided by theme; skip injection');
       return;
     }
-
     if (thead.querySelector('tr.odc-dt-filters-row')) { log('filters row already present'); return; }
 
     var firstRow = thead.querySelector('tr');
@@ -83,15 +83,12 @@
   // Ensure a tooling cell to host SVG + input for column idx
   function ensureToolingCell(tableEl, colIdx) {
     var $thead = $(tableEl).find('thead');
-
     // Preferred: our injected filters row
     var $toolCell = $thead.find('tr.odc-dt-filters-row th').eq(colIdx);
     if ($toolCell.length) return $toolCell;
-
     // Fallback: theme-provided second header row
     $toolCell = $thead.find('tr:nth-child(2) th').eq(colIdx);
     if ($toolCell.length) return $toolCell;
-
     // Last resort: inject our filters row then return
     addFiltersRow(tableEl);
     return $thead.find('tr.odc-dt-filters-row th').eq(colIdx);
@@ -101,7 +98,6 @@
   function ensureHistogramSvg($toolCell) {
     // Find any existing svg
     var svg = $toolCell.find('svg.odc-dt-col-hist')[0];
-
     // Wrap existing input with our container and add SVG above it
     var $existingInput = $toolCell.find('input[type="search"], input.odc-dt-col-search').first();
     var hasContainer = $toolCell.find('.odc-dt-header-tool').length > 0;
@@ -116,7 +112,6 @@
       }
       $toolCell.empty().append($wrap);
     }
-
     // Ensure an SVG exists at the top of the wrapper
     svg = $toolCell.find('svg.odc-dt-col-hist')[0];
     if (!svg) {
@@ -126,7 +121,6 @@
       svg.classList.add('odc-dt-col-hist');
       $toolCell.find('.odc-dt-header-tool').prepend(svg);
     }
-
     return svg;
   }
 
@@ -167,22 +161,56 @@
       if (idx >= numBins) idx = numBins - 1;
       bins[idx].count++;
     });
-
     return { bins: bins, min: min, max: max };
   }
 
-  async function buildHistogram(resourceId, field, numBins) {
+  // ---- CSRF-aware POST helper ----
+  function getCkanCsrfToken() {
     try {
-      // 1) min/max
+      var nameMeta = document.querySelector('meta[name="csrf_field_name"]');
+      var tokenMeta = document.querySelector('meta[name="_csrf_token"]');
+      var fieldName = nameMeta && nameMeta.content;
+      var token = tokenMeta && tokenMeta.content;
+      return { fieldName: fieldName, token: token };
+    } catch (e) {
+      return { fieldName: null, token: null };
+    }
+  }
+
+  // Robust Action API POST with JSON body, CSRF header and optional API key
+  async function postAction(url, payload, opts) {
+    const csrf = getCkanCsrfToken();
+    const headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    };
+    if (csrf && csrf.token) headers['X-CSRF-Token'] = csrf.token;
+    if (opts && opts.apiKey) headers['X-CKAN-API-Key'] = opts.apiKey;
+
+    const resp = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(payload),
+      credentials: 'same-origin'
+    });
+    const ctype = (resp.headers.get('content-type') || '').toLowerCase();
+    const body = ctype.includes('application/json') ? await resp.json() : (await resp.text());
+    if (!ctype.includes('application/json')) {
+      const snippet = typeof body === 'string' ? body.slice(0, 200) : String(body).slice(0, 200);
+      console.warn('[ODC hist] non-JSON from', url, 'status', resp.status, 'type', ctype, 'snippet:', snippet);
+    }
+    return { ok: resp.ok, status: resp.status, body };
+  }
+
+  // Build histogram bins via CKAN datastore_search_sql (server-side)
+  async function buildHistogram(resourceId, field, numBins, opts) {
+    try {
+      // 1) min/max via SQL (POST)
       const sqlMinMax = `SELECT MIN("${field}") AS min, MAX("${field}") AS max FROM "${resourceId}"`;
-      const mmResp = await fetch('/api/3/action/datastore_search_sql', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sql: sqlMinMax })
-      });
-      const mmJson = await mmResp.json();
-      if (!mmJson.success || !mmJson.result || !mmJson.result.records || !mmJson.result.records.length) {
-        log('min/max query failed or empty', mmJson);
+      const { body: mmJson } = await postAction('/api/3/action/datastore_search_sql', { sql: sqlMinMax }, opts);
+
+      if (!mmJson || !mmJson.success || !mmJson.result || !mmJson.result.records || !mmJson.result.records.length) {
+        log('min/max query failed or non-JSON/empty', mmJson);
         return { bins: [], min: NaN, max: NaN };
       }
       const min = Number(mmJson.result.records[0].min);
@@ -192,7 +220,7 @@
         return { bins: [], min, max };
       }
 
-      // 2) bins via width_bucket
+      // 2) bins via width_bucket (POST)
       const sqlBins = `
         SELECT width_bucket("${field}", ${min}, ${max}, ${numBins}) AS b, COUNT(*) AS c
         FROM "${resourceId}"
@@ -200,19 +228,16 @@
         GROUP BY b
         ORDER BY b
       `;
-      const resp = await fetch('/api/3/action/datastore_search_sql', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sql: sqlBins })
-      });
-      const json = await resp.json();
-      if (!json.success || !json.result || !json.result.records) {
-        log('bins query failed', json);
+      const { body: json } = await postAction('/api/3/action/datastore_search_sql', { sql: sqlBins }, opts);
+
+      if (!json || !json.success || !json.result || !Array.isArray(json.result.records)) {
+        log('bins query failed or non-JSON payload', json);
         return { bins: [], min, max };
       }
+
       const step = (max - min) / numBins;
       const bins = json.result.records.map(function (r) {
-        var idx = Math.max(0, Math.min(numBins - 1, Number(r.b) - 1));
+        var idx = Math.max(0, Math.min(numBins - 1, Number(r.b) - 1)); // clamp 0..n-1
         return { x0: min + idx * step, x1: min + (idx + 1) * step, count: Number(r.c) };
       });
       log('bins via SQL', bins.length);
@@ -264,20 +289,17 @@
   }
 
   // Resolve datastore field id from header text (in case label != id)
-  async function resolveFieldName(resourceId, headerText, colIdx) {
+  async function resolveFieldName(resourceId, headerText, colIdx, opts) {
     try {
-      const resp = await fetch('/api/3/action/datastore_info', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: resourceId })
-      });
-      const info = await resp.json();
-      if (!info.success || !info.result || !info.result.fields) {
+      const { body: info } = await postAction('/api/3/action/datastore_info', { id: resourceId }, opts);
+      if (!info || !info.success || !info.result || !info.result.fields) {
         log('datastore_info failed; fallback to header text', info);
         return headerText.trim();
       }
-
       const fields = info.result.fields;
-      const byLabel = fields.find(f => (f.label || '').trim() === headerText.trim());
+      const byLabel = fields.find(f =>
+        (((f.info && f.info.label) || f.label || '').trim() === headerText.trim())
+      );
       if (byLabel) return byLabel.id;
       return fields[colIdx] ? fields[colIdx].id : headerText.trim();
     } catch (err) {
@@ -286,8 +308,10 @@
     }
   }
 
-  function initForTable(tableEl) {
+  function initForTable(tableEl, opts) {
     var dt = $(tableEl).DataTable();
+    // Install persistent range filter holder on this table
+    if (!tableEl._odcRangeFilters) tableEl._odcRangeFilters = {};
 
     // Get resourceId from table dataset or parse from data-resource-url
     var ds = tableEl.dataset || {};
@@ -304,6 +328,22 @@
     }
     log('resourceId resolved:', resourceId);
 
+    // Install global hook once (shared across tables)
+    if (!$.fn.dataTable.ext.search._odcInstalled) {
+      $.fn.dataTable.ext.search.push(function (settings, data /*, dataIndex */) {
+        var nTable = settings.nTable;
+        var ranges = nTable && nTable._odcRangeFilters || {};
+        for (var colIdxStr in ranges) {
+          if (!Object.prototype.hasOwnProperty.call(ranges, colIdxStr)) continue;
+          var range = ranges[colIdxStr];
+          var v = Number(data[Number(colIdxStr)]);
+          if (isNaN(v) || v < range[0] || v > range[1]) return false;
+        }
+        return true;
+      });
+      $.fn.dataTable.ext.search._odcInstalled = true;
+    }
+
     dt.columns().every(function (colIdx) {
       var headerCell = $(dt.column(colIdx).header());
       var $toolCell = ensureToolingCell(tableEl, colIdx);
@@ -316,19 +356,29 @@
       if (isNum === null) isNum = guessIsNumeric(dt, colIdx);
       log('col', colIdx, 'isNum', isNum);
 
+      var headerText = headerCell.text().trim();
+      log('col', colIdx, 'headerText', headerText);
+
+      // Skip CKAN system column _id for histogram; show input instead
+      if (headerText === '_id') {
+        if ($input.length) {
+          // Ensure text filter works for _id if desired
+          $input.off('keyup.change.odc').on('keyup change', function () {
+            dt.column(colIdx).search(this.value).draw();
+          });
+        }
+        return;
+      }
+
       if (isNum && resourceId) {
         var svg = ensureHistogramSvg($toolCell);
-
         if ($input.length) { $input.hide(); }
 
-        var headerText = headerCell.text().trim();
-        log('col', colIdx, 'headerText', headerText);
-
-        resolveFieldName(resourceId, headerText, colIdx).then(function (fieldName) {
+        resolveFieldName(resourceId, headerText, colIdx, opts).then(function (fieldName) {
           log('col', colIdx, 'fieldName', fieldName);
 
           // First try server-side SQL binning
-          buildHistogram(resourceId, fieldName, 24).then(function (res) {
+          buildHistogram(resourceId, fieldName, 24, opts).then(function (res) {
             var bins = res.bins, min = res.min, max = res.max;
 
             // If SQL fails or returns empty, fallback to client-side binning
@@ -348,23 +398,21 @@
             d3.select(svg).selectAll('*').remove();
             renderHeaderHistogram(svg, bins, min, max, function (range) {
               if (!range) {
-                dt.column(colIdx).search('').draw();
-                return;
+                delete tableEl._odcRangeFilters[colIdx];
+              } else {
+                tableEl._odcRangeFilters[colIdx] = range;
               }
-              // Use a one-shot global filter for numeric range
-              $.fn.dataTable.ext.search.push(function (settings, data) {
-                var v = Number(data[colIdx]);
-                if (isNaN(v)) return false;
-                return v >= range[0] && v <= range[1];
-              });
               dt.draw();
-              $.fn.dataTable.ext.search.pop();
             });
           }).catch(function (err) {
             log('histogram build error; fallback to input', err);
             if ($input.length) { $input.show(); }
           });
+        }).catch(function (err) {
+          log('resolveFieldName error; fallback to input', err);
+          if ($input.length) { $input.show(); }
         });
+
       } else {
         // Non-numeric: wire text search
         if ($input.length) {
@@ -379,18 +427,20 @@
   // Hook once the DataTable is initialized
   $(document).on('init.dt', function (e, settings) {
     var tableEl = settings.nTable; // DOM table for this DataTable
-
     // Run only on tables that explicitly declare datatables_view
-    if (!tableEl.hasAttribute('data-module') ||
-        tableEl.getAttribute('data-module') !== 'datatables_view') {
+    if (!tableEl.hasAttribute('data-module') || tableEl.getAttribute('data-module') !== 'datatables_view') {
       return;
     }
-
     // Try to inject our filters row (will skip if theme already provides inputs)
     addFiltersRow(tableEl);
 
+    // Optional: supply an API key via data attribute on the table (e.g., data-api-key="..."),
+    // or inject via a global variable window.CKAN_API_KEY set in the page template.
+    var apiKey = (tableEl.getAttribute('data-api-key') || window.CKAN_API_KEY || '').trim();
+    var opts = apiKey ? { apiKey: apiKey } : undefined;
+
     // Initialize histograms & filters
-    initForTable(tableEl);
+    initForTable(tableEl, opts);
   });
 
 })(jQuery, window, document);
