@@ -26,7 +26,7 @@
   {% if license %}
     <p>
       {% block license_content_inner %}
-        {{ license_string_from_license(license._data) }}
+        {{ license_string_from_license(license) }}
         {% if pkg_dict.isopen %}
           <a href="https://opendefinition.org/okd/"
              title="{{ _('This dataset satisfies the Open Definition.') }}">
@@ -38,7 +38,8 @@
       {% endblock license_content_inner %}
     </p>
     <p>
-      {% if h.get_translated(license._data, 'description') %}{{ h.get_translated(license._data, 'description') }}{% endif %}
+      {% set lic_desc = h.get_translated(license, 'description') %}
+      {% if lic_desc %}{{ lic_desc }}{% endif %}
     </p>
   {% endif %}
 {% endblock license_content %}

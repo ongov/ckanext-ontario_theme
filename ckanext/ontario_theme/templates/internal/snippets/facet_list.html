@@ -41,7 +41,7 @@
               <div class="ontario-checkboxes">
                 {% for item in items %}
                   {%- if name == "license_id" %}
-                    {% set translate = h.ontario_theme_get_license(item.name)._data %}
+                    {% set translate = h.ontario_theme_get_license(item.name) %}
                   {% elif name == "organization" %}
                     {% set translate = h.get_organization(item.name) %}
                   {% elif name == "groups" %}
@@ -49,7 +49,11 @@
                   {% else %}
                     {% do item.update({'display_name': h.scheming_choices_label(scheming_choices, item.display_name)}) if scheming_choices %}
                   {% endif -%}
-                  {% set label = label_function(translate, "title") if (label_function and translate) else item.display_name %}
+                  {# Prefer the translated title from dict; fallback to existing display_name #}
+                  {% set label = (
+                    h.get_translated(translate, 'title') if translate
+                    else item.display_name
+                  ) %}
                   {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
                   {% set item_name = item.name|replace(' ', '-') %}
                   <div class="ontario-checkboxes__item

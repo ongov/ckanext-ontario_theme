@@ -25,7 +25,7 @@ class TestGetLicense(object):
             os.path.dirname(__file__), '../schemas', 'licences.json')
         ) as licenses:
             license = json.load(licenses)[0]
-        assert get_license("OGL-ON-1.0")._data == license
+        assert get_license("OGL-ON-1.0") == license
 
 
 @pytest.mark.usefixtures('clean_db', 'clean_index', 'with_plugins', 'with_request_context') 

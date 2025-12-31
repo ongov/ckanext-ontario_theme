@@ -2,7 +2,8 @@
 {# CKAN 2.11 updates for license and keywords to handle when they are null #}
 {# lic might be None; guard it and prefer translated text if present #}
 {% set lic_obj = license if license is not none else None %}
-{% set lic_dict = lic_obj.license_dictize() if lic_obj else {} %}
+{# Existing lic_obj may be a dict now; use the dict directly #}
+{% set lic_dict = lic_obj if lic_obj else {} %}
 
 {# Prefer translated description/title if available, else raw fields, else empty #}
 {% set lic_descr = (
