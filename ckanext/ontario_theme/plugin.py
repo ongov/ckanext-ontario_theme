@@ -30,6 +30,8 @@ import ckan.model as model
 import locale
 import functools
 
+from .histograms_blueprint import bp as histograms_bp
+
 from ckanext.ontario_theme.resource_upload import ResourceUpload
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
 from ckanext.ontario_theme.resource import CreateView as OntarioThemeResourceCreateView
@@ -1211,7 +1213,7 @@ type data_last_updated
         )
         blueprint.add_url_rule(u'/dataset/<id>/dictionary/<resource_id>',view_func=DictionaryView.as_view(str(u'dictionary')))
 
-        return blueprint
+        return [blueprint, histograms_bp]
 
     # IUploader
 
