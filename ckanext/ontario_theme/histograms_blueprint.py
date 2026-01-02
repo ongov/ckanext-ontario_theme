@@ -51,6 +51,12 @@ def _is_numeric_type(ftype: str) -> bool:
         t
     ))
 
+def _is_integer_type(ftype: str) -> bool:
+    t = (ftype or '').lower()
+    return bool(re.match(
+        r'^(?:int|integer|int2|int4|int8|smallint|bigint)$', t
+    ))
+
 # Fallback parser for jQuery's bracketed serialization:
 # odcRanges[0][field]=... & odcRanges[0][min]=... & odcRanges[0][max]=...
 _BRACKETED_RE = re.compile(r'^odcRanges\[(\d+)\]\[(\w+)\]$')
@@ -137,6 +143,10 @@ def odc_datatables_ajax(resource_id):
             continue
         if not (math.isfinite(minv) and math.isfinite(maxv)):
             continue
+        # If integer typed field, coerce to integer bounds
+        if _is_integer_type(allowed_types[fld]):
+            minv = math.floor(minv)
+            maxv = math.ceil(maxv)
         where_clauses.append(f"{_quote_ident(fld)} BETWEEN {minv} AND {maxv}")
 
     where_sql = ("WHERE " + " AND ".join(where_clauses)) if where_clauses else ""
