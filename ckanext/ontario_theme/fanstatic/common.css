@@ -1,3 +1,13 @@
+
+:root {
+  --ontario-colour-secondary-active: #C2E0FF; /* light blue */
+  --ontario-colour-focus: #009ADB;           /* dark blue */
+}
+
+.ontario-colour-secondary-active { fill: var(--ontario-colour-secondary-active); }
+.ontario-colour-focus { fill: var(--ontario-colour-focus); }
+
+
 /* ========================================================================
    Breadcrumbs - à la Design System
    ======================================================================== */

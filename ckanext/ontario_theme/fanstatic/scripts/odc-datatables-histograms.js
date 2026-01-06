@@ -5,6 +5,10 @@ and embeds the brushable histograms in the second header row.
 global jQuery, d3 
 */
 
+
+/* global jQuery, d3 */
+
+/* global jQuery, d3 */
 (function ($, d3) {
   'use strict';
 
@@ -15,6 +19,16 @@ global jQuery, d3
     function log(...args) {
       console.log('[odc-datatables-histograms]', ...args);
     }
+
+    // --- ODS color resolver: read CSS variables and fallback to hex --------
+    function getCssVar(name, fallback) {
+      const val = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return val || fallback;
+    }
+    const ODS_COLORS = {
+      secondaryActive: getCssVar('--ontario-colour-secondary-active', '#C2E0FF'), // underlay
+      focus: getCssVar('--ontario-colour-focus', '#009ADB')                        // overlay
+    };
 
     function getResourceId() {
       const attr = $serverTable.attr('data-resource-id') || $serverTable.data('resource-id');
@@ -116,6 +130,7 @@ global jQuery, d3
       $.fn.dataTable.ext.search.push(function (settings, data) {
         if (dt.settings()[0] !== settings) return true;
 
+        // Text filters
         for (const [colId, term] of Object.entries(filters.state.text)) {
           if (!term) continue;
           const idx = fieldIndexById[colId];
@@ -124,6 +139,7 @@ global jQuery, d3
           if (!cell.includes(term.toLowerCase())) return false;
         }
 
+        // Numeric ranges
         for (const [colId, rng] of Object.entries(filters.state.ranges)) {
           if (!rng || rng.length !== 2) continue;
           const idx = fieldIndexById[colId];
@@ -164,12 +180,17 @@ global jQuery, d3
           return;
         }
 
+        // Numeric histogram with underlay + overlay
         const values = allData.map((d) => +d[colId]).filter((v) => Number.isFinite(v));
         const w = cell.getBoundingClientRect().width || 180;
         const h = 42;
         const margin = { top: 2, right: 4, bottom: 14, left: 4 };
 
-        const svg = d3.select(cell).append('svg').attr('width', w).attr('height', h);
+        const svg = d3.select(cell).append('svg')
+          .attr('width', w)
+          .attr('height', h)
+          .attr('class', 'odc-histogram');
+
         const innerW = w - margin.left - margin.right;
         const innerH = h - margin.top - margin.bottom;
         const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
@@ -179,36 +200,82 @@ global jQuery, d3
         const bins = bin(values);
         const y = d3.scaleLinear().domain([0, d3.max(bins, (d) => d.length)]).nice().range([innerH, 0]);
 
-        g.selectAll('rect')
+        // Underlay bars (full histogram)
+        g.selectAll('.underlay')
           .data(bins)
           .enter()
           .append('rect')
+          .attr('class', 'underlay ontario-colour-secondary-active')
           .attr('x', (d) => x(d.x0) + 1)
           .attr('y', (d) => y(d.length))
           .attr('width', (d) => Math.max(0, x(d.x1) - x(d.x0) - 2))
           .attr('height', (d) => innerH - y(d.length))
-          .attr('fill', '#0072CE');
+          .attr('fill', ODS_COLORS.secondaryActive); // concrete color
 
+        // Overlay bars (initially empty)
+        const overlay = g.selectAll('.overlay')
+          .data(bins)
+          .enter()
+          .append('rect')
+          .attr('class', 'overlay ontario-colour-focus')
+          .attr('x', (d) => x(d.x0) + 1)
+          .attr('width', (d) => Math.max(0, x(d.x1) - x(d.x0) - 2))
+          .attr('y', innerH)
+          .attr('height', 0)
+          .attr('fill', ODS_COLORS.focus); // concrete color
+
+        // Optional tiny axis, subdued
+        g.append('g')
+          .attr('transform', `translate(0,${innerH})`)
+          .call(d3.axisBottom(x).ticks(4).tickSize(3))
+          .call((gx) => gx.selectAll('text').attr('font-size', 9))
+          .call((gx) => gx.selectAll('path,line').attr('stroke', '#d9d9d9'));
+
+        // Brush
         const brush = d3.brushX()
           .extent([[0, 0], [innerW, innerH]])
           .on('end', function brushed(event) {
             if (!event.selection) {
               delete filters.state.ranges[colId];
               dt.draw();
+              overlay.attr('y', innerH).attr('height', 0); // clear overlay
               return;
             }
             const [x0, x1] = event.selection.map(x.invert);
             filters.state.ranges[colId] = [x0, x1];
             dt.draw();
+
+            // Update overlay bars within selection
+            overlay
+              .attr('y', (d) => (d.x0 >= x0 && d.x1 <= x1 ? y(d.length) : innerH))
+              .attr('height', (d) => (d.x0 >= x0 && d.x1 <= x1 ? innerH - y(d.length) : 0));
           });
 
         g.append('g').attr('class', 'brush').call(brush);
+
+        // Double-click to clear selection
         svg.on('dblclick', () => {
           delete filters.state.ranges[colId];
           dt.draw();
           g.select('.brush').call(brush.move, null);
+          overlay.attr('y', innerH).attr('height', 0);
         });
       });
+
+      // Rerender histograms on resize/column adjust (keeps widths aligned)
+      function debounce(fn, wait) {
+        let t = null;
+        return function () {
+          clearTimeout(t);
+          t = setTimeout(() => fn.apply(this, arguments), wait);
+        };
+      }
+      function rerenderAllHists() {
+        $region.find('.odc-filter-cell').empty();
+        renderHeaderControls($region, dt, fields, allData, filters);
+      }
+      $(window).on('resize', debounce(rerenderAllHists, 200));
+      dt.on('columns.adjust', debounce(rerenderAllHists, 200));
     }
 
     const resourceId = getResourceId();
