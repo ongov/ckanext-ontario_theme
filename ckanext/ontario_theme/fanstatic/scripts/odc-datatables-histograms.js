@@ -1,9 +1,3 @@
-/*
-Builds a client-side DataTable using the same jQuery DataTables library and styles, 
-and embeds the brushable histograms in the second header row.
-
-global jQuery, d3 
-*/
 
 (function ($, d3) {
   'use strict';
@@ -16,15 +10,20 @@ global jQuery, d3
       console.log('[odc-datatables-histograms]', ...args);
     }
 
-    // --- ODS color resolver: read CSS variables and fallback to hex --------
     function getCssVar(name, fallback) {
       const val = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
       return val || fallback;
     }
+
     const ODS_COLORS = {
-      secondaryActive: getCssVar('--ontario-colour-secondary-active', '#C2E0FF'), // underlay (always-on full histogram)
-      focus: getCssVar('--ontario-colour-focus', '#009ADB')                        // overlay (filtered subset)
+      secondaryActive: getCssVar('--ontario-colour-secondary-active', '#C2E0FF'),
+      focus: getCssVar('--ontario-colour-focus', '#009ADB')
     };
+
+    function isNumericType(t) {
+      t = String(t || '').toLowerCase();
+      return ['int', 'float', 'numeric', 'double', 'money', 'number', 'real', 'decimal'].some((p) => t.startsWith(p));
+    }
 
     function getResourceId() {
       const attr = $serverTable.attr('data-resource-id') || $serverTable.data('resource-id');
@@ -47,9 +46,11 @@ global jQuery, d3
         const res = await fetch(url + qs);
         const json = await res.json();
         const { records, fields: resultFields } = json.result;
+
         if (!fields && Array.isArray(resultFields)) {
           fields = resultFields.map((f) => ({ id: f.id, type: f.type }));
         }
+
         allRecords.push(...records);
         if (records.length < limit) break;
         offset += limit;
@@ -58,21 +59,33 @@ global jQuery, d3
       if (!fields && allRecords.length > 0) {
         fields = Object.keys(allRecords[0]).map((k) => ({ id: k, type: 'text' }));
       }
-
       return { allRecords, fields };
     }
 
-    function createClientRegion(fields) {
+    function createClientRegion(fields, odsOptions) {
       const $wrapper = $serverTable.closest('.dataTables_wrapper');
+
+      const tableClassList = [
+        'ontario-table',
+        'ontario-table--full-container-width'
+      ];
+      if (odsOptions.condensed) tableClassList.push('ontario-table--condensed');
+      if (odsOptions.noZebraStripes) tableClassList.push('ontario-table--no-zebra-stripes');
+
+      const captionHtml = odsOptions.caption ? `<caption>${odsOptions.caption}</caption>` : '';
+
       const $region = $(`
-        <div id="odc-client-table-region" style="margin-top: 12px;">
-          <table id="odc-client-dt" class="table table-striped table-hover" style="width:100%">
-            <thead>
-              <tr class="odc-head-row"></tr>
-              <tr class="odc-filter-row"></tr>
-            </thead>
-            <tbody></tbody>
-          </table>
+        <div id="odc-client-region" class="ontario-table-container">
+          <div class="ontario-table-div">
+            <table id="odc-client-dt" class="${tableClassList.join(' ')} dataTable no-footer" style="width:100%">
+              ${captionHtml}
+              <thead>
+                <tr class="odc-head-row"></tr>
+                <tr class="odc-filter-row"></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
         </div>
       `);
 
@@ -88,26 +101,46 @@ global jQuery, d3
       const $filterRow = $region.find('.odc-filter-row');
 
       fields.forEach((f) => {
-        $headRow.append(`<th>${f.id}</th>`);
-        $filterRow.append(`<th class="odc-filter-cell" data-col-id="${f.id}"></th>`);
+        const isNumeric = isNumericType(f.type) && f.id !== '_id';
+        const th = $(`<th scope="col"${isNumeric ? ' class="ontario-table-cell--numeric"' : ''}>${f.id}</th>`);
+        $headRow.append(th);
+
+        const filterCell = $(`<th class="odc-filter-cell" data-col-id="${f.id}"></th>`);
+        $filterRow.append(filterCell);
       });
 
       return $region;
     }
 
-    function initClientSideDataTable($region, allData, fields) {
+    function initClientSideDataTable($region, allData, fields, odsOptions) {
       const $clientTable = $region.find('#odc-client-dt');
       const columns = fields.map((f) => ({ title: f.id, data: f.id }));
       const idIndex = fields.findIndex((f) => f.id === '_id');
+
+      const numericIndices = fields
+        .map((f, i) => (isNumericType(f.type) && f.id !== '_id' ? i : -1))
+        .filter((i) => i >= 0);
+
+      const defaultRowHeaderIndex =
+        typeof odsOptions.rowHeaderIndex === 'number'
+          ? odsOptions.rowHeaderIndex
+          : (fields.length && !isNumericType(fields[0].type) ? 0 : null);
+
       const columnDefs = [];
       if (idIndex >= 0) columnDefs.push({ targets: [idIndex], visible: false });
+      if (numericIndices.length > 0) {
+        columnDefs.push({
+          targets: numericIndices,
+          className: 'ontario-table-cell--numeric'
+        });
+      }
 
       return $clientTable.DataTable({
         data: allData,
         columns: columns,
         columnDefs: columnDefs,
         orderCellsTop: true,
-        fixedHeader: true,
+        fixedHeader: false,
         paging: true,
         searching: true,
         ordering: true,
@@ -115,11 +148,35 @@ global jQuery, d3
         autoWidth: false,
         serverSide: false,
         processing: false,
-        dom: 'lfrtip'
+        dom: 'lfrtip',
+
+        headerCallback: function (thead) {
+          const $ths = $(thead).find('tr.odc-head-row th');
+          $ths.attr('scope', 'col');
+          $ths.each(function (i) {
+            const f = fields[i];
+            if (f && isNumericType(f.type) && f.id !== '_id') {
+              $(this).addClass('ontario-table-cell--numeric');
+            }
+          });
+        },
+
+        createdRow: function (row) {
+          if (defaultRowHeaderIndex == null) return;
+          const $cells = $('td', row);
+          if ($cells.length === 0) return;
+          const $rowHeaderCell = $cells.eq(defaultRowHeaderIndex);
+          const th = document.createElement('th');
+          th.setAttribute('scope', 'row');
+          th.innerHTML = $rowHeaderCell.html();
+          const cls = ($rowHeaderCell.attr('class') || '').split(/\s+/).filter(Boolean);
+          cls.forEach((c) => th.classList.add(c));
+          th.classList.remove('ontario-table-cell--numeric');
+          $rowHeaderCell.replaceWith(th);
+        }
       });
     }
 
-    // ---- Filter state, helpers, and DT global search ----------------------
     const filters = { state: { text: {}, ranges: {} } };
 
     function hasAnyActiveFilter(filters) {
@@ -129,26 +186,21 @@ global jQuery, d3
     }
 
     function filterRecords(records, fields) {
-      // Use same logic as DataTables ext.search for consistency.
       const fieldIndexById = {};
       fields.forEach((f, i) => (fieldIndexById[f.id] = i));
 
       return records.filter((row) => {
-        // Text filters (contains, case-insensitive)
         for (const [colId, term] of Object.entries(filters.state.text)) {
           if (!term) continue;
           const cell = (row[colId] ?? '').toString().toLowerCase();
           if (!cell.includes(term.toLowerCase())) return false;
         }
-
-        // Numeric range filters (intersection)
         for (const [colId, rng] of Object.entries(filters.state.ranges)) {
           if (!rng || rng.length !== 2) continue;
           const v = parseFloat(row[colId]);
           if (!Number.isFinite(v)) return false;
           if (v < rng[0] || v > rng[1]) return false;
         }
-
         return true;
       });
     }
@@ -159,8 +211,6 @@ global jQuery, d3
 
       $.fn.dataTable.ext.search.push(function (settings, data) {
         if (dt.settings()[0] !== settings) return true;
-
-        // Text filters
         for (const [colId, term] of Object.entries(filters.state.text)) {
           if (!term) continue;
           const idx = fieldIndexById[colId];
@@ -168,8 +218,6 @@ global jQuery, d3
           const cell = (data[idx] || '').toString().toLowerCase();
           if (!cell.includes(term.toLowerCase())) return false;
         }
-
-        // Numeric ranges
         for (const [colId, rng] of Object.entries(filters.state.ranges)) {
           if (!rng || rng.length !== 2) continue;
           const idx = fieldIndexById[colId];
@@ -178,23 +226,15 @@ global jQuery, d3
           if (!Number.isFinite(v)) return false;
           if (v < rng[0] || v > rng[1]) return false;
         }
-
         return true;
       });
     }
 
-    // ---- Header histograms (underlay + overlay) ---------------------------
-    // Keep references so we can update overlay bars for ALL histograms.
-    let histograms = []; // array of { colId, bin, x, y, innerH, overlaySel }
+    let histograms = [];
 
     function renderHeaderControls($region, dt, fields, allData) {
-      histograms = []; // reset and rebuild
-
+      histograms = [];
       const $cells = $region.find('.odc-filter-cell');
-      const isNumericType = (t) => {
-        t = String(t || '').toLowerCase();
-        return ['int', 'float', 'numeric', 'double', 'money', 'number', 'real', 'decimal'].some((p) => t.startsWith(p));
-      };
 
       $cells.each(function () {
         const cell = this;
@@ -210,9 +250,9 @@ global jQuery, d3
           input.style.width = '100%';
           input.addEventListener('input', function () {
             const val = this.value || '';
-            if (val) filters.state.text[colId] = val; else delete filters.state.text[colId];
+            if (val) filters.state.text[colId] = val;
+            else delete filters.state.text[colId];
             dt.draw();
-            // Update overlays across ALL histograms after text filter change
             const subset = hasAnyActiveFilter(filters) ? filterRecords(allData, fields) : [];
             updateAllHistogramOverlays(subset);
           });
@@ -220,7 +260,6 @@ global jQuery, d3
           return;
         }
 
-        // Numeric histogram with underlay + overlay
         const values = allData.map((d) => +d[colId]).filter((v) => Number.isFinite(v));
         const w = cell.getBoundingClientRect().width || 180;
         const h = 42;
@@ -233,6 +272,7 @@ global jQuery, d3
 
         const innerW = w - margin.left - margin.right;
         const innerH = h - margin.top - margin.bottom;
+
         const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
 
         const x = d3.scaleLinear().domain(d3.extent(values)).nice().range([0, innerW]);
@@ -240,7 +280,6 @@ global jQuery, d3
         const bins = bin(values);
         const y = d3.scaleLinear().domain([0, d3.max(bins, (d) => d.length)]).nice().range([innerH, 0]);
 
-        // Underlay bars (full histogram)
         g.selectAll('.underlay')
           .data(bins)
           .enter()
@@ -252,7 +291,6 @@ global jQuery, d3
           .attr('height', (d) => innerH - y(d.length))
           .attr('fill', ODS_COLORS.secondaryActive);
 
-        // Overlay bars (will reflect the filtered subset, across ALL filters)
         const overlaySel = g.selectAll('.overlay')
           .data(bins)
           .enter()
@@ -264,14 +302,12 @@ global jQuery, d3
           .attr('height', 0)
           .attr('fill', ODS_COLORS.focus);
 
-        // Optional tiny axis
         g.append('g')
           .attr('transform', `translate(0,${innerH})`)
           .call(d3.axisBottom(x).ticks(4).tickSize(3))
           .call((gx) => gx.selectAll('text').attr('font-size', 9))
           .call((gx) => gx.selectAll('path,line').attr('stroke', '#d9d9d9'));
 
-        // Brush on THIS column: changes filters.state.ranges[colId] and updates table + overlays
         const brush = d3.brushX()
           .extent([[0, 0], [innerW, innerH]])
           .on('end', function brushed(event) {
@@ -281,18 +317,13 @@ global jQuery, d3
               const [x0, x1] = event.selection.map(x.invert);
               filters.state.ranges[colId] = [x0, x1];
             }
-
-            // Redraw table (DataTables ext.search uses filters.state)
             dt.draw();
-
-            // Update overlay bars for ALL histograms using the globally filtered subset
             const subset = hasAnyActiveFilter(filters) ? filterRecords(allData, fields) : [];
             updateAllHistogramOverlays(subset);
           });
 
         g.append('g').attr('class', 'brush').call(brush);
 
-        // Double-click to clear this column's brush
         svg.on('dblclick', () => {
           delete filters.state.ranges[colId];
           dt.draw();
@@ -301,18 +332,9 @@ global jQuery, d3
           updateAllHistogramOverlays(subset);
         });
 
-        // Store refs for global overlay updates
-        histograms.push({
-          colId,
-          bin,      // bin generator with same domain/thresholds
-          x,
-          y,
-          innerH,
-          overlaySel
-        });
+        histograms.push({ colId, bin, x, y, innerH, overlaySel });
       });
 
-      // Re-render on window resize / column adjust to keep widths aligned
       const debounce = (fn, wait) => {
         let t = null;
         return function () {
@@ -320,37 +342,30 @@ global jQuery, d3
           t = setTimeout(() => fn.apply(this, arguments), wait);
         };
       };
+
       function rerenderAllHists() {
         $region.find('.odc-filter-cell').empty();
         renderHeaderControls($region, dt, fields, allData);
-        // After re-render, update overlays to reflect current filter state
         const subset = hasAnyActiveFilter(filters) ? filterRecords(allData, fields) : [];
         updateAllHistogramOverlays(subset);
       }
+
       $(window).on('resize', debounce(rerenderAllHists, 200));
       dt.on('columns.adjust', debounce(rerenderAllHists, 200));
     }
 
-    // Update overlays for ALL histograms to reflect the current filtered subset.
     function updateAllHistogramOverlays(filteredRecords) {
       if (!histograms || histograms.length === 0) return;
-
       const hasSubset = filteredRecords && filteredRecords.length > 0;
 
       histograms.forEach((h) => {
-        // Compute overlay values for THIS histogram's column from the filtered subset
         const overlayValues = hasSubset
           ? filteredRecords.map((r) => +r[h.colId]).filter((v) => Number.isFinite(v))
           : [];
-
-        // Use same bin generator (same domain/thresholds) so arrays align
         const overlayBins = h.bin(overlayValues);
 
-        // If no active filters, clear overlays; else render overlay counts
         if (!hasSubset || !hasAnyActiveFilter(filters)) {
-          h.overlaySel
-            .attr('y', h.innerH)
-            .attr('height', 0);
+          h.overlaySel.attr('y', h.innerH).attr('height', 0);
         } else {
           h.overlaySel
             .data(overlayBins)
@@ -360,7 +375,6 @@ global jQuery, d3
       });
     }
 
-    // ---- Main --------------------------------------------------------------
     const resourceId = getResourceId();
     if (!resourceId) {
       log('Could not determine resource_id. Aborting.');
@@ -372,16 +386,20 @@ global jQuery, d3
         const { allRecords, fields } = await fetchAllData(resourceId);
         log(`Fetched ${allRecords.length} records from resource ${resourceId}.`);
 
-        const $region = createClientRegion(fields);
-        const dt = initClientSideDataTable($region, allRecords, fields);
+        const odsOptions = {
+          caption: $serverTable.data('caption') || null,
+          condensed: true,
+          noZebraStripes: false,
+          rowHeaderIndex: null
+        };
 
+        const $region = createClientRegion(fields, odsOptions);
+        const dt = initClientSideDataTable($region, allRecords, fields, odsOptions);
         attachGlobalFilter(dt, fields);
-
         renderHeaderControls($region, dt, fields, allRecords);
 
-        // Initial draw and overlay state (no filters → overlays cleared)
         dt.draw();
-        updateAllHistogramOverlays([]); // ensure overlays start empty
+        updateAllHistogramOverlays([]);
       } catch (err) {
         console.error('[odc-datatables-histograms] Error:', err);
       }

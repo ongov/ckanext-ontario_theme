@@ -1,14 +1,13 @@
- 
-ontario_theme_css:
-  contents: 
-    - ontario_theme.css
-
-ontario_theme_common:
-  contents: 
-    - common.css
+odc_styles:
+  filters: cssmin
+  output: ontario_theme/%(version)s_odc_styles.min.css
+  contents:
     - fonts_ds.css
-    - 12col-grid.css
+    - ontario_theme.css
     - tables.css
+    - 12col-grid.css
+    - common.css
+    - custom.css
 
 msappproxy_js:
   filters: rjsmin

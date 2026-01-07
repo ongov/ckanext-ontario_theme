@@ -1,0 +1,77 @@
+
+/* ------------------------------------------------------------------
+   Ontario Theme – custom.css
+   Purpose: High-specificity overrides & CKAN integration fixes
+   Scope: DataTables within ODS tables
+   ------------------------------------------------------------------ */
+
+/* Keep collapse so borders render cleanly and avoid CKAN/Bootstrap variants */
+div.dataTables_wrapper table.ontario-table.dataTable {
+  border-collapse: collapse !important;
+  width: 100% !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+/* Heavy bottom rule on the first header row (ODS visual spec) */
+div.dataTables_wrapper table.ontario-table.dataTable thead tr.odc-head-row th {
+  border-bottom: 0.1875rem solid #1a1a1a !important;
+}
+
+/* Prevent extra header rows (eg. filters) from drawing lines */
+div.dataTables_wrapper table.ontario-table.dataTable thead tr:not(.odc-head-row) th,
+div.dataTables_wrapper table.ontario-table.dataTable thead tr:not(.odc-head-row) td {
+  border-bottom: 0 !important;
+}
+
+/* Body row dividers (thin) and last row heavy rule */
+div.dataTables_wrapper table.ontario-table.dataTable tbody td,
+div.dataTables_wrapper table.ontario-table.dataTable tbody th[scope="row"] {
+  border-bottom: 0.0625rem solid #0000004d !important; /* ~1px */
+}
+div.dataTables_wrapper table.ontario-table.dataTable tbody tr:last-child td,
+div.dataTables_wrapper table.ontario-table.dataTable tbody tr:last-child th[scope="row"] {
+  border-bottom: 0.1875rem solid #1a1a1a !important; /* ~3px */
+}
+
+/* ODS padding/alignment; ensure CKAN/Bootstrap table rules don’t override */
+div.dataTables_wrapper table.ontario-table.dataTable thead th {
+  font-weight: 700;
+  text-align: left;
+  padding: 1.75rem 1rem 1.75rem 1.5rem !important;
+  background: transparent !important;
+  border-top: 0 !important;
+}
+div.dataTables_wrapper table.ontario-table.dataTable tbody td,
+div.dataTables_wrapper table.ontario-table.dataTable tbody th[scope="row"] {
+  padding: 1.1875rem 1rem 1.1875rem 1.5rem !important;
+  text-align: left;
+  letter-spacing: 0.025rem;
+}
+
+/* Numeric columns per ODS */
+div.dataTables_wrapper table.ontario-table.dataTable td.ontario-table-cell--numeric,
+div.dataTables_wrapper table.ontario-table.dataTable th.ontario-table-cell--numeric {
+  text-align: right !important;
+  font-family: monospace;
+}
+
+/* Optional: remove zebra when the no-zebra utility class is present */
+div.dataTables_wrapper
+table.ontario-table.ontario-table--no-zebra-stripes.dataTable tbody tr {
+  background-color: transparent !important;
+}
+
+/* --- CKAN main.css table reset neutralization (scoped) ------------------- */
+/* CKAN often zeroes table borders via `.table td, .table th { border-width: 0 }`.
+   Out-specific it *inside our DataTables* only, so we don’t alter other tables. */
+html body div.dataTables_wrapper table.ontario-table.dataTable thead,
+html body div.dataTables_wrapper table.ontario-table.dataTable tbody,
+html body div.dataTables_wrapper table.ontario-table.dataTable tfoot,
+html body div.dataTables_wrapper table.ontario-table.dataTable tr,
+html body div.dataTables_wrapper table.ontario-table.dataTable td,
+html body div.dataTables_wrapper table.ontario-table.dataTable th {
+  border-width: initial !important;
+  border-style: solid;
+  border-color: transparent; /* we set per-edge above */
+}
