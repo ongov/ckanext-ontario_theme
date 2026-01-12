@@ -1029,7 +1029,6 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
         toolkit.add_template_directory(config_, 'templates/internal')
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic/internal', 'ontario_theme')
-        toolkit.add_resource('fanstatic', 'ontario_theme_common')
         toolkit.add_resource('fanstatic/scripts', 'ontario_theme_scripts')
 
 
