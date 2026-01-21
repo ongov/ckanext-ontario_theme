@@ -1,7 +1,7 @@
 #! /bin/bash
 source ./helper_functions.sh
 
-#export SUDOPASS='1'
+export SUDOPASS='1'
 export POSTGRESSERVERURL="localhost"
 export POSTGRESSERVERPORT="5432"
 export CKANINIPATH="/etc/ckan/default/ckan.ini"
@@ -135,16 +135,17 @@ else
   echo "incorrect xloader version $XLOADER_INSTALLED_VER";
 fi
 
-# install ckan scheming
-cd $CKAN_EXT_ROOT
-pip3 install -e "git+https://github.com/ckan/ckanext-scheming.git@release-3.0.0#egg=ckanext-scheming"
-
 # install fluent
 cd $CKAN_EXT_ROOT
 git clone https://github.com/ckan/ckanext-fluent.git
 cd ckanext-fluent
+git checkout 1ca043066d66c7081a393f8d6091015dfb1d53e1
 python3 setup.py develop
 pip3 install -r requirements.txt
+
+# install ckan scheming
+cd $CKAN_EXT_ROOT
+pip3 install -e "git+https://github.com/ckan/ckanext-scheming.git@release-2.1.0#egg=ckanext-scheming"
 
 # install ontario theme
 cd $CKAN_EXT_ROOT
@@ -155,12 +156,23 @@ python3 setup.py develop
 # copy google tag manager (placeholder) files
 cp $CKAN_ONT_THEME_ROOT/config/gtm/* $GTM_PATH/
 
+# install validation extension
+cd $CKAN_EXT_ROOT
+git clone --depth 1 --branch develop https://github.com/ongov/ckanext-validation.git
+cd ckanext-validation
+pip3 install -r requirements.txt
+python3 setup.py develop
+
 # update plugins
 PLUGINS="ckan.plugins = stats text_view image_view recline_view"
-PLUGINS_REPLACEMENT="ckan.plugins = ontario_theme_external ontario_theme scheming_datasets scheming_organizations scheming_groups fluent stats text_view image_view recline_view datastore xloader"
+PLUGINS_REPLACEMENT="ckan.plugins = ontario_theme_external ontario_theme validation scheming_datasets scheming_organizations scheming_groups fluent stats text_view image_view recline_view datastore xloader"
 replace_str_in_ckan_ini "$PLUGINS" "$PLUGINS_REPLACEMENT"
 
-# Setuo CKAN Production Mode
+# setup validation extension db
+
+ckan -c /etc/ckan/default/ckan.ini validation init-db 
+
+# Setup CKAN Production Mode
 export CKANINIROOT="/etc/ckan/default/"
 
 # set permissions for cache dir
