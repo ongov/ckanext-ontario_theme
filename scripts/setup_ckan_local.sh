@@ -15,7 +15,7 @@ export DATASTOREPASS='datastore_default'
 export DATASTOREDB='datastore_default'
 export SOLRURL='http://127.0.0.1'
 export SOLRPORT='8983'
-export XLOADER_REQ_VER='1.0.1'
+export XLOADER_REQ_VER='1.2.0'
 
 CKAN_ONT_THEME_ROOT="`pwd`/.."
 CKAN_EXT_ROOT="/usr/lib/ckan/default/src"
@@ -189,7 +189,7 @@ echo $SUDOPASS | sudo -S -k ln -s /etc/nginx/sites-available/local_ckan_ssl /etc
 SSLNAME=$CKANINIROOT'ckan_host'
 openssl genrsa 2048 > $SSLNAME.key
 chmod 400 $SSLNAME.key
-openssl req -new -x509 -nodes -sha256 -days 3650 -key $SSLNAME.key -subj "/C=CA/ST=ON/L=./O=ODS/OU=./CN=." > $SSLNAME.cert
+openssl req -new -x509 -nodes -sha256 -days 3650 -key $SSLNAME.key -subj "/C=CA/ST=ON/L=./O=ODS/OU=./CN=localhost" > $SSLNAME.cert
 
 # Modify site_url in ckan.ini
 SITEURL="ckan.site_url = http://localhost:5000"
