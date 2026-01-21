@@ -1,7 +1,7 @@
 #! /bin/bash
 source ./helper_functions.sh
 
-export SUDOPASS='1'
+# export SUDOPASS='1'
 export POSTGRESSERVERURL="localhost"
 export POSTGRESSERVERPORT="5432"
 export CKANINIPATH="/etc/ckan/default/ckan.ini"
@@ -143,10 +143,6 @@ git checkout 1ca043066d66c7081a393f8d6091015dfb1d53e1
 python3 setup.py develop
 pip3 install -r requirements.txt
 
-# install ckan scheming
-cd $CKAN_EXT_ROOT
-pip3 install -e "git+https://github.com/ckan/ckanext-scheming.git@release-2.1.0#egg=ckanext-scheming"
-
 # install ontario theme
 cd $CKAN_EXT_ROOT
 git clone https://github.com/ongov/ckanext-ontario_theme.git
@@ -162,6 +158,10 @@ git clone --depth 1 --branch develop https://github.com/ongov/ckanext-validation
 cd ckanext-validation
 pip3 install -r requirements.txt
 python3 setup.py develop
+
+# install ckan scheming
+cd $CKAN_EXT_ROOT
+pip3 install -e "git+https://github.com/ckan/ckanext-scheming.git@release-2.1.0#egg=ckanext-scheming"
 
 # update plugins
 PLUGINS="ckan.plugins = stats text_view image_view recline_view"
@@ -191,7 +191,7 @@ echo $SUDOPASS | sudo -S -k cp $CKAN_ONT_THEME_ROOT/config/supervisor/ckan-uwsgi
 echo $SUDOPASS | sudo -S -k cp $CKAN_ONT_THEME_ROOT/config/supervisor/ckan-worker.conf /etc/supervisor/conf.d/ckan-worker.conf
 
 # install and configure nginx
-echo $SUDOPASS | sudo -S -k apt-get -y install nginx=1.17.10*
+echo $SUDOPASS | sudo -S -k apt-get -y install nginx=1.18.0*
 echo $SUDOPASS | sudo -S -k cp $CKAN_ONT_THEME_ROOT/config/nginx/local_ckan_ssl /etc/nginx/sites-available/
 echo $SUDOPASS | sudo -S -k ln -s /etc/nginx/sites-available/local_ckan_ssl /etc/nginx/sites-enabled/
 
