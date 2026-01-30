@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 pre-commit
+=======
+html2text
+lxml
+>>>>>>> origin/geohub_harvest_ckan_2.9

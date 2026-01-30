@@ -664,7 +664,7 @@ def get_accepted_format_options():
                 ext = (format_line[0] or '').upper()
                 desc = format_line[1] if len(format_line) > 1 else ext
                 if ext:
-                    # Display as "EXT - Description" for better UX
+                    # Display as "EXT - Description" for better UX 
                     display_text = u'{0} - {1}'.format(ext, desc) if desc else ext
                     options.append({'value': ext, 'text': display_text})
     except Exception:

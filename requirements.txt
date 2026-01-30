@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 dominate==2.6.0
 natsort==8.4.0
+=======
+html2text
+lxml
+>>>>>>> origin/geohub_harvest_ckan_2.9
