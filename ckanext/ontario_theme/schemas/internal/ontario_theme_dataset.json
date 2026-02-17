@@ -721,14 +721,10 @@
         "en": "Format",
         "fr": "Format"
       },
-<<<<<<< HEAD
       "preset": "resource_format_autocomplete",
-      "classes": ["form-group","col-md-12"]
-=======
       "form_snippet": "format_select.html",
       "classes": ["form-group","col-md-12"],
       "validators": "if_empty_guess_format ignore_missing clean_format unicode_safe ontario_allowed_resource_format"
->>>>>>> cdfef52... feat(resource-format): Replace free-text format field with searchable dropdown
     },
     {
       "field_name": "name_translated",
