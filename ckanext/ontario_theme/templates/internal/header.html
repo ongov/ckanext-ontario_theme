@@ -124,14 +124,10 @@
                 <ul id="navigation"
                     class="ontario-application-subheader__menu ontario-show-for-large">
                   {% block header_site_navigation_tabs %}
-                    {{ h.build_nav_main(('dataset.search', _('Datasets'))) }}
-                    {% set ministries_active =
-                            request.path.startswith('/organization')
-                            or (request.blueprint is defined and request.blueprint in ['organization', 'ontario_theme']) %}
-                    <li class="{{'active' if ministries_active else ''}}">
-                      <a href="{{ h.url_for('organization.index') }}">{{ _('Ministries') }}</a>
-                    </li>
-                    {{ h.build_nav_main(('home.about', _('About'))) }}
+                    {{ h.build_nav_main(
+                    ('dataset.search', _('Datasets')),
+                    ('ontario_theme.organization_index', _('Ministries')),
+                    ('home.about', _('About')) ) }}
                   {% endblock header_site_navigation_tabs %}
                 </ul>
                 {% block header_site_search %}
@@ -199,13 +195,9 @@
 
                 <ul id="medium-navigation"
                     class="ontario-application-subheader__menu ontario-hide-for-small ontario-show-for-medium ontario-hide-for-large">
-                  {{ h.build_nav_main(('dataset.search', _('Datasets'))) }}
-                  {% set ministries_active =
-                          request.path.startswith('/organization')
-                          or (request.blueprint is defined and request.blueprint in ['organization', 'ontario_theme']) %}
-                  <li class="{{'active' if ministries_active else ''}}">
-                    <a href="{{ h.url_for('organization.index') }}">{{ _('Ministries') }}</a>
-                  </li>
+                  {{ h.build_nav_main(
+                  ('dataset.search', _('Datasets')),
+                  ('ontario_theme.organization_index', _('Ministries')) ) }}
                 </ul>
                 <button class="ontario-hide-for-large ontario-header__menu-toggler ontario-header-button ontario-header-button--with-outline {{ 'fr' if current_lang == 'fr' }}"
                         id="ontario-header-menu-toggler"
@@ -240,14 +232,10 @@
         </button>
         <div class="ontario-navigation__container ontario-hide-for-large">
           <ul>
-            {{ h.build_nav_main(('dataset.search', _('Datasets'))) }}
-            {% set ministries_active =
-                    request.path.startswith('/organization')
-                    or (request.blueprint is defined and request.blueprint in ['organization', 'ontario_theme']) %}
-            <li class="{{'active' if ministries_active else ''}}">
-              <a href="{{ h.url_for('organization.index') }}">{{ _('Ministries') }}</a>
-            </li>
-            {{ h.build_nav_main(('home.about', _('About'))) }}
+            {{ h.build_nav_main(
+            ('dataset.search', _('Datasets')),
+            ('ontario_theme.organization_index', _('Ministries')),
+            ('home.about', _('About')) ) }}
           </ul>
         </div>
       </nav>
