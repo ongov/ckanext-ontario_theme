@@ -30,12 +30,16 @@ import ckan.model as model
 import locale
 import functools
 
+
 from ckanext.ontario_theme.resource_upload import ResourceUpload
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
 from ckanext.ontario_theme.resource import CreateView as OntarioThemeResourceCreateView
 from ckanext.ontario_theme.resource import EditView as OntarioThemeResourceEditView
 from ckanext.ontario_theme.organization import index as organization_index
 from ckanext.ontario_theme.datastore import DictionaryView
+
+# Ensure harvesters are imported so CKAN can register them
+from ckanext.ontario_theme.harvesters import OntarioGeohubHarvester, OntarioDataCatalogueHarvester
 
 from ckanext.validation.helpers import dump_json_value
 
@@ -1256,8 +1260,13 @@ type data_last_updated
         and should return a modified (or not) version of it.
         Sets default access level to open
         '''
-        fl = search_params.setdefault("facet.field", [])
+        # Skip access_level filtering for harvest source searches
+        # Harvest sources don't have access_level and would be filtered out
         fq = search_params.get("fq", "")
+        if 'dataset_type:harvest' in fq:
+            return num_resources_filter_scrub(search_params)
+
+        fl = search_params.setdefault("facet.field", [])
         default_open = '{!bool tag=orFqaccess_level should=\'access_level:"open"\'}'
 
         ors = set(_get_default_ors())

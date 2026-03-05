@@ -23,6 +23,8 @@ from ckan import logic
 from ckan import plugins as p
 from ckanext.harvest.model import HarvestObject, HarvestObjectExtra
 from ckanext.harvest.harvesters import HarvesterBase
+from ckan.lib.navl.validators import ignore_missing, ignore
+from ckanext.harvest.logic.schema import unicode_safe
 
 from ckanext.ontario_theme import helpers as ontario_theme_helpers
 import ckan.plugins.toolkit as toolkit
@@ -85,39 +87,77 @@ class OntarioGeohubHarvester(HarvesterBase):
         :param content_type: will be returned as type
         :return: a tuple containing the content and content-type
         '''
-        try:
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
 
-            log.debug('Getting file %s', url)
+                log.debug('Getting file %s (attempt %d/%d)', url, attempt + 1, max_retries)
 
-            # get the `requests` session object
-            session = requests.Session()
+                # get the `requests` session object
+                session = requests.Session()
 
-            r = session.get(url, stream=True)
-            content = r.content
+                # Do NOT use stream=True: the GeoHub DCAT feed uses chunked
+                # transfer-encoding + gzip, and stream=True can return empty
+                # or truncated content for large responses like this one.
+                r = session.get(url, timeout=120)
+                content = r.content
 
-            if not six.PY2:
-                content = content.decode('utf-8')
+                if not six.PY2:
+                    content = content.decode('utf-8')
 
-            if content_type is None and r.headers.get('content-type'):
-                content_type = r.headers.get('content-type').split(";", 1)[0]
+                if content_type is None and r.headers.get('content-type'):
+                    content_type = r.headers.get('content-type').split(";", 1)[0]
 
-            return content, content_type
+                # Validate we actually got content before returning
+                if not content:
+                    if attempt < max_retries - 1:
+                        log.warning('Empty response from %s on attempt %d, retrying...', url, attempt + 1)
+                        continue
+                    msg = 'Empty response from %s after %d attempts' % (url, max_retries)
+                    self._save_gather_error(msg, harvest_job)
+                    return None, None
 
-        except requests.exceptions.HTTPError as error:
-            msg = 'Could not get content from %s. Server responded with %s %s'\
-                % (url, error.response.status_code, error.response.reason)
-            self._save_gather_error(msg, harvest_job)
-            return None, None
-        except requests.exceptions.ConnectionError as error:
-            msg = '''Could not get content from %s because a
-                                connection error occurred. %s''' % (url, error)
-            self._save_gather_error(msg, harvest_job)
-            return None, None
-        except requests.exceptions.Timeout as error:
-            msg = 'Could not get content from %s because the connection timed'\
-                ' out.' % url
-            self._save_gather_error(msg, harvest_job)
-            return None, None
+                # Validate JSON is not truncated (the GeoHub feed
+                # sometimes returns incomplete chunked responses)
+                try:
+                    json.loads(content)
+                except (json.JSONDecodeError, ValueError):
+                    if attempt < max_retries - 1:
+                        log.warning('Truncated/invalid JSON from %s on attempt %d (%d chars), retrying...', url, attempt + 1, len(content))
+                        continue
+                    log.warning('Truncated/invalid JSON from %s after %d attempts, proceeding with best effort', url, max_retries)
+
+                return content, content_type
+
+            except requests.exceptions.HTTPError as error:
+                msg = 'Could not get content from %s. Server responded with %s %s'\
+                    % (url, error.response.status_code, error.response.reason)
+                self._save_gather_error(msg, harvest_job)
+                return None, None
+            except requests.exceptions.ConnectionError as error:
+                if attempt < max_retries - 1:
+                    log.warning('Connection error from %s on attempt %d, retrying... %s', url, attempt + 1, error)
+                    continue
+                msg = '''Could not get content from %s because a
+                                    connection error occurred. %s''' % (url, error)
+                self._save_gather_error(msg, harvest_job)
+                return None, None
+            except requests.exceptions.Timeout as error:
+                if attempt < max_retries - 1:
+                    log.warning('Timeout from %s on attempt %d, retrying...', url, attempt + 1)
+                    continue
+                msg = 'Could not get content from %s because the connection timed'\
+                    ' out.' % url
+                self._save_gather_error(msg, harvest_job)
+                return None, None
+            except Exception as error:
+                if attempt < max_retries - 1:
+                    log.warning('Unexpected error from %s on attempt %d: %s, retrying...', url, attempt + 1, error)
+                    continue
+                msg = 'Could not get content from %s: %s' % (url, error)
+                self._save_gather_error(msg, harvest_job)
+                return None, None
+        return None, None
 
     def _get_object_extra(self, harvest_object, key):
         '''
@@ -230,6 +270,12 @@ class OntarioGeohubHarvester(HarvesterBase):
         if package_dict["notes_translated"]["en"] == "" and get_backup_description_from_xml(english_xml):
             package_dict["notes_translated"]["en"] = get_backup_description_from_xml(english_xml)
 
+        # Remove ODCSYNC tag from keywords (used only for filtering, not display)
+        if 'ODCSYNC' in package_dict['keywords']['en']:
+            package_dict['keywords']['en'].remove('ODCSYNC')
+        if 'ODCSYNC' in package_dict['keywords']['fr']:
+            package_dict['keywords']['fr'].remove('ODCSYNC')
+
         # get license
         # license = get_license_from_xml(english_xml)
         if 'open data' in package_dict['keywords']['en']:
@@ -317,7 +363,6 @@ class OntarioGeohubHarvester(HarvesterBase):
         if "ODCSYNC" in dataset_obj['dcat:keyword']:
             return True
         return False
-        return True
 
 
     def hubtype_table(self, dataset_obj):
@@ -327,17 +372,26 @@ class OntarioGeohubHarvester(HarvesterBase):
         relations will be in the description for now anyway. 
         This value is only available through the geohub api and requires its own call.
         '''
-        is_table = False
-
         identifier = dataset_obj['ontario_geohub_id']
         geohub_endpoint = "https://geohub.lio.gov.on.ca/api/v3/datasets/{}".format(identifier)
-        geohub_response = requests.get(geohub_endpoint)
-        hubType = geohub_response.json()["data"]["attributes"]["hubType"]
 
-        if hubType == "Table":
-            is_table = True
+        try:
+            geohub_response = requests.get(geohub_endpoint, timeout=30)
+            if geohub_response.status_code != 200:
+                log.warning(
+                    'hubtype_table: HTTP %s for %s, skipping hubtype check',
+                    geohub_response.status_code, identifier)
+                return False
+            hubType = geohub_response.json()["data"]["attributes"]["hubType"]
+            if hubType == "Table":
+                return True
+        except (requests.exceptions.RequestException, KeyError,
+                ValueError, TypeError) as e:
+            log.warning(
+                'hubtype_table: Error checking hubtype for %s: %s',
+                identifier, e)
 
-        return is_table
+        return False
 
     def info(self):
         return {
@@ -349,7 +403,13 @@ class OntarioGeohubHarvester(HarvesterBase):
 
     def _get_blacklist(self):
         blacklist_response = requests.get(blacklist_url)
-        return list(map(lambda x: x['attributes']['geohub_dataset_url'], blacklist_response.json()['features']))
+        # Extract dataset IDs from the blacklist URLs so that the
+        # comparison against ontario_geohub_id (a plain ID) works.
+        # URLs look like: https://geohub.lio.gov.on.ca/datasets/<id>
+        blacklist_urls = list(map(
+            lambda x: x['attributes']['geohub_dataset_url'],
+            blacklist_response.json()['features']))
+        return [url.rstrip('/').split('/')[-1] for url in blacklist_urls]
 
     def _get_guids_and_datasets(self, content):
 
@@ -376,7 +436,10 @@ class OntarioGeohubHarvester(HarvesterBase):
                 # This is bad, any ideas welcomed
                 guid = sha1(as_string).hexdigest()
 
-            if guid not in blacklist and not self.hubtype_table(dataset) and self.not_blacklisted(dataset) and self.has_french(dataset):
+            # Check ODCSYNC tag first (no API call needed) before
+            # expensive hubtype_table and has_french checks which each
+            # make external HTTP requests per dataset.
+            if guid not in blacklist and self.not_blacklisted(dataset) and not self.hubtype_table(dataset) and self.has_french(dataset):
                 yield guid, as_string
 
     def fetch_stage(self, harvest_object):
@@ -571,6 +634,26 @@ class OntarioGeohubHarvester(HarvesterBase):
             existing_dataset = self._get_existing_dataset(harvest_object.guid)
             if existing_dataset:
                 copy_across_resource_ids(existing_dataset, package_dict)
+                # Augment existing ODC tags with GeoHub tags
+                # (don't replace, merge unique tags)
+                existing_keywords = existing_dataset.get('keywords', {})
+                if existing_keywords:
+                    if isinstance(existing_keywords, str):
+                        try:
+                            existing_keywords = json.loads(existing_keywords)
+                        except (json.JSONDecodeError, TypeError):
+                            existing_keywords = {}
+                    for lang in ['en', 'fr']:
+                        existing_tags = existing_keywords.get(lang, [])
+                        new_tags = package_dict.get('keywords', {}).get(lang, [])
+                        # Merge: keep all existing + add any new ones
+                        merged = list(existing_tags)
+                        for tag in new_tags:
+                            if tag not in merged:
+                                merged.append(tag)
+                        if 'keywords' not in package_dict:
+                            package_dict['keywords'] = {}
+                        package_dict['keywords'][lang] = merged
 
 
         # Unless already set by an extension, get the owner organization (if
@@ -589,6 +672,8 @@ class OntarioGeohubHarvester(HarvesterBase):
         try:
             if status == 'new':
                 package_schema = logic.schema.default_create_package_schema()
+                package_schema['id'] = [ignore_missing, unicode_safe]
+                package_schema['__junk'] = [ignore]
                 context['schema'] = package_schema
 
                 # We need to explicitly provide a package 
@@ -942,7 +1027,7 @@ def publisher_ministry(geohub_dict):
 
 def extract_ministry(description, email):
     for ministry_search_text, ministry_name in ministries.items():
-        if description.find(ministry_search_text):
+        if description.find(ministry_search_text) != -1:
             return ministry_name
 
     infogo_response = call_to_infogo(email)
@@ -1111,8 +1196,9 @@ def get_file_type(resource):
     elif 'mediaType' in resource:
         return resource['mediaType']
     elif resource.get("accessURL", False):
-        import urlparse, os
-        path = urlparse.urlparse(resource.get("accessURL", False)).path
+        from urllib.parse import urlparse as _urlparse
+        import os
+        path = _urlparse(resource.get("accessURL", False)).path
         ext = os.path.splitext(path)[1]
         return ext
     return False
@@ -1143,7 +1229,7 @@ def build_resources(id, geohub_dict, english_xml, english_json):
             file_type = get_file_type(resource)
             if file_type:
                 resource_dict['format'] = file_type
-            if name in metadata_titles:
+            if resource.get("title", "") in metadata_titles:
                 resource_dict['type'] = "metadata"
             resources.append(
                         resource_dict
