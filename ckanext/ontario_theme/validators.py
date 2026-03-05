@@ -175,3 +175,44 @@ def strip_fluent_value(key, data, errors, context):
             value[lang] = text.strip()
     data[key] = json.dumps(value)
     return
+
+
+def ontario_allowed_resource_format(value):
+    '''Validates that the resource format is in the accepted formats list.
+
+    Reads accepted_resource_formats.json and checks that the submitted
+    format value (case-insensitive) matches one of the accepted extensions
+    or their aliases.
+    '''
+    import os
+
+    if not value:
+        return value
+
+    resource_format_path = os.path.join(
+        os.path.dirname(__file__),
+        'accepted_resource_formats.json'
+    )
+
+    try:
+        with open(resource_format_path) as format_file:
+            accepted_formats = json.loads(format_file.read())
+    except Exception:
+        # If we can't load the formats file, let the value through
+        # rather than blocking all uploads.
+        return value
+
+    upper_value = value.strip().upper()
+
+    for format_line in accepted_formats:
+        ext = (format_line[0] or '').upper()
+        aliases = format_line[3] if len(format_line) > 3 else []
+        if upper_value == ext:
+            return ext
+        if upper_value in [a.upper() for a in aliases if isinstance(a, str)]:
+            return ext
+
+    raise Invalid(
+        _('Format "%s" is not an accepted resource format. '
+          'Please select a valid format from the dropdown.') % value
+    )
