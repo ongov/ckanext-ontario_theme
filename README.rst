@@ -32,20 +32,14 @@ Requirements
    - `open-data/ckanext-fluent <https://github.com/open-data/ckanext-fluent>`_
    - master
    - ``fluent``
-<<<<<<< HEAD
  * - Validation extension
    - `fork of frictionlessdata/ckanext-validation <https://github.com/ongov/ckanext-validation>`_
    - develop
    - ``validation``
-
-
-=======
  * - ckanext-harvest
    - `ckanext-harvest <https://github.com/ckan/ckanext-harvest>`_
    - master
    - N/A
-   
->>>>>>> origin/geohub_harvest_ckan_2.9
 
 ------------
 Directory Structure
@@ -135,22 +129,11 @@ which could take seconds to minutes, depending on the file size:
 .. figure:: https://github.com/ongov/ckanext-ontario_theme/assets/1254764/759fb6aa-0cdb-46f1-bae4-2cce15083507
    :alt: Screenshot-step2
 
-<<<<<<< HEAD
    Screenshot-step2
 
-When the XLoader job status is complete, a “Continue” button is
+When the XLoader job status is complete, a "Continue" button is
 displayed that redirects to the Data Dictionary page (Step 3):
 |Screenshot step2_continue|
-=======
-    # This relies on scheming and fluent as well as harvest (and ckanext-dcat), make sure these are already installed.
-    # Note: This extension needs to be before scheming and fluent in the *.ini config file to let the form overrides work.
-    
-    # For external catalogue
-    ckan.plugins = [...] harvest ckan_harvester dcat ontario_theme_external ontario_theme scheming_datasets scheming_organizations scheming_groups fluent [...]
-
-    # For internal catalogue
-    ckan.plugins = [...] harvest ckan_harvester dcat ontario_theme scheming_datasets scheming_organizations scheming_groups fluent [...]
->>>>>>> origin/geohub_harvest_ckan_2.9
 
 ^^^^^^^
 Step 3:
