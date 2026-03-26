@@ -648,6 +648,30 @@ def get_license(license_id):
     return Package.get_license_register().get(license_id)
 
 
+def get_accepted_format_options():
+    '''Helper to return accepted resource format options for select dropdown.
+    Reads from accepted_resource_formats.json and returns a list of dicts
+    with 'value' (format extension) and 'text' (description) keys.
+    '''
+    import os
+    resource_format_path = os.path.join(os.path.dirname(__file__),
+                                        'accepted_resource_formats.json')
+    options = []
+    try:
+        with open(resource_format_path) as format_file:
+            file_resource_formats = json.loads(format_file.read())
+            for format_line in file_resource_formats:
+                ext = (format_line[0] or '').upper()
+                desc = format_line[1] if len(format_line) > 1 else ext
+                if ext:
+                    # Display as "EXT - Description" for better UX
+                    display_text = u'{0} - {1}'.format(ext, desc) if desc else ext
+                    options.append({'value': ext, 'text': display_text})
+    except Exception:
+        pass
+    return options
+
+
 def get_current_year():
     return datetime.datetime.today().strftime('%Y')
 
@@ -1130,7 +1154,8 @@ type data_last_updated
                 'ontario_theme_get_facet_options': get_facet_options,
                 'ontario_theme_site_title': site_title,
                 'ontario_theme_get_current_year': get_current_year,
-                'ontario_theme_get_validation_report': get_validation_report
+                'ontario_theme_get_validation_report': get_validation_report,
+                'ontario_theme_get_accepted_format_options': get_accepted_format_options
                 }
 
     # IBlueprint
@@ -1316,5 +1341,6 @@ type data_last_updated
             'lock_if_odc': validators.lock_if_odc,
             'ontario_theme_copy_fluent_keywords_to_tags': validators.ontario_theme_copy_fluent_keywords_to_tags,
             'ontario_tag_name_validator': validators.tag_name_validator,
-            'ontario_strip_fluent_value': validators.strip_fluent_value
+            'ontario_strip_fluent_value': validators.strip_fluent_value,
+            'ontario_allowed_resource_format': validators.ontario_allowed_resource_format
        }
