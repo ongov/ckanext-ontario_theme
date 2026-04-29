@@ -316,6 +316,11 @@ class OntarioGeohubHarvester(HarvesterBase):
         else:
 
             contact = extract_ontario_email(package_dict['notes_translated']['en'])
+            if not contact:
+                # Try the DCAT contactPoint email (strip mailto: prefix)
+                cp_email = geohub_dict.get('dcat:contactPoint', {}).get('vcard:hasEmail', '')
+                if cp_email:
+                    contact = cp_email.replace('mailto:', '').strip()
             if contact:
                 package_dict['maintainer_email'] = contact.strip()
                 if geohub_dict["dcat:contactPoint"]["vcard:fn"]:
@@ -343,7 +348,7 @@ class OntarioGeohubHarvester(HarvesterBase):
                     if ministry:
                         package_dict['owner_org'] = get_org_id(ministry)
                     else:
-                        package_dict['owner_org'] = get_org_id("natural-resources-and-forestry")
+                        package_dict['owner_org'] = get_org_id("northern-development-mines-natural-resources-and-forestry")
 
         return package_dict
 
@@ -457,8 +462,372 @@ class OntarioGeohubHarvester(HarvesterBase):
         return package_dict, geohub_dict
 
 
+    # -------------------------------------------------------------------
+    # Single-dataset harvesting support
+    #
+    # These methods allow a tester to enter a single GeoHub dataset URL
+    # (by name/slug or by geo-ID) in the Harvest UI instead of the full
+    # DCAT feed.  This avoids the 45+ min download of all ~490 datasets.
+    # -------------------------------------------------------------------
+
+    def _is_single_dataset_url(self, url):
+        """Determine if the harvest source URL points to a single GeoHub
+        dataset rather than the full DCAT feed.
+
+        Returns True for URLs like:
+          - https://geohub.lio.gov.on.ca/datasets/<slug>/...
+          - https://geohub.lio.gov.on.ca/maps/<id>/...
+          - https://geohub.lio.gov.on.ca/documents/<id>/...
+          - Raw hex IDs (32 chars, optionally with _N suffix)
+
+        Returns False for the full DCAT feed URL:
+          - https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.0.1.json
+        """
+        url = url.strip()
+
+        # Full DCAT feed URL – use the normal gather path
+        if '/api/feed/' in url:
+            return False
+
+        # Single dataset URL patterns on geohub.lio.gov.on.ca
+        if 'geohub.lio.gov.on.ca' in url:
+            if any(p in url for p in ['/datasets/', '/maps/', '/documents/']):
+                return True
+
+        # Raw hex ID (32 chars, optionally with _N layer index suffix)
+        if re.match(r'^[a-f0-9]{32}(_\d+)?$', url):
+            return True
+
+        return False
+
+    def _extract_dataset_identifier(self, url):
+        """Extract the dataset slug or ID from various GeoHub URL formats.
+
+        Handles:
+          https://geohub.lio.gov.on.ca/datasets/mnrf::contour/explore?...
+          https://geohub.lio.gov.on.ca/datasets/provincially-tracked-species-1km-grid
+          https://geohub.lio.gov.on.ca/maps/882a9059ec7c4881abbdb6afa0ae73e6/about
+          https://geohub.lio.gov.on.ca/documents/some-doc-id
+          882a9059ec7c4881abbdb6afa0ae73e6       (raw ID)
+          882a9059ec7c4881abbdb6afa0ae73e6_29    (raw ID with layer index)
+
+        Returns the identifier string (slug or ID).
+        """
+        url = url.strip()
+
+        # Raw hex ID
+        if re.match(r'^[a-f0-9]{32}(_\d+)?$', url):
+            return url
+
+        from urllib.parse import urlparse, unquote
+        parsed = urlparse(url)
+        path = unquote(parsed.path).rstrip('/')
+        parts = [p for p in path.split('/') if p]
+
+        # /datasets/<slug_or_id>/... or /maps/<id>/... or /documents/<id>/...
+        for i, part in enumerate(parts):
+            if part in ('datasets', 'maps', 'documents') and i + 1 < len(parts):
+                return parts[i + 1]
+
+        return None
+
+    def _search_geohub_v3(self, param, value, harvest_job):
+        """Search the GeoHub v3 search API with the given parameter.
+
+        Returns a list of dataset dicts from the API response, or None.
+        """
+        import urllib.parse
+        search_url = (
+            "https://geohub.lio.gov.on.ca/api/v3/search?{}={}".format(
+                param, urllib.parse.quote(value, safe=''))
+        )
+
+        try:
+            response = requests.get(search_url, timeout=60)
+            if response.status_code != 200:
+                log.warning(
+                    'GeoHub v3 search returned HTTP %s for %s=%s',
+                    response.status_code, param, value)
+                return None
+
+            data = response.json().get('data', [])
+            return data if data else None
+        except Exception as e:
+            log.warning(
+                'Error searching GeoHub v3 API (%s=%s): %s',
+                param, value, e)
+            return None
+
+    @staticmethod
+    def _timestamp_to_iso(timestamp_ms):
+        """Convert a Unix timestamp in milliseconds to an ISO-format string."""
+        if timestamp_ms:
+            try:
+                return datetime.datetime.utcfromtimestamp(
+                    timestamp_ms / 1000
+                ).strftime('%Y-%m-%dT%H:%M:%S.000Z')
+            except (TypeError, ValueError, OSError):
+                pass
+        return ''
+
+    def _build_dcat_dict_from_v3(self, v3_dataset):
+        """Build a DCAT-compatible dict from a GeoHub v3 search API dataset.
+
+        The returned dict has the field names expected by _make_package_dict
+        and the rest of the harvester pipeline.
+        """
+        dataset_id = v3_dataset.get('id', '')
+        attrs = v3_dataset.get('attributes', {})
+
+        # Build the dct:identifier URL
+        slug = attrs.get('slug', '')
+        if slug:
+            identifier_url = (
+                "https://geohub.lio.gov.on.ca/datasets/{}".format(slug))
+        else:
+            identifier_url = (
+                "https://geohub.lio.gov.on.ca/datasets/{}".format(dataset_id))
+
+        # ---- distributions ----
+        distributions = []
+
+        # Hub page link
+        distributions.append({
+            "title": "ArcGIS Hub Dataset",
+            "accessURL": identifier_url,
+            "format": "Web Page"
+        })
+
+        # Service URL (if available)
+        server_url = attrs.get('url', '') or ''
+        if server_url:
+            distributions.append({
+                "title": "ArcGIS GeoService",
+                "accessURL": server_url,
+                "format": "ArcGIS GeoService"
+            })
+
+        # Additional resources from the v3 API
+        for extra_res in attrs.get('additionalResources', []):
+            if extra_res.get('url'):
+                distributions.append({
+                    "title": extra_res.get('name', extra_res['url']),
+                    "accessURL": extra_res['url'],
+                    "format": ""
+                })
+
+        # Standard download-format links for feature layers
+        hub_type = attrs.get('hubType', '')
+        if hub_type in ('Feature Layer', 'Feature Service'):
+            base_id = dataset_id.split('_')[0]
+            for fmt_id, fmt_label in [('geojson', 'GeoJSON'),
+                                      ('csv', 'CSV'),
+                                      ('kml', 'KML')]:
+                distributions.append({
+                    "title": fmt_label,
+                    "accessURL": (
+                        "https://geohub.lio.gov.on.ca/api/download/v1"
+                        "/items/{}/{}?layers=0".format(base_id, fmt_id)),
+                    "format": fmt_label
+                })
+
+        # ---- contact info from metadata ----
+        metadata = attrs.get('metadata', {})
+        if isinstance(metadata, dict):
+            metadata = metadata.get('metadata', {})
+        md_contact = metadata.get('mdContact', {}) if metadata else {}
+        contact_email = ''
+        if isinstance(md_contact, dict):
+            cnt_info = md_contact.get('rpCntInfo', {})
+            if isinstance(cnt_info, dict):
+                cnt_addr = cnt_info.get('cntAddress', {})
+                if isinstance(cnt_addr, dict):
+                    contact_email = cnt_addr.get('eMailAdd', '')
+
+        owner = attrs.get('owner', '')
+
+        # ---- assemble the DCAT dict ----
+        dcat_dict = {
+            "ontario_geohub_id": dataset_id,
+            "dct:title": attrs.get('name', ''),
+            "dct:description": attrs.get('description', ''),
+            "dct:identifier": identifier_url,
+            "dcat:keyword": (
+                attrs.get('tags', [])
+                if isinstance(attrs.get('tags'), list)
+                else []),
+            "dct:issued": self._timestamp_to_iso(attrs.get('created')),
+            "dct:modified": self._timestamp_to_iso(attrs.get('modified')),
+            "dcat:contactPoint": {
+                "vcard:fn": owner,
+                "vcard:hasEmail": contact_email
+            },
+            "publisher": {
+                "name": attrs.get('source', '')
+            },
+            # Use the simplified 'distribution' key so build_resources
+            # can process them (the DCAT-AP 2.0.1 key 'dcat:distribution'
+            # is not read by the current code).
+            "distribution": distributions,
+        }
+
+        return dcat_dict
+
+    def _resolve_single_dataset(self, url, harvest_job):
+        """Resolve a single dataset URL to DCAT-compatible content.
+
+        Uses the GeoHub v3 search API to look up the dataset by ID or slug,
+        then constructs a DCAT-compatible dict for the harvester pipeline.
+
+        Returns a JSON string in the same format as the DCAT feed, or None.
+        """
+        identifier = self._extract_dataset_identifier(url)
+        if not identifier:
+            self._save_gather_error(
+                'Could not extract dataset identifier from URL: %s' % url,
+                harvest_job)
+            return None
+
+        log.info('Resolving single GeoHub dataset: %s (identifier: %s)',
+                 url, identifier)
+
+        v3_data = None
+
+        # Strategy 1: filter by ID (for hex IDs)
+        if re.match(r'^[a-f0-9]{32}(_\d+)?$', identifier):
+            v3_data = self._search_geohub_v3(
+                'filter[id]', identifier, harvest_job)
+
+        # Strategy 2: filter by slug (for slug-style identifiers)
+        if not v3_data:
+            v3_data = self._search_geohub_v3(
+                'filter[slug]', identifier, harvest_job)
+
+        # Strategy 3: text search as fallback
+        if not v3_data:
+            search_term = identifier.replace('-', ' ').replace('::', ' ')
+            v3_data = self._search_geohub_v3(
+                'q', search_term, harvest_job)
+            if v3_data and len(v3_data) > 1:
+                # Multiple results – try to find an exact match
+                exact = [
+                    d for d in v3_data
+                    if d['id'] == identifier
+                    or d.get('attributes', {}).get('slug', '') == identifier
+                    or (d.get('attributes', {}).get('slug') or '').endswith(
+                        '::' + identifier)
+                ]
+                if exact:
+                    v3_data = exact
+
+        if not v3_data:
+            self._save_gather_error(
+                'Could not find dataset with identifier "%s" on GeoHub. '
+                'Please check the URL or dataset ID.' % identifier,
+                harvest_job)
+            return None
+
+        # Use the first matching result
+        dataset = v3_data[0]
+        dcat_dict = self._build_dcat_dict_from_v3(dataset)
+
+        log.info(
+            'Resolved dataset: %s (ID: %s)',
+            dcat_dict.get('dct:title', 'Unknown'),
+            dcat_dict.get('ontario_geohub_id', 'Unknown'))
+
+        return json.dumps({'dcat:dataset': [dcat_dict]})
+
+    def _gather_single_dataset(self, harvest_job):
+        """Gather stage for a single GeoHub dataset URL.
+
+        This allows testing individual datasets without downloading the full
+        DCAT feed (~490 datasets, 45+ min).  Filters like ODCSYNC-tag check,
+        blacklist, hubtype, and French-metadata availability are skipped
+        because the user has explicitly chosen this dataset for harvesting.
+        """
+        log.info('Single dataset mode: resolving %s', harvest_job.source.url)
+
+        content = self._resolve_single_dataset(
+            harvest_job.source.url, harvest_job)
+        if not content:
+            return None
+
+        ids = []
+
+        # Get the previous guids for this source
+        query = (
+            model.Session.query(HarvestObject.guid, HarvestObject.package_id)
+            .filter(HarvestObject.current == True)
+            .filter(
+                HarvestObject.harvest_source_id == harvest_job.source.id)
+        )
+        guid_to_package_id = {}
+        for guid, package_id in query:
+            guid_to_package_id[guid] = package_id
+
+        guids_in_db = list(guid_to_package_id.keys())
+        guids_in_source = []
+
+        doc = json.loads(content)
+        datasets = doc.get('dcat:dataset', [])
+
+        for dataset in datasets:
+            as_string = json.dumps(dataset)
+            guid = dataset.get('ontario_geohub_id')
+
+            if not guid:
+                guid = sha1(as_string.encode('utf-8')).hexdigest()
+
+            guids_in_source.append(guid)
+
+            log.info(
+                'Single dataset mode: processing %s (ID: %s)',
+                dataset.get('dct:title', 'Unknown'), guid)
+
+            if guid in guids_in_db:
+                # Dataset needs to be updated
+                obj = HarvestObject(
+                    guid=guid, job=harvest_job,
+                    package_id=guid_to_package_id[guid],
+                    content=as_string,
+                    extras=[HarvestObjectExtra(
+                        key='status', value='change')])
+            else:
+                # Dataset needs to be created
+                obj = HarvestObject(
+                    guid=guid, job=harvest_job,
+                    content=as_string,
+                    extras=[HarvestObjectExtra(
+                        key='status', value='new')])
+            obj.save()
+            ids.append(obj.id)
+
+        # Check datasets that need to be deleted
+        guids_to_delete = set(guids_in_db) - set(guids_in_source)
+        for guid in guids_to_delete:
+            obj = HarvestObject(
+                guid=guid, job=harvest_job,
+                package_id=guid_to_package_id[guid],
+                extras=[HarvestObjectExtra(
+                    key='status', value='delete')])
+            ids.append(obj.id)
+            model.Session.query(HarvestObject).\
+                filter_by(guid=guid).\
+                update({'current': False}, False)
+            obj.save()
+
+        return ids
+
     def gather_stage(self, harvest_job):
         log.debug('In DCATJSONHarvester gather_stage')
+
+        # Check if the source URL points to a single dataset rather than
+        # the full DCAT feed.  This enables fast testing of individual
+        # datasets without downloading all ~490 entries.
+        url = harvest_job.source.url
+        if self._is_single_dataset_url(url):
+            return self._gather_single_dataset(harvest_job)
 
         ids = []
 
@@ -808,6 +1177,7 @@ ministries = {
 '''
 geohub_metadata_ministry_names = {
     "Ontario Ministry of Natural Resources and Forestry" : "northern-development-mines-natural-resources-and-forestry",
+    "Ontario Ministry of Natural Resources" : "northern-development-mines-natural-resources-and-forestry",
     "Ontario Ministry of Agriculture, Food and Rural Affairs" : "agriculture-food-and-rural-affairs",
     "Ontario Ministry of the Environment, Conservation and Parks" : "environment-conservation-and-parks",
     "Ontario Ministry of Transportation" : "transportation",
@@ -877,8 +1247,14 @@ def get_org_id(organization_name):
 
 def call_to_infogo(email):
     if email not in calls_to_infogo:
-        infogo_request = requests.get("http://www.infogo.gov.on.ca/infogo/v1/individuals/search?&keywords={}".format(email))
-        calls_to_infogo[email] = infogo_request.json()
+        try:
+            infogo_request = requests.get(
+                "http://www.infogo.gov.on.ca/infogo/v1/individuals/search?&keywords={}".format(email),
+                timeout=15)
+            calls_to_infogo[email] = infogo_request.json()
+        except (requests.exceptions.RequestException, ValueError, TypeError) as e:
+            log.warning('InfoGo API call failed for %s: %s', email, e)
+            calls_to_infogo[email] = {}
     return calls_to_infogo[email]
 
 ''' update_frequencies is all the update frequencies that appear in the
@@ -919,12 +1295,12 @@ def extract_update_frequency(description):
 
 
 geohub_description_fr_ministry_names = {
-    "Ministère des Richesses naturelles et des Forêts de l'Ontario": "natural-resources-and-forestry",
+    "Ministère des Richesses naturelles et des Forêts de l'Ontario": "northern-development-mines-natural-resources-and-forestry",
     "Ministère de l'Agriculture, de l'Alimentation et des Affaires rurales de l'Ontario": "agriculture-food-and-rural-affairs",
-    "Ministère des Richesses naturelles et des Forêts": "natural-resources-and-forestry",
+    "Ministère des Richesses naturelles et des Forêts": "northern-development-mines-natural-resources-and-forestry",
     "Ministère de l’Environnement, de la Protection de la nature et des Parcs de l'Ontario": "environment-conservation-and-parks",    
     "Ministère de l’Environnement, de la Protection de la nature et des Parcs": "environment-conservation-and-parks",
-    "Ministère des Richesses naturelles": "natural-resources-and-forestry",
+    "Ministère des Richesses naturelles": "northern-development-mines-natural-resources-and-forestry",
     "Ministère de l’Énergie, Développement du Nord et Mines": "energy-northern-development-and-mines"
 }
 
@@ -967,11 +1343,11 @@ def extract_fr_contact_info(description):
 
 
 geohub_description_ministry_names = {
-    "Ontario Ministry of Natural Resources and Forestry": "natural-resources-and-forestry",
+    "Ontario Ministry of Natural Resources and Forestry": "northern-development-mines-natural-resources-and-forestry",
     "Ontario Ministry of Agriculture, Food and Rural Affairs": "agriculture-food-and-rural-affairs",
     "Ontario Ministry of the Environment, Conservation and Parks": "environment-conservation-and-parks",
-    "Ontario Ministry of Natural Resources": "natural-resources-and-forestry",
-    "Ministry of Natural Resources and Forestry": "natural-resources-and-forestry",
+    "Ontario Ministry of Natural Resources": "northern-development-mines-natural-resources-and-forestry",
+    "Ministry of Natural Resources and Forestry": "northern-development-mines-natural-resources-and-forestry",
     "Ministry of the Environment Conservation and Parks": "environment-conservation-and-parks",
     "Ministry of the Environment, Conservation and Parks": "environment-conservation-and-parks",
     "Ministry of Energy, Northern Development and Mines": "energy-northern-development-and-mines",
@@ -1020,9 +1396,13 @@ def extract_date(date_str):
 
 
 def publisher_ministry(geohub_dict):
-    if "publisher" in geohub_dict:
-        if geohub_dict['publisher'].get("name", False) in publisher_ministries:
-            return publisher_ministries[geohub_dict['publisher']['name']]
+    # Support both v3-API style ('publisher' / 'name') and DCAT feed
+    # style ('dct:publisher' / 'foaf:name').
+    pub = geohub_dict.get('publisher') or geohub_dict.get('dct:publisher')
+    if pub:
+        pub_name = pub.get('name') or pub.get('foaf:name', '')
+        if pub_name in publisher_ministries:
+            return publisher_ministries[pub_name]
     return False
 
 def extract_ministry(description, email):
@@ -1036,7 +1416,7 @@ def extract_ministry(description, email):
             if individual_record['topOrgName'] in infogo_ministry_names:
                 return infogo_ministry_names[individual_record['topOrgName']]
     else:
-        return "natural-resources-and-forestry"
+        return "northern-development-mines-natural-resources-and-forestry"
 
 
 def extract_ontario_email(description):
@@ -1190,18 +1570,88 @@ def get_ministry_from_xml(root):
 def get_file_type(resource):
     '''
         Returns the file format of a resource.
+        Handles both flat dicts (from v3 API / normalized) and DCAT-prefixed
+        dicts (dct:format may be {"@id": "ftype/CSV"}).
     '''
-    if 'format' in resource:
-        return resource['format']
-    elif 'mediaType' in resource:
-        return resource['mediaType']
-    elif resource.get("accessURL", False):
+    # Try flat format key first (already normalized or from v3 API)
+    fmt = resource.get('format') or resource.get('dct:format', '')
+    if isinstance(fmt, dict):
+        fmt = fmt.get('@id', '')
+    if isinstance(fmt, str) and fmt.startswith('ftype/'):
+        fmt = fmt[len('ftype/'):]
+    if fmt:
+        return fmt
+
+    media = resource.get('mediaType') or resource.get('dcat:mediaType', '')
+    if isinstance(media, dict):
+        media = media.get('@id', '')
+    if media:
+        return media
+
+    raw_url = resource.get('accessURL') or resource.get('dcat:accessURL', '')
+    if isinstance(raw_url, dict):
+        raw_url = raw_url.get('@id', '')
+    if raw_url:
         from urllib.parse import urlparse as _urlparse
         import os
-        path = _urlparse(resource.get("accessURL", False)).path
+        path = _urlparse(raw_url).path
         ext = os.path.splitext(path)[1]
-        return ext
+        if ext:
+            return ext
     return False
+
+def _normalize_dcat_distribution(dist_entry):
+    """Convert a DCAT-AP 2.0.1 distribution entry to the flat format
+    expected by build_resources / get_file_type.
+
+    DCAT feed entries look like:
+        {"dct:title": "CSV",
+         "dcat:accessURL": {"@id": "https://..."},
+         "dct:format": {"@id": "ftype/CSV"}}
+
+    The v3-API path already produces flat dicts:
+        {"title": "CSV", "accessURL": "https://...", "format": "CSV"}
+
+    This helper normalises to the flat style so downstream code works
+    regardless of which path produced the dict.
+    """
+    norm = {}
+
+    # title
+    norm['title'] = (
+        dist_entry.get('title')
+        or dist_entry.get('dct:title', '')
+    )
+
+    # accessURL  –  may be a plain string or {"@id": "..."}
+    raw_url = dist_entry.get('accessURL') or dist_entry.get('dcat:accessURL', '')
+    if isinstance(raw_url, dict):
+        raw_url = raw_url.get('@id', '')
+    norm['accessURL'] = raw_url
+
+    # format  –  may be a plain string or {"@id": "ftype/CSV"}
+    raw_fmt = dist_entry.get('format') or dist_entry.get('dct:format', '')
+    if isinstance(raw_fmt, dict):
+        raw_fmt = raw_fmt.get('@id', '')
+    # Strip the "ftype/" prefix that DCAT uses (e.g. "ftype/CSV" → "CSV")
+    if isinstance(raw_fmt, str) and raw_fmt.startswith('ftype/'):
+        raw_fmt = raw_fmt[len('ftype/'):]
+    norm['format'] = raw_fmt
+
+    # description (optional)
+    norm['description'] = (
+        dist_entry.get('description')
+        or dist_entry.get('dct:description', '')
+    )
+
+    # mediaType (optional)
+    raw_media = dist_entry.get('mediaType') or dist_entry.get('dcat:mediaType', '')
+    if isinstance(raw_media, dict):
+        raw_media = raw_media.get('@id', '')
+    norm['mediaType'] = raw_media
+
+    return norm
+
 
 def build_resources(id, geohub_dict, english_xml, english_json):
     ''' Harvest all resources/files for the dataset
@@ -1209,8 +1659,11 @@ def build_resources(id, geohub_dict, english_xml, english_json):
     metadata_titles = ["ArcGIS Hub Dataset","Esri Rest API"]
     resources = []
     resource_links = []
-    if 'distribution' in geohub_dict:
-        for resource in geohub_dict['distribution']:
+    # Support both the v3-API key ('distribution') and the DCAT feed key
+    raw_distributions = geohub_dict.get('distribution') or geohub_dict.get('dcat:distribution')
+    if raw_distributions:
+        for raw_resource in raw_distributions:
+            resource = _normalize_dcat_distribution(raw_resource)
             resource_dict = { 
                         "name_translated": {
                             "en": resource["title"],
