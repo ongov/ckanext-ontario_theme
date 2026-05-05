@@ -3,7 +3,7 @@
 '''
 This harvester works specifically for the Ontario Geohub geospatial catalogue at:
 
-https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.0.1.json
+https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json
 
 ''' 
 import json
@@ -13,6 +13,7 @@ import logging
 import requests
 import html2text
 import lxml.etree
+from collections import Counter
 from hashlib import sha1
 import traceback
 import uuid
@@ -31,7 +32,125 @@ import ckan.plugins.toolkit as toolkit
 
 log = logging.getLogger(__name__)
 
+DEFAULT_GEOHUB_DCAT_FEED_URL = 'https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json'
+MINIMUM_GEOHUB_MINISTRY_DATASET_COUNT = 3
+GEOHUB_PUBLISHER_OPTIONS_CACHE_TTL = datetime.timedelta(hours=24)
+
 blacklist_url = "https://services9.arcgis.com/a03W7iZ8T3s5vB7p/ArcGIS/rest/services/odc_sync_blacklist_vw/FeatureServer/0/query?where=1%3D1&outFields=geohub_dataset_url&f=json"
+
+geohub_publisher_aliases = {
+    'Ontario Ministry of Natural Resources':
+        'Ontario Ministry of Natural Resources and Forestry',
+    'Ontario Ministry of  Natural Resources and Forestry':
+        'Ontario Ministry of Natural Resources and Forestry',
+    'Ontario Ministry Natural Resources':
+        'Ontario Ministry of Natural Resources and Forestry',
+    'Ministry of Natural Resources':
+        'Ontario Ministry of Natural Resources and Forestry',
+    'Ontario Ministry of Natural Resources and Forestry - Provincial Mapping Unit':
+        'Ontario Ministry of Natural Resources and Forestry',
+    'Provincial Mapping Unit - Ontario Ministry of Natural Resources and Forestry':
+        'Ontario Ministry of Natural Resources and Forestry',
+    'Ontario Ministry of Agriculture, Food, and Rural Affairs':
+        'Ontario Ministry of Agriculture, Food and Rural Affairs',
+    'Ontario Ministry of Agriculture, Food, and Rural Affairs, OMAFRA':
+        'Ontario Ministry of Agriculture, Food and Rural Affairs',
+    'OMAFRA': 'Ontario Ministry of Agriculture, Food and Rural Affairs',
+    'OMAFA': 'Ontario Ministry of Agriculture, Food and Rural Affairs',
+    'OMAFRA- Environmental Management Branch':
+        'Ontario Ministry of Agriculture, Food and Rural Affairs',
+    'Ministry of Northern Development, Mines, Natural Resources and Forestry':
+        'Ontario Ministry of Northern Development, Mines, Natural Resources and Forestry',
+}
+
+fallback_geohub_ministry_counts = {
+    'Ontario Ministry of Natural Resources and Forestry': 365,
+    'Ontario Ministry of Agriculture, Food and Rural Affairs': 26,
+    'Ontario Ministry of Northern Development, Mines, Natural Resources and Forestry': 16,
+    'Ontario Ministry of Municipal Affairs and Housing': 14,
+    'Ontario Ministry of the Environment, Conservation and Parks': 10,
+}
+
+_geohub_publisher_options_cache = {
+    'expires_at': None,
+    'options': None,
+}
+
+
+def normalize_geohub_publisher_name(publisher_name):
+    if not publisher_name:
+        return ''
+
+    normalized_name = re.sub(r'\s+', ' ', publisher_name).strip()
+    return geohub_publisher_aliases.get(normalized_name, normalized_name)
+
+
+def get_ontario_geohub_publisher_options(
+        minimum_dataset_count=MINIMUM_GEOHUB_MINISTRY_DATASET_COUNT):
+    now = datetime.datetime.utcnow()
+    cache_expires_at = _geohub_publisher_options_cache['expires_at']
+    if (cache_expires_at and cache_expires_at > now and
+            _geohub_publisher_options_cache['options'] is not None):
+        return list(_geohub_publisher_options_cache['options'])
+
+    counts = Counter()
+    try:
+        response = requests.get(DEFAULT_GEOHUB_DCAT_FEED_URL, timeout=60)
+        response.raise_for_status()
+        doc = response.json()
+        datasets = doc.get('dcat:dataset', []) if isinstance(doc, dict) else doc
+
+        for dataset in datasets:
+            publisher_name = normalize_geohub_publisher_name(
+                dataset.get('ontario_geohub_publisher', ''))
+            if publisher_name.startswith('Ontario Ministry'):
+                counts[publisher_name] += 1
+    except (requests.exceptions.RequestException, ValueError, TypeError) as e:
+        log.warning('Unable to load Ontario GeoHub ministry options: %s', e)
+        counts.update(fallback_geohub_ministry_counts)
+
+    if not counts:
+        counts.update(fallback_geohub_ministry_counts)
+
+    options = [
+        {
+            'value': ministry_name,
+            'text': '{} ({})'.format(ministry_name, dataset_count)
+        }
+        for ministry_name, dataset_count in counts.most_common()
+        if dataset_count >= minimum_dataset_count
+    ]
+
+    _geohub_publisher_options_cache['options'] = options
+    _geohub_publisher_options_cache['expires_at'] = (
+        now + GEOHUB_PUBLISHER_OPTIONS_CACHE_TTL)
+
+    return list(options)
+
+
+def get_ontario_geohub_harvest_organization_options(
+        minimum_dataset_count=MINIMUM_GEOHUB_MINISTRY_DATASET_COUNT):
+    organization_options = []
+    seen_organization_ids = set()
+
+    for publisher_option in get_ontario_geohub_publisher_options(
+            minimum_dataset_count=minimum_dataset_count):
+        publisher_name = publisher_option['value']
+        organization_name = publisher_ministries.get(publisher_name)
+        if not organization_name:
+            continue
+
+        organization = model.Group.by_name(organization_name)
+        if not organization or organization.id in seen_organization_ids:
+            continue
+
+        organization_options.append({
+            'value': organization.id,
+            'text': publisher_name,
+        })
+        seen_organization_ids.add(organization.id)
+
+    return organization_options
 
 restricted_tags = {
     "MNRFNHICClassifiedData": {
@@ -75,7 +194,38 @@ restricted_tags = {
 class OntarioGeohubHarvester(HarvesterBase):
 
     force_import = False
+    config = None
     # modified from the DCATHarvester harvester from https://github.com/ckan/ckanext-dcat
+
+    def _set_config(self, config_str):
+        if config_str:
+            try:
+                self.config = json.loads(config_str)
+            except ValueError:
+                log.warning('Invalid harvest source config for Ontario GeoHub, ignoring it')
+                self.config = {}
+        else:
+            self.config = {}
+
+    def validate_config(self, config):
+        if not config:
+            return config
+
+        config_obj = json.loads(config)
+        if not isinstance(config_obj, dict):
+            raise ValueError('Configuration must be a JSON object')
+
+        publisher_name = config_obj.get('ontario_geohub_publisher')
+        if publisher_name:
+            config_obj['ontario_geohub_publisher'] = \
+                normalize_geohub_publisher_name(publisher_name)
+
+        return json.dumps(config_obj)
+
+    def extra_schema(self):
+        return {
+            'ontario_geohub_publisher': [ignore_missing, unicode_safe]
+        }
 
     def _get_content_and_type(self, url, harvest_job, page=1,
                               content_type=None):
@@ -416,7 +566,7 @@ class OntarioGeohubHarvester(HarvesterBase):
             blacklist_response.json()['features']))
         return [url.rstrip('/').split('/')[-1] for url in blacklist_urls]
 
-    def _get_guids_and_datasets(self, content):
+    def _get_guids_and_datasets(self, content, selected_publisher=None):
 
         blacklist = self._get_blacklist()
 
@@ -431,6 +581,12 @@ class OntarioGeohubHarvester(HarvesterBase):
             raise ValueError('Wrong JSON object')
 
         for dataset in datasets:
+
+            if selected_publisher:
+                dataset_publisher = normalize_geohub_publisher_name(
+                    dataset.get('ontario_geohub_publisher', ''))
+                if dataset_publisher != selected_publisher:
+                    continue
 
             as_string = json.dumps(dataset)
 
@@ -481,7 +637,7 @@ class OntarioGeohubHarvester(HarvesterBase):
           - Raw hex IDs (32 chars, optionally with _N suffix)
 
         Returns False for the full DCAT feed URL:
-          - https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.0.1.json
+                    - https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json
         """
         url = url.strip()
 
@@ -670,6 +826,8 @@ class OntarioGeohubHarvester(HarvesterBase):
             # is not read by the current code).
             "distribution": distributions,
         }
+        dcat_dict["ontario_geohub_publisher"] = normalize_geohub_publisher_name(
+            attrs.get('source', '') or owner)
 
         return dcat_dict
 
@@ -775,7 +933,6 @@ class OntarioGeohubHarvester(HarvesterBase):
         for dataset in datasets:
             as_string = json.dumps(dataset)
             guid = dataset.get('ontario_geohub_id')
-
             if not guid:
                 guid = sha1(as_string.encode('utf-8')).hexdigest()
 
@@ -821,6 +978,10 @@ class OntarioGeohubHarvester(HarvesterBase):
 
     def gather_stage(self, harvest_job):
         log.debug('In DCATJSONHarvester gather_stage')
+
+        self._set_config(harvest_job.source.config)
+        selected_publisher = normalize_geohub_publisher_name(
+            (self.config or {}).get('ontario_geohub_publisher', ''))
 
         # Check if the source URL points to a single dataset rather than
         # the full DCAT feed.  This enables fast testing of individual
@@ -878,7 +1039,8 @@ class OntarioGeohubHarvester(HarvesterBase):
             try:
 
                 batch_guids = []
-                for guid, as_string in self._get_guids_and_datasets(content):
+                for guid, as_string in self._get_guids_and_datasets(
+                        content, selected_publisher=selected_publisher):
 
                     log.debug('Got identifier: {0}'
                               .format(guid.encode('utf8')))
@@ -1223,10 +1385,16 @@ infogo_ministry_names = {
 publisher_ministries = {
     "Ontario Ministry of Agriculture, Food and Rural Affairs" : "agriculture-food-and-rural-affairs",
     "Ontario Ministry of Natural Resources and Forestry" : "northern-development-mines-natural-resources-and-forestry",
+    "Ontario Ministry of Natural Resources" : "northern-development-mines-natural-resources-and-forestry",
+    "Land Information Ontario" : "northern-development-mines-natural-resources-and-forestry",
     "OMAFRA" : "agriculture-food-and-rural-affairs",
+    "OMAFA" : "agriculture-food-and-rural-affairs",
     "Ontario Ministry of Energy, Northern Development and Mines" : "northern-development-mines-natural-resources-and-forestry",
     "Ontario Ministry of Municipal Affairs and Housing" : "municipal-affairs-and-housing",
     "Ontario Ministry of the Environment, Conservation and Parks" : "environment-conservation-and-parks",
+    "Ontario Ministry of Agriculture, Food, and Rural Affairs" : "agriculture-food-and-rural-affairs",
+    "Ontario Ministry of Agriculture, Food, and Rural Affairs, OMAFRA" : "agriculture-food-and-rural-affairs",
+    "OMAFRA- Environmental Management Branch" : "agriculture-food-and-rural-affairs",
     "Ontario Ministry of Natural Resources and Forestry - Provincial Mapping Unit" : "northern-development-mines-natural-resources-and-forestry",
     "Ontario Ministry of Health" : "health",
     "Ontario Ministry of Education" : "education",
@@ -1396,11 +1564,17 @@ def extract_date(date_str):
 
 
 def publisher_ministry(geohub_dict):
+    publisher_name = normalize_geohub_publisher_name(
+        geohub_dict.get('ontario_geohub_publisher', ''))
+    if publisher_name and publisher_name in publisher_ministries:
+        return publisher_ministries[publisher_name]
+
     # Support both v3-API style ('publisher' / 'name') and DCAT feed
     # style ('dct:publisher' / 'foaf:name').
     pub = geohub_dict.get('publisher') or geohub_dict.get('dct:publisher')
     if pub:
-        pub_name = pub.get('name') or pub.get('foaf:name', '')
+        pub_name = normalize_geohub_publisher_name(
+            pub.get('name') or pub.get('foaf:name', ''))
         if pub_name in publisher_ministries:
             return publisher_ministries[pub_name]
     return False

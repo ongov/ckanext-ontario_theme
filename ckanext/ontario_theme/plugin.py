@@ -40,6 +40,10 @@ from ckanext.ontario_theme.datastore import DictionaryView
 
 # Ensure harvesters are imported so CKAN can register them
 from ckanext.ontario_theme.harvesters import OntarioGeohubHarvester, OntarioDataCatalogueHarvester
+from ckanext.ontario_theme.harvesters.ontario_geohub import (
+    get_ontario_geohub_publisher_options,
+    get_ontario_geohub_harvest_organization_options,
+)
 
 from ckanext.validation.helpers import dump_json_value
 
@@ -1164,7 +1168,9 @@ type data_last_updated
                 'ontario_theme_get_facet_options': get_facet_options,
                 'ontario_theme_site_title': site_title,
                 'ontario_theme_get_current_year': get_current_year,
-                'ontario_theme_get_validation_report': get_validation_report
+                'ontario_theme_get_validation_report': get_validation_report,
+                'ontario_geohub_harvest_publishers': get_ontario_geohub_publisher_options,
+                'ontario_geohub_harvest_organizations': get_ontario_geohub_harvest_organization_options
                 }
 
     # IBlueprint
