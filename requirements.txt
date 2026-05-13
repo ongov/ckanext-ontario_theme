@@ -1,4 +1,4 @@
 dominate==2.6.0
 natsort==8.4.0
-html2text
+html2text==2024.2.26
 lxml
