@@ -24,6 +24,7 @@ from ckan import logic
 from ckan import plugins as p
 from ckanext.harvest.model import HarvestObject, HarvestObjectExtra
 from ckanext.harvest.harvesters import HarvesterBase
+from ckanext.harvest.harvesters.ckanharvester import CKANHarvester
 from ckan.lib.navl.validators import ignore_missing, ignore
 from ckanext.harvest.logic.schema import unicode_safe
 
@@ -103,6 +104,7 @@ def get_ontario_geohub_publisher_options(
         for dataset in datasets:
             publisher_name = normalize_geohub_publisher_name(
                 dataset.get('ontario_geohub_publisher', ''))
+            print('HEJ publisher_name: ', publisher_name)
             if publisher_name.startswith('Ontario Ministry'):
                 counts[publisher_name] += 1
     except (requests.exceptions.RequestException, ValueError, TypeError) as e:
@@ -192,6 +194,13 @@ restricted_tags = {
 }
 
 class OntarioGeohubHarvester(HarvesterBase):
+
+    def info(self):
+            return {
+                'name': 'ontario_geohub',
+                'title': 'Ontario GeoHub',
+                'description': 'Harvests datasets from Ontario GeoHub'
+            }
 
     force_import = False
     config = None
@@ -567,6 +576,7 @@ class OntarioGeohubHarvester(HarvesterBase):
         return [url.rstrip('/').split('/')[-1] for url in blacklist_urls]
 
     def _get_guids_and_datasets(self, content, selected_publisher=None):
+        log.warning(f"[HARVEST] Selected publisher: {selected_publisher}")
 
         blacklist = self._get_blacklist()
 
@@ -585,8 +595,12 @@ class OntarioGeohubHarvester(HarvesterBase):
             if selected_publisher:
                 dataset_publisher = normalize_geohub_publisher_name(
                     dataset.get('ontario_geohub_publisher', ''))
+                log.warning(f"[HARVEST] Dataset publisher: {dataset_publisher}")
                 if dataset_publisher != selected_publisher:
-                    continue
+                    log.warning(f"[HARVEST] SKIP (no match)")
+                    continue                
+                else:
+                    log.warning(f"[HARVEST] MATCH")
 
             as_string = json.dumps(dataset)
 
@@ -601,6 +615,7 @@ class OntarioGeohubHarvester(HarvesterBase):
             # expensive hubtype_table and has_french checks which each
             # make external HTTP requests per dataset.
             if guid not in blacklist and self.not_blacklisted(dataset) and not self.hubtype_table(dataset) and self.has_french(dataset):
+                log.warning(f"[HARVEST] ACCEPTED GUID: {guid}")
                 yield guid, as_string
 
     def fetch_stage(self, harvest_object):
@@ -977,11 +992,12 @@ class OntarioGeohubHarvester(HarvesterBase):
         return ids
 
     def gather_stage(self, harvest_job):
-        log.debug('In DCATJSONHarvester gather_stage')
+        log.debug('In DCAT JSON Harvester gather_stage')
 
         self._set_config(harvest_job.source.config)
         selected_publisher = normalize_geohub_publisher_name(
             (self.config or {}).get('ontario_geohub_publisher', ''))
+        log.warning(f"[HARVEST] Selected publisher from config: {selected_publisher}")
 
         # Check if the source URL points to a single dataset rather than
         # the full DCAT feed.  This enables fast testing of individual

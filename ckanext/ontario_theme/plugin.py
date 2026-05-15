@@ -30,7 +30,6 @@ import ckan.model as model
 import locale
 import functools
 
-
 from ckanext.ontario_theme.resource_upload import ResourceUpload
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
 from ckanext.ontario_theme.resource import CreateView as OntarioThemeResourceCreateView
@@ -46,6 +45,7 @@ from ckanext.ontario_theme.harvesters.ontario_geohub import (
 )
 
 from ckanext.validation.helpers import dump_json_value
+
 
 # For Image Uploader
 #from ckan.controllers.home import CACHE_PARAMETERS
