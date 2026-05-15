@@ -158,6 +158,106 @@ either link back to make changes or publish as is.
 .. figure:: https://github.com/ongov/ckanext-ontario_theme/assets/1254764/672fbebc-59c8-4521-b578-02881ace8643
    :alt: Screenshot-step4
 
+------------
+ckanext-harvest Integration
+------------
+
+1. Install ``ckanext-harvest``:
+::
+   . /usr/lib/ckan/default/bin/activate
+   cd /usr/lib/ckan/default
+   pip install -e git+https://github.com/ckan/ckanext-harvest.git@v1.6.2#egg=ckanext-harvest
+
+   cd /usr/lib/ckan/default/src/ckanext-harvest
+   pip install -e .
+
+Install dependencies:
+::
+   pip install -r requirements.txt
+
+Verify installation:
+::
+   python -c "import ckanext.harvest; print('ckanext-harvest imported successfully')"
+
+2. Configure `ckan.ini`:
+   
+See `ckan.ini <https://github.com/ongov/ckanext-ontario_theme/blob/DATA-1783_GEOHUB_FUNCTIONALITY_fixes/config/ckan/ckan.ini>`__.
+
+Add the harvester plugins to ``ckan.plugins: ...harvest ontario_geohub ontario_data_catalogue...``
+
+Add to the redis section:
+::
+   ckan.harvest.mq.type = redis
+   ckan.harvest.mq.redis_host = 127.0.0.1
+   ckan.harvest.mq.redis_port = 6379
+   ckan.harvest.mq.redis_db = 0
+   ckan.harvest.mq.redis_namespace = default
+   ckan.harvest.mq.password = None
+
+3. Create harvest datatables:
+::
+   . /usr/lib/ckan/default/bin/activate
+   ckan --config=/etc/ckan/default/ckan.ini db upgrade -p harvest
+
+If successful, you should see “Upgrading DB: SUCCESS“.
+
+4. Create ``/etc/supervisor/conf.d/ckan_harvesting.conf``:
+::
+   ; ===============================
+   ; CKAN Harvest — Gather Consumer
+   ; ===============================
+
+   [program:ckan_gather_consumer]
+   command=/usr/lib/ckan/default/bin/ckan --config=/etc/ckan/default/ckan.ini harvester gather-consumer
+   user=www-data
+   numprocs=1
+   stdout_logfile=/var/log/ckan/gather_consumer.log
+   stderr_logfile=/var/log/ckan/gather_consumer.log
+   autostart=true
+   autorestart=true
+   startsecs=10
+
+   ; ===============================
+   ; CKAN Harvest — Fetch Consumer
+   ; ===============================
+
+   [program:ckan_fetch_consumer]
+   command=/usr/lib/ckan/default/bin/ckan --config=/etc/ckan/default/ckan.ini harvester fetch-consumer
+   user=www-data
+   numprocs=1
+   stdout_logfile=/var/log/ckan/fetch_consumer.log
+   stderr_logfile=/var/log/ckan/fetch_consumer.log
+   autostart=true
+   autorestart=true
+   startsecs=10
+
+5. Start the consumers:
+::
+   sudo supervisorctl reread
+   sudo supervisorctl add ckan_gather_consumer
+   sudo supervisorctl add ckan_fetch_consumer
+   sudo supervisorctl start ckan_gather_consumer
+   sudo supervisorctl start ckan_fetch_consumer
+
+Verify:
+::
+   sudo supervisorctl status
+
+Expected output:
+::
+   ckan_gather_consumer    RUNNING   pid 6968, uptime 0:22:45
+   ckan_fetch_consumer     RUNNING   pid 6983, uptime 0:22:06
+
+6. Restart all:
+::
+   sudo service supervisor restart all
+
+
+To monitor the harvest, these are a few logs you can check:
+::
+   redis-cli monitor
+   sudo supervisorctl tail -f ckan_gather_consumer
+   sudo supervisorctl tail -f ckan_fetch_consumer
 
 -----------------
 Development
