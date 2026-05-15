@@ -104,7 +104,7 @@ def get_ontario_geohub_publisher_options(
         for dataset in datasets:
             publisher_name = normalize_geohub_publisher_name(
                 dataset.get('ontario_geohub_publisher', ''))
-            print('HEJ publisher_name: ', publisher_name)
+            log.debug('publisher_name after normalize: %s', publisher_name)
             if publisher_name.startswith('Ontario Ministry'):
                 counts[publisher_name] += 1
     except (requests.exceptions.RequestException, ValueError, TypeError) as e:
