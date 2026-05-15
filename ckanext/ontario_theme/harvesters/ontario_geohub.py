@@ -195,13 +195,6 @@ restricted_tags = {
 
 class OntarioGeohubHarvester(HarvesterBase):
 
-    def info(self):
-            return {
-                'name': 'ontario_geohub',
-                'title': 'Ontario GeoHub',
-                'description': 'Harvests datasets from Ontario GeoHub'
-            }
-
     force_import = False
     config = None
     # modified from the DCATHarvester harvester from https://github.com/ckan/ckanext-dcat
