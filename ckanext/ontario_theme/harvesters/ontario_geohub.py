@@ -77,6 +77,43 @@ _geohub_publisher_options_cache = {
     'options': None,
 }
 
+ORG_LOOKUP_CACHE_TTL = datetime.timedelta(minutes=10)
+_org_lookup_cache = {}
+_org_lookup_cache_expires_at = None
+_missing_org_warning_cache = set()
+
+
+def _get_active_organization_lookup():
+    global _org_lookup_cache_expires_at
+
+    now = datetime.datetime.utcnow()
+    if (_org_lookup_cache_expires_at and
+            _org_lookup_cache_expires_at > now and
+            _org_lookup_cache):
+        return _org_lookup_cache
+
+    lookup = {}
+    organizations = model.Session.query(
+        model.Group.id,
+        model.Group.name,
+        model.Group.title
+    ).filter(
+        model.Group.type == 'organization'
+    ).filter(
+        model.Group.state == 'active'
+    ).all()
+
+    for organization_id, organization_name, organization_title in organizations:
+        if organization_name:
+            lookup[organization_name.strip().lower()] = organization_id
+        if organization_title:
+            lookup[organization_title.strip().lower()] = organization_id
+
+    _org_lookup_cache.clear()
+    _org_lookup_cache.update(lookup)
+    _org_lookup_cache_expires_at = now + ORG_LOOKUP_CACHE_TTL
+    return _org_lookup_cache
+
 
 def normalize_geohub_publisher_name(publisher_name):
     if not publisher_name:
@@ -146,13 +183,17 @@ def get_ontario_geohub_harvest_organization_options(
         if not organization or organization.id in seen_organization_ids:
             continue
 
+        organization_title = organization.title or publisher_name
+
         organization_options.append({
             'value': organization.id,
-            'text': publisher_name,
+            'text': organization_title,
         })
         seen_organization_ids.add(organization.id)
 
-    return organization_options
+    # Prepend "All ministries" option
+    all_ministries_option = [{'value': '', 'text': 'All ministries'}]
+    return all_ministries_option + organization_options
 
 restricted_tags = {
     "MNRFNHICClassifiedData": {
@@ -373,7 +414,7 @@ class OntarioGeohubHarvester(HarvesterBase):
         return p.toolkit.get_action('package_show')({}, {'id': datasets[0][0]})
 
 
-    def _make_package_dict(self, geohub_dict, harvest_object):
+    def _make_package_dict(self, geohub_dict, harvest_object, selected_odc_organization_id=None):
         english_xml = english_metadata_xml_response(geohub_dict)
         french_xml = french_metadata_xml_response(geohub_dict) 
         english_json = english_metadata_json_response(geohub_dict)
@@ -502,6 +543,10 @@ class OntarioGeohubHarvester(HarvesterBase):
                     else:
                         package_dict['owner_org'] = get_org_id("northern-development-mines-natural-resources-and-forestry")
 
+        # If a specific organization was selected via harvest source config, use it
+        if selected_odc_organization_id:
+            package_dict['owner_org'] = selected_odc_organization_id
+
         return package_dict
 
 
@@ -614,14 +659,15 @@ class OntarioGeohubHarvester(HarvesterBase):
     def fetch_stage(self, harvest_object):
         return True
 
-    def _get_package_dict(self, harvest_object):
+    def _get_package_dict(self, harvest_object, selected_odc_organization_id=None):
 
         content = harvest_object.content
 
         geohub_dict = json.loads(content)
 
         package_dict = self._make_package_dict(geohub_dict,
-                                                harvest_object)
+                                                harvest_object,
+                                                selected_odc_organization_id=selected_odc_organization_id)
 
         return package_dict, geohub_dict
 
@@ -1157,8 +1203,12 @@ class OntarioGeohubHarvester(HarvesterBase):
             previous_object.current = False
             previous_object.add()
 
+        # Get the selected organization from harvest source config (if set)
+        selected_odc_organization_id = harvest_object.job.source.owner_org or None
 
-        package_dict, geohub_dict = self._get_package_dict(harvest_object)
+        package_dict, geohub_dict = self._get_package_dict(
+            harvest_object,
+            selected_odc_organization_id=selected_odc_organization_id)
         if not package_dict:
             return False
 
@@ -1450,46 +1500,40 @@ def get_org_id(organization_name):
     mapped_name = publisher_ministries.get(source_name) or \
         publisher_ministries.get(normalized_name)
 
-    # First try CKAN organization names/slugs.
-    name_candidates = [source_name, normalized_name, mapped_name]
-    for candidate in name_candidates:
-        if not candidate:
-            continue
-        org = model.Group.by_name(candidate)
-        if org:
-            return org.id
+    organization_lookup = _get_active_organization_lookup()
 
-    # Fallback: try matching CKAN organization titles.
-    title_candidates = [
+    candidate_keys = [
         source_name,
         normalized_name,
         mapped_name,
         (mapped_name or '').replace('-', ' '),
         (mapped_name or '').replace('-', ' ').title(),
     ]
-    seen_titles = set()
-    for candidate in title_candidates:
+
+    seen_keys = set()
+    for candidate in candidate_keys:
         if not candidate:
             continue
-        key = candidate.lower()
-        if key in seen_titles:
+        key = candidate.strip().lower()
+        if key in seen_keys:
             continue
-        seen_titles.add(key)
-        org = model.Session.query(model.Group) \
-            .filter(model.Group.type == 'organization') \
-            .filter(model.Group.state == 'active') \
-            .filter(model.Group.title.ilike(candidate)) \
-            .first()
-        if org:
-            return org.id
+        seen_keys.add(key)
 
-    log.warning(
-        '[HARVEST] No CKAN organization match for source org="%s" '
-        '(normalized="%s", mapped="%s")',
-        source_name,
-        normalized_name,
-        mapped_name
-    )
+        organization_id = organization_lookup.get(key)
+        if organization_id:
+            return organization_id
+
+    warning_key = (source_name, normalized_name, mapped_name)
+    if warning_key not in _missing_org_warning_cache:
+        _missing_org_warning_cache.add(warning_key)
+        log.warning(
+            '[HARVEST] No CKAN organization match for source org="%s" '
+            '(normalized="%s", mapped="%s")',
+            source_name,
+            normalized_name,
+            mapped_name
+        )
+
     return None
 
 

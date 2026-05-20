@@ -1,6 +1,6 @@
 {% ckan_extends %}
 {% import 'macros/form.html' as form %}
-{% set geohub_harvest_organization_options = [{'value': '', 'text': _('No organization')}] + h.ontario_geohub_harvest_organizations() %}
+{% set geohub_harvest_organization_options = h.ontario_geohub_harvest_organizations() %}
 
 {% block extra_config %}
   {{ form.select(
@@ -27,6 +27,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var organizationSelect = document.getElementById('field-organizations');
+      var organizationLabel = document.querySelector('label[for="field-organizations"]');
       var ministryOptionsNode = document.getElementById('ontario-geohub-org-options');
       if (!organizationSelect) {
         return;
@@ -62,8 +63,10 @@
       function updateOrganizationDropdown() {
         var selectedSource = document.querySelector('input[name="source_type"]:checked');
         if (selectedSource && selectedSource.value === 'ontario_geohub') {
+          organizationLabel.textContent = '{{ _("ODC Ministry") }}';
           setOptions(ministryOptions);
         } else {
+          organizationLabel.textContent = '{{ _("Organization") }}';
           setOptions(defaultOptions);
         }
       }
