@@ -179,7 +179,7 @@ echo $SUDOPASS | sudo -S -k cp $CKAN_ONT_THEME_ROOT/config/supervisor/ckan-uwsgi
 echo $SUDOPASS | sudo -S -k cp $CKAN_ONT_THEME_ROOT/config/supervisor/ckan-worker.conf /etc/supervisor/conf.d/ckan-worker.conf
 
 # install and configure nginx
-echo $SUDOPASS | sudo -S -k apt-get -y install nginx=1.17.10*
+echo $SUDOPASS | sudo -S -k apt-get -y install nginx=1.31*
 echo $SUDOPASS | sudo -S -k cp $CKAN_ONT_THEME_ROOT/config/nginx/local_ckan_ssl /etc/nginx/sites-available/
 echo $SUDOPASS | sudo -S -k ln -s /etc/nginx/sites-available/local_ckan_ssl /etc/nginx/sites-enabled/
 
