@@ -104,7 +104,7 @@ def get_ontario_geohub_publisher_options(
         for dataset in datasets:
             publisher_name = normalize_geohub_publisher_name(
                 dataset.get('ontario_geohub_publisher', ''))
-            print('HEJ publisher_name: ', publisher_name)
+            log.debug('publisher_name after normalize: %s', publisher_name)
             if publisher_name.startswith('Ontario Ministry'):
                 counts[publisher_name] += 1
     except (requests.exceptions.RequestException, ValueError, TypeError) as e:
@@ -194,13 +194,6 @@ restricted_tags = {
 }
 
 class OntarioGeohubHarvester(HarvesterBase):
-
-    def info(self):
-            return {
-                'name': 'ontario_geohub',
-                'title': 'Ontario GeoHub',
-                'description': 'Harvests datasets from Ontario GeoHub'
-            }
 
     force_import = False
     config = None
@@ -1169,6 +1162,25 @@ class OntarioGeohubHarvester(HarvesterBase):
         if not package_dict:
             return False
 
+        # owner_org is mandatory: skip objects where no valid org id is found
+        owner_org = package_dict.get('owner_org')
+        if isinstance(owner_org, six.string_types):
+            owner_org = owner_org.strip()
+        else:
+            owner_org = None
+
+        if not owner_org or owner_org.lower() in ('false', 'none', 'null'):
+            package_dict.pop('owner_org', None)
+            skip_msg = (
+                'Skipping dataset guid={0}: no matching CKAN owner_org '
+                'for source organization metadata'
+            ).format(harvest_object.guid)
+            log.warning('[HARVEST] %s', skip_msg)
+            self._save_object_error(skip_msg, harvest_object, 'Import')
+            return False
+
+        package_dict['owner_org'] = owner_org
+
 
         if not package_dict.get('name'):
             package_dict['name'] = \
@@ -1422,11 +1434,56 @@ publisher_ministries = {
 
 def get_org_id(organization_name):  
     ''' return the local org id that matches the organization name
-    '''   
-    org = model.Group.by_name(organization_name)
-    if org:
-        return org.id
-    return False
+    '''
+    if not organization_name:
+        return None
+
+    source_name = organization_name.strip()
+    normalized_name = normalize_geohub_publisher_name(source_name)
+    mapped_name = publisher_ministries.get(source_name) or \
+        publisher_ministries.get(normalized_name)
+
+    # First try CKAN organization names/slugs.
+    name_candidates = [source_name, normalized_name, mapped_name]
+    for candidate in name_candidates:
+        if not candidate:
+            continue
+        org = model.Group.by_name(candidate)
+        if org:
+            return org.id
+
+    # Fallback: try matching CKAN organization titles.
+    title_candidates = [
+        source_name,
+        normalized_name,
+        mapped_name,
+        (mapped_name or '').replace('-', ' '),
+        (mapped_name or '').replace('-', ' ').title(),
+    ]
+    seen_titles = set()
+    for candidate in title_candidates:
+        if not candidate:
+            continue
+        key = candidate.lower()
+        if key in seen_titles:
+            continue
+        seen_titles.add(key)
+        org = model.Session.query(model.Group) \
+            .filter(model.Group.type == 'organization') \
+            .filter(model.Group.state == 'active') \
+            .filter(model.Group.title.ilike(candidate)) \
+            .first()
+        if org:
+            return org.id
+
+    log.warning(
+        '[HARVEST] No CKAN organization match for source org="%s" '
+        '(normalized="%s", mapped="%s")',
+        source_name,
+        normalized_name,
+        mapped_name
+    )
+    return None
 
 
 def call_to_infogo(email):
@@ -2019,10 +2076,18 @@ def english_metadata_xml_response(dataset_obj):
 
     english_id = identifier_from_url(dataset_obj['ontario_geohub_id'])
     english_metadata_url = metadata_url(english_id)
-    metadata_xml_request = requests.get(english_metadata_url)
-    # parse the response to get the additional resources.
-    root = lxml.etree.fromstring(metadata_xml_request.content)
-    return root
+    try:
+        metadata_xml_request = requests.get(english_metadata_url, timeout=60)
+        # parse the response to get the additional resources.
+        return lxml.etree.fromstring(metadata_xml_request.content)
+    except (requests.exceptions.RequestException,
+            lxml.etree.XMLSyntaxError) as e:
+        log.warning(
+            'Exception raised. Cannot load/parse english metadata for '
+            'english_id: %s. Using empty root element instead. %r',
+            english_id,
+            e)
+        return lxml.etree.Element("root")
 
 def french_metadata_xml_response(dataset_obj):
     '''Returns the french metadata xml.
@@ -2033,17 +2098,21 @@ def french_metadata_xml_response(dataset_obj):
 
     english_id = dataset_obj['ontario_geohub_id']
     french_id = geohub_french_id_from_xml(dataset_obj)
+    if not french_id:
+        return lxml.etree.Element("root")
+
     #french_id = identifier_from_url(french_id)
     french_metadata_xml_url = metadata_url(identifier_from_url(french_id))
-    # Now can make request for xml.
-    french_xml_response = requests.get(french_metadata_xml_url)
 
     try:
+        # Now can make request for xml.
+        french_xml_response = requests.get(french_metadata_xml_url, timeout=60)
         # TODO: fix bug.  if geohub_french_id_from_xml: continue on, else abort french and use defaults. in some cases there is an ID but the request fails (outdated data I think). In this case it tries to parse the html I think and uses the defaults (den-site is an example).
         # TODO: Error handle for non-existent French record.
         french_xml_root = lxml.etree.fromstring(french_xml_response.content)
-    except lxml.etree.XMLSyntaxError as e:
-        logging.warning('Exception raised. Cannot parse response for english_id: {} and french_id: {}, likely not XML. Using empty root element instead. {}'
+    except (requests.exceptions.RequestException,
+            lxml.etree.XMLSyntaxError) as e:
+        logging.warning('Exception raised. Cannot load/parse response for english_id: {} and french_id: {}. Using empty root element instead. {}'
             .format(english_id, french_id, repr(e)))
         # Create an empty root element 
         french_xml_root = lxml.etree.Element("root")
