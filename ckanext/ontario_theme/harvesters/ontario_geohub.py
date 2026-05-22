@@ -13,7 +13,6 @@ import logging
 import requests
 import html2text
 import lxml.etree
-from collections import Counter
 from hashlib import sha1
 import traceback
 import uuid
@@ -34,7 +33,6 @@ import ckan.plugins.toolkit as toolkit
 log = logging.getLogger(__name__)
 
 DEFAULT_GEOHUB_DCAT_FEED_URL = 'https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json'
-MINIMUM_GEOHUB_MINISTRY_DATASET_COUNT = 3
 GEOHUB_PUBLISHER_OPTIONS_CACHE_TTL = datetime.timedelta(hours=24)
 
 blacklist_url = "https://services9.arcgis.com/a03W7iZ8T3s5vB7p/ArcGIS/rest/services/odc_sync_blacklist_vw/FeatureServer/0/query?where=1%3D1&outFields=geohub_dataset_url&f=json"
@@ -64,14 +62,6 @@ geohub_publisher_aliases = {
         'Ontario Ministry of Northern Development, Mines, Natural Resources and Forestry',
 }
 
-fallback_geohub_ministry_counts = {
-    'Ontario Ministry of Natural Resources and Forestry': 365,
-    'Ontario Ministry of Agriculture, Food and Rural Affairs': 26,
-    'Ontario Ministry of Northern Development, Mines, Natural Resources and Forestry': 16,
-    'Ontario Ministry of Municipal Affairs and Housing': 14,
-    'Ontario Ministry of the Environment, Conservation and Parks': 10,
-}
-
 _geohub_publisher_options_cache = {
     'expires_at': None,
     'options': None,
@@ -86,15 +76,14 @@ def normalize_geohub_publisher_name(publisher_name):
     return geohub_publisher_aliases.get(normalized_name, normalized_name)
 
 
-def get_ontario_geohub_publisher_options(
-        minimum_dataset_count=MINIMUM_GEOHUB_MINISTRY_DATASET_COUNT):
+def get_ontario_geohub_publisher_options():
     now = datetime.datetime.utcnow()
     cache_expires_at = _geohub_publisher_options_cache['expires_at']
     if (cache_expires_at and cache_expires_at > now and
             _geohub_publisher_options_cache['options'] is not None):
         return list(_geohub_publisher_options_cache['options'])
 
-    counts = Counter()
+    ministry_names = set()
     try:
         response = requests.get(DEFAULT_GEOHUB_DCAT_FEED_URL, timeout=60)
         response.raise_for_status()
@@ -106,21 +95,16 @@ def get_ontario_geohub_publisher_options(
                 dataset.get('ontario_geohub_publisher', ''))
             log.debug('publisher_name after normalize: %s', publisher_name)
             if publisher_name.startswith('Ontario Ministry'):
-                counts[publisher_name] += 1
+                ministry_names.add(publisher_name)
     except (requests.exceptions.RequestException, ValueError, TypeError) as e:
         log.warning('Unable to load Ontario GeoHub ministry options: %s', e)
-        counts.update(fallback_geohub_ministry_counts)
-
-    if not counts:
-        counts.update(fallback_geohub_ministry_counts)
 
     options = [
         {
             'value': ministry_name,
-            'text': '{} ({})'.format(ministry_name, dataset_count)
+            'text': ministry_name
         }
-        for ministry_name, dataset_count in counts.most_common()
-        if dataset_count >= minimum_dataset_count
+        for ministry_name in sorted(ministry_names)
     ]
 
     _geohub_publisher_options_cache['options'] = options
@@ -130,13 +114,11 @@ def get_ontario_geohub_publisher_options(
     return list(options)
 
 
-def get_ontario_geohub_harvest_organization_options(
-        minimum_dataset_count=MINIMUM_GEOHUB_MINISTRY_DATASET_COUNT):
+def get_ontario_geohub_harvest_organization_options():
     organization_options = []
     seen_organization_ids = set()
 
-    for publisher_option in get_ontario_geohub_publisher_options(
-            minimum_dataset_count=minimum_dataset_count):
+    for publisher_option in get_ontario_geohub_publisher_options():
         publisher_name = publisher_option['value']
         organization_name = publisher_ministries.get(publisher_name)
         if not organization_name:
