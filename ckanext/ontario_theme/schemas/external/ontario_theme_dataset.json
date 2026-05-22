@@ -437,6 +437,13 @@
           }
         },
         {
+          "value": "fortnightly",
+          "label": {
+            "en": "Every two weeks",
+            "fr": "Toutes les deux semaines"
+          }
+        },
+        {
           "value": "yearly",
           "label": {
             "en": "Yearly",
@@ -702,6 +709,13 @@
           "label": {
             "en": "Data",
             "fr": "Les données"
+          }
+        },
+        {
+          "value": "metadata",
+          "label": {
+            "en": "metadata",
+            "fr": "Métadonnées"
           }
         },
         {
