@@ -1394,22 +1394,20 @@ infogo_ministry_names = {
 
 publisher_ministries = {
     "Ontario Ministry of Agriculture, Food and Rural Affairs" : "agriculture-food-and-rural-affairs",
-    "Ontario Ministry of Natural Resources and Forestry" : "northern-development-mines-natural-resources-and-forestry",
-    "Ontario Ministry of Natural Resources" : "northern-development-mines-natural-resources-and-forestry",
-    "Land Information Ontario" : "northern-development-mines-natural-resources-and-forestry",
+    "Ontario Ministry of Natural Resources and Forestry" : "natural-resources-and-forestry",
+    "Ontario Ministry of Natural Resources" : "natural-resources-and-forestry",
     "OMAFRA" : "agriculture-food-and-rural-affairs",
     "OMAFA" : "agriculture-food-and-rural-affairs",
-    "Ontario Ministry of Energy, Northern Development and Mines" : "northern-development-mines-natural-resources-and-forestry",
     "Ontario Ministry of Municipal Affairs and Housing" : "municipal-affairs-and-housing",
     "Ontario Ministry of the Environment, Conservation and Parks" : "environment-conservation-and-parks",
     "Ontario Ministry of Agriculture, Food, and Rural Affairs" : "agriculture-food-and-rural-affairs",
     "Ontario Ministry of Agriculture, Food, and Rural Affairs, OMAFRA" : "agriculture-food-and-rural-affairs",
     "OMAFRA- Environmental Management Branch" : "agriculture-food-and-rural-affairs",
-    "Ontario Ministry of Natural Resources and Forestry - Provincial Mapping Unit" : "northern-development-mines-natural-resources-and-forestry",
+    "Ontario Ministry of Natural Resources and Forestry - Provincial Mapping Unit" : "natural-resources-and-forestry",
     "Ontario Ministry of Health" : "health",
     "Ontario Ministry of Education" : "education",
     "Ontario Ministry of Indigenous Affairs" : "indigenous-affairs",
-    "Ontario Ministry of Northern Development, Mines, Natural Resources and Forestry" : "northern-development-mines-natural-resources-and-forestry",
+    "Ontario Ministry of Northern Development, Mines, Natural Resources and Forestry" : "natural-resources-and-forestry",
     "Ontario Ministry of Transportation" : "transportation"
 }
 
