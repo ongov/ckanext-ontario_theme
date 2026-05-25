@@ -1330,14 +1330,14 @@ calls_to_infogo = {}
         description to determine what ministry the dataset belongs to.
 '''
 ministries = {
-    "Ontario Ministry of Natural Resources and Forestry" : "northern-development-mines-natural-resources-and-forestry",
-    #"Ontario Ministry of Natural Resources" : "natural-resources-and-forestry",
+    "Ontario Ministry of Natural Resources and Forestry" : "natural-resources-and-forestry",
+    "Ontario Ministry of Natural Resources" : "natural-resources-and-forestry",
     "Ontario Ministry of Children, Community and Social Services" : "children-community-and-social-services",
     "Ontario Ministry of Health" : "health",
     "Ontario Ministry of Long-term care" : "long-term-care",
-    "Ontario Ministry of Government and Consumer Services" : "government-and-consumer-services",
+    "Ontario Ministry of Government and Consumer Services" : "public-and-business-service-delivery",
     "Ontario Ministry of Environment, Conservation and Parks" : "environment-conservation-and-parks",
-    "Ontario Ministry of Energy, Northern Development and Mines" : "northern-development-mines-natural-resources-and-forestry",
+    "Ontario Ministry of Energy, Northern Development and Mines" : "mines",
     "Ontario Ministry of Municipal Affairs and Housing" : "municipal-affairs-and-housing",
     "Ontario Ministry of Education" : "education",
     "Ontario Ministry of Agriculture Food and Rural Affairs" : "agriculture-food-and-rural-affairs",
@@ -1348,17 +1348,17 @@ ministries = {
         metadata to the corresponding organization_name in the catalogue
 '''
 geohub_metadata_ministry_names = {
-    "Ontario Ministry of Natural Resources and Forestry" : "northern-development-mines-natural-resources-and-forestry",
-    "Ontario Ministry of Natural Resources" : "northern-development-mines-natural-resources-and-forestry",
+    "Ontario Ministry of Natural Resources and Forestry" : "natural-resources-and-forestry",
+    "Ontario Ministry of Natural Resources" : "natural-resources-and-forestry",
     "Ontario Ministry of Agriculture, Food and Rural Affairs" : "agriculture-food-and-rural-affairs",
     "Ontario Ministry of the Environment, Conservation and Parks" : "environment-conservation-and-parks",
     "Ontario Ministry of Transportation" : "transportation",
     "Ontario Ministry of Health" : "health",
     "Ontario Ministry of Education" : "education",
     "Ontario Ministry of Municipal Affairs and Housing" : "municipal-affairs-and-housing",
-    "Ontario Ministry of Natural Resources and Forestry - Provincial Mapping Unit" : "northern-development-mines-natural-resources-and-forestry",
+    "Ontario Ministry of Natural Resources and Forestry - Provincial Mapping Unit" : "natural-resources-and-forestry",
     "Ontario Ministry of Indigenous Affairs": "indigenous-affairs",
-    "Ontario Ministry of Energy, Northern Development and Mines" : "northern-development-mines-natural-resources-and-forestry"    
+    "Ontario Ministry of Energy, Northern Development and Mines" : "mines" 
 }
 
 ''' infogo_ministry_names maps the ministry labels in infogo to the 
@@ -1376,7 +1376,7 @@ infogo_ministry_names = {
     "Environment, Conservation and Parks" : "environment-conservation-and-parks",
     "Finance" : "finance",
     "Francophone Affairs" : "francophone-affairs",
-    "Government and Consumer Services" : "government-and-consumer-services",
+    "Government and Consumer Services" : "public-and-business-service-delivery",
     "Health" : "health",
     "Heritage, Sport, Tourism and Culture Industries" : "heritage-sport-tourism-and-culture-industries",
     "Indigenous Affairs" : "indigenous-affairs",

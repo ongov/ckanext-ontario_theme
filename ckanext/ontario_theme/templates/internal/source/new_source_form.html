@@ -1,81 +1,68 @@
 {% ckan_extends %}
 {% import 'macros/form.html' as form %}
-{% set geohub_harvest_organization_options = [{'value': '', 'text': _('No organization')}] + h.ontario_geohub_harvest_organizations() %}
 
 {% block extra_config %}
-  {{ form.select(
-    'config.ontario_geohub_publisher',
-    id='field-ontario-geohub-publisher',
-    label=_('Ontario GeoHub ministry'),
-    options=[{'value': '', 'text': _('All ministries in the feed')}] + h.ontario_geohub_harvest_publishers(),
-    selected=data.ontario_geohub_publisher,
-    error=errors.ontario_geohub_publisher
-  ) }}
-
-  <div class="control-group form-group">
-    <label class="control-label" for="field-config">{{ _('Ontario GeoHub DCAT feed') }}</label>
-    <div class="controls">
-      <p class="form-control-static">
-        <a href="https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json">https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json</a>
-      </p>
-      <span class="info-block">{{ _('Use this DCAT 2.1.1 feed URL for Ontario GeoHub harvest sources.') }}</span>
-    </div>
+  <div id="geohub-ministry-field" style="display:none;">
+    {{ form.select(
+      'config.ontario_geohub_publisher',
+      id='field-ontario-geohub-publisher',
+      label=_('Ontario GeoHub ministry'),
+      options=[{'value': '', 'text': _('All ministries in the feed')}] + h.ontario_geohub_harvest_publishers(),
+      selected=data.ontario_geohub_publisher,
+      error=errors.ontario_geohub_publisher
+    ) }}
   </div>
-
-  <script id="ontario-geohub-org-options" type="application/json">{{ h.dump_json(geohub_harvest_organization_options) }}</script>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      var organizationSelect = document.getElementById('field-organizations');
-      var ministryOptionsNode = document.getElementById('ontario-geohub-org-options');
-      if (!organizationSelect) {
-        return;
-      }
+      var geohubMinistryField = document.getElementById('geohub-ministry-field');
+      
+      // Inject the DCAT feed URL next to the Ontario Geohub radio button label
+      var geohubRadio = document.querySelector('input[name="source_type"][value="ontario_geohub"]');
+      var label = geohubRadio.closest('label') || geohubRadio.parentElement;
+      var feedSpan = document.createElement('span');
+      feedSpan.style.marginLeft = '1em';
+      feedSpan.style.fontSize = '0.85em';
+      feedSpan.appendChild(document.createTextNode('(DCAT feed: '));
+      var feedLink = document.createElement('a');
+      feedLink.href = 'https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json';
+      feedLink.textContent = 'https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json';
+      feedLink.target = '_blank';
+      feedSpan.appendChild(feedLink);
+      feedSpan.appendChild(document.createTextNode(')'));
+      label.appendChild(feedSpan);
+      
+      // The CKAN Organization field's wrapper div (control-group)
+      var orgSelect = document.getElementById('field-organizations')
+        || document.getElementById('field-organization')
+        || document.querySelector('select[name="owner_org"]');
+      var ckanOrgField = orgSelect ? orgSelect.closest('.control-group, .form-group') : null;
 
-      var ministryOptions = ministryOptionsNode ? JSON.parse(ministryOptionsNode.textContent) : [];
-      var defaultOptions = Array.prototype.map.call(
-        organizationSelect.options,
-        function (option) {
-          return {value: option.value, text: option.text};
-        }
-      );
+      // The Configuration textarea wrapper
+      var configTextarea = document.getElementById('field-config')
+        || document.querySelector('textarea[name="config"]');
+      var configField = configTextarea ? configTextarea.closest('.control-group, .form-group') : null;
 
-      function setOptions(options) {
-        var currentValue = organizationSelect.value;
-        organizationSelect.innerHTML = '';
-
-        options.forEach(function (option) {
-          var optionElement = document.createElement('option');
-          optionElement.value = option.value;
-          optionElement.text = option.text;
-          if (option.value === currentValue) {
-            optionElement.selected = true;
-          }
-          organizationSelect.appendChild(optionElement);
-        });
-
-        if (organizationSelect.selectedIndex === -1 && organizationSelect.options.length) {
-          organizationSelect.options[0].selected = true;
-        }
-      }
-
-      function updateOrganizationDropdown() {
-        var selectedSource = document.querySelector('input[name="source_type"]:checked');
-        if (selectedSource && selectedSource.value === 'ontario_geohub') {
-          setOptions(ministryOptions);
+      function update() {
+        var checked = document.querySelector('input[name="source_type"]:checked');
+        var isGeohub = checked && checked.value === 'ontario_geohub';
+        if (isGeohub) {
+          if (ckanOrgField) ckanOrgField.style.display = 'none';
+          if (configField) configField.style.display = 'none';
+          geohubMinistryField.style.display = '';
         } else {
-          setOptions(defaultOptions);
+          if (ckanOrgField) ckanOrgField.style.display = '';
+          if (configField) configField.style.display = '';
+          geohubMinistryField.style.display = 'none';
         }
       }
 
       Array.prototype.forEach.call(
         document.querySelectorAll('input[name="source_type"]'),
-        function (input) {
-          input.addEventListener('change', updateOrganizationDropdown);
-        }
+        function (input) { input.addEventListener('change', update); }
       );
 
-      updateOrganizationDropdown();
+      update();
     });
   </script>
 
