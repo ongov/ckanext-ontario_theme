@@ -6,7 +6,7 @@
     {{ form.select(
       'config.ontario_geohub_publisher',
       id='field-ontario-geohub-publisher',
-      label=_('Ontario GeoHub ministry'),
+      label=_('Ontario GeoHub ministry (maximum counts)'),
       options=[{'value': '', 'text': _('All matching ministries in the feed')}] + h.ontario_geohub_harvest_publishers(),
       selected=data.ontario_geohub_publisher,
       error=errors.ontario_geohub_publisher

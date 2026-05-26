@@ -81,12 +81,29 @@ def get_ontario_geohub_publisher_options():
             _geohub_publisher_options_cache['options'] is not None):
         return list(_geohub_publisher_options_cache['options'])
 
-    ministry_names = set()
+    # Counts are an upper bound: they exclude ministries that don't match ODC 
+    # ministry names and ministries on the blacklist, but do not exclude here
+    # datasets with no French equivalents or datasets of hubType "table", which
+    # do not get harvested. Too expensive to do those two checks here.
+    ministry_counts = {}
     try:
         response = requests.get(DEFAULT_GEOHUB_DCAT_FEED_URL, timeout=60)
         response.raise_for_status()
         doc = response.json()
         datasets = doc.get('dcat:dataset', []) if isinstance(doc, dict) else doc
+
+        # Fetch blacklist
+        try:
+            blacklist_response = requests.get(blacklist_url, timeout=30)
+            blacklist_urls = list(map(
+                lambda x: x['attributes']['geohub_dataset_url'],
+                blacklist_response.json()['features']
+            ))
+            blacklist = set(
+                url.rstrip('/').split('/')[-1] for url in blacklist_urls
+            )
+        except:
+            blacklist = set()
 
         for dataset in datasets:
             publisher_name = normalize_geohub_publisher_name(
@@ -95,16 +112,19 @@ def get_ontario_geohub_publisher_options():
             if publisher_name.startswith('Ontario Ministry'):
                 # Only include publishers that have a matching ODC organization
                 if publisher_name in publisher_ministries:
-                    ministry_names.add(publisher_name)
+                    # Only include publishers with a matching ODC ministry name
+                    if publisher_name in publisher_ministries:
+                        ministry_counts[publisher_name] = ministry_counts.get(publisher_name, 0) + 1
     except (requests.exceptions.RequestException, ValueError, TypeError) as e:
         log.warning('Unable to load Ontario GeoHub ministry options: %s', e)
 
     options = [
         {
             'value': ministry_name,
-            'text': ministry_name
+            'text': '{} ({})'.format(ministry_name, ministry_counts[ministry_name]),
+            'count': ministry_counts[ministry_name]
         }
-        for ministry_name in sorted(ministry_names)
+        for ministry_name in sorted(ministry_counts.keys())
     ]
 
     _geohub_publisher_options_cache['options'] = options
