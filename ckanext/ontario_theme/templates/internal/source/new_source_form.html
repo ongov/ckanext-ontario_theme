@@ -17,7 +17,65 @@
     document.addEventListener('DOMContentLoaded', function () {
       var geohubMinistryField = document.getElementById('geohub-ministry-field');
       
-      // Inject the DCAT feed URL next to the Ontario Geohub radio button label
+      // Identify form fields by their wrapper .control-group / .form-group 
+      // to customize their order and add helpful info
+      var form = document.querySelector('form#source-new')
+        || document.querySelector('form[action*="harvest"]')
+        || document.querySelector('form');
+
+      function fieldWrapper(el) {
+        return el ? el.closest('.control-group, .form-group') : null;
+      }
+
+      // Title field
+      var titleInput = document.getElementById('field-title')
+        || document.querySelector('input[name="title"]');
+      var titleField = fieldWrapper(titleInput);
+
+      // Source type radio buttons
+      var sourceRadio = document.querySelector('input[name="source_type"]');
+      var sourceField = fieldWrapper(sourceRadio);
+
+      // URL field
+      var urlInput = document.getElementById('field-url')
+        || document.querySelector('input[name="url"]');
+      var urlField = fieldWrapper(urlInput);
+
+      // Description field
+      var descInput = document.getElementById('field-notes')
+        || document.querySelector('textarea[name="notes"]');
+      var descField = fieldWrapper(descInput);
+
+      // Frequency field
+      var freqSelect = document.getElementById('field-frequency')
+        || document.querySelector('select[name="frequency"]');
+      var freqField = fieldWrapper(freqSelect);
+
+      // Organization field
+      var orgSelect = document.getElementById('field-organizations')
+        || document.getElementById('field-organization')
+        || document.querySelector('select[name="owner_org"]');
+      var ckanOrgField = fieldWrapper(orgSelect);
+
+      // Configuration textarea
+      var configTextarea = document.getElementById('field-config')
+        || document.querySelector('textarea[name="config"]');
+      var configField = fieldWrapper(configTextarea);
+
+      // Rearrange page elements: Title, Source, URL, Description, Ministry, Frequency
+      var parent = titleField.parentNode;
+      var refNode = parent.firstChild;
+      var orderedFields = [titleField, sourceField, urlField, geohubMinistryField, descField, freqField];
+      orderedFields.forEach(function (field) {
+        parent.insertBefore(field, refNode);
+      });
+
+      // Autofill URL with GeoHub DCAT feed since GeoHub is the pre-selected source
+      if (!urlInput.value) {
+        urlInput.value = 'https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json';
+      }
+
+      // Add descriptive text next to the Ontario Geohub radio button label
       var geohubRadio = document.querySelector('input[name="source_type"][value="ontario_geohub"]');
       var label = geohubRadio.closest('label') || geohubRadio.parentElement;
       var feedSpan = document.createElement('span');
@@ -31,29 +89,38 @@
       feedSpan.appendChild(feedLink);
       feedSpan.appendChild(document.createTextNode(')'));
       label.appendChild(feedSpan);
-      
-      // The CKAN Organization field's wrapper div (control-group)
-      var orgSelect = document.getElementById('field-organizations')
-        || document.getElementById('field-organization')
-        || document.querySelector('select[name="owner_org"]');
-      var ckanOrgField = orgSelect ? orgSelect.closest('.control-group, .form-group') : null;
 
-      // The Configuration textarea wrapper
-      var configTextarea = document.getElementById('field-config')
-        || document.querySelector('textarea[name="config"]');
-      var configField = configTextarea ? configTextarea.closest('.control-group, .form-group') : null;
+      // Add help text above the Save button
+      var formEl = document.querySelector('form#source-new')
+        || document.querySelector('form[action*="harvest"]')
+        || document.querySelector('form.dataset-form');
+      var formActions = formEl.querySelector('.form-actions');
+      var helpDiv = document.createElement('div');
+      helpDiv.style.marginBottom = '1em';
+      var helpP = document.createElement('p');
+      helpP.textContent = 'To start the harvest after Save, go to the harvest source Admin panel and click the Reharvest button.';
+      helpDiv.appendChild(helpP);
+      formActions.parentNode.insertBefore(helpDiv, formActions);
 
+      // Hide Organization and Configuration when GeoHub is selected
+      // since these fields are not used
       function update() {
         var checked = document.querySelector('input[name="source_type"]:checked');
         var isGeohub = checked && checked.value === 'ontario_geohub';
         if (isGeohub) {
-          if (ckanOrgField) ckanOrgField.style.display = 'none';
-          if (configField) configField.style.display = 'none';
+          ckanOrgField.style.display = 'none';
+          configField.style.display = 'none';
           geohubMinistryField.style.display = '';
+          // Autofill URL with GeoHub feed
+          urlInput.value = 'https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json';
         } else {
-          if (ckanOrgField) ckanOrgField.style.display = '';
-          if (configField) configField.style.display = '';
+          ckanOrgField.style.display = '';
+          configField.style.display = '';
           geohubMinistryField.style.display = 'none';
+          // Clear URL when Ontario Data Catalogue is selected as Source type
+          if (checked && checked.value === 'ontario_data_catalogue') {
+            urlInput.value = '';
+          }
         }
       }
 
