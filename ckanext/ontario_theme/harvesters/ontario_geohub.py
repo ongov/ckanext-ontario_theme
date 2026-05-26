@@ -57,9 +57,7 @@ geohub_publisher_aliases = {
     'OMAFRA': 'Ontario Ministry of Agriculture, Food and Rural Affairs',
     'OMAFA': 'Ontario Ministry of Agriculture, Food and Rural Affairs',
     'OMAFRA- Environmental Management Branch':
-        'Ontario Ministry of Agriculture, Food and Rural Affairs',
-    'Ministry of Northern Development, Mines, Natural Resources and Forestry':
-        'Ontario Ministry of Northern Development, Mines, Natural Resources and Forestry',
+        'Ontario Ministry of Agriculture, Food and Rural Affairs'
 }
 
 _geohub_publisher_options_cache = {
@@ -95,7 +93,9 @@ def get_ontario_geohub_publisher_options():
                 dataset.get('ontario_geohub_publisher', ''))
             log.debug('publisher_name after normalize: %s', publisher_name)
             if publisher_name.startswith('Ontario Ministry'):
-                ministry_names.add(publisher_name)
+                # Only include publishers that have a matching ODC organization
+                if publisher_name in publisher_ministries:
+                    ministry_names.add(publisher_name)
     except (requests.exceptions.RequestException, ValueError, TypeError) as e:
         log.warning('Unable to load Ontario GeoHub ministry options: %s', e)
 
@@ -1407,7 +1407,6 @@ publisher_ministries = {
     "Ontario Ministry of Health" : "health",
     "Ontario Ministry of Education" : "education",
     "Ontario Ministry of Indigenous Affairs" : "indigenous-affairs",
-    "Ontario Ministry of Northern Development, Mines, Natural Resources and Forestry" : "natural-resources-and-forestry",
     "Ontario Ministry of Transportation" : "transportation"
 }
 
