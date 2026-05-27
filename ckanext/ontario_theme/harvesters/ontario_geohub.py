@@ -38,18 +38,12 @@ GEOHUB_PUBLISHER_OPTIONS_CACHE_TTL = datetime.timedelta(hours=24)
 blacklist_url = "https://services9.arcgis.com/a03W7iZ8T3s5vB7p/ArcGIS/rest/services/odc_sync_blacklist_vw/FeatureServer/0/query?where=1%3D1&outFields=geohub_dataset_url&f=json"
 
 geohub_publisher_aliases = {
-    'Ontario Ministry of Natural Resources':
-        'Ontario Ministry of Natural Resources and Forestry',
-    'Ontario Ministry of  Natural Resources and Forestry':
-        'Ontario Ministry of Natural Resources and Forestry',
-    'Ontario Ministry Natural Resources':
-        'Ontario Ministry of Natural Resources and Forestry',
     'Ministry of Natural Resources':
-        'Ontario Ministry of Natural Resources and Forestry',
+        'Ontario Ministry of Natural Resources',
     'Ontario Ministry of Natural Resources and Forestry - Provincial Mapping Unit':
-        'Ontario Ministry of Natural Resources and Forestry',
-    'Provincial Mapping Unit - Ontario Ministry of Natural Resources and Forestry':
-        'Ontario Ministry of Natural Resources and Forestry',
+        'Ontario Ministry of Natural Resources',
+    'Provincial Mapping Unit - Ontario Ministry of Natural Resources':
+        'Ontario Ministry of Natural Resources',
     'Ontario Ministry of Agriculture, Food, and Rural Affairs':
         'Ontario Ministry of Agriculture, Food and Rural Affairs',
     'Ontario Ministry of Agriculture, Food, and Rural Affairs, OMAFRA':
@@ -1358,8 +1352,7 @@ calls_to_infogo = {}
         description to determine what ministry the dataset belongs to.
 '''
 ministries = {
-    "Ontario Ministry of Natural Resources and Forestry" : "natural-resources-and-forestry",
-    "Ontario Ministry of Natural Resources" : "natural-resources-and-forestry",
+    "Ontario Ministry of Natural Resources" : "natural-resources",
     "Ontario Ministry of Children, Community and Social Services" : "children-community-and-social-services",
     "Ontario Ministry of Health" : "health",
     "Ontario Ministry of Long-term care" : "long-term-care",
@@ -1368,7 +1361,7 @@ ministries = {
     "Ontario Ministry of Energy, Northern Development and Mines" : "mines",
     "Ontario Ministry of Municipal Affairs and Housing" : "municipal-affairs-and-housing",
     "Ontario Ministry of Education" : "education",
-    "Ontario Ministry of Agriculture Food and Rural Affairs" : "agriculture-food-and-rural-affairs",
+    "Ontario Ministry of Agriculture Food and Agribusiness" : "agriculture-food-and-agribusiness",
     "Ontario Ministry of Transportation" : "transportation"
 }
 
@@ -1376,16 +1369,15 @@ ministries = {
         metadata to the corresponding organization_name in the catalogue
 '''
 geohub_metadata_ministry_names = {
-    "Ontario Ministry of Natural Resources and Forestry" : "natural-resources-and-forestry",
-    "Ontario Ministry of Natural Resources" : "natural-resources-and-forestry",
-    "Ontario Ministry of Agriculture, Food and Rural Affairs" : "agriculture-food-and-rural-affairs",
+    "Ontario Ministry of Natural Resources" : "natural-resources",
+    "Ontario Ministry of Agriculture, Food and Agribusiness" : "agriculture-food-and-agribusiness",
     "Ontario Ministry of the Environment, Conservation and Parks" : "environment-conservation-and-parks",
     "Ontario Ministry of Transportation" : "transportation",
     "Ontario Ministry of Health" : "health",
     "Ontario Ministry of Education" : "education",
     "Ontario Ministry of Municipal Affairs and Housing" : "municipal-affairs-and-housing",
-    "Ontario Ministry of Natural Resources and Forestry - Provincial Mapping Unit" : "natural-resources-and-forestry",
-    "Ontario Ministry of Indigenous Affairs": "indigenous-affairs",
+    "Ontario Ministry of Natural Resources and Forestry - Provincial Mapping Unit" : "natural-resources",
+    "Ontario Ministry of Indigenous Affairs and First Nations Economic Reconciliation": "indigenous-affairs-and-first-nations-economic-reconciliation",
     "Ontario Ministry of Energy, Northern Development and Mines" : "mines" 
 }
 
@@ -1393,7 +1385,7 @@ geohub_metadata_ministry_names = {
         corresponding organization_name in the catalogue
 '''
 infogo_ministry_names = {
-    "Agriculture, Food and Rural Affairs" : "agriculture-food-and-rural-affairs",
+    "Agriculture, Food and Agribusiness" : "agriculture-food-and-agribusiness",
     "Attorney General" : "attorney-general",
     "Cabinet Office" : "cabinet-office",
     "Children, Community and Social Services" : "children-community-and-social-services",
@@ -1407,13 +1399,13 @@ infogo_ministry_names = {
     "Government and Consumer Services" : "public-and-business-service-delivery",
     "Health" : "health",
     "Heritage, Sport, Tourism and Culture Industries" : "heritage-sport-tourism-and-culture-industries",
-    "Indigenous Affairs" : "indigenous-affairs",
+    "Indigenous Affairs and First Nations Economic Reconciliation " : "indigenous-affairs-and-first-nations-economic-reconciliation",
     "Infrastructure" : "infrastructure",
     "Intergovernmental Affairs" : "intergovernmental-affairs",
     "Labour, Training and Skills Development" : "labour-training-and-skills-development",
     "Long-Term Care" : "long-term-care",
     "Municipal Affairs and Housing" : "municipal-affairs-and-housing",
-    "Natural Resources and Forestry" : "northern-development-mines-natural-resources-and-forestry",
+    "Natural Resources and Forestry" : "natural-resources",
     "Seniors and Accessibility" : "seniors-and-accessibility",
     "Solicitor General" : "solicitor-general",
     "Transportation" : "transportation",
@@ -1421,20 +1413,19 @@ infogo_ministry_names = {
 }
 
 publisher_ministries = {
-    "Ontario Ministry of Agriculture, Food and Rural Affairs" : "agriculture-food-and-rural-affairs",
-    "Ontario Ministry of Natural Resources and Forestry" : "natural-resources-and-forestry",
-    "Ontario Ministry of Natural Resources" : "natural-resources-and-forestry",
-    "OMAFRA" : "agriculture-food-and-rural-affairs",
-    "OMAFA" : "agriculture-food-and-rural-affairs",
+    "Ontario Ministry of Agriculture, Food and Agribusiness" : "agriculture-food-and-agribusiness",
+    "Ontario Ministry of Natural Resources" : "natural-resources",
+    "OMAFRA" : "agriculture-food-and-agribusiness",
+    "OMAFA" : "agriculture-food-and-agribusiness",
     "Ontario Ministry of Municipal Affairs and Housing" : "municipal-affairs-and-housing",
     "Ontario Ministry of the Environment, Conservation and Parks" : "environment-conservation-and-parks",
-    "Ontario Ministry of Agriculture, Food, and Rural Affairs" : "agriculture-food-and-rural-affairs",
-    "Ontario Ministry of Agriculture, Food, and Rural Affairs, OMAFRA" : "agriculture-food-and-rural-affairs",
-    "OMAFRA- Environmental Management Branch" : "agriculture-food-and-rural-affairs",
-    "Ontario Ministry of Natural Resources and Forestry - Provincial Mapping Unit" : "natural-resources-and-forestry",
+    "Ontario Ministry of Agriculture, Food, and Agribusiness" : "agriculture-food-and-agribusiness",
+    "Ontario Ministry of Agriculture, Food, and Rural Affairs, OMAFRA" : "agriculture-food-and-agribusiness",
+    "OMAFRA- Environmental Management Branch" : "agriculture-food-and-agribusiness",
+    "Ontario Ministry of Natural Resources and Forestry - Provincial Mapping Unit" : "natural-resources",
     "Ontario Ministry of Health" : "health",
     "Ontario Ministry of Education" : "education",
-    "Ontario Ministry of Indigenous Affairs" : "indigenous-affairs",
+    "Ontario Ministry of Indigenous Affairs indigenous-affairs-and-first-nations-economic-reconciliation" : "indigenous-affairs-and-first-nations-economic-reconciliation",
     "Ontario Ministry of Transportation" : "transportation"
 }
 
@@ -1544,7 +1535,7 @@ def extract_update_frequency(description):
 
 geohub_description_fr_ministry_names = {
     "Ministère des Richesses naturelles et des Forêts de l'Ontario": "northern-development-mines-natural-resources-and-forestry",
-    "Ministère de l'Agriculture, de l'Alimentation et des Affaires rurales de l'Ontario": "agriculture-food-and-rural-affairs",
+    "Ministère de l’Agriculture, de l’Alimentation et de l’Agroentreprise": "agriculture-food-and-agribusiness",
     "Ministère des Richesses naturelles et des Forêts": "northern-development-mines-natural-resources-and-forestry",
     "Ministère de l’Environnement, de la Protection de la nature et des Parcs de l'Ontario": "environment-conservation-and-parks",    
     "Ministère de l’Environnement, de la Protection de la nature et des Parcs": "environment-conservation-and-parks",
@@ -1591,11 +1582,11 @@ def extract_fr_contact_info(description):
 
 
 geohub_description_ministry_names = {
-    "Ontario Ministry of Natural Resources and Forestry": "northern-development-mines-natural-resources-and-forestry",
-    "Ontario Ministry of Agriculture, Food and Rural Affairs": "agriculture-food-and-rural-affairs",
+    "Ontario Ministry of Natural Resources and Forestry": "natural-resources",
+    "Ontario Ministry of Agriculture, Food and Agribusiness": "agriculture-food-and-agribusiness",
     "Ontario Ministry of the Environment, Conservation and Parks": "environment-conservation-and-parks",
-    "Ontario Ministry of Natural Resources": "northern-development-mines-natural-resources-and-forestry",
-    "Ministry of Natural Resources and Forestry": "northern-development-mines-natural-resources-and-forestry",
+    "Ontario Ministry of Natural Resources": "natural-resources",
+    "Ministry of Natural Resources and Forestry": "natural-resources",
     "Ministry of the Environment Conservation and Parks": "environment-conservation-and-parks",
     "Ministry of the Environment, Conservation and Parks": "environment-conservation-and-parks",
     "Ministry of Energy, Northern Development and Mines": "energy-northern-development-and-mines",
