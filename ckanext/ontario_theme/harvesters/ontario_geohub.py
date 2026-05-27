@@ -81,10 +81,12 @@ def get_ontario_geohub_publisher_options():
             _geohub_publisher_options_cache['options'] is not None):
         return list(_geohub_publisher_options_cache['options'])
 
-    # Counts are an upper bound: they exclude ministries that don't match ODC 
-    # ministry names and ministries on the blacklist, but do not exclude here
-    # datasets with no French equivalents or datasets of hubType "table", which
-    # do not get harvested. Too expensive to do those two checks here.
+    # Counts include only datasets that:
+    # 1. have ODCSYNC keyword
+    # 2. are not on the blacklist
+    # 3. have a publisher name matching an ODC organization
+    # Excludes datasets with no French equivalents or hubType "table".
+    # Too expensive to do those checks here.
     ministry_counts = {}
     try:
         response = requests.get(DEFAULT_GEOHUB_DCAT_FEED_URL, timeout=60)
@@ -106,6 +108,12 @@ def get_ontario_geohub_publisher_options():
             blacklist = set()
 
         for dataset in datasets:
+            # Only count datasets with ODCSYNC keyword and not on blacklist
+            if "ODCSYNC" not in dataset.get('dcat:keyword', []):
+                continue
+            if dataset.get('ontario_geohub_id') in blacklist:
+                continue
+            
             publisher_name = normalize_geohub_publisher_name(
                 dataset.get('ontario_geohub_publisher', ''))
             log.debug('publisher_name after normalize: %s', publisher_name)
