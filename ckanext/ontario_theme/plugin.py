@@ -50,6 +50,57 @@ import ckan.lib.helpers as h
 import logging
 log = logging.getLogger(__name__)
 
+def get_access_level_global_counts():
+    # Returns a dictionary of dataset counts grouped by access_level. 
+    # Bypasses CKAN's default filtering logic and instead retrieves counts for all datasets in system. 
+    try:
+        context = {"ignore_auth": True}
+        # Run a package_search query with faceting on access_level
+        query = toolkit.get_action("package_search")(
+            context,
+            {
+                "rows": 0,             # Only need counts, not actual dataset results
+                "facet.field": ["access_level"],
+                # Ensures no filters are applied (important for global counts)
+                "fq": "",
+                "fq_list": [],
+                # Skip custom filtering logic in before_dataset_search
+                "extras": {"skip_ontario_theme": True } 
+            }
+        )
+        # Extract facet items safely
+        items = query.get("search_facets", {}).get("access_level", {}).get("items", [])
+
+        # Convert list of facet items into dictionary: {value: count}
+        return {
+            item["name"]: item["count"]
+            for item in items
+        }
+
+    except Exception as e:
+        log.error("Helper global counts error: %s", e)
+        return {}
+
+def get_total_dataset_count():
+    # Returns total number of datasets in the system
+    # Bypasses filters to ensure the count reflects all datasets, not just currently filtered search results.
+    try:
+        context = {"ignore_auth": True}
+        # Run package_search with no filters
+        result = toolkit.get_action("package_search")(
+            context,
+            {
+                "rows": 0,    # Only need total count, not dataset results
+                # Skip custom filtering logic (ensures full dataset count)
+                "extras": {"skip_ontario_theme": True}
+            }
+        )
+        # Return total count from search result
+        return result.get("count", 0)
+
+    except Exception as e:
+        log.error("Total dataset count error: %s", e)
+        return 0
 
 def image_uploader():
     '''View function that renders the image uploader form.
@@ -654,7 +705,7 @@ def get_recently_updated_datasets():
 def get_license(license_id):
     '''Helper to return license based on id.
     '''
-    
+
 def get_license(license_id: str) -> dict:
     """
     Return a dict for the given license_id; never None.
@@ -860,10 +911,8 @@ def _split_fq(fq: str, field: str):
     if not fqs:
         return None, fq
     fq = exp.sub("", fq).strip()
-    extracted = "{{!bool tag=orFq{} {}}}".format(
-        field,
-        " ".join("should='{}'".format(item.replace("'", r"\'")) for item in fqs),
-    )
+    extracted = " OR ".join(fqs) if fqs else None
+
     return extracted, fq
 
 
@@ -1136,7 +1185,7 @@ type data_last_updated
     def get_auth_functions(self):
         return {
             'resource_update': resource_update_auth
-            } 
+            }
 
 
     # ITemplateHelpers
@@ -1163,7 +1212,9 @@ type data_last_updated
                 'ontario_theme_get_facet_options': get_facet_options,
                 'ontario_theme_site_title': site_title,
                 'ontario_theme_get_current_year': get_current_year,
-                'ontario_theme_get_validation_report': get_validation_report
+                'ontario_theme_get_validation_report': get_validation_report,
+                'access_level_global_counts': get_access_level_global_counts,
+                'total_dataset_count': get_total_dataset_count
                 }
 
     # IBlueprint
@@ -1254,49 +1305,138 @@ type data_last_updated
 
     # IPackageController
 
+    # Orignally, this function enforced a default filter (set access_level to open) which caused incorrect dataset counts and filtering behaviour
+    # Updates made here to allow global counts to bypass filtering and ensure all datasets are included unless explicitly filtered by users.
     def before_dataset_search(self, search_params):
+        # Check for special flags to bypass custom filtering logic
+        # Used by helper functions (global counts) to query all datasets withou restrictions
+        extras = search_params.get("extras") or {}
+        if extras.get("skip_ontario_theme"):
+           # Returns a copy to avoid modifying the original query
+           return search_params.copy()
+
         u'''Extensions will receive a dictionary with the query parameters,
         and should return a modified (or not) version of it.
         Sets default access level to open
         '''
-        fl = search_params.setdefault("facet.field", [])
+        # Ensure facet.field is always a list (CKAN may pass string or other types)
+        fl = search_params.get("facet.field", [])
+        if isinstance(fl, str):
+           fl = [fl]
+        elif not isinstance(fl, list):
+           fl = []
+
+        # Ensure required facets are always included
+        required_facets = ["access_level"]
+
+        for facet in required_facets: 
+            if facet not in fl: 
+               fl.append(facet)
+
+        # Apply facet settings
+        search_params["facet.field"] = fl
+        search_params["facet"] = True
+        search_params["facet.mincount"] = 1
+
+        # Extract current filter query and filter list
         fq = search_params.get("fq", "")
-        default_open = '{!bool tag=orFqaccess_level should=\'access_level:"open"\'}'
+        fq_list = search_params.setdefault('fq_list', [])
+
+        # Default filter
+        default_open = 'access_level:"open"'
 
         ors = set(_get_default_ors())
-        # To show all access levels on dataset counts on
-        # the homepage and org/group pages
-        if ('fq' not in search_params) or (fq and not fl):
-            fq_list = search_params.setdefault('fq_list', [])
-        # Show default open datasets or other access level on org/group search
-        # pages
-        elif fq:
-            fq_list = search_params.setdefault('fq_list', [default_open])
-            access_level_count = True if fq.count("access_level") > 1\
-                or (fq.count("access_level") == 1 and 'access_level:"open"' not in fq) else None
+
+        # First case: User has applied filters (fq exists)
+        if fq:
+
+            # Reset fq_list to avoid unintended filters
+            if not fq_list: 
+               fq_list = []
+            # Process OR filters properly
             for field in ors:
                 extracted, fq = _split_fq(fq, field)
                 if extracted:
-                    if access_level_count and default_open in fq_list:
-                        fq_list.remove(default_open)
-                    fq_list.append(extracted)
-        # Show default open datasets on dataset search page
+                    # Remove existing filters for the same field
+                    fq_list = [f for f in fq_list if field not in f]
+                    # Add OR-based filter grouping (e.g. (A OR B))
+                    fq_list.append(f"({extracted})")
+
+            # Update search parameters
+            search_params["fq_list"] = fq_list
+            search_params["fq"] = fq
+
+        # No filters applied (default search page load)
         else:
-            fq_list = search_params.setdefault('fq_list', [default_open])
-        # Adds excluded fields to facet.field
-        search_params["facet.field"] = [
-            "{!edismax ex=orFq%s}" % field + field if field in ors else field
-            for field in fl
-        ]
-        search_params["fq"] = fq
+            # We forced access_level = 'open', which excluded other datasets
+            # Now, only apply default filter if needed
+            if not fq_list:
+               fq_list = [default_open]
+               search_params["fq_list"] = fq_list
+
+        # Handle sorting for translated titles
         sort = search_params.get('sort')
         if sort and 'titles' in sort:
             title_sorted = 'fr' if h.lang() == 'fr' else 'en'
             new_sort = sort.replace('titles', 'title_{}'.format(title_sorted))
             search_params.update({"sort": new_sort})
+
+        # Ensure facet settings are always applied
+        search_params["facet"] = True
+        search_params["facet.mincount"] = 1
+        search_params["facet.limit"] = 100
+
         return num_resources_filter_scrub(search_params)
 
     def after_dataset_search(self, search_results, search_params):
+        extras = search_params.get("extras") or {}
+        if extras.get("skip_ontario_theme"): 
+           return search_results
+
+        # Only compute global counts if not already present
+        if not search_results.get("access_level_global_counts"): 
+            try: 
+                context = {"ignore_auth": True} 
+                # Run a search query to compute facet counts for access_level
+                # rows=0 ensures no dataset results are returned, only counts
+                query = toolkit.get_action("package_search")(
+                    context, 
+                    { 
+                        "rows": 0, 
+                        "facet.field": ["access_level"], 
+                        "extras": {"skip_ontario_theme": True} 
+                    }
+                )
+
+                # Extract facet items safely
+                items = query.get("search_facets", {}).get("access_level", {}).get("items", [])
+
+                # Convert items into a dictionary: {access_level: count}
+                global_counts = {
+                    item["name"]: item["count"]
+                    for item in items
+                }
+
+                # Store global counts in search results (allows templates to access data)
+                search_results["access_level_global_counts"] = global_counts
+
+                # Attempt to store counts in Flask's request context (g) (works during normal web requests)
+                try:
+                    g.access_level_global_counts = global_counts
+                except RuntimeError:
+                    # g is not available outside request context (e.g. shell, indexing), so skip safely without crashing
+                    pass
+
+            except Exception as e: 
+                # If anything fails, return empty counts
+                search_results["access_level_global_counts"] = {}
+                # Safely attempt to set g (might not exist)
+                try:
+                   g.access_level_global_counts = {}
+                except RuntimeError: 
+                   pass
+
+        # Returns modified search results with global counts included
         return search_results
 
     def before_dataset_index(self, pkg_dict):
