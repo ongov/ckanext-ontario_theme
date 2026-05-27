@@ -68,6 +68,19 @@ def normalize_geohub_publisher_name(publisher_name):
     return geohub_publisher_aliases.get(normalized_name, normalized_name)
 
 
+def geohub_publisher_search_names(publisher_name):
+    normalized_name = normalize_geohub_publisher_name(publisher_name)
+    if not normalized_name:
+        return []
+
+    search_names = {normalized_name}
+    for alias_name, canonical_name in geohub_publisher_aliases.items():
+        if canonical_name == normalized_name:
+            search_names.add(alias_name)
+
+    return sorted(search_names)
+
+
 def get_ontario_geohub_publisher_options():
     now = datetime.datetime.utcnow()
     cache_expires_at = _geohub_publisher_options_cache['expires_at']
@@ -726,6 +739,68 @@ class OntarioGeohubHarvester(HarvesterBase):
                 param, value, e)
             return None
 
+    def _search_geohub_v3_all(self, param, value, harvest_job):
+        """Search the GeoHub v3 API and follow pagination links."""
+        import urllib.parse
+
+        next_url = (
+            "https://geohub.lio.gov.on.ca/api/v3/search?{}={}".format(
+                param, urllib.parse.quote(value, safe=''))
+        )
+        results = []
+
+        while next_url:
+            try:
+                response = requests.get(next_url, timeout=60)
+                if response.status_code != 200:
+                    log.warning(
+                        'GeoHub v3 paged search returned HTTP %s for %s=%s',
+                        response.status_code, param, value)
+                    break
+
+                payload = response.json()
+                data = payload.get('data', [])
+                if data:
+                    results.extend(data)
+
+                next_url = payload.get('meta', {}).get('next')
+            except Exception as e:
+                log.warning(
+                    'Error searching paged GeoHub v3 API (%s=%s): %s',
+                    param, value, e)
+                break
+
+        return results if results else None
+
+    def _resolve_selected_publisher_content(self, selected_publisher,
+                                            harvest_job):
+        """Fetch only datasets for the selected publisher from GeoHub v3."""
+        datasets_by_id = {}
+
+        for source_name in geohub_publisher_search_names(selected_publisher):
+            v3_data = self._search_geohub_v3_all(
+                'filter[source]', source_name, harvest_job)
+            if not v3_data:
+                continue
+
+            for dataset in v3_data:
+                normalized_source = normalize_geohub_publisher_name(
+                    dataset.get('attributes', {}).get('source', ''))
+                if normalized_source != selected_publisher:
+                    continue
+                dataset_id = dataset.get('id')
+                if dataset_id:
+                    datasets_by_id[dataset_id] = dataset
+
+        dcat_datasets = [
+            self._build_dcat_dict_from_v3(dataset)
+            for dataset in datasets_by_id.values()
+        ]
+        log.info(
+            'Resolved %s GeoHub datasets for selected publisher %s',
+            len(dcat_datasets), selected_publisher)
+        return json.dumps({'dcat:dataset': dcat_datasets})
+
     @staticmethod
     def _timestamp_to_iso(timestamp_ms):
         """Convert a Unix timestamp in milliseconds to an ISO-format string."""
@@ -990,6 +1065,8 @@ class OntarioGeohubHarvester(HarvesterBase):
 
     def gather_stage(self, harvest_job):
         log.debug('In DCAT JSON Harvester gather_stage')
+        log.warning('[HARVEST] Selected publisher config: %s',
+                    harvest_job.source.config)
 
         self._set_config(harvest_job.source.config)
         selected_publisher = normalize_geohub_publisher_name(
@@ -1027,8 +1104,15 @@ class OntarioGeohubHarvester(HarvesterBase):
         while True:
 
             try:
-                content, content_type = \
-                    self._get_content_and_type(url, harvest_job, page)
+                if selected_publisher:
+                    if page > 1:
+                        break
+                    content = self._resolve_selected_publisher_content(
+                        selected_publisher, harvest_job)
+                    content_type = 'application/json'
+                else:
+                    content, content_type = \
+                        self._get_content_and_type(url, harvest_job, page)
             except requests.exceptions.HTTPError as error:
                 if error.response.status_code == 404:
                     if page > 1:
@@ -1098,6 +1182,9 @@ class OntarioGeohubHarvester(HarvesterBase):
             if sorted(previous_guids) == sorted(batch_guids):
                 # Server does not support pagination or no more pages
                 log.debug('Same content, no more pages')
+                break
+
+            if selected_publisher:
                 break
 
             page = page + 1
@@ -2064,7 +2151,7 @@ def additional_resources_from_xml(root):
 def english_metadata_json_response(dataset_obj):
     english_id = dataset_obj['ontario_geohub_id']
     english_metadata_url = "https://opendata.arcgis.com/api/v3/datasets/{}".format(english_id)
-    metadata_json_request = requests.get(english_metadata_url)
+    metadata_json_request = requests.get(english_metadata_url, timeout=60)
     return metadata_json_request.json()
     
 
