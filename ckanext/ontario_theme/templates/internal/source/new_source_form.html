@@ -63,6 +63,7 @@
       var configTextarea = document.getElementById('field-config')
         || document.querySelector('textarea[name="config"]');
       var configField = fieldWrapper(configTextarea);
+      var geohubPublisherSelect = document.getElementById('field-ontario-geohub-publisher');
 
       // Rearrange page elements: Title, Source, URL, Description, Ministry, Frequency
       var parent = titleField.parentNode;
@@ -104,6 +105,47 @@
       helpDiv.appendChild(helpP);
       formActions.parentNode.insertBefore(helpDiv, formActions);
 
+      function readConfigObject() {
+        if (!configTextarea || !configTextarea.value) {
+          return {};
+        }
+
+        try {
+          var parsed = JSON.parse(configTextarea.value);
+          return parsed && typeof parsed === 'object' ? parsed : {};
+        } catch (err) {
+          return {};
+        }
+      }
+
+      function writeConfigObject(configObj) {
+        if (!configTextarea) {
+          return;
+        }
+        configTextarea.value = JSON.stringify(configObj || {}, null, 2);
+      }
+
+      function syncGeohubConfig(isGeohub) {
+        if (!geohubPublisherSelect) {
+          return;
+        }
+
+        var configObj = readConfigObject();
+        if (isGeohub && geohubPublisherSelect.value) {
+          configObj.ontario_geohub_publisher = geohubPublisherSelect.value;
+        } else {
+          delete configObj.ontario_geohub_publisher;
+        }
+        writeConfigObject(configObj);
+      }
+
+      if (geohubPublisherSelect && !geohubPublisherSelect.value) {
+        var existingConfig = readConfigObject();
+        if (existingConfig.ontario_geohub_publisher) {
+          geohubPublisherSelect.value = existingConfig.ontario_geohub_publisher;
+        }
+      }
+
       // Hide Organization and Configuration when GeoHub is selected
       // since these fields are not used
       function update() {
@@ -124,12 +166,28 @@
             urlInput.value = '';
           }
         }
+
+        syncGeohubConfig(isGeohub);
       }
 
       Array.prototype.forEach.call(
         document.querySelectorAll('input[name="source_type"]'),
         function (input) { input.addEventListener('change', update); }
       );
+
+      if (geohubPublisherSelect) {
+        geohubPublisherSelect.addEventListener('change', function () {
+          var checked = document.querySelector('input[name="source_type"]:checked');
+          syncGeohubConfig(checked && checked.value === 'ontario_geohub');
+        });
+      }
+
+      if (formEl) {
+        formEl.addEventListener('submit', function () {
+          var checked = document.querySelector('input[name="source_type"]:checked');
+          syncGeohubConfig(checked && checked.value === 'ontario_geohub');
+        });
+      }
 
       update();
     });
