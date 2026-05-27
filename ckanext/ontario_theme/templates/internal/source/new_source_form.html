@@ -122,7 +122,17 @@
         if (!configTextarea) {
           return;
         }
-        configTextarea.value = JSON.stringify(configObj || {}, null, 2);
+
+        var normalizedConfig = configObj && typeof configObj === 'object'
+          ? configObj
+          : {};
+
+        if (!Object.keys(normalizedConfig).length) {
+          configTextarea.value = '';
+          return;
+        }
+
+        configTextarea.value = JSON.stringify(normalizedConfig, null, 2);
       }
 
       function syncGeohubConfig(isGeohub) {
