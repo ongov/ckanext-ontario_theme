@@ -126,7 +126,7 @@
                   {% block header_site_navigation_tabs %}
                     {{ h.build_nav_main(
                     ('dataset.search', _('Datasets')),
-                    ('organization.index', _('Ministries')),
+                    ('ontario_theme.organization_index', _('Ministries')),
                     ('home.about', _('About')) ) }}
                   {% endblock header_site_navigation_tabs %}
                 </ul>
@@ -197,7 +197,7 @@
                     class="ontario-application-subheader__menu ontario-hide-for-small ontario-show-for-medium ontario-hide-for-large">
                   {{ h.build_nav_main(
                   ('dataset.search', _('Datasets')),
-                  ('organization.index', _('Ministries')) ) }}
+                  ('ontario_theme.organization_index', _('Ministries')) ) }}
                 </ul>
                 <button class="ontario-hide-for-large ontario-header__menu-toggler ontario-header-button ontario-header-button--with-outline {{ 'fr' if current_lang == 'fr' }}"
                         id="ontario-header-menu-toggler"
@@ -234,7 +234,7 @@
           <ul>
             {{ h.build_nav_main(
             ('dataset.search', _('Datasets')),
-            ('organization.index', _('Ministries')),
+            ('ontario_theme.organization_index', _('Ministries')),
             ('home.about', _('About')) ) }}
           </ul>
         </div>

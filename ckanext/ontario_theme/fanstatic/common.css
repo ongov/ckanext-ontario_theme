@@ -1344,6 +1344,12 @@ a:focus {
   border-bottom-right-radius: 0;
 }
 
+.ontario-application-subheader__menu a[aria-current="page"] {
+  border-bottom: 4px solid #fff;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 .ontario-application-subheader-menu__container .ontario-header-button--with-outline {
   top: calc(-4rem + -0.25rem);
 }
