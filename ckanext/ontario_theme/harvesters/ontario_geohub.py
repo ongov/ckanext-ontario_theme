@@ -37,48 +37,125 @@ GEOHUB_PUBLISHER_OPTIONS_CACHE_TTL = datetime.timedelta(hours=24)
 
 blacklist_url = "https://services9.arcgis.com/a03W7iZ8T3s5vB7p/ArcGIS/rest/services/odc_sync_blacklist_vw/FeatureServer/0/query?where=1%3D1&outFields=geohub_dataset_url&f=json"
 
-geohub_publisher_aliases = {
-    'Ministry of Natural Resources':
-        'Ontario Ministry of Natural Resources',
-    'Ontario Ministry of Natural Resources and Forestry - Provincial Mapping Unit':
-        'Ontario Ministry of Natural Resources',
-    'Provincial Mapping Unit - Ontario Ministry of Natural Resources':
-        'Ontario Ministry of Natural Resources',
-    'Ontario Ministry of Agriculture, Food, and Rural Affairs':
-        'Ontario Ministry of Agriculture, Food and Rural Affairs',
-    'Ontario Ministry of Agriculture, Food, and Rural Affairs, OMAFRA':
-        'Ontario Ministry of Agriculture, Food and Rural Affairs',
-    'OMAFRA': 'Ontario Ministry of Agriculture, Food and Rural Affairs',
-    'OMAFA': 'Ontario Ministry of Agriculture, Food and Rural Affairs',
-    'OMAFRA- Environmental Management Branch':
-        'Ontario Ministry of Agriculture, Food and Rural Affairs'
-}
-
 _geohub_publisher_options_cache = {
     'expires_at': None,
     'options': None,
 }
+
+_catalog_organization_cache = {
+    'expires_at': None,
+    'index': None,
+}
+
+
+def _normalized_catalog_match_text(value):
+    if not value:
+        return ''
+    text = re.sub(r'\s+', ' ', six.text_type(value)).strip().lower()
+    text = re.sub(r'^(ontario\s+)?ministry\s+of\s+', '', text)
+    text = re.sub(r'[^a-z0-9]+', ' ', text)
+    return re.sub(r'\s+', ' ', text).strip()
+
+
+def _get_catalog_organization_index():
+    now = datetime.datetime.utcnow()
+    cache_expires_at = _catalog_organization_cache['expires_at']
+    if (cache_expires_at and cache_expires_at > now and
+            _catalog_organization_cache['index'] is not None):
+        return _catalog_organization_cache['index']
+
+    index = {}
+    try:
+        organization_list = toolkit.get_action('organization_list')(
+            data_dict={
+                'all_fields': True,
+                'include_extras': False,
+                'include_tags': False,
+            }
+        )
+    except Exception as e:
+        log.warning('Unable to load CKAN organizations for GeoHub matching: %s', e)
+        _catalog_organization_cache['index'] = {}
+        _catalog_organization_cache['expires_at'] = (
+            now + GEOHUB_PUBLISHER_OPTIONS_CACHE_TTL)
+        return {}
+
+    for org in organization_list:
+        if not isinstance(org, dict):
+            continue
+        if org.get('state') and org.get('state') != 'active':
+            continue
+
+        org_name = org.get('name')
+        org_title = org.get('title') or org_name
+        org_slug = org.get('slug') or org_name
+        if not org_name:
+            continue
+
+        keys = set()
+        keys.add(org_name.lower())
+        keys.add(org_title.lower())
+
+        norm_name = _normalized_catalog_match_text(org_name)
+        norm_title = _normalized_catalog_match_text(org_title)
+        if norm_name:
+            keys.add(norm_name)
+        if norm_title:
+            keys.add(norm_title)
+
+        org_entry = {
+            'id': org.get('id'),
+            'name': org_name,
+            'slug': org_slug,
+            'title': org_title,
+        }
+        for key in keys:
+            if key and key not in index:
+                index[key] = org_entry
+
+    _catalog_organization_cache['index'] = index
+    _catalog_organization_cache['expires_at'] = (
+        now + GEOHUB_PUBLISHER_OPTIONS_CACHE_TTL)
+    return index
+
+
+def _find_catalog_organization_from_publisher(publisher_name):
+    if not publisher_name:
+        return None
+
+    candidates = [publisher_name]
+    index = _get_catalog_organization_index()
+
+    for candidate in candidates:
+        if not candidate:
+            continue
+        normalized_text = _normalized_catalog_match_text(candidate)
+        lookup_keys = [
+            candidate.strip().lower(),
+            normalized_text,
+        ]
+        for key in lookup_keys:
+            if key and key in index:
+                return index[key]
+    return None
+
+
+def _resolve_dataset_catalog_organization(geohub_dict):
+    """Resolve the dataset's CKAN organization from ontario_geohub_publisher."""
+    publisher_name = normalize_geohub_publisher_name(
+        geohub_dict.get('ontario_geohub_publisher', ''))
+    if publisher_name:
+        organization = _find_catalog_organization_from_publisher(publisher_name)
+        if organization:
+            return organization
+    return None
 
 
 def normalize_geohub_publisher_name(publisher_name):
     if not publisher_name:
         return ''
 
-    normalized_name = re.sub(r'\s+', ' ', publisher_name).strip()
-    return geohub_publisher_aliases.get(normalized_name, normalized_name)
-
-
-def geohub_publisher_search_names(publisher_name):
-    normalized_name = normalize_geohub_publisher_name(publisher_name)
-    if not normalized_name:
-        return []
-
-    search_names = {normalized_name}
-    for alias_name, canonical_name in geohub_publisher_aliases.items():
-        if canonical_name == normalized_name:
-            search_names.add(alias_name)
-
-    return sorted(search_names)
+    return re.sub(r'\s+', ' ', publisher_name).strip()
 
 
 def get_ontario_geohub_publisher_options():
@@ -124,22 +201,29 @@ def get_ontario_geohub_publisher_options():
             publisher_name = normalize_geohub_publisher_name(
                 dataset.get('ontario_geohub_publisher', ''))
             log.debug('publisher_name after normalize: %s', publisher_name)
-            if publisher_name.startswith('Ontario Ministry'):
-                # Only include publishers that have a matching ODC organization
-                if publisher_name in publisher_ministries:
-                    # Only include publishers with a matching ODC ministry name
-                    if publisher_name in publisher_ministries:
-                        ministry_counts[publisher_name] = ministry_counts.get(publisher_name, 0) + 1
+            organization = _find_catalog_organization_from_publisher(
+                publisher_name)
+            if organization:
+                org_name = organization['name']
+                org_title = organization['title']
+                if org_name not in ministry_counts:
+                    ministry_counts[org_name] = {
+                        'title': org_title,
+                        'count': 0,
+                    }
+                ministry_counts[org_name]['count'] += 1
     except (requests.exceptions.RequestException, ValueError, TypeError) as e:
         log.warning('Unable to load Ontario GeoHub ministry options: %s', e)
 
     options = [
         {
-            'value': ministry_name,
-            'text': '{} ({})'.format(ministry_name, ministry_counts[ministry_name]),
-            'count': ministry_counts[ministry_name]
+            'value': org_name,
+            'text': '{} ({})'.format(
+                ministry_counts[org_name]['title'],
+                ministry_counts[org_name]['count']),
+            'count': ministry_counts[org_name]['count']
         }
-        for ministry_name in sorted(ministry_counts.keys())
+        for org_name in sorted(ministry_counts.keys())
     ]
 
     _geohub_publisher_options_cache['options'] = options
@@ -154,18 +238,14 @@ def get_ontario_geohub_harvest_organization_options():
     seen_organization_ids = set()
 
     for publisher_option in get_ontario_geohub_publisher_options():
-        publisher_name = publisher_option['value']
-        organization_name = publisher_ministries.get(publisher_name)
-        if not organization_name:
-            continue
-
+        organization_name = publisher_option['value']
         organization = model.Group.by_name(organization_name)
         if not organization or organization.id in seen_organization_ids:
             continue
 
         organization_options.append({
             'value': organization.id,
-            'text': publisher_name,
+            'text': publisher_option['text'],
         })
         seen_organization_ids.add(organization.id)
 
@@ -394,6 +474,8 @@ class OntarioGeohubHarvester(HarvesterBase):
         english_xml = english_metadata_xml_response(geohub_dict)
         french_xml = french_metadata_xml_response(geohub_dict) 
         english_json = english_metadata_json_response(geohub_dict)
+        resolved_org = _resolve_dataset_catalog_organization(geohub_dict)
+        resolved_org_id = resolved_org.get('id') if resolved_org else None
 
         package_dict = {
             "id": geohub_dict['ontario_geohub_id'], # Use geohub ID.
@@ -479,9 +561,7 @@ class OntarioGeohubHarvester(HarvesterBase):
                         package_dict['maintainer_branch']['fr'] = geohub_fr_contact_info['maintainer_branch']                
                 else: 
                     package_dict['maintainer_translated']['fr'] = package_dict['maintainer_translated']['en']
-                    
-                if not package_dict.get("owner_org", False) and 'ministry' in geohub_contact_info:
-                    package_dict['owner_org'] = get_org_id(geohub_contact_info['ministry'])
+
         else:
 
             contact = extract_ontario_email(package_dict['notes_translated']['en'])
@@ -500,24 +580,9 @@ class OntarioGeohubHarvester(HarvesterBase):
                     package_dict['maintainer_translated']['en'] = get_ontario_employee_name(package_dict['maintainer_email'])
                 package_dict['maintainer_translated']['fr'] = package_dict['maintainer_translated']['en']
 
-
-        # first, check whether the ministry is in the metadata
-        if not package_dict.get("owner_org", False):
-            ministry = get_ministry_from_xml(english_xml)
-            if ministry:
-                package_dict['owner_org'] = get_org_id(ministry) 
-            # if it isn't there, look in the description for ministry names           
-            else:
-                # extract ministry
-                ministry = extract_ministry(package_dict['notes_translated']['en'], package_dict['maintainer_email'])
-                if ministry:
-                    package_dict['owner_org'] = get_org_id(ministry)
-                else:
-                    ministry = publisher_ministry(geohub_dict)
-                    if ministry:
-                        package_dict['owner_org'] = get_org_id(ministry)
-                    else:
-                        package_dict['owner_org'] = get_org_id("northern-development-mines-natural-resources-and-forestry")
+        # owner_org is resolved only from ontario_geohub_publisher.
+        if not package_dict.get("owner_org", False) and resolved_org_id:
+            package_dict['owner_org'] = resolved_org_id
 
         return package_dict
 
@@ -588,6 +653,13 @@ class OntarioGeohubHarvester(HarvesterBase):
     def _get_guids_and_datasets(self, content, selected_publisher=None):
         log.warning(f"[HARVEST] Selected publisher: {selected_publisher}")
 
+        selected_org_name = None
+        if selected_publisher:
+            selected_org = _find_catalog_organization_from_publisher(
+                selected_publisher)
+            selected_org_name = (
+                selected_org['name'] if selected_org else selected_publisher)
+
         blacklist = self._get_blacklist()
 
         doc = json.loads(content)
@@ -602,11 +674,17 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         for dataset in datasets:
 
-            if selected_publisher:
+            if selected_org_name:
                 dataset_publisher = normalize_geohub_publisher_name(
                     dataset.get('ontario_geohub_publisher', ''))
-                log.warning(f"[HARVEST] Dataset publisher: {dataset_publisher}")
-                if dataset_publisher != selected_publisher:
+                dataset_org = _find_catalog_organization_from_publisher(
+                    dataset_publisher)
+                dataset_org_name = dataset_org['name'] if dataset_org else None
+                log.warning(
+                    '[HARVEST] Dataset publisher/org: %s / %s',
+                    dataset_publisher,
+                    dataset_org_name)
+                if dataset_org_name != selected_org_name:
                     log.warning(f"[HARVEST] SKIP (no match)")
                     continue                
                 else:
@@ -777,7 +855,28 @@ class OntarioGeohubHarvester(HarvesterBase):
         """Fetch only datasets for the selected publisher from GeoHub v3."""
         datasets_by_id = {}
 
-        for source_name in geohub_publisher_search_names(selected_publisher):
+        selected_org = _find_catalog_organization_from_publisher(
+            selected_publisher)
+        selected_org_name = (
+            selected_org['name'] if selected_org else selected_publisher)
+
+        source_names = [selected_publisher]
+        if selected_org:
+            source_names.extend([
+                selected_org.get('title', ''),
+                selected_org.get('name', ''),
+            ])
+
+        normalized_source_names = []
+        for source_name in source_names:
+            normalized = normalize_geohub_publisher_name(source_name)
+            if normalized and normalized not in normalized_source_names:
+                normalized_source_names.append(normalized)
+
+        source_names = normalized_source_names
+        for source_name in source_names:
+            if not source_name:
+                continue
             v3_data = self._search_geohub_v3_all(
                 'filter[source]', source_name, harvest_job)
             if not v3_data:
@@ -786,7 +885,10 @@ class OntarioGeohubHarvester(HarvesterBase):
             for dataset in v3_data:
                 normalized_source = normalize_geohub_publisher_name(
                     dataset.get('attributes', {}).get('source', ''))
-                if normalized_source != selected_publisher:
+                dataset_org = _find_catalog_organization_from_publisher(
+                    normalized_source)
+                dataset_org_name = dataset_org['name'] if dataset_org else None
+                if dataset_org_name != selected_org_name:
                     continue
                 dataset_id = dataset.get('id')
                 if dataset_id:
@@ -1069,8 +1171,7 @@ class OntarioGeohubHarvester(HarvesterBase):
                     harvest_job.source.config)
 
         self._set_config(harvest_job.source.config)
-        selected_publisher = normalize_geohub_publisher_name(
-            (self.config or {}).get('ontario_geohub_publisher', ''))
+        selected_publisher = (self.config or {}).get('ontario_geohub_publisher', '')
         log.warning(f"[HARVEST] Selected publisher from config: {selected_publisher}")
 
         # Check if the source URL points to a single dataset rather than
@@ -1110,6 +1211,21 @@ class OntarioGeohubHarvester(HarvesterBase):
                     content = self._resolve_selected_publisher_content(
                         selected_publisher, harvest_job)
                     content_type = 'application/json'
+                    try:
+                        resolved_doc = json.loads(content)
+                    except (TypeError, ValueError):
+                        resolved_doc = {}
+                    resolved_datasets = (
+                        resolved_doc.get('dcat:dataset', [])
+                        if isinstance(resolved_doc, dict)
+                        else [])
+                    if not resolved_datasets:
+                        log.info(
+                            'No GeoHub v3 datasets resolved for selected '
+                            'publisher %s; falling back to full DCAT feed '
+                            'filtering', selected_publisher)
+                        content, content_type = \
+                            self._get_content_and_type(url, harvest_job, page)
                 else:
                     content, content_type = \
                         self._get_content_and_type(url, harvest_job, page)
@@ -1435,88 +1551,6 @@ geohub_update_frequency_pattern = re.compile("\*\*Maintenance and Update Frequen
 '''
 calls_to_infogo = {}
 
-''' ministries is used to look for mention of ministries in the body of the english 
-        description to determine what ministry the dataset belongs to.
-'''
-ministries = {
-    "Ontario Ministry of Natural Resources" : "natural-resources",
-    "Ontario Ministry of Children, Community and Social Services" : "children-community-and-social-services",
-    "Ontario Ministry of Health" : "health",
-    "Ontario Ministry of Long-term care" : "long-term-care",
-    "Ontario Ministry of Government and Consumer Services" : "public-and-business-service-delivery",
-    "Ontario Ministry of Environment, Conservation and Parks" : "environment-conservation-and-parks",
-    "Ontario Ministry of Energy, Northern Development and Mines" : "mines",
-    "Ontario Ministry of Municipal Affairs and Housing" : "municipal-affairs-and-housing",
-    "Ontario Ministry of Education" : "education",
-    "Ontario Ministry of Agriculture Food and Agribusiness" : "agriculture-food-and-agribusiness",
-    "Ontario Ministry of Transportation" : "transportation"
-}
-
-''' geohub_metadata_ministry_names maps the terms that show up in geohub's
-        metadata to the corresponding organization_name in the catalogue
-'''
-geohub_metadata_ministry_names = {
-    "Ontario Ministry of Natural Resources" : "natural-resources",
-    "Ontario Ministry of Agriculture, Food and Agribusiness" : "agriculture-food-and-agribusiness",
-    "Ontario Ministry of the Environment, Conservation and Parks" : "environment-conservation-and-parks",
-    "Ontario Ministry of Transportation" : "transportation",
-    "Ontario Ministry of Health" : "health",
-    "Ontario Ministry of Education" : "education",
-    "Ontario Ministry of Municipal Affairs and Housing" : "municipal-affairs-and-housing",
-    "Ontario Ministry of Natural Resources and Forestry - Provincial Mapping Unit" : "natural-resources",
-    "Ontario Ministry of Indigenous Affairs and First Nations Economic Reconciliation": "indigenous-affairs-and-first-nations-economic-reconciliation",
-    "Ontario Ministry of Energy, Northern Development and Mines" : "mines" 
-}
-
-''' infogo_ministry_names maps the ministry labels in infogo to the 
-        corresponding organization_name in the catalogue
-'''
-infogo_ministry_names = {
-    "Agriculture, Food and Agribusiness" : "agriculture-food-and-agribusiness",
-    "Attorney General" : "attorney-general",
-    "Cabinet Office" : "cabinet-office",
-    "Children, Community and Social Services" : "children-community-and-social-services",
-    "Colleges and Universities" : "colleges-and-universities",
-    "Economic Development, Job Creation and Trade" : "economic-development-job-creation-and-trade",
-    "Education" : "education",
-    "Energy, Northern Development and Mines" : "northern-development-mines-natural-resources-and-forestry",
-    "Environment, Conservation and Parks" : "environment-conservation-and-parks",
-    "Finance" : "finance",
-    "Francophone Affairs" : "francophone-affairs",
-    "Government and Consumer Services" : "public-and-business-service-delivery",
-    "Health" : "health",
-    "Heritage, Sport, Tourism and Culture Industries" : "heritage-sport-tourism-and-culture-industries",
-    "Indigenous Affairs and First Nations Economic Reconciliation " : "indigenous-affairs-and-first-nations-economic-reconciliation",
-    "Infrastructure" : "infrastructure",
-    "Intergovernmental Affairs" : "intergovernmental-affairs",
-    "Labour, Training and Skills Development" : "labour-training-and-skills-development",
-    "Long-Term Care" : "long-term-care",
-    "Municipal Affairs and Housing" : "municipal-affairs-and-housing",
-    "Natural Resources and Forestry" : "natural-resources",
-    "Seniors and Accessibility" : "seniors-and-accessibility",
-    "Solicitor General" : "solicitor-general",
-    "Transportation" : "transportation",
-    "Treasury Board Secretariat" : "treasury-board-secretariat"
-}
-
-publisher_ministries = {
-    "Ontario Ministry of Agriculture, Food and Agribusiness" : "agriculture-food-and-agribusiness",
-    "Ontario Ministry of Natural Resources" : "natural-resources",
-    "OMAFRA" : "agriculture-food-and-agribusiness",
-    "OMAFA" : "agriculture-food-and-agribusiness",
-    "Ontario Ministry of Municipal Affairs and Housing" : "municipal-affairs-and-housing",
-    "Ontario Ministry of the Environment, Conservation and Parks" : "environment-conservation-and-parks",
-    "Ontario Ministry of Agriculture, Food, and Agribusiness" : "agriculture-food-and-agribusiness",
-    "Ontario Ministry of Agriculture, Food, and Rural Affairs, OMAFRA" : "agriculture-food-and-agribusiness",
-    "OMAFRA- Environmental Management Branch" : "agriculture-food-and-agribusiness",
-    "Ontario Ministry of Natural Resources and Forestry - Provincial Mapping Unit" : "natural-resources",
-    "Ontario Ministry of Health" : "health",
-    "Ontario Ministry of Education" : "education",
-    "Ontario Ministry of Indigenous Affairs indigenous-affairs-and-first-nations-economic-reconciliation" : "indigenous-affairs-and-first-nations-economic-reconciliation",
-    "Ontario Ministry of Transportation" : "transportation"
-}
-
-
 def get_org_id(organization_name):  
     ''' return the local org id that matches the organization name
     '''
@@ -1524,12 +1558,12 @@ def get_org_id(organization_name):
         return None
 
     source_name = organization_name.strip()
-    normalized_name = normalize_geohub_publisher_name(source_name)
-    mapped_name = publisher_ministries.get(source_name) or \
-        publisher_ministries.get(normalized_name)
+    organization = _find_catalog_organization_from_publisher(source_name)
+    if organization:
+        return organization.get('id')
 
-    # First try CKAN organization names/slugs.
-    name_candidates = [source_name, normalized_name, mapped_name]
+    # Backward-compatible fallback for direct org slug inputs.
+    name_candidates = [source_name]
     for candidate in name_candidates:
         if not candidate:
             continue
@@ -1537,36 +1571,9 @@ def get_org_id(organization_name):
         if org:
             return org.id
 
-    # Fallback: try matching CKAN organization titles.
-    title_candidates = [
-        source_name,
-        normalized_name,
-        mapped_name,
-        (mapped_name or '').replace('-', ' '),
-        (mapped_name or '').replace('-', ' ').title(),
-    ]
-    seen_titles = set()
-    for candidate in title_candidates:
-        if not candidate:
-            continue
-        key = candidate.lower()
-        if key in seen_titles:
-            continue
-        seen_titles.add(key)
-        org = model.Session.query(model.Group) \
-            .filter(model.Group.type == 'organization') \
-            .filter(model.Group.state == 'active') \
-            .filter(model.Group.title.ilike(candidate)) \
-            .first()
-        if org:
-            return org.id
-
     log.warning(
-        '[HARVEST] No CKAN organization match for source org="%s" '
-        '(normalized="%s", mapped="%s")',
-        source_name,
-        normalized_name,
-        mapped_name
+        '[HARVEST] No CKAN organization match for source org="%s"',
+        source_name
     )
     return None
 
@@ -1620,17 +1627,6 @@ def extract_update_frequency(description):
         return None
 
 
-geohub_description_fr_ministry_names = {
-    "Ministère des Richesses naturelles et des Forêts de l'Ontario": "northern-development-mines-natural-resources-and-forestry",
-    "Ministère de l’Agriculture, de l’Alimentation et de l’Agroentreprise": "agriculture-food-and-agribusiness",
-    "Ministère des Richesses naturelles et des Forêts": "northern-development-mines-natural-resources-and-forestry",
-    "Ministère de l’Environnement, de la Protection de la nature et des Parcs de l'Ontario": "environment-conservation-and-parks",    
-    "Ministère de l’Environnement, de la Protection de la nature et des Parcs": "environment-conservation-and-parks",
-    "Ministère des Richesses naturelles": "northern-development-mines-natural-resources-and-forestry",
-    "Ministère de l’Énergie, Développement du Nord et Mines": "energy-northern-development-and-mines"
-}
-
-
 def extract_fr_contact_info(description):
     ''' In order to get maintainer_name in french (we already know email and ministry),
             we extract french contact info (then strip out email and ministry and use
@@ -1645,41 +1641,23 @@ def extract_fr_contact_info(description):
             "maintainer_email" : contact_info[1]
         }
         non_email_contact_info = contact_info[0].replace("\n"," ").replace("  "," ")
-        for ministry in geohub_description_fr_ministry_names.keys():
-            ministry_pattern = re.compile("("+ministry+"[\s\n-,.]*)")
-            look_for_ministry = ministry_pattern.findall(non_email_contact_info, re.IGNORECASE)
-            if len(look_for_ministry) > 0:
-                ministry_result = look_for_ministry[0]
-                # there's a ministry name in there. let's take it out and use the rest as a maintainer name
-                non_email_contact_info = non_email_contact_info.replace(ministry_result[0], "").strip()
-                contact_info_dict['ministry'] = geohub_description_fr_ministry_names[ministry.strip()]
-                break
-            if non_email_contact_info.lower().find("direction") != -1:
-                contact_info_chunks = non_email_contact_info.split(",")
-                for chunk in contact_info_chunks:
-                    if chunk.lower().find("direction") != -1:
-                       contact_info_dict['maintainer_branch'] = chunk
-                       break  
+        non_email_contact_info = re.sub(
+            r"minist[eè]re\s+de\s+[\u00A0-\u017Fa-zA-Z0-9 ,&\-\(\)']+",
+            '',
+            non_email_contact_info,
+            flags=re.IGNORECASE)
+        if non_email_contact_info.lower().find("direction") != -1:
+            contact_info_chunks = non_email_contact_info.split(",")
+            for chunk in contact_info_chunks:
+                if chunk.lower().find("direction") != -1:
+                   contact_info_dict['maintainer_branch'] = chunk
+                   break
         contact_info_dict['maintainer_name'] = non_email_contact_info.strip()
         if contact_info_dict['maintainer_name'][-1] in ["-",","]:
             contact_info_dict['maintainer_name'] = contact_info_dict['maintainer_name'][:-1].strip() 
         return contact_info_dict
     else:
         return None
-
-
-geohub_description_ministry_names = {
-    "Ontario Ministry of Natural Resources and Forestry": "natural-resources",
-    "Ontario Ministry of Agriculture, Food and Agribusiness": "agriculture-food-and-agribusiness",
-    "Ontario Ministry of the Environment, Conservation and Parks": "environment-conservation-and-parks",
-    "Ontario Ministry of Natural Resources": "natural-resources",
-    "Ministry of Natural Resources and Forestry": "natural-resources",
-    "Ministry of the Environment Conservation and Parks": "environment-conservation-and-parks",
-    "Ministry of the Environment, Conservation and Parks": "environment-conservation-and-parks",
-    "Ministry of Energy, Northern Development and Mines": "energy-northern-development-and-mines",
-    "Ministry of Environment, Conservation and Parks" : "environment-conservation-and-parks",
-    "Ministry of Health and Long-Term Care (MOHLTC)": "health"
-}
 
 
 def extract_contact_info(description):
@@ -1691,20 +1669,17 @@ def extract_contact_info(description):
             "maintainer_email" : contact_info[1].strip()
         }
         non_email_contact_info = contact_info[0].replace("\n"," ").replace("  "," ")
-        for ministry in geohub_description_ministry_names.keys():
-            ministry_pattern = re.compile("("+ministry+"[\s\n-,.]*)")
-            look_for_ministry = ministry_pattern.findall(non_email_contact_info, re.IGNORECASE)
-            if len(look_for_ministry) > 0:
-                # there's a ministry name in there. let's take it out and use the rest as a maintainer name
-                non_email_contact_info = non_email_contact_info.replace(look_for_ministry[0], "").strip()
-                contact_info_dict['ministry'] = geohub_description_ministry_names[ministry.strip()]
-                break
-            if non_email_contact_info.lower().find("branch") != -1:
-                contact_info_chunks = non_email_contact_info.split(",")
-                for chunk in contact_info_chunks:
-                    if chunk.lower().find("branch") != -1:
-                       contact_info_dict['maintainer_branch'] = chunk
-                       break  
+        non_email_contact_info = re.sub(
+            r"(?:ontario\s+)?ministry\s+of\s+[a-zA-Z0-9 ,&\-\(\)']+",
+            '',
+            non_email_contact_info,
+            flags=re.IGNORECASE)
+        if non_email_contact_info.lower().find("branch") != -1:
+            contact_info_chunks = non_email_contact_info.split(",")
+            for chunk in contact_info_chunks:
+                if chunk.lower().find("branch") != -1:
+                   contact_info_dict['maintainer_branch'] = chunk
+                   break
         contact_info_dict['maintainer_name'] = non_email_contact_info.strip()
         if contact_info_dict['maintainer_name'][-1] in ["-",","]:
             contact_info_dict['maintainer_name'] = contact_info_dict['maintainer_name'][:-1].strip()
@@ -1719,36 +1694,6 @@ def extract_date(date_str):
         return search_results[0]
     else:
         return None
-
-
-def publisher_ministry(geohub_dict):
-    publisher_name = normalize_geohub_publisher_name(
-        geohub_dict.get('ontario_geohub_publisher', ''))
-    if publisher_name and publisher_name in publisher_ministries:
-        return publisher_ministries[publisher_name]
-
-    # Support both v3-API style ('publisher' / 'name') and DCAT feed
-    # style ('dct:publisher' / 'foaf:name').
-    pub = geohub_dict.get('publisher') or geohub_dict.get('dct:publisher')
-    if pub:
-        pub_name = normalize_geohub_publisher_name(
-            pub.get('name') or pub.get('foaf:name', ''))
-        if pub_name in publisher_ministries:
-            return publisher_ministries[pub_name]
-    return False
-
-def extract_ministry(description, email):
-    for ministry_search_text, ministry_name in ministries.items():
-        if description.find(ministry_search_text) != -1:
-            return ministry_name
-
-    infogo_response = call_to_infogo(email)
-    if 'individuals' in infogo_response:
-        for individual_record in infogo_response['individuals']:
-            if individual_record['topOrgName'] in infogo_ministry_names:
-                return infogo_ministry_names[individual_record['topOrgName']]
-    else:
-        return "northern-development-mines-natural-resources-and-forestry"
 
 
 def extract_ontario_email(description):
@@ -1888,16 +1833,6 @@ def get_create_date_from_xml(root):
             return create_date
     return False
 
-
-def get_ministry_from_xml(root):
-    '''Returns the license for that dataset.
-    '''
-    ministry_path = root.xpath("//dataIdInfo/idCitation/citRespParty/rpOrgName")
-    if ministry_path:
-        ministry = ministry_path[0].text
-        if ministry in geohub_metadata_ministry_names:
-            return geohub_metadata_ministry_names[ministry]
-    return False
 
 def get_file_type(resource):
     '''
