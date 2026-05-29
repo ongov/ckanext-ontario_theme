@@ -69,7 +69,7 @@ def _get_catalog_organization_index():
         organization_list = toolkit.get_action('organization_list')(
             data_dict={
                 'all_fields': True,
-                'include_extras': False,
+                'include_extras': True,
                 'include_tags': False,
             }
         )
