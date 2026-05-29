@@ -860,20 +860,59 @@ class OntarioGeohubHarvester(HarvesterBase):
         selected_org_name = (
             selected_org['name'] if selected_org else selected_publisher)
 
-        source_names = [selected_publisher]
+        source_names = []
+
+        def _append_source_name(value):
+            normalized = normalize_geohub_publisher_name(value)
+            if normalized and normalized not in source_names:
+                source_names.append(normalized)
+
+        # GeoHub v3 filter[source] expects the full source label
+        # (e.g. "Ontario ministry of health"), while CKAN org matching
+        # can still use stripped names via _find_catalog_organization_from_publisher.
+        full_source_name = selected_publisher
         if selected_org:
-            source_names.extend([
-                selected_org.get('title', ''),
-                selected_org.get('name', ''),
-            ])
+            full_source_name = selected_org.get('title', '') or selected_publisher
+        full_source_name = normalize_geohub_publisher_name(full_source_name)
+        if re.match(r'^(?i)ministry\s+of\s+', full_source_name):
+            full_source_name = 'Ontario ' + full_source_name
+        if full_source_name:
+            _append_source_name(full_source_name)
 
-        normalized_source_names = []
-        for source_name in source_names:
-            normalized = normalize_geohub_publisher_name(source_name)
-            if normalized and normalized not in normalized_source_names:
-                normalized_source_names.append(normalized)
+        _append_source_name(selected_publisher)
+        if selected_org:
+            _append_source_name(selected_org.get('title', ''))
+            _append_source_name(selected_org.get('name', ''))
 
-        source_names = normalized_source_names
+        # Build ministry-shaped candidate values from org slug/title so
+        # publisher slugs like "health" can resolve to v3 source labels like
+        # "Ministry of Health" / "Ontario ministry of health".
+        source_base = (
+            selected_org.get('title', '')
+            or selected_org.get('name', '')
+            if selected_org else selected_publisher
+        )
+        source_base = normalize_geohub_publisher_name(source_base)
+        source_base = re.sub(r'[_\-]+', ' ', source_base)
+
+        if source_base:
+            if re.search(r'(?i)\bministry\s+of\b', source_base):
+                ministry_name = source_base
+            else:
+                ministry_name = 'Ministry of {}'.format(source_base.title())
+
+            ontario_ministry_name = 'Ontario {}'.format(ministry_name)
+            _append_source_name(ontario_ministry_name)
+            _append_source_name(re.sub(
+                r'(?i)^Ontario\s+Ministry\s+of\s+',
+                'Ontario ministry of ',
+                ontario_ministry_name
+            ))
+
+        log.info(
+            'GeoHub v3 source candidates for selected publisher %s: %s',
+            selected_publisher, source_names)
+
         for source_name in source_names:
             if not source_name:
                 continue
