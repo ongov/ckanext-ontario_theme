@@ -52,7 +52,9 @@
     </div>
     {% if not error %}
       <div role="status" class="search-count">
-        {% snippet 'snippets/search_result_text.html', query=query, count=total_count, type=type %}
+        <!-- {% snippet 'snippets/search_result_text.html', query=query, count=total_count, type=type %} -->
+        {% set total = h.total_dataset_count() %} 
+        {{ h.localised_number(total) }} total datasets found    
       </div>
     {% else %}
       <div>Error</div>
@@ -166,7 +168,7 @@
               </div>
               <ul>
                 {% for label, value in sorting %}
-                  {% set sort_in_params = true if request.params['sort'] %}
+                  {% set sort_in_params = true if request.args.get['sort'] %}
                   {% if label and value %}
                     {% set selected = 'selected' if (sorting_selected == value) %}
                     {% set href = h.remove_url_param('sort', replace=value, extras=extras) if sort_in_params else h.add_url_param(new_params={'sort': value}, extras=extras) %}
