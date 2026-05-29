@@ -163,6 +163,16 @@ stages:
                pip install -U ckanext-ontario-theme==$(app_version) -t $(application_folder) --extra-index-url=https://pkgs.dev.azure.com/devops-EDC-0000/2fe9107c-920f-4653-bd7f-17ecfd94eaec/_packaging/odc_python_feed/pypi/simple/
                echo "#### NEW PACKAGE INFORMATION. ####"
                pip list --path $(application_folder)
+             displayName: 'Install CKAN Extension'
+           - script: |
+               set -xe
+               echo "Replacing GTM tag inside $(application_folder)/ckanext/ontario_theme/templates/internal/gtm.html ..."
+               sudo sed -i "s/GTM-[A-Za-z0-9_-]*/$(ENVIRONMENT_GTM_TAG)/" \
+                 $(application_folder)/ckanext/ontario_theme/templates/internal/gtm.html
+               echo "Updated GTM tag to $(ENVIRONMENT_GTM_TAG)"
+             displayName: "Apply environment-specific GTM tag"
+           - script: |
+               set -xe
                echo "#### STOPPING CKAN & FLUSHING WEBASSETS CACHE! ####"
                sudo systemctl stop supervisor
                ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
@@ -276,6 +286,16 @@ stages:
                pip install -U ckanext-ontario-theme==$(app_version) -t $(application_folder) --extra-index-url=https://pkgs.dev.azure.com/devops-EDC-0000/2fe9107c-920f-4653-bd7f-17ecfd94eaec/_packaging/odc_python_feed/pypi/simple/
                echo "#### NEW PACKAGE INFORMATION. ####"
                pip list --path $(application_folder)
+             displayName: 'Install CKAN Extension'
+           - script: |
+               set -xe
+               echo "Replacing GTM tag inside $(application_folder)/ckanext/ontario_theme/templates/internal/gtm.html ..."
+               sudo sed -i "s/GTM-[A-Za-z0-9_-]*/$(ENVIRONMENT_GTM_TAG)/" \
+                 $(application_folder)/ckanext/ontario_theme/templates/internal/gtm.html
+               echo "Updated GTM tag to $(ENVIRONMENT_GTM_TAG)"
+             displayName: "Apply environment-specific GTM tag"
+           - script: |
+               set -xe
                echo "#### STOPPING CKAN & FLUSHING WEBASSETS CACHE! ####"
                sudo systemctl stop supervisor
                ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
@@ -334,6 +354,16 @@ stages:
                pip install -U ckanext-ontario-theme==$(app_version) -t $(application_folder) --extra-index-url=https://pkgs.dev.azure.com/devops-EDC-0000/2fe9107c-920f-4653-bd7f-17ecfd94eaec/_packaging/odc_python_feed/pypi/simple/
                echo "#### NEW PACKAGE INFORMATION. ####"
                pip list --path $(application_folder)
+             displayName: 'Install CKAN Extension'
+           - script: |
+               set -xe
+               echo "Replacing GTM tag inside $(application_folder)/ckanext/ontario_theme/templates/internal/gtm.html ..."
+               sudo sed -i "s/GTM-[A-Za-z0-9_-]*/$(ENVIRONMENT_GTM_TAG)/" \
+                 $(application_folder)/ckanext/ontario_theme/templates/internal/gtm.html
+               echo "Updated GTM tag to $(ENVIRONMENT_GTM_TAG)"
+             displayName: "Apply environment-specific GTM tag"
+           - script: |
+               set -xe
                echo "#### STOPPING CKAN & FLUSHING WEBASSETS CACHE! ####"
                sudo systemctl stop supervisor
                ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
