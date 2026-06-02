@@ -1236,19 +1236,14 @@ class OntarioGeohubHarvester(HarvesterBase):
             obj.save()
             ids.append(obj.id)
 
-        # Check datasets that need to be deleted
-        guids_to_delete = set(guids_in_db) - set(guids_in_source)
-        for guid in guids_to_delete:
-            obj = HarvestObject(
-                guid=guid, job=harvest_job,
-                package_id=guid_to_package_id[guid],
-                extras=[HarvestObjectExtra(
-                    key='status', value='delete')])
-            ids.append(obj.id)
-            model.Session.query(HarvestObject).\
-                filter_by(guid=guid).\
-                update({'current': False}, False)
-            obj.save()
+        # In single-dataset mode we intentionally do not enqueue deletes for
+        # every other dataset in the source. This mode is for targeted testing.
+        # Full source synchronization (including deletes) happens in normal
+        # gather_stage runs against the full feed.
+        if set(guids_in_db) - set(guids_in_source):
+            log.info(
+                'Single dataset mode: skipping delete sweep for %s datasets',
+                len(set(guids_in_db) - set(guids_in_source)))
 
         return ids
 
@@ -1363,11 +1358,11 @@ class OntarioGeohubHarvester(HarvesterBase):
                 guid=guid, job=harvest_job,
                 package_id=guid_to_package_id[guid],
                 extras=[HarvestObjectExtra(key='status', value='delete')])
-            ids.append(obj.id)
             model.Session.query(HarvestObject).\
                 filter_by(guid=guid).\
                 update({'current': False}, False)
             obj.save()
+            ids.append(obj.id)
 
         return ids
 
