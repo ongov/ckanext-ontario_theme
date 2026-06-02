@@ -673,13 +673,22 @@ class OntarioGeohubHarvester(HarvesterBase):
             raise ValueError('Wrong JSON object')
 
         for dataset in datasets:
+            dataset_publisher = normalize_geohub_publisher_name(
+                dataset.get('ontario_geohub_publisher', ''))
+            dataset_org = _find_catalog_organization_from_publisher(
+                dataset_publisher)
+            dataset_org_name = dataset_org['name'] if dataset_org else None
+
+            # Skip early when no CKAN organization can be resolved.
+            # Import stage requires owner_org, so this avoids queueing records
+            # that would be rejected later.
+            if not dataset_org_name:
+                log.warning(
+                    '[HARVEST] SKIP (no CKAN org match) publisher=%s',
+                    dataset_publisher)
+                continue
 
             if selected_org_name:
-                dataset_publisher = normalize_geohub_publisher_name(
-                    dataset.get('ontario_geohub_publisher', ''))
-                dataset_org = _find_catalog_organization_from_publisher(
-                    dataset_publisher)
-                dataset_org_name = dataset_org['name'] if dataset_org else None
                 log.warning(
                     '[HARVEST] Dataset publisher/org: %s / %s',
                     dataset_publisher,
