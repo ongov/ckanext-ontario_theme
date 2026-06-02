@@ -766,7 +766,10 @@ class OntarioGeohubHarvester(HarvesterBase):
             return True
 
     def not_blacklisted(self, dataset_obj):
-        if "ODCSYNC" in dataset_obj['dcat:keyword']:
+        keywords = dataset_obj.get('dcat:keyword', [])
+        if not isinstance(keywords, list):
+            return False
+        if "ODCSYNC" in keywords:
             return True
         return False
 
