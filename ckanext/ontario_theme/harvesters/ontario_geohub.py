@@ -10,6 +10,7 @@ import json
 import datetime
 import re
 import logging
+import time
 import requests
 import html2text
 import lxml.etree
@@ -34,6 +35,7 @@ log = logging.getLogger(__name__)
 
 DEFAULT_GEOHUB_DCAT_FEED_URL = 'https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json'
 GEOHUB_PUBLISHER_OPTIONS_CACHE_TTL = datetime.timedelta(hours=24)
+GEOHUB_BLACKLIST_CACHE_TTL = datetime.timedelta(minutes=15)
 
 blacklist_url = "https://services9.arcgis.com/a03W7iZ8T3s5vB7p/ArcGIS/rest/services/odc_sync_blacklist_vw/FeatureServer/0/query?where=1%3D1&outFields=geohub_dataset_url&f=json"
 
@@ -46,6 +48,34 @@ _catalog_organization_cache = {
     'expires_at': None,
     'index': None,
 }
+
+_blacklist_cache = {
+    'expires_at': None,
+    'ids': None,
+}
+
+
+def _requests_get_with_retry(url, timeout=30, max_retries=3, backoff=5,
+                             session=None, **kwargs):
+    """GET wrapper with retries for transient network failures.
+
+    Retries on connection errors and timeouts, and raises the final
+    exception if all attempts fail.
+    """
+    client = session or requests
+    for attempt in range(max_retries):
+        try:
+            return client.get(url, timeout=timeout, **kwargs)
+        except (requests.exceptions.ConnectionError,
+                requests.exceptions.Timeout) as e:
+            if attempt < max_retries - 1:
+                wait = backoff * (attempt + 1)
+                log.warning(
+                    '[HARVEST] TRANSIENT_HTTP_ERROR url=%s attempt=%d/%d wait_s=%d error=%s',
+                    url, attempt + 1, max_retries, wait, e)
+                time.sleep(wait)
+                continue
+            raise
 
 # Hard-coded mapping/cache dicts consolidated in one section.
 restricted_tags = {
@@ -214,6 +244,86 @@ def normalize_geohub_publisher_name(publisher_name):
     return re.sub(r'\s+', ' ', publisher_name).strip()
 
 
+def _normalize_blacklist_dataset_id(raw_url):
+    if not raw_url:
+        return None
+
+    url = six.text_type(raw_url).strip()
+    if not url:
+        return None
+
+    # Remove querystring/fragment, trim trailing slash, and return last path token.
+    url = url.split('#', 1)[0].split('?', 1)[0].rstrip('/')
+    if not url:
+        return None
+
+    dataset_id = url.split('/')[-1].strip()
+    return dataset_id or None
+
+
+def _fetch_blacklist_ids():
+    now = datetime.datetime.utcnow()
+    cache_expires_at = _blacklist_cache['expires_at']
+    cached_ids = _blacklist_cache['ids']
+
+    if (cache_expires_at and cache_expires_at > now and
+            cached_ids is not None):
+        return set(cached_ids)
+
+    try:
+        response = _requests_get_with_retry(blacklist_url, timeout=30)
+        response.raise_for_status()
+        payload = response.json()
+
+        features = payload.get('features', []) if isinstance(payload, dict) else []
+        if not isinstance(features, list):
+            log.warning(
+                '[HARVEST] BLACKLIST_PAYLOAD_INVALID features_type=%s; using empty list',
+                type(features).__name__)
+            features = []
+
+        blacklist_ids = set()
+        invalid_entries = 0
+        for entry in features:
+            if not isinstance(entry, dict):
+                invalid_entries += 1
+                continue
+            attributes = entry.get('attributes', {})
+            if not isinstance(attributes, dict):
+                invalid_entries += 1
+                continue
+
+            dataset_id = _normalize_blacklist_dataset_id(
+                attributes.get('geohub_dataset_url'))
+            if dataset_id:
+                blacklist_ids.add(dataset_id)
+            else:
+                invalid_entries += 1
+
+        _blacklist_cache['ids'] = blacklist_ids
+        _blacklist_cache['expires_at'] = now + GEOHUB_BLACKLIST_CACHE_TTL
+
+        log.debug(
+            '[HARVEST] BLACKLIST_FETCH_OK ids=%s invalid_entries=%s',
+            len(blacklist_ids),
+            invalid_entries)
+        return set(blacklist_ids)
+
+    except (requests.exceptions.RequestException, ValueError, TypeError) as e:
+        if cached_ids is not None:
+            log.warning(
+                '[HARVEST] BLACKLIST_FETCH_FAILED using_cached ids=%s error=%s',
+                len(cached_ids),
+                e)
+            return set(cached_ids)
+
+        # Fail open so gather can continue when blacklist endpoint is unavailable.
+        log.warning(
+            '[HARVEST] BLACKLIST_FETCH_FAILED no_cache_available fail_open=true error=%s',
+            e)
+        return set()
+
+
 def get_ontario_geohub_publisher_options():
     now = datetime.datetime.utcnow()
     cache_expires_at = _geohub_publisher_options_cache['expires_at']
@@ -229,23 +339,14 @@ def get_ontario_geohub_publisher_options():
     # Too expensive to do those checks here.
     ministry_counts = {}
     try:
-        response = requests.get(DEFAULT_GEOHUB_DCAT_FEED_URL, timeout=60)
+        response = _requests_get_with_retry(
+            DEFAULT_GEOHUB_DCAT_FEED_URL,
+            timeout=60)
         response.raise_for_status()
         doc = response.json()
         datasets = doc.get('dcat:dataset', []) if isinstance(doc, dict) else doc
 
-        # Fetch blacklist
-        try:
-            blacklist_response = requests.get(blacklist_url, timeout=30)
-            blacklist_urls = list(map(
-                lambda x: x['attributes']['geohub_dataset_url'],
-                blacklist_response.json()['features']
-            ))
-            blacklist = set(
-                url.rstrip('/').split('/')[-1] for url in blacklist_urls
-            )
-        except:
-            blacklist = set()
+        blacklist = _fetch_blacklist_ids()
 
         for dataset in datasets:
             # Only count datasets with ODCSYNC keyword and not on blacklist
@@ -685,7 +786,9 @@ class OntarioGeohubHarvester(HarvesterBase):
         geohub_endpoint = "https://geohub.lio.gov.on.ca/api/v3/datasets/{}".format(identifier)
 
         try:
-            geohub_response = requests.get(geohub_endpoint, timeout=30)
+            geohub_response = _requests_get_with_retry(
+                geohub_endpoint,
+                timeout=30)
             if geohub_response.status_code != 200:
                 log.warning(
                     'hubtype_table: HTTP %s for %s, skipping hubtype check',
@@ -709,17 +812,6 @@ class OntarioGeohubHarvester(HarvesterBase):
             'description': 'Harvester for Ontario Geohub'
         }
 
-
-    def _get_blacklist(self):
-        blacklist_response = requests.get(blacklist_url)
-        # Extract dataset IDs from the blacklist URLs so that the
-        # comparison against ontario_geohub_id (a plain ID) works.
-        # URLs look like: https://geohub.lio.gov.on.ca/datasets/<id>
-        blacklist_urls = list(map(
-            lambda x: x['attributes']['geohub_dataset_url'],
-            blacklist_response.json()['features']))
-        return [url.rstrip('/').split('/')[-1] for url in blacklist_urls]
-
     def _get_guids_and_datasets(self, content, selected_publisher=None):
         log.warning(f"[HARVEST] Selected publisher: {selected_publisher}")
 
@@ -730,7 +822,7 @@ class OntarioGeohubHarvester(HarvesterBase):
             selected_org_name = (
                 selected_org['name'] if selected_org else selected_publisher)
 
-        blacklist = self._get_blacklist()
+        blacklist = _fetch_blacklist_ids()
 
         doc = json.loads(content)
 
@@ -940,7 +1032,7 @@ class OntarioGeohubHarvester(HarvesterBase):
         )
 
         try:
-            response = requests.get(search_url, timeout=60)
+            response = _requests_get_with_retry(search_url, timeout=60)
             if response.status_code != 200:
                 log.warning(
                     'GeoHub v3 search returned HTTP %s for %s=%s',
@@ -988,7 +1080,10 @@ class OntarioGeohubHarvester(HarvesterBase):
                 break
 
             try:
-                response = session.get(next_url, timeout=60)
+                response = _requests_get_with_retry(
+                    next_url,
+                    timeout=60,
+                    session=session)
                 if response.status_code != 200:
                     log.warning(
                         'GeoHub v3 paged search returned HTTP %s for %s=%s',
@@ -1789,7 +1884,7 @@ def get_org_id(organization_name):
 def call_to_infogo(email):
     if email not in calls_to_infogo:
         try:
-            infogo_request = requests.get(
+            infogo_request = _requests_get_with_retry(
                 "http://www.infogo.gov.on.ca/infogo/v1/individuals/search?&keywords={}".format(email),
                 timeout=15)
             calls_to_infogo[email] = infogo_request.json()
@@ -2282,8 +2377,27 @@ def additional_resources_from_xml(root):
 def english_metadata_json_response(dataset_obj):
     english_id = dataset_obj['ontario_geohub_id']
     english_metadata_url = "https://opendata.arcgis.com/api/v3/datasets/{}".format(english_id)
-    metadata_json_request = requests.get(english_metadata_url, timeout=60)
-    return metadata_json_request.json()
+    try:
+        metadata_json_request = _requests_get_with_retry(
+            english_metadata_url,
+            timeout=60)
+        metadata_json_request.raise_for_status()
+        return metadata_json_request.json()
+    except (requests.exceptions.RequestException, ValueError, TypeError) as e:
+        log.warning(
+            'Exception raised. Cannot load/parse english metadata JSON for '
+            'english_id: %s. Using default timestamps. %r',
+            english_id,
+            e)
+        return {
+            'data': {
+                'attributes': {
+                    'created': 0,
+                    'itemModified': 0,
+                    'modified': 0,
+                }
+            }
+        }
     
 
 def english_metadata_xml_response(dataset_obj):
@@ -2293,7 +2407,9 @@ def english_metadata_xml_response(dataset_obj):
     english_id = identifier_from_url(dataset_obj['ontario_geohub_id'])
     english_metadata_url = metadata_url(english_id)
     try:
-        metadata_xml_request = requests.get(english_metadata_url, timeout=60)
+        metadata_xml_request = _requests_get_with_retry(
+            english_metadata_url,
+            timeout=60)
         # parse the response to get the additional resources.
         return lxml.etree.fromstring(metadata_xml_request.content)
     except (requests.exceptions.RequestException,
@@ -2322,7 +2438,9 @@ def french_metadata_xml_response(dataset_obj):
 
     try:
         # Now can make request for xml.
-        french_xml_response = requests.get(french_metadata_xml_url, timeout=60)
+        french_xml_response = _requests_get_with_retry(
+            french_metadata_xml_url,
+            timeout=60)
         # TODO: fix bug.  if geohub_french_id_from_xml: continue on, else abort french and use defaults. in some cases there is an ID but the request fails (outdated data I think). In this case it tries to parse the html I think and uses the defaults (den-site is an example).
         # TODO: Error handle for non-existent French record.
         french_xml_root = lxml.etree.fromstring(french_xml_response.content)
