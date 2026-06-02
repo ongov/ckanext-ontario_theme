@@ -797,8 +797,16 @@ class OntarioGeohubHarvester(HarvesterBase):
                     'hubtype_table: HTTP %s for %s, skipping hubtype check',
                     geohub_response.status_code, identifier)
                 return False
-            hubType = geohub_response.json()["data"]["attributes"]["hubType"]
-            if hubType == "Table":
+            payload = geohub_response.json()
+            payload_data = payload.get('data', {}) if isinstance(payload, dict) else {}
+            attributes = payload_data.get('attributes', {}) if isinstance(payload_data, dict) else {}
+            hub_type = attributes.get('hubType')
+            if not isinstance(hub_type, six.string_types):
+                log.warning(
+                    'hubtype_table: Missing hubType for %s, skipping hubtype check',
+                    identifier)
+                return False
+            if hub_type.lower() == 'table':
                 return True
         except (requests.exceptions.RequestException, KeyError,
                 ValueError, TypeError) as e:
@@ -2002,9 +2010,14 @@ def get_ontario_employee_name(email):
     return " ".join(list(map(lambda x: x.capitalize(), re.sub(r'[0-9]+', '', email).replace("@ontario.ca","").split(".", 1))))
     # request timing out right now. reenable this later
     infogo_response = call_to_infogo(email)
-    if infogo_response['total'] > 0:
+    total = infogo_response.get('total', 0)
+    individuals = infogo_response.get('individuals', [])
+    if total > 0 and isinstance(individuals, list) and individuals:
+        first_individual = individuals[0]
+        if not isinstance(first_individual, dict):
+            return " ".join(list(map(lambda x: x.capitalize(), re.sub(r'[0-9]+', '', email).replace("@ontario.ca","").split(".", 1))))
         calls_to_infogo[email] = infogo_response
-        return " ".join(list(map(lambda x: infogo_response['individuals'][0][x] if x in infogo_response['individuals'][0] else "", ["firstname", "middleName","lastName"])))
+        return " ".join(list(map(lambda x: first_individual[x] if x in first_individual else "", ["firstname", "middleName","lastName"])))
     else:
         return " ".join(list(map(lambda x: x.capitalize(), re.sub(r'[0-9]+', '', email).replace("@ontario.ca","").split(".", 1))))
 
@@ -2078,12 +2091,31 @@ def get_backup_description_from_xml(root):
 
 
 
+def _get_metadata_attributes(json_metadata):
+    if not isinstance(json_metadata, dict):
+        return {}
+    data = json_metadata.get('data', {})
+    if not isinstance(data, dict):
+        return {}
+    attributes = data.get('attributes', {})
+    if not isinstance(attributes, dict):
+        return {}
+    return attributes
+
+
 def get_data_last_updated_from_json(json_metadata):
     '''
             json[“data”][“attributes”][“modified”] – Date that the data was last updated.
 
     '''
-    return datetime.datetime.utcfromtimestamp(json_metadata["data"]["attributes"]["modified"]/1000).isoformat()
+    attributes = _get_metadata_attributes(json_metadata)
+    modified = attributes.get('modified')
+    if not isinstance(modified, six.integer_types + (float,)):
+        return ''
+    try:
+        return datetime.datetime.utcfromtimestamp(modified / 1000).isoformat()
+    except (TypeError, ValueError, OSError):
+        return ''
 
 
 def get_current_as_of_date_from_json(json_metadata):
@@ -2099,8 +2131,20 @@ def get_current_as_of_date_from_json(json_metadata):
             The values returned are unix timestamps in milliseconds. Compare and use the larger one of the two.
 
     '''
-    current_as_of = max(json_metadata["data"]["attributes"]["itemModified"],json_metadata["data"]["attributes"]["modified"])
-    return datetime.datetime.utcfromtimestamp(current_as_of/1000).isoformat()
+    attributes = _get_metadata_attributes(json_metadata)
+    item_modified = attributes.get('itemModified')
+    modified = attributes.get('modified')
+    numeric_values = [
+        value for value in (item_modified, modified)
+        if isinstance(value, six.integer_types + (float,))
+    ]
+    if not numeric_values:
+        return ''
+    current_as_of = max(numeric_values)
+    try:
+        return datetime.datetime.utcfromtimestamp(current_as_of / 1000).isoformat()
+    except (TypeError, ValueError, OSError):
+        return ''
 
 def get_revise_date_from_xml(root):
     '''Returns the revise date (comparable to data_range_end) for that dataset.
@@ -2114,7 +2158,14 @@ def get_revise_date_from_xml(root):
     return False
 
 def get_create_date_from_json(json_metadata):
-    return datetime.datetime.utcfromtimestamp(json_metadata["data"]["attributes"]["created"]/1000).isoformat()
+    attributes = _get_metadata_attributes(json_metadata)
+    created = attributes.get('created')
+    if not isinstance(created, six.integer_types + (float,)):
+        return ''
+    try:
+        return datetime.datetime.utcfromtimestamp(created / 1000).isoformat()
+    except (TypeError, ValueError, OSError):
+        return ''
 
 def get_create_date_from_xml(root):
     '''Returns the create date (comparable to data_range_start) for that dataset.
