@@ -677,7 +677,11 @@ class OntarioGeohubHarvester(HarvesterBase):
         relations will be in the description for now anyway. 
         This value is only available through the geohub api and requires its own call.
         '''
-        identifier = dataset_obj['ontario_geohub_id']
+        identifier = dataset_obj.get('ontario_geohub_id')
+        if not identifier:
+            log.warning(
+                '[HARVEST] HUBTYPE_CHECK_SKIPPED reason=missing_ontario_geohub_id')
+            return False
         geohub_endpoint = "https://geohub.lio.gov.on.ca/api/v3/datasets/{}".format(identifier)
 
         try:
