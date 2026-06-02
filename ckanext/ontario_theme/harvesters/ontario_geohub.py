@@ -494,20 +494,59 @@ class OntarioGeohubHarvester(HarvesterBase):
         resolved_org = _resolve_dataset_catalog_organization(geohub_dict)
         resolved_org_id = resolved_org.get('id') if resolved_org else None
 
+        required_fields = [
+            'ontario_geohub_id',
+            'dct:identifier',
+            'dct:title',
+            'dct:description',
+        ]
+        missing_required_fields = []
+        for field_name in required_fields:
+            field_value = geohub_dict.get(field_name)
+            if field_value is None:
+                missing_required_fields.append(field_name)
+                continue
+            if isinstance(field_value, six.string_types) and not field_value.strip():
+                missing_required_fields.append(field_name)
+
+        if missing_required_fields:
+            dataset_id = geohub_dict.get('ontario_geohub_id', 'unknown')
+            log.warning(
+                '[HARVEST] SKIP_BECAUSE_MISSING_REQUIRED_FIELDS dataset_id=%s missing_fields=%s',
+                dataset_id,
+                ','.join(missing_required_fields)
+            )
+            self._save_object_error(
+                'Skipping dataset {}: missing required fields [{}]'.format(
+                    dataset_id,
+                    ', '.join(missing_required_fields)),
+                harvest_object,
+                'Import'
+            )
+            return None
+
+        dataset_id = geohub_dict.get('ontario_geohub_id')
+        dataset_identifier = geohub_dict.get('dct:identifier')
+        dataset_title = geohub_dict.get('dct:title')
+        dataset_description = geohub_dict.get('dct:description')
+        dataset_keywords = geohub_dict.get('dcat:keyword')
+        if not isinstance(dataset_keywords, list):
+            dataset_keywords = []
+
         package_dict = {
-            "id": geohub_dict['ontario_geohub_id'], # Use geohub ID.
-            "url": geohub_dict["dct:identifier"],
+            "id": dataset_id, # Use geohub ID.
+            "url": dataset_identifier,
             "license_id": "other-open", 
             "title_translated": {
-                "en": geohub_dict["dct:title"],
+                "en": dataset_title,
                 "fr": french_title(french_xml)
             },
             "notes_translated": {
-                "en": html2text.html2text(geohub_dict["dct:description"]),
+                "en": html2text.html2text(dataset_description),
                 "fr": html2text.html2text(french_notes(french_xml))
             },
             "keywords": {
-                "en": ontario_theme_helpers.remove_odd_chars_from_keywords(geohub_dict["dcat:keyword"]) + ['ontario-geohub'],
+                "en": ontario_theme_helpers.remove_odd_chars_from_keywords(dataset_keywords) + ['ontario-geohub'],
                 "fr": ontario_theme_helpers.remove_odd_chars_from_keywords(french_keywords(french_xml)) + ['ontario-geohub']
             },
             "opened_date": get_create_date_from_json(english_json), #ontario_theme_helpers.date_parse(geohub_dict["dct:issued"], '%Y-%m-%dT%H:%M:%S.%fZ'),
@@ -519,7 +558,7 @@ class OntarioGeohubHarvester(HarvesterBase):
             },
             "maintainer_email": "lio@ontario.ca",
             "access_level": "open",
-            "resources": build_resources(geohub_dict['ontario_geohub_id'], geohub_dict,
+            "resources": build_resources(dataset_id, geohub_dict,
                                          english_xml, english_json),
             "update_frequency": "",
             "exemption": "none",
@@ -527,7 +566,7 @@ class OntarioGeohubHarvester(HarvesterBase):
                 "en": "",
                 "fr": ""
             },
-            "name": ontario_theme_helpers.name_cleaner(geohub_dict["dct:title"]),
+            "name": ontario_theme_helpers.name_cleaner(dataset_title),
             "private": False,
             "state": "active",
             "groups": [{'name': 'ontario-geohub'}] # optional
@@ -598,8 +637,9 @@ class OntarioGeohubHarvester(HarvesterBase):
                     contact = cp_email.replace('mailto:', '').strip()
             if contact:
                 package_dict['maintainer_email'] = contact.strip()
-                if geohub_dict["dcat:contactPoint"]["vcard:fn"]:
-                    package_dict['maintainer_translated']['en'] = geohub_dict["dcat:contactPoint"]["vcard:fn"]
+                contact_name = geohub_dict.get('dcat:contactPoint', {}).get('vcard:fn', '')
+                if contact_name:
+                    package_dict['maintainer_translated']['en'] = contact_name
                 elif package_dict['maintainer_email'].replace("@ontario.ca","").find(".") == -1:
                     package_dict['maintainer_translated']['en'] = package_dict['maintainer_email'].replace("@ontario.ca","").strip()
                 else:
