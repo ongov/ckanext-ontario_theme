@@ -826,10 +826,31 @@ class OntarioGeohubHarvester(HarvesterBase):
                 param, urllib.parse.quote(value, safe=''))
         )
         results = []
+        # Track visited page URLs to guard against accidental pagination cycles.
+        seen_urls = set()
+        # Hard stop to prevent pathological loops if the API keeps returning next links.
+        max_pages = 100
+        page_count = 0
+        # Reuse one HTTP session across pages for connection efficiency.
+        session = requests.Session()
 
         while next_url:
+            if next_url in seen_urls:
+                log.warning(
+                    'Detected repeated GeoHub v3 pagination URL for %s=%s; stopping at %s pages',
+                    param, value, page_count)
+                break
+            seen_urls.add(next_url)
+
+            page_count += 1
+            if page_count > max_pages:
+                log.warning(
+                    'GeoHub v3 pagination exceeded max pages (%s) for %s=%s; stopping',
+                    max_pages, param, value)
+                break
+
             try:
-                response = requests.get(next_url, timeout=60)
+                response = session.get(next_url, timeout=60)
                 if response.status_code != 200:
                     log.warning(
                         'GeoHub v3 paged search returned HTTP %s for %s=%s',
@@ -841,7 +862,25 @@ class OntarioGeohubHarvester(HarvesterBase):
                 if data:
                     results.extend(data)
 
+                # Continue pagination using the API-provided next link.
                 next_url = payload.get('meta', {}).get('next')
+            except requests.exceptions.Timeout as e:
+                log.warning(
+                    'Timeout searching paged GeoHub v3 API (%s=%s): %s',
+                    param, value, e)
+                break
+            except requests.exceptions.RequestException as e:
+                # Covers transport-level request failures (DNS/connection/SSL, etc.).
+                log.warning(
+                    'Request error searching paged GeoHub v3 API (%s=%s): %s',
+                    param, value, e)
+                break
+            except (ValueError, TypeError) as e:
+                # Covers malformed/invalid payload structures from the API response.
+                log.warning(
+                    'Invalid paged GeoHub v3 API response (%s=%s): %s',
+                    param, value, e)
+                break
             except Exception as e:
                 log.warning(
                     'Error searching paged GeoHub v3 API (%s=%s): %s',
@@ -1236,115 +1275,77 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         guids_in_source = []
 
-        # Get file contents
+        # Resolve content once per gather run.
+        # - Selected publisher: prefer GeoHub v3 narrowed results.
+        # - No selected publisher (or empty v3 result): use full DCAT feed.
         url = harvest_job.source.url
-
-        previous_guids = []
-        page = 1
-        while True:
-
-            try:
-                if selected_publisher:
-                    if page > 1:
-                        break
-                    content = self._resolve_selected_publisher_content(
-                        selected_publisher, harvest_job)
-                    content_type = 'application/json'
-                    try:
-                        resolved_doc = json.loads(content)
-                    except (TypeError, ValueError):
-                        resolved_doc = {}
-                    resolved_datasets = (
-                        resolved_doc.get('dcat:dataset', [])
-                        if isinstance(resolved_doc, dict)
-                        else [])
-                    if not resolved_datasets:
-                        log.info(
-                            'No GeoHub v3 datasets resolved for selected '
-                            'publisher %s; falling back to full DCAT feed '
-                            'filtering', selected_publisher)
-                        content, content_type = \
-                            self._get_content_and_type(url, harvest_job, page)
-                else:
-                    content, content_type = \
-                        self._get_content_and_type(url, harvest_job, page)
-            except requests.exceptions.HTTPError as error:
-                if error.response.status_code == 404:
-                    if page > 1:
-                        # Server returned a 404 after the first page, no more
-                        # records
-                        log.debug('404 after first page, no more pages')
-                        break
-                    else:
-                        # Proper 404
-                        msg = 'Could not get content. Server responded with ' \
-                            '404 Not Found'
-                        self._save_gather_error(msg, harvest_job)
-                        return None
-                else:
-                    # This should never happen. Raising just in case.
-                    raise
-
-            if not content:
-                return None
-
-            try:
-
-                batch_guids = []
-                for guid, as_string in self._get_guids_and_datasets(
-                        content, selected_publisher=selected_publisher):
-
-                    log.debug('Got identifier: {0}'
-                              .format(guid.encode('utf8')))
-                    batch_guids.append(guid)
-
-                    if guid not in previous_guids:
-
-                        if guid in guids_in_db:
-                            # actually, does dataset need to be updated?
-
-
-                            # Dataset needs to be updated
-                            obj = HarvestObject(
-                                guid=guid, job=harvest_job,
-                                package_id=guid_to_package_id[guid],
-                                content=as_string,
-                                extras=[HarvestObjectExtra(key='status',
-                                                           value='change')])
-                        else:
-                            # Dataset needs to be created
-                            obj = HarvestObject(
-                                guid=guid, job=harvest_job,
-                                content=as_string,
-                                extras=[HarvestObjectExtra(key='status',
-                                                           value='new')])
-                        obj.save()
-                        ids.append(obj.id)
-
-                if len(batch_guids) > 0:
-                    guids_in_source.extend(set(batch_guids)
-                                           - set(previous_guids))
-                else:
-                    log.debug('Empty document, no more records')
-                    # Empty document, no more ids
-                    break
-
-            except ValueError as e:
-                msg = 'Error parsing file: {0}'.format(str(e))
+        try:
+            if selected_publisher:
+                content = self._resolve_selected_publisher_content(
+                    selected_publisher, harvest_job)
+                content_type = 'application/json'
+                try:
+                    resolved_doc = json.loads(content)
+                except (TypeError, ValueError):
+                    resolved_doc = {}
+                resolved_datasets = (
+                    resolved_doc.get('dcat:dataset', [])
+                    if isinstance(resolved_doc, dict)
+                    else [])
+                if not resolved_datasets:
+                    # Keep existing behavior when v3 source-name matching
+                    # misses records: fall back to the full DCAT pipeline.
+                    log.info(
+                        'No GeoHub v3 datasets resolved for selected '
+                        'publisher %s; falling back to full DCAT feed '
+                        'filtering', selected_publisher)
+                    content, content_type = self._get_content_and_type(
+                        url, harvest_job)
+            else:
+                content, content_type = self._get_content_and_type(
+                    url, harvest_job)
+        except requests.exceptions.HTTPError as error:
+            if error.response.status_code == 404:
+                msg = 'Could not get content. Server responded with 404 Not Found'
                 self._save_gather_error(msg, harvest_job)
                 return None
+            raise
 
-            if sorted(previous_guids) == sorted(batch_guids):
-                # Server does not support pagination or no more pages
-                log.debug('Same content, no more pages')
-                break
+        if not content:
+            return None
 
-            if selected_publisher:
-                break
+        try:
+            # Single-pass processing: iterate the resolved payload once and
+            # classify each GUID as create/update for this harvest job.
+            for guid, as_string in self._get_guids_and_datasets(
+                    content, selected_publisher=selected_publisher):
 
-            page = page + 1
+                log.debug('Got identifier: {0}'
+                          .format(guid.encode('utf8')))
+                guids_in_source.append(guid)
 
-            previous_guids = batch_guids
+                if guid in guids_in_db:
+                    # Dataset needs to be updated
+                    obj = HarvestObject(
+                        guid=guid, job=harvest_job,
+                        package_id=guid_to_package_id[guid],
+                        content=as_string,
+                        extras=[HarvestObjectExtra(key='status',
+                                                   value='change')])
+                else:
+                    # Dataset needs to be created
+                    obj = HarvestObject(
+                        guid=guid, job=harvest_job,
+                        content=as_string,
+                        extras=[HarvestObjectExtra(key='status',
+                                                   value='new')])
+                obj.save()
+                ids.append(obj.id)
+
+        except ValueError as e:
+            msg = 'Error parsing file: {0}'.format(str(e))
+            self._save_gather_error(msg, harvest_job)
+            return None
 
         # Check datasets that need to be deleted
         guids_to_delete = set(guids_in_db) - set(guids_in_source)
