@@ -1692,8 +1692,8 @@ def extract_fr_contact_info(description):
                    contact_info_dict['maintainer_branch'] = chunk
                    break
         contact_info_dict['maintainer_name'] = non_email_contact_info.strip()
-        if contact_info_dict['maintainer_name'][-1] in ["-",","]:
-            contact_info_dict['maintainer_name'] = contact_info_dict['maintainer_name'][:-1].strip() 
+        if contact_info_dict['maintainer_name'] and contact_info_dict['maintainer_name'][-1] in ["-",","]:
+            contact_info_dict['maintainer_name'] = contact_info_dict['maintainer_name'][:-1].strip()
         return contact_info_dict
     else:
         return None
@@ -1720,7 +1720,7 @@ def extract_contact_info(description):
                    contact_info_dict['maintainer_branch'] = chunk
                    break
         contact_info_dict['maintainer_name'] = non_email_contact_info.strip()
-        if contact_info_dict['maintainer_name'][-1] in ["-",","]:
+        if contact_info_dict['maintainer_name'] and contact_info_dict['maintainer_name'][-1] in ["-",","]:
             contact_info_dict['maintainer_name'] = contact_info_dict['maintainer_name'][:-1].strip()
         return contact_info_dict
     else:
