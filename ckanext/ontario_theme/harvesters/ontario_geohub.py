@@ -504,7 +504,7 @@ class OntarioGeohubHarvester(HarvesterBase):
             "access_level": "open",
             "resources": build_resources(geohub_dict['ontario_geohub_id'], geohub_dict,
                                          english_xml, english_json),
-            "update_frequency": "other",
+            "update_frequency": "",
             "exemption": "none",
             "exemption_rationale": {
                 "en": "",
@@ -542,7 +542,16 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         geohub_update_frequency = extract_update_frequency(package_dict['notes_translated']['en'])
         if geohub_update_frequency:
-            package_dict['update_frequency'] = update_frequencies[geohub_update_frequency]
+            mapped_update_frequency = update_frequencies.get(geohub_update_frequency)
+            if mapped_update_frequency:
+                package_dict['update_frequency'] = mapped_update_frequency
+            else:
+                log.warning(
+                    '[HARVEST] Unmapped GeoHub update frequency "%s" for dataset %s; leaving update_frequency blank',
+                    geohub_update_frequency,
+                    geohub_dict.get('ontario_geohub_id', 'unknown')
+                )
+                package_dict['update_frequency'] = ""
 
         # get maintainer name and maintainer email
         geohub_contact_info = extract_contact_info(package_dict['notes_translated']['en'])
@@ -1588,7 +1597,7 @@ geohub_contact_pattern = re.compile("\*\*Contact(?:[\*\s\n]*)([a-zA-Z0-9&\(\)\/\
 geohub_fr_contact_pattern = re.compile(u"\*\*Personne-resource(?:[\*\s\n]*)([\u00A0-\u017Fa-zA-Z0-9&\(\)\/\. \-,\s\n@ \]\[]*)(?:\s*)(?:\n*)\[([\na-zA-Z0-9\.]*@[oO]ntario.ca)\]")
 ontario_email_pattern = re.compile("[a-zA-Z0-9\.]*@[oO]ntario.ca")
 iso_date_pattern = re.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}")
-geohub_update_frequency_pattern = re.compile("\*\*Maintenance and Update Frequency(?:[\s\n]*)\*\*(?:[\s\n]*)([a-zA-Z0-9 ]*):")
+geohub_update_frequency_pattern = re.compile("\*\*Maintenance and Update Frequency(?:[\s\n]*)\*\*(?:[\s\n]*)([^:\n]*):")
 
 ''' calls_to_infogo hold previous calls to infogo in the same harvest/session
         so that we don't make multiples of the same call
@@ -1637,20 +1646,27 @@ def call_to_infogo(email):
 ''' update_frequencies is all the update frequencies that appear in the
         description of a dataset on geohub mapped to catalogue update frequency values 
 '''
+
+
+def normalize_update_frequency_text(value):
+    if not value:
+        return ''
+    normalized = re.sub(r'\s+', ' ', six.text_type(value)).strip().lower()
+    return normalized
+
+
 update_frequencies = {
-    "Irregular": "periodically",
-    "Continual": "current",
-    "Annually": "yearly",
-    "Unknown": "other",
-    "Weekly": "weekly",
-    "Monthly": "monthly",
-    "Fortnightly": "fortnightly",
-    "Quarterly": "quarterly",
-    "Biannually": "biannually",
-    "As needed": "as_required",
-    "On going": "as_required",
-    "Not planned": "never",
-    "As Needed": "as_required"
+    "irregular": "periodically",
+    "continual": "current",
+    "annually": "yearly",
+    "unknown": "other",
+    "weekly": "weekly",
+    "monthly": "monthly",
+    "fortnightly": "fortnightly",
+    "quarterly": "quarterly",
+    "biannually": "biannually",
+    "as needed": "as_required",
+    "on going": "as_required"
 }
 
 def extract_update_frequency(description):
@@ -1666,7 +1682,7 @@ def extract_update_frequency(description):
     '''
     search_results = geohub_update_frequency_pattern.findall(description)
     if len(search_results) > 0:
-        return search_results[0].strip()
+        return normalize_update_frequency_text(search_results[0])
     else:
         return None
 
