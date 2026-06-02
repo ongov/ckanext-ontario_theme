@@ -1381,7 +1381,7 @@ class OntarioGeohubHarvester(HarvesterBase):
                 # Multiple results – try to find an exact match
                 exact = [
                     d for d in v3_data
-                    if d['id'] == identifier
+                    if d.get('id') == identifier
                     or d.get('attributes', {}).get('slug', '') == identifier
                     or (d.get('attributes', {}).get('slug') or '').endswith(
                         '::' + identifier)
