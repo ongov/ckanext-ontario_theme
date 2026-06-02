@@ -589,9 +589,6 @@ class OntarioGeohubHarvester(HarvesterBase):
 
 
     def _make_package_dict(self, geohub_dict, harvest_object):
-        english_xml = english_metadata_xml_response(geohub_dict)
-        french_xml = french_metadata_xml_response(geohub_dict) 
-        english_json = english_metadata_json_response(geohub_dict)
         resolved_org = _resolve_dataset_catalog_organization(geohub_dict)
         resolved_org_id = resolved_org.get('id') if resolved_org else None
 
@@ -625,6 +622,10 @@ class OntarioGeohubHarvester(HarvesterBase):
                 'Import'
             )
             return None
+
+        english_xml = english_metadata_xml_response(geohub_dict)
+        french_xml = french_metadata_xml_response(geohub_dict)
+        english_json = english_metadata_json_response(geohub_dict)
 
         dataset_id = geohub_dict.get('ontario_geohub_id')
         dataset_identifier = geohub_dict.get('dct:identifier')
