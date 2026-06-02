@@ -2064,8 +2064,9 @@ def french_keywords(french_xml):
     french_keywords_element = root.xpath("//searchKeys")
     if french_keywords_element:
         for keyword in french_keywords_element[0]:
-            if len(keyword.text) < 100:
-                french_keywords.append(keyword.text)
+            keyword_text = keyword.text
+            if keyword_text and len(keyword_text) < 100:
+                french_keywords.append(keyword_text)
       
     return french_keywords
 
