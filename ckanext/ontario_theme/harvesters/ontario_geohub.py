@@ -799,6 +799,65 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         return package_dict, geohub_dict
 
+    def _extract_dct_modified(self, dataset_content):
+        """Return dct:modified from a harvested dataset JSON payload string."""
+        if not dataset_content:
+            return None
+        try:
+            dataset_dict = json.loads(dataset_content)
+        except (TypeError, ValueError):
+            return None
+        return dataset_dict.get('dct:modified')
+
+    def _parse_dct_modified_timestamp(self, value):
+        """Parse common dct:modified timestamp formats to a datetime."""
+        if not value:
+            return None
+
+        text_value = six.text_type(value).strip()
+        if not text_value:
+            return None
+
+        known_formats = [
+            '%Y-%m-%dT%H:%M:%S.%fZ',
+            '%Y-%m-%dT%H:%M:%SZ',
+            '%Y-%m-%dT%H:%M:%S.%f',
+            '%Y-%m-%dT%H:%M:%S',
+            '%Y-%m-%d',
+        ]
+
+        for date_format in known_formats:
+            try:
+                return datetime.datetime.strptime(text_value, date_format)
+            except ValueError:
+                continue
+
+        return None
+
+    def _is_unchanged_dataset(self, previous_content, current_content):
+        """Return True when dataset should be skipped as unchanged.
+
+        Only reharvest when current dct:modified is newer than previous
+        dct:modified.
+        """
+        previous_modified = self._extract_dct_modified(previous_content)
+        current_modified = self._extract_dct_modified(current_content)
+
+        # Missing timestamps force reharvest.
+        if not current_modified or not previous_modified:
+            return False
+
+        current_dt = self._parse_dct_modified_timestamp(current_modified)
+        previous_dt = self._parse_dct_modified_timestamp(previous_modified)
+
+        if current_dt and previous_dt:
+            # Unchanged when current is not newer than previous.
+            return current_dt <= previous_dt
+
+        # If we cannot parse either timestamp, compare raw normalized values.
+        return (six.text_type(current_modified).strip() ==
+                six.text_type(previous_modified).strip())
+
 
     # -------------------------------------------------------------------
     # Single-dataset harvesting support
@@ -1261,14 +1320,19 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         # Get the previous guids for this source
         query = (
-            model.Session.query(HarvestObject.guid, HarvestObject.package_id)
+            model.Session.query(
+                HarvestObject.guid,
+                HarvestObject.package_id,
+                HarvestObject.content)
             .filter(HarvestObject.current == True)
             .filter(
                 HarvestObject.harvest_source_id == harvest_job.source.id)
         )
         guid_to_package_id = {}
-        for guid, package_id in query:
+        guid_to_current_content = {}
+        for guid, package_id, current_content in query:
             guid_to_package_id[guid] = package_id
+            guid_to_current_content[guid] = current_content
 
         guids_in_db = list(guid_to_package_id.keys())
         guids_in_source = []
@@ -1289,6 +1353,21 @@ class OntarioGeohubHarvester(HarvesterBase):
                 dataset.get('dct:title', 'Unknown'), guid)
 
             if guid in guids_in_db:
+                existing_content = guid_to_current_content.get(guid)
+                if self._is_unchanged_dataset(existing_content, as_string):
+                    log.debug(
+                        '[HARVEST] SKIP_UNCHANGED guid=%s',
+                        guid)
+                    continue
+
+                previous_modified = self._extract_dct_modified(existing_content)
+                current_modified = self._extract_dct_modified(as_string)
+                log.debug(
+                    '[HARVEST] MARK_CHANGE guid=%s previous_dct_modified=%s new_dct_modified=%s',
+                    guid,
+                    previous_modified,
+                    current_modified)
+
                 # Dataset needs to be updated
                 obj = HarvestObject(
                     guid=guid, job=harvest_job,
@@ -1337,13 +1416,18 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         # Get the previous guids for this source
         query = \
-            model.Session.query(HarvestObject.guid, HarvestObject.package_id) \
+            model.Session.query(
+                HarvestObject.guid,
+                HarvestObject.package_id,
+                HarvestObject.content) \
             .filter(HarvestObject.current == True) \
             .filter(HarvestObject.harvest_source_id == harvest_job.source.id)
         guid_to_package_id = {}
+        guid_to_current_content = {}
 
-        for guid, package_id in query:
+        for guid, package_id, current_content in query:
             guid_to_package_id[guid] = package_id
+            guid_to_current_content[guid] = current_content
 
         guids_in_db = list(guid_to_package_id.keys())
 
@@ -1399,6 +1483,21 @@ class OntarioGeohubHarvester(HarvesterBase):
                 guids_in_source.append(guid)
 
                 if guid in guids_in_db:
+                    existing_content = guid_to_current_content.get(guid)
+                    if self._is_unchanged_dataset(existing_content, as_string):
+                        log.debug(
+                            '[HARVEST] SKIP_UNCHANGED guid=%s',
+                            guid)
+                        continue
+
+                    previous_modified = self._extract_dct_modified(existing_content)
+                    current_modified = self._extract_dct_modified(as_string)
+                    log.debug(
+                        '[HARVEST] MARK_CHANGE guid=%s previous_dct_modified=%s new_dct_modified=%s',
+                        guid,
+                        previous_modified,
+                        current_modified)
+
                     # Dataset needs to be updated
                     obj = HarvestObject(
                         guid=guid, job=harvest_job,
