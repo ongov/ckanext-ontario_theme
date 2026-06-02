@@ -47,6 +47,62 @@ _catalog_organization_cache = {
     'index': None,
 }
 
+# Hard-coded mapping/cache dicts consolidated in one section.
+restricted_tags = {
+    "MNRFNHICClassifiedData": {
+        "access_instructions" : {
+            "en": "Email the Natural Heritage Information Centre or phone us at 705-755-2159 to inquire about a Sensitive Data Use Licence.",
+            "fr": "Veuillez envoyer un courriel au Centre d'information sur le patrimoine naturel ou communiquer avec nous par téléphone au numéro 705 755-2159 pour demander une convention de droits d'utilisation de données sensibles."
+        },
+        "exemption" : "security",
+        "exemption_rationale": {
+            "en": "Potential for deliberate harm to critical infrastructure (some data include sensitive values or locations of at-risk species)",
+            "fr": "Des dommages pourraient délibérément être causés à l’infrastructure essentielle (certaines données incluent des valeurs sensibles ou l’emplacement d’espèces en péril)"
+        }
+    },
+    "RUL": {
+        "exemption":"security",
+        "exemption_rationale": {
+            "en": "Potential for deliberate harm to critical infrastructure (some data include sensitive values or locations of at-risk species). Data subject to existing licensing agreement.",
+            "fr": "Des dommages pourraient délibérément être causés à l’infrastructure essentielle (certaines données incluent des valeurs sensibles ou l’emplacement d’espèces en péril). Les données sont assujetties à un contrat de licence existant."
+        }
+    },
+    "OGDE": {
+        "exemption": "security",
+        "exemption_rationale": {
+            "en": "Potential for deliberate harm to critical infrastructure (some data include sensitive values or locations of at-risk species). Data subject to existing licensing agreement.",
+            "fr": "Des dommages pourraient délibérément être causés à l’infrastructure essentielle (certaines données incluent des valeurs sensibles ou l’emplacement d’espèces en péril). Les données sont assujetties à un contrat de licence existant."
+        },
+        "access_instructions": {
+            "en": "Complete and sign the [OGDE Membership Application Form](https://www.sdc.gov.on.ca/sites/MNRF-PublicDocs/EN/CMID/LIO-OGDE-MembershipForm.pdf) and submit it to the Ontario Ministry of Natural Resources and Forestry.",
+            "fr": "[Remplir le formulaire](https://www.sdc.gov.on.ca/sites/MNRF-PublicDocs/EN/CMID/LIO-OGDE-MembershipForm.pdf) and submit it to the Ontario Ministry of Natural Resources and Forestry."
+        }
+    },
+    "OntarioParcel": {
+        "exemption": "legal",
+        "exemption_rationale": {
+            "en": "Subject to other restrictions, do not have the right to release publicly (tri-party commercial product).",
+            "fr": "Sous réserve d’autres restrictions, il est interdit de publier les données publiquement (produit commercial tripartite)."
+        }
+    }
+}
+
+calls_to_infogo = {}
+
+update_frequencies = {
+    "irregular": "periodically",
+    "continual": "current",
+    "annually": "yearly",
+    "unknown": "other",
+    "weekly": "weekly",
+    "monthly": "monthly",
+    "fortnightly": "fortnightly",
+    "quarterly": "quarterly",
+    "biannually": "biannually",
+    "as needed": "as_required",
+    "on going": "as_required"
+}
+
 
 def _normalized_catalog_match_text(value):
     if not value:
@@ -250,45 +306,6 @@ def get_ontario_geohub_harvest_organization_options():
         seen_organization_ids.add(organization.id)
 
     return organization_options
-
-restricted_tags = {
-    "MNRFNHICClassifiedData": {
-        "access_instructions" : {
-            "en": "Email the Natural Heritage Information Centre or phone us at 705-755-2159 to inquire about a Sensitive Data Use Licence.",
-            "fr": "Veuillez envoyer un courriel au Centre d'information sur le patrimoine naturel ou communiquer avec nous par téléphone au numéro 705 755-2159 pour demander une convention de droits d'utilisation de données sensibles."
-        },
-        "exemption" : "security",
-        "exemption_rationale": {
-            "en": "Potential for deliberate harm to critical infrastructure (some data include sensitive values or locations of at-risk species)",
-            "fr": "Des dommages pourraient délibérément être causés à l’infrastructure essentielle (certaines données incluent des valeurs sensibles ou l’emplacement d’espèces en péril)"
-        }
-    },
-    "RUL": {
-        "exemption":"security",
-        "exemption_rationale": {
-            "en": "Potential for deliberate harm to critical infrastructure (some data include sensitive values or locations of at-risk species). Data subject to existing licensing agreement.",
-            "fr": "Des dommages pourraient délibérément être causés à l’infrastructure essentielle (certaines données incluent des valeurs sensibles ou l’emplacement d’espèces en péril). Les données sont assujetties à un contrat de licence existant."
-        } 
-    },
-    "OGDE": {
-        "exemption": "security",
-        "exemption_rationale": {
-            "en": "Potential for deliberate harm to critical infrastructure (some data include sensitive values or locations of at-risk species). Data subject to existing licensing agreement.",
-            "fr": "Des dommages pourraient délibérément être causés à l’infrastructure essentielle (certaines données incluent des valeurs sensibles ou l’emplacement d’espèces en péril). Les données sont assujetties à un contrat de licence existant."
-        },  
-        "access_instructions": {
-            "en": "Complete and sign the [OGDE Membership Application Form](https://www.sdc.gov.on.ca/sites/MNRF-PublicDocs/EN/CMID/LIO-OGDE-MembershipForm.pdf) and submit it to the Ontario Ministry of Natural Resources and Forestry.",
-            "fr": "[Remplir le formulaire](https://www.sdc.gov.on.ca/sites/MNRF-PublicDocs/EN/CMID/LIO-OGDE-MembershipForm.pdf) and submit it to the Ontario Ministry of Natural Resources and Forestry."
-        }  
-    },
-    "OntarioParcel": {
-        "exemption": "legal",
-        "exemption_rationale": {
-            "en": "Subject to other restrictions, do not have the right to release publicly (tri-party commercial product).",
-            "fr": "Sous réserve d’autres restrictions, il est interdit de publier les données publiquement (produit commercial tripartite)."
-        } 
-    }
-}
 
 class OntarioGeohubHarvester(HarvesterBase):
 
@@ -1599,11 +1616,6 @@ ontario_email_pattern = re.compile("[a-zA-Z0-9\.]*@[oO]ntario.ca")
 iso_date_pattern = re.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}")
 geohub_update_frequency_pattern = re.compile("\*\*Maintenance and Update Frequency(?:[\s\n]*)\*\*(?:[\s\n]*)([^:\n]*):")
 
-''' calls_to_infogo hold previous calls to infogo in the same harvest/session
-        so that we don't make multiples of the same call
-'''
-calls_to_infogo = {}
-
 def get_org_id(organization_name):  
     ''' return the local org id that matches the organization name
     '''
@@ -1643,31 +1655,12 @@ def call_to_infogo(email):
             calls_to_infogo[email] = {}
     return calls_to_infogo[email]
 
-''' update_frequencies is all the update frequencies that appear in the
-        description of a dataset on geohub mapped to catalogue update frequency values 
-'''
-
-
 def normalize_update_frequency_text(value):
     if not value:
         return ''
     normalized = re.sub(r'\s+', ' ', six.text_type(value)).strip().lower()
     return normalized
 
-
-update_frequencies = {
-    "irregular": "periodically",
-    "continual": "current",
-    "annually": "yearly",
-    "unknown": "other",
-    "weekly": "weekly",
-    "monthly": "monthly",
-    "fortnightly": "fortnightly",
-    "quarterly": "quarterly",
-    "biannually": "biannually",
-    "as needed": "as_required",
-    "on going": "as_required"
-}
 
 def extract_update_frequency(description):
     '''
