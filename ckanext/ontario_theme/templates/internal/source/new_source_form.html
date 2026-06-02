@@ -165,8 +165,10 @@
           ckanOrgField.style.display = 'none';
           configField.style.display = 'none';
           geohubMinistryField.style.display = '';
-          // Autofill URL with GeoHub feed
-          urlInput.value = 'https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json';
+          // Only autofill when empty so edit pages keep existing custom URLs.
+          if (!urlInput.value) {
+            urlInput.value = 'https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json';
+          }
         } else {
           ckanOrgField.style.display = '';
           configField.style.display = '';
