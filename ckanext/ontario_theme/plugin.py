@@ -2,6 +2,7 @@
 
 import ckan.plugins as plugins
 from ckanext.ontario_theme import validators
+from ckanext.ontario_theme import actions
 from ckanext.ontario_theme import page
 import ckan.plugins.toolkit as toolkit
 from ckan.lib.plugins import DefaultTranslation
@@ -748,6 +749,13 @@ def resource_update_auth(context, data_dict=None):
         return {'success': False, 'msg': 'This user is not allowed to edit this resource'}
     return {'success': True, 'msg': 'This package is editable.'}
 
+
+def ontario_geohub_precheck_single_dataset_auth(context, data_dict=None):
+    user = context.get('user')
+    if authz.is_sysadmin(user):
+        return {'success': True}
+    return {'success': False, 'msg': 'Only sysadmins can precheck harvest sources.'}
+
 def abbr_localised_filesize(number: int) -> str:
     ''' Returns a localised unicode representation of a number in bytes, MiB etc
     with abbreviation tags for accessibility
@@ -1028,6 +1036,7 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.IPackageController)
     plugins.implements(plugins.IValidators)
     plugins.implements(plugins.IAuthFunctions)
+    plugins.implements(plugins.IActions)
 
     # IConfigurer
 
@@ -1141,8 +1150,18 @@ type data_last_updated
 
     def get_auth_functions(self):
         return {
-            'resource_update': resource_update_auth
+            'resource_update': resource_update_auth,
+            'ontario_geohub_precheck_single_dataset':
+                ontario_geohub_precheck_single_dataset_auth,
             } 
+
+    # IActions
+
+    def get_actions(self):
+        return {
+            'ontario_geohub_precheck_single_dataset':
+                actions.ontario_geohub_precheck_single_dataset,
+        }
 
 
     # ITemplateHelpers

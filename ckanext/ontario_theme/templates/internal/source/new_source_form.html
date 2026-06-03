@@ -105,6 +105,13 @@
       helpDiv.appendChild(helpP);
       formActions.parentNode.insertBefore(helpDiv, formActions);
 
+      var precheckErrorDiv = document.createElement('div');
+      precheckErrorDiv.id = 'geohub-precheck-error';
+      precheckErrorDiv.className = 'alert alert-error';
+      precheckErrorDiv.style.display = 'none';
+      precheckErrorDiv.style.marginBottom = '1em';
+      formActions.parentNode.insertBefore(precheckErrorDiv, formActions);
+
       function readConfigObject() {
         if (!configTextarea || !configTextarea.value) {
           return {};
@@ -149,6 +156,143 @@
         writeConfigObject(configObj);
       }
 
+      function setPrecheckError(message) {
+        if (!precheckErrorDiv) {
+          return;
+        }
+        if (!message) {
+          precheckErrorDiv.style.display = 'none';
+          precheckErrorDiv.textContent = '';
+          return;
+        }
+        precheckErrorDiv.textContent = message;
+        precheckErrorDiv.style.display = '';
+      }
+
+      function humanizeReasonCode(reasonCode) {
+        var code = (reasonCode || '').trim();
+        if (!code) {
+          return 'unknown';
+        }
+        return code.replace(/_/g, ' ');
+      }
+
+      function isSingleDatasetUrl(url) {
+        var trimmed = (url || '').trim();
+        if (!trimmed) {
+          return false;
+        }
+        return /^https:\/\/geohub\.lio\.gov\.on\.ca\/api\/v3\/datasets\/[^\s\/?#]+\/?(?:\?.*)?(?:#.*)?$/i.test(trimmed);
+      }
+
+      function isDcatFeedUrl(url) {
+        var trimmed = (url || '').trim();
+        return trimmed.indexOf('https://geohub.lio.gov.on.ca/api/feed/dcat-ap/') === 0;
+      }
+
+      function setSaveDisabled(disabled) {
+        if (!formEl) {
+          return;
+        }
+
+        var submitButtons = formEl.querySelectorAll('button[type="submit"], input[type="submit"]');
+        Array.prototype.forEach.call(submitButtons, function (button) {
+          button.disabled = !!disabled;
+        });
+      }
+
+      function validateGeohubUrlState() {
+        var checked = document.querySelector('input[name="source_type"]:checked');
+        var isGeohub = checked && checked.value === 'ontario_geohub';
+        var url = (urlInput && urlInput.value ? urlInput.value : '').trim();
+
+        if (!isGeohub) {
+          setPrecheckError('');
+          setSaveDisabled(false);
+          return true;
+        }
+
+        if (isDcatFeedUrl(url) || isSingleDatasetUrl(url)) {
+          setPrecheckError('');
+          setSaveDisabled(false);
+          return true;
+        }
+
+        setPrecheckError('Single dataset URL needs to be in the format of the V3 API: https://geohub.lio.gov.on.ca/api/v3/datasets/<id>');
+        setSaveDisabled(true);
+        return false;
+      }
+
+      async function runSingleDatasetPrecheck() {
+        var checked = document.querySelector('input[name="source_type"]:checked');
+        var url = (urlInput && urlInput.value ? urlInput.value : '').trim();
+
+        var payload = {
+          source_type: checked.value,
+          url: url,
+          ontario_geohub_publisher: geohubPublisherSelect ? geohubPublisherSelect.value : ''
+        };
+
+        try {
+          var response = await fetch('/api/3/action/ontario_geohub_precheck_single_dataset', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest'
+            },
+            credentials: 'same-origin',
+            body: JSON.stringify(payload)
+          });
+
+          var responseData = await response.json();
+          if (!response.ok || !responseData.success) {
+            setPrecheckError('Could not validate dataset filters before save. Please try again.');
+            return false;
+          }
+
+          var result = responseData.result || {};
+          if (!result.checked) {
+            setPrecheckError('');
+            return true;
+          }
+
+          if (result.eligible) {
+            setPrecheckError('');
+            return true;
+          }
+
+          var failedFilterCodes = Array.isArray(result.failed_filters)
+            ? result.failed_filters
+            : [];
+          if (!failedFilterCodes.length && result.reason_code) {
+            failedFilterCodes = [result.reason_code];
+          }
+
+          var failedFilters = failedFilterCodes.map(humanizeReasonCode);
+
+          var failureMessages = Array.isArray(result.failure_messages)
+            ? result.failure_messages.filter(Boolean)
+            : [];
+          if (!failureMessages.length && result.message) {
+            failureMessages = [result.message];
+          }
+
+          var detailText = failureMessages.length
+            ? failureMessages.join(' ; ')
+            : 'Dataset failed gather filters.';
+
+          setPrecheckError(
+            'Cannot save this source for single-dataset harvesting: ' +
+            'failed filters [' + failedFilters.join(', ') + ']. ' +
+            detailText
+          );
+          return false;
+        } catch (err) {
+          setPrecheckError('Could not validate dataset filters before save. Please try again.');
+          return false;
+        }
+      }
+
       if (geohubPublisherSelect && !geohubPublisherSelect.value) {
         var existingConfig = readConfigObject();
         if (existingConfig.ontario_geohub_publisher) {
@@ -180,6 +324,7 @@
         }
 
         syncGeohubConfig(isGeohub);
+        validateGeohubUrlState();
       }
 
       Array.prototype.forEach.call(
@@ -194,10 +339,45 @@
         });
       }
 
+      if (urlInput) {
+        urlInput.addEventListener('input', validateGeohubUrlState);
+        urlInput.addEventListener('change', validateGeohubUrlState);
+      }
+
       if (formEl) {
-        formEl.addEventListener('submit', function () {
+        var continueSubmitAfterPrecheck = false;
+        formEl.addEventListener('submit', async function (event) {
           var checked = document.querySelector('input[name="source_type"]:checked');
-          syncGeohubConfig(checked && checked.value === 'ontario_geohub');
+          var isGeohub = checked && checked.value === 'ontario_geohub';
+          var url = (urlInput && urlInput.value ? urlInput.value : '').trim();
+          syncGeohubConfig(isGeohub);
+
+          if (continueSubmitAfterPrecheck) {
+            continueSubmitAfterPrecheck = false;
+            return;
+          }
+
+          if (!isGeohub) {
+            setPrecheckError('');
+            return;
+          }
+
+          if (!validateGeohubUrlState()) {
+            event.preventDefault();
+            return;
+          }
+
+          if (isDcatFeedUrl(url)) {
+            setPrecheckError('');
+            return;
+          }
+
+          event.preventDefault();
+          var precheckPassed = await runSingleDatasetPrecheck();
+          if (precheckPassed) {
+            continueSubmitAfterPrecheck = true;
+            formEl.submit();
+          }
         });
       }
 

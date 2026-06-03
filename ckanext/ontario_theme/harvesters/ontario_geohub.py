@@ -1625,6 +1625,7 @@ class OntarioGeohubHarvester(HarvesterBase):
         # the full DCAT feed.  This enables fast testing of individual
         # datasets without downloading all ~490 entries.
         url = harvest_job.source.url
+
         if self._is_single_dataset_url(url):
             return self._gather_single_dataset(
                 harvest_job,
