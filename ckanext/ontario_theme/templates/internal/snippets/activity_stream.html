@@ -1,0 +1,33 @@
+{% for activity in activity_stream %}
+
+  <p style="font-size:16px; color:#1A1A1A;">
+
+    {{ h.render_datetime(activity.timestamp, '%B %d, %Y') }}
+
+    {% set dataset_link = h.link_to(
+        activity.data.get('package', {}).get('title', ''),
+        h.url_for('dataset.read', id=activity.data.get('package', {}).get('name', ''))
+    ) %}
+
+    {% if activity.activity_type == 'new package' %}
+        {{ dataset_link }} dataset was created
+    {% elif activity.activity_type == 'changed package' %}
+        {{ dataset_link }} dataset was updated
+    {% elif activity.activity_type == 'deleted package' %}
+        {{ dataset_link }} dataset was deleted
+    {% endif %}
+
+    {% if c.user and activity.user_display_name %}
+
+        {% set user_link = h.link_to(
+            activity.user_display_name,
+            h.url_for('user.read', id=activity.user_display_name)
+        ) %}
+
+        by {{ user_link }}
+
+    {% endif %}
+
+  </p>
+
+{% endfor %}
