@@ -847,47 +847,91 @@ class OntarioGeohubHarvester(HarvesterBase):
             raise ValueError('Wrong JSON object')
 
         for dataset in datasets:
-            dataset_publisher = normalize_geohub_publisher_name(
-                dataset.get('ontario_geohub_publisher', ''))
-            dataset_org = _find_catalog_organization_from_publisher(
-                dataset_publisher)
-            dataset_org_name = dataset_org['name'] if dataset_org else None
+            accepted, guid, as_string, failed_filters, failure_messages = \
+                self._evaluate_dataset_filters(
+                    dataset,
+                    selected_publisher=selected_publisher,
+                    selected_org_name=selected_org_name,
+                    blacklist=blacklist)
 
-            # Skip early when no CKAN organization can be resolved.
-            # Import stage requires owner_org, so this avoids queueing records
-            # that would be rejected later.
-            if not dataset_org_name:
-                log.warning(
-                    '[HARVEST] SKIP (no CKAN org match) publisher=%s',
-                    dataset_publisher)
-                continue
-
-            if selected_org_name:
-                log.warning(
-                    '[HARVEST] Dataset publisher/org: %s / %s',
-                    dataset_publisher,
-                    dataset_org_name)
-                if dataset_org_name != selected_org_name:
-                    log.warning(f"[HARVEST] SKIP (no match)")
-                    continue                
-                else:
-                    log.warning(f"[HARVEST] MATCH")
-
-            as_string = json.dumps(dataset)
-
-            # Get identifier
-            guid = dataset.get('ontario_geohub_id')
-
-            if not guid:
-                # This is bad, any ideas welcomed
-                guid = sha1(as_string).hexdigest()
-
-            # Check ODCSYNC tag first (no API call needed) before
-            # expensive hubtype_table and has_french checks which each
-            # make external HTTP requests per dataset.
-            if guid not in blacklist and self.not_blacklisted(dataset) and not self.hubtype_table(dataset) and self.has_french(dataset):
+            if accepted:
                 log.warning(f"[HARVEST] ACCEPTED GUID: {guid}")
                 yield guid, as_string
+
+    def _evaluate_dataset_filters(self, dataset, selected_publisher=None,
+                                  selected_org_name=None, blacklist=None):
+        if blacklist is None:
+            blacklist = _fetch_blacklist_ids()
+
+        failed_filters = []
+        failure_messages = []
+
+        def add_failure(code, message):
+            failed_filters.append(code)
+            failure_messages.append(message)
+
+        dataset_publisher = normalize_geohub_publisher_name(
+            dataset.get('ontario_geohub_publisher', ''))
+        dataset_org = _find_catalog_organization_from_publisher(
+            dataset_publisher)
+        dataset_org_name = dataset_org['name'] if dataset_org else None
+
+        as_string = json.dumps(dataset)
+        guid = dataset.get('ontario_geohub_id')
+        if not guid:
+            # This is bad, any ideas welcomed
+            guid = sha1(as_string).hexdigest()
+
+        # Organization gate
+        if not dataset_org_name:
+            add_failure(
+                'no_ckan_org_match',
+                'no CKAN org match for publisher={}'.format(dataset_publisher)
+            )
+
+        if selected_org_name:
+            log.warning(
+                '[HARVEST] Dataset publisher/org: %s / %s',
+                dataset_publisher,
+                dataset_org_name)
+            if dataset_org_name != selected_org_name:
+                add_failure(
+                    'selected_publisher_mismatch',
+                    'selected_org_name={} dataset_org_name={}'.format(
+                        selected_org_name,
+                        dataset_org_name)
+                )
+            else:
+                log.warning(f"[HARVEST] MATCH")
+
+        # Standard gather filters
+        if guid in blacklist:
+            add_failure('blacklisted', 'dataset id is in blacklist')
+
+        if not self.not_blacklisted(dataset):
+            add_failure('missing_odcsync', 'dataset is missing ODCSYNC keyword')
+
+        # If org gating already failed, skip expensive remote checks that can
+        # produce noisy warnings for datasets that are guaranteed to be rejected.
+        if ('no_ckan_org_match' in failed_filters or
+                'selected_publisher_mismatch' in failed_filters):
+            return (False,
+                    guid,
+                    as_string,
+                    failed_filters,
+                    failure_messages)
+
+        if self.hubtype_table(dataset):
+            add_failure('hubtype_table', 'dataset hubType resolved to table')
+
+        if not self.has_french(dataset):
+            add_failure('missing_french', 'dataset has no French metadata')
+
+        return (len(failed_filters) == 0,
+                guid,
+                as_string,
+                failed_filters,
+                failure_messages)
 
     def fetch_stage(self, harvest_object):
         return True
@@ -1411,13 +1455,13 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         return json.dumps({'dcat:dataset': [dcat_dict]})
 
-    def _gather_single_dataset(self, harvest_job):
+    def _gather_single_dataset(self, harvest_job, selected_publisher=''):
         """Gather stage for a single GeoHub dataset URL.
 
         This allows testing individual datasets without downloading the full
-        DCAT feed (~490 datasets, 45+ min).  Filters like ODCSYNC-tag check,
-        blacklist, hubtype, and French-metadata availability are skipped
-        because the user has explicitly chosen this dataset for harvesting.
+        DCAT feed (~490 datasets, 45+ min). The same acceptance filters used
+        by the full-feed gather path are still applied (ODCSYNC-tag check,
+        blacklist, hubtype, French metadata, org matching).
         """
         log.info('Single dataset mode: resolving %s', harvest_job.source.url)
 
@@ -1447,14 +1491,44 @@ class OntarioGeohubHarvester(HarvesterBase):
         guids_in_db = list(guid_to_package_id.keys())
         guids_in_source = []
 
+        accepted_datasets = []
+        selected_org_name = None
+        if selected_publisher:
+            selected_org = _find_catalog_organization_from_publisher(
+                selected_publisher)
+            selected_org_name = (
+                selected_org['name'] if selected_org else selected_publisher)
+
+        blacklist = _fetch_blacklist_ids()
         doc = json.loads(content)
-        datasets = doc.get('dcat:dataset', [])
+        datasets = doc.get('dcat:dataset', []) if isinstance(doc, dict) else []
 
         for dataset in datasets:
-            as_string = json.dumps(dataset)
-            guid = dataset.get('ontario_geohub_id')
-            if not guid:
-                guid = sha1(as_string.encode('utf-8')).hexdigest()
+            accepted, guid, as_string, failed_filters, failure_messages = \
+                self._evaluate_dataset_filters(
+                    dataset,
+                    selected_publisher=selected_publisher,
+                    selected_org_name=selected_org_name,
+                    blacklist=blacklist)
+            if accepted:
+                accepted_datasets.append((guid, as_string))
+                continue
+
+            log.warning(
+                '[HARVEST] SINGLE_DATASET_FILTER_REJECTED guid=%s title=%s failed_filters=%s reasons=%s',
+                dataset.get('ontario_geohub_id', 'unknown'),
+                dataset.get('dct:title', 'Unknown'),
+                ','.join(failed_filters),
+                ' ; '.join(failure_messages))
+        if not accepted_datasets:
+            log.info(
+                'Single dataset mode: no datasets passed standard gather '
+                'filters for %s',
+                harvest_job.source.url)
+            return []
+
+        for guid, as_string in accepted_datasets:
+            dataset = json.loads(as_string)
 
             guids_in_source.append(guid)
 
@@ -1520,7 +1594,9 @@ class OntarioGeohubHarvester(HarvesterBase):
         # datasets without downloading all ~490 entries.
         url = harvest_job.source.url
         if self._is_single_dataset_url(url):
-            return self._gather_single_dataset(harvest_job)
+            return self._gather_single_dataset(
+                harvest_job,
+                selected_publisher=selected_publisher)
 
         ids = []
 
