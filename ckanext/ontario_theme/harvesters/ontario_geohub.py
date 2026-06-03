@@ -36,6 +36,7 @@ log = logging.getLogger(__name__)
 DEFAULT_GEOHUB_DCAT_FEED_URL = 'https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json'
 GEOHUB_PUBLISHER_OPTIONS_CACHE_TTL = datetime.timedelta(hours=24)
 GEOHUB_BLACKLIST_CACHE_TTL = datetime.timedelta(minutes=15)
+GEOHUB_FULL_FEED_REJECTION_LOG_LIMIT = 25
 
 blacklist_url = "https://services9.arcgis.com/a03W7iZ8T3s5vB7p/ArcGIS/rest/services/odc_sync_blacklist_vw/FeatureServer/0/query?where=1%3D1&outFields=geohub_dataset_url&f=json"
 
@@ -824,7 +825,9 @@ class OntarioGeohubHarvester(HarvesterBase):
             'description': 'Harvester for Ontario Geohub'
         }
 
-    def _get_guids_and_datasets(self, content, selected_publisher=None):
+    def _get_guids_and_datasets(self, content, selected_publisher=None,
+                                log_rejections=False,
+                                rejection_log_limit=0):
         log.warning(f"[HARVEST] Selected publisher: {selected_publisher}")
 
         selected_org_name = None
@@ -846,6 +849,10 @@ class OntarioGeohubHarvester(HarvesterBase):
         else:
             raise ValueError('Wrong JSON object')
 
+        rejected_count = 0
+        rejected_logged = 0
+        rejection_counts = {}
+
         for dataset in datasets:
             accepted, guid, as_string, failed_filters, failure_messages = \
                 self._evaluate_dataset_filters(
@@ -857,6 +864,31 @@ class OntarioGeohubHarvester(HarvesterBase):
             if accepted:
                 log.warning(f"[HARVEST] ACCEPTED GUID: {guid}")
                 yield guid, as_string
+            elif log_rejections:
+                rejected_count += 1
+                for code in failed_filters:
+                    rejection_counts[code] = rejection_counts.get(code, 0) + 1
+
+                if rejected_logged < rejection_log_limit:
+                    log.warning(
+                        '[HARVEST] FULL_FEED_FILTER_REJECTED guid=%s title=%s failed_filters=%s reasons=%s',
+                        dataset.get('ontario_geohub_id', 'unknown'),
+                        dataset.get('dct:title', 'Unknown'),
+                        ','.join(failed_filters),
+                        ' ; '.join(failure_messages))
+                    rejected_logged += 1
+
+        if log_rejections and rejected_count:
+            ordered_counts = ','.join(
+                ['{}:{}'.format(code, rejection_counts[code])
+                 for code in sorted(rejection_counts.keys())]
+            )
+            log.warning(
+                '[HARVEST] FULL_FEED_FILTER_SUMMARY rejected_total=%s logged_examples=%s log_limit=%s counts=%s',
+                rejected_count,
+                rejected_logged,
+                rejection_log_limit,
+                ordered_counts)
 
     def _evaluate_dataset_filters(self, dataset, selected_publisher=None,
                                   selected_org_name=None, blacklist=None):
@@ -1662,7 +1694,10 @@ class OntarioGeohubHarvester(HarvesterBase):
             # Single-pass processing: iterate the resolved payload once and
             # classify each GUID as create/update for this harvest job.
             for guid, as_string in self._get_guids_and_datasets(
-                    content, selected_publisher=selected_publisher):
+                    content,
+                    selected_publisher=selected_publisher,
+                    log_rejections=True,
+                    rejection_log_limit=GEOHUB_FULL_FEED_REJECTION_LOG_LIMIT):
 
                 log.debug('Got identifier: {0}'
                           .format(guid.encode('utf8')))
