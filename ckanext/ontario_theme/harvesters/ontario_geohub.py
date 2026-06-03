@@ -1277,10 +1277,13 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         # Additional resources from the v3 API
         for extra_res in attrs.get('additionalResources', []):
-            if extra_res.get('url'):
+            if not isinstance(extra_res, dict):
+                continue
+            extra_url = extra_res.get('url')
+            if extra_url:
                 distributions.append({
-                    "title": extra_res.get('name', extra_res['url']),
-                    "accessURL": extra_res['url'],
+                    "title": extra_res.get('name', extra_url),
+                    "accessURL": extra_url,
                     "format": ""
                 })
 
@@ -2008,19 +2011,20 @@ def extract_ontario_email(description):
 
 
 def get_ontario_employee_name(email):
-    return " ".join(list(map(lambda x: x.capitalize(), re.sub(r'[0-9]+', '', email).replace("@ontario.ca","").split(".", 1))))
-    # request timing out right now. reenable this later
+    fallback_name = " ".join(list(map(
+        lambda x: x.capitalize(),
+        re.sub(r'[0-9]+', '', email).replace("@ontario.ca","").split(".", 1))))
     infogo_response = call_to_infogo(email)
     total = infogo_response.get('total', 0)
     individuals = infogo_response.get('individuals', [])
     if total > 0 and isinstance(individuals, list) and individuals:
         first_individual = individuals[0]
         if not isinstance(first_individual, dict):
-            return " ".join(list(map(lambda x: x.capitalize(), re.sub(r'[0-9]+', '', email).replace("@ontario.ca","").split(".", 1))))
+            return fallback_name
         calls_to_infogo[email] = infogo_response
         return " ".join(list(map(lambda x: first_individual[x] if x in first_individual else "", ["firstname", "middleName","lastName"])))
     else:
-        return " ".join(list(map(lambda x: x.capitalize(), re.sub(r'[0-9]+', '', email).replace("@ontario.ca","").split(".", 1))))
+        return fallback_name
 
 
 def french_notes(french_xml):
