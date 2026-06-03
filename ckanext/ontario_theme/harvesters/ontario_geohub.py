@@ -2526,6 +2526,25 @@ def metadata_url(id):
     return "https://www.arcgis.com/sharing/rest/content/items/{}/info/metadata/metadata.xml".format(id)
 
 
+def _parse_metadata_xml_content(xml_bytes, dataset_id, language_label):
+    """Parse metadata XML bytes with a recover fallback for malformed feeds."""
+    try:
+        return lxml.etree.fromstring(xml_bytes)
+    except lxml.etree.XMLSyntaxError as strict_error:
+        # Some ArcGIS metadata payloads contain minor XML defects. Recovering
+        # preserves usable nodes instead of hard-failing to an empty root.
+        parser = lxml.etree.XMLParser(recover=True)
+        recovered_root = lxml.etree.fromstring(xml_bytes, parser=parser)
+        if recovered_root is not None:
+            log.warning(
+                '[HARVEST] RECOVERED_MALFORMED_%s_METADATA_XML dataset_id=%s error=%s',
+                language_label.upper(),
+                dataset_id,
+                strict_error)
+            return recovered_root
+        raise
+
+
 def additional_resources_from_xml(root):
     '''Returns array of dicts for additional resources.
     '''
@@ -2581,8 +2600,12 @@ def english_metadata_xml_response(dataset_obj):
         metadata_xml_request = _requests_get_with_retry(
             english_metadata_url,
             timeout=60)
+        metadata_xml_request.raise_for_status()
         # parse the response to get the additional resources.
-        return lxml.etree.fromstring(metadata_xml_request.content)
+        return _parse_metadata_xml_content(
+            metadata_xml_request.content,
+            english_id,
+            'english')
     except (requests.exceptions.RequestException,
             lxml.etree.XMLSyntaxError) as e:
         log.warning(
@@ -2612,9 +2635,13 @@ def french_metadata_xml_response(dataset_obj):
         french_xml_response = _requests_get_with_retry(
             french_metadata_xml_url,
             timeout=60)
+        french_xml_response.raise_for_status()
         # TODO: fix bug.  if geohub_french_id_from_xml: continue on, else abort french and use defaults. in some cases there is an ID but the request fails (outdated data I think). In this case it tries to parse the html I think and uses the defaults (den-site is an example).
         # TODO: Error handle for non-existent French record.
-        french_xml_root = lxml.etree.fromstring(french_xml_response.content)
+        french_xml_root = _parse_metadata_xml_content(
+            french_xml_response.content,
+            english_id,
+            'french')
     except (requests.exceptions.RequestException,
             lxml.etree.XMLSyntaxError) as e:
         logging.warning('Exception raised. Cannot load/parse response for english_id: {} and french_id: {}. Using empty root element instead. {}'
