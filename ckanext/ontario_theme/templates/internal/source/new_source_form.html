@@ -201,18 +201,33 @@
         });
       }
 
+      function setGeohubMinistryFieldVisible(visible) {
+        if (!geohubMinistryField) {
+          return;
+        }
+
+        geohubMinistryField.style.display = visible ? '' : 'none';
+        if (geohubPublisherSelect) {
+          geohubPublisherSelect.disabled = !visible;
+        }
+      }
+
       function validateGeohubUrlState() {
         var checked = document.querySelector('input[name="source_type"]:checked');
         var isGeohub = checked && checked.value === 'ontario_geohub';
         var url = (urlInput && urlInput.value ? urlInput.value : '').trim();
+        var singleDataset = isSingleDatasetUrl(url);
 
         if (!isGeohub) {
           setPrecheckError('');
           setSaveDisabled(false);
+          setGeohubMinistryFieldVisible(false);
           return true;
         }
 
-        if (isDcatFeedUrl(url) || isSingleDatasetUrl(url)) {
+        setGeohubMinistryFieldVisible(!singleDataset);
+
+        if (isDcatFeedUrl(url) || singleDataset) {
           setPrecheckError('');
           setSaveDisabled(false);
           return true;
@@ -305,10 +320,11 @@
       function update() {
         var checked = document.querySelector('input[name="source_type"]:checked');
         var isGeohub = checked && checked.value === 'ontario_geohub';
+        var singleDataset = isSingleDatasetUrl(urlInput ? urlInput.value : '');
         if (isGeohub) {
           ckanOrgField.style.display = 'none';
           configField.style.display = 'none';
-          geohubMinistryField.style.display = '';
+          setGeohubMinistryFieldVisible(!singleDataset);
           // Only autofill when empty so edit pages keep existing custom URLs.
           if (!urlInput.value) {
             urlInput.value = 'https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json';
@@ -316,7 +332,7 @@
         } else {
           ckanOrgField.style.display = '';
           configField.style.display = '';
-          geohubMinistryField.style.display = 'none';
+          setGeohubMinistryFieldVisible(false);
           // Clear URL when Ontario Data Catalogue is selected as Source type
           if (checked && checked.value === 'ontario_data_catalogue') {
             urlInput.value = '';
