@@ -262,6 +262,45 @@ def _normalize_blacklist_dataset_id(raw_url):
     return dataset_id or None
 
 
+def _normalize_geohub_dataset_url_for_match(raw_url):
+    """Normalize GeoHub dataset URLs for reliable equality checks."""
+    if not raw_url:
+        return ''
+
+    try:
+        from urllib.parse import urlparse
+        parsed = urlparse(six.text_type(raw_url).strip())
+    except Exception:
+        return six.text_type(raw_url).strip().rstrip('/').lower()
+
+    host = (parsed.netloc or '').lower()
+    path = (parsed.path or '').rstrip('/')
+
+    # Canonicalize known GeoHub URL shapes to just base record path:
+    # /datasets/<id_or_slug>/... ; /maps/<id>/... ; /documents/<id>/...
+    parts = [p for p in path.split('/') if p]
+    if host.endswith('geohub.lio.gov.on.ca') and len(parts) >= 2:
+        if parts[0] in ('datasets', 'maps', 'documents'):
+            path = '/{}/{}'.format(parts[0], parts[1])
+
+    return '{}{}'.format(host, path).lower()
+
+
+def _geohub_dataset_urls_match(url_a, url_b):
+    if not url_a or not url_b:
+        log.debug(
+            '[HARVEST] URL_MATCH_SKIP reason=missing_url url_a=%s url_b=%s',
+            url_a, url_b)
+        return False
+    norm_a = _normalize_geohub_dataset_url_for_match(url_a)
+    norm_b = _normalize_geohub_dataset_url_for_match(url_b)
+    result = norm_a == norm_b
+    log.debug(
+        '[HARVEST] URL_MATCH raw_a=%s raw_b=%s norm_a=%s norm_b=%s match=%s',
+        url_a, url_b, norm_a, norm_b, result)
+    return result
+
+
 def _fetch_blacklist_ids():
     now = datetime.datetime.utcnow()
     cache_expires_at = _blacklist_cache['expires_at']
@@ -587,6 +626,106 @@ class OntarioGeohubHarvester(HarvesterBase):
                       .format(guid))
 
         return p.toolkit.get_action('package_show')({}, {'id': datasets[0][0]})
+
+    def _get_existing_dataset_by_name(self, name):
+        '''
+        Checks if an active dataset already exists with the given CKAN name.
+        Returns a dict as the ones returned by package_show.
+        '''
+
+        if not name:
+            return None
+
+        datasets = model.Session.query(model.Package.id) \
+                                .filter(model.Package.name == name) \
+                                .filter(model.Package.state == 'active') \
+                                .all()
+
+        if not datasets:
+            return None
+        elif len(datasets) > 1:
+            log.error('Found more than one dataset with the same name: {0}'
+                      .format(name))
+
+        return p.toolkit.get_action('package_show')({}, {'id': datasets[0][0]})
+
+    def _find_existing_catalog_dataset_for_harvest(self, geohub_dict):
+        '''
+        Find an existing active CKAN dataset (not yet linked by harvest guid)
+        that matches the incoming GeoHub record by CKAN name + source URL.
+        '''
+        if not isinstance(geohub_dict, dict):
+            return None
+
+        title = geohub_dict.get('dct:title')
+        identifier = geohub_dict.get('dct:identifier')
+        if not title or not identifier:
+            return None
+
+        candidate_name = ontario_theme_helpers.name_cleaner(title)
+        if not candidate_name:
+            return None
+
+        log.debug(
+            '[HARVEST] FIND_CATALOG_DATASET title=%s candidate_name=%s identifier=%s',
+            title, candidate_name, identifier)
+
+        existing_dataset = self._get_existing_dataset_by_name(candidate_name)
+        if not existing_dataset:
+            log.debug(
+                '[HARVEST] FIND_CATALOG_DATASET no_name_match candidate_name=%s',
+                candidate_name)
+            return None
+
+        log.debug(
+            '[HARVEST] FIND_CATALOG_DATASET name_match package_id=%s existing_url=%s incoming_url=%s',
+            existing_dataset.get('id'),
+            existing_dataset.get('url'),
+            identifier)
+
+        if not _geohub_dataset_urls_match(existing_dataset.get('url'),
+                                          identifier):
+            log.debug(
+                '[HARVEST] FIND_CATALOG_DATASET url_mismatch_skip package_id=%s',
+                existing_dataset.get('id'))
+            return None
+
+        log.debug(
+            '[HARVEST] FIND_CATALOG_DATASET found package_id=%s',
+            existing_dataset.get('id'))
+        return existing_dataset
+
+    def _is_existing_dataset_unchanged(self, existing_dataset, current_content):
+        '''
+        Compare incoming harvest content to an existing CKAN dataset that does
+        not yet have a harvest guid.
+
+        Returns True when the incoming dct:modified is not newer than the
+        dataset's existing timestamp (current_as_of/metadata_modified).
+        '''
+        if not existing_dataset:
+            return False
+
+        current_modified = self._extract_dct_modified(current_content)
+        if not current_modified:
+            return False
+
+        existing_modified = (
+            existing_dataset.get('current_as_of')
+            or existing_dataset.get('metadata_modified')
+            or existing_dataset.get('metadata_created')
+        )
+        if not existing_modified:
+            return False
+
+        current_dt = self._parse_dct_modified_timestamp(current_modified)
+        existing_dt = self._parse_dct_modified_timestamp(existing_modified)
+
+        if current_dt and existing_dt:
+            return current_dt <= existing_dt
+
+        return (six.text_type(current_modified).strip() ==
+                six.text_type(existing_modified).strip())
 
 
     def _make_package_dict(self, geohub_dict, harvest_object):
@@ -1728,12 +1867,38 @@ class OntarioGeohubHarvester(HarvesterBase):
                         extras=[HarvestObjectExtra(key='status',
                                                    value='change')])
                 else:
-                    # Dataset needs to be created
-                    obj = HarvestObject(
-                        guid=guid, job=harvest_job,
-                        content=as_string,
-                        extras=[HarvestObjectExtra(key='status',
-                                                   value='new')])
+                    dataset_dict = json.loads(as_string)
+                    existing_catalog_dataset = \
+                        self._find_existing_catalog_dataset_for_harvest(
+                            dataset_dict)
+
+                    if existing_catalog_dataset:
+                        if self._is_existing_dataset_unchanged(
+                                existing_catalog_dataset,
+                                as_string):
+                            log.debug(
+                                '[HARVEST] SKIP_UNCHANGED_EXISTING guid=%s package_id=%s',
+                                guid,
+                                existing_catalog_dataset.get('id'))
+                            continue
+
+                        log.debug(
+                            '[HARVEST] ADOPT_EXISTING_DATASET guid=%s package_id=%s',
+                            guid,
+                            existing_catalog_dataset.get('id'))
+                        obj = HarvestObject(
+                            guid=guid, job=harvest_job,
+                            package_id=existing_catalog_dataset.get('id'),
+                            content=as_string,
+                            extras=[HarvestObjectExtra(key='status',
+                                                       value='change')])
+                    else:
+                        # Dataset needs to be created
+                        obj = HarvestObject(
+                            guid=guid, job=harvest_job,
+                            content=as_string,
+                            extras=[HarvestObjectExtra(key='status',
+                                                       value='new')])
                 obj.save()
                 ids.append(obj.id)
 
@@ -1823,6 +1988,50 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         package_dict['owner_org'] = owner_org
 
+        if status == 'new' and package_dict.get('name'):
+            log.debug(
+                '[HARVEST] PRE_CREATE_NAME_CHECK name=%s guid=%s incoming_url=%s',
+                package_dict.get('name'),
+                harvest_object.guid,
+                package_dict.get('url'))
+            existing_dataset = self._get_existing_dataset_by_name(
+                package_dict['name'])
+            if existing_dataset:
+                url_matches = _geohub_dataset_urls_match(
+                    existing_dataset.get('url'), package_dict.get('url'))
+                if url_matches:
+                    log.warning(
+                        '[HARVEST] PRE_CREATE_REUSE package_id=%s guid=%s reason=name_and_url_match '
+                        'existing_url=%s incoming_url=%s '
+                        'existing_norm=%s incoming_norm=%s',
+                        existing_dataset.get('id'),
+                        harvest_object.guid,
+                        existing_dataset.get('url'),
+                        package_dict.get('url'),
+                        _normalize_geohub_dataset_url_for_match(existing_dataset.get('url')),
+                        _normalize_geohub_dataset_url_for_match(package_dict.get('url')))
+                else:
+                    log.warning(
+                        '[HARVEST] PRE_CREATE_REUSE package_id=%s guid=%s reason=name_only_match '
+                        'existing_url=%s incoming_url=%s '
+                        'existing_norm=%s incoming_norm=%s',
+                        existing_dataset.get('id'),
+                        harvest_object.guid,
+                        existing_dataset.get('url'),
+                        package_dict.get('url'),
+                        _normalize_geohub_dataset_url_for_match(existing_dataset.get('url')),
+                        _normalize_geohub_dataset_url_for_match(package_dict.get('url')))
+                harvest_object.package_id = existing_dataset['id']
+                harvest_object.add()
+                package_dict['id'] = existing_dataset['id']
+                package_dict.setdefault('extras', [])
+                if not any(extra.get('key') == 'guid' for extra in package_dict['extras']):
+                    package_dict['extras'].append({
+                        'key': 'guid',
+                        'value': geohub_dict['ontario_geohub_id'],
+                    })
+                status = 'change'
+
 
         if not package_dict.get('name'):
             package_dict['name'] = \
@@ -1832,7 +2041,23 @@ class OntarioGeohubHarvester(HarvesterBase):
         # be recreated with new ids
 
         if status == 'change':
+            package_dict.setdefault('extras', [])
+            if not any(extra.get('key') == 'guid' for extra in package_dict['extras']):
+                package_dict['extras'].append({
+                    'key': 'guid',
+                    'value': geohub_dict['ontario_geohub_id'],
+                })
+
             existing_dataset = self._get_existing_dataset(harvest_object.guid)
+            if not existing_dataset and harvest_object.package_id:
+                try:
+                    existing_dataset = p.toolkit.get_action('package_show')(
+                        {}, {'id': harvest_object.package_id})
+                except Exception as e:
+                    log.warning(
+                        '[HARVEST] Unable to load existing package for resource matching package_id=%s error=%s',
+                        harvest_object.package_id,
+                        e)
             if existing_dataset:
                 copy_across_resource_ids(existing_dataset, package_dict)
                 # Augment existing ODC tags with GeoHub tags
@@ -1910,6 +2135,46 @@ class OntarioGeohubHarvester(HarvesterBase):
                 log.info('%s dataset with id %s', message_status, package_id)
 
         except Exception as e:
+            if status == 'new' and package_dict.get('name'):
+                existing_dataset = self._get_existing_dataset_by_name(
+                    package_dict['name'])
+                if existing_dataset:
+                    url_matches = _geohub_dataset_urls_match(
+                        existing_dataset.get('url'), package_dict.get('url'))
+                    try:
+                        log.warning(
+                            '[HARVEST] EXCEPTION_RECOVERY package_id=%s guid=%s '
+                            'url_matches=%s existing_url=%s incoming_url=%s '
+                            'existing_norm=%s incoming_norm=%s error=%s',
+                            existing_dataset.get('id'),
+                            harvest_object.guid,
+                            url_matches,
+                            existing_dataset.get('url'),
+                            package_dict.get('url'),
+                            _normalize_geohub_dataset_url_for_match(existing_dataset.get('url')),
+                            _normalize_geohub_dataset_url_for_match(package_dict.get('url')),
+                            e)
+                        package_dict['id'] = existing_dataset['id']
+                        harvest_object.package_id = existing_dataset['id']
+                        harvest_object.add()
+                        package_dict.setdefault('extras', [])
+                        if not any(extra.get('key') == 'guid'
+                                   for extra in package_dict['extras']):
+                            package_dict['extras'].append({
+                                'key': 'guid',
+                                'value': geohub_dict['ontario_geohub_id'],
+                            })
+                        copy_across_resource_ids(existing_dataset, package_dict)
+                        package_id = p.toolkit.get_action('package_update')(
+                            context, package_dict)
+                        log.info('Updated dataset with id %s', package_id)
+                        return True
+                    except Exception as retry_error:
+                        log.warning(
+                            '[HARVEST] package_create recovery failed guid=%s error=%s',
+                            harvest_object.guid,
+                            retry_error)
+
             dataset = json.loads(harvest_object.content)
             dataset_name = dataset.get('name', '')
 
