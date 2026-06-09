@@ -16,7 +16,11 @@
       {% if activity.activity_type == 'new package' %}
           {{ dataset_link }} dataset was created
       {% elif activity.activity_type == 'changed package' %}
-          {{ dataset_link }} dataset was updated
+          {% if h.lang() == 'fr' %} 
+              Le jeu de données {{ dataset_link }} a été mis à jour
+          {% else %}
+              {{ dataset_link }} dataset was updated
+          {% endif %}
       {% elif activity.activity_type == 'deleted package' %}
           {{ dataset_link }} dataset was deleted
       {% endif %}
