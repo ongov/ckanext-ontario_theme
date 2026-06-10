@@ -14,15 +14,13 @@
       ) %}
 
       {% if activity.activity_type == 'new package' %}
-          {{ dataset_link }} dataset was created
+          {{ dataset_link }} was created
+
       {% elif activity.activity_type == 'changed package' %}
-          {% if h.lang() == 'fr' %} 
-              Le jeu de données {{ dataset_link }} a été mis à jour
-          {% else %}
-              {{ dataset_link }} dataset was updated
-          {% endif %}
+          {% trans dataset_link=dataset_link %}{{ dataset_link }} dataset was updated{% endtrans %}
+
       {% elif activity.activity_type == 'deleted package' %}
-          {{ dataset_link }} dataset was deleted
+          {{ dataset_link }} was deleted
       {% endif %}
 
       {% if c.userobj and c.userobj.sysadmin %}
