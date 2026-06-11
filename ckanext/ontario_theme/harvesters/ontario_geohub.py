@@ -58,11 +58,11 @@ _blacklist_cache = {
 
 def _requests_get_with_retry(url, timeout=30, max_retries=3, backoff=5,
                              session=None, **kwargs):
-    """GET wrapper with retries for transient network failures.
+    '''GET wrapper with retries for transient network failures.
 
     Retries on connection errors and timeouts, and raises the final
     exception if all attempts fail.
-    """
+    '''
     client = session or requests
     for attempt in range(max_retries):
         try:
@@ -136,6 +136,8 @@ update_frequencies = {
 
 
 def _normalized_catalog_match_text(value):
+    '''Normalize publisher text to a comparable key for organization matching.
+    '''
     if not value:
         return ''
     text = re.sub(r'\s+', ' ', six.text_type(value)).strip().lower()
@@ -145,6 +147,8 @@ def _normalized_catalog_match_text(value):
 
 
 def _get_catalog_organization_index():
+    '''Build and cache an index of active CKAN organizations by match keys.
+    '''
     now = datetime.datetime.utcnow()
     cache_expires_at = _catalog_organization_cache['expires_at']
     if (cache_expires_at and cache_expires_at > now and
@@ -207,6 +211,8 @@ def _get_catalog_organization_index():
 
 
 def _find_catalog_organization_from_publisher(publisher_name):
+    '''Resolve a GeoHub publisher name to a CKAN organization from the cached index.
+    '''
     if not publisher_name:
         return None
 
@@ -228,7 +234,8 @@ def _find_catalog_organization_from_publisher(publisher_name):
 
 
 def _resolve_dataset_catalog_organization(geohub_dict):
-    """Resolve the dataset's CKAN organization from ontario_geohub_publisher."""
+    '''Resolve the dataset's CKAN organization from ontario_geohub_publisher.
+    '''
     publisher_name = normalize_geohub_publisher_name(
         geohub_dict.get('ontario_geohub_publisher', ''))
     if publisher_name:
@@ -239,6 +246,8 @@ def _resolve_dataset_catalog_organization(geohub_dict):
 
 
 def normalize_geohub_publisher_name(publisher_name):
+    '''Normalize GeoHub publisher text by collapsing internal whitespace.
+    '''
     if not publisher_name:
         return ''
 
@@ -246,6 +255,8 @@ def normalize_geohub_publisher_name(publisher_name):
 
 
 def _normalize_blacklist_dataset_id(raw_url):
+    '''Extract a blacklist dataset id token from a GeoHub dataset URL.
+    '''
     if not raw_url:
         return None
 
@@ -263,7 +274,8 @@ def _normalize_blacklist_dataset_id(raw_url):
 
 
 def _normalize_geohub_dataset_url_for_match(raw_url):
-    """Normalize GeoHub dataset URLs for reliable equality checks."""
+    '''Normalize (parse and clean) GeoHub dataset URLs for reliable equality checks.
+    '''
     if not raw_url:
         return ''
 
@@ -287,6 +299,8 @@ def _normalize_geohub_dataset_url_for_match(raw_url):
 
 
 def _geohub_dataset_urls_match(url_a, url_b):
+    '''Return True when two GeoHub dataset URLs normalize to the same value.
+    '''
     if not url_a or not url_b:
         log.debug(
             '[HARVEST] URL_MATCH_SKIP reason=missing_url url_a=%s url_b=%s',
@@ -302,6 +316,8 @@ def _geohub_dataset_urls_match(url_a, url_b):
 
 
 def _fetch_blacklist_ids():
+    '''Fetch and cache blacklist dataset ids from the remote ArcGIS endpoint.
+    '''
     now = datetime.datetime.utcnow()
     cache_expires_at = _blacklist_cache['expires_at']
     cached_ids = _blacklist_cache['ids']
@@ -365,6 +381,9 @@ def _fetch_blacklist_ids():
 
 
 def get_ontario_geohub_publisher_options():
+    '''Return dropdown values for GeoHub publishers that match CKAN organizations,
+       with filtered dataset counts.
+    '''
     now = datetime.datetime.utcnow()
     cache_expires_at = _geohub_publisher_options_cache['expires_at']
     if (cache_expires_at and cache_expires_at > now and
@@ -431,6 +450,8 @@ def get_ontario_geohub_publisher_options():
 
 
 def get_ontario_geohub_harvest_organization_options():
+    '''Map GeoHub publisher options to unique CKAN organization id/value options.
+    '''
     organization_options = []
     seen_organization_ids = set()
 
@@ -455,6 +476,8 @@ class OntarioGeohubHarvester(HarvesterBase):
     # modified from the DCATHarvester harvester from https://github.com/ckan/ckanext-dcat
 
     def _set_config(self, config_str):
+        '''Parse and store harvest source configuration JSON from the UI template.
+        '''
         if config_str:
             try:
                 self.config = json.loads(config_str)
@@ -465,6 +488,9 @@ class OntarioGeohubHarvester(HarvesterBase):
             self.config = {}
 
     def validate_config(self, config):
+        '''Validate and normalize supported values in harvest source configuration JSON from
+           the UI template.
+        '''
         if not config:
             return config
 
@@ -480,6 +506,18 @@ class OntarioGeohubHarvester(HarvesterBase):
         return json.dumps(config_obj)
 
     def extra_schema(self):
+        '''Controls whether source config field presence is allowed/required.
+
+        Return harvest object extra schema entries for this harvester.
+        Here, the extra schema is just ontario_geohub_publisher.
+        Called by CKAN Harvest core while processing harvest source forms and
+        API actions. When a harvest source is saved or loaded, CKAN runs schema 
+        validators. Those validators ask each harvester for its extra fields (via extra_schema), validate them, and merge them into the source config.
+
+        ontario_geohub_publisher uses:
+        - ignore_missing: accept records where the field is absent.
+        - unicode_safe: coerce/validate the value as safe unicode text.
+        '''
         return {
             'ontario_geohub_publisher': [ignore_missing, unicode_safe]
         }
@@ -569,7 +607,7 @@ class OntarioGeohubHarvester(HarvesterBase):
     def _get_object_extra(self, harvest_object, key):
         '''
         Helper function for retrieving the value from a harvest object extra,
-        given the key
+        given the key.
         '''
         for extra in harvest_object.extras:
             if extra.key == key:
@@ -577,6 +615,8 @@ class OntarioGeohubHarvester(HarvesterBase):
         return None
 
     def _get_package_name(self, harvest_object, title):
+        '''Return an existing package name or generate a unique one from title.
+        '''
 
         package = harvest_object.package
         if package is None or package.title != title:
@@ -591,6 +631,8 @@ class OntarioGeohubHarvester(HarvesterBase):
         return name
 
     def get_original_url(self, harvest_object_id):
+        '''Return the harvest source URL for a harvest object id.
+        '''
         obj = model.Session.query(HarvestObject). \
             filter(HarvestObject.id == harvest_object_id).\
             first()
@@ -600,7 +642,7 @@ class OntarioGeohubHarvester(HarvesterBase):
 
     def _read_datasets_from_db(self, guid):
         '''
-        Returns a database result of datasets matching the given guid.
+        Return a list of active package id rows for the given guid.
         '''
 
         datasets = model.Session.query(model.Package.id) \
@@ -613,8 +655,8 @@ class OntarioGeohubHarvester(HarvesterBase):
 
     def _get_existing_dataset(self, guid):
         '''
-        Checks if a dataset with a certain guid extra already exists
-        Returns a dict as the ones returned by package_show
+        Check if a dataset with a certain guid extra already exists.
+        Return a dict like that returned by package_show.
         '''
 
         datasets = self._read_datasets_from_db(guid)
@@ -629,8 +671,8 @@ class OntarioGeohubHarvester(HarvesterBase):
 
     def _get_existing_dataset_by_name(self, name):
         '''
-        Checks if an active dataset already exists with the given CKAN name.
-        Returns a dict as the ones returned by package_show.
+        Check if an active dataset already exists with the same name.
+        Return a dict like that returned by package_show.
         '''
 
         if not name:
@@ -698,9 +740,9 @@ class OntarioGeohubHarvester(HarvesterBase):
     def _is_existing_dataset_unchanged(self, existing_dataset, current_content):
         '''
         Compare incoming harvest content to an existing CKAN dataset that does
-        not yet have a harvest guid.
+        not currently have a harvest guid.
 
-        Returns True when the incoming dct:modified is not newer than the
+        Return True when the incoming dct:modified is not newer than the
         dataset's existing timestamp (current_as_of/metadata_modified).
         '''
         if not existing_dataset:
@@ -729,6 +771,8 @@ class OntarioGeohubHarvester(HarvesterBase):
 
 
     def _make_package_dict(self, geohub_dict, harvest_object):
+        '''Build a CKAN package payload from a GeoHub dataset record.
+        '''
         resolved_org = _resolve_dataset_catalog_organization(geohub_dict)
         resolved_org_id = resolved_org.get('id') if resolved_org else None
 
@@ -896,7 +940,7 @@ class OntarioGeohubHarvester(HarvesterBase):
 
 
     def has_french(self, dataset_obj):
-        '''Returns boolean.
+        '''Return boolean.
         '''
 
         french_xml = french_metadata_xml_response(dataset_obj) 
@@ -906,7 +950,9 @@ class OntarioGeohubHarvester(HarvesterBase):
         else:
             return True
 
-    def not_blacklisted(self, dataset_obj):
+    def _has_odcsync_keyword(self, dataset_obj):
+        '''Return True when the dataset carries the ODCSYNC inclusion keyword.
+        '''
         keywords = dataset_obj.get('dcat:keyword', [])
         if not isinstance(keywords, list):
             return False
@@ -915,12 +961,12 @@ class OntarioGeohubHarvester(HarvesterBase):
         return False
 
 
-    def hubtype_table(self, dataset_obj):
-        '''Returns boolean.
-        If hubtype_table returns true, skip the record.
-        hubtype: "table" ignore it.  These are "sub-sets" of existing datasets.
-        relations will be in the description for now anyway. 
-        This value is only available through the geohub api and requires its own call.
+    def _is_hubtype_table(self, dataset_obj):
+        '''Return boolean.
+        
+        If _is_hubtype_table returns true, skip the record.
+        hubtype: "table" is a "sub-set" of existing datasets.
+        The hubtype value is only available through the GeoHub V3 api.
         '''
         identifier = dataset_obj.get('ontario_geohub_id')
         if not identifier:
@@ -958,6 +1004,8 @@ class OntarioGeohubHarvester(HarvesterBase):
         return False
 
     def info(self):
+        '''Return harvester metadata used by CKAN harvest-source UI pages.
+        '''
         return {
             'name': 'ontario_geohub',
             'title': 'Ontario Geohub',
@@ -967,6 +1015,8 @@ class OntarioGeohubHarvester(HarvesterBase):
     def _get_guids_and_datasets(self, content, selected_publisher=None,
                                 log_rejections=False,
                                 rejection_log_limit=0):
+        '''Yield accepted dataset guid/content pairs after filter evaluation.
+        '''
         log.warning(f"[HARVEST] Selected publisher: {selected_publisher}")
 
         selected_org_name = None
@@ -1031,6 +1081,8 @@ class OntarioGeohubHarvester(HarvesterBase):
 
     def _evaluate_dataset_filters(self, dataset, selected_publisher=None,
                                   selected_org_name=None, blacklist=None):
+        '''Evaluate gather filters and return acceptance, ids, and failure reasons.
+        '''
         if blacklist is None:
             blacklist = _fetch_blacklist_ids()
 
@@ -1079,7 +1131,7 @@ class OntarioGeohubHarvester(HarvesterBase):
         if guid in blacklist:
             add_failure('blacklisted', 'dataset id is in blacklist')
 
-        if not self.not_blacklisted(dataset):
+        if not self._has_odcsync_keyword(dataset):
             add_failure('missing_odcsync', 'dataset is missing ODCSYNC keyword')
 
         # If org gating already failed, skip expensive remote checks that can
@@ -1092,7 +1144,7 @@ class OntarioGeohubHarvester(HarvesterBase):
                     failed_filters,
                     failure_messages)
 
-        if self.hubtype_table(dataset):
+        if self._is_hubtype_table(dataset):
             add_failure('hubtype_table', 'dataset hubType resolved to table')
 
         if not self.has_french(dataset):
@@ -1105,9 +1157,17 @@ class OntarioGeohubHarvester(HarvesterBase):
                 failure_messages)
 
     def fetch_stage(self, harvest_object):
+        '''No-operation fetch stage for CKAN harvest pipeline compatibility.
+
+        Return True needed to mark fetch as successful and allow import_stage to run.
+        Gather already stores dataset JSON content on each HarvestObject,
+        so there is nothing left to retrieve in this stage. 
+        '''
         return True
 
     def _get_package_dict(self, harvest_object):
+        '''Convert a harvest object's JSON content into package and source dicts.
+        '''
 
         content = harvest_object.content
 
@@ -1119,7 +1179,8 @@ class OntarioGeohubHarvester(HarvesterBase):
         return package_dict, geohub_dict
 
     def _extract_dct_modified(self, dataset_content):
-        """Return dct:modified from a harvested dataset JSON payload string."""
+        '''Return dct:modified from a harvested dataset JSON payload string.
+        '''
         if not dataset_content:
             return None
         try:
@@ -1129,7 +1190,8 @@ class OntarioGeohubHarvester(HarvesterBase):
         return dataset_dict.get('dct:modified')
 
     def _parse_dct_modified_timestamp(self, value):
-        """Parse common dct:modified timestamp formats to a datetime."""
+        '''Parse common dct:modified timestamp formats to a datetime.
+        '''
         if not value:
             return None
 
@@ -1154,11 +1216,11 @@ class OntarioGeohubHarvester(HarvesterBase):
         return None
 
     def _is_unchanged_dataset(self, previous_content, current_content):
-        """Return True when dataset should be skipped as unchanged.
+        '''Return True when dataset should be skipped as unchanged.
 
         Only reharvest when current dct:modified is newer than previous
         dct:modified.
-        """
+        '''
         previous_modified = self._extract_dct_modified(previous_content)
         current_modified = self._extract_dct_modified(current_content)
 
@@ -1187,18 +1249,18 @@ class OntarioGeohubHarvester(HarvesterBase):
     # -------------------------------------------------------------------
 
     def _is_single_dataset_url(self, url):
-        """Determine if the harvest source URL points to a single GeoHub
+        '''Determine if the harvest source URL points to a single GeoHub
         dataset rather than the full DCAT feed.
 
-        Returns True for URLs like:
+        Return True for URLs like:
           - https://geohub.lio.gov.on.ca/datasets/<slug>/...
           - https://geohub.lio.gov.on.ca/maps/<id>/...
           - https://geohub.lio.gov.on.ca/documents/<id>/...
           - Raw hex IDs (32 chars, optionally with _N suffix)
 
-        Returns False for the full DCAT feed URL:
-                    - https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json
-        """
+        Return False for the full DCAT feed URL:
+          - https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json
+        '''
         url = url.strip()
 
         # Full DCAT feed URL – use the normal gather path
@@ -1217,9 +1279,9 @@ class OntarioGeohubHarvester(HarvesterBase):
         return False
 
     def _extract_dataset_identifier(self, url):
-        """Extract the dataset slug or ID from various GeoHub URL formats.
+        '''Extract the dataset slug or ID from various GeoHub URL formats.
 
-        Handles:
+        Handle:
           https://geohub.lio.gov.on.ca/datasets/mnrf::contour/explore?...
           https://geohub.lio.gov.on.ca/datasets/provincially-tracked-species-1km-grid
           https://geohub.lio.gov.on.ca/maps/882a9059ec7c4881abbdb6afa0ae73e6/about
@@ -1227,8 +1289,8 @@ class OntarioGeohubHarvester(HarvesterBase):
           882a9059ec7c4881abbdb6afa0ae73e6       (raw ID)
           882a9059ec7c4881abbdb6afa0ae73e6_29    (raw ID with layer index)
 
-        Returns the identifier string (slug or ID).
-        """
+        Return the identifier string (slug or ID).
+        '''
         url = url.strip()
 
         # Raw hex ID
@@ -1248,10 +1310,10 @@ class OntarioGeohubHarvester(HarvesterBase):
         return None
 
     def _search_geohub_v3(self, param, value, harvest_job):
-        """Search the GeoHub v3 search API with the given parameter.
+        '''Search the GeoHub v3 search API with the given parameter.
 
-        Returns a list of dataset dicts from the API response, or None.
-        """
+        Return a list of dataset dicts from the API response, or None.
+        '''
         import urllib.parse
         search_url = (
             "https://geohub.lio.gov.on.ca/api/v3/search?{}={}".format(
@@ -1275,7 +1337,8 @@ class OntarioGeohubHarvester(HarvesterBase):
             return None
 
     def _search_geohub_v3_all(self, param, value, harvest_job):
-        """Search the GeoHub v3 API and follow pagination links."""
+        '''Search the GeoHub v3 API and follow pagination links.
+        '''
         import urllib.parse
 
         next_url = (
@@ -1351,7 +1414,8 @@ class OntarioGeohubHarvester(HarvesterBase):
 
     def _resolve_selected_publisher_content(self, selected_publisher,
                                             harvest_job):
-        """Fetch only datasets for the selected publisher from GeoHub v3."""
+        '''Fetch only datasets for the selected publisher from GeoHub v3.
+        '''
         datasets_by_id = {}
 
         selected_org = _find_catalog_organization_from_publisher(
@@ -1362,6 +1426,8 @@ class OntarioGeohubHarvester(HarvesterBase):
         source_names = []
 
         def _append_source_name(value):
+            '''Append a normalized source name candidate if it is non-empty and new.
+            '''
             normalized = normalize_geohub_publisher_name(value)
             if normalized and normalized not in source_names:
                 source_names.append(normalized)
@@ -1443,7 +1509,8 @@ class OntarioGeohubHarvester(HarvesterBase):
 
     @staticmethod
     def _timestamp_to_iso(timestamp_ms):
-        """Convert a Unix timestamp in milliseconds to an ISO-format string."""
+        '''Convert a Unix timestamp in milliseconds to an ISO-format string.
+        '''
         if timestamp_ms:
             try:
                 return datetime.datetime.utcfromtimestamp(
@@ -1454,11 +1521,11 @@ class OntarioGeohubHarvester(HarvesterBase):
         return ''
 
     def _build_dcat_dict_from_v3(self, v3_dataset):
-        """Build a DCAT-compatible dict from a GeoHub v3 search API dataset.
+        '''Build a DCAT-compatible dict from a GeoHub v3 search API dataset.
 
         The returned dict has the field names expected by _make_package_dict
         and the rest of the harvester pipeline.
-        """
+        '''
         dataset_id = v3_dataset.get('id', '')
         attrs = v3_dataset.get('attributes', {})
 
@@ -1562,13 +1629,13 @@ class OntarioGeohubHarvester(HarvesterBase):
         return dcat_dict
 
     def _resolve_single_dataset(self, url, harvest_job):
-        """Resolve a single dataset URL to DCAT-compatible content.
+        '''Resolve a single dataset URL to DCAT-compatible content.
 
         Uses the GeoHub v3 search API to look up the dataset by ID or slug,
         then constructs a DCAT-compatible dict for the harvester pipeline.
 
         Returns a JSON string in the same format as the DCAT feed, or None.
-        """
+        '''
         identifier = self._extract_dataset_identifier(url)
         if not identifier:
             self._save_gather_error(
@@ -1627,13 +1694,13 @@ class OntarioGeohubHarvester(HarvesterBase):
         return json.dumps({'dcat:dataset': [dcat_dict]})
 
     def _gather_single_dataset(self, harvest_job, selected_publisher=''):
-        """Gather stage for a single GeoHub dataset URL.
+        '''Gather stage for a single GeoHub dataset URL.
 
         This allows testing individual datasets without downloading the full
         DCAT feed (~490 datasets, 45+ min). The same acceptance filters used
         by the full-feed gather path are still applied (ODCSYNC-tag check,
         blacklist, hubtype, French metadata, org matching).
-        """
+        '''
         log.info('Single dataset mode: resolving %s', harvest_job.source.url)
 
         content = self._resolve_single_dataset(
@@ -1752,6 +1819,21 @@ class OntarioGeohubHarvester(HarvesterBase):
         return ids
 
     def gather_stage(self, harvest_job):
+        '''Collect source records and enqueue HarvestObjects for import.
+
+        Uses source config to apply optional publisher scoping. If the source
+        URL targets a single dataset, routes to single-dataset gather logic;
+        otherwise processes the full feed, applies acceptance filters, and
+        compares with previous current objects.
+
+        Create HarvestObjects with status values:
+        - new: accepted GUID not currently tracked for this source.
+        - change: accepted GUID with newer content, including adopted
+            pre-existing CKAN datasets.
+        - delete: GUID tracked in DB but missing from the current source run.
+
+        Return a list of created HarvestObject ids, or None on gather errors.
+        '''
         log.debug('In DCAT JSON Harvester gather_stage')
         log.warning('[HARVEST] Selected publisher config: %s',
                     harvest_job.source.config)
@@ -1924,6 +2006,8 @@ class OntarioGeohubHarvester(HarvesterBase):
 
 
     def import_stage(self, harvest_object):
+        '''Create, update, or delete CKAN datasets for a harvested GeoHub record.
+        '''
         log.debug('In Ontario Geohub Harvester import_stage')
         if not harvest_object:
             log.error('No harvest object received')
@@ -2247,7 +2331,7 @@ iso_date_pattern = re.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}")
 geohub_update_frequency_pattern = re.compile("\*\*Maintenance and Update Frequency(?:[\s\n]*)\*\*(?:[\s\n]*)([^:\n]*):")
 
 def get_org_id(organization_name):  
-    ''' return the local org id that matches the organization name
+    '''Return the CKAN organization id matching the GeoHub publisher name.
     '''
     if not organization_name:
         return None
@@ -2274,6 +2358,8 @@ def get_org_id(organization_name):
 
 
 def call_to_infogo(email):
+    '''Fetch and cache InfoGo details for an Ontario email address.
+    '''
     if email not in calls_to_infogo:
         try:
             infogo_request = _requests_get_with_retry(
@@ -2286,6 +2372,8 @@ def call_to_infogo(email):
     return calls_to_infogo[email]
 
 def normalize_update_frequency_text(value):
+    '''Normalize (clean) free-text values of update frequency for mapping lookups.
+    '''
     if not value:
         return ''
     normalized = re.sub(r'\s+', ' ', six.text_type(value)).strip().lower()
@@ -2293,15 +2381,14 @@ def normalize_update_frequency_text(value):
 
 
 def extract_update_frequency(description):
-    '''
-    Geohub records often have an update frequency in their description.
+    '''Extract and normalize update frequency text from a GeoHub description.
 
-    It looks like this:
-
+    GeoHub descriptions may include a section like:
     Maintenance and Update Frequency
     As needed: data is updated as deemed necessary
 
-    We're using regular expressions to peel out any update frequency in the english description
+    Return the normalized frequency label (for example, "as needed"),
+    or None when no frequency is found.
     '''
     search_results = geohub_update_frequency_pattern.findall(description)
     if len(search_results) > 0:
@@ -2311,10 +2398,13 @@ def extract_update_frequency(description):
 
 
 def extract_fr_contact_info(description):
-    ''' In order to get maintainer_name in french (we already know email and ministry),
-            we extract french contact info (then strip out email and ministry and use
-            the rest as the maintainer name)
+    '''Extract French maintainer name, email, and branch from contact text.
 
+    Parse the contact section to extract the name (after removing ministry and branch info),
+    email address, and optional branch designation.
+
+    Return a dict with keys maintainer_name, maintainer_email, and optionally maintainer_branch,
+    or None if no contact info is found.
     '''
     search_results = geohub_contact_pattern.findall(description)
     if len(search_results) > 0:
@@ -2344,6 +2434,8 @@ def extract_fr_contact_info(description):
 
 
 def extract_contact_info(description):
+    '''Extract maintainer email/name/branch fields from English contact text.
+    '''
     search_results = geohub_contact_pattern.findall(description)
     if len(search_results) > 0:
         contact_info = search_results[0]
@@ -2372,6 +2464,8 @@ def extract_contact_info(description):
 
 
 def extract_date(date_str):
+    '''Return the first YYYY-MM-DD date found in a text string.
+    '''
     search_results = iso_date_pattern.findall(date_str)
     if len(search_results) > 0:
         return search_results[0]
@@ -2380,6 +2474,8 @@ def extract_date(date_str):
 
 
 def extract_ontario_email(description):
+    '''Return the first ontario.ca email address found in text.
+    '''
     search_results = ontario_email_pattern.findall(description)
     if len(search_results) > 0:
         return search_results[0]
@@ -2388,6 +2484,8 @@ def extract_ontario_email(description):
 
 
 def get_ontario_employee_name(email):
+    '''Return employee display name from InfoGo, with an email-based fallback.
+    '''
     fallback_name = " ".join(list(map(
         lambda x: x.capitalize(),
         re.sub(r'[0-9]+', '', email).replace("@ontario.ca","").split(".", 1))))
@@ -2405,8 +2503,10 @@ def get_ontario_employee_name(email):
 
 
 def french_notes(french_xml):
-    '''Returns the french notes from the xml response.
-    <dataIdInfo><idAbs>
+    '''Extract French abstract/notes from ISO 19115 metadata XML.
+
+    Search the metadata root for the dataIdInfo/idAbs element and return its text content.
+    Return the French abstract text, or 'Placeholder' if the element is not found.
     '''
     french_notes_text = 'Placeholder'
 
@@ -2420,7 +2520,7 @@ def french_notes(french_xml):
 
 
 def french_title(french_xml):
-    '''Returns the french title from the xml response.
+    '''Return the french title from the xml response.
     <dataIdInfo><idCitation><resTitle>
     '''
     french_title_text = 'Placeholder'
@@ -2435,8 +2535,8 @@ def french_title(french_xml):
 
 
 def french_keywords(french_xml):
-    '''Returns array of french keywords from the xml response.
-    searchKeys matches data.json keywords that are used for english record.
+    '''Return the french keywords from the xml response.
+    <dataIdInfo><idAbs>
     '''
 
     french_keywords = []
@@ -2454,7 +2554,7 @@ def french_keywords(french_xml):
 
 
 def get_license_from_xml(root):
-    '''Returns the license for that dataset.
+    '''Return the license for that dataset.
     '''
     license_path = root.xpath("//dataIdInfo/resConst/LegConsts/useLimit")
     if license_path:
@@ -2463,7 +2563,8 @@ def get_license_from_xml(root):
     return False
 
 def get_backup_description_from_xml(root):
-    '''Returns the revise date (comparable to data_range_end) for that dataset.
+    '''Return the description/purpose from the ISO 19115 idPurp element, 
+    or False if not found.
     '''
     desc_path = root.xpath("//dataIdInfo/idPurp")
     if desc_path:
@@ -2475,6 +2576,8 @@ def get_backup_description_from_xml(root):
 
 
 def _get_metadata_attributes(json_metadata):
+    '''Safely retrieve the nested data.attributes mapping from metadata JSON.
+    '''
     if not isinstance(json_metadata, dict):
         return {}
     data = json_metadata.get('data', {})
@@ -2487,8 +2590,11 @@ def _get_metadata_attributes(json_metadata):
 
 
 def get_data_last_updated_from_json(json_metadata):
-    '''
-            json[“data”][“attributes”][“modified”] – Date that the data was last updated.
+    '''Return the ISO-format datetime string (e.g., '2024-06-11T14:30:45.123456') 
+    of the data's last update timestamp, or an empty string if the timestamp is 
+    missing or invalid.
+
+        json[“data”][“attributes”][“modified”] – Date that the data was last updated.
 
     '''
     attributes = _get_metadata_attributes(json_metadata)
@@ -2530,7 +2636,7 @@ def get_current_as_of_date_from_json(json_metadata):
         return ''
 
 def get_revise_date_from_xml(root):
-    '''Returns the revise date (comparable to data_range_end) for that dataset.
+    '''Return the revise date (comparable to data_range_end) for that dataset.
     '''
     revise_date_path = root.xpath("//metadata/Esri/ModDate") #//dataIdInfo/idCitation/date/reviseDate
     if revise_date_path:
@@ -2541,6 +2647,8 @@ def get_revise_date_from_xml(root):
     return False
 
 def get_create_date_from_json(json_metadata):
+    '''Return created timestamp from metadata JSON as an ISO datetime string.
+    '''
     attributes = _get_metadata_attributes(json_metadata)
     created = attributes.get('created')
     if not isinstance(created, six.integer_types + (float,)):
@@ -2551,7 +2659,7 @@ def get_create_date_from_json(json_metadata):
         return ''
 
 def get_create_date_from_xml(root):
-    '''Returns the create date (comparable to data_range_start) for that dataset.
+    '''Return the create date (comparable to data_range_start) for that dataset.
     '''
     create_date_path = root.xpath("//metadata/Esri/CreaDate") #//dataIdInfo/idCitation/date/createDate
     if create_date_path:
@@ -2563,10 +2671,10 @@ def get_create_date_from_xml(root):
 
 
 def get_file_type(resource):
-    '''
-        Returns the file format of a resource.
-        Handles both flat dicts (from v3 API / normalized) and DCAT-prefixed
-        dicts (dct:format may be {"@id": "ftype/CSV"}).
+    '''Return the file format of a resource.
+    
+    Handle both flat dicts (from v3 API / normalized) and DCAT-prefixed
+    dicts (dct:format may be {"@id": "ftype/CSV"}).
     '''
     # Try flat format key first (already normalized or from v3 API)
     fmt = resource.get('format') or resource.get('dct:format', '')
@@ -2596,7 +2704,7 @@ def get_file_type(resource):
     return False
 
 def _normalize_dcat_distribution(dist_entry):
-    """Convert a DCAT-AP 2.0.1 distribution entry to the flat format
+    '''Convert a DCAT-AP 2.0.1 distribution entry to the flat format
     expected by build_resources / get_file_type.
 
     DCAT feed entries look like:
@@ -2609,7 +2717,7 @@ def _normalize_dcat_distribution(dist_entry):
 
     This helper normalises to the flat style so downstream code works
     regardless of which path produced the dict.
-    """
+    '''
     norm = {}
 
     # title
@@ -2649,7 +2757,20 @@ def _normalize_dcat_distribution(dist_entry):
 
 
 def build_resources(id, geohub_dict, english_xml, english_json):
-    ''' Harvest all resources/files for the dataset
+    '''Harvest all resources/files for the dataset.
+
+    Build a complete list of resources/downloads for a dataset from 
+    multiple metadata sources.
+
+    Collect resources from DCAT distributions (handling both v3 API 
+    flat format and DCAT-AP feed format), add standard ISO 19115 
+    metadata document links (HTML and XML formats), and include 
+    additional resources from XML metadata. Avoid duplicates by 
+    tracking accessURLs.
+
+    Return a list of resource dicts with keys: name_translated (en/fr), 
+    type (data, metadata, technical_document), url, format, and 
+    optional data_range_start/data_range_end timestamps.
     '''
     metadata_titles = ["ArcGIS Hub Dataset","Esri Rest API"]
     resources = []
@@ -2770,8 +2891,10 @@ def geohub_french_id_from_xml(dataset_obj):
 
 
 def identifier_from_url(identifier):
-    '''Accepts a string of the identifier URL that's part of data.json for 
-    each dataset/record, and parses into just ID.
+    '''Return the base dataset identifier without any layer index suffix. 
+    
+    Strip trailing '_N' suffixes (e.g., '882a9059ec7c4881abbdb6afa0ae73e6_29' → '882a9059ec7c4881abbdb6afa0ae73e6'). 
+    Return the identifier unchanged if no suffix is present.
     '''
     # ID is at the end but sometimes there's extra bits we dont want that are
     # the underlying layer index.
@@ -2781,19 +2904,29 @@ def identifier_from_url(identifier):
 
 
 def identifier_from_url_with_index(identifier_url):
-    '''Returns a string id with the layer index if it exists.
+    '''Return the dataset identifier with layer index suffix preserved.
+    If no layer index exists, the identifier is returned as-is.
+
+    Extract the last path component from an identifier URL (e.g., '882a9059ec7c4881abbdb6afa0ae73e6_29' from a URL path) and
+    return it as-is, keeping any '_N' layer index suffix. Use this
+    when the full identifier with layer index is needed; use
+    identifier_from_url() to strip the layer index when the layer
+    index is not needed.
     '''
     identifier = identifier_url.split('/')[-1] # keep layer index.
     return identifier
 
 def metadata_url(id):
-    '''Returns a url for the metadata XML.
+    '''Return a url for the metadata XML.
     '''
     return "https://www.arcgis.com/sharing/rest/content/items/{}/info/metadata/metadata.xml".format(id)
 
 
 def _parse_metadata_xml_content(xml_bytes, dataset_id, language_label):
-    """Parse metadata XML bytes with a recover fallback for malformed feeds."""
+    '''Parse XML bytes into an lxml element root, retrying with recover=True
+    on XMLSyntaxError to handle minor ArcGIS metadata defects.
+    Log a warning on recovery; raise if recovery also fails.
+    '''
     try:
         return lxml.etree.fromstring(xml_bytes)
     except lxml.etree.XMLSyntaxError as strict_error:
@@ -2812,7 +2945,10 @@ def _parse_metadata_xml_content(xml_bytes, dataset_id, language_label):
 
 
 def additional_resources_from_xml(root):
-    '''Returns array of dicts for additional resources.
+    '''Return a list of resource dicts from onLineSrc elements in the XML metadata.
+
+    Each dict has keys: url (linkage text), name_translated (en/fr using orName,
+    defaulting to the linkage URL if no name is present), and type ('data').
     '''
     additional_resources = []
     for onLineSrc in root.iter('onLineSrc'):
@@ -2831,6 +2967,8 @@ def additional_resources_from_xml(root):
     return additional_resources
 
 def english_metadata_json_response(dataset_obj):
+    '''Fetch English ArcGIS v3 metadata JSON or return safe default values.
+    '''
     english_id = dataset_obj['ontario_geohub_id']
     english_metadata_url = "https://opendata.arcgis.com/api/v3/datasets/{}".format(english_id)
     try:
@@ -2857,7 +2995,10 @@ def english_metadata_json_response(dataset_obj):
     
 
 def english_metadata_xml_response(dataset_obj):
-    '''Returns the english metadata xml
+    '''Fetch and parse the ArcGIS metadata XML for an English dataset record.
+
+    Return the parsed lxml element root, or an empty root element if the
+    request fails or the XML cannot be parsed.
     '''
 
     english_id = identifier_from_url(dataset_obj['ontario_geohub_id'])
@@ -2882,10 +3023,11 @@ def english_metadata_xml_response(dataset_obj):
         return lxml.etree.Element("root")
 
 def french_metadata_xml_response(dataset_obj):
-    '''Returns the french metadata xml.
+    '''Return the french metadata xml.
+
     To build this we need to grab the french values for some fields. Easiest
     so far is to loop over english and make a call to the matching french
-    record. This will be used for a few payload values so calling once here.
+    record.
     '''
 
     english_id = dataset_obj['ontario_geohub_id']
