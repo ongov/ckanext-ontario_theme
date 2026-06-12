@@ -1341,9 +1341,21 @@ type data_last_updated
         pkg_dict['title_en'] = title.get('en', '')
 
         # Index some organization extras fields from fluent/scheming.
-        organization_dict = toolkit.get_action('organization_show')(data_dict={'id': pkg_dict['organization']})
-        pkg_dict['organization_jurisdiction'] = organization_dict.get('jurisdiction', '')
-        pkg_dict['organization_category'] = organization_dict.get('category', '')
+        organization_value = pkg_dict.get('organization')
+        if isinstance(organization_value, dict):
+            organization_value = (
+                organization_value.get('id') or
+                organization_value.get('name')
+            )
+
+        if organization_value:
+            organization_dict = toolkit.get_action('organization_show')(
+                data_dict={'id': organization_value})
+            pkg_dict['organization_jurisdiction'] = organization_dict.get('jurisdiction', '')
+            pkg_dict['organization_category'] = organization_dict.get('category', '')
+        else:
+            pkg_dict['organization_jurisdiction'] = ''
+            pkg_dict['organization_category'] = ''
         return pkg_dict
 
     def before_view(self, pkg_dict):
