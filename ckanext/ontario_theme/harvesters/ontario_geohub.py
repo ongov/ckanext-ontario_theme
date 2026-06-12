@@ -409,14 +409,14 @@ def get_ontario_geohub_publisher_options():
 
         for dataset in datasets:
             # Only count datasets with ODCSYNC keyword and not on blacklist
+            dataset_id = dataset.get('ontario_geohub_id', 'unknown')
             if "ODCSYNC" not in dataset.get('dcat:keyword', []):
                 continue
-            if dataset.get('ontario_geohub_id') in blacklist:
+            if dataset_id in blacklist:
                 continue
             
             publisher_name = normalize_geohub_publisher_name(
                 dataset.get('ontario_geohub_publisher', ''))
-            log.debug('publisher_name after normalize: %s', publisher_name)
             organization = _find_catalog_organization_from_publisher(
                 publisher_name)
             if organization:
@@ -428,6 +428,8 @@ def get_ontario_geohub_publisher_options():
                         'count': 0,
                     }
                 ministry_counts[org_name]['count'] += 1
+            else:
+                continue
     except (requests.exceptions.RequestException, ValueError, TypeError) as e:
         log.warning('Unable to load Ontario GeoHub ministry options: %s', e)
 
@@ -1017,8 +1019,6 @@ class OntarioGeohubHarvester(HarvesterBase):
                                 rejection_log_limit=0):
         '''Yield accepted dataset guid/content pairs after filter evaluation.
         '''
-        log.warning(f"[HARVEST] Selected publisher: {selected_publisher}")
-
         selected_org_name = None
         if selected_publisher:
             selected_org = _find_catalog_organization_from_publisher(
@@ -1051,7 +1051,6 @@ class OntarioGeohubHarvester(HarvesterBase):
                     blacklist=blacklist)
 
             if accepted:
-                log.warning(f"[HARVEST] ACCEPTED GUID: {guid}")
                 yield guid, as_string
             elif log_rejections:
                 rejected_count += 1
@@ -1059,7 +1058,7 @@ class OntarioGeohubHarvester(HarvesterBase):
                     rejection_counts[code] = rejection_counts.get(code, 0) + 1
 
                 if rejected_logged < rejection_log_limit:
-                    log.warning(
+                    log.info(
                         '[HARVEST] FULL_FEED_FILTER_REJECTED guid=%s title=%s failed_filters=%s reasons=%s',
                         dataset.get('ontario_geohub_id', 'unknown'),
                         dataset.get('dct:title', 'Unknown'),
@@ -1072,7 +1071,7 @@ class OntarioGeohubHarvester(HarvesterBase):
                 ['{}:{}'.format(code, rejection_counts[code])
                  for code in sorted(rejection_counts.keys())]
             )
-            log.warning(
+            log.info(
                 '[HARVEST] FULL_FEED_FILTER_SUMMARY rejected_total=%s logged_examples=%s log_limit=%s counts=%s',
                 rejected_count,
                 rejected_logged,
@@ -1113,10 +1112,6 @@ class OntarioGeohubHarvester(HarvesterBase):
             )
 
         if selected_org_name:
-            log.warning(
-                '[HARVEST] Dataset publisher/org: %s / %s',
-                dataset_publisher,
-                dataset_org_name)
             if dataset_org_name != selected_org_name:
                 add_failure(
                     'selected_publisher_mismatch',
@@ -1124,8 +1119,6 @@ class OntarioGeohubHarvester(HarvesterBase):
                         selected_org_name,
                         dataset_org_name)
                 )
-            else:
-                log.warning(f"[HARVEST] MATCH")
 
         # Standard gather filters
         if guid in blacklist:
@@ -1752,7 +1745,7 @@ class OntarioGeohubHarvester(HarvesterBase):
                 accepted_datasets.append((guid, as_string))
                 continue
 
-            log.warning(
+            log.info(
                 '[HARVEST] SINGLE_DATASET_FILTER_REJECTED guid=%s title=%s failed_filters=%s reasons=%s',
                 dataset.get('ontario_geohub_id', 'unknown'),
                 dataset.get('dct:title', 'Unknown'),
@@ -1835,12 +1828,13 @@ class OntarioGeohubHarvester(HarvesterBase):
         Return a list of created HarvestObject ids, or None on gather errors.
         '''
         log.debug('In DCAT JSON Harvester gather_stage')
-        log.warning('[HARVEST] Selected publisher config: %s',
-                    harvest_job.source.config)
+        log.debug('[HARVEST] Selected publisher config: %s',
+              harvest_job.source.config)
 
         self._set_config(harvest_job.source.config)
         selected_publisher = (self.config or {}).get('ontario_geohub_publisher', '')
-        log.warning(f"[HARVEST] Selected publisher from config: {selected_publisher}")
+        log.debug('[HARVEST] Selected publisher from config: %s',
+              selected_publisher)
 
         # Check if the source URL points to a single dataset rather than
         # the full DCAT feed.  This enables fast testing of individual
@@ -2073,38 +2067,16 @@ class OntarioGeohubHarvester(HarvesterBase):
         package_dict['owner_org'] = owner_org
 
         if status == 'new' and package_dict.get('name'):
-            log.debug(
-                '[HARVEST] PRE_CREATE_NAME_CHECK name=%s guid=%s incoming_url=%s',
-                package_dict.get('name'),
-                harvest_object.guid,
-                package_dict.get('url'))
             existing_dataset = self._get_existing_dataset_by_name(
                 package_dict['name'])
             if existing_dataset:
                 url_matches = _geohub_dataset_urls_match(
                     existing_dataset.get('url'), package_dict.get('url'))
-                if url_matches:
-                    log.warning(
-                        '[HARVEST] PRE_CREATE_REUSE package_id=%s guid=%s reason=name_and_url_match '
-                        'existing_url=%s incoming_url=%s '
-                        'existing_norm=%s incoming_norm=%s',
-                        existing_dataset.get('id'),
-                        harvest_object.guid,
-                        existing_dataset.get('url'),
-                        package_dict.get('url'),
-                        _normalize_geohub_dataset_url_for_match(existing_dataset.get('url')),
-                        _normalize_geohub_dataset_url_for_match(package_dict.get('url')))
-                else:
-                    log.warning(
-                        '[HARVEST] PRE_CREATE_REUSE package_id=%s guid=%s reason=name_only_match '
-                        'existing_url=%s incoming_url=%s '
-                        'existing_norm=%s incoming_norm=%s',
-                        existing_dataset.get('id'),
-                        harvest_object.guid,
-                        existing_dataset.get('url'),
-                        package_dict.get('url'),
-                        _normalize_geohub_dataset_url_for_match(existing_dataset.get('url')),
-                        _normalize_geohub_dataset_url_for_match(package_dict.get('url')))
+                log.info(
+                    '[HARVEST] PRE_CREATE_REUSE package_id=%s guid=%s reason=%s',
+                    existing_dataset.get('id'),
+                    harvest_object.guid,
+                    'name_and_url_match' if url_matches else 'name_only_match')
                 harvest_object.package_id = existing_dataset['id']
                 harvest_object.add()
                 package_dict['id'] = existing_dataset['id']
@@ -2228,15 +2200,10 @@ class OntarioGeohubHarvester(HarvesterBase):
                     try:
                         log.warning(
                             '[HARVEST] EXCEPTION_RECOVERY package_id=%s guid=%s '
-                            'url_matches=%s existing_url=%s incoming_url=%s '
-                            'existing_norm=%s incoming_norm=%s error=%s',
+                            'url_matches=%s error=%s',
                             existing_dataset.get('id'),
                             harvest_object.guid,
                             url_matches,
-                            existing_dataset.get('url'),
-                            package_dict.get('url'),
-                            _normalize_geohub_dataset_url_for_match(existing_dataset.get('url')),
-                            _normalize_geohub_dataset_url_for_match(package_dict.get('url')),
                             e)
                         package_dict['id'] = existing_dataset['id']
                         harvest_object.package_id = existing_dataset['id']
@@ -2261,6 +2228,20 @@ class OntarioGeohubHarvester(HarvesterBase):
 
             dataset = json.loads(harvest_object.content)
             dataset_name = dataset.get('name', '')
+
+            # Keep identifiers in logs even when DB writes fail (eg aborted tx)
+            # so failing objects can be traced from fetch_consumer.log alone.
+            log.error(
+                '[HARVEST] IMPORT_FAILURE harvest_object_id=%s guid=%s geohub_id=%s '
+                'package_id=%s package_name=%s owner_org=%s status=%s error=%r',
+                harvest_object.id,
+                harvest_object.guid,
+                geohub_dict.get('ontario_geohub_id') if isinstance(geohub_dict, dict) else None,
+                package_dict.get('id') if isinstance(package_dict, dict) else None,
+                package_dict.get('name') if isinstance(package_dict, dict) else None,
+                package_dict.get('owner_org') if isinstance(package_dict, dict) else None,
+                status,
+                e)
 
             self._save_object_error('Error importing dataset %s: %r / %s' % (dataset_name, e, traceback.format_exc()), harvest_object, 'Import')
             return False
