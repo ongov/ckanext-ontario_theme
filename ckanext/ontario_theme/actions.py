@@ -130,10 +130,10 @@ def ontario_geohub_precheck_single_dataset(context, data_dict):
     if dataset_id and dataset_id in _fetch_blacklist_ids():
         add_failure('blacklisted', 'Dataset is blacklisted and will be skipped.')
 
-    if not harvester.not_blacklisted(dcat_dict):
+    if not harvester._has_odcsync_keyword(dcat_dict):
         add_failure('missing_odcsync', 'Dataset is missing required ODCSYNC keyword.')
 
-    if harvester.hubtype_table(dcat_dict):
+    if harvester._is_hubtype_table(dcat_dict):
         add_failure('hubtype_table', 'Dataset hubType is table and is skipped by harvester.')
 
     if not harvester.has_french(dcat_dict):
