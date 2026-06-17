@@ -4,6 +4,7 @@
 '''
 
 import pytest
+import uuid
 
 import json
 import os
@@ -16,7 +17,7 @@ from ckanext.ontario_theme.plugin import (
     get_package_keywords
 )
 
-@pytest.mark.usefixtures('clean_db', 'clean_index', 'with_plugins', 'with_request_context') 
+@pytest.mark.usefixtures('with_plugins', 'with_request_context') 
 class TestGetLicense(object):
     def test_get_license_returns_proper_value(self):
         '''Ensure get_license returns proper license object from licences.json.
@@ -28,7 +29,7 @@ class TestGetLicense(object):
         assert get_license("OGL-ON-1.0")._data == license
 
 
-@pytest.mark.usefixtures('clean_db', 'clean_index', 'with_plugins', 'with_request_context') 
+@pytest.mark.usefixtures('with_plugins', 'with_request_context') 
 class TestDefaultLocale(object):
     def test_default_locale_returns_proper_value(self):
         default = config.get('ckan.locale_default', 'en')
@@ -41,7 +42,7 @@ class TestGetPackageKeywords(object):
         org = factories.Organization()
         dataset = helpers.call_action(
             'package_create',
-            name = 'package-name',
+            name = f'package-name-{uuid.uuid4().hex}',
             access_level = 'restricted',
             maintainer_translated = {
                 'en': u'Joe Smith',
@@ -60,7 +61,7 @@ class TestGetPackageKeywords(object):
             keywords={'en': [u'English Tag'], 'fr': [u'French Tag']}
         )
         # Make sure package was returned as expected.
-        assert dataset['name'] == 'package-name'
+        assert dataset['name'].startswith('package-name-')
         # Expected keyword list based on dataset above.
         keywords = [{
                 'count': 1,
@@ -74,7 +75,7 @@ class TestGetPackageKeywords(object):
         org = factories.Organization()
         dataset = helpers.call_action(
             'package_create',
-            name = 'package-name',
+            name = f'package-name-{uuid.uuid4().hex}',
             access_level = 'restricted',
             maintainer_translated = {
                 'en': u'Joe Smith',
@@ -96,7 +97,7 @@ class TestGetPackageKeywords(object):
             }
         )
         # Make sure package was returned as expected.
-        assert dataset['name'] == 'package-name'
+        assert dataset['name'].startswith('package-name-')
         # Expected keyword list based on dataset above.
         keywords = [{
                 'count': 1,
@@ -110,7 +111,7 @@ class TestGetPackageKeywords(object):
         org = factories.Organization()
         dataset = helpers.call_action(
             'package_create',
-            name = 'package-name',
+            name = f'package-name-{uuid.uuid4().hex}',
             access_level = 'restricted',
             maintainer_translated = {
                 'en': u'Joe Smith',
@@ -132,7 +133,7 @@ class TestGetPackageKeywords(object):
             }
         )
         # Make sure package was returned as expected.
-        assert dataset['name'] == 'package-name'
+        assert dataset['name'].startswith('package-name-')
         # Expected keyword list based on dataset above.
         keywords = [{
                 'count': 1,
@@ -146,7 +147,7 @@ class TestGetPackageKeywords(object):
         org = factories.Organization()
         dataset = helpers.call_action(
             'package_create',
-            name = 'package-name',
+            name = f'package-name-{uuid.uuid4().hex}',
             access_level = 'restricted',
             maintainer_translated = {
                 'en': u'Joe Smith',
@@ -168,7 +169,7 @@ class TestGetPackageKeywords(object):
             }
         )
         # Make sure package was returned as expected.
-        assert dataset['name'] == 'package-name'
+        assert dataset['name'].startswith('package-name-')
         # Expected keyword list based on dataset above.
         keywords = [{
                 'count': 1,

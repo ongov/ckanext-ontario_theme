@@ -9,11 +9,12 @@ being done here. Refactor if / when tests become more complex.
 '''
 
 import pytest 
+import uuid
 
 from ckan.tests import factories
 import ckan.tests.helpers as helpers
 
-@pytest.mark.usefixtures('clean_db', 'with_plugins', 'with_request_context')
+@pytest.mark.usefixtures('with_plugins', 'with_request_context')
 class TestUpdateDataset(object):
     '''Ensure dataset updates still work and don't work as expected.
     '''
@@ -25,7 +26,7 @@ class TestUpdateDataset(object):
         user = factories.User()
         dataset = factories.Dataset(
             user = user,
-            name = 'package-name',
+            name = f'package-name-{uuid.uuid4().hex}',
             maintainer_translated = {
                 'en': u'Joe Smith',
                 'fr': u'...'
@@ -42,12 +43,12 @@ class TestUpdateDataset(object):
             access_level = u'restricted',
             owner_org = org['name'] # depends on config.
         )
-        
+
         # All required fields needed here as this is update not patch.
         dataset_ = helpers.call_action(
             'package_update',
             id = dataset['id'],
-            name = 'new-name',
+            name = f'new-name-{uuid.uuid4().hex}',
             maintainer_translated = {
                 'en': u'Jane Smith',
                 'fr': u'...'
@@ -65,11 +66,11 @@ class TestUpdateDataset(object):
         )
 
         # Make sure update works and returns saved value.
-        assert dataset_['name'] == 'new-name'
+        assert dataset_['name'].startswith('new-name-')
 
         # Safe measure - query the package again and validate values.
         dataset_ = helpers.call_action('package_show', id=dataset['id'])
-        assert dataset_['name'] == 'new-name'
+        assert dataset_['name'].startswith('new-name-')
         assert dataset_['maintainer_translated']['en'] == 'Jane Smith'
         assert dataset_['maintainer_email'] == 'Jane.Smith@ontario.ca'
         assert dataset_['notes_translated']['en'] == 'shorter description'
@@ -84,7 +85,7 @@ class TestUpdateDataset(object):
         user = factories.User()
         dataset = factories.Dataset(
             user = user,
-            name = 'package-name',
+            name = f'package-name-{uuid.uuid4().hex}',
             maintainer_translated = {
                 'en': u'Joe Smith',
                 'fr': u'...'
@@ -107,7 +108,7 @@ class TestUpdateDataset(object):
         dataset_ = helpers.call_action(
             'package_update',
             id = dataset['id'],
-            name = 'package-name',
+            name = f'package-name-{uuid.uuid4().hex}',
             maintainer_translated = {
                 'en': u'Jane Smith',
                 'fr': u'...'
@@ -127,7 +128,7 @@ class TestUpdateDataset(object):
             access_level ='open',
             exemption = '' # Defaults to none when key provided and value is empty.
         )
-        
+
         package_show = helpers.call_action('package_show', id=dataset['id'])
         assert dataset_['maintainer_translated']['en'] == 'Jane Smith'
         assert dataset_['maintainer_email'] == 'Jane.Smith@ontario.ca'

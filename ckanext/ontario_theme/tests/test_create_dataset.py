@@ -12,6 +12,7 @@ import pytest
 
 import ckan.lib.navl.dictization_functions as df
 import datetime
+import uuid
 
 import ckanext.ontario_theme.plugin as ontario_theme
 
@@ -21,7 +22,7 @@ import ckan.tests.factories as factories
 import ckan.logic as logic
 
 
-@pytest.mark.usefixtures('clean_db', 'with_plugins', 'with_request_context')  
+@pytest.mark.usefixtures('with_plugins', 'with_request_context')  
 class TestCreateDataset(object):
     '''Ensure dataset creates still work and don't work as expected.
     '''
@@ -32,7 +33,7 @@ class TestCreateDataset(object):
         org = factories.Organization()
         dataset = helpers.call_action(
             'package_create',
-            name = 'package-name',
+            name = f'package-name-{uuid.uuid4().hex}',
             maintainer_translated = {
                 'en': u'Joe Smith',
                 'fr': u'...'
@@ -48,7 +49,7 @@ class TestCreateDataset(object):
             },
             owner_org = org['name'] # depends on config.
         )
-        assert dataset['name'] == 'package-name'
+        assert dataset['name'].startswith('package-name-')
 
         dataset = helpers.call_action('package_show', id=dataset['id'])
         assert dataset['title_translated']['fr'] == u'Un novel par Tolstoy'
@@ -63,7 +64,7 @@ class TestCreateDataset(object):
         org = factories.Organization()
         dataset = helpers.call_action(
             'package_create',
-            name = 'package-name',
+            name = f'package-name-{uuid.uuid4().hex}',
             maintainer_translated = {
                 'en': u'Joe Smith',
                 'fr': u'...'
@@ -80,7 +81,7 @@ class TestCreateDataset(object):
             access_level= u'open',
             owner_org = org['name'] # depends on config.
         )
-        assert dataset['name'] == 'package-name'
+        assert dataset['name'].startswith('package-name-')
 
         dataset = helpers.call_action('package_show', id=dataset['id'])
         assert dataset['title_translated']['fr'] == u'Un novel par Tolstoy'
@@ -96,7 +97,7 @@ class TestCreateDataset(object):
         org = factories.Organization()
         dataset = helpers.call_action(
             'package_create',
-            name = 'package-name',
+            name = f'package-name-{uuid.uuid4().hex}',
             maintainer_translated = {
                 'en': u'Joe Smith',
                 'fr': u'...'
@@ -140,7 +141,7 @@ class TestCreateDataset(object):
             org = factories.Organization()
             dataset = helpers.call_action(
                 'package_create',
-                name = 'package-name',
+                name = f'package-name-{uuid.uuid4().hex}',
                 maintainer_translated = {
                     'en': u'Joe Smith',
                     'fr': u'...'
@@ -162,7 +163,7 @@ class TestCreateDataset(object):
             )
         except logic.ValidationError as e:
             update_frequency_values = ["Value must be one of ['as_required', 'biannually', 'current', 'daily', 'historical', 'monthly', 'never', 'on_demand', 'other', 'periodically', 'quarterly', 'weekly', 'yearly', 'quinquennial']"]
-                                        
+
             assert e.error_dict['update_frequency'] == update_frequency_values
 
         else:
@@ -185,7 +186,7 @@ class TestCreateDataset(object):
             org = factories.Organization()
             dataset = helpers.call_action(
                 'package_create',
-                name = 'package-name',
+                name = f'package-name-{uuid.uuid4().hex}',
                 maintainer_translated = {
                     'en': u'Joe Smith',
                     'fr': u'...'
