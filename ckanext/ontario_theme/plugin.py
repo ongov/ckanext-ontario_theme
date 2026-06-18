@@ -752,9 +752,23 @@ def resource_update_auth(context, data_dict=None):
 
 def ontario_geohub_precheck_single_dataset_auth(context, data_dict=None):
     user = context.get('user')
+    if not user:
+        return {'success': False, 'msg': 'Must be logged in to precheck harvest sources.'}
+    
+    # Allow sysadmins
     if authz.is_sysadmin(user):
         return {'success': True}
-    return {'success': False, 'msg': 'Only sysadmins can precheck harvest sources.'}
+    
+    # Check if user is editor/admin in any organization
+    user_obj = context.get('auth_user_obj')
+    if user_obj:
+        # Get all organizations the user belongs to
+        user_orgs = authz.get_user_groups(user, 'organization')
+        for org in user_orgs:
+            if org.get('capacity') in ('editor', 'admin'):
+                return {'success': True}
+    
+    return {'success': False, 'msg': 'Must be an Editor (or higher) in an organization to precheck harvest sources.'}
 
 def abbr_localised_filesize(number: int) -> str:
     ''' Returns a localised unicode representation of a number in bytes, MiB etc
