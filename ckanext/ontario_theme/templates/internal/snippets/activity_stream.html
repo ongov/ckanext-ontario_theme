@@ -14,7 +14,7 @@
       ) %}
 
       {% if activity.activity_type == 'new package' %}
-          {{ dataset_link }} was created
+          {% trans dataset_link=dataset_link %}{{ dataset_link }} dataset was created{% endtrans %}
 
       {% elif activity.activity_type == 'changed package' %}
           {% trans dataset_link=dataset_link %}{{ dataset_link }} dataset was updated{% endtrans %}

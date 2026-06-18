@@ -2285,7 +2285,12 @@ msgstr[1] "{level_count} jeux de données avec niveau d’accès"
 msgid "We also found"
 msgstr "Nous avons également trouvé"
 
-# ckanext/ontario_theme/templates/internal/snippets/activity_stream.html:20
+#: ckanext/ontario_theme/templates/internal/snippets/activity_stream.html:17
+#, python-format
+msgid "%(dataset_link)s dataset was created"
+msgstr "l’ensemble de données %(dataset_link)s a été créé"
+
+#: ckanext/ontario_theme/templates/internal/snippets/activity_stream.html:20
 #, python-format
 msgid "%(dataset_link)s dataset was updated"
 msgstr "Le jeu de données %(dataset_link)s a été mis à jour"
