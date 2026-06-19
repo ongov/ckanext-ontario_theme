@@ -1,15 +1,53 @@
 {% ckan_extends %}
 
-{% block breadcrumb_content %}
-  {% snippet "package/snippets/package_base_breadcrumb.html", pkg=pkg, res=res %}
-  {% if res %}
-    <li>
-      {% link_for h.resource_display_name(res)|truncate(30), named_route=pkg.type ~ '_resource.read', id=pkg.name, resource_id=res.id %}
-    </li>
-  {% endif %}
-{% endblock breadcrumb_content %}
+{% block breadcrumb %}
+{% endblock breadcrumb %}
 
-{% block secondary_content %}
-  {% snippet "package/snippets/disclaimer.html" %}
-  {{ super() }}
-{% endblock secondary_content %}
+{% block pre_primary %}
+  {% snippet "package/snippets/step_indicator.html", step=1 %}
+{% endblock pre_primary %}
+
+{% block secondary %}
+{% endblock secondary %}
+
+{% block primary %}
+  {% asset "ontario_theme_scripts/ontario_theme_step_indicator" %}
+  <div class="resource-margin ontario-columns ontario-small-12">
+    {% block primary_content %}
+      <article class="module">
+        {% block page_header %}
+        {% endblock page_header %}
+        <div class="module-content">
+          <div class="ontario-row">
+            <div class="ontario-small-7 ontario-columns">
+              <h1>
+                {% block form_title %}
+                  {{ _('Add or edit data resource') }}
+                {% endblock form_title %}
+              </h1>
+            </div>
+            <div id="delbtn" class="ontario-small-5 ontario-columns">
+              {% block delete_button %}
+                {% if data %}
+                  {% if data.id %}
+                    {% if h.check_access('resource_delete', {'id': data.id}) %}
+                      <a class="pull-right ontario-button ontario-button--secondary"
+                         href="{% url_for dataset_type ~ '_resource.delete', resource_id=data.id, id=pkg.name %}"
+                         data-module="confirm-action"
+                         data-module-content="{{ _('Are you sure you want to delete this resource?') }}">
+                        {% block delete_button_text %}Delete dataset resource{% endblock delete_button_text %}
+                      </a>
+                    {% endif %}
+                  {% endif %}
+                {% endif %}
+              {% endblock delete_button %}
+            </div>
+          </div>
+          {% block primary_content_inner %}
+            {{ super() }}
+          {% endblock primary_content_inner %}
+        </div>
+      </article>
+    {% endblock primary_content %}
+  </div>
+{% endblock primary %}

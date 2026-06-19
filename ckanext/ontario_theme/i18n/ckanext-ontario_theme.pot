@@ -59,10 +59,6 @@ msgid "<a href=\"%(url)s?%(params)s\">Provide feedback</a> about our data and ho
 msgid "https://www.ontario.ca/form/provide-feedback-ontario-data-catalogue"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ai_recruitment_banner.html:2
-msgid "https://www.ontario.ca/form/tell-us-what-you-think-about-our-artificial-intelligence-ai-inventory"
-msgstr ""
-
 #: ckanext/ontario_theme/templates/external/home/about.html:7
 #: ckanext/ontario_theme/templates/internal/header.html:91
 #: ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html:55
@@ -74,35 +70,48 @@ msgid "The Ontario government generates and maintains thousands of datasets. Sin
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/about_text.html:2
+#, python-format
 msgid ""
-"<h2 class=\"ontario-small\">On this page</h2> <ol class=\"table-of-"
-"contents\"> <li> <a href=\"#open-data\">Open Data</a> </li> <li> <a href"
-"=\"#other-data\">Other data</a> </li> <li> <a href=\"#licensing\">Data "
-"licences and use</a> </li> <li> <a href=\"#developers\">Developer "
-"resources</a> </li> <li> <a href=\"#training-materials\">Training "
-"materials</a> </li> <li> <a href=\"#metadata\">What do we tell you about data"
-" (metadata)?</a> </li> <li> <a href=\"#engagement\">Engagement</a> </li> "
-"</ol> <hr class=\"toc-hr\" /> <h2 id=\"open-data\" class=\"first-h2\">Open "
-"Data</h2> <p> Open data is data that is shared with the public. <a "
-"href=\"https://www.ontario.ca/page/sharing-government-data\"> Click here to "
-"learn more about open data and why Ontario releases it</a>. </p> <p> <a "
-"href=\"%(directive_url)s\">Ontario’s Digital and Data Directive</a> states "
-"that all data must be open, unless there is good reason for it to remain "
-"confidential. </p> <p>Ontario’s Chief Digital and Data Officer also has the "
-"authority to make certain datasets available publicly.</p> <h2 id=\"other-"
-"data\">Other data</h2> <p>Datasets listed in the catalogue that are not open "
-"will have one of the following labels:</p> <ul> <li> <strong>Under "
-"review</strong> – The dataset is still being screened. It may become open or "
-"it may be restricted and not released. </li> <li> <strong>Restricted</strong>"
-" – The dataset has been screened and will not be released to the public. The "
-"record will be listed in the catalogue, but the data will not be shared. "
-"</li> </ul> <h2 id=\"licensing\">Data licences and use</h2> <p> If you want "
-"to use data you find in the catalogue, that data must have a licence – a set "
-"of rules that describes how you can use it. A licence: </p> <ul> <li>grants "
-"you rights to download and use the data</li> <li>outlines your rights</li> "
-"<li>tells you what terms and conditions apply</li> </ul> <p> Most of the data"
-" available in the catalogue is released under <a "
-"href=\"https://www.ontario.ca/page/open-government-licence-"
+"<nav id=\"about-page-navigation\"> <div class=\"ontario-page-navigation--"
+"full\"> <div class=\"ontario-page-navigation-content--full\"> <h2>On this "
+"page</h2> <a class=\"ontario-show-on-focus\" href=\"#skip-to-main\">Skip this"
+" page navigation</a> <div id=\"in-page-navigation-div\" role=\"navigation\"> "
+"<ol class=\"ontario-page-navigation-list\"> <li class=\"ontario-page-"
+"navigation-list__item\"> <a class=\"ontario-page-navigation-item__link\" href"
+"=\"#open-data\">Open Data</a> </li> <li class=\"ontario-page-navigation-"
+"list__item\"> <a class=\"ontario-page-navigation-item__link\" href=\"#other-"
+"data\">Other data</a> </li> <li class=\"ontario-page-navigation-list__item\">"
+" <a class=\"ontario-page-navigation-item__link\" href=\"#licensing\">Data "
+"licences and use</a> </li> <li class=\"ontario-page-navigation-list__item\"> "
+"<a class=\"ontario-page-navigation-item__link\" "
+"href=\"#developers\">Developer resources</a> </li> <li class=\"ontario-page-"
+"navigation-list__item\"> <a class=\"ontario-page-navigation-item__link\" href"
+"=\"#training-materials\">Training materials</a> </li> <li class=\"ontario-"
+"page-navigation-list__item\"> <a class=\"ontario-page-navigation-item__link\""
+" href=\"#metadata\">What do we tell you about data (metadata)?</a> </li> <li "
+"class=\"ontario-page-navigation-list__item\"> <a class=\"ontario-page-"
+"navigation-item__link\" href=\"#engagement\">Engagement</a> </li> </ol> "
+"</div> </div> </div> </nav> <div id=\"skip-to-main\"></div> <h2 id=\"open-"
+"data\" class=\"first-h2\">Open Data</h2> <p> Open data is data that is shared"
+" with the public. <a href=\"https://www.ontario.ca/page/sharing-government-"
+"data\"> Click here to learn more about open data and why Ontario releases "
+"it</a>. </p> <p> <a href=\"%(directive_url)s\">Ontario’s Digital and Data "
+"Directive</a> states that all data must be open, unless there is good reason "
+"for it to remain confidential. </p> <p>Ontario’s Chief Digital and Data "
+"Officer also has the authority to make certain datasets available "
+"publicly.</p> <h2 id=\"other-data\">Other data</h2> <p>Datasets listed in the"
+" catalogue that are not open will have one of the following labels:</p> <ul> "
+"<li> <strong>Under review</strong> – The dataset is still being screened. It "
+"may become open or it may be restricted and not released. </li> <li> "
+"<strong>Restricted</strong> – The dataset has been screened and will not be "
+"released to the public. The record will be listed in the catalogue, but the "
+"data will not be shared. </li> </ul> <h2 id=\"licensing\">Data licences and "
+"use</h2> <p> If you want to use data you find in the catalogue, that data "
+"must have a licence – a set of rules that describes how you can use it. A "
+"licence: </p> <ul> <li>grants you rights to download and use the data</li> "
+"<li>outlines your rights</li> <li>tells you what terms and conditions "
+"apply</li> </ul> <p> Most of the data available in the catalogue is released "
+"under <a href=\"https://www.ontario.ca/page/open-government-licence-"
 "ontario\">Ontario’s Open Government Licence</a>. However, each dataset may be"
 " shared with the public under other kinds of licences or no licence at all. "
 "</p> <p>If a dataset doesn’t have a licence, you don’t have the right to use "
@@ -438,33 +447,26 @@ msgid ""
 "national level with an airport identifier. This layer is derived from data "
 "provided from Nav Canada as well as from the existing airports NRVIS data "
 "class.</em> </p> </dd> </div> <div class=\"metadata-item\"> <dt "
-"class=\"ontario-h4\" id=\"metadata-resource-version\">Version (database name:"
-" version)</dt> <dd> <p>The number of previous versions of this file that "
-"exist.</p> <p> <em>Example value: 1.8</em> </p> </dd> </div> <div class"
+"class=\"ontario-h4\" id=\"metadata-resource-data_range_start\">Data Range "
+"Start (database name: data_range_start)</dt> <dd> <p>The start-date and time "
+"for the data in the file.</p> <p> <em>Example value: 2019-05-16</em> </p> "
+"</dd> </div> <div class=\"metadata-item\"> <dt class=\"ontario-h4\" id"
+"=\"metadata-resource-data_range_end\">Data Range End (database name: "
+"data_range_end)</dt> <dd> <p>The end-date and time for the data in the "
+"file.</p> <p> <em>Example value: 2019-05-16</em> </p> </dd> </div> <div class"
 "=\"metadata-item\"> <dt class=\"ontario-h4\" id=\"metadata-resource-"
-"data_range_start\">Data Range Start (database name: data_range_start)</dt> "
-"<dd> <p>The start-date and time for the data in the file.</p> <p> <em>Example"
-" value: 2019-05-16</em> </p> </dd> </div> <div class=\"metadata-item\"> <dt "
-"class=\"ontario-h4\" id=\"metadata-resource-data_range_end\">Data Range End "
-"(database name: data_range_end)</dt> <dd> <p>The end-date and time for the "
-"data in the file.</p> <p> <em>Example value: 2019-05-16</em> </p> </dd> "
-"</div> <div class=\"metadata-item\"> <dt class=\"ontario-h4\" id=\"metadata-"
-"resource-data_birth_date\">Data Birth Date (database name: "
-"data_birth_date)</dt> <dd> <p>The (estimated) date that the data in this file"
-" first started to be collected.</p> <p> <em>Example value: 2019-05-16</em> "
-"</p> </dd> </div> <div class=\"metadata-item\"> <dt class=\"ontario-h4\" id"
-"=\"metadata-resource-date_publicly_available\"> Data made public date "
-"(database name: date_publicly_available) </dt> <dd> <p>The date the file "
-"became available to the public.</p> <p> <em>Example value: 2019-05-16</em> "
-"</p> </dd> </div> <div class=\"metadata-item\"> <dt class=\"ontario-h4\" id"
-"=\"metadata-resource-data_last_updated\"> Data last updated (database name: "
-"data_last_updated) </dt> <dd> <p>The date the data within the file was last "
-"updated.</p> <p> <em>Example value: 2019-05-16</em> </p> </dd> </div> <div "
-"class=\"metadata-item\"> <dt class=\"ontario-h4\" id=\"metadata-resource-"
-"created\">Added to Catalogue (database name: created)</dt> <dd> <p>The date "
-"and time that the file was first listed in the catalogue.</p> <p> <em>Example"
-" value: 20190516T16:06:15+00:00</em> </p> </dd> </div> <div class=\"metadata-"
-"item\"> <dt class=\"ontario-h4\" id=\"metadata-resource-resource_type\">Type "
+"date_publicly_available\"> Data made public date (database name: "
+"date_publicly_available) </dt> <dd> <p>The date the file became available to "
+"the public.</p> <p> <em>Example value: 2019-05-16</em> </p> </dd> </div> <div"
+" class=\"metadata-item\"> <dt class=\"ontario-h4\" id=\"metadata-resource-"
+"data_last_updated\"> Data last updated (database name: data_last_updated) "
+"</dt> <dd> <p>The date the data within the file was last updated.</p> <p> "
+"<em>Example value: 2019-05-16</em> </p> </dd> </div> <div class=\"metadata-"
+"item\"> <dt class=\"ontario-h4\" id=\"metadata-resource-created\">Added to "
+"Catalogue (database name: created)</dt> <dd> <p>The date and time that the "
+"file was first listed in the catalogue.</p> <p> <em>Example value: "
+"20190516T16:06:15+00:00</em> </p> </dd> </div> <div class=\"metadata-item\"> "
+"<dt class=\"ontario-h4\" id=\"metadata-resource-resource_type\">Type "
 "(database name: type)</dt> <dd> <p>A label that helps you understand whether "
 "a file contains data or just helps you use or understand data.</p> <p> "
 "<em>Example value: data</em> </p> </dd> </div> <div class=\"metadata-item\"> "
@@ -475,11 +477,6 @@ msgid ""
 "name: language)</dt> <dd> <p>The language the information in the file is "
 "stored in.</p> <p> <em>Example value: English</em> </p> </dd> </div> <div "
 "class=\"metadata-item\"> <dt class=\"ontario-h4\" id=\"metadata-resource-"
-"contains_geographic_markers\"> Contains geographic markers (database name: "
-"contains_geographic_markers) </dt> <dd> <p> Whether each row of data has "
-"coordinates or another type of mappable information that describes a "
-"geographic area. </p> <p> <em>Example value: TRUE</em> </p> </dd> </div> <div"
-" class=\"metadata-item\"> <dt class=\"ontario-h4\" id=\"metadata-resource-"
 "size\">Size (database name: size)</dt> <dd> <p>The amount of space the data "
 "file takes up on a computer.</p> <p> <em>Example value: 1078</em> </p> </dd> "
 "</div> </dl> <h2 id=\"engagement\">Engagement</h2> <p>We built Ontario’s data"
@@ -516,17 +513,6 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:18
 msgid "Get data on COVID-19 activity in Ontario."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:25
-msgid "Alpha AI Guidance"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:29
-msgid ""
-"Ontario is committed to ensuring that government use of artificial "
-"intelligence and similar technologies has a strong, clear framework for "
-"transparent and appropriate use. Let us know what you think."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:36
@@ -755,34 +741,6 @@ msgstr ""
 msgid "Government of Ontario"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:8
-msgid "Tell us what you want to know about <a href=\"%(url)s\">artificial intelligence (<abbr>AI</abbr>) assets</a> published to the Catalogue."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:6
-msgid "Artificial intelligence (<abbr>AI</abbr>) on the Catalogue"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:4
-msgid "Help us improve"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:10
-msgid "Fill out our <abbr title=\"artificial intelligence\">AI</abbr> inventory survey"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:13
-msgid "Give us feedback about the Catalogue"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:15
-msgid "Take a short survey to let us know what you think about the Catalogue and how we can make data more accessible to Ontarians."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/external/home/ai_recruitment_banner.html:17
-msgid "Fill out our feedback form"
-msgstr ""
-
 #: ckanext/ontario_theme/templates/internal/page.html:4
 msgid "Skip to content"
 msgstr ""
@@ -905,14 +863,6 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/home/layout3.html:28
 msgid "COVID-19 datasets "
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/layout3.html:56
-msgid "Artificial Intelligence (<abbr>AI</abbr>) assets"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/layout3.html:26
-msgid "<abbr title=\"Artificial Intelligence\">AI</abbr> assets"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_intro.html:12
@@ -1196,6 +1146,10 @@ msgstr ""
 msgid "Source: <a href=\"%(url)s\">%(dataset)s</a>"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:211
+msgid "Data dictionary"
+msgstr ""
+
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:36
 msgid "Additional information"
 msgstr ""
@@ -1318,19 +1272,19 @@ msgid "Please try another search or <a href=\"mailto:opendata@ontario.ca\">reach
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:15
-msgid "<strong>{number} dataset</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
-msgid_plural "<strong>{number} datasets</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
+msgid "<strong>{number} total dataset</strong> found with the search term <strong>\"{query}\"</strong>"
+msgid_plural "<strong>{number} total datasets</strong> found with the search term <strong>\"{query}\"</strong>"
 msgstr[0] ""
 msgstr[1] ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:17
-msgid "<strong>{number} dataset</strong> found"
-msgid_plural "<strong>{number} datasets</strong> found"
+msgid "<strong>{number} total dataset</strong> found"
+msgid_plural "<strong>{number} total datasets</strong> found"
 msgstr[0] ""
 msgstr[1] ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:16
-msgid "No datasets found with the keyword(s) <strong>\"{query}\"</strong>"
+msgid "No datasets found with the search term <strong>\"{query}\"</strong>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:18
@@ -1338,13 +1292,13 @@ msgid "No datasets found"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:21
-msgid "<strong>{number} group</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
-msgid_plural "<strong>{number} groups</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
+msgid "<strong>{number} group</strong> found with the search term <strong>\"{query}\"</strong>"
+msgid_plural "<strong>{number} groups</strong> found with the search term <strong>\"{query}\"</strong>"
 msgstr[0] ""
 msgstr[1] ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:22
-msgid "No groups found with the keyword(s) <strong>\"{query}\"</strong>"
+msgid "No groups found with the search term <strong>\"{query}\"</strong>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:23
@@ -1359,12 +1313,12 @@ msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:27
 msgid "<strong>{number} ministry</strong> found for <strong>\"{query}\"</strong>"
-msgid_plural "<strong>{number} ministries</strong> found with the keyword(s) <strong>\"{query}\"</strong>"
+msgid_plural "<strong>{number} ministries</strong> found with the search term <strong>\"{query}\"</strong>"
 msgstr[0] ""
 msgstr[1] ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:28
-msgid "No ministries found with the keyword(s) <strong>\"{query}\"</strong>"
+msgid "No ministries found with the search term <strong>\"{query}\"</strong>"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:29
@@ -1376,6 +1330,16 @@ msgstr[1] ""
 #: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:30
 msgid "No ministries found"
 msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/access_level_checkboxes.html:26
+msgid "{level_count} dataset with access level"
+msgid_plural "{level_count} datasets with access level"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:242
+msgid "We also found"
+msgstr "Nous avons également trouvé"
 
 #: ckanext/ontario_theme/templates/internal/user/dashboard.html:6
 msgid "Edit settings"
@@ -1420,10 +1384,6 @@ msgstr ""
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:68
 msgid "Access data"
 msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:68
-msgid "Access <abbr title=\"Artificial Intelligence\">AI</abbr>"
-msgstr "Accédez à l’<abbr title =\"intelligence artificielle\">IA</abbr>"
 
 #: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:47
 msgid "Data Visualizer"
@@ -1471,16 +1431,33 @@ msgstr ""
 msgid "Sort by"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/read.html:7
-msgid "Artificial Intelligence (<abbr>AI</abbr>)"
+#: ckanext/ontario_theme/fanstatic/scripts/odc-access.js:72
+msgid " and "
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/read.html:34
-msgid "Learn more about how Ontario uses <abbr title=\"Artificial Intelligence\">AI</abbr> in government."
+#: ckanext/ontario_theme/fanstatic/scripts/odc-access.js:73
+msgid "All levels"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/read.html:31
-msgid "This record describes an <abbr title=\"Artificial Intelligence\">AI</abbr> asset. It does not describe a dataset."
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:83
+msgid "Showing datasets with access level"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:199
+msgid "No datasets with access level"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:195
+msgid "No datasets found with search term <strong>\"{query}\"</strong> and access level"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:193
+msgid "Showing datasets found with search term <strong>\"{query}\"</strong> and access level"
+msgstr ""
+
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:111
+msgid "Clear filters"
 msgstr ""
 
 #: ckanext/ontario_theme/page.py:45
@@ -1544,4 +1521,12 @@ msgstr ""
 #: ckanext/ontario_theme/templates/internal/group/read_base.html:29
 #: ckanext/ontario_theme/templates/internal/organization/read_base.html:22
 msgid "More information"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/error_404.html:3
+msgid "Sorry, we can’t find that page"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/error_404.html:5
+msgid "<p>Check the URL for errors. You can try to find data using the search box above or by <a href=\"%(url)s\">browsing our homepage.</a></p>"
 msgstr ""

@@ -1,0 +1,19 @@
+<tr>
+  <th scope="row">{{ field.id }}</th>
+  <td>
+    {% if 'info' in field %}
+      {% if field.info.type_override %}
+        {% set this_type = field.info.type_override.capitalize() %}
+      {% else %}
+        {% set this_type = field.type.capitalize() %}
+      {% endif %}
+    {% else %}
+      {% set this_type = field.type.capitalize() %}
+    {% endif %}
+    {{ this_type }}
+  </td>
+  <td>
+    {{ h.render_markdown(
+    h.get_translated(field.get('info', {}), 'notes')) }}
+  </td>
+</tr>

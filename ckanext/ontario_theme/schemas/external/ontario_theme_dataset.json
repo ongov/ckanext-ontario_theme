@@ -67,13 +67,6 @@
             "en": "Dataset",
             "fr": "Jeu de données"
           }
-        },
-        {
-          "value": "ai",
-          "label": {
-            "en": "Artificial intelligence",
-            "fr": "Intelligence artificielle"
-          }
         }
       ]
     },
@@ -477,6 +470,45 @@
       "form_placeholder": "e.g., Users will need to register with the website to recieve a login and provide an email address. Visit http://www.example.com/register."
     },
     {
+      "field_name": "access_level",
+      "label": {
+        "en": "Access level",
+        "fr": "Niveau d’accès"
+      },
+      "required": true,
+      "form_include_blank_choice": true,
+      "help_inline" : true,
+      "help_text": {
+        "en": "Who can access these resources?"
+      },
+      "classes": ["form-group","col-md-12"],
+      "preset": "select",
+      "validators": "scheming_choices scheming_required",
+      "choices": [
+        {
+          "value": "open",
+          "label": {
+            "en": "Open",
+            "fr": "Ouvertes"
+          }
+        },
+        {
+          "value": "under_review",
+          "label": {
+            "en": "Under review",
+            "fr": "En examen"
+          }
+        },
+        {
+          "value": "restricted",
+          "label": {
+            "en": "Restricted",
+            "fr": "Restreintes"
+          }
+        }
+      ]
+    },
+    {
       "field_name": "license_id",
       "label": {
         "en": "Licence",
@@ -493,51 +525,10 @@
         "data-module-trigger_field": "#field-access_level",
         "data-module-conditional_option": "restricted,under_review",
         "data-module-trigger_option": "other-closed",
+        "data-module-default": "OGL-ON-1.0",
         "style": "width: 100%;"
       },
       "classes": ["col-md-12","form-group"]
-    },
-    {
-      "field_name": "access_level",
-      "label": {
-        "en": "Access level",
-        "fr": "Niveau d’accès"
-      },
-      "required": true,
-      "form_include_blank_choice": true,
-      "help_inline" : true,
-      "fieldset": 6,
-      "fieldset_name": "Open Data Catalogue",
-      "fieldset_subtitle": "If the process to assess this dataset for its appropriateness for the Open Data Catalogue (ontario.ca/data) has started, please fill out these fields. If the process hasn't been started, skip this section.",
-      "help_text": {
-        "en": "Who can access these resources?"
-      },
-      "classes": ["form-group","col-md-12"],
-      "preset": "select",
-      "validators": "scheming_choices scheming_required",
-      "choices": [
-        {
-          "value": "open",
-          "label": {
-            "en": "Open",
-            "fr": "Ouvertes"
-          }
-        },
-        {
-          "value": "restricted",
-          "label": {
-            "en": "Restricted",
-            "fr": "Restreintes"
-          }
-        },
-        {
-          "value": "under_review",
-          "label": {
-            "en": "Under review",
-            "fr": "En examen"
-          }
-        }
-      ]
     },
     {
       "field_name": "opened_date",
@@ -545,6 +536,9 @@
         "en": "Date Opened",
         "fr": "Date d'ouverture"
       },
+      "fieldset": 6,
+      "fieldset_name": "Open Data Catalogue",
+      "fieldset_subtitle": "If the process to assess this dataset for its appropriateness for the Open Data Catalogue (ontario.ca/data) has started, please fill out these fields. If the process hasn't been started, skip this section.",
       "help_inline" : true,
       "help_text": {
         "en": "When the first resource initially (the actual files) was added to the public-facing Open Data Catalogue."
@@ -639,6 +633,7 @@
     }
   ],
   "resource_fields": [
+
     {
       "field_name": "url",
       "label": {
@@ -777,36 +772,6 @@
       ]
     }, 
     {
-      "field_name": "contains_geographic_markers",
-      "label": {
-        "en": "Contains geographic markers",
-        "fr": "Avec des informations géographiques"
-      },
-      "help_inline" : true,
-      "help_text": {
-        "en": "Does this resource have mappable information (e.g., latitude and longitude coordinates, mappable shape information)?"
-      }, 
-      "classes": ["form-group","col-md-12"],
-      "preset": "select",
-      "validators": "boolean_validator",
-      "choices": [
-        {
-          "value": "true",
-          "label": {
-            "en": "True",
-            "fr": "Vrai"
-          }
-        },
-        {
-          "value": "false",
-          "label": {
-            "en": "False",
-            "fr": "Faux"
-          }
-        }
-      ]
-    },
-    {
       "field_name": "publically_available_date",
       "label": {
         "en": "Data made public date",
@@ -865,28 +830,28 @@
       "preset": "date",
       "validators": "ignore_missing isodate convert_to_json_if_date",
       "form_placeholder": "yyyy-mm-dd"
-    },
-    {
-      "field_name": "data_birth_date",
-      "label": {
-        "en": "Data birth date",
-        "fr": "La date à laquelle les données ont été créées"
-      },
-      "help_inline" : true,
-      "help_text": {
-        "en": "The date this resource was first created (outside of any system)"
-      }, 
-      "classes": ["form-group","col-md-12"],
-      "preset": "date",
-      "validators": "ignore_missing isodate convert_to_json_if_date",
-      "form_placeholder": "yyyy-mm-dd"
-    },
-    {
-      "field_name": "version",
-      "label": "Version",
-      "form_placeholder": "1.0",
-      "validators": "ignore_missing unicode package_version_validator",
-      "classes": ["form-group","col-md-12"]
     }
+    ,
+    {
+      "field_name": "schema",
+      "label": "Schema",
+      "preset": "hidden_in_form"
+    },
+    {
+      "field_name": "validation_options",
+      "label": "Validation options",
+      "preset": "hidden_in_form"
+    },
+    {
+      "field_name": "validation_status",
+      "label": "Validation status",
+      "preset": "hidden_in_form"
+    },
+    {
+      "field_name": "validation_timestamp",
+      "label": "Validation timestamp",
+      "preset": "hidden_in_form"
+    }
+
   ]
 }

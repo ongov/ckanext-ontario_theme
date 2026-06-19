@@ -4,8 +4,11 @@ resources:
       connection: ckan_ontario_theme_Webhook_SC
       filters:
         - path: ref
-          value: "refs/heads/develop"
-
+          value: "refs/heads/$(Build.SourceBranchName)"
+  repositories:  
+  - repository: ods-edc-qa-automation
+    type: git
+    name: "Ontario Data Catalogue/ods-edc-qa-automation"
 parameters: 
   - name: Environment
     displayName: Environment
@@ -25,6 +28,10 @@ parameters:
       - patch
       - reset
       - no
+  - name: Run_E2E_Tests
+    displayName: Run E2E Tests?
+    type: boolean
+    default: false
 
 trigger:
   batch: true
@@ -32,11 +39,6 @@ trigger:
     include:
       - main
       - develop
-  paths:
-    include:
-      - '*'
-    exclude:
-      - /setup.py
   tags:
     exclude:
     - '*'
@@ -44,7 +46,7 @@ pr: none
 
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'ubuntu-22.04'
 
 stages: 
 - stage: Build
@@ -57,7 +59,7 @@ stages:
      - checkout: self
        persistCredentials: true
      - script: |
-         pip install twine wheel flake8 pytest pytest-azurepipelines bump
+         pip install twine==6.1.0 wheel flake8 pytest pytest-azurepipelines bump
        displayName: 'Installing Pipeline Tools Required to Build Project' 
      - script: |
          set -e
@@ -122,7 +124,7 @@ stages:
          git config user.email "dev.ops@ontario.ca"
          git config user.name "ods-devops-automation"
          git add setup.py
-         git commit -m 'Version update by Build Id: $(Build.BuildNumber) on $(Agent.Id)'
+         git commit -m 'Version update by Build Id: $(Build.BuildNumber) on $(Agent.Id) ***NO_CI***'
          git tag "v$(Commit.VarKey)"
          git push origin HEAD:$(Build.SourceBranchName)
          git push --tags origin HEAD:$(Build.SourceBranchName)    
@@ -161,14 +163,93 @@ stages:
                pip install -U ckanext-ontario-theme==$(app_version) -t $(application_folder) --extra-index-url=https://pkgs.dev.azure.com/devops-EDC-0000/2fe9107c-920f-4653-bd7f-17ecfd94eaec/_packaging/odc_python_feed/pypi/simple/
                echo "#### NEW PACKAGE INFORMATION. ####"
                pip list --path $(application_folder)
+             displayName: 'Install CKAN Extension'
+           - script: |
+               set -xe
+               echo "Replacing GTM tag inside $(application_folder)/ckanext/ontario_theme/templates/internal/gtm.html ..."
+               sudo sed -i "s/GTM-[A-Za-z0-9_-]*/$(ENVIRONMENT_GTM_TAG)/" \
+                 $(application_folder)/ckanext/ontario_theme/templates/internal/gtm.html
+               echo "Updated GTM tag to $(ENVIRONMENT_GTM_TAG)"
+             displayName: "Apply environment-specific GTM tag"
+           - script: |
+               set -xe
                echo "#### STOPPING CKAN & FLUSHING WEBASSETS CACHE! ####"
-               sudo systemctl stop supervisor && sudo systemctl status supervisor && sudo rm -rf /var/lib/ckan/default/webassets/*
+               sudo systemctl stop supervisor
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status supervisor || true
+               sudo rm -rf /var/lib/ckan/default/webassets/*
                echo "#### STOPPING NGINX & FLUSHING CACHE! ####"
-               sudo systemctl stop nginx && sudo systemctl status nginx && sudo rm -rf /tmp/nginx_cache_default/* && sudo rm -rf /tmp/nginx_cache_default && sudo rm -rf /tmp/api_cache/* && sudo rm -rf /tmp/api_cache
+               sudo systemctl stop nginx
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status nginx || true
+               sudo rm -rf /tmp/nginx_cache_default/*
+               sudo rm -rf /tmp/nginx_cache_default
+               sudo rm -rf /tmp/api_cache/*
+               sudo rm -rf /tmp/api_cache
                echo "#### STARTING CKAN & NGINX! ####"
-               sudo systemctl start supervisor && sudo systemctl start nginx && sudo systemctl status supervisor && sudo systemctl status nginx
+               sudo systemctl start supervisor
+               sudo systemctl start nginx
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status supervisor || true
+               sudo systemctl status nginx || true
                echo "#### DEPLOYMENT COMPLETE! ####"
              displayName: 'Deploying to IST'
+
+- stage: E2E_Testing
+  dependsOn: 
+    - Build
+    - IST_Deploy
+  condition: and(succeeded(), eq('${{ parameters.environment }}', 'ist'), eq('${{ parameters.Run_E2E_Tests }}', 'true'))
+  variables:
+    - group: ist-vars
+  jobs:
+  - deployment:
+    displayName: Run E2E Tests
+    environment: 
+      name: IST
+      resourceType: virtualMachine
+      resourceName: cacazristckan01
+    strategy:
+     runOnce:
+       deploy:
+         steps:
+           - checkout: "git://Ontario Data Catalogue/ods-edc-qa-automation"
+           - task: AzureKeyVault@2
+             inputs:
+               azureSubscription: 'EDC-IST-MGMT-RG'
+               KeyVaultName: 'edc0000ist0109mgt'
+               SecretsFilter: 'PERCY-TOKEN,BROWSERSTACK-USER,BROWSERSTACK-KEY,BROWSERSTACK-ACCESS-KEY'
+               RunAsPreJob: false
+           - script: |
+               set -xe
+               rm package-lock.json
+               mkdir npm_cache
+               export npm_config_cache=./npm_cache/
+               npm install
+               echo "#################  RUNNING OFF VPN TESTING  #################"
+               BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon start 
+               npm run test_off_vpn
+               BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon stop
+             env:
+               PERCY_TOKEN: $(PERCY-TOKEN)
+               BROWSERSTACK_USER: $(BROWSERSTACK-USER)
+               BROWSERSTACK_ACCESS_KEY: $(BROWSERSTACK-ACCESS-KEY)
+               BROWSERSTACK_KEY: $(BROWSERSTACK-KEY)
+             displayName: 'RUNNING OFF VPN TESTING'
+             continueOnError: true
+           - script: |
+               set -xe
+               echo "#################  RUNNING ON VPN TESTING  #################"
+               BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon start 
+               npm run test_on_vpn
+               BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon stop 
+             env:
+               PERCY_TOKEN: $(PERCY-TOKEN)
+               BROWSERSTACK_USER: $(BROWSERSTACK-USER)
+               BROWSERSTACK_ACCESS_KEY: $(BROWSERSTACK-ACCESS-KEY)
+               BROWSERSTACK_KEY: $(BROWSERSTACK-KEY)
+               ODC_TEST_USER_PASSWORD: $(ODC_TEST_USER_PASSWORD)
+             displayName: 'RUNNING ON VPN TESTING'
              
 - stage: UAT_Deploy
   dependsOn: 
@@ -205,12 +286,35 @@ stages:
                pip install -U ckanext-ontario-theme==$(app_version) -t $(application_folder) --extra-index-url=https://pkgs.dev.azure.com/devops-EDC-0000/2fe9107c-920f-4653-bd7f-17ecfd94eaec/_packaging/odc_python_feed/pypi/simple/
                echo "#### NEW PACKAGE INFORMATION. ####"
                pip list --path $(application_folder)
+             displayName: 'Install CKAN Extension'
+           - script: |
+               set -xe
+               echo "Replacing GTM tag inside $(application_folder)/ckanext/ontario_theme/templates/internal/gtm.html ..."
+               sudo sed -i "s/GTM-[A-Za-z0-9_-]*/$(ENVIRONMENT_GTM_TAG)/" \
+                 $(application_folder)/ckanext/ontario_theme/templates/internal/gtm.html
+               echo "Updated GTM tag to $(ENVIRONMENT_GTM_TAG)"
+             displayName: "Apply environment-specific GTM tag"
+           - script: |
+               set -xe
                echo "#### STOPPING CKAN & FLUSHING WEBASSETS CACHE! ####"
-               sudo systemctl stop supervisor && sudo systemctl status supervisor && sudo rm -rf /var/lib/ckan/default/webassets/*
+               sudo systemctl stop supervisor
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status supervisor || true
+               sudo rm -rf /var/lib/ckan/default/webassets/*
                echo "#### STOPPING NGINX & FLUSHING CACHE! ####"
-               sudo systemctl stop nginx && sudo systemctl status nginx && sudo rm -rf /tmp/nginx_cache_default/* && sudo rm -rf /tmp/nginx_cache_default && sudo rm -rf /tmp/api_cache/* && sudo rm -rf /tmp/api_cache
+               sudo systemctl stop nginx
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status nginx || true
+               sudo rm -rf /tmp/nginx_cache_default/*
+               sudo rm -rf /tmp/nginx_cache_default
+               sudo rm -rf /tmp/api_cache/*
+               sudo rm -rf /tmp/api_cache
                echo "#### STARTING CKAN & NGINX! ####"
-               sudo systemctl start supervisor && sudo systemctl start nginx && sudo systemctl status supervisor && sudo systemctl status nginx
+               sudo systemctl start supervisor
+               sudo systemctl start nginx
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status supervisor || true
+               sudo systemctl status nginx || true
                echo "#### DEPLOYMENT COMPLETE! ####"
              displayName: 'Deploying to UAT'
              
@@ -250,11 +354,34 @@ stages:
                pip install -U ckanext-ontario-theme==$(app_version) -t $(application_folder) --extra-index-url=https://pkgs.dev.azure.com/devops-EDC-0000/2fe9107c-920f-4653-bd7f-17ecfd94eaec/_packaging/odc_python_feed/pypi/simple/
                echo "#### NEW PACKAGE INFORMATION. ####"
                pip list --path $(application_folder)
+             displayName: 'Install CKAN Extension'
+           - script: |
+               set -xe
+               echo "Replacing GTM tag inside $(application_folder)/ckanext/ontario_theme/templates/internal/gtm.html ..."
+               sudo sed -i "s/GTM-[A-Za-z0-9_-]*/$(ENVIRONMENT_GTM_TAG)/" \
+                 $(application_folder)/ckanext/ontario_theme/templates/internal/gtm.html
+               echo "Updated GTM tag to $(ENVIRONMENT_GTM_TAG)"
+             displayName: "Apply environment-specific GTM tag"
+           - script: |
+               set -xe
                echo "#### STOPPING CKAN & FLUSHING WEBASSETS CACHE! ####"
-               sudo systemctl stop supervisor && sudo systemctl status supervisor && sudo rm -rf /var/lib/ckan/default/webassets/*
+               sudo systemctl stop supervisor
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status supervisor || true
+               sudo rm -rf /var/lib/ckan/default/webassets/*
                echo "#### STOPPING NGINX & FLUSHING CACHE! ####"
-               sudo systemctl stop nginx && sudo systemctl status nginx && sudo rm -rf /tmp/nginx_cache_default/* && sudo rm -rf /tmp/nginx_cache_default && sudo rm -rf /tmp/api_cache/* && sudo rm -rf /tmp/api_cache
+               sudo systemctl stop nginx
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status nginx || true
+               sudo rm -rf /tmp/nginx_cache_default/*
+               sudo rm -rf /tmp/nginx_cache_default
+               sudo rm -rf /tmp/api_cache/*
+               sudo rm -rf /tmp/api_cache
                echo "#### STARTING CKAN & NGINX! ####"
-               sudo systemctl start supervisor && sudo systemctl start nginx && sudo systemctl status supervisor && sudo systemctl status nginx
+               sudo systemctl start supervisor
+               sudo systemctl start nginx
+               ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
+               sudo systemctl status supervisor || true
+               sudo systemctl status nginx || true
                echo "#### DEPLOYMENT COMPLETE! ####"
              displayName: 'Deploying to PRD'
