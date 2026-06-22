@@ -1,4 +1,5 @@
 {% ckan_extends %}
+
 {% import 'macros/form.html' as form %}
 
 {% block extra_config %}
@@ -6,12 +7,12 @@
     {% set publisher_options = h.ontario_geohub_harvest_publishers() %}
     {% set total_count = publisher_options|map(attribute='count')|sum %}
     {{ form.select(
-      'config.ontario_geohub_publisher',
-      id='field-ontario-geohub-publisher',
-      label=_('Allowed Ontario GeoHub ODCSYNC ministry (FR and hubType=table not checked)'),
-      options=[{'value': '', 'text': _('All matching ministries in the feed') ~ ' (' ~ total_count ~ ')'}] + publisher_options,
-      selected=data.ontario_geohub_publisher,
-      error=errors.ontario_geohub_publisher
+    'config.ontario_geohub_publisher',
+    id='field-ontario-geohub-publisher',
+    label=_('Allowed Ontario GeoHub ODCSYNC ministry (FR and hubType=table not checked)'),
+    options=[{'value': '', 'text': _('All matching ministries in the feed') ~ ' (' ~ total_count ~ ')'}] + publisher_options,
+    selected=data.ontario_geohub_publisher,
+    error=errors.ontario_geohub_publisher
     ) }}
   </div>
 
