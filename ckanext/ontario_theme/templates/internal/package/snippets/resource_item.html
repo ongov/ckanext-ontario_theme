@@ -8,7 +8,7 @@
 {% set breakall = "break-all" if "https://" in h.resource_display_name(res) %}
 <li class="resource-item ontario-row
            {% if not can_edit -%}
-           resource-item-div{%- endif -%}"
+             resource-item-div{%- endif -%}"
     data-id="{{ res.id }}">
   <div class="resource-title-div">
     {% block resource_item_title %}
@@ -25,8 +25,7 @@
       {% endif %}
       <div class="resource-info">
         {% if can_edit %}
-          <a class="resource-item-title"
-           href="{{ url }}">{{ h.resource_display_name(res) }}</a>
+          <a class="resource-item-title" href="{{ url }}">{{ h.resource_display_name(res) }}</a>
         {% else %}
           <span class="{{ breakall }} resource-item-title">{{ h.resource_display_name(res) }}</span>
         {% endif %}
@@ -61,7 +60,7 @@
           {% if can_edit %}
             <a href="{{ url }}" class="ontario-button ontario-button--secondary">{{ _('Explore') }}</a>
             <a href="{{ h.url_for(pkg.type ~ '_resource.edit', id=pkg.name, resource_id=res.id) }}"
-              class="ontario-button ontario-button--tertiary">
+               class="ontario-button ontario-button--tertiary">
               <i class="fa fa-pencil-square-o">&nbsp;</i>{{ _('Edit') }}
             </a>
           {% else %}
