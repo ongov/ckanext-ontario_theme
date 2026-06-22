@@ -4,9 +4,7 @@
   {{ _('More information') }} {{ g.template_title_delimiter }} {{ h.get_translated(c.group_dict,"title") }}
 {% endblock subtitle %}
 
-
 <div class="ontario-columns">
-
   {% block primary_content_inner %}
     {% block organization_description %}
       {% if h.get_translated(c.group_dict, "description") %}
@@ -14,5 +12,4 @@
       {% endif %}
     {% endblock organization_description %}
   {% endblock primary_content_inner %}
-
 </div>
