@@ -95,7 +95,7 @@
           <a href="{{ h.url_for(h.current_url(), locale=toggle_to) }}"
              class="ontario-header__language-toggler ontario-header-button ontario-header-button--without-outline"
              lang="{{ 'fr' if current_lang =='en' else 'en' }}">
-             {{ 'Français' if current_lang =='en' else 'English' }}
+            {{ 'Français' if current_lang =='en' else 'English' }}
           </a>
         </div>
       </div>
@@ -126,7 +126,7 @@
                   {% block header_site_navigation_tabs %}
                     {{ h.build_nav_main(
                     ('dataset.search', _('Datasets')),
-                    ('organization.index', _('Ministries')),
+                    ('ontario_theme.organization_index', _('Ministries')),
                     ('home.about', _('About')) ) }}
                   {% endblock header_site_navigation_tabs %}
                 </ul>
@@ -149,7 +149,7 @@
                            id="ontario-search-reset"
                            type="reset"
                            value=""
-                           aria-label="{{ _('Clear field') }}"/>
+                           aria-label="{{ _('Clear field') }}" />
                     <button class="ontario-search-submit header-search"
                             id="ontario-header-search-submit"
                             type="submit"
@@ -197,7 +197,7 @@
                     class="ontario-application-subheader__menu ontario-hide-for-small ontario-show-for-medium ontario-hide-for-large">
                   {{ h.build_nav_main(
                   ('dataset.search', _('Datasets')),
-                  ('organization.index', _('Ministries')) ) }}
+                  ('ontario_theme.organization_index', _('Ministries')) ) }}
                 </ul>
                 <button class="ontario-hide-for-large ontario-header__menu-toggler ontario-header-button ontario-header-button--with-outline {{ 'fr' if current_lang == 'fr' }}"
                         id="ontario-header-menu-toggler"
@@ -234,7 +234,7 @@
           <ul>
             {{ h.build_nav_main(
             ('dataset.search', _('Datasets')),
-            ('organization.index', _('Ministries')),
+            ('ontario_theme.organization_index', _('Ministries')),
             ('home.about', _('About')) ) }}
           </ul>
         </div>

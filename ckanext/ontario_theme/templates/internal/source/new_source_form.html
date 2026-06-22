@@ -1,157 +1,406 @@
 {% ckan_extends %}
+
 {% import 'macros/form.html' as form %}
-{% set geohub_harvest_organization_options = [{'value': '', 'text': _('No organization')}] + h.ontario_geohub_harvest_organizations() %}
 
 {% block extra_config %}
-{% import 'macros/form.html' as form %}
-
-{% asset 'harvest-extra-field/main' %}
-
-{% set harvesters = h.harvesters_info() %}
-{% set default_source_type = harvesters[0]['name'] if harvesters else '' %}
-{% set selected_source_type = data.source_type or default_source_type %}
-{% set geohub_harvest_organization_options = h.ontario_geohub_harvest_organizations() %}
-
-<form id="source-new" class="form-horizontal" method="post" >
-
-  {% block errors %}{{ form.errors(error_summary) }}{% endblock %}
-
-  {% call form.input('url', id='field-url', label=_('URL'), value=data.url, error=errors.url, classes=['control-full', 'control-large']) %}
-      <span class="info-block">
-        {{ _('This should include the http:// part of the URL') }}
-      </span>
-  {% endcall %}
-
-  {{ h.csrf_input() if 'csrf_input' in h }}
-
-  {{ form.input('title', id='field-title', label=_('Title'), placeholder=_('eg. A descriptive title'), value=data.title, error=errors.title, classes=['control-full'], attrs={'data-module': 'slug-preview-target'}) }}
-
-  {% set prefix = 'harvest' %}
-  {% set domain = h.url_for('{0}.read'.format(c.dataset_type), id='', qualified=true) %}
-  {% set domain = domain|replace("http://", "")|replace("https://", "") %}
-  {% set attrs = {'data-module': 'slug-preview-slug', 'data-module-prefix': domain, 'data-module-placeholder': '<harvest-source>'} %}
-
-  {{ form.prepend('name', id='field-name', label=_('Name'), prepend=prefix, placeholder=_('eg. my-dataset'), value=data.name, error=errors.name, attrs=attrs) }}
-
-  {{ form.markdown('notes', id='field-notes', label=_('Description'), value=data.notes, error=errors.notes) }}
-
-  <div class="harvest-types form-group control-group">
-    <label class="control-label">Source type</label>
-    <div class="controls">
-      {% for harvester in harvesters %}
-        {% set checked = False %}
-        {% if data.source_type == harvester['name'] or (not data.source_type and loop.first) %}
-           {% set checked = True %}
-        {% endif %}
-        <label class="radio">
-          <input type="radio" name="source_type" value="{{ harvester['name'] }}" {{ "checked " if checked }} data-module="harvest-type-change">
-          {{ harvester['title'] }}
-          <i class="fa fa-question-circle icon-question-sign muted" title="{{ harvester['description'] }}" data-bs-toggle="tooltip" data-toggle="tooltip"></i>
-        </label>
-      {% endfor %}
-    </div>
-  </div>
-
-  {{ form.select('frequency', id='field-frequency', label=_('Update frequency'), options=h.harvest_frequencies(), selected=data.frequency, error=errors.frequency) }}
-
-  {% block extra_config %}
-  {{ form.select(
-    'ontario_geohub_publisher',
+  <div id="geohub-ministry-field" style="display:none;">
+    {% set publisher_options = h.ontario_geohub_harvest_publishers() %}
+    {% set total_count = publisher_options|map(attribute='count')|sum %}
+    {{ form.select(
+    'config.ontario_geohub_publisher',
     id='field-ontario-geohub-publisher',
-    label=_('Ontario GeoHub ministry'),
-    options=[{'value': '', 'text': _('All ministries in the feed')}] + h.ontario_geohub_harvest_publishers(),
+    label=_('Allowed Ontario GeoHub ODCSYNC ministry (FR and hubType=table not checked)'),
+    options=[{'value': '', 'text': _('All matching ministries in the feed') ~ ' (' ~ total_count ~ ')'}] + publisher_options,
     selected=data.ontario_geohub_publisher,
     error=errors.ontario_geohub_publisher
-  ) }}
-
-  <div class="control-group form-group">
-    <label class="control-label" for="field-config">{{ _('Ontario GeoHub DCAT feed') }}</label>
-    <div class="controls">
-      <p class="form-control-static">
-        <a href="https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json">https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json</a>
-      </p>
-      <span class="info-block">{{ _('Use this DCAT 2.1.1 feed URL for Ontario GeoHub harvest sources.') }}</span>
-    </div>
+    ) }}
   </div>
 
-  {{ form.textarea('config', id='field-config', label=_('Configuration'), value=data.config, error=errors.config) }}
-  {% endblock extra_config %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var geohubMinistryField = document.getElementById('geohub-ministry-field');
+      
+      // Identify form fields by their wrapper .control-group / .form-group 
+      // to customize their order and add helpful info
+      var form = document.querySelector('form#source-new')
+        || document.querySelector('form[action*="harvest"]')
+        || document.querySelector('form');
 
-  {% if data.group_id %}
-    <input type="hidden" name="groups__0__id" value="{{ data.group_id }}" />
-  {% endif %}
+      function fieldWrapper(el) {
+        return el ? el.closest('.control-group, .form-group') : null;
+      }
 
-  {% set dataset_is_draft = data.get('state', 'draft').startswith('draft') or data.get('state', 'none') == 'none' %}
-  {% set organizations_available = h.organizations_available('create_dataset') %}
-  {% set user_is_sysadmin = h.check_access('sysadmin') %}
-  {% set show_organizations_selector = organizations_available and (user_is_sysadmin or dataset_is_draft) %}
+      // Title field
+      var titleInput = document.getElementById('field-title')
+        || document.querySelector('input[name="title"]');
+      var titleField = fieldWrapper(titleInput);
 
-  {% if show_organizations_selector %}
-    {% set existing_org = data.owner_org %}
-    <div class="control-group form-group">
-      <label for="field-organizations" class="control-label">{{ _('Organization') }}</label>
-      <div class="controls">
-        <select id="field-organizations" name="owner_org" data-module="autocomplete">
-          <option value="" {% if not existing_org and data.id %} selected="selected" {% endif %}>{{ _('No organization') }}</option>
+      // Source type radio buttons
+      var sourceRadio = document.querySelector('input[name="source_type"]');
+      var sourceField = fieldWrapper(sourceRadio);
 
-          {% if selected_source_type == 'ontario_geohub' and geohub_harvest_organization_options %}
-            {% for organization in geohub_harvest_organization_options %}
-              {% set selected_org = (existing_org and existing_org == organization.value) or (not existing_org and not data.id and loop.first) %}
-              <option value="{{ organization.value }}" {% if selected_org %} selected="selected" {% endif %}>{{ organization.text }}</option>
-            {% endfor %}
-          {% else %}
-            {% for organization in organizations_available %}
-              {% set selected_org = (existing_org and existing_org == organization.id) or (not existing_org and not data.id and organization.id == organizations_available[0].id) %}
-              <option value="{{ organization.id }}" {% if selected_org %} selected="selected" {% endif %}>{{ organization.name }}</option>
-            {% endfor %}
-          {% endif %}
-        </select>
-      </div>
-    </div>
-  {% endif %}
+      // URL field
+      var urlInput = document.getElementById('field-url')
+        || document.querySelector('input[name="url"]');
+      var urlField = fieldWrapper(urlInput);
 
-  {% if data.get('id', None) and h.check_access('harvest_source_delete', {'id': data.id}) and data.get('state', 'none') == 'deleted' %}
-    <div class="control-group">
-      <label for="field-state" class="control-label">{{ _('State') }}</label>
-      <div class="controls">
-        <select id="field-state" name="state">
-          <option value="active" {% if data.get('state', 'none') == 'active' %} selected="selected" {% endif %}>{{ _('Active') }}</option>
-          <option value="deleted" {% if data.get('state', 'none') == 'deleted' %} selected="selected" {% endif %}>{{ _('Deleted') }}</option>
-        </select>
-      </div>
-    </div>
-  {% endif %}
+      // Description field
+      var descInput = document.getElementById('field-notes')
+        || document.querySelector('textarea[name="notes"]');
+      var descField = fieldWrapper(descInput);
 
-  <p class="form-actions">
-    {% block delete_button %}
-      {% if data.get('id', None) and h.check_access('harvest_source_delete', {'id': data.id}) and not data.get('state', 'none') == 'deleted' %}
-        {% set locale_delete = h.dump_json({'content': _('This will flag the source as deleted but keep all its datasets and previous jobs. Are you sure you want to delete this harvest source?')}) %}
-        {% set locale_clear = h.dump_json({'content': _('Warning: Apart from deleting this source, this command will remove all its datasets, as well as all previous job reports. Are you sure you want to continue?')}) %}
-  <div class="dropdown btn-group">
-    <a href="#" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" data-toggle="dropdown">
-      {{ _('Delete') }}
-      <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu">
-      <li>
-        <a href="{% url_for 'harvest_delete', id=data.name %}" data-module="confirm-action" data-module-i18n="{{ locale_delete }}">
-          {{ _('Delete source') }}
-        </a>
-      </li>
-      <li>
-        <a href="{% url_for 'harvest_delete', id=data.name %}?clear=True" data-module="confirm-action" data-module-i18n="{{ locale_clear }}">
-          {{ _('Delete and clear source') }}
-        </a>
-      </li>
-    </ul>
-  </div>
-      {% endif %}
-    {% endblock %}
+      // Frequency field
+      var freqSelect = document.getElementById('field-frequency')
+        || document.querySelector('select[name="frequency"]');
+      var freqField = fieldWrapper(freqSelect);
 
-    <input id="save" name="save" value="Save" type="submit" class="btn btn-primary pull-right">
-  </p>
+      // Organization field
+      var orgSelect = document.getElementById('field-organizations')
+        || document.getElementById('field-organization')
+        || document.querySelector('select[name="owner_org"]');
+      var ckanOrgField = fieldWrapper(orgSelect);
 
-</form>
+      // Configuration textarea
+      var configTextarea = document.getElementById('field-config')
+        || document.querySelector('textarea[name="config"]');
+      var configField = fieldWrapper(configTextarea);
+      var geohubPublisherSelect = document.getElementById('field-ontario-geohub-publisher');
+
+      // Rearrange page elements: Title, Source, URL, Description, Ministry, Frequency
+      var parent = titleField.parentNode;
+      var refNode = parent.firstChild;
+      var orderedFields = [titleField, sourceField, urlField, geohubMinistryField, descField, freqField];
+      orderedFields.forEach(function (field) {
+        parent.insertBefore(field, refNode);
+      });
+
+      // Autofill URL with GeoHub DCAT feed since GeoHub is the pre-selected source
+      if (!urlInput.value) {
+        urlInput.value = 'https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json';
+      }
+
+      // Add descriptive text next to the Ontario Geohub radio button label
+      var geohubRadio = document.querySelector('input[name="source_type"][value="ontario_geohub"]');
+      var label = geohubRadio.closest('label') || geohubRadio.parentElement;
+      var feedSpan = document.createElement('span');
+      feedSpan.style.marginLeft = '1em';
+      feedSpan.style.fontSize = '0.85em';
+      feedSpan.appendChild(document.createTextNode('(DCAT feed: '));
+      var feedLink = document.createElement('a');
+      feedLink.href = 'https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json';
+      feedLink.textContent = 'https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json';
+      feedLink.target = '_blank';
+      feedSpan.appendChild(feedLink);
+      feedSpan.appendChild(document.createTextNode(')'));
+      label.appendChild(feedSpan);
+
+      // Add help text above the Save button
+      var formEl = document.querySelector('form#source-new')
+        || document.querySelector('form[action*="harvest"]')
+        || document.querySelector('form.dataset-form');
+      var formActions = formEl.querySelector('.form-actions');
+      var helpDiv = document.createElement('div');
+      helpDiv.style.marginBottom = '1em';
+      var helpP = document.createElement('p');
+      helpP.textContent = 'To start the harvest after Save, go to the harvest source Admin panel and click the Reharvest button.';
+      helpDiv.appendChild(helpP);
+      formActions.parentNode.insertBefore(helpDiv, formActions);
+
+      var precheckErrorDiv = document.createElement('div');
+      precheckErrorDiv.id = 'geohub-precheck-error';
+      precheckErrorDiv.className = 'alert alert-error';
+      precheckErrorDiv.style.display = 'none';
+      precheckErrorDiv.style.marginBottom = '1em';
+      formActions.parentNode.insertBefore(precheckErrorDiv, formActions);
+
+      function readConfigObject() {
+        if (!configTextarea || !configTextarea.value) {
+          return {};
+        }
+
+        try {
+          var parsed = JSON.parse(configTextarea.value);
+          return parsed && typeof parsed === 'object' ? parsed : {};
+        } catch (err) {
+          return {};
+        }
+      }
+
+      function writeConfigObject(configObj) {
+        if (!configTextarea) {
+          return;
+        }
+
+        var normalizedConfig = configObj && typeof configObj === 'object'
+          ? configObj
+          : {};
+
+        if (!Object.keys(normalizedConfig).length) {
+          configTextarea.value = '';
+          return;
+        }
+
+        configTextarea.value = JSON.stringify(normalizedConfig, null, 2);
+      }
+
+      function syncGeohubConfig(isGeohub) {
+        if (!geohubPublisherSelect) {
+          return;
+        }
+
+        var configObj = readConfigObject();
+        if (isGeohub && geohubPublisherSelect.value) {
+          configObj.ontario_geohub_publisher = geohubPublisherSelect.value;
+        } else {
+          delete configObj.ontario_geohub_publisher;
+        }
+        writeConfigObject(configObj);
+      }
+
+      function setPrecheckError(message) {
+        if (!precheckErrorDiv) {
+          return;
+        }
+        if (!message) {
+          precheckErrorDiv.style.display = 'none';
+          precheckErrorDiv.textContent = '';
+          return;
+        }
+        precheckErrorDiv.textContent = message;
+        precheckErrorDiv.style.display = '';
+      }
+
+      function humanizeReasonCode(reasonCode) {
+        var code = (reasonCode || '').trim();
+        if (!code) {
+          return 'unknown';
+        }
+        return code.replace(/_/g, ' ');
+      }
+
+      function isSingleDatasetUrl(url) {
+        var trimmed = (url || '').trim();
+        if (!trimmed) {
+          return false;
+        }
+        return /^https:\/\/geohub\.lio\.gov\.on\.ca\/api\/v3\/datasets\/[^\s\/?#]+\/?(?:\?.*)?(?:#.*)?$/i.test(trimmed);
+      }
+
+      function isDcatFeedUrl(url) {
+        var trimmed = (url || '').trim();
+        return trimmed.indexOf('https://geohub.lio.gov.on.ca/api/feed/dcat-ap/') === 0;
+      }
+
+      function setSaveDisabled(disabled) {
+        if (!formEl) {
+          return;
+        }
+
+        var submitButtons = formEl.querySelectorAll('button[type="submit"], input[type="submit"]');
+        Array.prototype.forEach.call(submitButtons, function (button) {
+          button.disabled = !!disabled;
+        });
+      }
+
+      function setGeohubMinistryFieldVisible(visible) {
+        if (!geohubMinistryField) {
+          return;
+        }
+
+        geohubMinistryField.style.display = visible ? '' : 'none';
+        if (geohubPublisherSelect) {
+          geohubPublisherSelect.disabled = !visible;
+        }
+      }
+
+      function validateGeohubUrlState() {
+        var checked = document.querySelector('input[name="source_type"]:checked');
+        var isGeohub = checked && checked.value === 'ontario_geohub';
+        var url = (urlInput && urlInput.value ? urlInput.value : '').trim();
+        var singleDataset = isSingleDatasetUrl(url);
+
+        if (!isGeohub) {
+          setPrecheckError('');
+          setSaveDisabled(false);
+          setGeohubMinistryFieldVisible(false);
+          return true;
+        }
+
+        setGeohubMinistryFieldVisible(!singleDataset);
+
+        if (isDcatFeedUrl(url) || singleDataset) {
+          setPrecheckError('');
+          setSaveDisabled(false);
+          return true;
+        }
+
+        setPrecheckError('Single dataset URL needs to be in the format of the V3 API: https://geohub.lio.gov.on.ca/api/v3/datasets/<id>');
+        setSaveDisabled(true);
+        return false;
+      }
+
+      async function runSingleDatasetPrecheck() {
+        var checked = document.querySelector('input[name="source_type"]:checked');
+        var url = (urlInput && urlInput.value ? urlInput.value : '').trim();
+
+        var payload = {
+          source_type: checked.value,
+          url: url,
+          ontario_geohub_publisher: geohubPublisherSelect ? geohubPublisherSelect.value : ''
+        };
+
+        try {
+          var response = await fetch('/api/3/action/ontario_geohub_precheck_single_dataset', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest'
+            },
+            credentials: 'same-origin',
+            body: JSON.stringify(payload)
+          });
+
+          var responseData = await response.json();
+          if (!response.ok || !responseData.success) {
+            setPrecheckError('Could not validate dataset filters before save. Please try again.');
+            return false;
+          }
+
+          var result = responseData.result || {};
+          if (!result.checked) {
+            setPrecheckError('');
+            return true;
+          }
+
+          if (result.eligible) {
+            setPrecheckError('');
+            return true;
+          }
+
+          var failedFilterCodes = Array.isArray(result.failed_filters)
+            ? result.failed_filters
+            : [];
+          if (!failedFilterCodes.length && result.reason_code) {
+            failedFilterCodes = [result.reason_code];
+          }
+
+          var failedFilters = failedFilterCodes.map(humanizeReasonCode);
+
+          var failureMessages = Array.isArray(result.failure_messages)
+            ? result.failure_messages.filter(Boolean)
+            : [];
+          if (!failureMessages.length && result.message) {
+            failureMessages = [result.message];
+          }
+
+          var detailText = failureMessages.length
+            ? failureMessages.join(' ; ')
+            : 'Dataset failed gather filters.';
+
+          setPrecheckError(
+            'Cannot save this source for single-dataset harvesting: ' +
+            'failed filters [' + failedFilters.join(', ') + ']. ' +
+            detailText
+          );
+          return false;
+        } catch (err) {
+          setPrecheckError('Could not validate dataset filters before save. Please try again.');
+          return false;
+        }
+      }
+
+      if (geohubPublisherSelect && !geohubPublisherSelect.value) {
+        var existingConfig = readConfigObject();
+        if (existingConfig.ontario_geohub_publisher) {
+          geohubPublisherSelect.value = existingConfig.ontario_geohub_publisher;
+        }
+      }
+
+      // Hide Organization and Configuration when GeoHub is selected
+      // since these fields are not used
+      function update() {
+        var checked = document.querySelector('input[name="source_type"]:checked');
+        var isGeohub = checked && checked.value === 'ontario_geohub';
+        var singleDataset = isSingleDatasetUrl(urlInput ? urlInput.value : '');
+        if (isGeohub) {
+          ckanOrgField.style.display = 'none';
+          configField.style.display = 'none';
+          setGeohubMinistryFieldVisible(!singleDataset);
+          // Only autofill when empty so edit pages keep existing custom URLs.
+          if (!urlInput.value) {
+            urlInput.value = 'https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json';
+          }
+        } else {
+          ckanOrgField.style.display = '';
+          configField.style.display = '';
+          setGeohubMinistryFieldVisible(false);
+          // Clear URL when Ontario Data Catalogue is selected as Source type
+          if (checked && checked.value === 'ontario_data_catalogue') {
+            urlInput.value = '';
+          }
+        }
+
+        syncGeohubConfig(isGeohub);
+        validateGeohubUrlState();
+      }
+
+      Array.prototype.forEach.call(
+        document.querySelectorAll('input[name="source_type"]'),
+        function (input) { input.addEventListener('change', update); }
+      );
+
+      if (geohubPublisherSelect) {
+        geohubPublisherSelect.addEventListener('change', function () {
+          var checked = document.querySelector('input[name="source_type"]:checked');
+          syncGeohubConfig(checked && checked.value === 'ontario_geohub');
+        });
+      }
+
+      if (urlInput) {
+        urlInput.addEventListener('input', validateGeohubUrlState);
+        urlInput.addEventListener('change', validateGeohubUrlState);
+      }
+
+      if (formEl) {
+        var continueSubmitAfterPrecheck = false;
+        formEl.addEventListener('submit', async function (event) {
+          var checked = document.querySelector('input[name="source_type"]:checked');
+          var isGeohub = checked && checked.value === 'ontario_geohub';
+          var url = (urlInput && urlInput.value ? urlInput.value : '').trim();
+          syncGeohubConfig(isGeohub);
+
+          if (continueSubmitAfterPrecheck) {
+            continueSubmitAfterPrecheck = false;
+            return;
+          }
+
+          if (!isGeohub) {
+            setPrecheckError('');
+            return;
+          }
+
+          if (!validateGeohubUrlState()) {
+            event.preventDefault();
+            return;
+          }
+
+          if (isDcatFeedUrl(url)) {
+            setPrecheckError('');
+            return;
+          }
+
+          event.preventDefault();
+          var precheckPassed = await runSingleDatasetPrecheck();
+          if (precheckPassed) {
+            continueSubmitAfterPrecheck = true;
+            formEl.submit();
+          }
+        });
+      }
+
+      update();
+    });
+  </script>
 
   {{ super() }}
 {% endblock %}

@@ -22,7 +22,7 @@
       </div>
       <div class="search-table-cell search-table-td ontario-table-cell--numeric">
         {% block datasets %}
-          {% set group_datasets = ungettext('{number} <span class="ontario-show-for-sr">dataset</span>', '{number} <span class="ontario-show-for-sr">datasets</span>', group.package_count) %}
+          {% set group_datasets = ungettext('{number}&nbsp;<span class="ontario-show-for-sr">dataset</span>', '{number}&nbsp;<span class="ontario-show-for-sr">datasets</span>', group.package_count) %}
           <span aria-hidden="true"
                 id="count-{{ position }}"
                 class="search-count"

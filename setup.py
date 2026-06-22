@@ -17,7 +17,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # http://packaging.python.org/en/latest/tutorial.html#version
-    version='3.0.19',
+    version='3.0.21',
 
     description='''Theme for internal CKAN build.''',
     long_description=long_description,
@@ -83,10 +83,11 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points='''
         [ckan.plugins]
-        ontario_geohub_harvester=ckanext.ontario_theme.harvesters:OntarioGeohubHarvester
-        ontario_data_catalogue_harvester=ckanext.ontario_theme.harvesters:OntarioDataCatalogueHarvester
         ontario_theme_external=ckanext.ontario_theme.plugin:OntarioThemeExternalPlugin
         ontario_theme=ckanext.ontario_theme.plugin:OntarioThemePlugin
+        ontario_geohub=ckanext.ontario_theme.harvesters.ontario_geohub:OntarioGeohubHarvester
+        ontario_data_catalogue=ckanext.ontario_theme.harvesters.ontario_data_catalogue:OntarioDataCatalogueHarvester
+
         [babel.extractors]
         ckan = ckan.lib.extract:extract_ckan
     ''',

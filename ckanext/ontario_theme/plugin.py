@@ -2,6 +2,7 @@
 
 import ckan.plugins as plugins
 from ckanext.ontario_theme import validators
+from ckanext.ontario_theme import actions
 from ckanext.ontario_theme import page
 import ckan.plugins.toolkit as toolkit
 from ckan.lib.plugins import DefaultTranslation
@@ -30,7 +31,6 @@ import ckan.model as model
 import locale
 import functools
 
-
 from ckanext.ontario_theme.resource_upload import ResourceUpload
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
 from ckanext.ontario_theme.resource import CreateView as OntarioThemeResourceCreateView
@@ -46,6 +46,7 @@ from ckanext.ontario_theme.harvesters.ontario_geohub import (
 )
 
 from ckanext.validation.helpers import dump_json_value
+
 
 # For Image Uploader
 #from ckan.controllers.home import CACHE_PARAMETERS
@@ -748,6 +749,27 @@ def resource_update_auth(context, data_dict=None):
         return {'success': False, 'msg': 'This user is not allowed to edit this resource'}
     return {'success': True, 'msg': 'This package is editable.'}
 
+
+def ontario_geohub_precheck_single_dataset_auth(context, data_dict=None):
+    user = context.get('user')
+    if not user:
+        return {'success': False, 'msg': 'Must be logged in to precheck harvest sources.'}
+    
+    # Allow sysadmins
+    if authz.is_sysadmin(user):
+        return {'success': True}
+    
+    # Check if user is editor/admin in any organization
+    user_obj = context.get('auth_user_obj')
+    if user_obj:
+        # Get all organizations the user belongs to
+        user_orgs = authz.get_user_groups(user, 'organization')
+        for org in user_orgs:
+            if org.get('capacity') in ('editor', 'admin'):
+                return {'success': True}
+    
+    return {'success': False, 'msg': 'Must be an Editor (or higher) in an organization to precheck harvest sources.'}
+
 def abbr_localised_filesize(number: int) -> str:
     ''' Returns a localised unicode representation of a number in bytes, MiB etc
     with abbreviation tags for accessibility
@@ -1028,6 +1050,7 @@ class OntarioThemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.IPackageController)
     plugins.implements(plugins.IValidators)
     plugins.implements(plugins.IAuthFunctions)
+    plugins.implements(plugins.IActions)
 
     # IConfigurer
 
@@ -1141,8 +1164,18 @@ type data_last_updated
 
     def get_auth_functions(self):
         return {
-            'resource_update': resource_update_auth
+            'resource_update': resource_update_auth,
+            'ontario_geohub_precheck_single_dataset':
+                ontario_geohub_precheck_single_dataset_auth,
             } 
+
+    # IActions
+
+    def get_actions(self):
+        return {
+            'ontario_geohub_precheck_single_dataset':
+                actions.ontario_geohub_precheck_single_dataset,
+        }
 
 
     # ITemplateHelpers
@@ -1217,6 +1250,7 @@ type data_last_updated
             view_func=OntarioThemeResourceEditView.as_view(str(u'edit')), defaults={u'package_type': u'dataset'}
         )
         blueprint.add_url_rule(u'/dataset/<id>/dictionary/<resource_id>',view_func=DictionaryView.as_view(str(u'dictionary')))
+        blueprint.add_url_rule(u'/organization', endpoint='organization_index', view_func=organization_index, strict_slashes=False)
 
         return blueprint
 
@@ -1321,9 +1355,21 @@ type data_last_updated
         pkg_dict['title_en'] = title.get('en', '')
 
         # Index some organization extras fields from fluent/scheming.
-        organization_dict = toolkit.get_action('organization_show')(data_dict={'id': pkg_dict['organization']})
-        pkg_dict['organization_jurisdiction'] = organization_dict.get('jurisdiction', '')
-        pkg_dict['organization_category'] = organization_dict.get('category', '')
+        organization_value = pkg_dict.get('organization')
+        if isinstance(organization_value, dict):
+            organization_value = (
+                organization_value.get('id') or
+                organization_value.get('name')
+            )
+
+        if organization_value:
+            organization_dict = toolkit.get_action('organization_show')(
+                data_dict={'id': organization_value})
+            pkg_dict['organization_jurisdiction'] = organization_dict.get('jurisdiction', '')
+            pkg_dict['organization_category'] = organization_dict.get('category', '')
+        else:
+            pkg_dict['organization_jurisdiction'] = ''
+            pkg_dict['organization_category'] = ''
         return pkg_dict
 
     def before_view(self, pkg_dict):
