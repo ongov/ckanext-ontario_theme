@@ -1883,6 +1883,27 @@ class OntarioGeohubHarvester(HarvesterBase):
                 return None
             raise
 
+    def _build_deletion_request_metadata(self, rejection_for_guid):
+        '''Build deletion-request fields from rejection info for one guid,
+           including reasons for requesting deletion.
+        '''
+        if not rejection_for_guid:
+            return (
+                ['missing_from_feed'],
+                '',
+                'dataset guid not found in current source payload',
+            )
+
+        failed_filters = rejection_for_guid.get('failed_filters', [])
+        failure_messages = rejection_for_guid.get('failure_messages', [])
+        return (
+            failed_filters or ['filtered_out'],
+            ','.join(failed_filters),
+            (' ; '.join(failure_messages)
+             if failure_messages
+             else 'dataset present in source but rejected by filters'),
+        )
+
     def gather_stage(self, harvest_job):
         '''Collect source records and enqueue HarvestObjects for import.
 
@@ -1895,7 +1916,7 @@ class OntarioGeohubHarvester(HarvesterBase):
         - new: accepted GUID not currently tracked for this source.
         - change: accepted GUID with newer content, including adopted
             pre-existing CKAN datasets.
-        - delete: GUID tracked in DB but missing from the current source run.
+        - request_delete: GUID tracked in DB but missing from the current source run; deletion of these datasets must be requested.
 
         Return a list of created HarvestObject ids, or None on gather errors.
         '''
@@ -1944,6 +1965,8 @@ class OntarioGeohubHarvester(HarvesterBase):
         rejected_count = 0
         rejected_logged = 0
         rejection_counts = {}
+        rejection_by_guid = {}
+
         # Single-pass processing: evaluate filters once and handle
         # create/update vs rejection-reason capture in the same loop.
         for dataset in datasets:
@@ -1968,6 +1991,10 @@ class OntarioGeohubHarvester(HarvesterBase):
                         ' ; '.join(failure_messages))
                     rejected_logged += 1
 
+                rejection_by_guid[guid] = {
+                    'failed_filters': failed_filters,
+                    'failure_messages': failure_messages,
+                }
                 continue
 
             log.debug('Got identifier: %s', guid)
@@ -2043,13 +2070,22 @@ class OntarioGeohubHarvester(HarvesterBase):
                 GEOHUB_FULL_FEED_REJECTION_LOG_LIMIT,
                 ordered_counts)
 
-        # Check datasets that need to be deleted
-        guids_to_delete = guids_in_db - guids_in_source
-        for guid in guids_to_delete:
+        # Compare previously tracked GUIDs against accepted GUIDs for current run.
+        guids_to_request_delete = guids_in_db - guids_in_source
+        for guid in guids_to_request_delete:
+            deletion_reason, deletion_failed_filters, deletion_reason_detail = \
+                self._build_deletion_request_metadata(
+                    rejection_by_guid.get(guid))
+
             obj = HarvestObject(
                 guid=guid, job=harvest_job,
                 package_id=guid_to_package_id[guid],
-                extras=[HarvestObjectExtra(key='status', value='delete')])
+                extras=[
+                    HarvestObjectExtra(key='status', value='request_delete'),
+                    HarvestObjectExtra(key='deletion_reason', value=json.dumps(deletion_reason)),
+                    HarvestObjectExtra(key='deletion_failed_filters', value=deletion_failed_filters),
+                    HarvestObjectExtra(key='deletion_reason_detail', value=deletion_reason_detail),
+                ])
             model.Session.query(HarvestObject).\
                 filter_by(guid=guid).\
                 update({'current': False}, False)
@@ -2072,17 +2108,31 @@ class OntarioGeohubHarvester(HarvesterBase):
         else:
             status = self._get_object_extra(harvest_object, 'status')
 
-        if status == 'delete':
-            # Don't delete package quite yet. we'll have to manually delete it later
-            context = {'model': model, 'session': model.Session,
-                       'user': self._get_user_name()}
-
-            p.toolkit.get_action('package_delete')(
-                context, {'id': harvest_object.package_id})
-            log.info('Deleted package {0} with guid {1}'
-                     .format(harvest_object.package_id, harvest_object.guid))
-
-            # what we need here is something to notify opendata@ontario.ca that we're deleting 
+        if status == 'request_delete':
+            # Policy: datasets cannot be deleted without a formal request.
+            # Log the deletion request for manual review instead of auto-deleting.
+            deletion_reason = (
+                self._get_object_extra(harvest_object, 'deletion_reason')
+                or 'unknown')
+            deletion_failed_filters = (
+                self._get_object_extra(harvest_object, 'deletion_failed_filters')
+                or '')
+            deletion_reason_detail = (
+                self._get_object_extra(harvest_object, 'deletion_reason_detail')
+                or '')
+            log.warning(
+                '[HARVEST] DELETION_BLOCKED_BY_POLICY harvest_object_id=%s '
+                'guid=%s package_id=%s deletion_reason=%s '
+                'failed_filters=%s detail=%s. Manual deletion request '
+                'required from opendata@ontario.ca',
+                harvest_object.id,
+                harvest_object.guid,
+                harvest_object.package_id,
+                deletion_reason,
+                deletion_failed_filters,
+                deletion_reason_detail)
+            
+            # TODO: Send notification email to opendata@ontario.ca with deletion details
             return True
 
         if harvest_object.content is None:
