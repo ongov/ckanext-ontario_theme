@@ -1811,6 +1811,78 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         return ids
 
+    def _load_current_guid_mappings(self, harvest_source_id):
+        '''Return current guid->package_id/content mappings for a harvest source.
+        '''
+        query = (
+            model.Session.query(
+                HarvestObject.guid,
+                HarvestObject.package_id,
+                HarvestObject.content)
+            .filter(HarvestObject.current == True)
+            .filter(HarvestObject.harvest_source_id == harvest_source_id)
+        )
+
+        guid_to_package_id = {}
+        guid_to_current_content = {}
+        for guid, package_id, current_content in query:
+            guid_to_package_id[guid] = package_id
+            guid_to_current_content[guid] = current_content
+
+        return guid_to_package_id, guid_to_current_content
+
+    def _extract_datasets_from_content(self, content, harvest_job):
+        '''Parse gather content and return a dataset list, or None on error.
+        '''
+        try:
+            doc = json.loads(content)
+        except ValueError as e:
+            msg = 'Error parsing file: {0}'.format(str(e))
+            self._save_gather_error(msg, harvest_job)
+            return None
+
+        if isinstance(doc, list):
+            return doc
+        if isinstance(doc, dict):
+            return doc.get('dcat:dataset', [])
+
+        self._save_gather_error('Wrong JSON object', harvest_job)
+        return None
+
+    def _resolve_gather_datasets(self, harvest_job, selected_publisher):
+        '''Resolve gather datasets from selected publisher scope or full feed.
+        '''
+        url = harvest_job.source.url
+
+        try:
+            if selected_publisher:
+                v3api_content = self._resolve_selected_publisher_content(
+                    selected_publisher,
+                    harvest_job)
+                if v3api_content:
+                    scoped_datasets = self._extract_datasets_from_content(
+                        v3api_content,
+                        harvest_job)
+                    if scoped_datasets is None:
+                        return None
+                    if scoped_datasets:
+                        return scoped_datasets
+                    log.info(
+                        'No GeoHub v3 datasets resolved for selected '
+                        'publisher %s; falling back to full DCAT feed '
+                        'filtering', selected_publisher)
+
+            full_content, _ = self._get_content_and_type(url, harvest_job)
+            if not full_content:
+                return None
+            return self._extract_datasets_from_content(full_content, harvest_job)
+        except requests.exceptions.HTTPError as error:
+            if error.response.status_code == 404:
+                msg = 'Could not get content. Server responded with 404 Not Found'
+                self._save_gather_error(msg, harvest_job)
+                return None
+            raise
+
     def gather_stage(self, harvest_job):
         '''Collect source records and enqueue HarvestObjects for import.
 
@@ -1848,143 +1920,131 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         ids = []
 
-        # Get the previous guids for this source
-        query = \
-            model.Session.query(
-                HarvestObject.guid,
-                HarvestObject.package_id,
-                HarvestObject.content) \
-            .filter(HarvestObject.current == True) \
-            .filter(HarvestObject.harvest_source_id == harvest_job.source.id)
-        guid_to_package_id = {}
-        guid_to_current_content = {}
+        guid_to_package_id, guid_to_current_content = \
+            self._load_current_guid_mappings(harvest_job.source.id)
+        # Track existing DB GUIDs and GUIDs accepted from this run for delete diffing.
+        guids_in_db = set(guid_to_package_id.keys())
+        guids_in_source = set()
 
-        for guid, package_id, current_content in query:
-            guid_to_package_id[guid] = package_id
-            guid_to_current_content[guid] = current_content
-
-        guids_in_db = list(guid_to_package_id.keys())
-
-        guids_in_source = []
-
-        # Resolve content once per gather run.
-        # - Selected publisher: prefer GeoHub v3 narrowed results.
-        # - No selected publisher (or empty v3 result): use full DCAT feed.
-        url = harvest_job.source.url
-        try:
-            if selected_publisher:
-                content = self._resolve_selected_publisher_content(
-                    selected_publisher, harvest_job)
-                content_type = 'application/json'
-                try:
-                    resolved_doc = json.loads(content)
-                except (TypeError, ValueError):
-                    resolved_doc = {}
-                resolved_datasets = (
-                    resolved_doc.get('dcat:dataset', [])
-                    if isinstance(resolved_doc, dict)
-                    else [])
-                if not resolved_datasets:
-                    # Keep existing behavior when v3 source-name matching
-                    # misses records: fall back to the full DCAT pipeline.
-                    log.info(
-                        'No GeoHub v3 datasets resolved for selected '
-                        'publisher %s; falling back to full DCAT feed '
-                        'filtering', selected_publisher)
-                    content, content_type = self._get_content_and_type(
-                        url, harvest_job)
-            else:
-                content, content_type = self._get_content_and_type(
-                    url, harvest_job)
-        except requests.exceptions.HTTPError as error:
-            if error.response.status_code == 404:
-                msg = 'Could not get content. Server responded with 404 Not Found'
-                self._save_gather_error(msg, harvest_job)
-                return None
-            raise
-
-        if not content:
+        datasets = self._resolve_gather_datasets(
+            harvest_job,
+            selected_publisher)
+        if datasets is None:
             return None
 
-        try:
-            # Single-pass processing: iterate the resolved payload once and
-            # classify each GUID as create/update for this harvest job.
-            for guid, as_string in self._get_guids_and_datasets(
-                    content,
+        selected_org_name = None
+        if selected_publisher:
+            selected_org = _find_catalog_organization_from_publisher(
+                selected_publisher)
+            selected_org_name = (
+                selected_org['name'] if selected_org else selected_publisher)
+
+        blacklist = _fetch_blacklist_ids()
+
+        rejected_count = 0
+        rejected_logged = 0
+        rejection_counts = {}
+        # Single-pass processing: evaluate filters once and handle
+        # create/update vs rejection-reason capture in the same loop.
+        for dataset in datasets:
+            accepted, guid, as_string, failed_filters, failure_messages = \
+                self._evaluate_dataset_filters(
+                    dataset,
                     selected_publisher=selected_publisher,
-                    log_rejections=True,
-                    rejection_log_limit=GEOHUB_FULL_FEED_REJECTION_LOG_LIMIT):
+                    selected_org_name=selected_org_name,
+                    blacklist=blacklist)
 
-                log.debug('Got identifier: {0}'
-                          .format(guid.encode('utf8')))
-                guids_in_source.append(guid)
+            if not accepted:
+                rejected_count += 1
+                for code in failed_filters:
+                    rejection_counts[code] = rejection_counts.get(code, 0) + 1
 
-                if guid in guids_in_db:
-                    existing_content = guid_to_current_content.get(guid)
-                    if self._is_unchanged_dataset(existing_content, as_string):
+                if rejected_logged < GEOHUB_FULL_FEED_REJECTION_LOG_LIMIT:
+                    log.info(
+                        '[HARVEST] FULL_FEED_FILTER_REJECTED guid=%s title=%s failed_filters=%s reasons=%s',
+                        dataset.get('ontario_geohub_id', 'unknown'),
+                        dataset.get('dct:title', 'Unknown'),
+                        ','.join(failed_filters),
+                        ' ; '.join(failure_messages))
+                    rejected_logged += 1
+
+                continue
+
+            log.debug('Got identifier: %s', guid)
+            guids_in_source.add(guid)
+
+            if guid in guid_to_package_id:
+                existing_content = guid_to_current_content.get(guid)
+                if self._is_unchanged_dataset(existing_content, as_string):
+                    log.debug(
+                        '[HARVEST] SKIP_UNCHANGED guid=%s',
+                        guid)
+                    continue
+
+                previous_modified = self._extract_dct_modified(existing_content)
+                current_modified = self._extract_dct_modified(as_string)
+                log.debug(
+                    '[HARVEST] MARK_CHANGE guid=%s previous_dct_modified=%s new_dct_modified=%s',
+                    guid,
+                    previous_modified,
+                    current_modified)
+
+                # Dataset needs to be updated
+                obj = HarvestObject(
+                    guid=guid, job=harvest_job,
+                    package_id=guid_to_package_id[guid],
+                    content=as_string,
+                    extras=[HarvestObjectExtra(key='status',
+                                               value='change')])
+            else:
+                existing_catalog_dataset = \
+                    self._find_existing_catalog_dataset_for_harvest(
+                        dataset)
+
+                if existing_catalog_dataset:
+                    if self._is_existing_dataset_unchanged(
+                            existing_catalog_dataset,
+                            as_string):
                         log.debug(
-                            '[HARVEST] SKIP_UNCHANGED guid=%s',
-                            guid)
+                            '[HARVEST] SKIP_UNCHANGED_EXISTING guid=%s package_id=%s',
+                            guid,
+                            existing_catalog_dataset.get('id'))
                         continue
 
-                    previous_modified = self._extract_dct_modified(existing_content)
-                    current_modified = self._extract_dct_modified(as_string)
                     log.debug(
-                        '[HARVEST] MARK_CHANGE guid=%s previous_dct_modified=%s new_dct_modified=%s',
+                        '[HARVEST] UPDATE_EXISTING_DATASET guid=%s package_id=%s',
                         guid,
-                        previous_modified,
-                        current_modified)
-
-                    # Dataset needs to be updated
+                        existing_catalog_dataset.get('id'))
                     obj = HarvestObject(
                         guid=guid, job=harvest_job,
-                        package_id=guid_to_package_id[guid],
+                        package_id=existing_catalog_dataset.get('id'),
                         content=as_string,
                         extras=[HarvestObjectExtra(key='status',
                                                    value='change')])
                 else:
-                    dataset_dict = json.loads(as_string)
-                    existing_catalog_dataset = \
-                        self._find_existing_catalog_dataset_for_harvest(
-                            dataset_dict)
+                    # Dataset needs to be created
+                    obj = HarvestObject(
+                        guid=guid, job=harvest_job,
+                        content=as_string,
+                        extras=[HarvestObjectExtra(key='status',
+                                                   value='new')])
+            obj.save()
+            ids.append(obj.id)
 
-                    if existing_catalog_dataset:
-                        if self._is_existing_dataset_unchanged(
-                                existing_catalog_dataset,
-                                as_string):
-                            log.debug(
-                                '[HARVEST] SKIP_UNCHANGED_EXISTING guid=%s package_id=%s',
-                                guid,
-                                existing_catalog_dataset.get('id'))
-                            continue
-
-                        log.debug(
-                            '[HARVEST] ADOPT_EXISTING_DATASET guid=%s package_id=%s',
-                            guid,
-                            existing_catalog_dataset.get('id'))
-                        obj = HarvestObject(
-                            guid=guid, job=harvest_job,
-                            package_id=existing_catalog_dataset.get('id'),
-                            content=as_string,
-                            extras=[HarvestObjectExtra(key='status',
-                                                       value='change')])
-                    else:
-                        # Dataset needs to be created
-                        obj = HarvestObject(
-                            guid=guid, job=harvest_job,
-                            content=as_string,
-                            extras=[HarvestObjectExtra(key='status',
-                                                       value='new')])
-                obj.save()
-                ids.append(obj.id)
-
-        except ValueError as e:
-            msg = 'Error parsing file: {0}'.format(str(e))
-            self._save_gather_error(msg, harvest_job)
-            return None
+        if rejected_count:
+            ordered_counts = ','.join(
+                ['{}:{}'.format(code, rejection_counts[code])
+                 for code in sorted(rejection_counts.keys())]
+            )
+            log.info(
+                '[HARVEST] FULL_FEED_FILTER_SUMMARY rejected_total=%s logged_examples=%s log_limit=%s counts=%s',
+                rejected_count,
+                rejected_logged,
+                GEOHUB_FULL_FEED_REJECTION_LOG_LIMIT,
+                ordered_counts)
 
         # Check datasets that need to be deleted
-        guids_to_delete = set(guids_in_db) - set(guids_in_source)
+        guids_to_delete = guids_in_db - guids_in_source
         for guid in guids_to_delete:
             obj = HarvestObject(
                 guid=guid, job=harvest_job,
