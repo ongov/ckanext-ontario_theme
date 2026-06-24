@@ -36,7 +36,6 @@ log = logging.getLogger(__name__)
 DEFAULT_GEOHUB_DCAT_FEED_URL = 'https://geohub.lio.gov.on.ca/api/feed/dcat-ap/2.1.1.json'
 GEOHUB_PUBLISHER_OPTIONS_CACHE_TTL = datetime.timedelta(hours=24)
 GEOHUB_BLACKLIST_CACHE_TTL = datetime.timedelta(minutes=15)
-GEOHUB_FULL_FEED_REJECTION_LOG_LIMIT = 25
 
 blacklist_url = "https://services9.arcgis.com/a03W7iZ8T3s5vB7p/ArcGIS/rest/services/odc_sync_blacklist_vw/FeatureServer/0/query?where=1%3D1&outFields=geohub_dataset_url&f=json"
 
@@ -45,7 +44,7 @@ _geohub_publisher_options_cache = {
     'options': None,
 }
 
-_catalog_organization_cache = {
+_catalogue_organization_cache = {
     'expires_at': None,
     'index': None,
 }
@@ -135,7 +134,7 @@ update_frequencies = {
 }
 
 
-def _normalized_catalog_match_text(value):
+def _normalized_catalogue_match_text(value):
     '''Normalize publisher text to a comparable key for organization matching.
     '''
     if not value:
@@ -146,14 +145,14 @@ def _normalized_catalog_match_text(value):
     return re.sub(r'\s+', ' ', text).strip()
 
 
-def _get_catalog_organization_index():
+def _get_catalogue_organization_index():
     '''Build and cache an index of active CKAN organizations by match keys.
     '''
     now = datetime.datetime.utcnow()
-    cache_expires_at = _catalog_organization_cache['expires_at']
+    cache_expires_at = _catalogue_organization_cache['expires_at']
     if (cache_expires_at and cache_expires_at > now and
-            _catalog_organization_cache['index'] is not None):
-        return _catalog_organization_cache['index']
+            _catalogue_organization_cache['index'] is not None):
+        return _catalogue_organization_cache['index']
 
     index = {}
     try:
@@ -166,8 +165,8 @@ def _get_catalog_organization_index():
         )
     except Exception as e:
         log.warning('Unable to load CKAN organizations for GeoHub matching: %s', e)
-        _catalog_organization_cache['index'] = {}
-        _catalog_organization_cache['expires_at'] = (
+        _catalogue_organization_cache['index'] = {}
+        _catalogue_organization_cache['expires_at'] = (
             now + GEOHUB_PUBLISHER_OPTIONS_CACHE_TTL)
         return {}
 
@@ -187,8 +186,8 @@ def _get_catalog_organization_index():
         keys.add(org_name.lower())
         keys.add(org_title.lower())
 
-        norm_name = _normalized_catalog_match_text(org_name)
-        norm_title = _normalized_catalog_match_text(org_title)
+        norm_name = _normalized_catalogue_match_text(org_name)
+        norm_title = _normalized_catalogue_match_text(org_title)
         if norm_name:
             keys.add(norm_name)
         if norm_title:
@@ -204,25 +203,25 @@ def _get_catalog_organization_index():
             if key and key not in index:
                 index[key] = org_entry
 
-    _catalog_organization_cache['index'] = index
-    _catalog_organization_cache['expires_at'] = (
+    _catalogue_organization_cache['index'] = index
+    _catalogue_organization_cache['expires_at'] = (
         now + GEOHUB_PUBLISHER_OPTIONS_CACHE_TTL)
     return index
 
 
-def _find_catalog_organization_from_publisher(publisher_name):
+def _find_catalogue_organization_from_publisher(publisher_name):
     '''Resolve a GeoHub publisher name to a CKAN organization from the cached index.
     '''
     if not publisher_name:
         return None
 
     candidates = [publisher_name]
-    index = _get_catalog_organization_index()
+    index = _get_catalogue_organization_index()
 
     for candidate in candidates:
         if not candidate:
             continue
-        normalized_text = _normalized_catalog_match_text(candidate)
+        normalized_text = _normalized_catalogue_match_text(candidate)
         lookup_keys = [
             candidate.strip().lower(),
             normalized_text,
@@ -233,13 +232,13 @@ def _find_catalog_organization_from_publisher(publisher_name):
     return None
 
 
-def _resolve_dataset_catalog_organization(geohub_dict):
+def _resolve_dataset_catalogue_organization(geohub_dict):
     '''Resolve the dataset's CKAN organization from ontario_geohub_publisher.
     '''
     publisher_name = normalize_geohub_publisher_name(
         geohub_dict.get('ontario_geohub_publisher', ''))
     if publisher_name:
-        organization = _find_catalog_organization_from_publisher(publisher_name)
+        organization = _find_catalogue_organization_from_publisher(publisher_name)
         if organization:
             return organization
     return None
@@ -417,7 +416,7 @@ def get_ontario_geohub_publisher_options():
             
             publisher_name = normalize_geohub_publisher_name(
                 dataset.get('ontario_geohub_publisher', ''))
-            organization = _find_catalog_organization_from_publisher(
+            organization = _find_catalogue_organization_from_publisher(
                 publisher_name)
             if organization:
                 org_name = organization['name']
@@ -693,7 +692,7 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         return p.toolkit.get_action('package_show')({}, {'id': datasets[0][0]})
 
-    def _find_existing_catalog_dataset_for_harvest(self, geohub_dict):
+    def _find_existing_catalogue_dataset_for_harvest(self, geohub_dict):
         '''
         Find an existing active CKAN dataset (not yet linked by harvest guid)
         that matches the incoming GeoHub record by CKAN name + source URL.
@@ -711,18 +710,18 @@ class OntarioGeohubHarvester(HarvesterBase):
             return None
 
         log.debug(
-            '[HARVEST] FIND_CATALOG_DATASET title=%s candidate_name=%s identifier=%s',
+            '[HARVEST] FIND_CATALOGUE_DATASET title=%s candidate_name=%s identifier=%s',
             title, candidate_name, identifier)
 
         existing_dataset = self._get_existing_dataset_by_name(candidate_name)
         if not existing_dataset:
             log.debug(
-                '[HARVEST] FIND_CATALOG_DATASET no_name_match candidate_name=%s',
+                '[HARVEST] FIND_CATALOGUE_DATASET no_name_match candidate_name=%s',
                 candidate_name)
             return None
 
         log.debug(
-            '[HARVEST] FIND_CATALOG_DATASET name_match package_id=%s existing_url=%s incoming_url=%s',
+            '[HARVEST] FIND_CATALOGUE_DATASET name_match package_id=%s existing_url=%s incoming_url=%s',
             existing_dataset.get('id'),
             existing_dataset.get('url'),
             identifier)
@@ -730,12 +729,12 @@ class OntarioGeohubHarvester(HarvesterBase):
         if not _geohub_dataset_urls_match(existing_dataset.get('url'),
                                           identifier):
             log.debug(
-                '[HARVEST] FIND_CATALOG_DATASET url_mismatch_skip package_id=%s',
+                '[HARVEST] FIND_CATALOGUE_DATASET url_mismatch_skip package_id=%s',
                 existing_dataset.get('id'))
             return None
 
         log.debug(
-            '[HARVEST] FIND_CATALOG_DATASET found package_id=%s',
+            '[HARVEST] FIND_CATALOGUE_DATASET found package_id=%s',
             existing_dataset.get('id'))
         return existing_dataset
 
@@ -775,7 +774,7 @@ class OntarioGeohubHarvester(HarvesterBase):
     def _make_package_dict(self, geohub_dict, harvest_object):
         '''Build a CKAN package payload from a GeoHub dataset record.
         '''
-        resolved_org = _resolve_dataset_catalog_organization(geohub_dict)
+        resolved_org = _resolve_dataset_catalogue_organization(geohub_dict)
         resolved_org_id = resolved_org.get('id') if resolved_org else None
 
         required_fields = [
@@ -1015,13 +1014,12 @@ class OntarioGeohubHarvester(HarvesterBase):
         }
 
     def _get_guids_and_datasets(self, content, selected_publisher=None,
-                                log_rejections=False,
-                                rejection_log_limit=0):
+                                log_rejections=False):
         '''Yield accepted dataset guid/content pairs after filter evaluation.
         '''
         selected_org_name = None
         if selected_publisher:
-            selected_org = _find_catalog_organization_from_publisher(
+            selected_org = _find_catalogue_organization_from_publisher(
                 selected_publisher)
             selected_org_name = (
                 selected_org['name'] if selected_org else selected_publisher)
@@ -1039,7 +1037,6 @@ class OntarioGeohubHarvester(HarvesterBase):
             raise ValueError('Wrong JSON object')
 
         rejected_count = 0
-        rejected_logged = 0
         rejection_counts = {}
 
         for dataset in datasets:
@@ -1057,14 +1054,12 @@ class OntarioGeohubHarvester(HarvesterBase):
                 for code in failed_filters:
                     rejection_counts[code] = rejection_counts.get(code, 0) + 1
 
-                if rejected_logged < rejection_log_limit:
-                    log.info(
-                        '[HARVEST] FULL_FEED_FILTER_REJECTED guid=%s title=%s failed_filters=%s reasons=%s',
-                        dataset.get('ontario_geohub_id', 'unknown'),
-                        dataset.get('dct:title', 'Unknown'),
-                        ','.join(failed_filters),
-                        ' ; '.join(failure_messages))
-                    rejected_logged += 1
+                log.info(
+                    '[HARVEST] FULL_FEED_FILTER_REJECTED guid=%s title=%s failed_filters=%s reasons=%s',
+                    dataset.get('ontario_geohub_id', 'unknown'),
+                    dataset.get('dct:title', 'Unknown'),
+                    ','.join(failed_filters),
+                    ' ; '.join(failure_messages))
 
         if log_rejections and rejected_count:
             ordered_counts = ','.join(
@@ -1072,10 +1067,8 @@ class OntarioGeohubHarvester(HarvesterBase):
                  for code in sorted(rejection_counts.keys())]
             )
             log.info(
-                '[HARVEST] FULL_FEED_FILTER_SUMMARY rejected_total=%s logged_examples=%s log_limit=%s counts=%s',
+                '[HARVEST] FULL_FEED_FILTER_SUMMARY rejected_total=%s counts=%s',
                 rejected_count,
-                rejected_logged,
-                rejection_log_limit,
                 ordered_counts)
 
     def _evaluate_dataset_filters(self, dataset, selected_publisher=None,
@@ -1094,7 +1087,7 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         dataset_publisher = normalize_geohub_publisher_name(
             dataset.get('ontario_geohub_publisher', ''))
-        dataset_org = _find_catalog_organization_from_publisher(
+        dataset_org = _find_catalogue_organization_from_publisher(
             dataset_publisher)
         dataset_org_name = dataset_org['name'] if dataset_org else None
 
@@ -1411,7 +1404,7 @@ class OntarioGeohubHarvester(HarvesterBase):
         '''
         datasets_by_id = {}
 
-        selected_org = _find_catalog_organization_from_publisher(
+        selected_org = _find_catalogue_organization_from_publisher(
             selected_publisher)
         selected_org_name = (
             selected_org['name'] if selected_org else selected_publisher)
@@ -1427,7 +1420,7 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         # GeoHub v3 filter[source] expects the full source label
         # (e.g. "Ontario ministry of health"), while CKAN org matching
-        # can still use stripped names via _find_catalog_organization_from_publisher.
+        # can still use stripped names via _find_catalogue_organization_from_publisher.
         full_source_name = selected_publisher
         if selected_org:
             full_source_name = selected_org.get('title', '') or selected_publisher
@@ -1482,7 +1475,7 @@ class OntarioGeohubHarvester(HarvesterBase):
             for dataset in v3_data:
                 normalized_source = normalize_geohub_publisher_name(
                     dataset.get('attributes', {}).get('source', ''))
-                dataset_org = _find_catalog_organization_from_publisher(
+                dataset_org = _find_catalogue_organization_from_publisher(
                     normalized_source)
                 dataset_org_name = dataset_org['name'] if dataset_org else None
                 if dataset_org_name != selected_org_name:
@@ -1725,7 +1718,7 @@ class OntarioGeohubHarvester(HarvesterBase):
         accepted_datasets = []
         selected_org_name = None
         if selected_publisher:
-            selected_org = _find_catalog_organization_from_publisher(
+            selected_org = _find_catalogue_organization_from_publisher(
                 selected_publisher)
             selected_org_name = (
                 selected_org['name'] if selected_org else selected_publisher)
@@ -1831,6 +1824,45 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         return guid_to_package_id, guid_to_current_content
 
+    def _load_untracked_catalogue_package_mappings(self):
+        '''Return active catalogue packages that contain reference to
+        arcgis or geohub in their Source URL/Address that were not
+        created with a harvest job (i.e. do no have a harvest guid).
+        '''
+        guid_package_ids = (
+            model.Session.query(model.PackageExtra.package_id)
+            .filter(model.PackageExtra.key == 'guid')
+        )
+
+        rows = (
+            model.Session.query(model.Package.id,
+                                model.Package.name,
+                                model.Package.url)
+            .filter(model.Package.state == 'active')
+            .filter(model.Package.url != None)
+            .filter(model.Package.url != '')
+            .filter(~model.Package.id.in_(guid_package_ids))
+            .all()
+        )
+
+        package_mappings = {}
+        for package_id, package_name, package_url in rows:
+            # Normalize to text + lowercase so host checks are robust across
+            # mixed input types and URL case variations.
+            normalized_package_source_url = six.text_type(package_url).lower()
+            if ('geohub.lio.gov.on.ca' not in normalized_package_source_url and
+                    'arcgis.com/home/item.html' not in normalized_package_source_url):
+                continue
+
+            package_guid = 'manual_catalogue_package:{}'.format(package_id)
+            package_mappings[package_guid] = {
+                'package_id': package_id,
+                'package_name': package_name,
+                'package_url': package_url,
+            }
+
+        return package_mappings
+
     def _extract_datasets_from_content(self, content, harvest_job):
         '''Parse gather content and return a dataset list, or None on error.
         '''
@@ -1883,21 +1915,30 @@ class OntarioGeohubHarvester(HarvesterBase):
                 return None
             raise
 
-    def _build_deletion_request_metadata(self, rejection_for_guid):
-        '''Build deletion-request fields from rejection info for one guid,
-           including reasons for requesting deletion.
+    def _build_deletion_request_metadata(self, rejection_for_guid,
+                                         missing_from_feed=False):
+        '''Build deletion-request fields from rejection info for one guid.
         '''
-        if not rejection_for_guid:
+        if missing_from_feed:
             return (
-                'dataset no longer in feed',
+                'Previously-harvested dataset no longer in feed',
                 '',
             )
 
-        failed_filters = rejection_for_guid.get('failed_filters', [])
-        return (
-            'dataset is now failing one or more filters',
-            ','.join(failed_filters),
-        )
+        # Check rejected filter codes so missing_odcsync can set
+        # a specific deletion-request reason.
+        failed_filters = []
+        if rejection_for_guid:
+            failed_filters = rejection_for_guid.get('failed_filters', [])
+
+        if 'missing_odcsync' in failed_filters:
+            return (
+                'Previously-harvested dataset is present in feed but no longer '
+                'flagged with ODCSYNC keyword',
+                'missing_odcsync',
+            )
+
+        return (None, '')
 
     def gather_stage(self, harvest_job):
         '''Collect source records and enqueue HarvestObjects for import.
@@ -1911,7 +1952,9 @@ class OntarioGeohubHarvester(HarvesterBase):
         - new: accepted GUID not currently tracked for this source.
         - change: accepted GUID with newer content, including adopted
             pre-existing CKAN datasets.
-        - request_delete: GUID tracked in DB but missing from the current source run; deletion of these datasets must be requested.
+        - request_delete: GUID tracked in DB that is either missing from the
+            current feed or no longer flagged with ODCSYNC; deletion of these
+            datasets must be requested.
 
         Return a list of created HarvestObject ids, or None on gather errors.
         '''
@@ -1938,9 +1981,10 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         guid_to_package_id, guid_to_current_content = \
             self._load_current_guid_mappings(harvest_job.source.id)
-        # Track existing DB GUIDs and GUIDs accepted from this run for delete diffing.
+        # Track existing DB GUIDs and GUIDs seen in this run for deletion logic.
         guids_in_db = set(guid_to_package_id.keys())
-        guids_in_source = set()
+        guids_now_missing_odcsync_tag = set()
+        guids_with_missing_odcsync = set()
 
         datasets = self._resolve_gather_datasets(
             harvest_job,
@@ -1950,15 +1994,23 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         selected_org_name = None
         if selected_publisher:
-            selected_org = _find_catalog_organization_from_publisher(
+            selected_org = _find_catalogue_organization_from_publisher(
                 selected_publisher)
             selected_org_name = (
                 selected_org['name'] if selected_org else selected_publisher)
 
         blacklist = _fetch_blacklist_ids()
 
+        manual_catalogue_candidates_by_id = {}
+        manual_catalogue_seen_ids = set()
+        if not selected_publisher:
+            for package_info in \
+                    self._load_untracked_catalogue_package_mappings().values():
+                package_id = package_info.get('package_id')
+                if package_id:
+                    manual_catalogue_candidates_by_id[package_id] = package_info
+
         rejected_count = 0
-        rejected_logged = 0
         rejection_counts = {}
         rejection_by_guid = {}
 
@@ -1972,28 +2024,41 @@ class OntarioGeohubHarvester(HarvesterBase):
                     selected_org_name=selected_org_name,
                     blacklist=blacklist)
 
+            guids_now_missing_odcsync_tag.add(guid)
+
+            # Reuse existing catalogue matching logic to track which manual
+            # (no-guid) catalogue datasets are represented in the current feed.
+            matched_catalogue_dataset = None
+            if manual_catalogue_candidates_by_id:
+                matched_catalogue_dataset = \
+                    self._find_existing_catalogue_dataset_for_harvest(dataset)
+                if matched_catalogue_dataset:
+                    matched_id = matched_catalogue_dataset.get('id')
+                    if matched_id in manual_catalogue_candidates_by_id:
+                        manual_catalogue_seen_ids.add(matched_id)
+
             if not accepted:
                 rejected_count += 1
                 for code in failed_filters:
                     rejection_counts[code] = rejection_counts.get(code, 0) + 1
 
-                if rejected_logged < GEOHUB_FULL_FEED_REJECTION_LOG_LIMIT:
-                    log.info(
-                        '[HARVEST] FULL_FEED_FILTER_REJECTED guid=%s title=%s failed_filters=%s reasons=%s',
-                        dataset.get('ontario_geohub_id', 'unknown'),
-                        dataset.get('dct:title', 'Unknown'),
-                        ','.join(failed_filters),
-                        ' ; '.join(failure_messages))
-                    rejected_logged += 1
+                log.info(
+                    '[HARVEST] FULL_FEED_FILTER_REJECTED guid=%s title=%s failed_filters=%s reasons=%s',
+                    dataset.get('ontario_geohub_id', 'unknown'),
+                    dataset.get('dct:title', 'Unknown'),
+                    ','.join(failed_filters),
+                    ' ; '.join(failure_messages))
 
-                rejection_by_guid[guid] = {
-                    'failed_filters': failed_filters,
-                    'failure_messages': failure_messages,
-                }
+                # Only missing ODCSYNC failures should become deletion requests.
+                if guid in guids_in_db and 'missing_odcsync' in failed_filters:
+                    guids_with_missing_odcsync.add(guid)
+                    rejection_by_guid[guid] = {
+                        'failed_filters': failed_filters,
+                        'failure_messages': failure_messages,
+                    }
                 continue
 
             log.debug('Got identifier: %s', guid)
-            guids_in_source.add(guid)
 
             if guid in guid_to_package_id:
                 existing_content = guid_to_current_content.get(guid)
@@ -2019,27 +2084,29 @@ class OntarioGeohubHarvester(HarvesterBase):
                     extras=[HarvestObjectExtra(key='status',
                                                value='change')])
             else:
-                existing_catalog_dataset = \
-                    self._find_existing_catalog_dataset_for_harvest(
-                        dataset)
+                existing_catalogue_dataset = matched_catalogue_dataset
+                if existing_catalogue_dataset is None:
+                    existing_catalogue_dataset = \
+                        self._find_existing_catalogue_dataset_for_harvest(
+                            dataset)
 
-                if existing_catalog_dataset:
+                if existing_catalogue_dataset:
                     if self._is_existing_dataset_unchanged(
-                            existing_catalog_dataset,
+                            existing_catalogue_dataset,
                             as_string):
                         log.debug(
                             '[HARVEST] SKIP_UNCHANGED_EXISTING guid=%s package_id=%s',
                             guid,
-                            existing_catalog_dataset.get('id'))
+                            existing_catalogue_dataset.get('id'))
                         continue
 
                     log.debug(
                         '[HARVEST] UPDATE_EXISTING_DATASET guid=%s package_id=%s',
                         guid,
-                        existing_catalog_dataset.get('id'))
+                        existing_catalogue_dataset.get('id'))
                     obj = HarvestObject(
                         guid=guid, job=harvest_job,
-                        package_id=existing_catalog_dataset.get('id'),
+                        package_id=existing_catalogue_dataset.get('id'),
                         content=as_string,
                         extras=[HarvestObjectExtra(key='status',
                                                    value='change')])
@@ -2053,28 +2120,69 @@ class OntarioGeohubHarvester(HarvesterBase):
             obj.save()
             ids.append(obj.id)
 
+        # Request delete only for DB GUIDs that are missing from the current
+        # feed, plus DB GUIDs still in feed but now missing ODCSYNC.
+        guids_missing_from_feed = guids_in_db - guids_now_missing_odcsync_tag
+
+        # Edge case: manually created catalogue datasets do not have a harvest
+        # guid. Track such datatsets that are likely GeoHub/ArcGIS datasets 
+        # but missing from current feed.
+        manual_guid_to_package_id = {}
+        manual_datasets_missing_from_feed_count = 0
+        if manual_catalogue_candidates_by_id:
+            for package_id in sorted(manual_catalogue_candidates_by_id.keys()):
+                if package_id in manual_catalogue_seen_ids:
+                    continue
+
+                package_info = manual_catalogue_candidates_by_id[package_id]
+                manual_guid = 'manual_catalogue_package:{}'.format(package_id)
+                manual_guid_to_package_id[manual_guid] = package_id
+                manual_datasets_missing_from_feed_count += 1
+                log.warning(
+                    '[HARVEST] MANUAL_DATASET_MISSING_FROM_FEED package_id=%s '
+                    'package_name=%s package_url=%s',
+                    package_id,
+                    package_info.get('package_name'),
+                    package_info.get('package_url'))
+
+        guids_to_request_delete = (
+            guids_missing_from_feed |
+            guids_with_missing_odcsync |
+            set(manual_guid_to_package_id.keys()))
+
         if rejected_count:
             ordered_counts = ','.join(
                 ['{}:{}'.format(code, rejection_counts[code])
                  for code in sorted(rejection_counts.keys())]
             )
             log.info(
-                '[HARVEST] FULL_FEED_FILTER_SUMMARY rejected_total=%s logged_examples=%s log_limit=%s counts=%s',
+                '[HARVEST] FULL_FEED_FILTER_SUMMARY rejected_total=%s counts=%s harvested_datasets_missing_from_feed_counts=%s harvested_datasets_no_longer_tagged_with_odcsync_counts=%s manual_datasets_missing_from_feed_counts=%s',
                 rejected_count,
-                rejected_logged,
-                GEOHUB_FULL_FEED_REJECTION_LOG_LIMIT,
-                ordered_counts)
+                ordered_counts,
+                len(guids_missing_from_feed),
+                len(guids_with_missing_odcsync),
+                manual_datasets_missing_from_feed_count)
 
-        # Compare previously tracked GUIDs against accepted GUIDs for current run.
-        guids_to_request_delete = guids_in_db - guids_in_source
-        for guid in guids_to_request_delete:
+        for guid in sorted(guids_to_request_delete):
+            package_id = guid_to_package_id.get(guid)
+            if not package_id:
+                package_id = manual_guid_to_package_id.get(guid)
+            if not package_id:
+                continue
+
             deletion_reason, deletion_failed_filters = \
                 self._build_deletion_request_metadata(
-                    rejection_by_guid.get(guid))
+                    rejection_by_guid.get(guid),
+                    missing_from_feed=(
+                        guid in guids_missing_from_feed or
+                        guid in manual_guid_to_package_id))
+
+            if not deletion_reason:
+                continue
 
             obj = HarvestObject(
                 guid=guid, job=harvest_job,
-                package_id=guid_to_package_id[guid],
+                package_id=package_id,
                 extras=[
                     HarvestObjectExtra(key='status', value='request_delete'),
                     HarvestObjectExtra(key='deletion_reason', value=json.dumps(deletion_reason)),
@@ -2428,7 +2536,7 @@ def get_org_id(organization_name):
         return None
 
     source_name = organization_name.strip()
-    organization = _find_catalog_organization_from_publisher(source_name)
+    organization = _find_catalogue_organization_from_publisher(source_name)
     if organization:
         return organization.get('id')
 
