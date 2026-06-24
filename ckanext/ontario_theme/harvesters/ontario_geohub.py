@@ -1889,19 +1889,14 @@ class OntarioGeohubHarvester(HarvesterBase):
         '''
         if not rejection_for_guid:
             return (
-                ['missing_from_feed'],
+                'dataset no longer in feed',
                 '',
-                'dataset guid not found in current source payload',
             )
 
         failed_filters = rejection_for_guid.get('failed_filters', [])
-        failure_messages = rejection_for_guid.get('failure_messages', [])
         return (
-            failed_filters or ['filtered_out'],
+            'dataset is now failing one or more filters',
             ','.join(failed_filters),
-            (' ; '.join(failure_messages)
-             if failure_messages
-             else 'dataset present in source but rejected by filters'),
         )
 
     def gather_stage(self, harvest_job):
@@ -2073,7 +2068,7 @@ class OntarioGeohubHarvester(HarvesterBase):
         # Compare previously tracked GUIDs against accepted GUIDs for current run.
         guids_to_request_delete = guids_in_db - guids_in_source
         for guid in guids_to_request_delete:
-            deletion_reason, deletion_failed_filters, deletion_reason_detail = \
+            deletion_reason, deletion_failed_filters = \
                 self._build_deletion_request_metadata(
                     rejection_by_guid.get(guid))
 
@@ -2084,7 +2079,6 @@ class OntarioGeohubHarvester(HarvesterBase):
                     HarvestObjectExtra(key='status', value='request_delete'),
                     HarvestObjectExtra(key='deletion_reason', value=json.dumps(deletion_reason)),
                     HarvestObjectExtra(key='deletion_failed_filters', value=deletion_failed_filters),
-                    HarvestObjectExtra(key='deletion_reason_detail', value=deletion_reason_detail),
                 ])
             model.Session.query(HarvestObject).\
                 filter_by(guid=guid).\
@@ -2117,20 +2111,26 @@ class OntarioGeohubHarvester(HarvesterBase):
             deletion_failed_filters = (
                 self._get_object_extra(harvest_object, 'deletion_failed_filters')
                 or '')
-            deletion_reason_detail = (
-                self._get_object_extra(harvest_object, 'deletion_reason_detail')
-                or '')
-            log.warning(
-                '[HARVEST] DELETION_BLOCKED_BY_POLICY harvest_object_id=%s '
-                'guid=%s package_id=%s deletion_reason=%s '
-                'failed_filters=%s detail=%s. Manual deletion request '
-                'required from opendata@ontario.ca',
-                harvest_object.id,
-                harvest_object.guid,
-                harvest_object.package_id,
-                deletion_reason,
-                deletion_failed_filters,
-                deletion_reason_detail)
+            if deletion_failed_filters:
+                log.warning(
+                    '[HARVEST] DELETION_BLOCKED_BY_POLICY harvest_object_id=%s '
+                    'guid=%s package_id=%s deletion_reason=%s '
+                    'failed_filters=%s. Manual deletion request '
+                    'required from opendata@ontario.ca',
+                    harvest_object.id,
+                    harvest_object.guid,
+                    harvest_object.package_id,
+                    deletion_reason,
+                    deletion_failed_filters)
+            else:
+                log.warning(
+                    '[HARVEST] DELETION_BLOCKED_BY_POLICY harvest_object_id=%s '
+                    'guid=%s package_id=%s deletion_reason=%s. '
+                    'Manual deletion request required from opendata@ontario.ca',
+                    harvest_object.id,
+                    harvest_object.guid,
+                    harvest_object.package_id,
+                    deletion_reason)
             
             # TODO: Send notification email to opendata@ontario.ca with deletion details
             return True
