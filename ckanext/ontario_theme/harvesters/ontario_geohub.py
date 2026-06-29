@@ -728,9 +728,15 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         if not _geohub_dataset_urls_match(existing_dataset.get('url'),
                                           identifier):
-            log.debug(
-                '[HARVEST] FIND_CATALOGUE_DATASET url_mismatch_skip package_id=%s',
-                existing_dataset.get('id'))
+            log.warning(
+                '[HARVEST] NAME_URL_CONFLICT stage=find_existing_dataset '
+                'title=%s candidate_name=%s package_id=%s existing_url=%s '
+                'incoming_identifier=%s action=skip_auto_match',
+                title,
+                candidate_name,
+                existing_dataset.get('id'),
+                existing_dataset.get('url'),
+                identifier)
             return None
 
         log.debug(
@@ -769,6 +775,35 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         return (six.text_type(current_modified).strip() ==
                 six.text_type(existing_modified).strip())
+
+    def _save_name_url_conflict_error(self, harvest_object, package_dict,
+                                      existing_dataset, stage, action):
+        '''Log and persist a name/url conflict for manual resolution.
+        '''
+        conflict_message = (
+            'Conflict detected for guid={0}: slug/name "{1}" '
+            'matches existing dataset id={2}, but incoming '
+            'dct:identifier "{3}" does not match existing '
+            'Source URL/Address "{4}". Manual resolution by '
+            'data owner is required.'
+        ).format(
+            harvest_object.guid,
+            package_dict.get('name'),
+            existing_dataset.get('id'),
+            package_dict.get('url'),
+            existing_dataset.get('url'))
+        log.warning(
+            '[HARVEST] NAME_URL_CONFLICT stage=%s '
+            'guid=%s package_name=%s package_id=%s existing_url=%s '
+            'incoming_identifier=%s action=%s',
+            stage,
+            harvest_object.guid,
+            package_dict.get('name'),
+            existing_dataset.get('id'),
+            existing_dataset.get('url'),
+            package_dict.get('url'),
+            action)
+        self._save_object_error(conflict_message, harvest_object, 'Import')
 
 
     def _make_package_dict(self, geohub_dict, harvest_object):
@@ -2290,11 +2325,19 @@ class OntarioGeohubHarvester(HarvesterBase):
             if existing_dataset:
                 url_matches = _geohub_dataset_urls_match(
                     existing_dataset.get('url'), package_dict.get('url'))
+                if not url_matches:
+                    self._save_name_url_conflict_error(
+                        harvest_object,
+                        package_dict,
+                        existing_dataset,
+                        stage='pre_create',
+                        action='block_create')
+                    return False
                 log.info(
                     '[HARVEST] PRE_CREATE_REUSE package_id=%s guid=%s reason=%s',
                     existing_dataset.get('id'),
                     harvest_object.guid,
-                    'name_and_url_match' if url_matches else 'name_only_match')
+                    'name_and_url_match')
                 harvest_object.package_id = existing_dataset['id']
                 harvest_object.add()
                 package_dict['id'] = existing_dataset['id']
@@ -2415,6 +2458,14 @@ class OntarioGeohubHarvester(HarvesterBase):
                 if existing_dataset:
                     url_matches = _geohub_dataset_urls_match(
                         existing_dataset.get('url'), package_dict.get('url'))
+                    if not url_matches:
+                        self._save_name_url_conflict_error(
+                            harvest_object,
+                            package_dict,
+                            existing_dataset,
+                            stage='exception_recovery',
+                            action='block_exception_recovery')
+                        return False
                     try:
                         log.warning(
                             '[HARVEST] EXCEPTION_RECOVERY package_id=%s guid=%s '
