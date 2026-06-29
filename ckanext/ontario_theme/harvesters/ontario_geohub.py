@@ -2376,6 +2376,17 @@ class OntarioGeohubHarvester(HarvesterBase):
                         harvest_object.package_id,
                         e)
             if existing_dataset:
+                existing_name = existing_dataset.get('name')
+                incoming_name = package_dict.get('name')
+                if existing_name and incoming_name and existing_name != incoming_name:
+                    log.warning(
+                        '[HARVEST] DATASET_RENAME_DETECTED guid=%s package_id=%s old_name=%s new_name=%s old_url=%s incoming_identifier=%s',
+                        harvest_object.guid,
+                        existing_dataset.get('id'),
+                        existing_name,
+                        incoming_name,
+                        existing_dataset.get('url'),
+                        package_dict.get('url'))
                 copy_across_resource_ids(existing_dataset, package_dict)
                 # Augment existing ODC tags with GeoHub tags
                 # (don't replace, merge unique tags)
