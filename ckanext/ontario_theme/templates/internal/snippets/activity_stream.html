@@ -23,7 +23,7 @@
           {{ dataset_link }} was deleted
       {% endif %}
 
-      {% if c.userobj and c.userobj.sysadmin %}
+      {% if c.userobj and c.userobj.sysadmin and h.lang() != 'fr' %}
           by {{ h.linked_user(activity.user_id, 0, 30) }}
       {% endif %}
 
