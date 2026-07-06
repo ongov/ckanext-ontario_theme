@@ -2022,10 +2022,6 @@ msgstr "Au fur et à mesure que nous travaillons à son amélioration le catalog
 msgid "<a href=\"%(url)s\">More %(group_title)s</a>"
 msgstr "<a href=\"%(url)s\">Plus %(group_title)s</a>"
 
-#: ckanext/ontario_theme/templates/internal/header.html:89
-msgid "Ministries"
-msgstr "Ministères"
-
 #: ckanext/ontario_theme/templates/internal/header.html:78
 msgid "https://www.ontario.ca/page/government-ontario"
 msgstr "https://www.ontario.ca/fr/page/gouvernement-de-lontario"
@@ -2288,3 +2284,8 @@ msgstr[1] "{level_count} jeux de données avec niveau d’accès"
 #: ckanext/ontario_theme/templates/internal/snippets/search_form.html:242
 msgid "We also found"
 msgstr "Nous avons également trouvé"
+
+# ckanext/ontario_theme/templates/internal/snippets/activity_stream.html:20
+#, python-format
+msgid "%(dataset_link)s dataset was updated"
+msgstr "Le jeu de données %(dataset_link)s a été mis à jour"
