@@ -8,7 +8,7 @@ import ckan.plugins.toolkit as toolkit
 from ckanext.ontario_theme.harvesters.ontario_geohub import (
     OntarioGeohubHarvester,
     _fetch_blacklist_ids,
-    _find_catalog_organization_from_publisher,
+    _find_catalogue_organization_from_publisher,
     normalize_geohub_publisher_name,
 )
 
@@ -96,14 +96,14 @@ def ontario_geohub_precheck_single_dataset(context, data_dict):
 
     selected_org_name = None
     if selected_publisher:
-        selected_org = _find_catalog_organization_from_publisher(
+        selected_org = _find_catalogue_organization_from_publisher(
             selected_publisher)
         selected_org_name = (
             selected_org['name'] if selected_org else selected_publisher)
 
     dataset_publisher = normalize_geohub_publisher_name(
         dcat_dict.get('ontario_geohub_publisher', ''))
-    dataset_org = _find_catalog_organization_from_publisher(dataset_publisher)
+    dataset_org = _find_catalogue_organization_from_publisher(dataset_publisher)
     dataset_org_name = dataset_org['name'] if dataset_org else None
     failed_filters = []
     failure_messages = []
