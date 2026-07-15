@@ -169,7 +169,26 @@ def lock_if_odc(key, data, errors, context):
 
 def strip_fluent_value(key, data, errors, context):
     '''Trims the Whitespace of fluent field'''
-    value = json.loads(data[key])
+    raw_value = data.get(key)
+
+    # Missing/empty values should be left for required validators to handle.
+    if raw_value in (None, ''):
+        return
+
+    if isinstance(raw_value, dict):
+        value = raw_value
+    elif isinstance(raw_value, (str, bytes, bytearray)):
+        try:
+            value = json.loads(raw_value)
+        except (TypeError, ValueError):
+            return
+    else:
+        # Handles navl Missing sentinel and any unexpected value types.
+        return
+
+    if not isinstance(value, dict):
+        return
+
     for lang, text in value.items():
         if isinstance(text, str):
             value[lang] = text.strip()
