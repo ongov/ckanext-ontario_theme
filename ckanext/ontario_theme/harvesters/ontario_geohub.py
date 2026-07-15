@@ -2356,6 +2356,12 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         # copy across resource ids from the existing dataset, otherwise they'll
         # be recreated with new ids
+        rename_detected_on_update = False
+        rename_old_name = None
+        rename_new_name = None
+        rename_old_url = None
+        rename_incoming_identifier = None
+        rename_package_id = None
 
         if status == 'change':
             package_dict.setdefault('extras', [])
@@ -2387,6 +2393,12 @@ class OntarioGeohubHarvester(HarvesterBase):
                         incoming_name,
                         existing_dataset.get('url'),
                         package_dict.get('url'))
+                    rename_detected_on_update = True
+                    rename_old_name = existing_name
+                    rename_new_name = incoming_name
+                    rename_old_url = existing_dataset.get('url')
+                    rename_incoming_identifier = package_dict.get('url')
+                    rename_package_id = existing_dataset.get('id')
                 copy_across_resource_ids(existing_dataset, package_dict)
                 # Augment existing ODC tags with GeoHub tags
                 # (don't replace, merge unique tags)
@@ -2461,6 +2473,20 @@ class OntarioGeohubHarvester(HarvesterBase):
                 message_status = 'Created' if status == 'new' else 'Updated'
                 package_id = p.toolkit.get_action(action)(context, package_dict)
                 log.info('%s dataset with id %s', message_status, package_id)
+                if status == 'change' and rename_detected_on_update:
+                    log.info(
+                        '[HARVEST] DATASET_RENAMED_ON_UPDATE guid=%s package_id=%s old_name=%s new_name=%s old_url=%s incoming_identifier=%s',
+                        harvest_object.guid,
+                        rename_package_id,
+                        rename_old_name,
+                        rename_new_name,
+                        rename_old_url,
+                        rename_incoming_identifier)
+                if status == 'new':
+                    log.info(
+                        '[HARVEST] CREATE_NEW_DATASET guid=%s package_id=%s',
+                        harvest_object.guid,
+                        package_id)
 
         except Exception as e:
             if status == 'new' and package_dict.get('name'):
