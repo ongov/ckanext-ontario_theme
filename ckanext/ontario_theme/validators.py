@@ -180,14 +180,18 @@ def strip_fluent_value(key, data, errors, context):
 
 def public_https_url_validator(value, context): 
 
-    if not value: 
+    if not value:
         return value
 
     # Trim whitespace
     value = value.strip()
 
+    # Auto-prepend HTTPS
+    if value and "://" not in value:
+        value = "https://" + value
+
     # Enforce max length
-    if len(value) > 2048: 
+    if len(value) > 2048:
         raise Invalid(_("URL cannot exceed 2048 characters."))
 
     parsed = urlparse(value)
