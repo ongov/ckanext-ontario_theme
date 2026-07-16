@@ -301,16 +301,14 @@ def _geohub_dataset_urls_match(url_a, url_b):
     '''Return True when two GeoHub dataset URLs normalize to the same value.
     '''
     if not url_a or not url_b:
-        log.debug(
-            '[HARVEST] URL_MATCH_SKIP reason=missing_url url_a=%s url_b=%s',
-            url_a, url_b)
         return False
     norm_a = _normalize_geohub_dataset_url_for_match(url_a)
     norm_b = _normalize_geohub_dataset_url_for_match(url_b)
     result = norm_a == norm_b
-    log.debug(
-        '[HARVEST] URL_MATCH raw_a=%s raw_b=%s norm_a=%s norm_b=%s match=%s',
-        url_a, url_b, norm_a, norm_b, result)
+    if not result:
+        log.debug(
+            '[HARVEST] URL_MISMATCH raw_a=%s raw_b=%s norm_a=%s norm_b=%s match=%s',
+            url_a, url_b, norm_a, norm_b, result)
     return result
 
 
