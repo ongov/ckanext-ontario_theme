@@ -2288,11 +2288,6 @@ class OntarioGeohubHarvester(HarvesterBase):
             .filter(HarvestObject.current == True) \
             .first()
 
-        # Flag previous object as not current anymore
-        if previous_object and not self.force_import:
-            previous_object.current = False
-            previous_object.add()
-
 
         package_dict, geohub_dict = self._get_package_dict(harvest_object)
         if not package_dict:
@@ -2354,13 +2349,6 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         # copy across resource ids from the existing dataset, otherwise they'll
         # be recreated with new ids
-        rename_detected_on_update = False
-        rename_old_name = None
-        rename_new_name = None
-        rename_old_url = None
-        rename_incoming_identifier = None
-        rename_package_id = None
-
         if status == 'change':
             package_dict.setdefault('extras', [])
             if not any(extra.get('key') == 'guid' for extra in package_dict['extras']):
@@ -2391,14 +2379,9 @@ class OntarioGeohubHarvester(HarvesterBase):
                         incoming_name,
                         existing_dataset.get('url'),
                         package_dict.get('url'))
-                    rename_detected_on_update = True
-                    rename_old_name = existing_name
-                    rename_new_name = incoming_name
-                    rename_old_url = existing_dataset.get('url')
-                    rename_incoming_identifier = package_dict.get('url')
-                    rename_package_id = existing_dataset.get('id')
+                    return False
                 copy_across_resource_ids(existing_dataset, package_dict)
-                # Augment existing ODC tags with GeoHub tags
+                # Augment existing ODC tags with any new GeoHub tags
                 # (don't replace, merge unique tags)
                 existing_keywords = existing_dataset.get('keywords', {})
                 if existing_keywords:
@@ -2419,7 +2402,6 @@ class OntarioGeohubHarvester(HarvesterBase):
                             package_dict['keywords'] = {}
                         package_dict['keywords'][lang] = merged
 
-
         # Unless already set by an extension, get the owner organization (if
         # any) from the harvest source dataset
         
@@ -2428,10 +2410,6 @@ class OntarioGeohubHarvester(HarvesterBase):
             'return_id_only': True,
             'ignore_auth': True,
         }
-
-        # Flag this object as the current one
-        harvest_object.current = True
-        harvest_object.add()
 
         try:
             if status == 'new':
@@ -2470,16 +2448,12 @@ class OntarioGeohubHarvester(HarvesterBase):
                 action = 'package_create' if status == 'new' else 'package_update'
                 message_status = 'Created' if status == 'new' else 'Updated'
                 package_id = p.toolkit.get_action(action)(context, package_dict)
+                if previous_object and not self.force_import:
+                    previous_object.current = False
+                    previous_object.add()
+                harvest_object.current = True
+                harvest_object.add()
                 log.info('%s dataset with id %s', message_status, package_id)
-                if status == 'change' and rename_detected_on_update:
-                    log.info(
-                        '[HARVEST] DATASET_RENAMED_ON_UPDATE guid=%s package_id=%s old_name=%s new_name=%s old_url=%s incoming_identifier=%s',
-                        harvest_object.guid,
-                        rename_package_id,
-                        rename_old_name,
-                        rename_new_name,
-                        rename_old_url,
-                        rename_incoming_identifier)
                 if status == 'new':
                     log.info(
                         '[HARVEST] CREATE_NEW_DATASET guid=%s package_id=%s',
@@ -2522,6 +2496,11 @@ class OntarioGeohubHarvester(HarvesterBase):
                         copy_across_resource_ids(existing_dataset, package_dict)
                         package_id = p.toolkit.get_action('package_update')(
                             context, package_dict)
+                        if previous_object and not self.force_import:
+                            previous_object.current = False
+                            previous_object.add()
+                        harvest_object.current = True
+                        harvest_object.add()
                         log.info('Updated dataset with id %s', package_id)
                         return True
                     except Exception as retry_error:
