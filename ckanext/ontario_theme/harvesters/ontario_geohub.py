@@ -2158,9 +2158,9 @@ class OntarioGeohubHarvester(HarvesterBase):
         guids_missing_from_feed = guids_in_db - guids_now_missing_odcsync_tag
 
         # Edge case: manually created catalogue datasets do not have a harvest
-        # guid. Track such datatsets that are likely GeoHub/ArcGIS datasets 
-        # but missing from current feed.
-        manual_guid_to_package_id = {}
+        # guid. Track such datatsets that are likely GeoHub/ArcGIS datasets
+        # but missing from current feed. These are logged for follow-up and do
+        # not trigger deletion requests.
         manual_datasets_missing_from_feed_count = 0
         if manual_catalogue_candidates_by_id:
             for package_id in sorted(manual_catalogue_candidates_by_id.keys()):
@@ -2168,11 +2168,9 @@ class OntarioGeohubHarvester(HarvesterBase):
                     continue
 
                 package_info = manual_catalogue_candidates_by_id[package_id]
-                manual_guid = 'manual_catalogue_package:{}'.format(package_id)
-                manual_guid_to_package_id[manual_guid] = package_id
                 manual_datasets_missing_from_feed_count += 1
                 log.warning(
-                    '[HARVEST] MANUAL_DATASET_MISSING_FROM_FEED package_id=%s '
+                    '[HARVEST] MANUAL_GEODATASET_MISSING_FROM_FEED package_id=%s '
                     'package_name=%s package_url=%s',
                     package_id,
                     package_info.get('package_name'),
@@ -2180,8 +2178,7 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         guids_to_request_delete = (
             guids_missing_from_feed |
-            guids_with_missing_odcsync |
-            set(manual_guid_to_package_id.keys()))
+            guids_with_missing_odcsync)
 
         if rejected_count:
             ordered_counts = ','.join(
@@ -2199,16 +2196,12 @@ class OntarioGeohubHarvester(HarvesterBase):
         for guid in sorted(guids_to_request_delete):
             package_id = guid_to_package_id.get(guid)
             if not package_id:
-                package_id = manual_guid_to_package_id.get(guid)
-            if not package_id:
                 continue
 
             deletion_reason, deletion_failed_filters = \
                 self._build_deletion_request_metadata(
                     rejection_by_guid.get(guid),
-                    missing_from_feed=(
-                        guid in guids_missing_from_feed or
-                        guid in manual_guid_to_package_id))
+                    missing_from_feed=(guid in guids_missing_from_feed))
 
             if not deletion_reason:
                 continue
