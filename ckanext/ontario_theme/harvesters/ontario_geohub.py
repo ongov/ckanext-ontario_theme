@@ -1861,16 +1861,30 @@ class OntarioGeohubHarvester(HarvesterBase):
         '''Return active catalogue packages that contain reference to
         arcgis or geohub in their Source URL/Address that were not
         created with a harvest job (i.e. do no have a harvest guid).
+
+        Exclude harvest sources themselves so they are not treated as
+        catalogue datasets.
         '''
         guid_package_ids = (
             model.Session.query(model.PackageExtra.package_id)
             .filter(model.PackageExtra.key == 'guid')
         )
 
+        # Harvest sources can be marked either on package.type or via the
+        # dataset_type extra, depending on CKAN version/configuration.
+        harvest_dataset_type_package_ids = set(
+            package_id for (package_id,) in
+            model.Session.query(model.PackageExtra.package_id)
+            .filter(model.PackageExtra.key == 'dataset_type')
+            .filter(model.PackageExtra.value == 'harvest')
+            .all()
+        )
+
         rows = (
             model.Session.query(model.Package.id,
                                 model.Package.name,
-                                model.Package.url)
+                                model.Package.url,
+                                model.Package.type)
             .filter(model.Package.state == 'active')
             .filter(model.Package.url != None)
             .filter(model.Package.url != '')
@@ -1879,10 +1893,18 @@ class OntarioGeohubHarvester(HarvesterBase):
         )
 
         package_mappings = {}
-        for package_id, package_name, package_url in rows:
+        for package_id, package_name, package_url, package_type in rows:
+            if package_type == 'harvest':
+                continue
+            if package_id in harvest_dataset_type_package_ids:
+                continue
+
             # Normalize to text + lowercase so host checks are robust across
             # mixed input types and URL case variations.
             normalized_package_source_url = six.text_type(package_url).lower()
+            if '/api/feed/' in normalized_package_source_url:
+                continue
+
             if ('geohub.lio.gov.on.ca' not in normalized_package_source_url and
                     'arcgis.com/home/item.html' not in normalized_package_source_url):
                 continue
