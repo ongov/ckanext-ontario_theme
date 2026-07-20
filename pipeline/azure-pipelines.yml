@@ -4,7 +4,7 @@ resources:
       connection: ckan_ontario_theme_Webhook_SC
       filters:
         - path: ref
-          value: "refs/heads/develop"
+          value: "refs/heads/$(Build.SourceBranchName)"
   repositories:  
   - repository: ods-edc-qa-automation
     type: git
@@ -31,7 +31,7 @@ parameters:
   - name: Run_E2E_Tests
     displayName: Run E2E Tests?
     type: boolean
-    default: true
+    default: false
 
 trigger:
   batch: true
@@ -46,7 +46,7 @@ pr: none
 
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'ubuntu-22.04'
 
 stages: 
 - stage: Build
@@ -59,7 +59,7 @@ stages:
      - checkout: self
        persistCredentials: true
      - script: |
-         pip install twine wheel flake8 pytest pytest-azurepipelines bump
+         pip install twine==6.1.0 wheel flake8 pytest pytest-azurepipelines bump
        displayName: 'Installing Pipeline Tools Required to Build Project' 
      - script: |
          set -e
@@ -163,6 +163,16 @@ stages:
                pip install -U ckanext-ontario-theme==$(app_version) -t $(application_folder) --extra-index-url=https://pkgs.dev.azure.com/devops-EDC-0000/2fe9107c-920f-4653-bd7f-17ecfd94eaec/_packaging/odc_python_feed/pypi/simple/
                echo "#### NEW PACKAGE INFORMATION. ####"
                pip list --path $(application_folder)
+             displayName: 'Install CKAN Extension'
+           - script: |
+               set -xe
+               echo "Replacing GTM tag inside $(application_folder)/ckanext/ontario_theme/templates/internal/gtm.html ..."
+               sudo sed -i "s/GTM-[A-Za-z0-9_-]*/$(ENVIRONMENT_GTM_TAG)/" \
+                 $(application_folder)/ckanext/ontario_theme/templates/internal/gtm.html
+               echo "Updated GTM tag to $(ENVIRONMENT_GTM_TAG)"
+             displayName: "Apply environment-specific GTM tag"
+           - script: |
+               set -xe
                echo "#### STOPPING CKAN & FLUSHING WEBASSETS CACHE! ####"
                sudo systemctl stop supervisor
                ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
@@ -216,15 +226,30 @@ stages:
                mkdir npm_cache
                export npm_config_cache=./npm_cache/
                npm install
+               echo "#################  RUNNING OFF VPN TESTING  #################"
                BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon start 
-               npm run test_off_vpn --loglevel verbose
+               npm run test_off_vpn
+               BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon stop
+             env:
+               PERCY_TOKEN: $(PERCY-TOKEN)
+               BROWSERSTACK_USER: $(BROWSERSTACK-USER)
+               BROWSERSTACK_ACCESS_KEY: $(BROWSERSTACK-ACCESS-KEY)
+               BROWSERSTACK_KEY: $(BROWSERSTACK-KEY)
+             displayName: 'RUNNING OFF VPN TESTING'
+             continueOnError: true
+           - script: |
+               set -xe
+               echo "#################  RUNNING ON VPN TESTING  #################"
+               BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon start 
+               npm run test_on_vpn
                BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon stop 
              env:
                PERCY_TOKEN: $(PERCY-TOKEN)
                BROWSERSTACK_USER: $(BROWSERSTACK-USER)
                BROWSERSTACK_ACCESS_KEY: $(BROWSERSTACK-ACCESS-KEY)
                BROWSERSTACK_KEY: $(BROWSERSTACK-KEY)
-             displayName: 'Running Percy Tests'
+               ODC_TEST_USER_PASSWORD: $(ODC_TEST_USER_PASSWORD)
+             displayName: 'RUNNING ON VPN TESTING'
              
 - stage: UAT_Deploy
   dependsOn: 
@@ -261,6 +286,16 @@ stages:
                pip install -U ckanext-ontario-theme==$(app_version) -t $(application_folder) --extra-index-url=https://pkgs.dev.azure.com/devops-EDC-0000/2fe9107c-920f-4653-bd7f-17ecfd94eaec/_packaging/odc_python_feed/pypi/simple/
                echo "#### NEW PACKAGE INFORMATION. ####"
                pip list --path $(application_folder)
+             displayName: 'Install CKAN Extension'
+           - script: |
+               set -xe
+               echo "Replacing GTM tag inside $(application_folder)/ckanext/ontario_theme/templates/internal/gtm.html ..."
+               sudo sed -i "s/GTM-[A-Za-z0-9_-]*/$(ENVIRONMENT_GTM_TAG)/" \
+                 $(application_folder)/ckanext/ontario_theme/templates/internal/gtm.html
+               echo "Updated GTM tag to $(ENVIRONMENT_GTM_TAG)"
+             displayName: "Apply environment-specific GTM tag"
+           - script: |
+               set -xe
                echo "#### STOPPING CKAN & FLUSHING WEBASSETS CACHE! ####"
                sudo systemctl stop supervisor
                ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223
@@ -319,6 +354,16 @@ stages:
                pip install -U ckanext-ontario-theme==$(app_version) -t $(application_folder) --extra-index-url=https://pkgs.dev.azure.com/devops-EDC-0000/2fe9107c-920f-4653-bd7f-17ecfd94eaec/_packaging/odc_python_feed/pypi/simple/
                echo "#### NEW PACKAGE INFORMATION. ####"
                pip list --path $(application_folder)
+             displayName: 'Install CKAN Extension'
+           - script: |
+               set -xe
+               echo "Replacing GTM tag inside $(application_folder)/ckanext/ontario_theme/templates/internal/gtm.html ..."
+               sudo sed -i "s/GTM-[A-Za-z0-9_-]*/$(ENVIRONMENT_GTM_TAG)/" \
+                 $(application_folder)/ckanext/ontario_theme/templates/internal/gtm.html
+               echo "Updated GTM tag to $(ENVIRONMENT_GTM_TAG)"
+             displayName: "Apply environment-specific GTM tag"
+           - script: |
+               set -xe
                echo "#### STOPPING CKAN & FLUSHING WEBASSETS CACHE! ####"
                sudo systemctl stop supervisor
                ## workaround for bug with systemctl status command returning error code 3 - https://github.com/Supervisor/supervisor/issues/1223

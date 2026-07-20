@@ -4,7 +4,7 @@
 # export SUDOPASS="mypassword"
 
 # Vars
-SOLRVER=8.11.2
+SOLRVER=8.11.4
 STATUS_ERROR_MSG='Solr failed to install. Check status_out.txt.'
 
 # Install Dependencies

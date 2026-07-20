@@ -1,0 +1,126 @@
+{% extends "package/resource_edit_base.html" %}
+
+{% block pre_primary %}
+  {% set back_url = h.url_for('datastore.dictionary', id=pkg.name, resource_id=resource_id) %}
+  {% snippet "package/snippets/step_indicator.html", step=4, back_url=back_url %}
+{% endblock pre_primary %}
+
+{% block page_header %}
+{% endblock page_header %}
+
+{% block form_title %}
+  {{ _('Review and publish') }}
+{% endblock form_title %}
+
+{% block primary_content_inner %}
+  {%- set exclude_fields = ["url", "format", "schema", "validation_options", "validation_status", "validation_timestamp"] -%}
+  <div class="resource-metadata-edit-row">
+    <h2 class="ontario-h2">Resource file and metadata</h2>
+    {% link_for _('Edit resource file and metadata'), named_route='resource.edit', id=pkg.name, resource_id=resource_id %}
+  </div>
+  <div class="ontario-small-12">
+    <h3 class="ontario-h3">Resource file</h3>
+    <dl class="resource-metadata-dl">
+      <dt class="resource-metadata-heading ontario-h5">File:</dt>
+      <dd class="break-word">
+        {{ resource.url.split('download/')[-1] }}
+      </dd>
+      <dt class="resource-metadata-heading ontario-h5">File format:</dt>
+      <dd>
+        {{ resource.format }}
+      </dd>
+    </dl>
+  </div>
+  <h3 class="ontario-h3">Metadata</h3>
+  <div>
+    <dl class="resource-metadata-dl">
+      {% set schema = h.scheming_get_dataset_schema(dataset_type) %}
+      {%- for field in schema.resource_fields -%}
+        {%- if field.form_snippet is not none and field.field_name not in exclude_fields -%}
+          {% set pkg_field = field.field_name %}
+          {% if resource.get(pkg_field) is mapping %}
+            <div class="ontario-columns ontario-small-12">
+              {% for key, value in resource.get(pkg_field).items() %}
+                <div class="ontario-small-12 ontario-medium-6">
+                  <dt class="resource-metadata-heading ontario-h5">{{ key.upper() }} {{ h.scheming_language_text(field.label) }}:</dt>
+                  <dd>
+                    {{ value }}
+                  </dd>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <dt class="resource-metadata-heading ontario-h5">{{ h.scheming_language_text(field.label) }}:</dt>
+            <dd>
+              {%- if field.preset == "date" -%}
+                {{- h.render_datetime(resource[field.field_name]) -}}
+              {%- else -%}
+                {%- snippet "scheming/snippets/display_field.html", field=field, data=resource, entity_type='dataset', object_type=dataset_type -%}
+              {%- endif -%}
+            </dd>
+          {% endif %}
+        {%- endif -%}
+      {%- endfor -%}
+    </dl>
+  </div>
+  <div class="resource-metadata-edit-row">
+    {% if res.datastore_active and res.url_type %}
+      <h2 class="ontario-h2">Data dictionary</h2>
+      {% link_for _('Edit data dictionary'), named_route='datastore.dictionary', id=pkg.name, resource_id=resource_id %}
+    </div>
+    <div class="ontario-small-12">
+      {% set fields = h.datastore_dictionary(resource_id) %}
+      {#- Example of returned dictionary with type override:
+            [{'id': 'rule',
+              'type': 'text',
+              'info': { 'notes': '',
+                        'type_override': '',
+                        'frictionless_dict': [{'type': 'string', 'name': 'rule'}]}},
+            {'id': 'integercol',
+              'type': 'int4',
+              'info': { 'notes': '',
+                        'type_override': 'integer',
+                        'frictionless_dict': [{'type': 'integer', 'name': 'integercol'}]}}]
+
+            "type" is not human-readable for non-text types (e.g. int4), so use
+            field.info["type_override"] (e.g. integer) for these cases. Note we want to
+            stick with the PostgreSQL type names (e.g. "text" not "string") so don't use
+            field.info["frictionless_dict"]["type"].
+
+          A returned dictionary without any type overrides looks like:
+            [{'id': 'rule', 'type': 'text'},
+            {'id': 'integercol', 'type': 'text'}]
+      -#}
+      {% for field in fields %}
+        <div>
+          <h3 class="ontario-h3">Column {{ loop.index }}</h3>
+          {% if field.info %}
+            {% set field_type = field.type if field.info["type_override"] == '' else field.info["type_override"] %}
+            {% set field_notes = field.info["notes"] %}
+          {% else %}
+            {% set field_type = field.type %}
+            {% set field_notes = "" %}
+          {% endif %}
+          <dl class="resource-metadata-dl">
+            <dt class="resource-metadata-heading ontario-h5">Column name:</dt>
+            <dd>
+              {{ field.id }}
+            </dd>
+            <dt class="resource-metadata-heading ontario-h5">Data type:</dt>
+            <dd>
+              {{ field_type.capitalize() }}
+            </dd>
+            <dt class="resource-metadata-heading ontario-h5">Description:</dt>
+            <dd>
+              {{ field_notes }}
+            </dd>
+          </dl>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+  {% link_for _('Publish'), named_route='dataset.read', id=pkg.name, class_="ontario-button ontario-button--primary" %}
+{% endblock primary_content_inner %}
+
+{% block secondary %}
+{% endblock secondary %}

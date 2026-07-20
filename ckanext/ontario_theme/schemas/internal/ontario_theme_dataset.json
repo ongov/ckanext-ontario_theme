@@ -83,13 +83,6 @@
             "en": "Dataset",
             "fr": "Jeu de données"
           }
-        },
-        {
-          "value": "algorithm",
-          "label": {
-            "en": "Algorithm",
-            "fr": "Algorithme"
-          }
         }
       ]
     },

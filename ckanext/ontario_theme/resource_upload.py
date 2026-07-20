@@ -1,4 +1,6 @@
 # encoding: utf-8
+from ckan import plugins as p
+import ckan.lib.helpers as h
 import ckan.logic as logic
 from ckan.plugins.toolkit import Invalid
 from werkzeug.utils import secure_filename
@@ -169,9 +171,6 @@ class ResourceUpload(DefaultResourceUpload):
                       
         elif self.clear:
             resource['url_type'] = ''
-
-        if url and not (resource.get('url_type') == 'upload') and not resource.get('format'):
-            resource['format'] = 'WEB'
 
         if resource.get('format'):
             resource['format'] = resource.get('format').upper()

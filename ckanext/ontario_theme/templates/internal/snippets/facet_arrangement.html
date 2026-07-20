@@ -3,28 +3,24 @@
 {% elif h.lang() == 'fr' %}
   {% set keywords = "keywords_en" %}
 {% endif %}
-{% set excluded_facets = [keywords] %}
-
+{% set excluded_facets = [keywords, "access_level"] %}
+{% set fields = h.scheming_get_dataset_schema('dataset')['dataset_fields'] %}
+ 
 {# Flag facets to be ignored from standard loop that calls facets. #}
 {% set single_option_facets = ["organization_jurisdiction", "organization_category"] %}
-
-{% if single_option_facets %}
-  {% for facet in single_option_facets %}
-    {% set this_name = facet %}
-    {# If an exempted facet has only one option and it is not currently active, add it to the excluded facet list #}
-    {% if not (h.get_facet_items_dict(this_name)|length > 1) and not request.args.get(this_name) %}
-      {% set excluded_facets = excluded_facets.append(this_name) %}
-    {% endif %}
-  {% endfor %}
-{% endif %}
-{% for facet in c.facet_titles %}
-  {% if facet == 'organization_jurisdiction' %}
-    {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'jurisdiction')) %}
+{% do excluded_facets.append(single_option_facet) if single_option_facet else none %}
+{% for facet in single_option_facets %}
+  {% set this_name = facet %}
+  {# If an exempted facet has only one option and it is not currently active, add it to the excluded facet list #}
+  {% if not (h.get_facet_items_dict(this_name)|length > 1) and not request.args.get(this_name) %}
+    {% set excluded_facets = excluded_facets.append(this_name) %}
   {% endif %}
-  {% if facet == 'organization_category' %}
-    {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], 'category')) %}
+{% endfor %}
+{% for facet in c.facet_titles if facet not in excluded_facets %}
+  {% if facet == 'organization_jurisdiction' or facet == 'organization_category' %}
+    {% set choices = h.scheming_field_choices(h.scheming_field_by_name(h.scheming_get_organization_schema('organization')['fields'], facet[13:])) %}
+  {% else %}
+    {% set choices = h.scheming_field_by_name(fields, facet).choices or None %}
   {% endif %}
-  {% if facet not in excluded_facets %}
     {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet, scheming_choices=choices, extras=extras) }}
-  {% endif %}
 {% endfor %}

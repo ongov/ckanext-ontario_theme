@@ -77,21 +77,6 @@
   color: #D81A21;
 }
 
-.new-alert.alert-algorithms::before {
-  content: "\f121";
-  margin-left: -7px;
-  color: #1080A6;
-}
-
-.new-alert.alert-huge {
-  padding-left: 160px;
-}
-
-.new-alert.alert-huge::before {
-  font-size: 125px;
-  line-height: 125px;
-}
-
 .new-alert.alert-large {
   min-height: 80px;
   padding-left: 90px;

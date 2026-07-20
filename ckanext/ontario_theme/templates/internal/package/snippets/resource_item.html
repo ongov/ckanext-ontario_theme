@@ -39,6 +39,7 @@
         {% if res.size %}
           <span class="filesize">[{{ h.ontario_theme_abbr_localised_filesize(res.size)|safe }}]</span>
         {% endif %}
+        {{ h.get_validation_badge(res, in_listing=True)|safe }}
       </div>
     {% endblock resource_item_title %}
 

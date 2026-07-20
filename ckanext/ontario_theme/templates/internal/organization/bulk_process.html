@@ -1,0 +1,24 @@
+{% ckan_extends %}
+
+{% block search_form %}
+  {% if request['params'] and 'sort' in request['params'] %}
+    {% set sort_by_selected = request.params['sort'] %}
+  {% else %}
+    {% set sort_by_selected = "score desc, metadata_modified desc" %}
+  {% endif %}
+  {% set sorting = [
+      (_('Name Ascending'), 'titles asc'),
+      (_('Name Descending'), 'titles desc'),
+      (_('Last Modified'), 'metadata_modified desc'),
+      (_('Relevance'), 'score desc, metadata_modified desc'), ] %}
+  {% set extras = {'id': group_dict.id} %}
+  {% snippet 'snippets/search_form.html', form_id='organization-datasets-search-form',
+  type='dataset',
+  query=q,
+  count=page.item_count,
+  sorting=sorting,
+  sorting_selected=sort_by_selected,
+  no_title=true,
+  search_class=' ',
+  extras=extras %}
+{% endblock %}

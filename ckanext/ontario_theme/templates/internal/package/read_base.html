@@ -13,16 +13,7 @@
 {% endblock meta_description -%}
 
 {% block secondary %}
-  <aside class="dataset-aside secondary ontario-small-12 ontario-large-4 right-col dataset-font">
-    {% block package_organization %}
-      {% if pkg.organization %}
-        {% set org = h.get_organization(pkg.organization.id) %}
-        {% snippet "snippets/organization.html", organization=org, has_context_title=true %}
-      {% endif %}
-    {% endblock package_organization %}
-
-    {% block package_license %}
-      {% snippet "snippets/license.html", pkg_dict=pkg %}
-    {% endblock package_license %}
+  <aside class="ontario-show-for-large dataset-aside secondary ontario-large-4 right-col dataset-font">
+    {% snippet "package/snippets/package_aside.html", pkg=pkg %}
   </aside>
 {% endblock secondary %}
