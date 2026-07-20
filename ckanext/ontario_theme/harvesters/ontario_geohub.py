@@ -1769,7 +1769,7 @@ class OntarioGeohubHarvester(HarvesterBase):
                 previous_modified = self._extract_dct_modified(existing_content)
                 current_modified = self._extract_dct_modified(as_string)
                 log.debug(
-                    '[HARVEST] MARK_CHANGE guid=%s previous_dct_modified=%s new_dct_modified=%s',
+                    '[HARVEST] SINGLE_DATASET_INCOMING_CHANGES_DETECTED_IN_HARVEST_RECORD guid=%s previous_dct_modified=%s new_dct_modified=%s',
                     guid,
                     previous_modified,
                     current_modified)
@@ -2094,7 +2094,7 @@ class OntarioGeohubHarvester(HarvesterBase):
                 previous_modified = self._extract_dct_modified(existing_content)
                 current_modified = self._extract_dct_modified(as_string)
                 log.debug(
-                    '[HARVEST] %s_MARK_CHANGE guid=%s previous_dct_modified=%s new_dct_modified=%s',
+                    '[HARVEST] %s_INCOMING_CHANGES_DETECTED_IN_HARVEST_RECORD guid=%s previous_dct_modified=%s new_dct_modified=%s',
                     gather_scope_prefix,
                     guid,
                     previous_modified,
