@@ -307,7 +307,7 @@ def _geohub_dataset_urls_match(url_a, url_b):
     result = norm_a == norm_b
     if not result:
         log.debug(
-            '[HARVEST] URL_MISMATCH raw_a=%s raw_b=%s norm_a=%s norm_b=%s match=%s',
+            '[HARVEST] DCAT_DATASETS_DUPLICATE_URLS raw_a=%s raw_b=%s norm_a=%s norm_b=%s match=%s',
             url_a, url_b, norm_a, norm_b, result)
     return result
 
@@ -708,18 +708,18 @@ class OntarioGeohubHarvester(HarvesterBase):
             return None
 
         log.debug(
-            '[HARVEST] FIND_CATALOGUE_DATASET title=%s candidate_name=%s identifier=%s',
+            '[HARVEST] SEARCHING_FOR_MATCHING_CATALOGUE_DATASET title=%s candidate_name=%s identifier=%s',
             title, candidate_name, identifier)
 
         existing_dataset = self._get_existing_dataset_by_name(candidate_name)
         if not existing_dataset:
             log.debug(
-                '[HARVEST] FIND_CATALOGUE_DATASET no_name_match candidate_name=%s',
+                '[HARVEST] FOUND_NO_MATCHING_CATALOGUE_DATASET candidate_name=%s',
                 candidate_name)
             return None
 
         log.debug(
-            '[HARVEST] FIND_CATALOGUE_DATASET name_match package_id=%s existing_url=%s incoming_url=%s',
+            '[HARVEST] FOUND_MATCHING_CATALOGUE_DATASET_NAME package_id=%s existing_url=%s incoming_url=%s',
             existing_dataset.get('id'),
             existing_dataset.get('url'),
             identifier)
@@ -738,7 +738,7 @@ class OntarioGeohubHarvester(HarvesterBase):
             return None
 
         log.debug(
-            '[HARVEST] FIND_CATALOGUE_DATASET found package_id=%s',
+            '[HARVEST] FOUND_MATCHING_CATALOGUE_DATASET_NAME_AND_URL package_id=%s',
             existing_dataset.get('id'))
         return existing_dataset
 
@@ -777,6 +777,11 @@ class OntarioGeohubHarvester(HarvesterBase):
     def _save_name_url_conflict_error(self, harvest_object, package_dict,
                                       existing_dataset, stage, action):
         '''Log and persist a name/url conflict for manual resolution.
+        
+        DEFENSIVE CHECK: In normal operation, conflicts are caught in gather_stage via
+        _find_existing_catalogue_dataset_for_harvest(). This method provides a backup
+        check during import_stage (pre-create validation and exception recovery) in case
+        the database state changed between gather and import.
         '''
         conflict_message = (
             'Conflict detected for guid={0}: slug/name "{1}" '
@@ -803,6 +808,20 @@ class OntarioGeohubHarvester(HarvesterBase):
             action)
         self._save_object_error(conflict_message, harvest_object, 'Import')
 
+    def _validate_name_url_no_conflict(self, package_dict, existing_dataset):
+        '''Check if package name matches existing dataset AND URLs match.
+        
+        Return True if URLs match (safe to proceed).
+        Return False if URLs don't match (conflict detected).
+        Return None if no existing dataset found.
+        '''
+        if not existing_dataset:
+            return None
+        
+        url_matches = _geohub_dataset_urls_match(
+            existing_dataset.get('url'), package_dict.get('url'))
+        return url_matches
+
 
     def _make_package_dict(self, geohub_dict, harvest_object):
         '''Build a CKAN package payload from a GeoHub dataset record.
@@ -828,7 +847,7 @@ class OntarioGeohubHarvester(HarvesterBase):
         if missing_required_fields:
             dataset_id = geohub_dict.get('ontario_geohub_id', 'unknown')
             log.warning(
-                '[HARVEST] SKIP_BECAUSE_MISSING_REQUIRED_FIELDS dataset_id=%s missing_fields=%s',
+                '[HARVEST] SKIP_IMPORT_BECAUSE_MISSING_REQUIRED_FIELDS dataset_id=%s missing_fields=%s',
                 dataset_id,
                 ','.join(missing_required_fields)
             )
@@ -1001,12 +1020,10 @@ class OntarioGeohubHarvester(HarvesterBase):
         If _is_hubtype_table returns true, skip the record.
         hubtype: "table" is a "sub-set" of existing datasets.
         The hubtype value is only available through the GeoHub V3 api.
+        
+        Note: ontario_geohub_id is validated as a required field in gather stage, so this method assumes it is always present.
         '''
         identifier = dataset_obj.get('ontario_geohub_id')
-        if not identifier:
-            log.warning(
-                '[HARVEST] HUBTYPE_CHECK_SKIPPED reason=missing_ontario_geohub_id')
-            return False
         geohub_endpoint = "https://geohub.lio.gov.on.ca/api/v3/datasets/{}".format(identifier)
 
         try:
@@ -1046,64 +1063,6 @@ class OntarioGeohubHarvester(HarvesterBase):
             'description': 'Harvester for Ontario Geohub'
         }
 
-    def _get_guids_and_datasets(self, content, selected_publisher=None,
-                                log_rejections=False):
-        '''Yield accepted dataset guid/content pairs after filter evaluation.
-        '''
-        selected_org_name = None
-        if selected_publisher:
-            selected_org = _find_catalogue_organization_from_publisher(
-                selected_publisher)
-            selected_org_name = (
-                selected_org['name'] if selected_org else selected_publisher)
-
-        blacklist = _fetch_blacklist_ids()
-
-        doc = json.loads(content)
-
-        if isinstance(doc, list):
-            # Assume a list of datasets
-            datasets = doc
-        elif isinstance(doc, dict):
-            datasets = doc.get('dcat:dataset', [])
-        else:
-            raise ValueError('Wrong JSON object')
-
-        rejected_count = 0
-        rejection_counts = {}
-
-        for dataset in datasets:
-            accepted, guid, as_string, failed_filters, failure_messages = \
-                self._evaluate_dataset_filters(
-                    dataset,
-                    selected_publisher=selected_publisher,
-                    selected_org_name=selected_org_name,
-                    blacklist=blacklist)
-
-            if accepted:
-                yield guid, as_string
-            elif log_rejections:
-                rejected_count += 1
-                for code in failed_filters:
-                    rejection_counts[code] = rejection_counts.get(code, 0) + 1
-
-                log.info(
-                    '[HARVEST] FULL_FEED_FILTER_REJECTED guid=%s title=%s failed_filters=%s reasons=%s',
-                    dataset.get('ontario_geohub_id', 'unknown'),
-                    dataset.get('dct:title', 'Unknown'),
-                    ','.join(failed_filters),
-                    ' ; '.join(failure_messages))
-
-        if log_rejections and rejected_count:
-            ordered_counts = ','.join(
-                ['{}:{}'.format(code, rejection_counts[code])
-                 for code in sorted(rejection_counts.keys())]
-            )
-            log.info(
-                '[HARVEST] FULL_FEED_FILTER_SUMMARY rejected_total=%s counts=%s',
-                rejected_count,
-                ordered_counts)
-
     def _evaluate_dataset_filters(self, dataset, selected_publisher=None,
                                   selected_org_name=None, blacklist=None):
         '''Evaluate gather filters and return acceptance, ids, and failure reasons.
@@ -1126,9 +1085,13 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         as_string = json.dumps(dataset)
         guid = dataset.get('ontario_geohub_id')
+
+        # Required field check
         if not guid:
-            # This is bad, any ideas welcomed
-            guid = sha1(as_string).hexdigest()
+            add_failure(
+                'missing_ontario_geohub_id',
+                'dataset is missing required ontario_geohub_id'
+            )
 
         # Organization gate
         if not dataset_org_name:
@@ -1796,8 +1759,10 @@ class OntarioGeohubHarvester(HarvesterBase):
             if guid in guids_in_db:
                 existing_content = guid_to_current_content.get(guid)
                 if self._is_unchanged_dataset(existing_content, as_string):
+                    # The JSON payload previously saved for this single-dataset harvest
+                    # record is unchanged compared to the incoming JSON record.
                     log.debug(
-                        '[HARVEST] SKIP_UNCHANGED guid=%s',
+                        '[HARVEST] SINGLE_DATASET_SKIP_IMPORT_UNCHANGED_RECORD guid=%s',
                         guid)
                     continue
 
@@ -2013,14 +1978,14 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         Return a list of created HarvestObject ids, or None on gather errors.
         '''
-        log.debug('In DCAT JSON Harvester gather_stage')
-        log.debug('[HARVEST] Selected publisher config: %s',
-              harvest_job.source.config)
+          log.debug('In DCAT JSON Harvester gather_stage')
 
-        self._set_config(harvest_job.source.config)
-        selected_publisher = (self.config or {}).get('ontario_geohub_publisher', '')
-        log.debug('[HARVEST] Selected publisher from config: %s',
-              selected_publisher)
+          self._set_config(harvest_job.source.config)
+          selected_publisher = (self.config or {}).get('ontario_geohub_publisher', '')
+          log.debug(
+            '[HARVEST] Gather config: parsed raw_config=%s selected_publisher=%s',
+            harvest_job.source.config,
+            selected_publisher)
 
         # Check if the source URL points to a single dataset rather than
         # the full DCAT feed.  This enables fast testing of individual
@@ -2118,8 +2083,10 @@ class OntarioGeohubHarvester(HarvesterBase):
             if guid in guid_to_package_id:
                 existing_content = guid_to_current_content.get(guid)
                 if self._is_unchanged_dataset(existing_content, as_string):
+                    # Incoming dataset is unchanged compared to the stored
+                    # current harvested record content for this guid.
                     log.debug(
-                        '[HARVEST] SKIP_UNCHANGED guid=%s',
+                        '[HARVEST] FULL_FEED_SKIP_IMPORT_UNCHANGED_RECORD guid=%s',
                         guid)
                     continue
 
@@ -2149,8 +2116,10 @@ class OntarioGeohubHarvester(HarvesterBase):
                     if self._is_existing_dataset_unchanged(
                             existing_catalogue_dataset,
                             as_string):
+                        # This skip is for a pre-existing catalogue dataset
+                        # adopted during full harvest, not a current harvested object.
                         log.debug(
-                            '[HARVEST] SKIP_UNCHANGED_EXISTING guid=%s package_id=%s',
+                            '[HARVEST] FULL_FEED_SKIP_IMPORT_UNCHANGED_EXISTING_CATALOGUE_DATASET guid=%s package_id=%s',
                             guid,
                             existing_catalogue_dataset.get('id'))
                         continue
@@ -2317,11 +2286,32 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         if not owner_org or owner_org.lower() in ('false', 'none', 'null'):
             package_dict.pop('owner_org', None)
-            skip_msg = (
-                'Skipping dataset guid={0}: no matching CKAN owner_org '
-                'for source organization metadata'
-            ).format(harvest_object.guid)
-            log.warning('[HARVEST] %s', skip_msg)
+            # Defensive re-check: gather_stage normally rejects records with
+            # missing or unmatched publishers via _evaluate_dataset_filters(),
+            # but import_stage can still see older or manual harvest objects
+            # or state that changed after gather.
+            publisher_name = ''
+            if isinstance(geohub_dict, dict):
+                publisher_name = normalize_geohub_publisher_name(
+                    geohub_dict.get('ontario_geohub_publisher', ''))
+
+            if not publisher_name:
+                skip_msg = (
+                    'Skipping dataset guid={0}: missing publisher metadata '
+                    'for owner_org resolution'
+                ).format(harvest_object.guid)
+                log.warning(
+                    '[HARVEST] SKIP_IMPORT_MISSING_PUBLISHER guid=%s',
+                    harvest_object.guid)
+            else:
+                skip_msg = (
+                    'Skipping dataset guid={0}: publisher "{1}" does not '
+                    'match any CKAN organization for owner_org resolution'
+                ).format(harvest_object.guid, publisher_name)
+                log.warning(
+                    '[HARVEST] SKIP_IMPORT_NO_CKAN_ORG_MATCH guid=%s publisher=%s',
+                    harvest_object.guid,
+                    publisher_name)
             self._save_object_error(skip_msg, harvest_object, 'Import')
             return False
 
@@ -2330,10 +2320,16 @@ class OntarioGeohubHarvester(HarvesterBase):
         if status == 'new' and package_dict.get('name'):
             existing_dataset = self._get_existing_dataset_by_name(
                 package_dict['name'])
+            # SCENARIO 1: Pre-create validation (check for matching dataset name
+            # before package_create is called)
             if existing_dataset:
-                url_matches = _geohub_dataset_urls_match(
-                    existing_dataset.get('url'), package_dict.get('url'))
-                if not url_matches:
+                # Check if URLs match
+                url_match_result = self._validate_name_url_no_conflict(
+                    package_dict, existing_dataset)
+                if url_match_result is False:
+                    # DEFENSIVE CHECK: Log conflict detected in pre-create validation.
+                    # Conflicts should have been caught in gather_stage, but this
+                    # check runs again to be safe before calling package_create.
                     self._save_name_url_conflict_error(
                         harvest_object,
                         package_dict,
@@ -2479,10 +2475,17 @@ class OntarioGeohubHarvester(HarvesterBase):
             if status == 'new' and package_dict.get('name'):
                 existing_dataset = self._get_existing_dataset_by_name(
                     package_dict['name'])
+                # SCENARIO 2: Exception recovery (package_create failed; defensive
+                # check in case database state changed between pre_create validation
+                # and the actual package_create call)
                 if existing_dataset:
-                    url_matches = _geohub_dataset_urls_match(
-                        existing_dataset.get('url'), package_dict.get('url'))
-                    if not url_matches:
+                    # Check if URLs match
+                    url_match_result = self._validate_name_url_no_conflict(
+                        package_dict, existing_dataset)
+                    if url_match_result is False:
+                        # DEFENSIVE CHECK: Log conflict detected during exception recovery.
+                        # If package_create failed and database state changed, re-check
+                        # for name/URL conflicts before attempting package_update.
                         self._save_name_url_conflict_error(
                             harvest_object,
                             package_dict,
