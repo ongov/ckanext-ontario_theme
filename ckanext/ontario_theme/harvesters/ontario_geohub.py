@@ -1457,7 +1457,7 @@ class OntarioGeohubHarvester(HarvesterBase):
             ))
 
         log.info(
-            'GeoHub v3 source candidates for selected publisher %s: %s',
+            '[HARVEST] PUBLISHER_SCOPED_SOURCE_CANDIDATES selected_publisher=%s source_names=%s',
             selected_publisher, source_names)
 
         for source_name in source_names:
@@ -1485,7 +1485,7 @@ class OntarioGeohubHarvester(HarvesterBase):
             for dataset in datasets_by_id.values()
         ]
         log.info(
-            'Resolved %s GeoHub datasets for selected publisher %s',
+            '[HARVEST] PUBLISHER_SCOPED_NUM_DATASETS count=%s selected_publisher=%s',
             len(dcat_datasets), selected_publisher)
         return json.dumps({'dcat:dataset': dcat_datasets})
 
@@ -1920,9 +1920,8 @@ class OntarioGeohubHarvester(HarvesterBase):
                     if scoped_datasets:
                         return scoped_datasets
                     log.info(
-                        'No GeoHub v3 datasets resolved for selected '
-                        'publisher %s; falling back to full DCAT feed '
-                        'filtering', selected_publisher)
+                        '[HARVEST] PUBLISHER_SCOPED_FALLBACK_TO_FULL_FEED_FILTERING selected_publisher=%s',
+                        selected_publisher)
 
             full_content, _ = self._get_content_and_type(url, harvest_job)
             if not full_content:
@@ -1978,20 +1977,20 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         Return a list of created HarvestObject ids, or None on gather errors.
         '''
-          log.debug('In DCAT JSON Harvester gather_stage')
-
-          self._set_config(harvest_job.source.config)
-          selected_publisher = (self.config or {}).get('ontario_geohub_publisher', '')
-          log.debug(
-            '[HARVEST] Gather config: parsed raw_config=%s selected_publisher=%s',
-            harvest_job.source.config,
-            selected_publisher)
+        log.debug('In DCAT JSON Harvester gather_stage')
+        self._set_config(harvest_job.source.config)
+        selected_publisher = (self.config or {}).get('ontario_geohub_publisher', '')
+        gather_scope_prefix = 'PUBLISHER_SCOPED' if selected_publisher else 'FULL_FEED'
+        log.debug(
+                '[HARVEST] %s_GATHER_CONFIG parsed raw_config=%s selected_publisher=%s',
+                gather_scope_prefix,
+                harvest_job.source.config,
+                selected_publisher)
 
         # Check if the source URL points to a single dataset rather than
         # the full DCAT feed.  This enables fast testing of individual
         # datasets without downloading all ~490 entries.
         url = harvest_job.source.url
-
         if self._is_single_dataset_url(url):
             return self._gather_single_dataset(
                 harvest_job,
@@ -2063,7 +2062,8 @@ class OntarioGeohubHarvester(HarvesterBase):
                     rejection_counts[code] = rejection_counts.get(code, 0) + 1
 
                 log.info(
-                    '[HARVEST] FULL_FEED_FILTER_REJECTED guid=%s title=%s failed_filters=%s reasons=%s',
+                    '[HARVEST] %s_FILTER_REJECTED guid=%s title=%s failed_filters=%s reasons=%s',
+                    gather_scope_prefix,
                     dataset.get('ontario_geohub_id', 'unknown'),
                     dataset.get('dct:title', 'Unknown'),
                     ','.join(failed_filters),
@@ -2086,14 +2086,16 @@ class OntarioGeohubHarvester(HarvesterBase):
                     # Incoming dataset is unchanged compared to the stored
                     # current harvested record content for this guid.
                     log.debug(
-                        '[HARVEST] FULL_FEED_SKIP_IMPORT_UNCHANGED_RECORD guid=%s',
+                        '[HARVEST] %s_SKIP_IMPORT_UNCHANGED_RECORD guid=%s',
+                        gather_scope_prefix,
                         guid)
                     continue
 
                 previous_modified = self._extract_dct_modified(existing_content)
                 current_modified = self._extract_dct_modified(as_string)
                 log.debug(
-                    '[HARVEST] MARK_CHANGE guid=%s previous_dct_modified=%s new_dct_modified=%s',
+                    '[HARVEST] %s_MARK_CHANGE guid=%s previous_dct_modified=%s new_dct_modified=%s',
+                    gather_scope_prefix,
                     guid,
                     previous_modified,
                     current_modified)
@@ -2119,13 +2121,15 @@ class OntarioGeohubHarvester(HarvesterBase):
                         # This skip is for a pre-existing catalogue dataset
                         # adopted during full harvest, not a current harvested object.
                         log.debug(
-                            '[HARVEST] FULL_FEED_SKIP_IMPORT_UNCHANGED_EXISTING_CATALOGUE_DATASET guid=%s package_id=%s',
+                            '[HARVEST] %s_SKIP_IMPORT_UNCHANGED_EXISTING_CATALOGUE_DATASET guid=%s package_id=%s',
+                            gather_scope_prefix,
                             guid,
                             existing_catalogue_dataset.get('id'))
                         continue
 
                     log.debug(
-                        '[HARVEST] UPDATE_EXISTING_DATASET guid=%s package_id=%s',
+                        '[HARVEST] %s_UPDATE_EXISTING_DATASET guid=%s package_id=%s',
+                        gather_scope_prefix,
                         guid,
                         existing_catalogue_dataset.get('id'))
                     obj = HarvestObject(
@@ -2177,7 +2181,8 @@ class OntarioGeohubHarvester(HarvesterBase):
                  for code in sorted(rejection_counts.keys())]
             )
             log.info(
-                '[HARVEST] FULL_FEED_FILTER_SUMMARY rejected_total=%s counts=%s harvested_datasets_missing_from_feed_counts=%s harvested_datasets_no_longer_tagged_with_odcsync_counts=%s manual_datasets_missing_from_feed_counts=%s',
+                '[HARVEST] %s_FILTER_SUMMARY rejected_total=%s counts=%s harvested_datasets_missing_from_feed_counts=%s harvested_datasets_no_longer_tagged_with_odcsync_counts=%s manual_datasets_missing_from_feed_counts=%s',
+                gather_scope_prefix,
                 rejected_count,
                 ordered_counts,
                 len(guids_missing_from_feed),
