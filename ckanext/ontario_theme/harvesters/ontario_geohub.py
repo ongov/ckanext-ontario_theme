@@ -708,18 +708,24 @@ class OntarioGeohubHarvester(HarvesterBase):
             return None
 
         log.debug(
-            '[HARVEST] SEARCHING_FOR_MATCHING_CATALOGUE_DATASET title=%s candidate_name=%s identifier=%s',
-            title, candidate_name, identifier)
+            '[HARVEST] SEARCHING_FOR_MATCHING_EXISTING_DATASET_BY_NAME guid=%s title=%s candidate_name=%s identifier=%s',
+            geohub_dict.get('ontario_geohub_id', 'unknown'),
+            title,
+            candidate_name,
+            identifier)
 
         existing_dataset = self._get_existing_dataset_by_name(candidate_name)
         if not existing_dataset:
             log.debug(
-                '[HARVEST] FOUND_NO_MATCHING_CATALOGUE_DATASET candidate_name=%s',
+                '[HARVEST] FOUND_NO_MATCHING_CATALOGUE_DATASET guid=%s candidate_name=%s',
+                geohub_dict.get('ontario_geohub_id', 'unknown'),
                 candidate_name)
             return None
 
         log.debug(
-            '[HARVEST] FOUND_MATCHING_CATALOGUE_DATASET_NAME package_id=%s existing_url=%s incoming_url=%s',
+            '[HARVEST] FOUND_MATCHING_CATALOGUE_DATASET_NAME guid=%s dataset_name=%s package_id=%s existing_url=%s incoming_url=%s',
+            geohub_dict.get('ontario_geohub_id', 'unknown'),
+            existing_dataset.get('name') or candidate_name,
             existing_dataset.get('id'),
             existing_dataset.get('url'),
             identifier)
@@ -738,7 +744,8 @@ class OntarioGeohubHarvester(HarvesterBase):
             return None
 
         log.debug(
-            '[HARVEST] FOUND_MATCHING_CATALOGUE_DATASET_NAME_AND_URL package_id=%s',
+            '[HARVEST] FOUND_MATCHING_CATALOGUE_DATASET_NAME_AND_URL dataset_name=%s package_id=%s',
+            existing_dataset.get('name') or candidate_name,
             existing_dataset.get('id'))
         return existing_dataset
 
@@ -1762,15 +1769,25 @@ class OntarioGeohubHarvester(HarvesterBase):
                     # The JSON payload previously saved for this single-dataset harvest
                     # record is unchanged compared to the incoming JSON record.
                     log.debug(
-                        '[HARVEST] SINGLE_DATASET_SKIP_IMPORT_UNCHANGED_RECORD guid=%s',
-                        guid)
+                        '[HARVEST] SINGLE_DATASET_SKIP_IMPORT_UNCHANGED_RECORD guid=%s package_id=%s dataset_name=%s dataset_title=%s',
+                        guid,
+                        guid_to_package_id.get(guid),
+                        ontario_theme_helpers.name_cleaner(
+                            dataset.get('dct:title', ''))
+                        or dataset.get('dct:title', 'Unknown'),
+                        dataset.get('dct:title', 'Unknown'))
                     continue
 
                 previous_modified = self._extract_dct_modified(existing_content)
                 current_modified = self._extract_dct_modified(as_string)
                 log.debug(
-                    '[HARVEST] SINGLE_DATASET_INCOMING_CHANGES_DETECTED_IN_HARVEST_RECORD guid=%s previous_dct_modified=%s new_dct_modified=%s',
+                    '[HARVEST] SINGLE_DATASET_INCOMING_CHANGES_DETECTED_IN_HARVEST_RECORD guid=%s package_id=%s dataset_name=%s dataset_title=%s previous_dct_modified=%s new_dct_modified=%s',
                     guid,
+                    guid_to_package_id.get(guid),
+                    ontario_theme_helpers.name_cleaner(
+                        dataset.get('dct:title', ''))
+                    or dataset.get('dct:title', 'Unknown'),
+                    dataset.get('dct:title', 'Unknown'),
                     previous_modified,
                     current_modified)
 
@@ -2086,17 +2103,25 @@ class OntarioGeohubHarvester(HarvesterBase):
                     # Incoming dataset is unchanged compared to the stored
                     # current harvested record content for this guid.
                     log.debug(
-                        '[HARVEST] %s_SKIP_IMPORT_UNCHANGED_RECORD guid=%s',
+                        '[HARVEST] %s_SKIP_IMPORT_UNCHANGED_RECORD guid=%s dataset_name=%s',
                         gather_scope_prefix,
-                        guid)
+                        guid,
+                        ontario_theme_helpers.name_cleaner(
+                            dataset.get('dct:title', ''))
+                        or dataset.get('dct:title', 'Unknown'))
                     continue
 
                 previous_modified = self._extract_dct_modified(existing_content)
                 current_modified = self._extract_dct_modified(as_string)
                 log.debug(
-                    '[HARVEST] %s_INCOMING_CHANGES_DETECTED_IN_HARVEST_RECORD guid=%s previous_dct_modified=%s new_dct_modified=%s',
+                    '[HARVEST] %s_INCOMING_CHANGES_DETECTED_IN_HARVEST_RECORD guid=%s package_id=%s dataset_name=%s dataset_title=%s previous_dct_modified=%s new_dct_modified=%s',
                     gather_scope_prefix,
                     guid,
+                    guid_to_package_id.get(guid),
+                    ontario_theme_helpers.name_cleaner(
+                        dataset.get('dct:title', ''))
+                    or dataset.get('dct:title', 'Unknown'),
+                    dataset.get('dct:title', 'Unknown'),
                     previous_modified,
                     current_modified)
 
@@ -2121,17 +2146,21 @@ class OntarioGeohubHarvester(HarvesterBase):
                         # This skip is for a pre-existing catalogue dataset
                         # adopted during full harvest, not a current harvested object.
                         log.debug(
-                            '[HARVEST] %s_SKIP_IMPORT_UNCHANGED_EXISTING_CATALOGUE_DATASET guid=%s package_id=%s',
+                            '[HARVEST] %s_SKIP_IMPORT_UNCHANGED_EXISTING_CATALOGUE_DATASET guid=%s package_id=%s dataset_name=%s dataset_title=%s',
                             gather_scope_prefix,
                             guid,
-                            existing_catalogue_dataset.get('id'))
+                            existing_catalogue_dataset.get('id'),
+                            existing_catalogue_dataset.get('name'),
+                            dataset.get('dct:title', 'Unknown'))
                         continue
 
                     log.debug(
-                        '[HARVEST] %s_UPDATE_EXISTING_DATASET guid=%s package_id=%s',
+                        '[HARVEST] %s_UPDATE_EXISTING_DATASET guid=%s package_id=%s dataset_name=%s dataset_title=%s',
                         gather_scope_prefix,
                         guid,
-                        existing_catalogue_dataset.get('id'))
+                        existing_catalogue_dataset.get('id'),
+                        existing_catalogue_dataset.get('name'),
+                        dataset.get('dct:title', 'Unknown'))
                     obj = HarvestObject(
                         guid=guid, job=harvest_job,
                         package_id=existing_catalogue_dataset.get('id'),
@@ -2166,8 +2195,9 @@ class OntarioGeohubHarvester(HarvesterBase):
                 manual_datasets_missing_from_feed_count += 1
                 log.warning(
                     '[HARVEST] MANUAL_GEODATASET_MISSING_FROM_FEED package_id=%s '
-                    'package_name=%s package_url=%s',
+                    'dataset_name=%s dataset_title=%s package_url=%s',
                     package_id,
+                    package_info.get('package_name'),
                     package_info.get('package_name'),
                     package_info.get('package_url'))
 
@@ -2282,6 +2312,12 @@ class OntarioGeohubHarvester(HarvesterBase):
         if not package_dict:
             return False
 
+        dataset_title_for_log = (
+            package_dict.get('title')
+            or package_dict.get('title_translated', {}).get('en')
+            or package_dict.get('name')
+            or 'Unknown')
+
         # owner_org is mandatory: skip objects where no valid org id is found
         owner_org = package_dict.get('owner_org')
         if isinstance(owner_org, six.string_types):
@@ -2306,16 +2342,22 @@ class OntarioGeohubHarvester(HarvesterBase):
                     'for owner_org resolution'
                 ).format(harvest_object.guid)
                 log.warning(
-                    '[HARVEST] SKIP_IMPORT_MISSING_PUBLISHER guid=%s',
-                    harvest_object.guid)
+                    '[HARVEST] SKIP_IMPORT_MISSING_PUBLISHER guid=%s package_id=%s dataset_name=%s dataset_title=%s',
+                    harvest_object.guid,
+                    harvest_object.package_id,
+                    package_dict.get('name'),
+                    dataset_title_for_log)
             else:
                 skip_msg = (
                     'Skipping dataset guid={0}: publisher "{1}" does not '
                     'match any CKAN organization for owner_org resolution'
                 ).format(harvest_object.guid, publisher_name)
                 log.warning(
-                    '[HARVEST] SKIP_IMPORT_NO_CKAN_ORG_MATCH guid=%s publisher=%s',
+                    '[HARVEST] SKIP_IMPORT_NO_CKAN_ORG_MATCH guid=%s package_id=%s dataset_name=%s dataset_title=%s publisher=%s',
                     harvest_object.guid,
+                    harvest_object.package_id,
+                    package_dict.get('name'),
+                    dataset_title_for_log,
                     publisher_name)
             self._save_object_error(skip_msg, harvest_object, 'Import')
             return False
@@ -2343,9 +2385,11 @@ class OntarioGeohubHarvester(HarvesterBase):
                         action='block_create')
                     return False
                 log.info(
-                    '[HARVEST] PRE_CREATE_REUSE package_id=%s guid=%s reason=%s',
+                    '[HARVEST] PRE_CREATE_REUSE package_id=%s guid=%s dataset_name=%s dataset_title=%s reason=%s',
                     existing_dataset.get('id'),
                     harvest_object.guid,
+                    existing_dataset.get('name') or package_dict.get('name'),
+                    dataset_title_for_log,
                     'name_and_url_match')
                 harvest_object.package_id = existing_dataset['id']
                 harvest_object.add()
@@ -2380,17 +2424,21 @@ class OntarioGeohubHarvester(HarvesterBase):
                         {}, {'id': harvest_object.package_id})
                 except Exception as e:
                     log.warning(
-                        '[HARVEST] Unable to load existing package for resource matching package_id=%s error=%s',
+                        '[HARVEST] Unable to load existing package for resource matching package_id=%s dataset_name=%s dataset_title=%s error=%s',
                         harvest_object.package_id,
+                        package_dict.get('name'),
+                        dataset_title_for_log,
                         e)
             if existing_dataset:
                 existing_name = existing_dataset.get('name')
                 incoming_name = package_dict.get('name')
                 if existing_name and incoming_name and existing_name != incoming_name:
                     log.warning(
-                        '[HARVEST] DATASET_RENAME_DETECTED guid=%s package_id=%s old_name=%s new_name=%s old_url=%s incoming_identifier=%s',
+                        '[HARVEST] DATASET_RENAME_DETECTED guid=%s package_id=%s dataset_name=%s dataset_title=%s old_name=%s new_name=%s old_url=%s incoming_identifier=%s',
                         harvest_object.guid,
                         existing_dataset.get('id'),
+                        incoming_name,
+                        dataset_title_for_log,
                         existing_name,
                         incoming_name,
                         existing_dataset.get('url'),
@@ -2472,9 +2520,11 @@ class OntarioGeohubHarvester(HarvesterBase):
                 log.info('%s dataset with id %s', message_status, package_id)
                 if status == 'new':
                     log.info(
-                        '[HARVEST] CREATE_NEW_DATASET guid=%s package_id=%s',
+                        '[HARVEST] CREATE_NEW_DATASET guid=%s package_id=%s dataset_name=%s dataset_title=%s',
                         harvest_object.guid,
-                        package_id)
+                        package_id,
+                        package_dict.get('name'),
+                        dataset_title_for_log)
 
         except Exception as e:
             if status == 'new' and package_dict.get('name'):
@@ -2501,9 +2551,11 @@ class OntarioGeohubHarvester(HarvesterBase):
                     try:
                         log.warning(
                             '[HARVEST] EXCEPTION_RECOVERY package_id=%s guid=%s '
-                            'url_matches=%s error=%s',
+                            'dataset_name=%s dataset_title=%s url_matches=%s error=%s',
                             existing_dataset.get('id'),
                             harvest_object.guid,
+                            existing_dataset.get('name') or package_dict.get('name'),
+                            dataset_title_for_log,
                             url_matches,
                             e)
                         package_dict['id'] = existing_dataset['id']
@@ -2528,8 +2580,11 @@ class OntarioGeohubHarvester(HarvesterBase):
                         return True
                     except Exception as retry_error:
                         log.warning(
-                            '[HARVEST] package_create recovery failed guid=%s error=%s',
+                            '[HARVEST] package_create recovery failed guid=%s package_id=%s dataset_name=%s dataset_title=%s error=%s',
                             harvest_object.guid,
+                            harvest_object.package_id,
+                            package_dict.get('name'),
+                            dataset_title_for_log,
                             retry_error)
 
             dataset = json.loads(harvest_object.content)
@@ -2539,12 +2594,13 @@ class OntarioGeohubHarvester(HarvesterBase):
             # so failing objects can be traced from fetch_consumer.log alone.
             log.error(
                 '[HARVEST] IMPORT_FAILURE harvest_object_id=%s guid=%s geohub_id=%s '
-                'package_id=%s package_name=%s owner_org=%s status=%s error=%r',
+                'package_id=%s package_name=%s dataset_title=%s owner_org=%s status=%s error=%r',
                 harvest_object.id,
                 harvest_object.guid,
                 geohub_dict.get('ontario_geohub_id') if isinstance(geohub_dict, dict) else None,
                 package_dict.get('id') if isinstance(package_dict, dict) else None,
                 package_dict.get('name') if isinstance(package_dict, dict) else None,
+                dataset_title_for_log,
                 package_dict.get('owner_org') if isinstance(package_dict, dict) else None,
                 status,
                 e)
