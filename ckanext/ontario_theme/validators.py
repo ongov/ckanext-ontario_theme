@@ -7,6 +7,7 @@ from ckanext.scheming.validation import scheming_validator
 from ckanext.fluent.validators import fluent_text_output
 from ckantoolkit import Invalid
 from ckan.authz import is_sysadmin
+from ckan.lib.navl.dictization_functions import missing
 import json
 
 
@@ -169,7 +170,10 @@ def lock_if_odc(key, data, errors, context):
 
 def strip_fluent_value(key, data, errors, context):
     '''Trims the Whitespace of fluent field'''
-    value = json.loads(data[key])
+    value = data.get(key, missing)
+    if value is missing or value is None or value == '':
+        return
+    value = json.loads(value)
     for lang, text in value.items():
         if isinstance(text, str):
             value[lang] = text.strip()

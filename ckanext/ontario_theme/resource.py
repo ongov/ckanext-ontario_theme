@@ -61,7 +61,7 @@ class CreateView(MethodView):
                 data_provided = True
                 break
 
-        if not data_provided and save_action != u"go-dataset-complete":
+        if not data_provided and save_action not in (u'go-dataset-complete', u'go-dataset-step2'):
             if save_action == u'go-dataset':
                 # go to final stage of adddataset
                 return h.redirect_to(u'{}.edit'.format(package_type), id=id)
