@@ -304,12 +304,7 @@ def _geohub_dataset_urls_match(url_a, url_b):
         return False
     norm_a = _normalize_geohub_dataset_url_for_match(url_a)
     norm_b = _normalize_geohub_dataset_url_for_match(url_b)
-    result = norm_a == norm_b
-    if not result:
-        log.debug(
-            '[HARVEST] DCAT_DATASETS_DUPLICATE_URLS raw_a=%s raw_b=%s norm_a=%s norm_b=%s match=%s',
-            url_a, url_b, norm_a, norm_b, result)
-    return result
+    return norm_a == norm_b
 
 
 def _fetch_blacklist_ids():
