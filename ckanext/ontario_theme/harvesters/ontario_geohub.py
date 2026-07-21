@@ -2054,7 +2054,7 @@ class OntarioGeohubHarvester(HarvesterBase):
         # create/update vs rejection-reason capture in the same loop.
         for dataset in datasets:
             log.debug(
-                '[HARVEST] GOT_DATASET_IDENTIFIER entering_workflow=true dataset_title=%s guid=%s',
+                '[HARVEST] GOT DATASET, ENTERING WORKFLOW dataset_title=%s guid=%s',
                 dataset.get('dct:title', 'Unknown'),
                 dataset.get('ontario_geohub_id', 'unknown'))
 
