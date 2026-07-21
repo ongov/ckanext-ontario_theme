@@ -2089,17 +2089,6 @@ class OntarioGeohubHarvester(HarvesterBase):
                     }
                 continue
 
-            # Reuse existing catalogue matching logic to track which manual
-            # (no-guid) catalogue datasets are represented in the accepted feed.
-            matched_catalogue_dataset = None
-            if manual_catalogue_candidates_by_id:
-                matched_catalogue_dataset = \
-                    self._find_existing_catalogue_dataset_for_harvest(dataset)
-                if matched_catalogue_dataset:
-                    matched_id = matched_catalogue_dataset.get('id')
-                    if matched_id in manual_catalogue_candidates_by_id:
-                        manual_catalogue_seen_ids.add(matched_id)
-
             if guid in guid_to_package_id:
                 existing_content = guid_to_current_content.get(guid)
                 if self._is_unchanged_dataset(existing_content, as_string):
@@ -2136,6 +2125,17 @@ class OntarioGeohubHarvester(HarvesterBase):
                     extras=[HarvestObjectExtra(key='status',
                                                value='change')])
             else:
+                # Only new guid records need catalogue name/url matching.
+                # Existing guid records are handled in the branch above.
+                matched_catalogue_dataset = None
+                if manual_catalogue_candidates_by_id:
+                    matched_catalogue_dataset = \
+                        self._find_existing_catalogue_dataset_for_harvest(dataset)
+                    if matched_catalogue_dataset:
+                        matched_id = matched_catalogue_dataset.get('id')
+                        if matched_id in manual_catalogue_candidates_by_id:
+                            manual_catalogue_seen_ids.add(matched_id)
+
                 existing_catalogue_dataset = matched_catalogue_dataset
                 if existing_catalogue_dataset is None:
                     existing_catalogue_dataset = \
