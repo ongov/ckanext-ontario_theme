@@ -2053,6 +2053,11 @@ class OntarioGeohubHarvester(HarvesterBase):
         # Single-pass processing: evaluate filters once and handle
         # create/update vs rejection-reason capture in the same loop.
         for dataset in datasets:
+            log.debug(
+                '[HARVEST] GOT_DATASET_IDENTIFIER entering_workflow=true dataset_title=%s guid=%s',
+                dataset.get('dct:title', 'Unknown'),
+                dataset.get('ontario_geohub_id', 'unknown'))
+
             accepted, guid, as_string, failed_filters, failure_messages = \
                 self._evaluate_dataset_filters(
                     dataset,
@@ -2061,17 +2066,6 @@ class OntarioGeohubHarvester(HarvesterBase):
                     blacklist=blacklist)
 
             guids_now_missing_odcsync_tag.add(guid)
-
-            # Reuse existing catalogue matching logic to track which manual
-            # (no-guid) catalogue datasets are represented in the current feed.
-            matched_catalogue_dataset = None
-            if manual_catalogue_candidates_by_id:
-                matched_catalogue_dataset = \
-                    self._find_existing_catalogue_dataset_for_harvest(dataset)
-                if matched_catalogue_dataset:
-                    matched_id = matched_catalogue_dataset.get('id')
-                    if matched_id in manual_catalogue_candidates_by_id:
-                        manual_catalogue_seen_ids.add(matched_id)
 
             if not accepted:
                 rejected_count += 1
@@ -2095,7 +2089,16 @@ class OntarioGeohubHarvester(HarvesterBase):
                     }
                 continue
 
-            log.debug('Got identifier: %s', guid)
+            # Reuse existing catalogue matching logic to track which manual
+            # (no-guid) catalogue datasets are represented in the accepted feed.
+            matched_catalogue_dataset = None
+            if manual_catalogue_candidates_by_id:
+                matched_catalogue_dataset = \
+                    self._find_existing_catalogue_dataset_for_harvest(dataset)
+                if matched_catalogue_dataset:
+                    matched_id = matched_catalogue_dataset.get('id')
+                    if matched_id in manual_catalogue_candidates_by_id:
+                        manual_catalogue_seen_ids.add(matched_id)
 
             if guid in guid_to_package_id:
                 existing_content = guid_to_current_content.get(guid)
