@@ -54,6 +54,9 @@ _blacklist_cache = {
     'ids': None,
 }
 
+# Track import_stage outcomes per harvest job for summary logging.
+_import_job_counters = {}
+
 
 def _requests_get_with_retry(url, timeout=30, max_retries=3, backoff=5,
                              session=None, **kwargs):
@@ -2224,7 +2227,7 @@ class OntarioGeohubHarvester(HarvesterBase):
                  for code in sorted(rejection_counts.keys())]
             )
             log.info(
-                '[HARVEST] %s_FILTER_SUMMARY'
+                '[HARVEST] %s_FILTER_SUMMARY_GATHER_CONSUMER'
                 ' rejected_total=%s counts=%s'
                 ' harvested_datasets_missing_from_feed_counts=%s'
                 ' harvested_datasets_no_longer_tagged_with_odcsync_counts=%s'
@@ -2244,7 +2247,7 @@ class OntarioGeohubHarvester(HarvesterBase):
                  for code in sorted(odcsync_rejection_counts.keys())]
             )
             log.info(
-                '[HARVEST] %s_ODCSYNC_FILTER_SUMMARY'
+                '[HARVEST] %s_ODCSYNC_FILTER_SUMMARY_GATHER_CONSUMER'
                 ' odcsync_total=%s harvested_total=%s'
                 ' rejected_total=%s counts=%s'
                 ' deletion_requests=%s',
@@ -2284,6 +2287,79 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         return ids
 
+
+    def _ensure_import_counters(self, harvest_object):
+        '''Initialize import counters for a harvest job if needed.
+
+        Return the counters dict for the job.
+        '''
+        job_id = harvest_object.harvest_job_id
+        if job_id not in _import_job_counters:
+            total = (
+                model.Session.query(HarvestObject)
+                .filter(HarvestObject.harvest_job_id == job_id)
+                .count()
+            )
+            _import_job_counters[job_id] = {
+                'total_expected': total,
+                'processed': 0,
+            }
+        return _import_job_counters[job_id]
+
+    def _track_import_outcome(self, harvest_object, outcome):
+        '''Record an import outcome and log a summary when all objects are processed.
+        '''
+        try:
+            counters = self._ensure_import_counters(harvest_object)
+            counters['processed'] += 1
+            counters[outcome] = counters.get(outcome, 0) + 1
+
+            if counters['processed'] >= counters['total_expected']:
+                job_id = harvest_object.harvest_job_id
+                self._log_import_summary(job_id, counters)
+                del _import_job_counters[job_id]
+        except Exception as e:
+            log.debug('[HARVEST] Failed to track import outcome: %s', e)
+
+    def _log_import_summary(self, job_id, counters):
+        '''Log the import stage summary for a completed harvest job.
+        '''
+        created = counters.get('created', 0)
+        updated = counters.get('updated', 0)
+        harvested_total = created + updated
+        deletion_blocked = counters.get('deletion_blocked', 0)
+        not_harvested = counters['processed'] - harvested_total - deletion_blocked
+
+        # Not-harvested reason keys (all outcomes that are neither
+        # created/updated nor deletion_blocked)
+        not_harvested_keys = [
+            'skip_missing_fields',
+            'skip_missing_publisher',
+            'skip_no_org_match',
+            'skip_name_url_conflict',
+            'skip_dataset_rename',
+            'skip_empty_content',
+            'import_failure',
+        ]
+        not_harvested_parts = []
+        for key in not_harvested_keys:
+            count = counters.get(key, 0)
+            if count > 0:
+                not_harvested_parts.append('{}:{}'.format(key, count))
+
+        log.info(
+            '[HARVEST] IMPORT_SUMMARY_FETCH_CONSUMER job_id=%s'
+            ' total_processed=%s harvested_total=%s'
+            ' deletion_blocked=%s created=%s updated=%s'
+            ' not_harvested=%s not_harvested_reasons:%s',
+            job_id,
+            counters['processed'],
+            harvested_total,
+            deletion_blocked,
+            created,
+            updated,
+            not_harvested,
+            ','.join(not_harvested_parts) if not_harvested_parts else 'none')
 
     def import_stage(self, harvest_object):
         '''Create, update, or delete CKAN datasets for a harvested GeoHub record.
@@ -2329,12 +2405,14 @@ class OntarioGeohubHarvester(HarvesterBase):
                     deletion_reason)
             
             # TODO: Send notification email to opendata@ontario.ca with deletion details
+            self._track_import_outcome(harvest_object, 'deletion_blocked')
             return True
 
         if harvest_object.content is None:
             self._save_object_error(
                 'Empty content for object %s' % harvest_object.id,
                 harvest_object, 'Import')
+            self._track_import_outcome(harvest_object, 'skip_empty_content')
             return False
 
         # Get the last harvested object (if any)
@@ -2346,6 +2424,7 @@ class OntarioGeohubHarvester(HarvesterBase):
 
         package_dict, geohub_dict = self._get_package_dict(harvest_object)
         if not package_dict:
+            self._track_import_outcome(harvest_object, 'skip_missing_fields')
             return False
 
         dataset_title_for_log = (
@@ -2383,6 +2462,7 @@ class OntarioGeohubHarvester(HarvesterBase):
                     harvest_object.package_id,
                     package_dict.get('name'),
                     dataset_title_for_log)
+                _owner_org_skip = 'skip_missing_publisher'
             else:
                 skip_msg = (
                     'Skipping dataset guid={0}: publisher "{1}" does not '
@@ -2395,7 +2475,9 @@ class OntarioGeohubHarvester(HarvesterBase):
                     package_dict.get('name'),
                     dataset_title_for_log,
                     publisher_name)
+                _owner_org_skip = 'skip_no_org_match'
             self._save_object_error(skip_msg, harvest_object, 'Import')
+            self._track_import_outcome(harvest_object, _owner_org_skip)
             return False
 
         package_dict['owner_org'] = owner_org
@@ -2419,6 +2501,7 @@ class OntarioGeohubHarvester(HarvesterBase):
                         existing_dataset,
                         stage='pre_create',
                         action='block_create')
+                    self._track_import_outcome(harvest_object, 'skip_name_url_conflict')
                     return False
                 log.info(
                     '[HARVEST] PRE_CREATE_REUSE package_id=%s guid=%s dataset_name=%s dataset_title=%s reason=%s',
@@ -2479,6 +2562,7 @@ class OntarioGeohubHarvester(HarvesterBase):
                         incoming_name,
                         existing_dataset.get('url'),
                         package_dict.get('url'))
+                    self._track_import_outcome(harvest_object, 'skip_dataset_rename')
                     return False
                 copy_across_resource_ids(existing_dataset, package_dict)
                 # Augment existing ODC tags with any new GeoHub tags
@@ -2561,6 +2645,9 @@ class OntarioGeohubHarvester(HarvesterBase):
                         package_id,
                         package_dict.get('name'),
                         dataset_title_for_log)
+                self._track_import_outcome(
+                    harvest_object,
+                    'created' if status == 'new' else 'updated')
 
         except Exception as e:
             if status == 'new' and package_dict.get('name'):
@@ -2583,6 +2670,7 @@ class OntarioGeohubHarvester(HarvesterBase):
                             existing_dataset,
                             stage='exception_recovery',
                             action='block_exception_recovery')
+                        self._track_import_outcome(harvest_object, 'skip_name_url_conflict')
                         return False
                     try:
                         log.warning(
@@ -2613,6 +2701,7 @@ class OntarioGeohubHarvester(HarvesterBase):
                         harvest_object.current = True
                         harvest_object.add()
                         log.info('Updated dataset with id %s', package_id)
+                        self._track_import_outcome(harvest_object, 'updated')
                         return True
                     except Exception as retry_error:
                         log.warning(
@@ -2642,6 +2731,7 @@ class OntarioGeohubHarvester(HarvesterBase):
                 e)
 
             self._save_object_error('Error importing dataset %s: %r / %s' % (dataset_name, e, traceback.format_exc()), harvest_object, 'Import')
+            self._track_import_outcome(harvest_object, 'import_failure')
             return False
 
         finally:
