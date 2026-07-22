@@ -2224,13 +2224,19 @@ class OntarioGeohubHarvester(HarvesterBase):
                  for code in sorted(rejection_counts.keys())]
             )
             log.info(
-                '[HARVEST] %s_FILTER_SUMMARY rejected_total=%s counts=%s harvested_datasets_missing_from_feed_counts=%s harvested_datasets_no_longer_tagged_with_odcsync_counts=%s manual_datasets_missing_from_feed_counts=%s',
+                '[HARVEST] %s_FILTER_SUMMARY'
+                ' rejected_total=%s counts=%s'
+                ' harvested_datasets_missing_from_feed_counts=%s'
+                ' harvested_datasets_no_longer_tagged_with_odcsync_counts=%s'
+                ' manual_datasets_missing_from_feed_counts=%s'
+                ' deletion_requests=%s',
                 gather_scope_prefix,
                 rejected_count,
                 ordered_counts,
                 len(guids_missing_from_feed),
                 len(guids_with_missing_odcsync),
-                manual_datasets_missing_from_feed_count)
+                manual_datasets_missing_from_feed_count,
+                len(guids_to_request_delete))
 
         if odcsync_rejected_count:
             odcsync_ordered_counts = ','.join(
@@ -2238,12 +2244,16 @@ class OntarioGeohubHarvester(HarvesterBase):
                  for code in sorted(odcsync_rejection_counts.keys())]
             )
             log.info(
-                '[HARVEST] %s_ODCSYNC_FILTER_SUMMARY odcsync_total=%s harvested_total=%s rejected_total=%s counts=%s',
+                '[HARVEST] %s_ODCSYNC_FILTER_SUMMARY'
+                ' odcsync_total=%s harvested_total=%s'
+                ' rejected_total=%s counts=%s'
+                ' deletion_requests=%s',
                 gather_scope_prefix,
                 odcsync_total_count,
                 odcsync_total_count - odcsync_rejected_count,
                 odcsync_rejected_count,
-                odcsync_ordered_counts)
+                odcsync_ordered_counts,
+                len(guids_to_request_delete))
 
         for guid in sorted(guids_to_request_delete):
             package_id = guid_to_package_id.get(guid)
