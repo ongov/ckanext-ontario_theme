@@ -780,7 +780,8 @@ class OntarioGeohubHarvester(HarvesterBase):
                 six.text_type(existing_modified).strip())
 
     def _save_name_url_conflict_error(self, harvest_object, package_dict,
-                                      existing_dataset, stage, action):
+                                      existing_dataset, stage, action,
+                                      dataset_title='Unknown'):
         '''Log and persist a name/url conflict for manual resolution.
         
         DEFENSIVE CHECK: In normal operation, conflicts are caught in gather_stage via
@@ -802,12 +803,13 @@ class OntarioGeohubHarvester(HarvesterBase):
             existing_dataset.get('url'))
         log.warning(
             '[HARVEST] NAME_URL_CONFLICT stage=%s '
-            'guid=%s package_name=%s package_id=%s existing_url=%s '
-            'incoming_identifier=%s action=%s',
+            'guid=%s package_name=%s package_id=%s dataset_title=%s '
+            'existing_url=%s incoming_identifier=%s action=%s',
             stage,
             harvest_object.guid,
             package_dict.get('name'),
             existing_dataset.get('id'),
+            dataset_title,
             existing_dataset.get('url'),
             package_dict.get('url'),
             action)
@@ -852,8 +854,13 @@ class OntarioGeohubHarvester(HarvesterBase):
         if missing_required_fields:
             dataset_id = geohub_dict.get('ontario_geohub_id', 'unknown')
             log.warning(
-                '[HARVEST] SKIP_IMPORT_BECAUSE_MISSING_REQUIRED_FIELDS dataset_id=%s missing_fields=%s',
+                '[HARVEST] SKIP_IMPORT_BECAUSE_MISSING_REQUIRED_FIELDS'
+                ' guid=%s package_id=%s dataset_id=%s dataset_title=%s'
+                ' missing_fields=%s',
+                harvest_object.guid,
+                harvest_object.package_id,
                 dataset_id,
+                geohub_dict.get('dct:title', 'Unknown'),
                 ','.join(missing_required_fields)
             )
             self._save_object_error(
@@ -2383,25 +2390,38 @@ class OntarioGeohubHarvester(HarvesterBase):
             deletion_failed_filters = (
                 self._get_object_extra(harvest_object, 'deletion_failed_filters')
                 or '')
+            # Look up dataset title for logging (deletion objects have no content)
+            try:
+                _del_pkg = p.toolkit.get_action('package_show')(
+                    {'ignore_auth': True}, {'id': harvest_object.package_id})
+                _del_dataset_title = (
+                    _del_pkg.get('title')
+                    or _del_pkg.get('title_translated', {}).get('en')
+                    or _del_pkg.get('name')
+                    or 'Unknown')
+            except Exception:
+                _del_dataset_title = 'Unknown'
             if deletion_failed_filters:
                 log.warning(
                     '[HARVEST] DELETION_BLOCKED_BY_POLICY harvest_object_id=%s '
-                    'guid=%s package_id=%s deletion_reason=%s '
+                    'guid=%s package_id=%s dataset_title=%s deletion_reason=%s '
                     'failed_filters=%s. Manual deletion request '
                     'required from opendata@ontario.ca',
                     harvest_object.id,
                     harvest_object.guid,
                     harvest_object.package_id,
+                    _del_dataset_title,
                     deletion_reason,
                     deletion_failed_filters)
             else:
                 log.warning(
                     '[HARVEST] DELETION_BLOCKED_BY_POLICY harvest_object_id=%s '
-                    'guid=%s package_id=%s deletion_reason=%s. '
+                    'guid=%s package_id=%s dataset_title=%s deletion_reason=%s. '
                     'Manual deletion request required from opendata@ontario.ca',
                     harvest_object.id,
                     harvest_object.guid,
                     harvest_object.package_id,
+                    _del_dataset_title,
                     deletion_reason)
             
             # TODO: Send notification email to opendata@ontario.ca with deletion details
@@ -2500,7 +2520,8 @@ class OntarioGeohubHarvester(HarvesterBase):
                         package_dict,
                         existing_dataset,
                         stage='pre_create',
-                        action='block_create')
+                        action='block_create',
+                        dataset_title=dataset_title_for_log)
                     self._track_import_outcome(harvest_object, 'skip_name_url_conflict')
                     return False
                 log.info(
@@ -2543,7 +2564,8 @@ class OntarioGeohubHarvester(HarvesterBase):
                         {}, {'id': harvest_object.package_id})
                 except Exception as e:
                     log.warning(
-                        '[HARVEST] Unable to load existing package for resource matching package_id=%s dataset_name=%s dataset_title=%s error=%s',
+                        '[HARVEST] Unable to load existing package for resource matching guid=%s package_id=%s dataset_name=%s dataset_title=%s error=%s',
+                        harvest_object.guid,
                         harvest_object.package_id,
                         package_dict.get('name'),
                         dataset_title_for_log,
@@ -2669,7 +2691,8 @@ class OntarioGeohubHarvester(HarvesterBase):
                             package_dict,
                             existing_dataset,
                             stage='exception_recovery',
-                            action='block_exception_recovery')
+                            action='block_exception_recovery',
+                            dataset_title=dataset_title_for_log)
                         self._track_import_outcome(harvest_object, 'skip_name_url_conflict')
                         return False
                     try:
