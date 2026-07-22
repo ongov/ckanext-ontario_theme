@@ -2044,6 +2044,9 @@ class OntarioGeohubHarvester(HarvesterBase):
         rejected_count = 0
         rejection_counts = {}
         rejection_by_guid = {}
+        odcsync_total_count = 0
+        odcsync_rejected_count = 0
+        odcsync_rejection_counts = {}
 
         # Single-pass processing: evaluate filters once and handle
         # create/update vs rejection-reason capture in the same loop.
@@ -2062,10 +2065,22 @@ class OntarioGeohubHarvester(HarvesterBase):
 
             guids_now_missing_odcsync_tag.add(guid)
 
+            has_odcsync = 'missing_odcsync' not in failed_filters
+            if has_odcsync:
+                odcsync_total_count += 1
+
             if not accepted:
                 rejected_count += 1
                 for code in failed_filters:
                     rejection_counts[code] = rejection_counts.get(code, 0) + 1
+
+                # Track rejections for datasets that have the ODCSYNC tag
+                # (i.e. missing_odcsync is NOT among their failed filters).
+                if has_odcsync:
+                    odcsync_rejected_count += 1
+                    for code in failed_filters:
+                        odcsync_rejection_counts[code] = \
+                            odcsync_rejection_counts.get(code, 0) + 1
 
                 log.info(
                     '[HARVEST] %s_FILTER_REJECTED guid=%s title=%s failed_filters=%s reasons=%s',
@@ -2216,6 +2231,19 @@ class OntarioGeohubHarvester(HarvesterBase):
                 len(guids_missing_from_feed),
                 len(guids_with_missing_odcsync),
                 manual_datasets_missing_from_feed_count)
+
+        if odcsync_rejected_count:
+            odcsync_ordered_counts = ','.join(
+                ['{}:{}'.format(code, odcsync_rejection_counts[code])
+                 for code in sorted(odcsync_rejection_counts.keys())]
+            )
+            log.info(
+                '[HARVEST] %s_ODCSYNC_FILTER_SUMMARY odcsync_total=%s harvested_total=%s rejected_total=%s counts=%s',
+                gather_scope_prefix,
+                odcsync_total_count,
+                odcsync_total_count - odcsync_rejected_count,
+                odcsync_rejected_count,
+                odcsync_ordered_counts)
 
         for guid in sorted(guids_to_request_delete):
             package_id = guid_to_package_id.get(guid)
