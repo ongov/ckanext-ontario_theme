@@ -2,13 +2,13 @@
 
 import re
 from ckan.common import _
-from ckantoolkit import Invalid
 from ckanext.scheming.validation import scheming_validator
 from ckanext.fluent.validators import fluent_text_output
 from ckantoolkit import Invalid
 from ckan.authz import is_sysadmin
-from ckan.lib.navl.dictization_functions import missing
+from urllib.parse import urlparse, urlunparse
 import json
+import ipaddress
 
 
 def tag_name_validator(value, context):
@@ -170,12 +170,94 @@ def lock_if_odc(key, data, errors, context):
 
 def strip_fluent_value(key, data, errors, context):
     '''Trims the Whitespace of fluent field'''
-    value = data.get(key, missing)
-    if value is missing or value is None or value == '':
+    raw_value = data.get(key)
+
+    # Missing/empty values should be left for required validators to handle.
+    if raw_value in (None, ''):
         return
-    value = json.loads(value)
+
+    if isinstance(raw_value, dict):
+        value = raw_value
+    elif isinstance(raw_value, (str, bytes, bytearray)):
+        try:
+            value = json.loads(raw_value)
+        except (TypeError, ValueError):
+            return
+    else:
+        # Handles navl Missing sentinel and any unexpected value types.
+        return
+
+    if not isinstance(value, dict):
+        return
+
     for lang, text in value.items():
         if isinstance(text, str):
             value[lang] = text.strip()
     data[key] = json.dumps(value)
     return
+
+def public_https_url_validator(value, context): 
+
+    if not value:
+        return value
+
+    # Trim whitespace
+    value = value.strip()
+
+    # Auto-prepend HTTPS
+    if value and "://" not in value:
+        value = "https://" + value
+
+    # Enforce max length
+    if len(value) > 2048:
+        raise Invalid(_("URL cannot exceed 2048 characters."))
+
+    parsed = urlparse(value)
+
+    # Only allow HTTPS
+    if parsed.scheme != "https": 
+        raise Invalid(_("Enter a valid HTTPS URL."))
+
+    # Require hostname
+    if not parsed.hostname: 
+        raise Invalid(_("Enter a valid HTTPS URL."))
+
+    hostname = parsed.hostname.lower()
+
+    # Reject localhost
+    if hostname == "localhost": 
+        raise Invalid(_("URL must reference a public website."))
+
+    # Reject private IP ranges
+    try: 
+        ip = ipaddress.ip_address(hostname) 
+
+        if (
+           ip.is_private
+           or ip.is_loopback
+           or ip.is_link_local
+           or ip.is_reserved
+        ): 
+           raise Invalid(
+               _("URL must reference a public website.") 
+           ) 
+
+    except ValueError: 
+        pass
+
+    # Normalize hostname and remove default HTTPS port
+    netloc = hostname
+
+    if parsed.port and parsed.port != 443: 
+        netloc = f"{hostname}:{parsed.port}"
+
+    normalized = urlunparse((
+        "https",
+        netloc,
+        parsed.path, 
+        parsed.params, 
+        parsed.query, 
+        parsed.fragment
+    ))
+
+    return normalized
