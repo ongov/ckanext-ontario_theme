@@ -642,7 +642,7 @@
       },
       "preset": "resource_url_upload",
       "required": true,
-      "validators": "scheming_required unicode_safe remove_whitespace public_https_url_validator",
+      "validators": "scheming_required unicode_safe remove_whitespace public_https_resource_url_validator",
       "fieldset": 1,
       "fieldset_name": "Add File",
       "classes": ["form-group","col-md-12"],
