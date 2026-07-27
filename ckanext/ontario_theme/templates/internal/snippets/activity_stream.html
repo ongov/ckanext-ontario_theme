@@ -1,34 +1,38 @@
-{% for activity in activity_stream %}
+<ul class="activity-stream-list">
 
-  <p style="font-size:16px; color:#1A1A1A;">
+  {% for activity in activity_stream %}
 
-    <span style="display:inline-block; min-width:120px;">
-      {{ h.render_datetime(activity.timestamp) }}
-    </span>
+    <li class="activity-stream-row">
 
-    <span>
+      <span class="activity-stream-timestamp">
+        {{ h.render_datetime(activity.timestamp) }}
+      </span>
 
-      {% set dataset_link = h.link_to(
-          activity.data.get('package', {}).get('title', ''),
-          h.url_for('dataset.read', id=activity.data.get('package', {}).get('name', ''))
-      ) %}
+      <span class="activity-stream-description">
 
-      {% if activity.activity_type == 'new package' %}
-          {% trans dataset_link=dataset_link %}{{ dataset_link }} dataset was created{% endtrans %}
+        {% set dataset_link = h.link_to(
+            activity.data.get('package', {}).get('title', ''),
+            h.url_for('dataset.read', id=activity.data.get('package', {}).get('name', ''))
+        ) %}
 
-      {% elif activity.activity_type == 'changed package' %}
-          {% trans dataset_link=dataset_link %}{{ dataset_link }} dataset was updated{% endtrans %}
+        {% if activity.activity_type == 'new package' %}
+            {% trans dataset_link=dataset_link %}{{ dataset_link }} dataset was created{% endtrans %}
 
-      {% elif activity.activity_type == 'deleted package' %}
-          {{ dataset_link }} was deleted
-      {% endif %}
+        {% elif activity.activity_type == 'changed package' %}
+            {% trans dataset_link=dataset_link %}{{ dataset_link }} dataset was updated{% endtrans %}
 
-      {% if c.userobj and c.userobj.sysadmin and h.lang() != 'fr' %}
-          by {{ h.linked_user(activity.user_id, 0, 30) }}
-      {% endif %}
+        {% elif activity.activity_type == 'deleted package' %}
+            {{ dataset_link }} was deleted
+        {% endif %}
 
-    </span>
+        {% if c.userobj and c.userobj.sysadmin and h.lang() != 'fr' %}
+            by {{ h.linked_user(activity.user_id, 0, 20) }}
+        {% endif %}
 
-  </p>
+      </span>
 
-{% endfor %}
+    </li>
+
+  {% endfor %}
+
+</ul>
