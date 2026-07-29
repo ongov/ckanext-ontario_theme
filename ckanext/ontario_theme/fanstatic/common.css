@@ -4315,12 +4315,25 @@ label::after {
   white-space: nowrap;
 }
 
+.activity-stream-content { 
+  min-width: 0; 
+}
+
 .activity-stream-description {
   min-width: 0;
 }
 
 .activity-stream-description img { 
   display: none; 
+}
+
+.activity-stream-actions { 
+  margin-top: 4px; 
+  font-size: 14px; 
+} 
+
+.activity-stream-action-separator { 
+  margin: 0 8px;
 }
 
 @media screen and (max-width: 40em) {

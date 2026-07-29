@@ -1,38 +1,66 @@
 <ul class="activity-stream-list">
-
   {% for activity in activity_stream %}
+    {% set package = activity.data.get('package', {}) %}
+    {% set dataset_type = package.get('type') or 'dataset' %}
 
     <li class="activity-stream-row">
-
       <span class="activity-stream-timestamp">
         {{ h.render_datetime(activity.timestamp) }}
       </span>
 
-      <span class="activity-stream-description">
+      <div class="activity-stream-content">
+        <div class="activity-stream-description">
+          {% set dataset_link = h.link_to(
+            package.get('title', ''),
+            h.url_for(
+              'dataset.read',
+              id=package.get('name', '')
+            )
+          ) %}
 
-        {% set dataset_link = h.link_to(
-            activity.data.get('package', {}).get('title', ''),
-            h.url_for('dataset.read', id=activity.data.get('package', {}).get('name', ''))
-        ) %}
-
-        {% if activity.activity_type == 'new package' %}
+          {% if activity.activity_type == 'new package' %}
             {% trans dataset_link=dataset_link %}{{ dataset_link }} dataset was created{% endtrans %}
 
-        {% elif activity.activity_type == 'changed package' %}
+          {% elif activity.activity_type == 'changed package' %}
             {% trans dataset_link=dataset_link %}{{ dataset_link }} dataset was updated{% endtrans %}
 
-        {% elif activity.activity_type == 'deleted package' %}
+          {% elif activity.activity_type == 'deleted package' %}
             {{ dataset_link }} was deleted
-        {% endif %}
+          {% endif %}
 
-        {% if c.userobj and c.userobj.sysadmin and h.lang() != 'fr' %}
+          {% if c.userobj and c.userobj.sysadmin and h.lang() != 'fr' %}
             by {{ h.linked_user(activity.user_id, 0, 20) }}
+          {% endif %}
+        </div>
+
+        {% if c.userobj and c.userobj.sysadmin %}
+          {% if activity.activity_type in ['new package', 'changed package'] %}
+            {% set version_url = h.url_for(
+              dataset_type ~ '.read',
+              id=activity.object_id,
+              activity_id=activity.id
+            ) %}
+
+            <div class="activity-stream-actions">
+              {{ h.link_to(_('View this version'), version_url) }}
+
+              {% if activity.activity_type == 'changed package' %}
+                <span
+                  class="activity-stream-action-separator"
+                  aria-hidden="true"
+                >|</span>
+
+                {% set changes_url = h.url_for(
+                  dataset_type ~ '.changes',
+                  id=activity.id
+                ) %}
+
+                {{ h.link_to(_('Changes'), changes_url) }}
+              {% endif %}
+            </div>
+          {% endif %}
         {% endif %}
-
-      </span>
-
+      </div>
     </li>
-
   {% endfor %}
-
 </ul>
