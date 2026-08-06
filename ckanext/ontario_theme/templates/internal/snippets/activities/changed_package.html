@@ -1,0 +1,27 @@
+{% set dataset_type = activity.data.package.type or 'dataset' %}
+{% set package = activity.data.package %}
+{% do package.update({
+  "title": h.ontario_theme_get_dict_from_id(
+    id=activity.object_id,
+    action="package_show",
+    alt_title=package.title) }) %}
+<li class="item {{ activity.activity_type|replace(' ', '-')|lower }}">
+  <span class="activity-stream-timestamp">
+    {{ h.render_datetime(activity.timestamp) }}
+  </span>
+  {{ _('{dataset} dataset was updated').format(
+    dataset=ah.dataset(activity)
+  )|safe }}
+  <br />
+  <span class="date" title="{{ h.render_datetime(activity.timestamp, with_hours=True) }}">
+    {% if can_show_activity_detail %}
+      <a href="{{ h.url_for(dataset_type ~ '.read', id=activity.object_id, activity_id=activity.id) }}">
+        {{ _('View this version') }}
+      </a>
+      &nbsp;|&nbsp;
+      <a href="{{ h.url_for(dataset_type ~ '.changes', id=activity.id) }}">
+        {{ _('Changes') }}
+      </a>
+    {% endif %}
+  </span>
+</li>

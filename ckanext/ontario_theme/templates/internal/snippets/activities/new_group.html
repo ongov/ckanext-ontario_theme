@@ -1,0 +1,14 @@
+{% set group = activity.data.group %}
+{% do group.update({
+  "title": h.ontario_theme_get_dict_from_id(
+    id=activity.object_id,
+    action="group_show",
+    alt_title=group.title) }) %}
+<li class="item {{ activity.activity_type|replace(' ', '-')|lower }}">
+  <span class="activity-stream-timestamp">
+    {{ h.render_datetime(activity.timestamp) }}
+  </span>
+  {{ _('{group} group was created').format(
+      group=ah.group(activity)
+    )|safe }}
+</li>

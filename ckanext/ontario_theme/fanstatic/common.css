@@ -4159,134 +4159,157 @@ label::after {
 
 .wrapper {
   min-height: unset;
+}
 
-  Step Indicator - Design System========================================================================*/ .ontario-step-indicator .ontario-step-indicator--without-back-button,
-  .ontario-step-indicator .ontario-step-indicator--with-back-button {
-    display: flex;
-    align-items: center
-  }
+/* ========================================================================
+  Step Indicator - Design System
+  ======================================================================== */ 
 
-  .ontario-step-indicator .ontario-step-indicator--without-back-button {
-    justify-content: flex-end
-  }
+.ontario-step-indicator .ontario-step-indicator--without-back-button,
+.ontario-step-indicator .ontario-step-indicator--with-back-button {
+  display: flex;
+  align-items: center
+}
 
-  .ontario-step-indicator .ontario-step-indicator--with-back-button {
-    justify-content: space-between
-  }
+.ontario-step-indicator .ontario-step-indicator--without-back-button {
+  justify-content: flex-end
+}
 
+.ontario-step-indicator .ontario-step-indicator--with-back-button {
+  justify-content: space-between
+}
+
+.ontario-step-indicator .ontario-h4 {
+  margin: 1.125rem 0
+}
+
+@media screen and (max-width: 40em) {
   .ontario-step-indicator .ontario-h4 {
-    margin: 1.125rem 0
+    margin: 1rem 0;
+    text-align: right
   }
+}
 
-  @media screen and (max-width: 40em) {
-    .ontario-step-indicator .ontario-h4 {
-      margin: 1rem 0;
-      text-align: right
-    }
-  }
+.ontario-step-indicator .ontario-button.ontario-button--tertiary {
+  display: flex;
+  align-items: center;
+  margin: .75rem 0;
+  padding-left: .5rem;
+  padding-right: 1rem;
+  min-width: 3rem
+}
 
+@media screen and (max-width: 40em) {
   .ontario-step-indicator .ontario-button.ontario-button--tertiary {
+    width: unset
+  }
+}
+
+.ontario-step-indicator .ontario-button.ontario-button--tertiary .ontario-icon {
+  margin: 0 .375rem 0 0;
+  padding: 0;
+  min-width: 24px;
+  min-height: 24px
+}
+
+.ontario-step-indicator hr {
+  padding: 0;
+  margin: 0
+}
+
+.ontario-step-indicator p {
+  max-width: 48rem
+}
+
+/* ========================================================================
+  New Resource Publish Page
+  ======================================================================== */
+
+.resource-metadata-heading.ontario-h5 {
+  margin: unset;
+}
+
+.resource-metadata-dl dd {
+  margin-bottom: 16px;
+}
+
+.resource-metadata-dl dd,
+.resource-metadata-dl dt {
+  padding-right: 16px;
+}
+
+.resource-metadata-dl > div,
+.resource-metadata-edit-row {
+  display: block;
+  padding-left: unset;
+}
+
+.resource-metadata-edit-row {
+  margin-bottom: 18px;
+}
+
+@media screen and (min-width: 40em) {
+  .resource-metadata-dl > div {
     display: flex;
+  }
+
+  .resource-metadata-edit-row h2 {
+    margin-bottom: unset;
+  }
+
+  .resource-metadata-edit-row {
+    display: inline-flex;
     align-items: center;
-    margin: .75rem 0;
-    padding-left: .5rem;
-    padding-right: 1rem;
-    min-width: 3rem
+    gap: 20px;
   }
+}
 
-  @media screen and (max-width: 40em) {
-    .ontario-step-indicator .ontario-button.ontario-button--tertiary {
-      width: unset
-    }
+.form-actions {
+  overflow: unset;
+}
+
+/* ========================================================================
+  Hint text - Design System
+  ======================================================================== */
+
+.ontario-hint {
+  color: #4d4d4d;
+  display: inline-block;
+  margin: 0 0 1rem 0;
+  width: 100%;
+  max-width: 48rem
+}
+
+/* form-column-name */
+.form-column-name {
+  border: none;
+  background-color: #fff;
+  display: inline-block;
+  margin: 0 0 1rem 0;
+  width: 100%;
+  max-width: 48rem
+}
+
+.column-name-div {
+  display: flex;
+  align-items: baseline;
+  column-gap: 10px;
+}
+
+.activity-stream-timestamp {
+  margin-right: 1rem;
+}
+
+.activity .item {
+  margin: 0 0 20px 0;
+}
+
+.activity {
+  background: none;
+}
+
+@media screen and (max-width: 40em) {
+  .activity {
+    margin-top: 16px;
   }
-
-  .ontario-step-indicator .ontario-button.ontario-button--tertiary .ontario-icon {
-    margin: 0 .375rem 0 0;
-    padding: 0;
-    min-width: 24px;
-    min-height: 24px
-  }
-
-  .ontario-step-indicator hr {
-    padding: 0;
-    margin: 0
-  }
-
-  .ontario-step-indicator p {
-    max-width: 48rem
-  }
-
-  /* ========================================================================
-   New Resource Publish Page
-   ======================================================================== */
-
-  .resource-metadata-heading.ontario-h5 {
-    margin: unset;
-  }
-
-  .resource-metadata-dl dd {
-    margin-bottom: 16px;
-  }
-
-  .resource-metadata-dl dd,
-  .resource-metadata-dl dt {
-    padding-right: 16px;
-  }
-
-  .resource-metadata-dl > div,
-  .resource-metadata-edit-row {
-    display: block;
-    padding-left: unset;
-  }
-
-  .resource-metadata-edit-row {
-    margin-bottom: 18px;
-  }
-
-  @media screen and (min-width: 40em) {
-    .resource-metadata-dl > div {
-      display: flex;
-    }
-
-    .resource-metadata-edit-row h2 {
-      margin-bottom: unset;
-    }
-
-    .resource-metadata-edit-row {
-      display: inline-flex;
-      align-items: center;
-      gap: 20px;
-    }
-  }
-
-  .form-actions {
-    overflow: unset;
-  }
-
-  /* ========================================================================
-   Hint text - Design System
-   ======================================================================== */
-
-  .ontario-hint {
-    color: #4d4d4d;
-    display: inline-block;
-    margin: 0 0 1rem 0;
-    width: 100%;
-    max-width: 48rem
-  }
-
-  /* form-column-name */
-  .form-column-name {
-    border: none;
-    background-color: #fff;
-    display: inline-block;
-    margin: 0 0 1rem 0;
-    width: 100%;
-    max-width: 48rem
-  }
-
-  .column-name-div {
-    display: flex;
-    align-items: baseline;
-    column-gap: 10px;
-  }
+}
