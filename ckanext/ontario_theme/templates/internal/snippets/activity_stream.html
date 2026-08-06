@@ -3,7 +3,7 @@
   <p style="font-size:16px; color:#1A1A1A;">
 
     <span style="display:inline-block; min-width:120px;">
-      {{ h.render_datetime(activity.timestamp) }}
+      {{ h.render_datetime(activity.timestamp, '%B %d, %Y') }}
     </span>
 
     <span>
@@ -14,7 +14,7 @@
       ) %}
 
       {% if activity.activity_type == 'new package' %}
-          {% trans dataset_link=dataset_link %}{{ dataset_link }} dataset was created{% endtrans %}
+          {{ dataset_link }} was created
 
       {% elif activity.activity_type == 'changed package' %}
           {% trans dataset_link=dataset_link %}{{ dataset_link }} dataset was updated{% endtrans %}
@@ -23,7 +23,7 @@
           {{ dataset_link }} was deleted
       {% endif %}
 
-      {% if c.userobj and c.userobj.sysadmin and h.lang() != 'fr' %}
+      {% if c.userobj and c.userobj.sysadmin %}
           by {{ h.linked_user(activity.user_id, 0, 30) }}
       {% endif %}
 
