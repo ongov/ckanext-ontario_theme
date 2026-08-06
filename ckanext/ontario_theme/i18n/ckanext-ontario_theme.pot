@@ -1,273 +1,72 @@
 # Translations template for ckanext-ontario_theme.
-# Copyright (C) 2026 ORGANIZATION
+# Copyright (C) 2020 ORGANIZATION
 # This file is distributed under the same license as the ckanext-ontario_theme
 # project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ckanext-ontario_theme 3.0.22\n"
+"Project-Id-Version: ckanext-ontario_theme 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-10 09:22-0400\n"
+"POT-Creation-Date: 2020-07-30 14:18-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.7.0\n"
+"Generated-By: Babel 2.3.4\n"
 
-#: ckanext/ontario_theme/column_types.py:34
-msgid "Text"
+# French punctuations
+msgid ":"
 msgstr ""
 
-#: ckanext/ontario_theme/column_types.py:35
-msgid "Unicode text of any length"
+#: ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html:20
+msgid "Other"
 msgstr ""
 
-#: ckanext/ontario_theme/column_types.py:36
-msgid "free-form text"
-msgstr ""
-
-#: ckanext/ontario_theme/column_types.py:42
-msgid "Numeric"
-msgstr ""
-
-#: ckanext/ontario_theme/column_types.py:43
-msgid ""
-"Number with arbitrary precision (any number of digits before and after the "
-"decimal)"
-msgstr ""
-
-#: ckanext/ontario_theme/column_types.py:51
-msgid "Integer"
-msgstr ""
-
-#: ckanext/ontario_theme/column_types.py:52
-msgid "Whole numbers with no decimal"
-msgstr ""
-
-#: ckanext/ontario_theme/column_types.py:59
-msgid "Boolean"
-msgstr ""
-
-#: ckanext/ontario_theme/column_types.py:60
-msgid "True or false values"
-msgstr ""
-
-#: ckanext/ontario_theme/column_types.py:67
-#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:43
-msgid "Date"
-msgstr ""
-
-#: ckanext/ontario_theme/column_types.py:68
-msgid "Date without time of day"
-msgstr ""
-
-#: ckanext/ontario_theme/column_types.py:75
-msgid "Timestamp"
-msgstr ""
-
-#: ckanext/ontario_theme/column_types.py:76
-#: ckanext/ontario_theme/column_types.py:84
-msgid "Date and time without time zone"
-msgstr ""
-
-#: ckanext/ontario_theme/column_types.py:83
-msgid "Time"
-msgstr ""
-
-#: ckanext/ontario_theme/create_view.py:34
-msgid "Integrity Error"
-msgstr ""
-
-#: ckanext/ontario_theme/create_view.py:100
-msgid "Unauthorized to read package"
-msgstr ""
-
-#: ckanext/ontario_theme/create_view.py:102
-msgid "Dataset not found"
-msgstr ""
-
-#: ckanext/ontario_theme/create_view.py:110
-msgid "Unable to add package to search index."
-msgstr ""
-
-#: ckanext/ontario_theme/datastore.py:50 ckanext/ontario_theme/resource.py:264
-msgid "Resource not found"
-msgstr ""
-
-#: ckanext/ontario_theme/organization.py:30
-msgid "Not authorized to see this page"
-msgstr ""
-
-#: ckanext/ontario_theme/page.py:52
-msgid "Go to previous page"
-msgstr ""
-
-#: ckanext/ontario_theme/page.py:55
-msgid "Go to next page"
-msgstr ""
-
-#: ckanext/ontario_theme/page.py:58
-msgid "Go to page {}"
-msgstr ""
-
-#: ckanext/ontario_theme/plugin.py:187
-msgid "Supporting file"
-msgstr ""
-
-#: ckanext/ontario_theme/plugin.py:724
-msgid "{bytes} <abbr title=\"bytes\">B</abbr>"
-msgstr ""
-
-#: ckanext/ontario_theme/plugin.py:726
-msgid "{kibibytes} <abbr title=\"kibibytes\">KiB</abbr>"
-msgstr ""
-
-#: ckanext/ontario_theme/plugin.py:728
-msgid "{mebibytes} <abbr title=\"mebibytes\">MiB</abbr>"
-msgstr ""
-
-#: ckanext/ontario_theme/plugin.py:730
-msgid "{gibibytes} <abbr title=\"gibibytes\">GiB</abbr>"
-msgstr ""
-
-#: ckanext/ontario_theme/plugin.py:732
-msgid "{tebibytes} <abbr title=\"tebibytes\">TiB</abbr>"
-msgstr ""
-
-#: ckanext/ontario_theme/plugin.py:776
-msgid "Fiscal: "
-msgstr ""
-
-#: ckanext/ontario_theme/plugin.py:1158
-msgid "Need to be system administrator to administer"
-msgstr ""
-
-#: ckanext/ontario_theme/plugin.py:1196 ckanext/ontario_theme/plugin.py:1197
-#: ckanext/ontario_theme/templates/internal/home/layout3.html:12
-msgid "Topics"
-msgstr ""
-
-#: ckanext/ontario_theme/plugin.py:1198
-#: ckanext/ontario_theme/templates/internal/header.html:129
-#: ckanext/ontario_theme/templates/internal/header.html:200
-#: ckanext/ontario_theme/templates/internal/header.html:237
-#: ckanext/ontario_theme/templates/internal/organization/activity_stream.html:4
-#: ckanext/ontario_theme/templates/internal/organization/edit.html:4
-#: ckanext/ontario_theme/templates/internal/organization/edit_base.html:4
-#: ckanext/ontario_theme/templates/internal/organization/edit_base.html:8
-#: ckanext/ontario_theme/templates/internal/organization/index.html:10
-#: ckanext/ontario_theme/templates/internal/organization/index.html:26
-#: ckanext/ontario_theme/templates/internal/organization/new.html:8
-#: ckanext/ontario_theme/templates/internal/organization/read_base.html:54
-#: ckanext/ontario_theme/templates/internal/organization/read_base.html:58
-#: ckanext/ontario_theme/templates/internal/organization/snippets/organization_list.html:6
-#: ckanext/ontario_theme/templates/internal/package/snippets/package_base_breadcrumb.html:7
-msgid "Ministries"
-msgstr ""
-
-#: ckanext/ontario_theme/plugin.py:1199
-msgid "Formats"
-msgstr ""
-
-#: ckanext/ontario_theme/plugin.py:1200
-msgid "Update frequency"
-msgstr ""
-
-#: ckanext/ontario_theme/plugin.py:1201
-msgid "Licences"
-msgstr ""
-
-#: ckanext/ontario_theme/plugin.py:1202
-msgid "Asset type"
-msgstr ""
-
-#: ckanext/ontario_theme/plugin.py:1203
-#: ckanext/ontario_theme/templates/internal/group/edit_base.html:4
-#: ckanext/ontario_theme/templates/internal/group/index.html:25
-#: ckanext/ontario_theme/templates/internal/group/read_base.html:11
-#: ckanext/ontario_theme/templates/internal/group/read_base.html:15
-#: ckanext/ontario_theme/templates/internal/group/snippets/group_list.html:29
-#: ckanext/ontario_theme/templates/internal/package/group_list.html:9
-#: ckanext/ontario_theme/templates/internal/package/read.html:31
-msgid "Groups"
-msgstr ""
-
-#: ckanext/ontario_theme/plugin.py:1204
-msgid "Jurisdiction"
-msgstr ""
-
-#: ckanext/ontario_theme/plugin.py:1205
-msgid "Category"
-msgstr ""
-
-#: ckanext/ontario_theme/plugin.py:1206
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:76
+#: ckanext/ontario_theme/plugin.py:396
 msgid "Access level"
 msgstr ""
 
-#: ckanext/ontario_theme/resource.py:72
-msgid "Unauthorized to update dataset"
+#: ckanext/ontario_theme/plugin.py:397
+msgid "Update frequency"
 msgstr ""
 
-#: ckanext/ontario_theme/resource.py:76 ckanext/ontario_theme/resource.py:114
-#: ckanext/ontario_theme/resource.py:160
-msgid "The dataset {id} could not be found."
+#: ckanext/ontario_theme/plugin.py:398 ckanext/ontario_theme/plugin.py:399
+msgid "Keywords"
 msgstr ""
 
-#: ckanext/ontario_theme/resource.py:80
-msgid "You must add at least one data resource"
+#: ckanext/ontario_theme/templates/external/footer.html:15
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:17
+msgid "Contact Us"
 msgstr ""
 
-#: ckanext/ontario_theme/resource.py:84
-msgid "Error"
+#: ckanext/ontario_theme/templates/external/footer.html:17
+msgid "https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269"
 msgstr ""
 
-#: ckanext/ontario_theme/resource.py:111
-msgid "Unauthorized to create a resource"
+#: ckanext/ontario_theme/templates/external/header.html:9
+msgid "Data Catalogue"
 msgstr ""
 
-#: ckanext/ontario_theme/resource.py:168
-msgid "Unauthorized to create a resource for this package"
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:24
+#: ckanext/ontario_theme/templates/external/header.html:29
+msgid "<a href=\"%(url)s?%(params)s\">Provide feedback</a> about our data and how you’re using it."
+
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:21
+msgid "https://www.ontario.ca/form/provide-feedback-ontario-data-catalogue"
 msgstr ""
 
-#: ckanext/ontario_theme/resource.py:207
-#, python-format
-msgid "User %r not authorized to edit %s"
+#: ckanext/ontario_theme/templates/external/home/about.html:7
+#: ckanext/ontario_theme/templates/internal/header.html:91
+#: ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html:55
+msgid "About"
 msgstr ""
 
-#: ckanext/ontario_theme/resource.py:238
-msgid "Unauthorized to edit this resource"
-msgstr ""
-
-#: ckanext/ontario_theme/validators.py:30
-#, python-format
-msgid "Tag \"%s\" may not contain commas"
-msgstr ""
-
-#: ckanext/ontario_theme/validators.py:33
-#, python-format
-msgid "Tag \"%s\" may not contain consecutive spaces"
-msgstr ""
-
-#: ckanext/ontario_theme/validators.py:39
-#, python-format
-msgid "Tag \"%s\" must be alphanumeric characters or symbols: ’'-_."
-msgstr ""
-
-#: ckanext/ontario_theme/validators.py:166
-msgid "This is a public catalogue field and can't be changed."
-msgstr ""
-
-#: ckanext/ontario_theme/fanstatic/scripts/odc-access-level.js:47
-msgid " and "
-msgstr ""
-
-#: ckanext/ontario_theme/fanstatic/scripts/odc-access-level.js:48
-msgid "All levels"
+#: ckanext/ontario_theme/templates/internal/home/about.html:16
+msgid "The Ontario government generates and maintains thousands of datasets. Since 2012, we have shared data with Ontarians via a data catalogue."
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/home/snippets/about_text.html:2
@@ -390,50 +189,50 @@ msgid ""
 " the way you want. </p> <h5>Non-open data</h5> <p>A non-open dataset may be "
 "not available for many reasons.</p> <p> <a href=\"#other-data\">Read more "
 "about non-open data.</a> </p> <p> <a href=\"https://www.ontario.ca/document"
-"/open-data-guidebook-guide-open-data-directive/data-inventory#section-1\"> "
-"Read more about restricted data. </a> </p> <p>Data that is non-open may still"
-" be subject to freedom of information requests.</p> <h4>Visualizing data</h4>"
-" <p> The catalogue has tools that enable all users to visualize the data in "
-"the catalogue without leaving the catalogue – no additional software needed. "
-"</p> <h4> <a name=\"features-notifications\"></a> Keeping updated </h4> <p> "
-"Get automatic notifications when datasets are updated. You can choose to get "
-"notifications for individual datasets, an organization’s datasets or the full"
-" catalogue. </p> <p> You don’t have to provide and personal information – "
-"just subscribe to our feeds using any feed reader you like using the "
-"corresponding notification web addresses. Copy those addresses and paste them"
-" into your reader. </p> <figure> <img src=\"%(image_path)sFeatures - "
-"Notifications -Adding a feed.jpg\" alt=\"A screenshot of the configuration "
-"screen of a RSS reader. The feed url for the data catalogue has been entered "
-"into the form field for the feed url.\" /> <figcaption>Figure 1 - Pasting the"
-" notification address for the full catalogue into the feed "
-"reader.</figcaption> </figure> <p>Your feed reader will let you know when the"
-" catalogue has been updated.</p> <figure> <img src=\"%(image_path)sFeatures -"
-" Notifications - Data catalogue feeds.jpg\" alt=\"A screenshot of an RSS "
-"reader displaying recently updated datasets from the data catalogue. The "
-"latest four datasets are listed.\" /> <figcaption>Figure 2 – Receiving "
-"notifications on the latest updates to the catalogue.</figcaption> </figure> "
-"<h3>File Types</h3> <p> The catalogue provides open data in several file "
-"formats (e.g., spreadsheets, geospatial data, etc). Learn about each format "
-"and how you can access and use the data each file contains. </p> <dl> <div "
-"class=\"format-item\"> <dt class=\"ontario-h4\">CSV - Comma Separated "
-"Values</dt> <dd> <p> A file that has a list of items and values separated by "
-"commas without formatting (e.g. colours, italics, etc.) or extra visual "
-"features. This format provides just the data that you would display in a "
-"table. XLSX (Excel) files may be converted to CSV so they can be opened in a "
-"text editor. </p> <p> <span class=\"p-intro\"><span class=\"p-intro\">How to "
-"access the data:</span></span> Open with any spreadsheet software application"
-" (e.g., Open Office Calc, Microsoft Excel) or text editor. </p> <p "
-"class=\"note\"> Note: This format is considered machine-readable, it can be "
-"easily processed and used by a computer. Files that have visual formatting "
-"(e.g. bolded headers and colour-coded rows) can be hard for machines to "
-"understand, these elements make a file more human-readable and less machine-"
-"readable. </p> </dd> </div> <div class=\"format-item\"> <dt "
-"class=\"ontario-h4\">Txt – Text file</dt> <dd> <p> A file that provides "
-"information without formatted text or extra visual features that may not "
-"follow a pattern of separated values like a CSV. </p> <p> <span "
-"class=\"p-intro\">How to access the data:</span> Open with any word processor"
-" or text editor available on your device (e.g., Microsoft Word, Notepad). "
-"</p> </dd> </div> <div class=\"format-item\"> <dt "
+"/open-data-guidebook-guide-open-data-directive-2015/data-"
+"inventory#section-1\"> Read more about restricted data. </a> </p> <p>Data "
+"that is non-open may still be subject to freedom of information requests.</p>"
+" <h4>Visualizing data</h4> <p> The catalogue has tools that enable all users "
+"to visualize the data in the catalogue without leaving the catalogue – no "
+"additional software needed. </p> <h4> <a name=\"features-notifications\"></a>"
+" Keeping updated </h4> <p> Get automatic notifications when datasets are "
+"updated. You can choose to get notifications for individual datasets, an "
+"organization’s datasets or the full catalogue. </p> <p> You don’t have to "
+"provide and personal information – just subscribe to our feeds using any feed"
+" reader you like using the corresponding notification web addresses. Copy "
+"those addresses and paste them into your reader. </p> <figure> <img "
+"src=\"%(image_path)sFeatures - Notifications -Adding a feed.jpg\" alt=\"A "
+"screenshot of the configuration screen of a RSS reader. The feed url for the "
+"data catalogue has been entered into the form field for the feed url.\" /> "
+"<figcaption>Figure 1 - Pasting the notification address for the full "
+"catalogue into the feed reader.</figcaption> </figure> <p>Your feed reader "
+"will let you know when the catalogue has been updated.</p> <figure> <img "
+"src=\"%(image_path)sFeatures - Notifications - Data catalogue feeds.jpg\" "
+"alt=\"A screenshot of an RSS reader displaying recently updated datasets from"
+" the data catalogue. The latest four datasets are listed.\" /> "
+"<figcaption>Figure 2 – Receiving notifications on the latest updates to the "
+"catalogue.</figcaption> </figure> <h3>File Types</h3> <p> The catalogue "
+"provides open data in several file formats (e.g., spreadsheets, geospatial "
+"data, etc). Learn about each format and how you can access and use the data "
+"each file contains. </p> <dl> <div class=\"format-item\"> <dt "
+"class=\"ontario-h4\">CSV - Comma Separated Values</dt> <dd> <p> A file that "
+"has a list of items and values separated by commas without formatting (e.g. "
+"colours, italics, etc.) or extra visual features. This format provides just "
+"the data that you would display in a table. XLSX (Excel) files may be "
+"converted to CSV so they can be opened in a text editor. </p> <p> <span "
+"class=\"p-intro\"><span class=\"p-intro\">How to access the "
+"data:</span></span> Open with any spreadsheet software application (e.g., "
+"Open Office Calc, Microsoft Excel) or text editor. </p> <p class=\"note\"> "
+"Note: This format is considered machine-readable, it can be easily processed "
+"and used by a computer. Files that have visual formatting (e.g. bolded "
+"headers and colour-coded rows) can be hard for machines to understand, these "
+"elements make a file more human-readable and less machine-readable. </p> "
+"</dd> </div> <div class=\"format-item\"> <dt class=\"ontario-h4\">Txt – Text "
+"file</dt> <dd> <p> A file that provides information without formatted text or"
+" extra visual features that may not follow a pattern of separated values like"
+" a CSV. </p> <p> <span class=\"p-intro\">How to access the data:</span> Open "
+"with any word processor or text editor available on your device (e.g., "
+"Microsoft Word, Notepad). </p> </dd> </div> <div class=\"format-item\"> <dt "
 "class=\"ontario-h4\">XLS/XLSX – Excel Spreadsheet</dt> <dd> <p>A spreadsheet "
 "file that may also include charts, graphs, and formatting.</p> <p> <span "
 "class=\"p-intro\">How to access the data:</span> Open with a spreadsheet "
@@ -697,90 +496,88 @@ msgid ""
 "</li> </ul>"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/about_text.html:2
-#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:4
-#: ckanext/ontario_theme/templates/internal/package/snippets/ontario_theme_language_disclaimer.html:15
-msgid "https://www.ontario.ca/page/ontarios-digital-and-data-directive-2021"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:11
-msgid "Help us improve the Data Catalogue"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:15
-msgid "https://www.ontario.ca/form/provide-feedback-ontario-data-catalogue"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:15
-#, python-format
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_contact_us.html:14
 msgid ""
-"<a href=\"%(url)s?%(params)s\">Provide feedback</a> about our data and how "
-"you’re using it."
+"Help us improve the Data Catalogue"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:7
-#: ckanext/ontario_theme/templates/internal/base.html:14
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:11
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:22
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:33
+msgid "Decorative image"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:14
+msgid "Covid-19 Data"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:18
+msgid "Get data on COVID-19 activity in Ontario."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:36
+msgid "Open data, Open source"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_featured_content.html:40
 msgid ""
-"Find public data and explore {count} datasets published by the Government of "
-"Ontario."
+"The Government of Ontario is taking steps towards open source software "
+"development, and sharing our catalogue work on github is just one of these "
+"steps."
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:16
-#: ckanext/ontario_theme/templates/internal/header.html:14
-msgid "Search Ontario's Data"
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:9
+msgid "Ontario Data Catalogue"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:17
-#: ckanext/ontario_theme/templates/internal/header.html:15
-#: ckanext/ontario_theme/templates/internal/header.html:170
-#: ckanext/ontario_theme/templates/internal/organization/index.html:35
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:42
-msgid "Search"
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:12
+msgid "Find public data and explore {count} datasets published by the Government of Ontario."
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:23
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_intro.html:20
 msgid "Learn more about what is covered and how to use data."
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:2
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:4
 msgid "Resources and information"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:7
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:11
 msgid "https://www.ontario.ca/page/sharing-government-data"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:8
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:12
 msgid "What is Open Data?"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:11
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:17
 msgid "Learn about Open Data and the Ontario Data Catalogue."
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:15
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:23
 msgid "Data licences and use"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:17
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:28
 msgid "Learn about the conditions and terms of use for using data."
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:21
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:34
 msgid "Developer resources"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:23
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:39
 msgid "Guidance for using our data in a software application."
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:27
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:45
 msgid "Training materials"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:29
+#: ckanext/ontario_theme/templates/external/home/snippets/ontario_theme_resources_and_information.html:50
 msgid "Learn to work with government data."
 msgstr ""
+
 
 #: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:9
 msgid "Data Available"
@@ -790,17 +587,21 @@ msgstr ""
 #, python-format
 msgid ""
 "The data described here is available for you to use. <a "
-"href=\"%(directive_url)s\">[Learn more]</a> <br /> <a "
-"href=\"%(license_url)s\">[See the licence for how you're allowed to use this "
-"data.]</a>"
+"href=\"%(directive_url)s\">[Learn "
+"more]</a><br /> <a href=\"%(license_url)s\">[See the licence for how you're "
+"allowed to use this data.]</a>"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:18
-msgid "Data restricted"
+#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:17
+#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:31
+msgid "Data Not Available"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:20
-#, python-format
+#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:33
+msgid "Data under review"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:35
 msgid ""
 "This data is not and will not be made available. The data was reviewed and "
 "cannot be released to the public because of reasons outlined by the <a "
@@ -808,978 +609,464 @@ msgid ""
 msgstr ""
 
 #: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:27
-msgid "Restriction"
+msgid "Why?"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:27
-#: ckanext/ontario_theme/templates/internal/group/index.html:37
-#: ckanext/ontario_theme/templates/internal/group/read.html:31
-#: ckanext/ontario_theme/templates/internal/organization/index.html:36
-#: ckanext/ontario_theme/templates/internal/organization/read.html:28
-#: ckanext/ontario_theme/templates/internal/package/search.html:52
-#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:32
-#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:43
-#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:45
-#: ckanext/ontario_theme/templates/internal/scheming/organization/about.html:15
-#: ckanext/ontario_theme/templates/internal/snippets/organization.html:24
-#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:39
-#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:48
-#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:73
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:76
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:96
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:196
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:202
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:237
-msgid ":"
+#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:20
+msgid "This data is not available right now. We are reviewing the data to determine if it can be made open to the public."
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:32
-msgid "Data under review"
+#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:33
+msgid "Data restricted"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/package/snippets/ontario_theme_access_level.html:34
-msgid ""
-"This data is not available right now. We are reviewing the data to determine "
-"if it can be made open to the public."
+#: ckanext/ontario_theme/templates/external/scheming/package/read.html:20
+msgid "Contact"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/scheming/package/read.html:23
+#: ckanext/ontario_theme/templates/external/scheming/package/read.html:24
 msgid "Ontario's Open Data Team"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/external/scheming/package/read.html:29
-msgid "Ministry contact:"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/external/scheming/package/snippets/additional_info.html:43
-#: ckanext/ontario_theme/templates/internal/package/snippets/additional_info.html:52
-#: ckanext/ontario_theme/templates/internal/scheming/package/snippets/additional_info.html:34
+#: ckanext/ontario_theme/templates/external/scheming/package/snippets/additional_info.html:38
+#: ckanext/ontario_theme/templates/internal/scheming/package/snippets/additional_info.html:36
 msgid "State"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/footer.html:10
-msgid "https://www.ontario.ca/page/accessibility"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/footer.html:11
+#: ckanext/ontario_theme/templates/internal/footer.html:9
 msgid "Accessibility"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/footer.html:16
-msgid "https://www.ontario.ca/page/privacy-statement"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/footer.html:17
+#: ckanext/ontario_theme/templates/internal/footer.html:10
 msgid "Privacy"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/footer.html:22
-msgid "https://www.ontario.ca/feedback/contact-us?id=532365&nid=138269"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/footer.html:23
-msgid "Contact us"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/footer.html:28
-msgid "https://www.ontario.ca/page/terms-use"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/footer.html:29
+#: ckanext/ontario_theme/templates/internal/footer.html:11
 msgid "Terms of use"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/footer.html:36
-msgid "https://www.ontario.ca/page/copyright-information"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/footer.html:37
+#: ckanext/ontario_theme/templates/internal/footer.html:15
 msgid "&copy; King&#8217;s Printer for Ontario,"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/header.html:31
+#: ckanext/ontario_theme/templates/internal/footer.html:24
+msgid ""
+"<strong>Powered by</strong> <a class=\"hide-text ckan-footer-logo\" "
+"href=\"https://ckan.org\"><abbr title=\"Comprehensive Knowledge Archive "
+"Network\">CKAN</abbr></a>"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/header.html:16
 msgid "Sysadmin settings"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/header.html:33
+#: ckanext/ontario_theme/templates/internal/header.html:39
+msgid "Settings"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/header.html:18
 msgid "Admin"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/header.html:40
+#: ckanext/ontario_theme/templates/internal/header.html:23
 msgid "View profile"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/header.html:49
+#: ckanext/ontario_theme/templates/internal/header.html:30
 #, python-format
 msgid "Dashboard (%(num)d new item)"
 msgid_plural "Dashboard (%(num)d new items)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ckanext/ontario_theme/templates/internal/header.html:54
+#: ckanext/ontario_theme/templates/internal/header.html:36
 msgid "Dashboard"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/header.html:61
-#: ckanext/ontario_theme/templates/internal/user/dashboard.html:6
-msgid "Edit settings"
+#: ckanext/ontario_theme/templates/internal/header.html:56
+msgid "Register"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/header.html:63
-msgid "Settings"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/header.html:70
-#: ckanext/ontario_theme/templates/internal/header.html:72
-msgid "Log out"
-msgstr ""
-
+#: ckanext/ontario_theme/templates/internal/group/snippets/info.html:6
 #: ckanext/ontario_theme/templates/internal/header.html:88
-msgid "https://www.ontario.ca/page/government-ontario"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/header.html:90
-msgid "Ontario.ca homepage"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/header.html:116
-msgid "Navigation header"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/header.html:120
-msgid "Data Catalogue"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/group/snippets/group_list.html:31
-#: ckanext/ontario_theme/templates/internal/header.html:128
-#: ckanext/ontario_theme/templates/internal/header.html:199
-#: ckanext/ontario_theme/templates/internal/header.html:236
-#: ckanext/ontario_theme/templates/internal/organization/edit_base.html:19
-#: ckanext/ontario_theme/templates/internal/organization/snippets/organization_list.html:8
-#: ckanext/ontario_theme/templates/internal/package/snippets/package_base_breadcrumb.html:21
-#: ckanext/ontario_theme/templates/internal/package/snippets/package_base_breadcrumb.html:24
+#: ckanext/ontario_theme/templates/internal/package/base.html:12
+#: ckanext/ontario_theme/templates/internal/package/base.html:16
+#: ckanext/ontario_theme/templates/internal/snippets/organization.html:25
 #: ckanext/ontario_theme/templates/internal/user/read_base.html:6
 msgid "Datasets"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/admin/config.html:42
-#: ckanext/ontario_theme/templates/internal/header.html:130
-#: ckanext/ontario_theme/templates/internal/header.html:238
-#: ckanext/ontario_theme/templates/internal/home/about.html:19
-#: ckanext/ontario_theme/templates/internal/user/edit_user_form.html:13
-msgid "About"
+#: ckanext/ontario_theme/templates/internal/snippets/organization.html:19
+msgid "{number} dataset"
+msgid_plural "{number} datasets"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ckanext/ontario_theme/templates/internal/organization/edit_base.html:3
+#: ckanext/ontario_theme/templates/internal/organization/edit_base.html:6
+#: ckanext/ontario_theme/templates/internal/organization/index.html:16
+#: ckanext/ontario_theme/templates/internal/organization/read_base.html:3
+#: ckanext/ontario_theme/templates/internal/organization/read_base.html:6
+#: ckanext/ontario_theme/templates/internal/package/base.html:9
+#: ckanext/ontario_theme/templates/internal/header.html:89
+msgid "Ministries"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/header.html:152
-#: ckanext/ontario_theme/templates/internal/home/snippets/search.html:27
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:38
-msgid "Clear field"
+#: ckanext/ontario_theme/templates/internal/group/edit_base.html:3
+#: ckanext/ontario_theme/templates/internal/group/index.html:7
+#: ckanext/ontario_theme/templates/internal/header.html:90
+msgid "Groups"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/header.html:182
-msgid "Close search bar"
+#: ckanext/ontario_theme/templates/internal/group/group_item.html:21
+msgid "{number} <span class=\"ontario-show-for-sr\">dataset</span>"
+msgid_plural "{number} <span class=\"ontario-show-for-sr\">datasets</span>"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/group/read.html:67
-#: ckanext/ontario_theme/templates/internal/header.html:184
-#: ckanext/ontario_theme/templates/internal/organization/read.html:60
-#: ckanext/ontario_theme/templates/internal/package/search.html:108
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:154
-msgid "close"
+#: ckanext/ontario_theme/templates/internal/header.html:102
+msgid "Search Datasets"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/header.html:205
-msgid "Show navigation menu"
+#: ckanext/ontario_theme/templates/internal/header.html:103
+#: ckanext/ontario_theme/templates/internal/home/snippets/search.html:15
+#: ckanext/ontario_theme/templates/internal/header.html:170
+msgid "Search"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/header.html:213
-#: ckanext/ontario_theme/templates/internal/header.html:231
-msgid "Menu"
+#: ckanext/ontario_theme/templates/internal/header.html:78
+msgid "https://www.ontario.ca/page/government-ontario"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/header.html:224
-msgid "Hide navigation menu"
+#: ckanext/ontario_theme/templates/internal/header.html:79
+msgid "Government of Ontario"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/page.html:4
 msgid "Skip to content"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/page.html:20
-msgid "Breadcrumb"
+#: ckanext/ontario_theme/templates/internal/datapusher/resource_data.html:13
+msgid "Upload to DataStore"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/admin/base.html:4
-msgid "Sysadmins"
+#: ckanext/ontario_theme/templates/internal/datapusher/resource_data.html:20
+msgid "Upload error:"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/admin/base.html:5
-msgid "Config"
+#: ckanext/ontario_theme/templates/internal/datapusher/resource_data.html:26
+#: ckanext/ontario_theme/templates/internal/datapusher/resource_data.html:28
+msgid "Error:"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/admin/base.html:6
-msgid "Trash"
+#: ckanext/ontario_theme/templates/internal/datapusher/resource_data.html:30
+msgid "Error traceback:"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/admin/config.html:9
-msgid "Site Title EN"
+#: ckanext/ontario_theme/templates/internal/datapusher/resource_data.html:42
+#: ckanext/ontario_theme/templates/internal/package/snippets/ontario_theme_access_level.html:4
+msgid "Status"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/admin/config.html:16
-msgid "Site Title FR"
+#: ckanext/ontario_theme/templates/internal/datapusher/resource_data.html:46
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:47
+msgid "Last updated"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/admin/config.html:23
-msgid "Style"
+#: ckanext/ontario_theme/templates/internal/datapusher/resource_data.html:50
+msgid "Never"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/admin/config.html:30
-msgid "Site Tag Line"
+#: ckanext/ontario_theme/templates/internal/datapusher/resource_data.html:56
+msgid "Upload Log"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/admin/config.html:38
-msgid "Site logo"
+#: ckanext/ontario_theme/templates/internal/datapusher/resource_data.html:70
+msgid "Details"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/admin/config.html:45
-msgid "About page text"
+#: ckanext/ontario_theme/templates/internal/datapusher/resource_data.html:77
+msgid "End of log"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/admin/config.html:49
-msgid "Intro Text"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/admin/config.html:52
-msgid "Text on home page"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/admin/config.html:56
-msgid "Custom CSS"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/admin/config.html:59
-msgid "Customisable css inserted into the page header"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/admin/config.html:63
-msgid "Homepage"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/admin/config.html:71
-msgid "Home Block One Image Path"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/admin/config.html:78
-msgid "Home Block One Link EN"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/admin/config.html:85
-msgid "Home Block One Link FR"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/admin/config.html:93
-msgid "Home Block One EN"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/admin/config.html:101
-msgid "Home Block One FR"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/admin/config.html:110
-msgid "Home Block Two Image Path"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/admin/config.html:117
-msgid "Home Block Two Link EN"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/admin/config.html:124
-msgid "Home Block Two Link FR"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/admin/config.html:132
-msgid "Home Block Two EN"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/admin/config.html:140
-msgid "Home Block Two FR"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/admin/config.html:149
-msgid "Home Block Three Image Path"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/admin/config.html:156
-msgid "Home Block Three Link EN"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/admin/config.html:163
-msgid "Home Block Three Link FR"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/admin/config.html:171
-msgid "Home Block Three EN"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/admin/config.html:179
-msgid "Home Block Three FR"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/admin/ontario_theme_image_uploader.html:25
-msgid "Upload Image"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/ajax_snippets/api_info.html:18
-msgid "CKAN Data API"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/ajax_snippets/api_info.html:22
-msgid "Access resource data via a web API with powerful query support"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/ajax_snippets/api_info.html:23
-msgid ""
-"Further information in the <a "
-"href=\"https://docs.ckan.org/en/latest/maintaining/datastore.html\" "
-"target=\"_blank\">main CKAN Data API and DataStore documentation</a>. </p>"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/ajax_snippets/api_info.html:35
-msgid "Endpoints"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/ajax_snippets/api_info.html:39
-msgid "The Data API can be accessed via the following actions of the CKAN action API."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/ajax_snippets/api_info.html:45
-msgid "Create"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/ajax_snippets/api_info.html:51
-msgid "Update / Insert"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/ajax_snippets/api_info.html:57
-msgid "Query"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/ajax_snippets/api_info.html:72
-msgid "Querying"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/ajax_snippets/api_info.html:76
-msgid "Query example (first 5 results) "
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/ajax_snippets/api_info.html:82
-msgid "Query example (results containing 'jones') "
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/ajax_snippets/api_info.html:96
-msgid "Example: Javascript"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/ajax_snippets/api_info.html:100
-msgid "A simple ajax (JSONP) request to the data API using jQuery."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/ajax_snippets/api_info.html:124
-msgid "Example: Python"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/ajax_snippets/api_info.html:128
-msgid "A simple request to the data API using Python."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/datastore/dictionary.html:18
-msgid "Add data dictionary"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/datastore/dictionary.html:87
-#: ckanext/ontario_theme/templates/internal/package/resource_validation.html:95
-msgid "Continue"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/datastore/snippets/dictionary_form.html:3
-msgid "Column {num}"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/datastore/snippets/dictionary_form.html:16
-msgid "Data type"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/datastore/snippets/dictionary_form.html:28
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:236
-msgid "Description"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/datastore/snippets/dictionary_form.html:29
-msgid "Give a short summary of the data this column contains."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/group/activity_stream.html:4
-#: ckanext/ontario_theme/templates/internal/group/read_base.html:36
-#: ckanext/ontario_theme/templates/internal/organization/activity_stream.html:4
-#: ckanext/ontario_theme/templates/internal/organization/read_base.html:28
-#: ckanext/ontario_theme/templates/internal/package/activity.html:7
-#: ckanext/ontario_theme/templates/internal/package/read.html:32
-msgid "History"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/group/edit_base.html:4
-#: ckanext/ontario_theme/templates/internal/group/edit_base.html:15
-#: ckanext/ontario_theme/templates/internal/group/read_base.html:27
-#: ckanext/ontario_theme/templates/internal/organization/edit_base.html:18
-#: ckanext/ontario_theme/templates/internal/organization/read_base.html:19
-#: ckanext/ontario_theme/templates/internal/package/new_resource.html:8
-#: ckanext/ontario_theme/templates/internal/package/read.html:11
-#: ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html:65
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:41
+#: ckanext/ontario_theme/templates/internal/group/edit.html:5
+#: ckanext/ontario_theme/templates/internal/group/edit_base.html:3
+#: ckanext/ontario_theme/templates/internal/group/edit_base.html:7
+#: ckanext/ontario_theme/templates/internal/group/read_base.html:5
+#: ckanext/ontario_theme/templates/internal/organization/edit_base.html:9
+#: ckanext/ontario_theme/templates/internal/organization/read_base.html:12
+#: ckanext/ontario_theme/templates/internal/package/edit_base.html:8
+#: ckanext/ontario_theme/templates/internal/package/read_base.html:5
+#: ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html:72
 msgid "Edit"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/group/edit_base.html:16
-#: ckanext/ontario_theme/templates/internal/organization/edit_base.html:20
-msgid "Members"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/group/index.html:3
-msgid "Browse datasets and resources organized by a specific theme or topic."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/group/index.html:19
+#: ckanext/ontario_theme/templates/internal/group/index.html:11
 msgid "Add Group"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/group/index.html:32
+#: ckanext/ontario_theme/templates/internal/group/index.html:21
+msgid "Browse datasets and resources organized by a specific theme or topic."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/group/index.html:16
 msgid "Search groups"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/group/index.html:49
-#: ckanext/ontario_theme/templates/internal/group/read.html:21
-#: ckanext/ontario_theme/templates/internal/organization/bulk_process.html:10
-#: ckanext/ontario_theme/templates/internal/organization/index.html:41
-#: ckanext/ontario_theme/templates/internal/organization/read.html:19
-#: ckanext/ontario_theme/templates/internal/package/search.html:41
+#: ckanext/ontario_theme/templates/internal/group/index.html:16
+#: ckanext/ontario_theme/templates/internal/organization/index.html:18
+#: ckanext/ontario_theme/templates/internal/package/search.html:30
 msgid "Name Ascending"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/group/index.html:49
-#: ckanext/ontario_theme/templates/internal/group/read.html:22
-#: ckanext/ontario_theme/templates/internal/organization/bulk_process.html:11
-#: ckanext/ontario_theme/templates/internal/organization/index.html:42
-#: ckanext/ontario_theme/templates/internal/organization/read.html:20
-#: ckanext/ontario_theme/templates/internal/package/search.html:42
+#: ckanext/ontario_theme/templates/internal/group/index.html:16
+#: ckanext/ontario_theme/templates/internal/organization/index.html:18
+#: ckanext/ontario_theme/templates/internal/package/search.html:31
 msgid "Name Descending"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/group/index.html:66
+#: ckanext/ontario_theme/templates/internal/group/index.html:28
 msgid "There are currently no groups for this site"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/group/index.html:68
-#: ckanext/ontario_theme/templates/internal/organization/index.html:86
+#: ckanext/ontario_theme/templates/internal/group/index.html:30
+#: ckanext/ontario_theme/templates/internal/organization/index.html:36
 msgid "How about creating one?"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/group/read.html:20
-#: ckanext/ontario_theme/templates/internal/organization/bulk_process.html:13
-#: ckanext/ontario_theme/templates/internal/organization/read.html:18
-#: ckanext/ontario_theme/templates/internal/package/search.html:40
-msgid "Relevance"
+#: ckanext/ontario_theme/templates/internal/home/layout3.html:3
+msgid "Home"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/group/read.html:23
-#: ckanext/ontario_theme/templates/internal/organization/bulk_process.html:12
-#: ckanext/ontario_theme/templates/internal/organization/read.html:21
-#: ckanext/ontario_theme/templates/internal/package/search.html:43
-msgid "Last Modified"
+#: ckanext/ontario_theme/templates/internal/home/layout3.html:34
+msgid "Topics"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/group/read.html:24
-#: ckanext/ontario_theme/templates/internal/organization/read.html:22
-#: ckanext/ontario_theme/templates/internal/package/search.html:45
-msgid "Popular"
+#: ckanext/ontario_theme/templates/internal/header.html:150
+msgid "Menu"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/group/read.html:31
-msgid "Search datasets"
+#: ckanext/ontario_theme/templates/internal/header.html:184
+msgid "close"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/group/read_base.html:35
-#: ckanext/ontario_theme/templates/internal/organization/read_base.html:27
-msgid "Assets"
+#: ckanext/ontario_theme/templates/internal/home/layout3.html:44
+msgid "What's new"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/group/read_base.html:37
-#: ckanext/ontario_theme/templates/internal/organization/read_base.html:29
-#: ckanext/ontario_theme/templates/internal/scheming/group/about.html:4
-#: ckanext/ontario_theme/templates/internal/scheming/organization/about.html:4
-msgid "More information"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/group/snippets/group_item.html:25
-#: ckanext/ontario_theme/templates/internal/organization/snippets/organization_item.html:15
-msgid "{number} <span class=\"ontario-show-for-sr\">dataset</span>"
-msgid_plural "{number} <span class=\"ontario-show-for-sr\">datasets</span>"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ckanext/ontario_theme/templates/internal/group/snippets/info.html:13
-#: ckanext/ontario_theme/templates/internal/package/read.html:23
-#: ckanext/ontario_theme/templates/internal/snippets/organization.html:20
-#: ckanext/ontario_theme/templates/internal/snippets/organization.html:25
-msgid "Deleted"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/group/snippets/info.html:20
-#: ckanext/ontario_theme/templates/internal/snippets/organization.html:33
-msgid "{number} dataset"
-msgid_plural "{number} datasets"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ckanext/ontario_theme/templates/internal/group/snippets/info.html:24
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_categories.html:63
-#: ckanext/ontario_theme/templates/internal/snippets/organization.html:37
-msgid "datasets"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/group/snippets/info.html:35
-msgid "read more"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/about.html:3
-msgid ""
-"The Ontario government generates and maintains thousands of datasets. Since "
-"2012, we have shared data with Ontarians via a data catalogue."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/layout3.html:21
-#: ckanext/ontario_theme/templates/internal/snippets/error_404.html:9
+#: ckanext/ontario_theme/templates/internal/home/layout3.html:52
 msgid "Most popular datasets"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/home/layout3.html:25
+#: ckanext/ontario_theme/templates/internal/home/layout3.html:56
 msgid "COVID-19 datasets"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/home/layout3.html:26
+#: ckanext/ontario_theme/templates/internal/home/layout3.html:28
 msgid "COVID-19 datasets "
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:309
+#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_intro.html:12
 msgid ""
-"A screenshot of the data and resources section of the dataset description "
-"page. Each file in the dataset is listed. To the right of each file name is a"
-" preview button and a download button. An arrow is overlaid onto the "
-"screeshot that points to the preview button."
+" Here you'll find thousands of datasets that are maintained by the Ontario "
+"Government for OPS use. <a href=\"/about\">Learn more about Colby</a> "
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:311
-msgid ""
-"Figure 3: The location of the <strong>Preview</strong> button on the dataset "
-"page."
+#: ckanext/ontario_theme/templates/internal/home/snippets/search.html:7
+msgid "Search Ontario's Data"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:315
-msgid ""
-"When you click the <strong>Preview</strong> button, you will get to a page "
-"that:"
-msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:319
-msgid ""
-"describes the files (including a description of the file and the web address "
-"where the file is stored)"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:323
-msgid ""
-"allows you to see the data in a few different ways - in a spreadsheet, as a "
-"graph or geographic map"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:329
-msgid ""
-"A screenshot of the file description page. The file name, text description, "
-"and web address is found at the top. A visualization tool is found underneath"
-" that allows users to transform the contents of the file from spreadsheet to "
-"graph to map."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:331
-msgid ""
-"Figure 4: A file preview page showing the file description and the contents "
-"of the file visualized as a spreadsheet."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:336
-msgid ""
-"The <strong>Graph</strong> and <strong>Map</strong> options are available "
-"just above the dataset."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:341
-msgid ""
-"A screenshot of the section of the file description page that lets the user "
-"transform the contents of the file from spreadsheet to graph to map. The "
-"three buttons visible at the top left above the visualization are grid, "
-"graph, and map. An arrow is overlaid onto the screeshot that points to the "
-"graph and map buttons."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:343
-msgid ""
-"Figure 5: The <strong>Graph</strong> and <strong>Map</strong> options on a "
-"preview page."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:348
-msgid ""
-"When you click the <strong>Graph</strong> button, you will get to a screen "
-"that allows you to set the parameters of the graph you want to see."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:353
-msgid ""
-"A screenshot of the section of the file description page that lets the user "
-"transform the contents of the file from spreadsheet to graph to map. The "
-"graph button has been selected and there is a message instructing the user to"
-" fill out the form at the right to specify the type of graph, along with axes"
-" that they want."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:354
-msgid "Figure 6: The screen where you can set the parameters for your graph."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:356
-msgid "Once you select your graph type, and your axes, you should see a simple graph:"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:359
-msgid ""
-"A screenshot of the section of the file description page that lets the user "
-"transform the contents of the file from spreadsheet to graph to map. The "
-"graph button has been selected and the user has chosen a line graph and both "
-"axes and a simple line graph is visible."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:361
-msgid ""
-"Figure 7: Ontario livestock prices (Bull Slaughter file), graphed in the data"
-" catalogue"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:367
-msgid ""
-"When you click the <strong>Map</strong> button, you will get to a screen that"
-" allows you to identify the mappable information (latitude and longitude) in "
-"the file. You should then see a simple map:"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:373
-msgid "A screenshot of the map visualization."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:374
-msgid "Figure 8: Bridge conditions data, mapped in the data catalogue."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:379
-msgid ""
-"If there is no <strong>Preview</strong> button for a dataset, then you will "
-"see an <strong>About</strong> button. This means that the dataset contents "
-"cannot be previewed as a spreadsheet, graph or map by the catalogue."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:385
-msgid "When you click <strong>About</strong>, you will get a description of the file."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:389
-msgid ""
-"A screenshot of the file description page when the file is not in a format or"
-" structure the catalogue can easily transform. The file name, text "
-"description, and web address is found at the top. There is no section for "
-"visualizations below."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/about_text.html:390
-msgid "Figure 9: A description of a dataset, including its web address."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_featured_content.html:11
-msgid "Decorative image"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_group_datasets.html:23
-#, python-format
-msgid "<a href=\"%(url)s\">More %(group_title)s</a>"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_intro.html:11
-msgid "Welcome"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_intro.html:14
-msgid ""
-"Here you'll find thousands of datasets that are maintained by the Ontario "
-"Government for OPS use."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_intro.html:18
-msgid "Learn more about Colby"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_popular_datasets.html:16
-msgid "More popular datasets"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/macros/form.html:55
-#: ckanext/ontario_theme/templates/internal/macros/form.html:317
-msgid "This field is required"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/macros/form.html:142
-#, python-format
-msgid ""
-"You can use <a href=\"#markdown\" title=\"Markdown quick reference\" data-"
-"target=\"popover\" data-content=\"%(markdown_tooltip)s\" data-"
-"html=\"true\">Markdown formatting</a> here"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/macros/form.html:259
-msgid "Key"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/macros/form.html:275
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:104
-msgid "Remove"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/macros/form.html:279
-msgid "Value"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/macros/form.html:318
-msgid "Custom"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/macros/form.html:344
-msgid "The form contains invalid entries:"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/macros/form.html:453
-msgid "Required field"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/macros/form.html:468
-msgid "http://example.com/my-image.jpg"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/macros/form.html:469
-msgid "Image URL"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/macros/form.html:470
-msgid "Image"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/macros/form.html:489
-msgid "Clear Upload"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/organization/index.html:3
-msgid "Find data published by each of Ontario's Ministries."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/organization/index.html:19
+#: ckanext/ontario_theme/templates/internal/organization/index.html:12
 msgid "Add Ministry"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/organization/index.html:33
+#: ckanext/ontario_theme/templates/internal/organization/index.html:18
+msgid "Find data published by each of Ontario’s ministries."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/organization/index.html:30
 msgid "Search ministries"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/organization/index.html:84
-msgid "There are currently no ministries for this site"
+#: ckanext/ontario_theme/templates/internal/organization/index.html:34
+msgid "There are currently no ministries for this site."
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/organization/new.html:4
-#: ckanext/ontario_theme/templates/internal/organization/new.html:12
-msgid "Create a Ministry"
+#: ckanext/ontario_theme/templates/internal/organization/snippets/organization_item.html:14
+msgid "View {organization_name}"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/organization/read.html:27
-#, python-format
-msgid "Search %(ministry)s datasets"
+#: ckan/templates/snippets/subscribe.html:2
+msgid "Subscribe"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/edit_base.html:18
+#: ckanext/ontario_theme/templates/internal/organization/snippets/organization_item.html:13
+msgid "Datasets: {num}"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/package/base.html:17
+msgid "Create Dataset"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/package/edit_base.html:13
 msgid "View dataset"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/edit_base.html:22
+#: ckanext/ontario_theme/templates/internal/package/edit_base.html:17
 msgid "Edit metadata"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/edit_base.html:23
+#: ckanext/ontario_theme/templates/internal/package/edit_base.html:18
 msgid "Resources"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/group_list.html:24
-msgid "Associate this group with this dataset"
+#: ckanext/ontario_theme/templates/internal/package/read_base.html:11
+#: ckanext/ontario_theme/templates/internal/snippets/organization.html:32
+msgid "Keep updated"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/group_list.html:24
-msgid "Add to group"
+#: ckanext/ontario_theme/templates/internal/package/read_base.html:14
+msgid "Subscribe to updates to this dataset using RSS."
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/group_list.html:36
-msgid "There are no groups associated with this dataset"
+#: ckanext/ontario_theme/templates/internal/package/read_base.html:18
+#: ckanext/ontario_theme/templates/internal/snippets/organization.html:38
+msgid "Subscribe"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/new_package_form.html:8
-msgid "Publish Dataset"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/package/new_package_form.html:11
-msgid "Update Dataset"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/package/new_resource_not_draft.html:4
-#: ckanext/ontario_theme/templates/internal/package/resource_edit.html:4
-msgid "Add or edit"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/package/new_resource_not_draft.html:18
-#: ckanext/ontario_theme/templates/internal/package/resource_edit_base.html:25
-msgid "Add or edit data resource"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/package/new_resource_publish.html:12
-msgid "Review and publish"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/package/new_resource_publish.html:19
-msgid "Edit resource file and metadata"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/package/new_resource_publish.html:69
-msgid "Edit data dictionary"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/package/new_resource_publish.html:122
-msgid "Publish"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/package/read.html:22
-msgid "Draft"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/package/read.html:30
-msgid "Asset"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/package/read.html:44
-msgid "Private"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/package/read.html:50
-#, python-format
-msgid ""
-"You're currently viewing an old version of this dataset. To see the current "
-"version, click <a href=\"%(url)s\">here</a>."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/package/resource_edit_base.html:37
-msgid "Are you sure you want to delete this resource?"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/package/resource_read.html:18
-#: ckanext/ontario_theme/templates/internal/package/resource_read.html:25
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:65
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:72
+#: ckanext/ontario_theme/templates/internal/package/resource_read.html:5
+#: ckanext/ontario_theme/templates/internal/package/resource_read.html:7
 msgid "URL:"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/resource_validation.html:26
-msgid "Validation timestamp"
+#: ckanext/ontario_theme/templates/internal/package/resource_read.html:14
+msgid "Manage"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/resource_validation.html:27
-msgid "Duration"
+#: ckanext/ontario_theme/templates/internal/package/resource_read.html:21
+msgid "View"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/resources.html:14
+#: ckanext/ontario_theme/templates/internal/package/resource_read.html:23
+msgid "API Endpoint"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/package/resource_read.html:25
+#: ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html:65
+msgid "Open"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/package/resource_read.html:27
+#: ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html:62
+msgid "Download"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/package/resources.html:13
+#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:55
+#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:31
 #, python-format
 msgid ""
 "<p class=\"empty\"> This dataset has no data, <a href=\"%(url)s\">why not add"
 " some?</a> </p>"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/search.html:11
+#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:31
+msgid "Not available to the public"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:31
+msgid "Access to this dataset is restricted"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:31
+msgid "This dataset is currently under review"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/package/search.html:11
 msgid "Search for specific datasets or use filters to explore our data."
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/search.html:44
+#: ckanext/ontario_theme/templates/internal/package/search.html:29
+msgid "Relevance"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/package/search.html:32
+msgid "Last Modified"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/package/search.html:33
 msgid "Recently Created"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/snippets/additional_info.html:2
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:251
-msgid "Additional information"
+#: ckanext/ontario_theme/templates/internal/package/search.html:34
+msgid "Datasets With Data"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/snippets/additional_info.html:8
-msgid "Source"
+#: ckanext/ontario_theme/templates/internal/package/search.html:35
+msgid "Popular"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/snippets/additional_info.html:20
-#: ckanext/ontario_theme/templates/internal/package/snippets/additional_info.html:27
-msgid "Author"
+#: ckanext/ontario_theme/templates/internal/package/search.html:72
+#: ckanext/ontario_theme/templates/internal/package/search.html:77
+msgid "Datasets with data"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/snippets/additional_info.html:33
-#: ckanext/ontario_theme/templates/internal/package/snippets/additional_info.html:40
-msgid "Maintainer"
+#: ckanext/ontario_theme/templates/internal/package/snippets/ontario_theme_access_level.html:9
+msgid ""
+" <p> Data in this record is open and is published in the language in which "
+"it’s collected. Please <a href=\"https://www.ontario.ca/feedback/contact-"
+"us?id=14655&amp;nid=8691\"> contact us </a> to obtain assistance in either "
+"official language. </p> "
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/snippets/additional_info.html:46
-msgid "Version"
+#: ckanext/ontario_theme/templates/internal/package/snippets/ontario_theme_access_level.html:19
+msgid "Data in this record was opened"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/snippets/additional_info.html:58
-#: ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html:48
-msgid "Last Updated"
+#: ckanext/ontario_theme/templates/internal/package/snippets/ontario_theme_access_level.html:22
+msgid ""
+" <p> Data in this record cannot be released because of legal, privacy, "
+"security, confidentiality or commercially-sensitive reasons, as outlined by "
+"the <a href=\"%(directive_url)s\">Digital and"
+" Data Directive</a>. </p> "
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/snippets/additional_info.html:66
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:265
-msgid "Created"
+#: ckanext/ontario_theme/templates/internal/package/snippets/ontario_theme_access_level.html:36
+msgid ""
+" <p> We are reviewing the data in this record to determine if it can be made "
+"open, in support of the <a href=\"%(directive_url)s\""
+">Digital and Data Directive</a>. </p> "
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/package/snippets/ontario_theme_access_level.html:43
+msgid ""
+" <p> Data in this record has been reviewed and will be made open in the "
+"future, in support of the <a href=\"%(directive_url)s\""
+">Digital and Data Directive</a>. </p> "
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/package/snippets/ontario_theme_access_level.html:10
+#: ckanext/ontario_theme/templates/external/home/snippets/about_text.html:2
+#: ckanext/ontario_theme/templates/internal/package/snippets/ontario_theme_language_disclaimer.html:15
+msgid "https://www.ontario.ca/page/ontarios-digital-and-data-directive-2021"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/package/snippets/ontario_theme_language_disclaimer.html:8
 #, python-format
 msgid ""
-"You're viewing a data file in French. This dataset has files available in "
+" You're viewing a data file in French. This dataset has files available in "
 "English. <a href=\"%(url)s#dataset-resources\">Click here</a> to go back and "
-"select a file in English."
+"select a file in English. "
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/package/snippets/ontario_theme_language_disclaimer.html:15
-#, python-format
 msgid ""
-"You're viewing a data file in French. This dataset <strong>does not</strong> "
-"have files available in English. Data on the data catalogue is published in "
-"the language in which it’s collected. <a href=\"%(directive_url)s\">[Learn "
-"more]</a>"
+" You're viewing a data file in French. This dataset <strong>does not</strong>"
+" have files available in English. Data on the data catalogue is published in "
+"the language in which it’s collected. <a href=\"%(directive_url)s\">[Learn more]</a> "
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/snippets/package_form.html:42
+#: ckanext/ontario_theme/templates/internal/package/snippets/package_form.html:37
 msgid ""
 "The <i>data license</i> you select above only applies to the contents of any "
 "resource files that you add to this dataset. By submitting this form, you "
@@ -1788,196 +1075,260 @@ msgid ""
 "Database License</a>."
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/snippets/package_form.html:53
+#: ckanext/ontario_theme/templates/internal/package/snippets/package_form.html:48
 msgid "Are you sure you want to delete this dataset?"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/snippets/package_form.html:55
-#: ckanext/ontario_theme/templates/internal/scheming/group/group_form.html:29
-#: ckanext/ontario_theme/templates/internal/scheming/organization/group_form.html:30
-#: ckanext/ontario_theme/templates/internal/user/edit_user_form.html:43
+#: ckanext/ontario_theme/templates/internal/package/snippets/package_form.html:48
+#: ckanext/ontario_theme/templates/internal/scheming/organization/group_form.html:24
 msgid "Delete"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/snippets/report_an_error.html:4
-msgid "Report an issue with this data"
+#: ckanext/ontario_theme/templates/internal/package/snippets/package_form.html:52
+msgid "Save and Add Data"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/snippets/report_an_error.html:6
-#, python-format
-msgid ""
-"<a href=\"https://www.ontario.ca/form/report-data-issue-ontario-data-"
-"catalogue?%(params)s\">Submit a report</a> if you are experiencing issues "
-"with the data resources in this dataset."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/package/snippets/resource_form.html:7
+#: ckanext/ontario_theme/templates/internal/package/snippets/resource_form.html:9
 msgid "Resource"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html:23
-msgid "Other"
+#: ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html:27
+msgid "Last Updated"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html:62
-#: ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html:68
-#: ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html:77
+#: ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html:52
+msgid "Preview"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/package/snippets/resource_item.html:60
 msgid "Explore"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/snippets/resource_views_list_item.html:3
-msgid "Data Visualizer"
+#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:6
+msgid "Data"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:19
-msgid "Learn more about "
+#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:20
+msgid "Covers"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:19
-msgid "accessing data using different formats."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:30
+#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:22
 msgid "No date range"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:32
-#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:45
-msgid "Date range"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:35
-msgid "no end date"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:39
-msgid "No start date"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:86
+#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:46
 msgid "Supporting Files"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:96
-#, python-format
-msgid ""
-"<p class=\"empty\"> This dataset is published with no data resources. <a "
-"href=\"%(url)s\">Add a data resource to this dataset.</a> </p>"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:102
+#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:60
+#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:35
 msgid "This dataset has no data"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/scheming/form_snippets/_organization_select.html:17
+#: ckanext/ontario_theme/templates/internal/scheming/form_snippets/_organization_select.html:21
 msgid "No organization"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/scheming/group/group_form.html:23
-msgid "Are you sure you want to delete this Collection?"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/scheming/group/group_form.html:38
-msgid "Save Group"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/scheming/organization/about.html:28
-msgid "For more information"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/scheming/organization/about.html:33
-msgid "Contact"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/scheming/organization/group_form.html:24
+#: ckanext/ontario_theme/templates/internal/scheming/organization/group_form.html:23
 msgid "Are you sure you want to delete this Ministry?"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/scheming/organization/group_form.html:39
+#: ckanext/ontario_theme/templates/internal/scheming/organization/group_form.html:28
 msgid "Save Ministry"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:81
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:27
 msgid "From the dataset abstract"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:86
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:29
 #, python-format
 msgid "Source: <a href=\"%(url)s\">%(dataset)s</a>"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:109
-msgid "Download data"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:111
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:114
-msgid "Access data"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:162
-msgid "Use the data API"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:163
-msgid "Loading..."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:170
-msgid "CKAN Data API calls"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:177
-msgid "Visualize data"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:178
-msgid ""
-"Use the Data Visualizer below to display this dataset as a table, graph or "
-"map."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:207
-msgid "Data Not Available"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:223
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:211
 msgid "Data dictionary"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:234
-msgid "Column"
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:36
+msgid "Additional information"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:235
-msgid "Type"
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:40
+msgid "Field"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:257
-msgid "Last updated"
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:41
+msgid "Value"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:259
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:267
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:275
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:48
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:54
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:60
 msgid "unknown"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:273
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:53
+msgid "Created"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:59
 msgid "Format"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:283
-msgid "File size"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:285
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:65
 msgid "unknown size"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:293
-#: ckanext/ontario_theme/templates/internal/snippets/license.html:22
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:70
 msgid "Licence"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:190
+msgid "File size"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:29
+msgid "Date range"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:41
+msgid "No start date"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html:37
+msgid "no end date"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/add_dataset.html:6
+msgid "Add Dataset"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:54
+msgid "Show more"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:57
+msgid "Show less"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:58
+msgid "Show Only Popular {facet_type}"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:62
+msgid "There are no {facet_type} that match this search"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/license.html:25
+msgid "This dataset satisfies the Open Definition."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/organization.html:6
+msgid "Deleted"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/organization.html:15
+msgid "Read more"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/organization.html:15
+msgid "read more"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/organization.html:18
+msgid "There is no description for this ministry."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/package/snippets/resources_list.html
+msgid "Learn more about "
+msgstr ""
+msgid "accessing data using different formats."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/organization.html:34
+msgid "Subscribe to updates to this ministry using RSS."
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:44
+msgid "This dataset has no description"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:45
+msgid "Resource formats"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:17
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:38
+msgid "Remove"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:45
+msgid "Filters"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:123
+msgid "Please try another search or <a href=\"mailto:opendata@ontario.ca\">reach out to us if you think data is missing.</a>"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:15
+msgid "<strong>{number} total dataset</strong> found with the search term <strong>\"{query}\"</strong>"
+msgid_plural "<strong>{number} total datasets</strong> found with the search term <strong>\"{query}\"</strong>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:17
+msgid "<strong>{number} total dataset</strong> found"
+msgid_plural "<strong>{number} total datasets</strong> found"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:16
+msgid "No datasets found with the search term <strong>\"{query}\"</strong>"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:18
+msgid "No datasets found"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:21
+msgid "<strong>{number} group</strong> found with the search term <strong>\"{query}\"</strong>"
+msgid_plural "<strong>{number} groups</strong> found with the search term <strong>\"{query}\"</strong>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:22
+msgid "No groups found with the search term <strong>\"{query}\"</strong>"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:23
+msgid "<strong>{number} group</strong> found"
+msgid_plural "<strong>{number} groups</strong> found"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:24
+msgid "No groups found"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:27
+msgid "<strong>{number} ministry</strong> found for <strong>\"{query}\"</strong>"
+msgid_plural "<strong>{number} ministries</strong> found with the search term <strong>\"{query}\"</strong>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:28
+msgid "No ministries found with the search term <strong>\"{query}\"</strong>"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:29
+msgid "<strong>{number} ministry</strong> found"
+msgid_plural "<strong>{number} ministries</strong> found"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:30
+msgid "No ministries found"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/snippets/access_level_checkboxes.html:26
@@ -1986,213 +1337,12 @@ msgid_plural "{level_count} datasets with access level"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ckanext/ontario_theme/templates/internal/snippets/activity_stream.html:20
-#, python-format
-msgid "%(dataset_link)s dataset was updated"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/add_dataset.html:5
-msgid "Add Dataset"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/back_to_top.html:13
-msgid "Top"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/error_404.html:3
-msgid "Sorry, we can’t find that page"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/error_404.html:4
-#, python-format
-msgid ""
-"<p>Check the URL for errors. You can try to find data using the search box "
-"above or by <a href=\"%(url)s\">browsing our homepage.</a></p>"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:72
-msgid "Show less"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:73
-#: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:75
-msgid "Show more"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/facet_list.html:81
-msgid "There are no {facet_type} that match this search"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/home_breadcrumb_item.html:2
-msgid "Home"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/license.html:32
-msgid "This dataset satisfies the Open Definition."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/organization.html:6
-#: ckanext/ontario_theme/templates/internal/snippets/organization.html:24
-msgid "Ministry"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/organization.html:48
-msgid "Read more"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/organization.html:53
-msgid "There is no description for this ministry."
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:22
-msgid "ON External"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:26
-msgid "ON Geohub"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:48
-msgid "Resource formats"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:70
-msgid "This dataset has no description"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:73
-msgid "Not available to the public"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:75
-msgid "Access to this dataset is restricted"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/package_item.html:77
-msgid "This dataset is currently under review"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:125
-msgid "Clear filters"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:140
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:202
-msgid "Sort by"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:153
-msgid "Sort"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:186
-msgid ""
-"Showing datasets found with search term <strong>\"{query}\"</strong> and "
-"access level"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:188
-msgid ""
-"No datasets found with search term <strong>\"{query}\"</strong> and access "
-"level"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:190
-msgid "Showing datasets with access level"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:192
-msgid "No datasets with access level"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:229
-msgid "Filters"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:237
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:242
 msgid "We also found"
-msgstr ""
+msgstr "Nous avons également trouvé"
 
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:244
-msgid ""
-"Please try another search or <a href=\"mailto:opendata@ontario.ca\">reach out"
-" to us if you think data is missing.</a>"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:249
-msgid ""
-"<p id=\"search-error\"> <strong>There was an error while searching.</strong> "
-"Please try again. </p>"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:15
-msgid ""
-"<strong>{number} total dataset</strong> found with the search term "
-"<strong>\"{query}\"</strong>"
-msgid_plural ""
-"<strong>{number} total datasets</strong> found with the search term "
-"<strong>\"{query}\"</strong>"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:16
-msgid "No datasets found with the search term <strong>\"{query}\"</strong>"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:17
-msgid "<strong>{number} total dataset</strong> found"
-msgid_plural "<strong>{number} total datasets</strong> found"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:18
-msgid "No datasets found"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:20
-msgid ""
-"<strong>{number} group</strong> found with the search term "
-"<strong>\"{query}\"</strong>"
-msgid_plural ""
-"<strong>{number} groups</strong> found with the search term "
-"<strong>\"{query}\"</strong>"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:21
-msgid "No groups found with the search term <strong>\"{query}\"</strong>"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:22
-msgid "<strong>{number} group</strong> found"
-msgid_plural "<strong>{number} groups</strong> found"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:23
-msgid "No groups found"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:25
-msgid "<strong>{number} ministry</strong> found for <strong>\"{query}\"</strong>"
-msgid_plural ""
-"<strong>{number} ministries</strong> found with the search term "
-"<strong>\"{query}\"</strong>"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:26
-msgid "No ministries found with the search term <strong>\"{query}\"</strong>"
-msgstr ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:27
-msgid "<strong>{number} ministry</strong> found"
-msgid_plural "<strong>{number} ministries</strong> found"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ckanext/ontario_theme/templates/internal/snippets/search_result_text.html:28
-msgid "No ministries found"
+#: ckanext/ontario_theme/templates/internal/user/dashboard.html:6
+msgid "Edit settings"
 msgstr ""
 
 #: ckanext/ontario_theme/templates/internal/user/dashboard.html:9
@@ -2211,128 +1361,172 @@ msgstr ""
 msgid "My Groups"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/edit_user_form.html:9
-msgid "Change details"
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:112
+msgid "Visualize data"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/edit_user_form.html:10
-#: ckanext/ontario_theme/templates/internal/user/logout_first.html:10
-#: ckanext/ontario_theme/templates/internal/user/new_user_form.html:7
-msgid "Username"
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:106
+msgid "Use the data API"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/edit_user_form.html:11
-msgid "Full name"
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:110
+msgid "CKAN Data API calls"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/edit_user_form.html:11
-msgid "eg. Joe Bloggs"
+#: ckanext/ontario_theme/templates/internal/ajax_snippets/api_info.html:129
+msgid "A simple request to the data API using Python."
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/edit_user_form.html:12
-#: ckanext/ontario_theme/templates/internal/user/new_user_form.html:9
-msgid "Email"
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:113
+msgid "Use the Data Visualizer below to display this dataset as a table, graph or map."
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/edit_user_form.html:12
-msgid "eg. joe@example.com"
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:68
+msgid "Access data"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/edit_user_form.html:13
-msgid "A little information about yourself"
+#: ckanext/ontario_theme/templates/internal/scheming/package/resource_read.html:47
+msgid "Data Visualizer"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/edit_user_form.html:15
-msgid "Subscribe to notification emails"
+#: ckanext/ontario_theme/templates/internal/home/snippets/ontario_theme_group_datasets.html:24
+msgid "<a href=\"%(url)s\">More %(group_title)s</a>"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/edit_user_form.html:22
-msgid "Change password"
+#: ckanext/ontario_theme/templates/internal/organization/new.html:3
+msgid "Create a Ministry"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/edit_user_form.html:25
-msgid "Sysadmin Password"
+#: ckanext/ontario_theme/templates/internal/scheming/organization/group_form.html:28
+msgid "Save Ministry"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/edit_user_form.html:25
-msgid "Old Password"
+#: ckanext/ontario_theme/templates/internal/organization/index.html:3
+msgid "Add Ministry"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/edit_user_form.html:32
-#: ckanext/ontario_theme/templates/internal/user/logout_first.html:11
-#: ckanext/ontario_theme/templates/internal/user/new_user_form.html:10
-msgid "Password"
+#: ckanext/ontario_theme/templates/internal/scheming/organization/group_form.html:23
+msgid "Are you sure you want to delete this Ministry?"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/edit_user_form.html:33
-msgid "Confirm Password"
+#: ckanext/ontario_theme/templates/internal/organization/read.html:24
+msgid "Search %(ministry)s datasets"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/edit_user_form.html:41
-msgid "Are you sure you want to delete this User?"
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:58
+msgid "Ministry"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/edit_user_form.html:54
-msgid "Are you sure you want to regenerate the API key?"
+#: Report error callout
+msgid "Report an error with this data"
+msgstr ""
+msgid "Fill out a <a href=\"https://www.ontario.ca/form/report-data-error?%(params)s\">Data Catalogue error report</a> to let us know if there are issues with the resources in this dataset."
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/edit_user_form.html:56
-msgid "Regenerate API Key"
+# Back to top button
+msgid "Top"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/edit_user_form.html:63
-msgid "Update Profile"
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:106
+msgid "Sort by"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/logout_first.html:8
-msgid "You're already logged in as {user}."
+#: ckanext/ontario_theme/fanstatic/scripts/odc-access.js:72
+msgid " and "
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/logout_first.html:8
-msgid "Logout"
+#: ckanext/ontario_theme/fanstatic/scripts/odc-access.js:73
+msgid "All levels"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/logout_first.html:12
-msgid "Remember me"
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:83
+msgid "Showing datasets with access level"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/logout_first.html:14
-msgid "Log in"
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:199
+msgid "No datasets with access level"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/logout_first.html:20
-msgid "You're already logged in"
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:195
+msgid "No datasets found with search term <strong>\"{query}\"</strong> and access level"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/logout_first.html:22
-msgid "You need to log out before you can log in with another account."
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:193
+msgid "Showing datasets found with search term <strong>\"{query}\"</strong> and access level"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/logout_first.html:24
-msgid "Log out now"
+
+#: ckanext/ontario_theme/templates/internal/snippets/search_form.html:111
+msgid "Clear filters"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/new_user_form.html:7
-msgid "username"
+#: ckanext/ontario_theme/page.py:45
+msgid "Go to previous page"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/new_user_form.html:8
-msgid "Full Name"
+#: ckanext/ontario_theme/page.py:48
+msgid "Go to next page"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/new_user_form.html:8
-msgid "Joe Bloggs"
+#: ckanext/ontario_theme/page.py:51
+msgid "Go to page {}"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/new_user_form.html:9
-msgid "joe@example.com"
+#: ckanext/ontario_theme/templates/internal/header.html:115
+msgid "Navigation header"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/new_user_form.html:11
-msgid "Confirm"
+#: ckanext/ontario_theme/templates/internal/header.html:152
+msgid "Clear field"
 msgstr ""
 
-#: ckanext/ontario_theme/templates/internal/user/new_user_form.html:18
-msgid "Create Account"
+#: ckanext/ontario_theme/templates/internal/header.html:182
+msgid "Close search bar"
 msgstr ""
 
+#: ckanext/ontario_theme/templates/internal/header.html:205
+msgid "Show navigation menu"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/header.html:224
+msgid "Hide navigation menu"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/page.html:21
+msgid "Breadcrumb"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/home_breadcrumb_item.html:2
+msgid "Home"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/group/read_base.html:20
+#: ckanext/ontario_theme/templates/internal/organization/read_base.html:21
+#: ckanext/ontario_theme/templates/internal/package/read.html:18
+msgid "Asset"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/group/read_base.html:19
+#: ckanext/ontario_theme/templates/internal/organization/read_base.html:21
+#: ckanext/ontario_theme/templates/internal/package/read.html:18
+msgid "Assets"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/group/read_base.html:20
+#: ckanext/ontario_theme/templates/internal/organization/read_base.html:21
+#: ckanext/ontario_theme/templates/internal/package/read.html:18
+msgid "History"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/group/read_base.html:29
+#: ckanext/ontario_theme/templates/internal/organization/read_base.html:22
+msgid "More information"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/error_404.html:3
+msgid "Sorry, we can’t find that page"
+msgstr ""
+
+#: ckanext/ontario_theme/templates/internal/snippets/error_404.html:5
+msgid "<p>Check the URL for errors. You can try to find data using the search box above or by <a href=\"%(url)s\">browsing our homepage.</a></p>"
+msgstr ""

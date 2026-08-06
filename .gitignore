@@ -2,10 +2,6 @@
 node_modules
 bower_components
 
-# Ignore local Solr files
-scripts/solr-8.11.4/
-scripts/*.tgz
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
