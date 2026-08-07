@@ -13,10 +13,30 @@
   <div class="resource-title-div">
     {% block resource_item_title %}
       {% if res.format in h.dict_list_reduce(pkg.resources, 'format') and res.format %}
+        {% set file_type_hint = h.ontario_theme_get_file_type_hint(res.format) %}
         <div class="label-div">
-          <span class="label label-default"
-                property="dc:format"
-                data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span>
+          {% if file_type_hint %}
+            <button
+              type="button"
+              class="label label-default file-type-hint-trigger"
+              property="dc:format"
+              data-format="{{ res.format.lower() or 'data' }}"
+              data-file-type-heading="{{ file_type_hint.heading }}"
+              data-file-type-body="{{ file_type_hint.body | tojson | forceescape }}"
+              aria-haspopup="dialog"
+              aria-controls="file-type-dialog"
+            >
+              {{ h.get_translated(res, 'format') }}
+
+              <span class="ontario-show-for-sr">
+                {{ _('Learn about this file type') }}
+              </span>
+            </button>
+          {% else %}
+            <span class="label label-default"
+                  property="dc:format"
+                  data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span>
+          {% endif %}
         </div>
       {% else %}
         <div class="label-div">

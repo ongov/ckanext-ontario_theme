@@ -4346,3 +4346,127 @@ label::after {
     white-space: normal;
   }
 }
+
+
+/* ========================================================================
+   File type contextual hints
+   ======================================================================== */
+
+.file-type-hint-trigger {
+  position: relative;
+  z-index: 1000;
+  margin: 0;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+.file-type-hint-trigger:hover {
+  text-decoration: underline;
+}
+
+.file-type-hint-trigger:focus {
+  outline: 4px solid #009adb;
+  outline-offset: 2px;
+}
+
+.file-type-dialog[hidden] {
+  display: none;
+}
+
+.file-type-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.file-type-dialog__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 26, 26, 0.88);
+}
+
+.file-type-dialog__panel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 400px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  background: #ffffff;
+  color: #1a1a1a;
+}
+
+.file-type-dialog__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid #cccccc;
+}
+
+.file-type-dialog__title {
+  margin: 0;
+  padding-right: 16px;
+  color: #1a1a1a;
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.file-type-dialog__close {
+  flex: 0 0 auto;
+  padding: 0 4px;
+  border: 0;
+  background: transparent;
+  color: #1a1a1a;
+  cursor: pointer;
+  font-size: 32px;
+  line-height: 1;
+}
+
+.file-type-dialog__close:hover {
+  background: transparent;
+}
+
+.file-type-dialog__close:focus {
+  outline: 4px solid #009adb;
+  outline-offset: 2px;
+}
+
+.file-type-dialog__body {
+  padding: 20px 16px;
+  color: #1a1a1a;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.file-type-dialog__body p {
+  margin: 0 0 20px;
+}
+
+.file-type-dialog__body p:last-child {
+  margin-bottom: 0;
+}
+
+.file-type-dialog-open {
+  overflow: hidden;
+}
+
+@media screen and (max-width: 40em) {
+  .file-type-dialog {
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .file-type-dialog__panel {
+    margin-top: 16px;
+  }
+
+  .file-type-dialog__title {
+    font-size: 20px;
+  }
+}

@@ -3,6 +3,7 @@
 import ckan.plugins as plugins
 from ckanext.ontario_theme import validators
 from ckanext.ontario_theme import page
+from ckanext.ontario_theme import file_type_hints
 import ckan.plugins.toolkit as toolkit
 from ckan.lib.plugins import DefaultTranslation
 
@@ -1130,7 +1131,8 @@ type data_last_updated
                 'ontario_theme_get_facet_options': get_facet_options,
                 'ontario_theme_site_title': site_title,
                 'ontario_theme_get_current_year': get_current_year,
-                'ontario_theme_get_validation_report': get_validation_report
+                'ontario_theme_get_validation_report': get_validation_report,
+                u'ontario_theme_get_file_type_hint': file_type_hints.get_file_type_hint
                 }
 
     # IBlueprint
