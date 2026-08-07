@@ -12,6 +12,10 @@
   {{ _('{dataset} dataset was created').format(
     dataset=ah.dataset(activity)
   )|safe }}
+  {# Show author (actor) only for authenticated users; this is a login-state check, not a role check. #}
+  {% if c.userobj %}
+    {{ _('by {actor}').format(actor=ah.actor(activity))|safe }}
+  {% endif %}
   <br />
   <span class="date" title="{{ h.render_datetime(activity.timestamp, with_hours=True) }}">
     {% if can_show_activity_detail %}

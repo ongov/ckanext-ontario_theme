@@ -27,6 +27,8 @@ from natsort import humansorted
 
 from ckan.model import Package
 import ckan.model as model
+from six import text_type
+from markupsafe import Markup as literal
 import locale
 import functools
 
@@ -885,6 +887,19 @@ def sort_accented_characters(french_dict, primary_key, secondary_key=None,
     return sorted_list
 
 
+def user_link(user_id_or_name, maxlength=30):
+    '''Modifies core CKAN linked_user to supress return of avatar.'''
+    import ckan.model as model
+    user = model.User.get(text_type(user_id_or_name))
+    if not user:
+        return literal(text_type(user_id_or_name))
+    name = user.name if model.User.VALID_NAME.match(user.name) else user.id
+    displayname = user.display_name
+    if maxlength and len(displayname) > maxlength:
+        displayname = displayname[:maxlength] + u'...'
+    return literal(h.link_to(displayname, h.url_for('user.read', id=name)))
+
+
 def get_dict_from_id(id, action, alt_title):
     lang = request.environ['CKAN_LANG']
     field = 'title'
@@ -1141,7 +1156,8 @@ type data_last_updated
                 'ontario_theme_site_title': site_title,
                 'ontario_theme_get_current_year': get_current_year,
                 'ontario_theme_get_validation_report': get_validation_report,
-                'ontario_theme_get_dict_from_id': get_dict_from_id
+                'ontario_theme_get_dict_from_id': get_dict_from_id,
+                'ontario_theme_user_link': user_link
                 }
 
     # IBlueprint

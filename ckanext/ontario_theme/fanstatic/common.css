@@ -4297,11 +4297,17 @@ label::after {
 }
 
 .activity-stream-timestamp {
-  margin-right: 1rem;
+  left: 0;
+  min-width: 18ch;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
 }
 
 .activity .item {
   margin: 0 0 20px 0;
+  padding-left: calc(18ch + 1rem);
+  position: relative;
 }
 
 .activity {
@@ -4311,5 +4317,18 @@ label::after {
 @media screen and (max-width: 40em) {
   .activity {
     margin-top: 16px;
+  }
+
+  .activity-stream-timestamp {
+    display: block;
+    min-width: 0;
+    margin-bottom: 0.25rem;
+    position: static;
+    top: auto;
+    left: auto;
+  }
+
+  .activity .item {
+    padding-left: 0;
   }
 }

@@ -154,6 +154,15 @@
   position: relative;
 }
 
+.recent-activity .module-content ul.activity li p .actor .user-image {
+  display: none;
+}
+
+ul.activity .actor .gravatar,
+ul.activity .actor .user-image {
+  display: none;
+}
+
 .sr-only,
 .toolbar .home span,
 .simple-input label,
