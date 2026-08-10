@@ -1,0 +1,65 @@
+name: Sync with Project
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generate GitHub App Token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.EDS_GITHUB_APP_ID }}
+          private-key: ${{ secrets.EDS_GITHUB_APP_PRIVATE_KEY }}
+          owner: EDS-0042
+
+      - name: Update Tracking Issues
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          script: |
+            const body = context.payload.pull_request.body || "";
+      
+            // Find the "Issue(s) addressed" section
+            const sectionMatch = body.match(
+              /##\s*Issue\(s\)\s*addressed([\s\S]*?)(?:\n##|\s*$)/i
+            );
+      
+            if (!sectionMatch) {
+              core.info("No 'Issue(s) addressed' section found");
+              return;
+            }
+      
+            const sectionContent = sectionMatch[1];
+      
+            // Extract issue numbers from bullet points
+            const issueMatches = [
+              ...sectionContent.matchAll(/^[*-]\s*#(\d+)/gm)
+            ];
+      
+            if (issueMatches.length === 0) {
+              core.info("No issue references found");
+              return;
+            }
+      
+            const pr = context.payload.pull_request;
+      
+            for (const match of issueMatches) {
+              const issueNumber = parseInt(match[1], 10);
+      
+              await github.rest.issues.createComment({
+                owner: "EDS-0042",
+                repo: "ontario-product",
+                issue_number: issueNumber,
+                body: `Referenced by PR #${pr.number}\n${pr.html_url}`
+              });
+      
+              core.info(`Updated issue #${issueNumber}`);
+            }
