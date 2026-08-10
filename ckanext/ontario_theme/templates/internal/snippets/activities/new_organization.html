@@ -11,4 +11,8 @@
   {{ _('{organization} was created').format(
     organization=ah.organization(activity)
   )|safe }}
+  {# Show author (actor) only for authenticated users; this is a login-state check, not a role check. #}
+  {% if c.userobj %}
+    {{ _('by {actor}').format(actor=ah.actor(activity))|safe }}
+  {% endif %}
 </li>
