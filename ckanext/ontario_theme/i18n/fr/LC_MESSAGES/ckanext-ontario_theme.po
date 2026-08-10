@@ -2022,6 +2022,10 @@ msgstr "Au fur et à mesure que nous travaillons à son amélioration le catalog
 msgid "<a href=\"%(url)s\">More %(group_title)s</a>"
 msgstr "<a href=\"%(url)s\">Plus %(group_title)s</a>"
 
+#: ckanext/ontario_theme/templates/internal/header.html:89
+msgid "Ministries"
+msgstr "Ministères"
+
 #: ckanext/ontario_theme/templates/internal/header.html:78
 msgid "https://www.ontario.ca/page/government-ontario"
 msgstr "https://www.ontario.ca/fr/page/gouvernement-de-lontario"
@@ -2285,17 +2289,50 @@ msgstr[1] "{level_count} jeux de données avec niveau d’accès"
 msgid "We also found"
 msgstr "Nous avons également trouvé"
 
-#: ckanext/ontario_theme/templates/internal/snippets/activity_stream.html:6
-#, python-format
-msgid "%B %d, %Y"
-msgstr "%d %B %Y"
+#: ckanext/ontario_theme/templates/internal/snippets/changed_package.html:12
+msgid "{dataset} dataset was updated"
+msgstr "Le jeu de données {dataset} a été mis à jour"
 
-#: ckanext/ontario_theme/templates/internal/snippets/activity_stream.html:17
-#, python-format
-msgid "%(dataset_link)s dataset was created"
-msgstr "L’ensemble de données %(dataset_link)s a été créé"
+#: ckanext/ontario_theme/templates/internal/snippets/new_package.html:12
+msgid "{dataset} dataset was created"
+msgstr "Le jeu de données {dataset} a été créé"
 
-#: ckanext/ontario_theme/templates/internal/snippets/activity_stream.html:20
-#, python-format
-msgid "%(dataset_link)s dataset was updated"
-msgstr "Le jeu de données %(dataset_link)s a été mis à jour"
+#: ckanext/ontario_theme/templates/internal/snippets/activities/changed_group.html:11
+msgid "{group} group was updated"
+msgstr "Le groupe {group} a été mis à jour"
+
+#: ckanext/ontario_theme/templates/internal/snippets/activities/changed_organization.html:11
+msgid "{organization} was updated"
+msgstr "{organization} a été mise à jour"
+
+#: ckanext/ontario_theme/templates/internal/snippets/activities/changed_package.html:17
+#: ckanext/ontario_theme/templates/internal/snippets/activities/deleted_package.html:16
+#: ckanext/ontario_theme/templates/internal/snippets/activities/new_package.html:17
+msgid "by {actor}"
+msgstr "par {actor}"
+
+#: ckanext/ontario_theme/templates/internal/snippets/activities/deleted_group.html:10
+msgid "{group} group was deleted"
+msgstr "Le groupe {group} a été supprimé"
+
+#: ckanext/ontario_theme/templates/internal/snippets/activities/deleted_organization.html:11
+msgid "{organization} was deleted"
+msgstr "{organization} a été supprimée"
+
+#: ckanext/ontario_theme/templates/internal/snippets/activities/deleted_package.html:11
+msgid "{dataset} dataset was deleted"
+msgstr "Le jeu de données {dataset} a été supprimé"
+
+#: ckanext/ontario_theme/templates/internal/snippets/activities/new_group.html:11
+msgid "{group} group was created"
+msgstr "Le groupe {group} a été créé"
+
+#: ckanext/ontario_theme/templates/internal/snippets/activities/new_organization.html:11
+msgid "{organization} was created"
+msgstr "{organization} a été créée"
+
+#: ckanext/ontario_theme/templates/internal/snippets/activities/changed_package.html:27
+#: Override core ckan French translation for Changes to keep consistent with serving
+#: admin text available to internal account holders in EN only
+msgid "Changes"
+msgstr "Changes"
