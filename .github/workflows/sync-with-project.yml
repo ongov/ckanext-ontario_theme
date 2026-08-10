@@ -56,7 +56,7 @@ jobs:
       
               await github.rest.issues.createComment({
                 owner: "EDS-0042",
-                repo: "ontario-product",
+                repo: "odc-product",
                 issue_number: issueNumber,
                 body: `Referenced by PR #${pr.number}\n${pr.html_url}`
               });
