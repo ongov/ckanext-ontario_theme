@@ -2299,3 +2299,171 @@ msgstr "L’ensemble de données %(dataset_link)s a été créé"
 #, python-format
 msgid "%(dataset_link)s dataset was updated"
 msgstr "Le jeu de données %(dataset_link)s a été mis à jour"
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Comma-separated values (CSV)"
+msgstr "Valeurs séparées par une virgule (CSV)"
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "This file stores data in a grid format, with rows and columns."
+msgstr "Ce fichier stocke les données sous forme de grille, avec des lignes et des colonnes."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Data is machine-readable. This means a computer can interpret it for data visualizations and deeper analysis."
+msgstr "Les données sont lisibles par une machine. Cela signifie qu’un ordinateur peut interpréter le fichier pour des visualisations de données et une analyse plus approfondie."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Access CSV files using a spreadsheet application, text editor or database."
+msgstr "Accédez aux fichiers CSV à l’aide d’un tableur, d’un éditeur de texte ou d’une base de données."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Microsoft Excel (XLSX)"
+msgstr "Microsoft Excel (XLSX)"
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Microsoft’s spreadsheet file format. This file stores data in a digital grid and may include formatting such as colours, graphs and charts."
+msgstr "Format de tableur de Microsoft. Ce fichier stocke les données dans une grille numérique et peut inclure des mises en forme comme des couleurs, des graphiques et des diagrammes."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Access XLSX files using any spreadsheet application."
+msgstr "Accédez aux fichiers XLSX à l’aide de n’importe quel tableur."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Portable Document Format (PDF)"
+msgstr "Format de document portable (PDF)"
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "A digital document that may include text, images and links. PDFs are useful for printing or sharing online."
+msgstr "Document numérique qui pouvant contenir du texte, des images et des liens. Les PDF sont utiles pour l’impression ou l’échange en ligne."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Access PDF files using a web browser, PDF reader or word processor."
+msgstr "Accédez aux fichiers PDF à l’aide d’un navigateur Web, d’un lecteur PDF ou d’un traitement de texte."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "ZIP"
+msgstr "Fichier autodécompressable (fichier ZIP)"
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "A ZIP is a closed—or “zipped”—folder that can hold one or more files (of any format type) and folders. ZIP files let you share many items as one bundle, instead of individual files."
+msgstr "Un fichier ZIP est un dossier fermé – ou « compressé » – qui peut contenir un ou plusieurs fichiers (de n’importe quel type de format) et dossiers. Les fichiers ZIP vous permettent de partager de nombreux éléments sous forme d’ensemble plutôt que des fichiers individuels."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Access ZIP files with an unzipping software application. Some devices may unzip folders for you."
+msgstr "Accédez aux fichiers ZIP à l’aide d’un logiciel de décompression. Certains appareils peuvent décompresser les dossiers pour vous."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Microsoft Word (DOCX)"
+msgstr "Microsoft Word (DOCX)"
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Microsoft’s word processing file format. These files may have text with styling (like colours or italics), images and graphs."
+msgstr "Format de fichier de traitement de texte de Microsoft. Ces fichiers peuvent contenir du texte avec une mise en forme (comme des couleurs ou des italiques), des images et des graphiques."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Access DOCX files using any word processing application."
+msgstr "Accédez aux fichiers DOCX à l’aide de n’importe quelle application de traitement de texte."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Text file (TXT)"
+msgstr "Fichier texte (TXT)"
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "A document format containing only text or numbers with no styling."
+msgstr "Format de document ne contenant que du texte ou des chiffres sans aucune mise en forme."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Access TXT files with any word processing or text editing application."
+msgstr "Accédez aux fichiers TXT à l’aide de n’importe quelle application de traitement de texte ou d’édition de texte."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Website links (WEB)"
+msgstr "Liens de sites Web (WEB)"
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "These are links to data published on the Internet outside the Data Catalogue."
+msgstr "Il s’agit de liens vers des données publiées sur Internet en dehors du catalogue de données."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Access web links using any web browser connected to the Internet."
+msgstr "Accédez aux liens Web à l’aide de n’importe quel navigateur connecté à Internet."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Microsoft Excel (XLS)"
+msgstr "Microsoft Excel (XLS)"
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "An older version of Microsoft’s spreadsheet file format. This file stores data in a digital grid and may include formatting such as colours, graphs and charts."
+msgstr "Une ancienne version du format de tableur de Microsoft. Ce fichier stocke les données dans une grille numérique et peut inclure des mises en forme comme des couleurs, des graphiques et des diagrammes."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Access XLS files using any spreadsheet application."
+msgstr "Accédez aux fichiers XLS à l’aide de n’importe quel tableur."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Keyhole Markup Language (KML)"
+msgstr "Langage de balisage Keyhole (KML)"
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "KML files store geographic data that you can see on a map. An example might be data about a park, like its boundaries and the types of trees you can find in it."
+msgstr "Les fichiers KML stockent des données géographiques que vous pouvez voir sur une carte. Il peut s’agir, par exemple, de données relatives à un parc, comme ses limites et les types d’arbres qu’on y trouve."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Access KML files with any mapping application."
+msgstr "Accédez aux fichiers KML à l’aide de n’importe quelle application cartographique."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Shapefile (SHP)"
+msgstr "Fichier de formes (fichier SHP)"
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "A digital map file that stores information about specific locations or areas on a map."
+msgstr "Un fichier de carte numérique qui stocke des renseignements sur des lieux ou des zones spécifiques d’une carte."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Access SHP files with any geographic information system (GIS) application."
+msgstr "Accédez aux fichiers SHP à l’aide de n’importe quelle application de système d’information géographique (SIG)."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "JavaScript Object Notation (JSON)"
+msgstr "Notation objet issue de JavaScript (JSON)"
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "JSON files use key-value pairs to store data in a text format."
+msgstr "Les fichiers JSON utilisent des paires clé valeur pour stocker des données dans un format texte."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Access JSON files using any text editing or code-based application."
+msgstr "Accédez aux fichiers JSON à l’aide de n’importe quelle application d’édition de texte ou de code."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Microsoft Access (MDB)"
+msgstr "Microsoft Access (MDB)"
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Microsoft’s database file format. These files store and combine information from multiple different files."
+msgstr "Format de fichier de base de données de Microsoft. Ces fichiers stockent et combinent des renseignements provenant de plusieurs fichiers différents."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Access MDB files with Microsoft Access, or convert it to CSV or TXT."
+msgstr "Accédez aux fichiers MDB à l’aide de Microsoft Access, ou convertissez les au format CSV ou TXT."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Geographic JavaScript Object Notation (GeoJSON)"
+msgstr "Notation objet géographique issue de JavaScript (GeoJSON)"
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Access GeoJSON files with any mapping application."
+msgstr "Accédez aux fichiers GeoJSON à l’aide de n’importe quelle application cartographique."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Extensible Markup Language (XML)"
+msgstr "Langage de balisage extensible (XML)"
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "XML files provide information about a specific location, like average rainfall or the number of owls seen."
+msgstr "Les fichiers XML fournissent des renseignements sur un lieu spécifique, comme les précipitations moyennes ou le nombre de hiboux observés."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Access XML files with any mapping application."
+msgstr "Accédez aux fichiers XML à l’aide de n’importe quelle application cartographique."
