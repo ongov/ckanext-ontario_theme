@@ -2303,7 +2303,7 @@ msgstr "Le groupe {group} a été mis à jour"
 
 #: ckanext/ontario_theme/templates/internal/snippets/activities/changed_organization.html:11
 msgid "{organization} was updated"
-msgstr "L’organisation {organization} a été mise à jour"
+msgstr "{organization} a été mise à jour"
 
 #: ckanext/ontario_theme/templates/internal/snippets/activities/changed_package.html:17
 #: ckanext/ontario_theme/templates/internal/snippets/activities/deleted_package.html:16
@@ -2317,7 +2317,7 @@ msgstr "Le groupe {group} a été supprimé"
 
 #: ckanext/ontario_theme/templates/internal/snippets/activities/deleted_organization.html:11
 msgid "{organization} was deleted"
-msgstr "L’organisation {organization} a été supprimée"
+msgstr "{organization} a été supprimée"
 
 #: ckanext/ontario_theme/templates/internal/snippets/activities/deleted_package.html:11
 msgid "{dataset} dataset was deleted"
@@ -2329,7 +2329,7 @@ msgstr "Le groupe {group} a été créé"
 
 #: ckanext/ontario_theme/templates/internal/snippets/activities/new_organization.html:11
 msgid "{organization} was created"
-msgstr "L’organisation {organization} a été créée"
+msgstr "{organization} a été créée"
 
 #: ckanext/ontario_theme/templates/internal/snippets/activities/changed_package.html:27
 #: Override core ckan French translation for Changes to keep consistent with serving
