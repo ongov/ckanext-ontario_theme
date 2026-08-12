@@ -4290,6 +4290,11 @@ label::after {
     align-items: baseline;
     column-gap: 10px;
   }
+
+  /* ========================================================================
+   Activity Stream - Design System
+   ======================================================================== */
+
 .activity-stream-timestamp {
   left: 0;
   min-width: 18ch;
