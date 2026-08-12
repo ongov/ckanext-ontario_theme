@@ -24,7 +24,9 @@
                     data-file-type-body="{{ file_type_hint.body | tojson | forceescape }}"
                     aria-haspopup="dialog"
                     aria-controls="file-type-dialog">
-              {{ h.get_translated(res, 'format') }}
+              <span class="file-type-hint-trigger__label">
+                {{ h.get_translated(res, 'format') }}
+              </span>
               <span class="ontario-show-for-sr">
                 {{ _('Learn about this file type') }}
               </span>

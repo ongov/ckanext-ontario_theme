@@ -4470,3 +4470,9 @@ label::after {
     font-size: 20px;
   }
 }
+
+.file-type-hint-trigger__label {
+  border-bottom: 2px dotted currentColor;
+  line-height: 1.2;
+  padding-bottom: 1px;
+}

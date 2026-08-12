@@ -8,6 +8,9 @@ from flask.views import MethodView
 import ckan.model as model
 import six
 import cgi
+import logging
+
+log = logging.getLogger(__name__)
 
 from ckan.common import _, g, request
 from ckan.views.dataset import (
@@ -102,6 +105,15 @@ class CreateView(MethodView):
         except ValidationError as e:
             errors = e.error_dict
             error_summary = e.error_summary
+
+            log.exception(
+                "Resource validation failed: "
+                "args=%r error_dict=%r error_summary=%r",
+                e.args,
+                e.error_dict,
+                e.error_summary
+            )
+
             if data.get(u'url_type') == u'upload' and data.get(u'url'):
                 data[u'url'] = u''
                 data[u'url_type'] = u''

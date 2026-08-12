@@ -2467,3 +2467,59 @@ msgstr "Les fichiers XML fournissent des renseignements sur un lieu spécifique,
 #: ckanext/ontario_theme/file_type_hints.py
 msgid "Access XML files with any mapping application."
 msgstr "Accédez aux fichiers XML à l’aide de n’importe quelle application cartographique."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "dBase (DBF)"
+msgstr "dBase (DBF)"
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "A database file format used to store structured data in tables with rows and columns."
+msgstr "Un format de fichier de base de données utilisé pour stocker des données structurées dans des tableaux composés de rangées et de colonnes."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Data can be accessed and managed using database applications or converted to other formats such as CSV for analysis."
+msgstr "Les données peuvent être consultées et gérées à l’aide d’applications de bases de données ou converties dans d’autres formats, comme le format CSV, à des fins d’analyse."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Microsoft Word (DOC)"
+msgstr "Word de Microsoft (DOC)"
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Microsoft’s older word processing file format. These files may contain text with styling (like colours or italics), images and graphs."
+msgstr "L’ancien format de fichier de traitement de texte de Microsoft. Ces fichiers peuvent contenir du texte formaté (par exemple, avec des couleurs ou en italique), des images et des graphiques."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Access DOC files using any word processing application."
+msgstr "Vous pouvez accéder aux fichiers DOC à l’aide de n’importe quel logiciel de traitement de texte."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "GeoTIFF (GEOTIFF)"
+msgstr "GeoTIFF (GEOTIFF)"
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "A digital map file that stores geographic information along with image data, such as satellite imagery or aerial photographs."
+msgstr "Un fichier cartographique numérique qui contient des renseignements géographiques ainsi que des données d’image, telles que de l’imagerie satellitaire ou des photographies aériennes."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Data is machine-readable. This means a computer can interpret the file for mapping, visualization and deeper analysis."
+msgstr "Les données sont lisibles par machine, ce qui signifie qu’un ordinateur peut interpréter le fichier à des fins de cartographie, de visualisation et d’analyse plus approfondie."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Access GeoTIFF files with geographic information system (GIS) or image viewing applications."
+msgstr "Vous pouvez accéder aux fichiers GeoTIFF à l’aide d’un système d’information géographique (SIG) ou d’une application de visualisation d’images."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Tab-separated values (TSV)"
+msgstr "Valeurs séparées par une tabulation (TSV)"
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "This file stores data in a grid format, with rows and columns. Values are separated by tabs instead of commas."
+msgstr "Ce fichier stocke les données sous forme de grille, avec des rangées et des colonnes. Les valeurs sont séparées par des tabulations plutôt que par des virgules."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Data is machine-readable. This means a computer can interpret the file for data visualizations and deeper analysis."
+msgstr "Les données sont lisibles par machine, ce qui signifie qu’un ordinateur peut interpréter le fichier afin de réaliser des visualisations de données et des analyses plus approfondies."
+
+#: ckanext/ontario_theme/file_type_hints.py
+msgid "Access TSV files using a spreadsheet application, text editor or database."
+msgstr "Vous pouvez accéder aux fichiers TSV à l’aide d’un tableur, d’un éditeur de texte ou d’une base de données."
