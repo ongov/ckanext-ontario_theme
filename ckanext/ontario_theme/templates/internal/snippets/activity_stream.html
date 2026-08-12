@@ -35,7 +35,7 @@
 {% endmacro %}
 
 {% block activity_stream %}
-  <ul class="activity">
+  <ul class="activity" aria-label="{{ _('Activity history') }}">
   {# Show detail links only if the current user can access activity detail data for this object. #}
   {% set can_show_activity_detail = h.check_access('activity_list', {'id': id, 'include_data': True, 'object_type': object_type}) %}
   {% for activity in activity_stream %}
