@@ -28,6 +28,8 @@ from natsort import humansorted
 
 from ckan.model import Package
 import ckan.model as model
+from six import text_type
+from markupsafe import Markup as literal
 import locale
 import functools
 
@@ -945,6 +947,29 @@ def sort_accented_characters(french_dict, primary_key, secondary_key=None,
     return sorted_list
 
 
+def user_link(user_id_or_name, maxlength=30):
+    '''Modifies core CKAN linked_user to supress return of avatar.'''
+    import ckan.model as model
+    user = model.User.get(text_type(user_id_or_name))
+    if not user:
+        return literal(text_type(user_id_or_name))
+    name = user.name if model.User.VALID_NAME.match(user.name) else user.id
+    displayname = user.display_name
+    if maxlength and len(displayname) > maxlength:
+        displayname = displayname[:maxlength] + u'...'
+    return literal(h.link_to(displayname, h.url_for('user.read', id=name)))
+
+
+def get_dict_from_id(id, action, alt_title):
+    lang = request.environ['CKAN_LANG']
+    field = 'title'
+    try:
+        data_dict = toolkit.get_action(action)(None, {'id': id})
+    except (ckan.logic.NotFound, ckan.logic.NotAuthorized):
+        return alt_title
+    return get_translated_lang(data_dict, field, lang)
+
+
 def num_resources_filter_scrub(search_params):
     u'''Remove any quotes around num_resources value to enable prober filter
     query.
@@ -1203,7 +1228,9 @@ type data_last_updated
                 'ontario_theme_get_current_year': get_current_year,
                 'ontario_theme_get_validation_report': get_validation_report,
                 'ontario_geohub_harvest_publishers': get_ontario_geohub_publisher_options,
-                'ontario_geohub_harvest_organizations': get_ontario_geohub_harvest_organization_options
+                'ontario_geohub_harvest_organizations': get_ontario_geohub_harvest_organization_options,
+                'ontario_theme_get_dict_from_id': get_dict_from_id,
+                'ontario_theme_user_link': user_link
                 }
 
     # IBlueprint
@@ -1406,5 +1433,6 @@ type data_last_updated
             'lock_if_odc': validators.lock_if_odc,
             'ontario_theme_copy_fluent_keywords_to_tags': validators.ontario_theme_copy_fluent_keywords_to_tags,
             'ontario_tag_name_validator': validators.tag_name_validator,
-            'ontario_strip_fluent_value': validators.strip_fluent_value
+            'ontario_strip_fluent_value': validators.strip_fluent_value, 
+            'public_https_url_validator': validators.public_https_url_validator
        }

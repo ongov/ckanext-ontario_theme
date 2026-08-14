@@ -1,0 +1,18 @@
+{% set group = activity.data.group %}
+{% do group.update({
+  "title": h.ontario_theme_get_dict_from_id(
+    id=activity.object_id,
+    action="organization_show",
+    alt_title=group.title) }) %}
+<li class="item {{ activity.activity_type|replace(' ', '-')|lower }}">
+  <time class="activity-stream-timestamp" datetime="{{ activity.timestamp }}">
+    {{ h.render_datetime(activity.timestamp) }}
+  </time>
+  {{ _('{organization} was deleted').format(
+    organization=ah.organization(activity)
+  )|safe }}
+  {# Show author (actor) only for authenticated users; this is a login-state check, not a role check. #}
+  {% if c.userobj %}
+    {{ _('by {actor}').format(actor=ah.actor(activity))|safe }}
+  {% endif %}
+</li>

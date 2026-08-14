@@ -1,34 +1,55 @@
-{% for activity in activity_stream %}
-
-  <p style="font-size:16px; color:#1A1A1A;">
-
-    <span style="display:inline-block; min-width:120px;">
-      {{ h.render_datetime(activity.timestamp) }}
+{% macro actor(activity) %}
+  {% if c.userobj %}
+    <span class="actor">
+      {{ h.ontario_theme_user_link(activity.user_id) }}
     </span>
+  {% endif %}
+{% endmacro %}
 
-    <span>
+{% macro dataset(activity) %}
+  {% set dataset_type = activity.data.package.type or 'dataset' %}
+  <span class="dataset">
+    {{ h.link_to(activity.data.package.title if activity.data.package else _('unknown'),
+      h.url_for(dataset_type ~ '.read', id=activity.object_id)) }}
+  </span>
+{% endmacro %}
 
-      {% set dataset_link = h.link_to(
-          activity.data.get('package', {}).get('title', ''),
-          h.url_for('dataset.read', id=activity.data.get('package', {}).get('name', ''))
-      ) %}
+{% macro organization(activity) %}
+  {{ h.link_to(activity.data.group.title if activity.data.group else _('unknown'),
+               h.url_for('organization.read', id=activity.object_id)) }}
+{% endmacro %}
 
-      {% if activity.activity_type == 'new package' %}
-          {% trans dataset_link=dataset_link %}{{ dataset_link }} dataset was created{% endtrans %}
-
-      {% elif activity.activity_type == 'changed package' %}
-          {% trans dataset_link=dataset_link %}{{ dataset_link }} dataset was updated{% endtrans %}
-
-      {% elif activity.activity_type == 'deleted package' %}
-          {{ dataset_link }} was deleted
-      {% endif %}
-
-      {% if c.userobj and c.userobj.sysadmin and h.lang() != 'fr' %}
-          by {{ h.linked_user(activity.user_id, 0, 30) }}
-      {% endif %}
-
+{% macro user(activity) %}
+  {% if c.userobj %}
+    <span class="actor">
+      {{ h.ontario_theme_user_link(activity.object_id) }}
     </span>
+  {% endif %}
+{% endmacro %}
 
-  </p>
+{% macro group(activity) %}
+  <span class="group">
+    {{ h.link_to(activity.data.group.title if activity.data.group else _('unknown'),
+                 h.url_for('group.read', id=activity.object_id)) }}
+  </span>
+{% endmacro %}
 
-{% endfor %}
+{% block activity_stream %}
+  <ul class="activity" aria-label="{{ _('Activity history') }}">
+  {# Show detail links only if the current user can access activity detail data for this object. #}
+  {% set can_show_activity_detail = h.check_access('activity_list', {'id': id, 'include_data': True, 'object_type': object_type}) %}
+  {% for activity in activity_stream %}
+    {%- snippet "snippets/activities/{}.html".format(
+      activity.activity_type.replace(' ', '_')
+      ), "snippets/activities/fallback.html",
+      activity=activity, can_show_activity_detail=can_show_activity_detail, ah={
+        'actor': actor,
+        'dataset': dataset,
+        'organization': organization,
+        'user': user,
+        'group': group,
+      }, id=id
+    -%}
+  {% endfor %}
+  </ul>
+{% endblock %}
