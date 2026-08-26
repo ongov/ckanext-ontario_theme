@@ -2,7 +2,6 @@
 
 import re
 from ckan.common import _
-from ckantoolkit import Invalid
 from ckanext.scheming.validation import scheming_validator
 from ckanext.fluent.validators import fluent_text_output
 from ckantoolkit import Invalid
@@ -262,3 +261,21 @@ def public_https_url_validator(value, context):
     ))
 
     return normalized
+
+def public_https_resource_url_validator(key, data, errors, context):
+
+    url_type_key = key[:-1] + ('url_type',)
+
+    if data.get(url_type_key) == 'upload':
+        return
+
+    value = data.get(key)
+
+    # Leave missing values for scheming_required to handle.
+    if not value:
+        return
+
+    try:
+        data[key] = public_https_url_validator(value, context)
+    except Invalid as error:
+        errors.setdefault(key, []).append(str(error))

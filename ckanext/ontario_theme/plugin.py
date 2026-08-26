@@ -1317,5 +1317,6 @@ type data_last_updated
             'ontario_theme_copy_fluent_keywords_to_tags': validators.ontario_theme_copy_fluent_keywords_to_tags,
             'ontario_tag_name_validator': validators.tag_name_validator,
             'ontario_strip_fluent_value': validators.strip_fluent_value, 
-            'public_https_url_validator': validators.public_https_url_validator
+            'public_https_url_validator': validators.public_https_url_validator,
+            'public_https_resource_url_validator': validators.public_https_resource_url_validator
        }
