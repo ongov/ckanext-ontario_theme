@@ -1,0 +1,30 @@
+<div id="file-type-dialog"
+     class="file-type-dialog"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="file-type-dialog-title"
+     aria-hidden="true"
+     hidden>
+  <div class="file-type-dialog__backdrop"
+       data-file-type-dialog-close>
+  </div>
+
+  <div class="file-type-dialog__panel">
+    <div class="file-type-dialog__header">
+      <h2 id="file-type-dialog-title"
+          class="file-type-dialog__title">
+      </h2>
+
+      <button type="button"
+              class="file-type-dialog__close"
+              data-file-type-dialog-close
+              aria-label="{{ _('Close file type information') }}">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div id="file-type-dialog-body" 
+         class="file-type-dialog__body">
+    </div>
+  </div>
+</div>
