@@ -161,8 +161,8 @@ class TestCreateDataset(object):
                 exemption='' # Defaults to none when key provided and value is empty.
             )
         except logic.ValidationError as e:
-            update_frequency_values = ["Value must be one of ['as_required', 'biannually', 'current', 'daily', 'historical', 'monthly', 'never', 'on_demand', 'other', 'periodically', 'quarterly', 'weekly', 'yearly', 'quinquennial']"]
-                                        
+            update_frequency_values = ["Value must be one of ['as_required', 'biannually', 'current', 'daily', 'historical', 'monthly', 'never', 'on_demand', 'other', 'periodically', 'quarterly', 'weekly', 'fortnightly', 'yearly', 'quinquennial']"]
+            print(e.error_dict['update_frequency'])                     
             assert e.error_dict['update_frequency'] == update_frequency_values
 
         else:

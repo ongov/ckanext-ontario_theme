@@ -1,1 +1,3 @@
 pre-commit
+html2text
+lxml

@@ -30,12 +30,20 @@ import ckan.model as model
 import locale
 import functools
 
+
 from ckanext.ontario_theme.resource_upload import ResourceUpload
 from ckanext.ontario_theme.create_view import CreateView as OntarioThemeCreateView
 from ckanext.ontario_theme.resource import CreateView as OntarioThemeResourceCreateView
 from ckanext.ontario_theme.resource import EditView as OntarioThemeResourceEditView
 from ckanext.ontario_theme.organization import index as organization_index
 from ckanext.ontario_theme.datastore import DictionaryView
+
+# Ensure harvesters are imported so CKAN can register them
+from ckanext.ontario_theme.harvesters import OntarioGeohubHarvester, OntarioDataCatalogueHarvester
+from ckanext.ontario_theme.harvesters.ontario_geohub import (
+    get_ontario_geohub_publisher_options,
+    get_ontario_geohub_harvest_organization_options,
+)
 
 from ckanext.validation.helpers import dump_json_value
 
@@ -648,6 +656,36 @@ def get_license(license_id):
     return Package.get_license_register().get(license_id)
 
 
+def get_accepted_format_options():
+    '''Helper to return accepted resource format options for select dropdown.
+    Reads from accepted_resource_formats.json and returns a list of dicts
+    with 'value' (format extension) and 'text' (description) keys.
+    '''
+    import os
+    resource_format_path = os.path.join(os.path.dirname(__file__),
+                                        'accepted_resource_formats.json')
+    options = []
+    try:
+        with open(resource_format_path) as format_file:
+            file_resource_formats = json.loads(format_file.read())
+            for format_line in file_resource_formats:
+                ext = (format_line[0] or '').upper()
+                desc = format_line[1] if len(format_line) > 1 else ext
+                if ext:
+                    # Display as "EXT - Description" for better UX 
+                    display_text = u'{0} - {1}'.format(ext, desc) if desc else ext
+                    options.append({'value': ext, 'text': display_text})
+    except Exception:
+        pass
+        # Add 'WEB' as an extra option for remote links
+        options.append({'value': 'WEB', 'text': 'Remote Link (WEB)'})
+    # Add 'WEB' as an extra option for remote links if not already present
+    if not any(opt['value'] == 'WEB' for opt in options):
+        options.append({'value': 'WEB', 'text': 'WEB- Remote Link'})
+    print("[DEBUG] get_accepted_format_options called. Options:", options)
+    return options
+
+
 def get_current_year():
     return datetime.datetime.today().strftime('%Y')
 
@@ -1130,7 +1168,9 @@ type data_last_updated
                 'ontario_theme_get_facet_options': get_facet_options,
                 'ontario_theme_site_title': site_title,
                 'ontario_theme_get_current_year': get_current_year,
-                'ontario_theme_get_validation_report': get_validation_report
+                'ontario_theme_get_validation_report': get_validation_report,
+                'ontario_geohub_harvest_publishers': get_ontario_geohub_publisher_options,
+                'ontario_geohub_harvest_organizations': get_ontario_geohub_harvest_organization_options
                 }
 
     # IBlueprint
@@ -1227,8 +1267,13 @@ type data_last_updated
         and should return a modified (or not) version of it.
         Sets default access level to open
         '''
-        fl = search_params.setdefault("facet.field", [])
+        # Skip access_level filtering for harvest source searches
+        # Harvest sources don't have access_level and would be filtered out
         fq = search_params.get("fq", "")
+        if 'dataset_type:harvest' in fq:
+            return num_resources_filter_scrub(search_params)
+
+        fl = search_params.setdefault("facet.field", [])
         default_open = '{!bool tag=orFqaccess_level should=\'access_level:"open"\'}'
 
         ors = set(_get_default_ors())

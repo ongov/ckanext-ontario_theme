@@ -36,8 +36,10 @@ Requirements
    - `fork of frictionlessdata/ckanext-validation <https://github.com/ongov/ckanext-validation>`_
    - develop
    - ``validation``
-
-
+ * - ckanext-harvest
+   - `ckanext-harvest <https://github.com/ckan/ckanext-harvest>`_
+   - master
+   - N/A
 
 ------------
 Directory Structure
@@ -129,7 +131,7 @@ which could take seconds to minutes, depending on the file size:
 
    Screenshot-step2
 
-When the XLoader job status is complete, a “Continue” button is
+When the XLoader job status is complete, a "Continue" button is
 displayed that redirects to the Data Dictionary page (Step 3):
 |Screenshot step2_continue|
 
