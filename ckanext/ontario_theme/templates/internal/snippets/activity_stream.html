@@ -1,66 +1,55 @@
-<ul class="activity-stream-list">
+{% macro actor(activity) %}
+  {% if c.userobj %}
+    <span class="actor">
+      {{ h.ontario_theme_user_link(activity.user_id) }}
+    </span>
+  {% endif %}
+{% endmacro %}
+
+{% macro dataset(activity) %}
+  {% set dataset_type = activity.data.package.type or 'dataset' %}
+  <span class="dataset">
+    {{ h.link_to(activity.data.package.title if activity.data.package else _('unknown'),
+      h.url_for(dataset_type ~ '.read', id=activity.object_id)) }}
+  </span>
+{% endmacro %}
+
+{% macro organization(activity) %}
+  {{ h.link_to(activity.data.group.title if activity.data.group else _('unknown'),
+               h.url_for('organization.read', id=activity.object_id)) }}
+{% endmacro %}
+
+{% macro user(activity) %}
+  {% if c.userobj %}
+    <span class="actor">
+      {{ h.ontario_theme_user_link(activity.object_id) }}
+    </span>
+  {% endif %}
+{% endmacro %}
+
+{% macro group(activity) %}
+  <span class="group">
+    {{ h.link_to(activity.data.group.title if activity.data.group else _('unknown'),
+                 h.url_for('group.read', id=activity.object_id)) }}
+  </span>
+{% endmacro %}
+
+{% block activity_stream %}
+  <ul class="activity" aria-label="{{ _('Activity history') }}">
+  {# Show detail links only if the current user can access activity detail data for this object. #}
+  {% set can_show_activity_detail = h.check_access('activity_list', {'id': id, 'include_data': True, 'object_type': object_type}) %}
   {% for activity in activity_stream %}
-    {% set package = activity.data.get('package', {}) %}
-    {% set dataset_type = package.get('type') or 'dataset' %}
-
-    <li class="activity-stream-row">
-      <span class="activity-stream-timestamp">
-        {{ h.render_datetime(activity.timestamp) }}
-      </span>
-
-      <div class="activity-stream-content">
-        <div class="activity-stream-description">
-          {% set dataset_link = h.link_to(
-            package.get('title', ''),
-            h.url_for(
-              'dataset.read',
-              id=package.get('name', '')
-            )
-          ) %}
-
-          {% if activity.activity_type == 'new package' %}
-            {% trans dataset_link=dataset_link %}{{ dataset_link }} dataset was created{% endtrans %}
-
-          {% elif activity.activity_type == 'changed package' %}
-            {% trans dataset_link=dataset_link %}{{ dataset_link }} dataset was updated{% endtrans %}
-
-          {% elif activity.activity_type == 'deleted package' %}
-            {{ dataset_link }} was deleted
-          {% endif %}
-
-          {% if c.userobj and c.userobj.sysadmin and h.lang() != 'fr' %}
-            by {{ h.linked_user(activity.user_id, 0, 20) }}
-          {% endif %}
-        </div>
-
-        {% if c.userobj and c.userobj.sysadmin %}
-          {% if activity.activity_type in ['new package', 'changed package'] %}
-            {% set version_url = h.url_for(
-              dataset_type ~ '.read',
-              id=activity.object_id,
-              activity_id=activity.id
-            ) %}
-
-            <div class="activity-stream-actions">
-              {{ h.link_to(_('View this version'), version_url) }}
-
-              {% if activity.activity_type == 'changed package' %}
-                <span
-                  class="activity-stream-action-separator"
-                  aria-hidden="true"
-                >|</span>
-
-                {% set changes_url = h.url_for(
-                  dataset_type ~ '.changes',
-                  id=activity.id
-                ) %}
-
-                {{ h.link_to(_('Changes'), changes_url) }}
-              {% endif %}
-            </div>
-          {% endif %}
-        {% endif %}
-      </div>
-    </li>
+    {%- snippet "snippets/activities/{}.html".format(
+      activity.activity_type.replace(' ', '_')
+      ), "snippets/activities/fallback.html",
+      activity=activity, can_show_activity_detail=can_show_activity_detail, ah={
+        'actor': actor,
+        'dataset': dataset,
+        'organization': organization,
+        'user': user,
+        'group': group,
+      }, id=id
+    -%}
   {% endfor %}
-</ul>
+  </ul>
+{% endblock %}
