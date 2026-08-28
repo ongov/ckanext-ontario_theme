@@ -50,7 +50,7 @@ class TestResourceCreate(object):
     @mock.patch.object(builtins, 'open', side_effect=mock_open_if_open_fails)
     @mock.patch.object(ckan.lib.uploader, '_storage_path', new='doesnt_exist')
     @pytest.mark.ckan_config('ckan.plugins', 'ontario_theme_external ontario_theme scheming_datasets scheming_organizations scheming_groups fluent')
-    @pytest.mark.usefixtures('clean_db', 'with_plugins', 'with_request_context','create_with_upload') 
+    @pytest.mark.usefixtures('with_plugins', 'with_request_context','create_with_upload') 
     def test_mimetype_by_upload_by_filename(self, mock_open, create_with_upload):
         '''
         The type is determined using python magic which checks file

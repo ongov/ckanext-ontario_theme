@@ -9,7 +9,7 @@ from ckanext.ontario_theme.plugin import (
   num_resources_filter_scrub
 )
 
-@pytest.mark.usefixtures('clean_db', 'with_plugins', 'with_request_context')
+@pytest.mark.usefixtures('with_plugins', 'with_request_context')
 class TestBeforeSearch(object):
   def test_before_search_with_good_value(self):
     u'''If search_params given num_resources remove double quotes around

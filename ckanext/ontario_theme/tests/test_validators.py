@@ -4,13 +4,14 @@
 '''
 
 import pytest
+import uuid
 
 import ckan.tests.factories as factories
 import ckan.logic as logic
 
 import ckan.tests.helpers as helpers
 
-@pytest.mark.usefixtures('clean_db', 'clean_index', 'with_plugins', 'with_request_context')  
+@pytest.mark.usefixtures('with_plugins', 'with_request_context')  
 class TestOntarioThemeCopyFluentKeywordsToTags(object):
     '''Ensure Fluent multi-lingual keywords are copied to CKAN core Tags.
     '''
@@ -25,7 +26,7 @@ class TestOntarioThemeCopyFluentKeywordsToTags(object):
         org = factories.Organization()
         dataset = helpers.call_action(
             'package_create',
-            name = 'package-name',
+            name = f'package-name-{uuid.uuid4().hex}',
             access_level = 'restricted',
             maintainer_translated = {
                 'en': u'Joe Smith',
@@ -54,7 +55,7 @@ class TestOntarioThemeCopyFluentKeywordsToTags(object):
             }
         assert dataset['keywords'] == comparative_keywords
         assert sorted([tag['name'] for tag in dataset['tags']]) == [u'...', u'English', u'Français', u'Language']
-        
+
         assert helpers.call_action('tag_autocomplete', query='Engl') == [u'English']
 
 @pytest.mark.usefixtures('clean_db', 'with_plugins', 'with_request_context')
@@ -71,7 +72,7 @@ class TestOntarioThemeTagNameValidator(object):
         org = factories.Organization()
         dataset = helpers.call_action(
             'package_create',
-            name = 'package-name',
+            name = f'package-name-{uuid.uuid4().hex}',
             access_level = 'restricted',
             maintainer_translated = {
                 'en': u'Joe Smith',
@@ -116,7 +117,7 @@ class TestOntarioThemeTagNameValidator(object):
         org = factories.Organization()
         dataset = helpers.call_action(
             'package_create',
-            name = 'package-name',
+            name = f'package-name-{uuid.uuid4().hex}',
             access_level = 'restricted',
             maintainer_translated = {
                 'en': u'Joe Smith',
@@ -163,7 +164,7 @@ class TestOntarioThemeTagNameValidator(object):
             org = factories.Organization()
             dataset = helpers.call_action(
                 'package_create',
-                name = 'package-name',
+                name = f'package-name-{uuid.uuid4().hex}',
                 access_level = 'restricted',
                 maintainer_translated = {
                     'en': u'Joe Smith',
@@ -210,7 +211,7 @@ class TestOntarioThemeTagNameValidator(object):
             org = factories.Organization()
             dataset = helpers.call_action(
                 'package_create',
-                name = 'package-name',
+                name = f'package-name-{uuid.uuid4().hex}',
                 access_level = 'restricted',
                 maintainer_translated = {
                     'en': u'Joe Smith',
@@ -247,4 +248,4 @@ class TestOntarioThemeTagNameValidator(object):
 
         except logic.ValidationError as e:
             assert e.error_dict['keywords'] == [u'Tag "Languages, dialects and locales" may not contain commas']
-            
+
