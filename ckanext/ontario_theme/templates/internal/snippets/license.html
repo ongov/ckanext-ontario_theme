@@ -7,8 +7,7 @@
 {% macro license_string_from_license(license) %}
   <span property="dc:rights">
     {% if license.get('url', False) %}
-      <a href="{{ h.get_translated(license, 'url') }}"
-         rel="dc:rights">{{ h.get_translated(license, 'title') }}</a>
+      <a href="{{ h.get_translated(license, 'url') }}" rel="dc:rights">{{ h.get_translated(license, 'title') }}</a>
     {% else %}
       {{ h.get_translated(license, 'title') }}
     {% endif %}

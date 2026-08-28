@@ -127,7 +127,7 @@
               {% set this_org = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
               {% if res.datastore_active and res.url_type is not none %}
                 {% if not res['validation_status'] or res['validation_status'] == 'success' %}
- 
+
                   <ul>
                     <li>
                       <a class="dataset-download-link"

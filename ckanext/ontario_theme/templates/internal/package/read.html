@@ -35,7 +35,8 @@
       {% endblock content_primary_nav %}
     </header>
     {% block primary_content_inner %}
-      <div class="ontario-columns ontario-small-12 ontario-large-8" role="tabpanel">
+      <div class="ontario-columns ontario-small-12 ontario-large-8"
+           role="tabpanel">
         {{ super() }}
         {% block package_description %}
           {% if pkg.private %}
