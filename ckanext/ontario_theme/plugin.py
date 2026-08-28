@@ -648,6 +648,36 @@ def get_license(license_id):
     return Package.get_license_register().get(license_id)
 
 
+def get_accepted_format_options():
+    '''Helper to return accepted resource format options for select dropdown.
+    Reads from accepted_resource_formats.json and returns a list of dicts
+    with 'value' (format extension) and 'text' (description) keys.
+    '''
+    import os
+    resource_format_path = os.path.join(os.path.dirname(__file__),
+                                        'accepted_resource_formats.json')
+    options = []
+    try:
+        with open(resource_format_path) as format_file:
+            file_resource_formats = json.loads(format_file.read())
+            for format_line in file_resource_formats:
+                ext = (format_line[0] or '').upper()
+                desc = format_line[1] if len(format_line) > 1 else ext
+                if ext:
+                    # Display as "EXT - Description" for better UX
+                    display_text = u'{0} - {1}'.format(ext, desc) if desc else ext
+                    options.append({'value': ext, 'text': display_text})
+    except Exception:
+        pass
+        # Add 'WEB' as an extra option for remote links
+        options.append({'value': 'WEB', 'text': 'Remote Link (WEB)'})
+    # Add 'WEB' as an extra option for remote links if not already present
+    if not any(opt['value'] == 'WEB' for opt in options):
+        options.append({'value': 'WEB', 'text': 'WEB- Remote Link'})
+    print("[DEBUG] get_accepted_format_options called. Options:", options)
+    return options
+
+
 def get_current_year():
     return datetime.datetime.today().strftime('%Y')
 
